@@ -1,3 +1,15 @@
+2003/11/24 11:27 (-0500) muppetman
+
+	* MANIFEST: added GdkKeys.xs
+
+	* xs/GtkDialog.xs: nearly doubled the size of the file with api 
+	documentation, mostly copied or adapted from the C api reference.
+	re-ordered some of the xsubs to make more sense in the doc, but
+	changed no code.
+
+	* xs/GtkWidget.xs: added some 2.2.x methods that got omitted by
+	accident: get_root_window, get_screen, and has_screen.
+
 2003/11/23 20:01 (-0500) rwmcfa1
 
 	* xs/GdkKeys.xs: initial import, implements Gtk2::Gdk::Keymap and 
