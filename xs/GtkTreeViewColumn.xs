@@ -9,20 +9,14 @@ this is a GtkObject subclass.  no variants are necessary.
 
 #define check_stack_for_attributes(first) (0 == ((items - (first)) % 2))
 
-static void
-set_attributes_from_arg_stack (GtkTreeViewColumn * column,
-                               GtkCellRenderer * cell_renderer,
-                               int first)
-{
-	int i;
-
-	dXSARGS;
-
-	for (i = first ; i <= items ; i+=2) {
-		gtk_tree_view_column_add_attribute (column, cell_renderer,
-		                                    SvPV_nolen (ST (i)),
-		                                    SvIV (ST (i+1)));
-	}
+#define set_attributes_from_arg_stack(column, cell_renderer, first)	\
+{									\
+	int i;								\
+	for (i = first ; i < items ; i+=2) {				\
+		gtk_tree_view_column_add_attribute (column, cell_renderer,	\
+		                                    SvPV_nolen (ST (i)),	\
+		                                    SvIV (ST (i+1)));	\
+	}								\
 }
 
 
