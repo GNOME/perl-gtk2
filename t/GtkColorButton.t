@@ -3,7 +3,7 @@
 use Gtk2::TestHelper
 	tests => 8,
 	# FIXME 2.4
-	at_least_version => [2, 3, 0, "GtkExpander didn't exist until 2.3.0"],
+	at_least_version => [2, 3, 0, "GtkColorButton didn't exist until 2.3.0"],
 	;
 
 sub color_eq {

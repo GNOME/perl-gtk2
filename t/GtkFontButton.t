@@ -3,7 +3,7 @@
 use Gtk2::TestHelper
 	tests => 12,
 	# FIXME 2.4
-	at_least_version => [2, 3, 0, "GtkExpander didn't exist until 2.3.0"],
+	at_least_version => [2, 3, 0, "GtkFontButton didn't exist until 2.3.0"],
 	;
 
 my $fbn;
