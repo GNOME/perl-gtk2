@@ -1,3 +1,21 @@
+2003/07/14 20:44 rwmcfa1
+
+	* t/00.Gtk2.t: more thorough testing, init_add, quit_add, 
+	quit_add_remove.
+
+	* t/01.GtkWindow.t: much more thorough testing, but not complete. 
+	general re-org.
+
+	* t/02.GtkButton.t: pretty nearly complete testing
+
+	* xs/Gtk2.xs: implemented first pass at init_add, quit_add, and 
+	quit_add_remove.
+
+	* xs/GtkWindow.xs: title defaults to NULL is set_title. get_icon is 
+	allowed (and does) reuturn NULL when there are no icons associated with
+	the window, api doc doesn't mention this. window_list_toplevels 
+	implemented
+
 2003/07/14 15:05 muppetman
 
 	* xs/GdkWindow.xs: back out the OUTLIST stuff for get_pointer.
