@@ -119,13 +119,6 @@ GTK_TYPE_TREE_VIEW_COLUMN	GtkTreeViewColumn	GtkObject	Gtk2::TreeViewColumn
 GTK_TYPE_TREE_VIEW	GtkTreeView	GtkObject	Gtk2::TreeView
 GTK_TYPE_ACCEL_FLAGS	GtkAccelFlags	GFlags	Gtk2::AccelFlags
 GTK_TYPE_CALENDAR_DISPLAY_OPTIONS	GtkCalendarDisplayOptions	GFlags	Gtk2::CalendarDisplayOptions
-GTK_TYPE_CELL_TYPE	GtkCellType	GEnum	Gtk2::CellType
-GTK_TYPE_CLIST_DRAG_POS	GtkCListDragPos	GEnum	Gtk2::CListDragPos
-GTK_TYPE_BUTTON_ACTION	GtkButtonAction	GFlags	Gtk2::ButtonAction
-GTK_TYPE_CTREE_POS	GtkCTreePos	GEnum	Gtk2::CTreePos
-GTK_TYPE_CTREE_LINE_STYLE	GtkCTreeLineStyle	GEnum	Gtk2::CTreeLineStyle
-GTK_TYPE_CTREE_EXPANDER_STYLE	GtkCTreeExpanderStyle	GEnum	Gtk2::CTreeExpanderStyle
-GTK_TYPE_CTREE_EXPANSION_TYPE	GtkCTreeExpansionType	GEnum	Gtk2::CTreeExpansionType
 GTK_TYPE_CELL_RENDERER_STATE	GtkCellRendererState	GFlags	Gtk2::CellRendererState
 GTK_TYPE_CELL_RENDERER_MODE	GtkCellRendererMode	GEnum	Gtk2::CellRendererMode
 GTK_TYPE_DEBUG_FLAG	GtkDebugFlag	GFlags	Gtk2::DebugFlag
