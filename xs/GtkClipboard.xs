@@ -258,7 +258,7 @@ void
 gtk_clipboard_clear (clipboard)
 	GtkClipboard *clipboard
 
-void gtk_clipboard_set_text (GtkClipboard *clipboard, const gchar *text, int length(text)) 
+void gtk_clipboard_set_text (GtkClipboard *clipboard, const gchar_length *text, int length(text)) 
 
 ##  void gtk_clipboard_request_contents (GtkClipboard *clipboard, GdkAtom target, GtkClipboardReceivedFunc callback, gpointer user_data) 
 void

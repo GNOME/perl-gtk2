@@ -45,14 +45,14 @@ gtk_text_buffer_get_tag_table (buffer)
 	GtkTextBuffer *buffer
 
 
-void gtk_text_buffer_insert (GtkTextBuffer * buffer, GtkTextIter * iter, const gchar * text, int length(text))
+void gtk_text_buffer_insert (GtkTextBuffer * buffer, GtkTextIter * iter, const gchar_length * text, int length(text))
 
-void gtk_text_buffer_insert_at_cursor (GtkTextBuffer *buffer, const gchar *text, int length(text))
+void gtk_text_buffer_insert_at_cursor (GtkTextBuffer *buffer, const gchar_length *text, int length(text))
 
-gboolean gtk_text_buffer_insert_interactive (GtkTextBuffer *buffer, GtkTextIter *iter, const gchar *text, int length(text), gboolean default_editable)
+gboolean gtk_text_buffer_insert_interactive (GtkTextBuffer *buffer, GtkTextIter *iter, const gchar_length *text, int length(text), gboolean default_editable)
 
 
-gboolean gtk_text_buffer_insert_interactive_at_cursor (GtkTextBuffer *buffer, const gchar *text, int length(text), gboolean default_editable)
+gboolean gtk_text_buffer_insert_interactive_at_cursor (GtkTextBuffer *buffer, const gchar_length *text, int length(text), gboolean default_editable)
 
 ## void gtk_text_buffer_insert_range (GtkTextBuffer *buffer, GtkTextIter *iter, const GtkTextIter *start, const GtkTextIter *end)
 void
@@ -125,7 +125,7 @@ gtk_text_buffer_delete_interactive (buffer, start_iter, end_iter, default_editab
 	GtkTextIter *end_iter
 	gboolean default_editable
 
-void gtk_text_buffer_set_text (GtkTextBuffer *buffer, const gchar *text, int length(text))
+void gtk_text_buffer_set_text (GtkTextBuffer *buffer, const gchar_length *text, int length(text))
 
 gchar_own * gtk_text_buffer_get_text (GtkTextBuffer *buffer, GtkTextIter * start, GtkTextIter* end, gboolean include_hidden_chars)
 
