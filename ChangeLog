@@ -1,4 +1,9 @@
-2003/12/17 22:49 (-0500) muppetman
+2003/12/18 12:56 (-0500) muppetman
+
+	* gtk2perl.h: previous change #undef'd the wrong symbols, resulted in
+	"macro redefined" warnings all over the place.  bad muppet, no biscuit.
+
+2003/12/18 00:15 (-0500) muppetman
 
 	* gtk2perl.h, maps: in versions prior to 2.3.0, GtkTreeSearchFlags was
 	declared such that glib-mkenums interpreted and registered it as a

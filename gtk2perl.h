@@ -144,8 +144,8 @@ void gtk2perl_menu_position_func (GtkMenu       * menu,
   * before 2.3.0, this was corrected, and the type is registered as a GFlags.
   * The maps file has GFlags (since that's correct), but we have to mangle
   * things somewhat for the bindings to work properly with older libraries. */
-# undef SvGtkTreeSearchFlags
-# undef newSVGtkTreeSearchFlags
+# undef SvGtkTextSearchFlags
+# undef newSVGtkTextSearchFlags
 # define SvGtkTextSearchFlags(sv)	(gperl_convert_enum (GTK_TYPE_TEXT_SEARCH_FLAGS, sv))
 # define newSVGtkTextSearchFlags(val)	(gperl_convert_back_enum (GTK_TYPE_TEXT_SEARCH_FLAGS, val))
 #endif
