@@ -7,9 +7,6 @@
 # by rm
 
 use strict;
-use blib '../../G';
-use blib '../';
-use lib '../';
 use Gtk2;
 
 use Data::Dumper;

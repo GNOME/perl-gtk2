@@ -3,10 +3,6 @@
 # $Header$
 #
 
-
-use blib '../G';
-use blib '.';
-
 use Gtk2;
 
 Gtk2->init;

@@ -17,10 +17,6 @@
 
 package sizegroup;
 
-use blib '..';
-use blib '../..';
-use blib '../../G';
-
 use strict;
 
 use constant FALSE => 0;

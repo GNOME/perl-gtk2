@@ -26,9 +26,6 @@
 # ported to gtk2-perl by muppet
 
 use strict;
-use blib '../../G';
-use blib '../';
-use lib '../';
 use Gtk2;
 
 use constant TRUE => 1;

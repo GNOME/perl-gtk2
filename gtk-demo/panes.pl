@@ -15,9 +15,6 @@
 
 package panes;
 
-use blib '..';
-use blib '../..';
-use blib '../../G';
 use strict;
 use constant FALSE => 0;
 use constant TRUE => 1;

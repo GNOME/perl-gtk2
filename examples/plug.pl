@@ -26,9 +26,6 @@
 # ported to gtk2-perl by rm
 
 use strict;
-use blib '../../G';
-use blib '../';
-use lib '../';
 
 use Gtk2;
 

@@ -6,8 +6,6 @@
 
 package Foo;
 
-use blib '../G';
-use blib '.';
 use Data::Dumper;
 use Gtk2;
 

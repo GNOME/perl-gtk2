@@ -8,9 +8,6 @@
 
 package item_factory;
 
-use blib '..';
-use blib '../..';
-
 use Gtk2;
 
 use constant TRUE => 1;

@@ -7,10 +7,6 @@
 
 package dialog;
 
-use blib '..';
-use blib '../..';
-use blib '../../G';
-
 use constant FALSE => 0;
 use constant TRUE => 1;
 

@@ -10,10 +10,6 @@
 
 package textview;
 
-use blib '../../G';
-use blib '..';
-use lib '..';
-
 use Gtk2;
 use Carp;
 
