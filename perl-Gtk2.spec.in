@@ -8,11 +8,12 @@ Group: Development/Libraries
 URL: http://search.cpan.org/dist/Gtk2/
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 BuildRequires: perl >= 2:5.8.0
-BuildRequires: gtk2-devel >= 2.2.0
-BuildRequires: perl-ExtUtils-Depends >= 0.103
-BuildRequires: perl-Glib >= 0.97
-Requires: gtk2 >= 2.2.0
-Requires: perl-Glib >= 0.97
+BuildRequires: gtk2-devel >= @GTK@
+BuildRequires: perl-ExtUtils-Depends >= @PERL_EXTUTILS_DEPENDS@
+BuildRequires: perl-ExtUtils-PkgConfig >= @PERL_EXTUTILS_PKGCONFIG@
+BuildRequires: perl-Glib >= @PERL_GLIB@
+Requires: gtk2 >= @GTK_RUN@
+Requires: perl-Glib >= @PERL_GLIB@
 Requires: %(perl -MConfig -le 'if (defined $Config{useithreads}) { print "perl(:WITH_ITHREADS)" } else { print "perl(:WITHOUT_ITHREADS)" }')
 Requires: %(perl -MConfig -le 'if (defined $Config{usethreads}) { print "perl(:WITH_THREADS)" } else { print "perl(:WITHOUT_THREADS)" }')
 Requires: %(perl -MConfig -le 'if (defined $Config{uselargefiles}) { print "perl(:WITH_LARGEFILES)" } else { print "perl(:WITHOUT_LARGEFILES)" }')
@@ -36,7 +37,7 @@ make test
 rm -rf $RPM_BUILD_ROOT
 eval `perl '-V:installarchlib'`
 mkdir -p $RPM_BUILD_ROOT$installarchlib
-%makeinstall install-examples
+%makeinstall install-examples install-gtk-demo
 rm -f `find $RPM_BUILD_ROOT -type f -name perllocal.pod -o -name .packlist`
 
 [ -x %{_libdir}/rpm/brp-compress ] && %{_libdir}/rpm/brp-compress

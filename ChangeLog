@@ -1,3 +1,8 @@
+2003/09/16 23:50 rwmcfa1
+
+	* Makefile.PL, perl-*spec.in: somewhat automated versioning system 
+	implemented for depenancy modules
+
 2003/09/16 15:00 muppetman
 
 	* Makefile.PL: don't do any of the hand-coded install stuff on

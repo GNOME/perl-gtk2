@@ -5,26 +5,36 @@
 use 5.008;
 use ExtUtils::MakeMaker;
 use File::Spec;
-use Config;
 use Cwd;
 
-# minimum required version of Glib with which we can work.
-my $req_glib_ver = '1.00rc2';
+# minimum required version of dependancies we need to build
+our %build_reqs = (
+	'perl-ExtUtils-Depends'   => '0.1',
+	'perl-ExtUtils-PkgConfig' => '0.1',
+	'perl-Glib'               => '1.00rc1',
+	'Gtk+'                    => '2.0.0',
+);
+
+# minimum required version of dependancies we need to run
+our %runtime_reqs = (
+	'Gtk+'	=> undef,
+);
 
 # Writing a fake Makefile ensures that CPAN will pick up the correct
 # dependencies and install them.
 unless (eval "use ExtUtils::Depends;"
-           . "use Glib::PkgConfig;"
+           . "use ExtUtils::PkgConfig;"
            # just seeing if Glib is available isn't enough, make sure
            # it's recent enough, too 
-           . "use Glib '$req_glib_ver';"
+           . "use Glib '$build_reqs{'perl-Glib'}';"
            . "1") {
    warn "$@\n";
    WriteMakefile(
          PREREQ_FATAL => 1,
          PREREQ_PM    => {
-            Glib::              => $req_glib_ver, # keep this in sync
-            ExtUtils::Depends:: => 0.1,
+            Glib::                => $build_reqs{'perl-Glib'},
+            ExtUtils::Depends::   => $build_reqs{'perl-ExtUtils-Depends'},
+            ExtUtils::PkgConfig:: => $build_reqs{'perl-ExtUtils-PkgConfig'},
          },
    );
    exit 1; # not reached
@@ -33,7 +43,10 @@ unless (eval "use ExtUtils::Depends;"
 require 'CodeGen.pm'; # other modules can just 'use Gtk2::CodeGen;' -- we
                       # can't because it's not installed yet.
 
-my %pkgcfg = Glib::PkgConfig->find ('gtk+-2.0');
+my %pkgcfg = ExtUtils::PkgConfig->find ('gtk+-2.0');
+
+# we know what version we're going to be built against now
+$runtime_reqs{'Gtk+'} = $pkgcfg{modversion};
 
 mkdir 'build', 0777;
 
@@ -57,7 +70,7 @@ Gtk2::CodeGen->write_boot;
 
 # this one turns the long list of #defines in gdkkeysyms.h into a large
 # hash of key names and values, %Gtk2::Gdk::Keysyms.
-system "$Config{perlpath} genkeysyms.pl >\"build/Keysyms.pm\""; # the "" are essential for command.com
+system "$^X genkeysyms.pl >\"build/Keysyms.pm\""; # the "" are essential for command.com
 
 #
 # since we've started down the dark path of breaking from standard 
@@ -122,7 +135,9 @@ WriteMakefile(
     # PREREQ see beginning of file
     PREREQ_FATAL => 1,
     PREREQ_PM    => {
-        Glib::  => $req_glib_ver, # keep this in sync
+        Glib::                => $build_reqs{'perl-Glib'},
+        ExtUtils::Depends::   => $build_reqs{'perl-ExtUtils-Depends'},
+        ExtUtils::PkgConfig:: => $build_reqs{'perl-ExtUtils-PkgConfig'},
     },
     FUNCLIST      => \@exports,
     DL_FUNCS      => { Gtk2 => [] },
@@ -152,9 +167,25 @@ sub postamble
 		      rpms/SPECS rpms/SRPMS};
 	my $cwd = getcwd();
 
+	my %subs = (
+		'VERSION' => '$(VERSION)',
+		'SOURCE' => '$(DISTNAME)-$(VERSION).tar.gz',
+		'GTK_RUN' => $runtime_reqs{'Gtk+'},
+		'GTK' => $build_reqs{'Gtk+'},
+		'PERL_EXTUTILS_DEPENDS' => 
+			$build_reqs{'perl-ExtUtils-Depends'},
+		'PERL_EXTUTILS_PKGCONFIG' => 
+			$build_reqs{'perl-ExtUtils-PkgConfig'},
+		'PERL_GLIB' => $build_reqs{'perl-Glib'},
+	);
+	
+	my $substitute = '$(PERL) -npe \''.join('; ', map {
+			"s/\\\@$_\\\@/$subs{$_}/g";
+		} keys %subs).'\'';
+
 	"
 realclean ::
-	-rm -Rf build perl-\$(DISTNAME).spec
+	-\$(RM_RF) build perl-\$(DISTNAME).spec
 
 # the tmp-xxx stuff is just so that only the pl files get installed
 install-\%: %
@@ -167,8 +198,10 @@ install-\%: %
 rpms/:
 	-mkdir @dirs
 
+SUBSTITUTE=$substitute
+
 perl-\$(DISTNAME).spec: perl-\$(DISTNAME).spec.in \$(VERSION_FROM) Makefile
-	sed -e \"s/\@VERSION\@/\$(VERSION)/g\" -e \"s/\@SOURCE\@/\$(DISTNAME)-\$(VERSION).tar.gz/g\" \$< > \$@
+	\$(SUBSTITUTE) \$+ > \$@
 
 dist-rpms: Makefile dist perl-\$(DISTNAME).spec rpms/
 	cp \$(DISTNAME)-\$(VERSION).tar.gz rpms/SOURCES/
