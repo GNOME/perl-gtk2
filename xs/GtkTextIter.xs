@@ -89,14 +89,27 @@ GdkPixbuf_ornull*
 gtk_text_iter_get_pixbuf (iter)
 	GtkTextIter *iter
 
-# FIXME needs list handling
-### GSList * gtk_text_iter_get_marks (const GtkTextIter *iter)
-#GSList *
-#gtk_text_iter_get_marks (iter)
-#	const GtkTextIter *iter
+## GSList * gtk_text_iter_get_marks (const GtkTextIter *iter)
+void
+gtk_text_iter_get_marks (GtkTextIter *iter)
+    PREINIT:
+	GSList * marks, * i;
+    PPCODE:
+	marks = gtk_text_iter_get_marks (iter);
+	for (i = marks ; i != NULL ; i = i->next)
+		XPUSHs (sv_2mortal (newSVGtkTextMark (i->data)));
+	g_slist_free (marks);
 
-# FIXME needs list handling
 ## GSList* gtk_text_iter_get_toggled_tags  (const GtkTextIter *iter, gboolean toggled_on)
+void
+gtk_text_iter_get_toggled_tags (GtkTextIter * iter, gboolean toggled_on)
+    PREINIT:
+	GSList * tags, * i;
+    PPCODE:
+	tags = gtk_text_iter_get_toggled_tags (iter, toggled_on);
+	for (i = tags ; i != NULL ; i = i->next)
+		XPUSHs (sv_2mortal (newSVGtkTextTag (i->data)));
+	g_slist_free (tags);
 
 ## GtkTextChildAnchor* gtk_text_iter_get_child_anchor (const GtkTextIter *iter)
 GtkTextChildAnchor_ornull*
@@ -206,18 +219,23 @@ gint
 gtk_text_iter_get_bytes_in_line (iter)
 	GtkTextIter *iter
 
-# FIXME need to pass a stack struct and return a copy
 ### gboolean gtk_text_iter_get_attributes (const GtkTextIter *iter, GtkTextAttributes *values)
-#gboolean
-#gtk_text_iter_get_attributes (iter, values)
-#	const GtkTextIter *iter
-#	GtkTextAttributes *values
+GtkTextAttributes_copy*
+gtk_text_iter_get_attributes (GtkTextIter *iter)
+    PREINIT:
+	GtkTextAttributes values;
+    CODE:
+	if (!gtk_text_iter_get_attributes (iter, &values))
+		XSRETURN_UNDEF;
+	RETVAL = &values;
+    OUTPUT:
+	RETVAL
 
-# FIXME i think the returned value should NOT be owned
-### PangoLanguage* gtk_text_iter_get_language (const GtkTextIter *iter)
-#PangoLanguage*
-#gtk_text_iter_get_language (iter)
-#	const GtkTextIter *iter
+# i think the returned value should NOT be owned
+## PangoLanguage* gtk_text_iter_get_language (const GtkTextIter *iter)
+PangoLanguage*
+gtk_text_iter_get_language (iter)
+	GtkTextIter *iter
 
 ## gboolean gtk_text_iter_is_end (const GtkTextIter *iter)
 gboolean
