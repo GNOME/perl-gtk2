@@ -1,5 +1,11 @@
 2003/10/03 13:19 muppetman
 
+	* xs/GdkEvent.xs: some of the event functions return new events that
+	are owned by the calling code.  use _own and _own_ornull variants as
+	necessary to prevent memory leaks.
+
+2003/10/03 13:19 muppetman
+
 	* pm/SimpleList.pm, t/19.GtkSimpleList.t: argument checks in the new
 	and new_from_treeview constructors.  new_from_treeview no longer
 	allows you to pass undef for the treeview, new creates one.

@@ -173,8 +173,7 @@ gdk_events_pending (class)
  ## GdkEvent* gdk_event_get (void)
  ## GdkEvent* gdk_event_peek (void)
 ## caller must free
-#GdkEvent_ornull *
-GdkEvent*
+GdkEvent_own_ornull*
 gdk_event_get (class)
 	SV * class
     ALIAS:
@@ -187,8 +186,7 @@ gdk_event_get (class)
 	UNUSED(ix);
 
  ## GdkEvent* gdk_event_get_graphics_expose (GdkWindow *window)
-#GdkEvent_ornull *
-GdkEvent*
+GdkEvent_own_ornull*
 gdk_event_get_graphics_expose (window)
 	GdkWindow *window
 
@@ -207,7 +205,7 @@ gdk_event_put (class, event)
 
  ## GdkEvent* gdk_event_new (GdkEventType type)
 ## caller must free
-GdkEvent*
+GdkEvent_own*
 gdk_event_new (class, type)
 	SV * class
 	GdkEventType type
@@ -219,7 +217,7 @@ gdk_event_new (class, type)
 #endif
 
  ## GdkEvent* gdk_event_copy (GdkEvent *event)
-GdkEvent*
+GdkEvent_own*
 gdk_event_copy (event)
 	GdkEvent *event
 
