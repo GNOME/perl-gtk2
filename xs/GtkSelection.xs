@@ -101,7 +101,42 @@ SvGtkTargetList (SV * sv)
 }
 
 
+MODULE = Gtk2::Selection	PACKAGE = Gtk2::TargetEntry
+
+=head1 SYNOPSIS
+
+  # as a HASH
+  $target_entry = {
+      target => 'text/plain', # some string representing the drag type
+      flags => [], # Gtk2::TargetFlags
+      info => 42,  # some app-defined integer identifier
+  };
+
+  # as an ARRAY, for compactness
+  $target_entry = [ $target, $flags, $info ];
+
+=head1 DESCRIPTION
+
+A Gtk2::TargetEntry data structure represents a single type of data than can
+be supplied for by a widget for a selection or for supplied or received during
+drag-and-drop.  It  contains a string representing the drag type, a flags field
+(used only for drag and drop - see Gtk2::TargetFlags), and an application
+assigned integer ID.  The integer ID will later be passed as a signal parameter
+for signals like "selection_get".  It allows the application to identify the
+target type without extensive string compares. 
+
+=cut
+
+=for flags GtkTargetFlags
+=cut
+
+=for see_also Gtk2::TargetList
+=cut
+
 MODULE = Gtk2::Selection	PACKAGE = Gtk2::TargetList	PREFIX = gtk_target_list_
+
+=for see_also Gtk2::TargetEntry
+=cut
 
 void
 DESTROY (SV * list)
@@ -194,6 +229,9 @@ gtk_selection_owner_set_for_display (class, display, widget, selection, time_)
 #endif /* >= 2.2.0 */
 
 MODULE = Gtk2::Selection	PACKAGE = Gtk2::Widget	PREFIX = gtk_
+
+=for see_also Gtk2::TargetEntry
+=cut
 
 ##  void gtk_selection_add_target (GtkWidget *widget, GdkAtom selection, GdkAtom target, guint info) 
 void

@@ -1,7 +1,8 @@
-2004/02/09 00:59 (-0500) muppetman
+2004/02/09 01:24 (-0500) muppetman
 
 	* xs/GtkSelection.xs: make the parsing code for the array and hash
-	forms of Gtk2::TargetEntry agree on the value types.
+	forms of Gtk2::TargetEntry agree on the value types.   add pod for the
+	format of a Gtk2::TargetEntry.
 
 2004/02/08 21:45 (-0500) muppetman
 
