@@ -12,7 +12,7 @@ BuildRequires: gtk2-devel >= @GTK@
 BuildRequires: perl-ExtUtils-Depends >= @PERL_EXTUTILS_DEPENDS@
 BuildRequires: perl-ExtUtils-PkgConfig >= @PERL_EXTUTILS_PKGCONFIG@
 BuildRequires: perl-Glib >= @PERL_GLIB@
-Requires: gtk2 >= @GTK_RUN@
+Requires: gtk2 >= %(pkg-config --modversion gtk+-2.0)
 Requires: perl-Glib >= @PERL_GLIB@
 Requires: %(perl -MConfig -le 'if (defined $Config{useithreads}) { print "perl(:WITH_ITHREADS)" } else { print "perl(:WITHOUT_ITHREADS)" }')
 Requires: %(perl -MConfig -le 'if (defined $Config{usethreads}) { print "perl(:WITH_THREADS)" } else { print "perl(:WITHOUT_THREADS)" }')

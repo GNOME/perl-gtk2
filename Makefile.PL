@@ -36,11 +36,6 @@ our %build_reqs = (
 	'Gtk+'                    => '2.0.0',
 );
 
-# minimum required version of dependancies we need to run
-our %runtime_reqs = (
-	'Gtk+'	=> undef,
-);
-
 # Writing a fake Makefile ensures that CPAN will pick up the correct
 # dependencies and install them.
 unless (eval "use ExtUtils::Depends;"
@@ -67,9 +62,6 @@ require 'CodeGen.pm'; # other modules can should 'use Gtk2::CodeGen;' --
 mkdir 'build', 0777;
 
 my %pkgcfg = ExtUtils::PkgConfig->find ('gtk+-2.0 >= '.$build_reqs{'Gtk+'});
-
-# we know what version we're going to be built against now
-$runtime_reqs{'Gtk+'} = $pkgcfg{modversion};
 
 #
 # decide what files to use in the build based on the version we found.
@@ -234,7 +226,6 @@ sub MY::postamble
 		 . Glib::MakeHelper->postamble_clean ()
 	         . Glib::MakeHelper->postamble_docs (@xs_files)
 	         . Glib::MakeHelper->postamble_rpms (
-			'GTK_RUN' => $runtime_reqs{'Gtk+'},
 			'GTK' => $build_reqs{'Gtk+'},
 			'PERL_EXTUTILS_DEPENDS' => 
 				$build_reqs{'perl-ExtUtils-Depends'},
