@@ -1,3 +1,7 @@
+2003/12/14 14:41 (-0500) muppetman
+
+	* xs/GtkTreeModel.xs: typo in pod; kaffee's fix merged from HEAD.
+
 2003/12/12 11:39 (-0500) muppetman
 
 	* xs/GtkWidget.xs: alias values in get_flags got changed, but the
