@@ -1,3 +1,13 @@
+Overview of Changes in Gtk2 1.035
+=================================
+
+* Updated Glib requirement to 1.035.
+* Updated ExtUtils::Depends requirement to 0.200.
+* Added and updated POD in several places.  [muppet]
+* Added few more straggling missing bindings.  [Torsten]
+* Minor updates to example code.  [Torsten]
+* As always, added more tests.  [Tortsen]
+
 Overview of Changes in Gtk2 1.034
 =================================
 

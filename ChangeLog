@@ -1,3 +1,7 @@
+2004/02/12 19:00 (-0500) muppetman
+
+	* Gtk2.pm, Makefile.PL, README, NEWS: unstable release 1.035
+
 2004/02/12 19:08 (+0100) kaffeetisch
 
 	* t/GtkFileChooser.t
