@@ -143,8 +143,6 @@ MODULE = Gtk2::TreeView	PACKAGE = Gtk2::TreeView	PREFIX = gtk_tree_view_
 BOOT:
 	/* gperl_set_isa ("Gtk2::TreeView", "Gtk2::Atk::ImplementorIface"); */
 
-### FIXME what about constructor consolidations?:
-
 GtkWidget *
 gtk_tree_view_new (class, model=NULL)
 	GtkTreeModel * model

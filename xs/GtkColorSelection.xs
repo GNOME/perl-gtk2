@@ -113,7 +113,6 @@ gboolean
 gtk_color_selection_is_adjusting (colorsel)
 	GtkColorSelection * colorsel
 
-## FIXME need testing, stat!
 ## gboolean gtk_color_selection_palette_from_string (const gchar *str, GdkColor **colors, gint *n_colors)
 void
 gtk_color_selection_palette_from_string (class, string)
@@ -131,7 +130,6 @@ gtk_color_selection_palette_from_string (class, string)
 		PUSHs (sv_2mortal (newSVGdkColor_copy (&(colors[i]))));
 	g_free (colors);
 
-## FIXME need testing, stat!
 ## gchar* gtk_color_selection_palette_to_string (const GdkColor *colors, gint n_colors)
 
 SV *

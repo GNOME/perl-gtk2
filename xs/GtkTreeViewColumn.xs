@@ -79,8 +79,6 @@ gtk2perl_tree_cell_data_func (GtkTreeViewColumn * tree_column,
 MODULE = Gtk2::TreeViewColumn	PACKAGE = Gtk2::TreeViewColumn	PREFIX = gtk_tree_view_column_
 
 
-## FIXME consolidate these constructors!
-
 GtkTreeViewColumn *
 gtk_tree_view_column_new (class)
     C_ARGS:
