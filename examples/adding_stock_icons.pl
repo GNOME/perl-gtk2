@@ -13,11 +13,12 @@ use strict;
 use warnings;
 
 use Gtk2 '-init';
+use Gtk2::Gdk::Keysyms;
 
-# this image was yanked from a gnome icon, and then modified, the P. this is
-# only an example of an inline image, the pixbuf data could come from anywhere
-# prehaps more likely a file using new_from_file
-my $letter_portrait = [
+# this image was yanked from a gnome icon, and then modified (by adding the P).
+# this is only an example of an inline image; the pixbuf data could come from
+# anywhere, perhaps more likely from a file using new_from_file().
+my @letter_portrait = (
                 '48 48 9 1',
                 ' 	c None',
                 '.	c #808080',
@@ -76,33 +77,37 @@ my $letter_portrait = [
                 '      .+++++++++++++++++++++++++++++++++++$@    ',
                 '      .$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$@    ',
                 '      @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@    '
-              ];
+		);
 
 
 # the stock id our stock item will be accessed with
 my $stock_id = 'letter-portrait';
 
-# add the stock item
+# add a new entry to the stock system with our id
 Gtk2::Stock->add ({
 		stock_id => $stock_id,
 		label    => '_Letter Portrait',
 		modifier => [],
-		keyval   => 0x04c,
+		keyval   => $Gtk2::Gdk::Keysyms{L},
 		translation_domain => 'gtk2-perl-example',
 	});
 
-# create an icon set, with only 1 memeber in this particular case
+# create an icon set, with only one member in this particular case
 my $icon_set = Gtk2::IconSet->new_from_pixbuf (
-		Gtk2::Gdk::Pixbuf->new_from_xpm_data (@$letter_portrait));
+		Gtk2::Gdk::Pixbuf->new_from_xpm_data (@letter_portrait));
 
-# create a new icon factory.
+# create a new icon factory to handle rendering the image at various sizes...
 my $icon_factory = Gtk2::IconFactory->new;
-# add this stock icon to it (assiciated with our stock id)
+# add our new stock icon to it...
 $icon_factory->add ($stock_id, $icon_set);
-# add this icon_factory to the list of defaults to search for stock id's in.
+# and then add this custom icon factory to the list of default places in
+# which to search for stock ids, so any gtk+ code can find our stock icon.
 $icon_factory->add_default;
 
+
+#
 # rest is just an example of using the stock icon.
+#
 my $win = Gtk2::Window->new;
 $win->signal_connect (destroy => sub { Gtk2->main_quit; });
 

@@ -1,3 +1,9 @@
+=doc
+
+Use the insert-text signal to trap and possibly mangle text as the user types,
+but before it is committed and displayed.
+
+=cut
 
 use Gtk2 -init;
 use Data::Dumper;

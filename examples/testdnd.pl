@@ -1,5 +1,12 @@
 #!/usr/bin/perl -w
 
+=doc
+
+This is a direct port from C to Perl of the testdnd program in the gtk+
+source distribution.  YMMV.
+
+=cut
+
 # Copyright (C) 2003 by the gtk2-perl team (see the file AUTHORS for the full
 # list)
 # 
@@ -535,15 +542,12 @@ $pixmap->signal_connect ("drag_drop", \&target_drag_drop);
 
 $pixmap->signal_connect ("drag_data_received", \&target_drag_data_received);
 
-#  /* Drag site */
+# Drag site
 
 $button = new Gtk2::Button ("Drag Here\n");
 
 $button->drag_source_set (['button1_mask', 'button3_mask'], ['copy', 'move'], @target_table);
 $button->drag_source_set_icon ($window->get_colormap,  $drag_icon, $drag_mask);
-
-#$drag_icon->unref;
-#$drag_mask->unref;
 
 $table->attach ($button, 0, 1, 1, 2, ['expand', 'fill'], ['expand', 'fill'], 0, 0);
 

@@ -24,6 +24,17 @@
 # originally written in C by muppet in 2001 or 2002, i can't remember.
 # ported from C to gtk2-perl 2003 by muppet
 
+=doc
+
+Create a new, self-drawing widget in Perl code.  This example shows how to
+subclass Glib::Object/Gtk2::Widget types, how to override class closures,
+how to define how much size you want to request for yourself, how to draw
+shapes and text with Gdk, how to handle mouse events, why you'd want to
+implement SET_PROPERTY for yourself, and how to emit signals.  And the
+widget is actually functional, too.  :-)
+
+=cut
+
 package Histogram::Plot;
 
 use warnings;
