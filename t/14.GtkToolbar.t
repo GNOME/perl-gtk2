@@ -7,7 +7,7 @@
 # 	- rm
 #########################
 
-use Gtk2::TestHelper tests => 21;
+use Gtk2::TestHelper tests => 24;
 
 ok( my $dlg = Gtk2::Dialog->new('GtkToolbar.t Test Window', undef,
 		[ ], 'gtk-quit', 1 ) );
@@ -21,8 +21,15 @@ $dlg->vbox->pack_start($tlbr, 0, 0, 0);
 
 $tlbr->set_orientation('horizontal');
 ok(1);
+
+is( $tlbr->get_orientation, 'horizontal' );
+
+$tlbr->unset_style;
+
 $tlbr->set_style('both');
 ok(1);
+
+is( $tlbr->get_style, 'both' );
 
 ok( $tlbr->insert_stock('gtk-open', 'Open Nothing', 'Verbose Open Nothing',
 		undef, undef, 0) );
@@ -65,6 +72,9 @@ ok( my $tips = $tlbr->append_element( 'togglebutton', undef, 'Tooltips',
 	sub {
 		$tlbr->set_tooltips($_[0]->get_active);
 		ok(1);
+
+		is( $tlbr->get_tooltips, $_[0]->get_active );
+
 		1;
 	} ) );
 

@@ -7,7 +7,7 @@
 # 	- rm
 #########################
 
-use Gtk2::TestHelper tests => 9;
+use Gtk2::TestHelper tests => 27;
 
 ok( my $win = Gtk2::Window->new('toplevel') );
 
@@ -23,7 +23,10 @@ foreach (@ori)
 {
 	ok( my $prog = Gtk2::ProgressBar->new );
 	$vbox->pack_start($prog, 0, 0, 0);
+
 	$prog->set_orientation($_);
+	is( $prog->get_orientation, $_ );
+
 	push @prog, $prog;
 }
 
@@ -33,13 +36,17 @@ Glib::Idle->add( sub {
 		foreach (@prog)
 		{
 			$_->pulse;
+			ok(1);
+
+			$_->set_fraction(0.23);
+			is( $_->get_fraction, 0.23 );
+
+			$_->set_text("Bla");
+			is( $_->get_text, "Bla" );
+
+			$_->set_pulse_step(0.42);
+			is( $_->get_pulse_step, 0.42 );
 		}
-		ok(1);
-		foreach (@prog)
-		{
-			$_->set_fraction(rand);
-		}
-		ok(1);
 		Gtk2->main_quit;
 		0;
 	});

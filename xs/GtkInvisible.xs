@@ -21,10 +21,6 @@
 
 #include "gtk2perl.h"
 
-/*
-FIXME this is an internal widget and we should not export it.
-*/
-
 MODULE = Gtk2::Invisible	PACKAGE = Gtk2::Invisible	PREFIX = gtk_invisible_
 
 ## GtkWidget* gtk_invisible_new (void)
@@ -37,8 +33,10 @@ gtk_invisible_new (class)
 
 ##GtkWidget * gtk_invisible_new_for_screen (GdkScreen *screen)
 GtkWidget *
-gtk_invisible_new_for_screen (screen)
+gtk_invisible_new_for_screen (class, screen)
 	GdkScreen *screen
+    C_ARGS:
+	screen
 
 ##void gtk_invisible_set_screen (GtkInvisible *invisible, GdkScreen *screen)
 void gtk_invisible_set_screen (invisible, screen)

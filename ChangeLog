@@ -1,4 +1,14 @@
-2004/02/02 02:13 (+0100) kaffeetisch
+2004/01/04 02:50 (+0100) kaffeetisch
+
+	* t/10.GtkProgressBar.t: Test get_orientation, get_fraction,
+	[sg]et_text, and [sg]et_pulse_step.
+
+	* t/14.GtkToolbar.t: Test get_orientation, unset_style, get_style,
+	and get_tooltips.
+
+	* xs/GtkInvisible.xs: Add a class parameter to new_for_screen.
+
+2004/01/02 02:13 (+0100) kaffeetisch
 
 	* t/16.GtkMenu-etc.t: Test [sg]et_accel_group, set_accel_path,
 	[sg]et_title, [sg]et_tearoff_state, reposition, attach_to_widget,
