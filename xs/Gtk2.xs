@@ -63,6 +63,10 @@ BOOT:
 #include "register.xsh"
 	/* call the boot code for all the various other modules */
 #include "boot.xsh"
+	/* route Gtk+ log messages through perl's warn() and croak() */
+	gperl_handle_logs_for ("Gtk");
+	gperl_handle_logs_for ("Gdk");
+	gperl_handle_logs_for ("Pango");
 	}
 
  ##GTKMAIN_C_VAR const guint gtk_binary_age;
