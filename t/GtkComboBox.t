@@ -51,7 +51,7 @@ isa_ok ($combo_box, 'Gtk2::ComboBox');
 
 ## getters and setters
 
-$model = Gtk2::ListStore->new ('Glib::String', 'Glib::String');
+$model = Gtk2::ListStore->new ('Glib::String', 'Glib::Int');
 $combo_box->set_model ($model);
 is ($combo_box->get_model, $model);
 
@@ -59,7 +59,7 @@ is ($combo_box->get_model, $model);
 is ($combo_box->get_active, -1);
 
 foreach my $t (qw(fee fie foe fum)) {
-	$model->set ($model->append, 0, $t);
+	$model->set ($model->append, 0, $t, 1, 1);
 }
 
 $combo_box->set_active (1);
@@ -95,6 +95,17 @@ SKIP: {
 		isa_ok ($iter, 'Gtk2::TreeIter');
 		is_deeply ($data, { something => 'else' });
 	}, { something => 'else'});
+
+	# make sure the widget is parented, realized and sized, or popup
+	# and popdown will assert when they try to use combo_box's GdkWindow.
+	# er, also make sure there's stuff in it.
+	my $cell = Gtk2::CellRendererText->new;
+	$combo_box->pack_start ($cell, TRUE);
+	$combo_box->set_attributes ($cell, text => 0);
+	my $window = Gtk2::Window->new;
+	$window->add ($combo_box);
+	$combo_box->show;
+	$window->show;
 
 	$combo_box->popup;
 	$combo_box->popdown;
