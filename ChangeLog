@@ -1,5 +1,10 @@
 2003/12/07 16:19 (-0500) rwmcfa1
 
+ 	* xs/GtkCalendar.xs, xs/GtkTextIter.xs, xs/GtkTreeModel.xs,
+	xs/GtkWidget.xs, xs/PangoTabs.xs: apidoc added/fixed.
+
+2003/12/07 16:19 (-0500) rwmcfa1
+
 	* pm/SimpleList.pm: DELETE fixed, SPLICE implemented for simplelist.
 
 	* t/19.SimpleList.t: test all of the splice stuff

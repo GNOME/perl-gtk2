@@ -1,20 +1,7 @@
 /*
  * Copyright (c) 2003 by the gtk2-perl team (see the file AUTHORS)
  *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Library General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Library General Public License for more details.
- *
- * You should have received a copy of the GNU Library General Public
- * License along with this library; if not, write to the 
- * Free Software Foundation, Inc., 59 Temple Place - Suite 330, 
- * Boston, MA  02111-1307  USA.
+ * Licensed under the LGPL, see LICENSE file for more information.
  *
  * $Header$
  */
@@ -338,7 +325,12 @@ gtk_tree_model_get_path (tree_model, iter)
 ## void gtk_tree_model_get (GtkTreeModel *tree_model, GtkTreeIter *iter, ...)
 ## void gtk_tree_model_get_value (GtkTreeModel *tree_model, GtkTreeIter *iter, gint column, GValue *value)
 
-=for apidoc Gtk2::TreeModel::get
+=for apidoc get_value
+=for arg ... of column indices
+Alias for L<get|list = $tree_model-E<gt>get ($iter, ...)>.
+=cut
+
+=for apidoc 
 =for arg ... of column indices
 
 Fetch and return the model's values in the row pointed to by I<$iter>.
@@ -349,11 +341,6 @@ This overrides overrides Glib::Object's C<get>, so you'll want to use
 C<< $object->get_property >> to set object properties.
 
 =cut
-
-=for apidoc Gtk2::TreeModel::get_value
-Alias for C<Gtk2::TreeModel::get>.
-=cut
-
 void
 gtk_tree_model_get (tree_model, iter, ...)
 	GtkTreeModel *tree_model

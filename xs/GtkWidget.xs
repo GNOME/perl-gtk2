@@ -1,20 +1,7 @@
 /*
  * Copyright (c) 2003 by the gtk2-perl team (see the file AUTHORS)
  *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Library General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Library General Public License for more details.
- *
- * You should have received a copy of the GNU Library General Public
- * License along with this library; if not, write to the
- * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
- * Boston, MA  02111-1307  USA.
+ * Licensed under the LGPL, see LICENSE file for more information.
  *
  * $Header$
  */
@@ -148,6 +135,101 @@ state (widget)
 
 
  ##define GTK_WIDGET_FLAGS(wid)		  (GTK_OBJECT_FLAGS (wid))
+
+=for apidoc Gtk2::Widget::toplevel
+=for signature $widget->toplevel ($value)
+=for signature boolean = $widget->toplevel
+=cut
+
+=for apidoc Gtk2::Widget::no_window
+=for signature $widget->no_window ($boolean)
+=for signature boolean = $widget->no_window
+=cut
+
+=for apidoc Gtk2::Widget::realized
+=for signature $widget->realized ($boolean)
+=for signature boolean = $widget->realized
+=cut
+
+=for apidoc Gtk2::Widget::mapped
+=for signature $widget->mapped ($boolean)
+=for signature boolean = $widget->mapped
+=cut
+
+=for apidoc Gtk2::Widget::visible
+=for signature $widget->visible ($boolean)
+=for signature boolean = $widget->visible
+=cut
+
+=for apidoc Gtk2::Widget::drawable
+=for signature $widget->drawable ($boolean)
+=for signature boolean = $widget->drawable
+=cut
+
+=for apidoc Gtk2::Widget::sensitive
+=for signature $widget->sensitive ($boolean)
+=for signature boolean = $widget->sensitive
+=cut
+
+=for apidoc Gtk2::Widget::parent_sensitive
+=for signature $widget->parent_sensitive ($boolean)
+=for signature boolean = $widget->parent_sensitive
+=cut
+
+=for apidoc Gtk2::Widget::is_sensitive
+=for signature $widget->is_sensitive ($boolean)
+=for signature boolean = $widget->is_sensitive
+=cut
+
+=for apidoc Gtk2::Widget::can_focus
+=for signature $widget->can_focus ($boolean)
+=for signature boolean = $widget->can_focus
+=cut
+
+=for apidoc Gtk2::Widget::has_focus
+=for signature $widget->has_focus ($boolean)
+=for signature boolean = $widget->has_focus
+=cut
+
+=for apidoc Gtk2::Widget::has_grab
+=for signature $widget->has_grab ($boolean)
+=for signature boolean = $widget->has_grab
+=cut
+
+=for apidoc Gtk2::Widget::rc_style
+=for signature $widget->rc_style ($boolean)
+=for signature boolean = $widget->rc_style
+=cut
+
+=for apidoc Gtk2::Widget::composite_child
+=for signature $widget->composite_child ($boolean)
+=for signature boolean = $widget->composite_child
+=cut
+
+=for apidoc Gtk2::Widget::app_paintable
+=for signature $widget->app_paintable ($boolean)
+=for signature boolean = $widget->app_paintable
+=cut
+
+=for apidoc Gtk2::Widget::receives_default
+=for signature $widget->receives_default ($boolean)
+=for signature boolean = $widget->receives_default
+=cut
+
+=for apidoc Gtk2::Widget::double_buffered
+=for signature $widget->double_buffered ($boolean)
+=for signature boolean = $widget->double_buffered
+=cut
+
+=for apidoc Gtk2::Widget::can_default
+=for signature $widget->can_default ($boolean)
+=for signature boolean = $widget->can_default
+=cut
+
+=for apidoc Gtk2::Widget::has_default
+=for signature $widget->has_default ($boolean)
+=for signature boolean = $widget->has_default
+=cut
 
 gboolean
 get_flags (widget, ...)
