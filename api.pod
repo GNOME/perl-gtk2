@@ -217,7 +217,18 @@ avoid a clash with $gobject->set
 
 =head1 DIFFERENT CALL SIGNATURES OR SEMANTICS
 
+as a general rule function that take a pair of parameters, a list and the
+number of elements in that list, will normally omit the number of elements and
+just accept a variable number of arguments that will be converted into the list
+and number of elements. In many instances parameters have been reordered so
+that this will work. See below for exceptions and specific cases.
+
 =over
+
+=item Gtk2::ItemFactory::create_items
+
+the n_entries parameter has been ommited and callback_data is accepted as the
+first parameter. All parameters after that are considered to be entries.
 
 =item Gtk2::List::insert_items
 
