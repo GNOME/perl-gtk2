@@ -25,12 +25,8 @@
 # ported to gtk2-perl by rm
 
 use strict;
-use Gtk2;
-
-use constant TRUE => 1;
-use constant FALSE => 0;
-
-Gtk2->init;
+use Glib qw/TRUE FALSE/;
+use Gtk2 -init;
 
 my $pid;
 my $socket;

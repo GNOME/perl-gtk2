@@ -28,10 +28,8 @@
 # ported to gtk2-perl by muppet
 
 use strict;
+use Glib qw/TRUE FALSE/;
 use Gtk2;
-
-use constant TRUE => 1;
-use constant FALSE => 0;
 
 # Backing pixmap for drawing area
 my $pixmap = undef;

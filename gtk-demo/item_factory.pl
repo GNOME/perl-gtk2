@@ -8,10 +8,8 @@
 
 package item_factory;
 
+use Glib qw(TRUE FALSE);
 use Gtk2;
-
-use constant TRUE => 1;
-use constant FALSE => 0;
 
 sub gtk_ifactory_cb {
   my ($data, $action, $widget) = @_;

@@ -17,12 +17,10 @@
 use strict;
 use warnings;
 
-use constant TRUE  => 1;
-use constant FALSE => 0;
-
 use threads;
 use Thread::Queue;
 
+use Glib qw(TRUE FALSE);
 use Gtk2 '-init';
 
 # rule 2, all threads spawned before any Glib/Gtk2 variables

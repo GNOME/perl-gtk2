@@ -9,27 +9,14 @@
 
 package list_store;
 
+use Glib qw(TRUE FALSE);
 use Gtk2;
-
-#static GtkWidget *window = NULL;
-
-#typedef struct
-#{
-#  const gboolean  fixed;
-#  const guint     number;
-#  const gchar    *severity;
-#  const gchar    *description;
-#}
-#Bug;
 
 use constant COLUMN_FIXED       => 0;
 use constant COLUMN_NUMBER      => 1;
 use constant COLUMN_SEVERITY    => 2;
 use constant COLUMN_DESCRIPTION => 3;
 use constant NUM_COLUMNS        => 4;
-
-use constant FALSE => 0;
-use constant TRUE => 1;
 
 my @data = (
   { fixed => FALSE, number => 60482, severity => "Normal",     description => "scrollable notebooks and hidden tabs" },
@@ -83,10 +70,6 @@ sub fixed_toggled {
 
   # set new value
   $model->set ($iter, COLUMN_FIXED, $fixed);
-
-#  # clean up
-#  gtk_tree_path_free (path);
-# it's automagical
 }
 
 sub add_columns {
@@ -139,7 +122,6 @@ sub do {
     $window = Gtk2::Window->new ('toplevel');
     $window->set_title ('GtkListStore demo');
 
-    ###$window->signal_connect (destroy => sub { $_[0]->destroyed });
     $window->signal_connect (destroy => sub { $window = undef });
     $window->set_border_width (8);
 
@@ -158,13 +140,9 @@ sub do {
     my $model = create_model ();
 
     # create tree view
-#    my $treeview = Gtk2::TreeView->new_with_model ($model);
     my $treeview = Gtk2::TreeView->new ($model);
     $treeview->set_rules_hint (TRUE);
     $treeview->set_search_column (COLUMN_DESCRIPTION);
-
-    #g_object_unref (model);
-    # our ref will disappear at the end of this block
 
     $sw->add ($treeview);
 

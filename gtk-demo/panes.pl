@@ -16,9 +16,7 @@
 package panes;
 
 use strict;
-use constant FALSE => 0;
-use constant TRUE => 1;
-
+use Glib qw(TRUE FALSE);
 use Gtk2;
 
 sub toggle_resize {

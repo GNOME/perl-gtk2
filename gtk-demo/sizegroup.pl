@@ -18,10 +18,7 @@
 package sizegroup;
 
 use strict;
-
-use constant FALSE => 0;
-use constant TRUE => 1;
-
+use Glib qw(TRUE FALSE);
 use Gtk2;
 
 my $window = undef;

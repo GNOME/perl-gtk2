@@ -8,19 +8,9 @@ $PROGDIR =~ s/main.pl$//;
 
 use strict;
 use Carp;
-
-use constant FALSE => 0;
-use constant TRUE => 1;
-
-
-use constant  PANGO_WEIGHT_ULTRALIGHT => 200;
-use constant  PANGO_WEIGHT_LIGHT      => 300;
-use constant  PANGO_WEIGHT_NORMAL     => 400;
-use constant  PANGO_WEIGHT_BOLD       => 700;
-use constant  PANGO_WEIGHT_ULTRABOLD  => 800;
-use constant  PANGO_WEIGHT_HEAVY      => 900;
-
-
+use Glib qw(TRUE FALSE);
+use Gtk2;
+use Gtk2::Pango;
 use Gtk2;
 
 

@@ -7,12 +7,9 @@
 #
 # ported to gtk2-perl (which wan't hard) by muppet
 
-use Gtk2;
 use strict;
-
-init Gtk2;
-
-use constant FALSE => 0;
+use Glib qw/FALSE/;
+use Gtk2 -init;
 
 my $xsize = 600;
 my $ysize = 400;

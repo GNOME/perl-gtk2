@@ -14,8 +14,7 @@ requires us to add a custom column type to SimpleList.
 
 use strict;
 use warnings;
-use constant TRUE  => 1;
-use constant FALSE => 0;
+use Glib qw/TRUE FALSE/;
 use Gtk2 -init;
 use Gtk2::SimpleList;
 

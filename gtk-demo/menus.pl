@@ -32,10 +32,8 @@
 
 package menus;
 
-use constant FALSE => 0;
-use constant TRUE => 1;
 use strict;
-
+use Glib qw(TRUE FALSE);
 use Gtk2;
 use Gtk2::Gdk::Keysyms;
 

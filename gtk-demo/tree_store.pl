@@ -10,9 +10,7 @@
 package tree_store;
 
 use Gtk2;
-
-use constant FALSE => 0;
-use constant TRUE => 1;
+use Glib qw(TRUE FALSE);
 
 my $window = undef;
 

@@ -26,13 +26,10 @@
 
 package Histogram::Plot;
 
-use Gtk2;
 use warnings;
 use strict;
-use Data::Dumper;
-
-use constant FALSE => 0;
-use constant TRUE => 1;
+use Glib qw/TRUE FALSE/;
+use Gtk2;
 
 use constant MIN_CHART_WIDTH  => 256;
 use constant MIN_CHART_HEIGHT => 100;
@@ -530,9 +527,8 @@ sub do_threshold_changed {
 #
 package main;
 
-use Gtk2 qw/-init -locale/;
-use constant TRUE => 1;
-use constant FALSE => 0;
+use Glib qw/TRUE FALSE/;
+use Gtk2 qw/-init/;
 
 my $window = Gtk2::Window->new;
 $window->signal_connect (delete_event => sub { Gtk2->main_quit; FALSE });

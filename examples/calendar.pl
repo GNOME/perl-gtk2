@@ -30,8 +30,7 @@
 use strict;
 use Gtk2;
 
-use constant TRUE => 1;
-use constant FALSE => 0;
+use Glib ':constants';
 
 use constant DEF_PAD => 10;
 use constant DEF_PAD_SMALL => 5;

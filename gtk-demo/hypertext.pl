@@ -11,12 +11,11 @@
 package hypertext;
 
 use strict;
+use Glib qw(TRUE FALSE);
 use Gtk2;
 use Gtk2::Gdk::Keysyms;
 use Gtk2::Pango;
 
-use constant TRUE  => 1;
-use constant FALSE => 0;
 
 my $window = undef;
 

@@ -22,13 +22,7 @@
 
 use strict;
 use Gtk2;
-
-use Data::Dumper;
-
-use constant TRUE => 1;
-use constant FALSE => 0;
-
-Gtk2->init;
+use Glib ':constants';
 
 # Initialize GTK
 Gtk2->init;
@@ -56,7 +50,6 @@ $btn->set_size_request(100, 50);
 $layout->put($btn, 100, 120);
 my $i = 1;
 $btn->signal_connect( 'enter' => sub {
-		print Dumper( @_ );
 		if( $i > 14 )
 		{
 			$_[0]->set_label("Ok, Fine Then.");

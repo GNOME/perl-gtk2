@@ -10,11 +10,9 @@
 
 package textview;
 
+use Glib qw(TRUE FALSE);
 use Gtk2;
 use Carp;
-
-use constant FALSE => 0;
-use constant TRUE => 1;
 
 # get the PANGO_WEIGHT_* constants
 use Gtk2::Pango;

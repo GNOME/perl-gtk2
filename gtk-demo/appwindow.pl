@@ -7,9 +7,7 @@
 
 package appwindow;
 
-use constant FALSE => 0;
-use constant TRUE => 1;
-
+use Glib ':constants';
 use Gtk2;
 #include "demo-common.h"
 
