@@ -221,7 +221,7 @@ sub toggle_sensitivity_callback {
   foreach my $child ($container->get_children) {
       # don't disable our toggle
       $child->set_sensitive ($newstate)
-           if not $child->eq ($togglebutton);
+           if $child != $togglebutton;
   }
 }
   
