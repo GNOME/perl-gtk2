@@ -1,5 +1,34 @@
 #include "gtk2perl.h"
 
+MODULE = Gtk2::Pango::Font	PACKAGE = Gtk2::Pango
+
+### some constants...
+double
+constant (class)
+	SV * class
+    ALIAS:
+	Gtk2::Pango::scale          = 1
+	Gtk2::Pango::scale_xx_small = 2
+	Gtk2::Pango::scale_x_small  = 3
+	Gtk2::Pango::scale_small    = 4
+	Gtk2::Pango::scale_medium   = 5
+	Gtk2::Pango::scale_large    = 6
+	Gtk2::Pango::scale_x_large  = 7
+	Gtk2::Pango::scale_xx_large = 8
+    CODE:
+	switch (ix) {
+		case 1: RETVAL = (double)PANGO_SCALE; break;
+		case 2: RETVAL = PANGO_SCALE_XX_SMALL; break;
+		case 3: RETVAL = PANGO_SCALE_X_SMALL; break;
+		case 4: RETVAL = PANGO_SCALE_SMALL; break;
+		case 5: RETVAL = PANGO_SCALE_MEDIUM; break;
+		case 6: RETVAL = PANGO_SCALE_LARGE; break;
+		case 7: RETVAL = PANGO_SCALE_X_LARGE; break;
+		case 8: RETVAL = PANGO_SCALE_XX_LARGE; break;
+	}
+    OUTPUT:
+	RETVAL
+
 MODULE = Gtk2::Pango::Font	PACKAGE = Gtk2::Pango::FontDescription	PREFIX = pango_font_description_
 
 ##PangoFontDescription* pango_font_description_new (void)
