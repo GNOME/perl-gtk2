@@ -25,10 +25,15 @@ MODULE = Gtk2::Button	PACKAGE = Gtk2::Button	PREFIX = gtk_button_
 
 =head1 MNEMONICS
 
-If characters in label are preceded by an underscore, they are underlined. If
-you need a literal underscore character in a label, use '__' (two underscores).
-The first underlined character represents a keyboard accelerator called a
-mnemonic. Pressing Alt and that key activates the button.
+Mnemonics are "memory aids"; in GTK+, a mnemonic is an underlined character
+which corresponds to a keyboard accelerator.  For a button, that means pressing
+Alt and that key activates the button.
+
+For convenience, Gtk2-Perl uses mnemonics by default on widgets that support
+them.  If characters in label string are preceded by an underscore, they are
+underlined.  If you need a literal underscore character in a label, use '__'
+(two underscores).  If you don't want to use mnemonics at all, use the
+non-mnemonic version explicitly (e.g. C<Gtk2::Button::new_with_label>).
 
 =cut
 
@@ -41,6 +46,7 @@ mnemonic. Pressing Alt and that key activates the button.
 
 =for apidoc Gtk2::Button::new_with_mnemonic
 =signature widget = Gtk2::Button->new_with_mnemonic ($mnemonic)
+=arg label (__hide__)
 =arg mnemonic (string) used to label the widget, see L</MNEMONICS>
 =cut
 

@@ -1,3 +1,10 @@
+2003/11/02 02:12 muppetman
+
+	* xs/GtkButton.xs: after fixing the GenPod bug, it became apparent
+	that button's doc needed to hide label on new_with_mnemonic, too.
+	while i was at it, fleshed out the description of mnemonics to make
+	more sense to people who've never heard of them.
+
 2003/11/01 14:52 rwmcfa1
 
 	* xs/Button.xs: autopod doc added
