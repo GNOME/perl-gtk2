@@ -1,3 +1,11 @@
+2003/11/03 12:18 muppetman
+
+	* Makefile.PL: @lists needs to be our, not my.  updated some comments.
+
+	* t/00.Gtk2.t: scalar versus list context bug in version info test
+
+	* AUTHORS: added bjarne to the contributors list
+
 2003/11/03 16:24 pcg
 
 	* xs/GtkWidget.xs: Implement a bunch of minor methods, some of them
