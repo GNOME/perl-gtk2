@@ -43,7 +43,7 @@ unless (eval "use ExtUtils::Depends;"
 require 'CodeGen.pm'; # other modules can just 'use Gtk2::CodeGen;' -- we
                       # can't because it's not installed yet.
 
-my %pkgcfg = ExtUtils::PkgConfig->find ('gtk+-2.0');
+my %pkgcfg = ExtUtils::PkgConfig->find ('gtk+-2.0 >= '.$build_reqs{'Gtk+'});
 
 # we know what version we're going to be built against now
 $runtime_reqs{'Gtk+'} = $pkgcfg{modversion};
