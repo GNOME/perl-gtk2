@@ -87,7 +87,7 @@ gtk2perl_toolbar_insert_internal (GtkToolbar * toolbar,
 		break;
 	    case ELEMENT:
 		{
-		GType real_type = gperl_type_from_package (SvPV_nolen (type));
+		GtkToolbarChildType real_type = SvGtkToolbarChildType(type);
 		const gchar * real_text = SvPV_nolen (text);
 		GtkWidget * real_widget = SvGtkWidget_ornull (widget);
 		GtkWidget * real_icon = SvGtkWidget_ornull (icon);
