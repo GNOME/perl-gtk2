@@ -72,6 +72,7 @@ my %pm_files = (
 	'pm/Helper.pm'     => '$(INST_LIBDIR)/Gtk2/Helper.pm',
 	'pm/Pango.pm'      => '$(INST_LIBDIR)/Gtk2/Pango.pm',
 	'pm/SimpleList.pm' => '$(INST_LIBDIR)/Gtk2/SimpleList.pm',
+	'pm/SimpleMenu.pm' => '$(INST_LIBDIR)/Gtk2/SimpleMenu.pm',
 	'api.pod'          => '$(INST_LIBDIR)/Gtk2/api.pod',
 	'devel.pod'        => '$(INST_LIBDIR)/Gtk2/devel.pod',
 );
@@ -82,6 +83,7 @@ my %pod_files = (
 	'pm/Helper.pm'     => '$(INST_MAN3DIR)/Gtk2::Helper.$(MAN3EXT)',
 	'pm/Pango.pm'      => '$(INST_MAN3DIR)/Gtk2::Pango.$(MAN3EXT)',
 	'pm/SimpleList.pm' => '$(INST_MAN3DIR)/Gtk2::SimpleList.$(MAN3EXT)',
+	'pm/SimpleMenu.pm' => '$(INST_MAN3DIR)/Gtk2::SimpleMenu.$(MAN3EXT)',
 	'api.pod'          => '$(INST_MAN3DIR)/Gtk2::api.$(MAN3EXT)',
 	'devel.pod'        => '$(INST_MAN3DIR)/Gtk2::devel.$(MAN3EXT)',
 );
@@ -128,6 +130,13 @@ sub const_cccmd {
 	$inherited;
 }
 
+sub postamble
+{
+	"
+realclean ::
+	-rm -Rf build
+"
+}
 package main;
 
 # this probably needs to go into ExtUtils::Depends.
