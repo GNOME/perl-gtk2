@@ -1,6 +1,13 @@
+2003/09/15 14:02 muppetman
+
+	the ones that got away...
+	* xs/GtkItemFactory.xs: remove unused private function
+	* xs/GtkNotebook.xs, xs/GtkTreeStore.xs: remove unused variable
+	* xs/GtkToolbar.xs: initialize the uninitialized
+
 2003/09/14 15:44 rwmcfa1
 
-	* xs/(most everything): quite warnings from -Wall, and/or add void
+	* xs/(most everything): quiet warnings from -Wall, and/or add void
 	comments
 
 	* xs/GdkDisplay.xs: added const qualifier to gchar * return value
