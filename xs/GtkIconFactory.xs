@@ -249,7 +249,7 @@ gtk_icon_source_set_filename (source, filename)
 	GtkIconSource *source
 	GPerlFilename filename
 
-GPerlFilename
+GPerlFilename_const
 gtk_icon_source_get_filename (source)
 	GtkIconSource *source
 
