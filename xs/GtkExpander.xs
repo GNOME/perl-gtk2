@@ -31,6 +31,9 @@ void gtk_expander_set_use_underline (GtkExpander *expander, gboolean use_underli
 
 gboolean gtk_expander_get_use_underline (GtkExpander *expander);
 
+void gtk_expander_set_use_markup (GtkExpander *expander, gboolean use_markup)
+
+gboolean gtk_expander_get_use_markup (GtkExpander *expander)
 
 void gtk_expander_set_label_widget (GtkExpander *expander, GtkWidget *label_widget);
 
