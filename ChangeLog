@@ -2,6 +2,9 @@
 
 	* Gtk2.pm: catch undefined values to hush warnings
 
+	* xs/GtkMenu.xs, xs/GtkItemFactory.xs: change stack handling to
+	avoid attempting to free undef.
+
 2003/06/17 18:21 muppetman
 
 	* gtk2perl.h, xs/GtkObject.xs: push sink functions into Glib, 
