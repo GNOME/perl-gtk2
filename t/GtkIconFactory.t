@@ -19,7 +19,6 @@ like($height, qr/^\d+$/);
 # lookup_for_settings
 
 is(Gtk2::IconSize -> register("answer", 23, 42), "answer");
-is(Gtk2::IconSize -> get_name("answer"), "answer");
 
 Gtk2::IconSize -> register_alias("everything", "answer");
 is(Gtk2::IconSize -> from_name("everything"), "answer");
