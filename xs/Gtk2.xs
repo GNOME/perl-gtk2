@@ -250,6 +250,18 @@ MAJOR_VERSION ()
     OUTPUT:
 	RETVAL
 
+=for apidoc
+=for signature (major_version, minor_version, micro_version) = Gtk2->GET_VERSION_INFO
+=cut
+void
+GET_VERSION_INFO (class)
+    PPCODE:
+	EXTEND (SP, 3);
+	PUSHs (sv_2mortal (newSViv (GTK_MAJOR_VERSION)));
+	PUSHs (sv_2mortal (newSViv (GTK_MINOR_VERSION)));
+	PUSHs (sv_2mortal (newSViv (GTK_MICRO_VERSION)));
+	PERL_UNUSED_VAR (ax);
+
 =for apidoc 
 Provides a mechanism for checking the version information that Gtk2 was
 compiled against. Essentially equvilent to the macro GTK_CHECK_VERSION. In most
@@ -543,13 +555,13 @@ gtk_propagate_event (widget, event)
 	GtkWidget * widget
 	GdkEvent * event
 
-MODULE = Gtk2		PACKAGE = Gtk2::Pango		PREFIX = pango_
+MODULE = Gtk2		PACKAGE = Gtk2::Pango		PREFIX = PANGO_
 
 =for apidoc
-=for signature (major_version, minor_version, micro_version) = Gtk2::Pango->get_version_info
+=for signature (major_version, minor_version, micro_version) = Gtk2::Pango->GET_VERSION_INFO
 =cut
 void
-pango_get_version_info (class)
+GET_VERSION_INFO (class)
     PPCODE:
 	EXTEND (SP, 3);
 	PUSHs (sv_2mortal (newSViv (PANGO_MAJOR_VERSION)));
@@ -558,11 +570,6 @@ pango_get_version_info (class)
 	PERL_UNUSED_VAR (ax);
 
 bool
-CHECK_VERSION (class, major, minor, micro)
-	int major
-	int minor
-	int micro
-    CODE:
-	RETVAL = PANGO_CHECK_VERSION (major, minor, micro);
-    OUTPUT:
-	RETVAL
+PANGO_CHECK_VERSION (class, int major, int minor, int micro)
+    C_ARGS:
+	major, minor, micro

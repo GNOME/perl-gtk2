@@ -12,7 +12,7 @@ use warnings;
 
 #########################
 
-use Test::More tests => 30;
+use Test::More tests => 34;
 BEGIN { use_ok('Gtk2') };
 
 #########################
@@ -27,11 +27,19 @@ ok (defined (Gtk2::major_version), 'major_version');
 ok (defined (Gtk2::minor_version), 'minor_version');
 ok (defined (Gtk2::micro_version), 'micro_version');
 
+@version = Gtk2->GET_VERSION_INFO;
+is (@version, 3, 'version info is three items long');
 ok (Gtk2->CHECK_VERSION(0,0,0), 'CHECK_VERSION pass');
 ok (!Gtk2->CHECK_VERSION(50,0,0), 'CHECK_VERSION fail');
-ok (defined (Gtk2::MAJOR_VERSION), 'MAJOR_VERSION');
-ok (defined (Gtk2::MINOR_VERSION), 'MINOR_VERSION');
-ok (defined (Gtk2::MICRO_VERSION), 'MICRO_VERSION');
+is (Gtk2::MAJOR_VERSION, $version[0], 'MAJOR_VERSION');
+is (Gtk2::MINOR_VERSION, $version[1], 'MINOR_VERSION');
+is (Gtk2::MICRO_VERSION, $version[2], 'MICRO_VERSION');
+
+# Pango has only a compile-time version
+@version = Gtk2::Pango->GET_VERSION_INFO;
+is (@version, 3, 'version info is three items long');
+ok (Gtk2::Pango->CHECK_VERSION(0,0,0), 'CHECK_VERSION pass');
+ok (!Gtk2::Pango->CHECK_VERSION(50,0,0), 'CHECK_VERSION fail');
 
 SKIP:
 {
@@ -40,7 +48,7 @@ SKIP:
 	@ARGV = qw(--help --g-fatal-warnings --name gtk2perl --urgs tree);
 
 	skip 'Gtk2->init_check failed, probably unable to open DISPLAY', 
-		16, unless( Gtk2->init_check );
+		18, unless( Gtk2->init_check );
 
 	ok( Gtk2->init );
 	ok( Gtk2->set_locale );
