@@ -79,6 +79,16 @@ isa_ok($buffer -> get_selection_bound(), "Gtk2::TextMark");
 
 $buffer -> place_cursor($buffer -> get_end_iter());
 
+ok(!$buffer -> delete_selection(1, 1));
+ok(!$buffer -> get_selection_bounds());
+
+SKIP: {
+  skip("select_range is new in 2.3", 0)
+    if (Gtk2 -> check_version(2, 3, 0));
+
+  $buffer -> select_range($buffer -> get_start_iter(), $buffer -> get_end_iter());
+}
+
 my $tag_one = $buffer -> create_tag("alb", indent => 2);
 isa_ok($tag_one, "Gtk2::TextTag");
 
@@ -93,9 +103,6 @@ isa_ok($tag_three, "Gtk2::TextTag");
 $buffer -> remove_tag($tag_one, $buffer -> get_start_iter(), $buffer -> get_end_iter());
 $buffer -> remove_tag_by_name("bulb", $buffer -> get_start_iter(), $buffer -> get_end_iter());
 $buffer -> remove_all_tags($buffer -> get_start_iter(), $buffer -> get_end_iter());
-
-ok(!$buffer -> delete_selection(1, 1));
-ok(!$buffer -> get_selection_bounds());
 
 SKIP: {
   skip "Clipboard did not exist until 2.2.0", 0

@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 11;
+use Gtk2::TestHelper tests => 12;
 
 my $entry = Gtk2::Entry -> new();
 isa_ok($entry, "Gtk2::Entry");
@@ -31,6 +31,16 @@ isa_ok($entry -> get_layout(), "Gtk2::Pango::Layout");
 my ($x, $y) = $entry -> get_layout_offsets();
 like($x, qr/^-?\d+$/);
 like($y, qr/^-?\d+$/);
+
+SKIP: {
+  skip("[sg]et_completion are new in 2.3", 1)
+    if (Gtk2 -> check_version(2, 3, 0));
+
+  my $completion = Gtk2::EntryCompletion -> new();
+
+  $entry -> set_completion($completion);
+  is($entry -> get_completion(), $completion);
+}
 
 __END__
 

@@ -95,6 +95,14 @@ my $position_callback = sub {
 	like ($y, qr/^\d+$/);
 	is ($data, "bla");
 
+	SKIP: {
+		skip("attach and set_monitor are new in 2.3", 0)
+			if (Gtk2->check_version(2, 3, 0));
+
+		$menu->attach(Gtk2::MenuItem->new("Bla"), 0, 1, 0, 1);
+		$menu->set_monitor(0);
+	}
+
 	return (10, 10);
 };
 

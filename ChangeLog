@@ -1,3 +1,14 @@
+2004/01/18 02:30 (+0100) kaffeetisch
+
+	* t/GtkEntry.t: Test [sg]et_completion.
+
+	* t/GtkEventBox.t: Test [sg]et_above_child and
+	[sg]et_visible_window.
+
+	* t/GtkMenu.t: Test attach and set_monitor.
+
+	* t/GtkTextBuffer.t: Test select_range.
+
 2004/01/17 16:26 (+0100) kaffeetisch
 
 	* t/GdkEvent.t: Only declare $event once to avoid warnings.
