@@ -31,8 +31,9 @@ gtk2perl_init_add_callback_invoke (GPerlCallback * callback)
 	retval = g_value_get_boolean (&return_value);
 	g_value_unset (&return_value);
 
-	/* TODO: it seems that this will only be called once.
-	 * if that is not the case then this next line is very bad */
+	/* according to the gtk source, init callbacks are forgotten
+	 * immediately after use; thus, we need to destroy the callback
+	 * object to avoid a leak. */
 	gperl_callback_destroy(callback);
 	
 	return retval;
@@ -160,6 +161,7 @@ gint
 gtk_events_pending (class)
 	SV * class
     C_ARGS:
+	/*void*/
 
  ##
  ##/* The following is the event func GTK+ registers with GDK
