@@ -1,3 +1,7 @@
+2003/05/28 14:02 muppetman
+
+	* Makefile.PL: decent diagnostic messages for missing Glib modules
+
 2003/05/27 20:44 rwmcfa1
 
 	* xs/GtkSelection.xs: gtk 2.2 function
