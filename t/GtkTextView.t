@@ -45,8 +45,8 @@ like($yrange[1], qr/^\d+$/);
 isa_ok($view -> get_iter_at_location(23, 42), "Gtk2::TextIter");
 
 my @window = $view -> buffer_to_window_coords("widget", 23, 42);
-like($window[0], qr/^\d+$/);
-like($window[1], qr/^\d+$/);
+like($window[0], qr/^-?\d+$/);
+like($window[1], qr/^-?\d+$/);
 
 my @buffer = $view -> window_to_buffer_coords("widget", @window);
 is($buffer[0], 23);
