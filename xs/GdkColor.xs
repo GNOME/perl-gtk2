@@ -104,6 +104,7 @@ gdk_colormap_alloc_colors (colormap, writeable, best_match, ...)
 		*(argcolors[i]) = colors[i];
 		PUSHs (sv_2mortal (newSViv (success[i])));
 	}
+	g_free (argcolors);
 	g_free (colors);
 	g_free (success);
 #undef first

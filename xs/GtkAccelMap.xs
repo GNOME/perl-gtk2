@@ -136,6 +136,7 @@ gtk_accel_map_foreach (class, data, foreach_func)
 				       G_TYPE_NONE);
 	gtk_accel_map_foreach 
 		(callback, (GtkAccelMapForeach)gtk2perl_gtk_accel_map_foreach);
+	gperl_callback_destroy (callback);
 
 ##  void gtk_accel_map_foreach_unfiltered (gpointer data, GtkAccelMapForeach foreach_func)
 void
@@ -151,3 +152,4 @@ gtk_accel_map_foreach_unfiltered (class, data, foreach_func)
 				       G_TYPE_NONE);
 	gtk_accel_map_foreach_unfiltered
 		(callback, (GtkAccelMapForeach)gtk2perl_gtk_accel_map_foreach);
+	gperl_callback_destroy (callback);

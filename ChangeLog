@@ -1,3 +1,12 @@
+2004/01/19 20:55 (-0500) rwmcfa1
+
+	* xs/GdkColor.xs: fixed mem leak, argcolors, in alloc_colors.
+
+	* xs/GdkWindow.xs: fixed mem leak, RETVAL, in get_frame_extents.
+
+	* xs/GtkAccelMap.xs: fixed mem leaks, callback needed destroying after
+	the foreach's were through, in map_foreach and map_foreach_unfiltered.
+
 2004/01/19 20:52 (-0500) muppetman
 
 	A t/GtkActionGroup.t

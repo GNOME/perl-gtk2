@@ -514,12 +514,14 @@ void gdk_window_get_origin (GdkWindow *window, OUTLIST gint x, OUTLIST gint y)
 void gdk_window_get_root_origin (GdkWindow *window, OUTLIST gint x, OUTLIST gint y)
 
  ## void gdk_window_get_frame_extents (GdkWindow *window, GdkRectangle *rect)
-GdkRectangle *
+GdkRectangle_copy *
 gdk_window_get_frame_extents (window)
 	GdkWindow *window
+    PREINIT:
+	GdkRectangle rect;
     CODE:
-	RETVAL = g_new0 (GdkRectangle, 1);
-	gdk_window_get_frame_extents (window, RETVAL);
+	gdk_window_get_frame_extents (window, &rect);
+	RETVAL = &rect;
     OUTPUT:
 	RETVAL
 
