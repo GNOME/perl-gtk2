@@ -1,3 +1,11 @@
+2003/06/26 14:49 rwmcfa1
+
+	* xs/GtkItemFactor.xs: reworked all of the callback stuff, needs 
+	verification
+
+	* examples/item_factory_demo.pl: added, simple exmaple of how to 
+	use Gtk2::ItemFactory
+
 2003/06/26 13:48 muppetman
 
 	* pm/Pango.pm: new file allows you to import the Pango constants.
