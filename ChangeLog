@@ -1,3 +1,45 @@
+2004/03/16 21:51 (-0500) muppetman
+
+	* gtk-demo/changedisplay.pl: remove cruft
+
+	* t/GdkEvent.t, t/GdkGC.t: unify the phrasing of some skip messages
+
+	* t/GtkFileChooser.t: enable tests for get_preview_filename and
+	get_preview_uri, but leave them as TODO, because i can't figure out
+	why they work in examples/file_chooser.pl and not here.  bump the
+	master version check to 2.4.0, and remove the others.
+
+	* gtk2perl.h, maps-2.0, examples/combo_box.pl,
+	examples/file_chooser.pl, gtk-demo/main.pl, t/01.GtkWindow.t,
+	t/GdkCursor.t, t/GdkDisplay.t, t/GdkDrawable.t, t/GdkPixbuf.t,
+	t/GtkAccelGroup.t, t/GtkAction.t, t/GtkActionGroup.t, t/GtkAlignment.t,
+	t/GtkButton.t, t/GtkButtonBox.t, t/GtkCellLayout.t,
+	t/GtkCellRenderer.t, t/GtkCheckMenuItem.t, t/GtkClipboard.t,
+	t/GtkColorButton.t, t/GtkComboBox.t, t/GtkComboBoxEntry.t, t/GtkDnd.t,
+	t/GtkEntry.t, t/GtkEntryCompletion.t, t/GtkEventBox.t, t/GtkExpander.t,
+	t/GtkFileChooserDialog.t, t/GtkFileChooserWidget.t, t/GtkFileFilter.t,
+	t/GtkFontButton.t, t/GtkIconFactory.t, t/GtkIconTheme.t,
+	t/GtkListStore.t, t/GtkMenu.t, t/GtkMenuShell.t, t/GtkMessageDialog.t,
+	t/GtkRadioAction.t, t/GtkRadioMenuItem.t, t/GtkRadioToolButton.t,
+	t/GtkRc.t, t/GtkScale.t, t/GtkSeparatorToolItem.t, t/GtkStyle.t,
+	t/GtkTextBuffer.t, t/GtkTextIter.t, t/GtkTextView.t,
+	t/GtkToggleAction.t, t/GtkToggleToolButton.t, t/GtkToolButton.t,
+	t/GtkToolItem.t, t/GtkToolbar.t, t/GtkTreeModelFilter.t,
+	t/GtkTreeView.t, t/GtkUIManager.t, t/GtkWidget.t, xs/GdkCursor.xs,
+	xs/GdkDisplay.xs, xs/GdkDrawable.xs, xs/GdkPixbuf.xs,
+	xs/GdkPixbufLoader.xs, xs/GdkWindow.xs, xs/GtkAlignment.xs,
+	xs/GtkButton.xs, xs/GtkButtonBox.xs, xs/GtkCalendar.xs,
+	xs/GtkCellRenderer.xs, xs/GtkCheckMenuItem.xs, xs/GtkClipboard.xs,
+	xs/GtkComboBoxEntry.xs, xs/GtkDnd.xs, xs/GtkEntry.xs,
+	xs/GtkEventBox.xs, xs/GtkFileChooserDialog.xs,
+	xs/GtkFileChooserWidget.xs, xs/GtkIconFactory.xs, xs/GtkMenu.xs,
+	xs/GtkMenuShell.xs, xs/GtkMessageDialog.xs, xs/GtkRadioMenuItem.xs,
+	xs/GtkRc.xs, xs/GtkScale.xs, xs/GtkStyle.xs, xs/GtkTextBuffer.xs,
+	xs/GtkTextIter.xs, xs/GtkTextView.xs, xs/GtkToolbar.xs,
+	xs/GtkTreeViewColumn.xs, xs/GtkWidget.xs, xs/GtkWindow.xs:
+	bump 2.3.x version checks to the stable 2.4.0.  we don't claim to
+	work with unstable gtk+.
+
 2004/03/16 02:03 (-0500) muppetman
 
 	* xs/Gtk2.xs: Pod updates.  Doc Pango version stuff in
