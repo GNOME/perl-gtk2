@@ -31,7 +31,7 @@ use Glib;
 
 require DynaLoader;
 
-our $VERSION = '1.073';
+our $VERSION = '1.074';
 
 our @ISA = qw(DynaLoader);
 
@@ -44,7 +44,7 @@ sub import {
 	# order afterwards
 	my $init = 0;
 	my $threads_init = 0;
-	
+
 	foreach (@_) {
 		if (/^-?init$/) {
 			$init = 1;
@@ -62,7 +62,7 @@ sub import {
 # this is critical -- tell dynaloader to load the module so that its 
 # symbols are available to all other modules.  without this, nobody
 # else can use important functions like gtk2perl_new_object!
-# 
+#
 # hrm.  win32 doesn't really use this, because we have to link the whole
 # thing at compile time to ensure all the symbols are defined.
 #

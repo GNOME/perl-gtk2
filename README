@@ -1,6 +1,6 @@
 # $Header$
 
-Gtk2 version 1.073
+Gtk2 version 1.074
 ==================
 
 Perl bindings to the 2.x series of the Gtk+ graphical user interface library.
@@ -54,14 +54,14 @@ ways:
 
   in the code of your perl script:
     use lib '/some/other/place/lib/perl5/site_perl';
-  
+
 
 DEPENDENCIES
 
 This module requires these other modules and libraries:
 
   perl >= 5.8.0
-  Glib >= 1.073 (perl module)
+  Glib >= 1.074 (perl module)
   GTK+ > 2.x (C library)
 
 In order to build it from source, you'll also need
