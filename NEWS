@@ -1,3 +1,11 @@
+Overview of Changes in Gtk2 1.054
+=================================
+
+* Documentation updates for Gtk2::Toolbar, more accurately describing the
+  types of parameters.  [muppet]
+* Allow undef to various Gtk2::Toolbar methods where appropriate.
+  [Torsten, muppet]
+
 Overview of Changes in Gtk2 1.053
 =================================
 

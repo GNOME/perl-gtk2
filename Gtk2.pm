@@ -31,7 +31,7 @@ use Glib;
 
 require DynaLoader;
 
-our $VERSION = '1.053';
+our $VERSION = '1.054';
 
 our @ISA = qw(DynaLoader);
 
