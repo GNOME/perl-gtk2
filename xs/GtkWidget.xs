@@ -253,7 +253,8 @@ gtk_widget_unrealize (widget)
 	GtkWidget * widget
 
  #/* Queuing draws */
- #void	   gtk_widget_queue_draw	  (GtkWidget	       *widget);
+
+void gtk_widget_queue_draw (GtkWidget * widget);
 
 void
 gtk_widget_queue_draw_area (widget, x, y, width, height)
@@ -270,16 +271,23 @@ gtk_widget_queue_draw_area (widget, x, y, width, height)
  #					   GtkAllocation       *allocation);
  #void       gtk_widget_get_child_requisition (GtkWidget	       *widget,
  #					     GtkRequisition    *requisition);
- #void	   gtk_widget_add_accelerator	  (GtkWidget           *widget,
- #					   const gchar         *accel_signal,
- #					   GtkAccelGroup       *accel_group,
- #					   guint                accel_key,
- #					   GdkModifierType      accel_mods,
- #					   GtkAccelFlags        accel_flags);
- #gboolean   gtk_widget_remove_accelerator  (GtkWidget           *widget,
- #					   GtkAccelGroup       *accel_group,
- #					   guint                accel_key,
- #					   GdkModifierType      accel_mods);
+
+void
+gtk_widget_add_accelerator (widget, accel_signal, accel_group, accel_key, accel_mods, flags)
+	GtkWidget       * widget
+	const gchar     * accel_signal
+	GtkAccelGroup   * accel_group
+	guint             accel_key
+	GdkModifierType   accel_mods
+	GtkAccelFlags     flags
+
+gboolean
+gtk_widget_remove_accelerator (widget, accel_group, accel_key, accel_mods)
+	GtkWidget       * widget
+	GtkAccelGroup   * accel_group
+	guint             accel_key
+	GdkModifierType   accel_mods
+
  #void       gtk_widget_set_accel_path      (GtkWidget           *widget,
  #					   const gchar         *accel_path,
  #					   GtkAccelGroup       *accel_group);
@@ -365,6 +373,9 @@ gtk_widget_set_sensitive (widget, sensitive)
 GtkWidget_ornull *
 gtk_widget_get_parent (widget)
 	GtkWidget * widget
+    ALIAS:
+	Gtk2::Widget::get_parent = 0
+	Gtk2::Widget::parent = 1
 
  #GdkWindow *gtk_widget_get_parent_window	  (GtkWidget	       *widget);
  #gboolean   gtk_widget_child_focus         (GtkWidget           *widget,
@@ -590,7 +601,9 @@ void
 gtk_widget_reset_shapes (widget)
 	GtkWidget * widget
 
-##if GTK_CHECK_VERSION(2,2,0)
+
+#if GTK_CHECK_VERSION(2,2,0)
+
 # GParamSpec not in typemap
 ##GParamSpec* gtk_widget_class_find_style_property (GtkWidgetClass *klass, const gchar *property_name)
 #GParamSpec *
@@ -611,12 +624,12 @@ gtk_widget_reset_shapes (widget)
 #gtk_widget_get_clipboard (widget, selection)
 #	GtkWidget * widget
 #	GdkAtom     selection
-#
-#
-##GdkDisplay* gtk_widget_get_display (GtkWidget *widget)
-#GdkDisplay *
-#gtk_widget_get_display (widget)
-#	GtkWidget * widget
-#
-##endif
+
+
+#GdkDisplay* gtk_widget_get_display (GtkWidget *widget)
+GdkDisplay *
+gtk_widget_get_display (widget)
+	GtkWidget * widget
+
+#endif
 
