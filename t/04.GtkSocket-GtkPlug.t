@@ -11,13 +11,16 @@
 
 # change 'tests => 1' to 'tests => last_test_to_print';
 
+use Test::More;
+
 if ($^O eq 'MSWin32') {
-	use Test::More skip_all => "socket and plug not implemented on win32";
+	plan skip_all => "socket and plug not implemented on win32";
 	# ...despite patches that have been around for a long time
 	exit;
 }
 
-use Test::More tests => 6;
+plan tests => 5;
+
 BEGIN { use_ok('Gtk2') };
 
 #########################
