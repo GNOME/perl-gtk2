@@ -32,6 +32,7 @@ gtk_menu_item_news (class, label=NULL)
 	Gtk2::MenuItem::new_with_mnemonic = 1
 	Gtk2::MenuItem::new_with_label = 2
     CODE:
+	UNUSED(class);
 	if (label) {
 		if (ix == 2)
 			RETVAL = gtk_menu_item_new_with_label (label);

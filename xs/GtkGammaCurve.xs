@@ -28,6 +28,9 @@ GtkWidget *
 gtk_gamma_curve_new (class)
 	SV * class
     C_ARGS:
+	/* void */
+    CLEANUP:
+	UNUSED(class);
 
 GtkCurve *
 curve (gamma)

@@ -31,6 +31,8 @@ gtk_viewport_new (class, hadjustment=NULL, vadjustment=NULL)
 	GtkAdjustment_ornull * vadjustment
     C_ARGS:
 	hadjustment, vadjustment
+    CLEANUP:
+	UNUSED(class);
 
 ## GtkAdjustment* gtk_viewport_get_hadjustment (GtkViewport *viewport)
 GtkAdjustment *

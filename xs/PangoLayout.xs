@@ -49,6 +49,8 @@ pango_layout_new (class, context)
 	PangoContext * context
     C_ARGS:
 	context
+    CLEANUP:
+	UNUSED(class);
 
 ##  PangoLayout *pango_layout_copy (PangoLayout *src) 
 PangoLayout_noinc *
@@ -126,6 +128,7 @@ int_getters (layout)
 	Gtk2::Pango::Layout::get_justify = 4
 	Gtk2::Pango::Layout::get_single_paragraph_mode = 5
     CODE:
+	RETVAL = 0;
 	switch (ix) {
 		case 1: RETVAL = pango_layout_get_width (layout); break;
 		case 2: RETVAL = pango_layout_get_indent (layout); break;

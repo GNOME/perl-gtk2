@@ -28,4 +28,7 @@ GtkWidget *
 gtk_hruler_new (class)
 	SV * class
     C_ARGS:
+	/* void */
+    CLEANUP:
+	UNUSED(class);
 

@@ -28,6 +28,9 @@ GtkWidget *
 gtk_fixed_new (class)
 	SV * class
     C_ARGS:
+	/* void */
+    CLEANUP:
+	UNUSED(class);
 
 ## void gtk_fixed_put (GtkFixed *fixed, GtkWidget *widget, gint x, gint y)
 void

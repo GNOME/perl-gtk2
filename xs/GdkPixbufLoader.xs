@@ -27,7 +27,9 @@ GdkPixbufLoader_noinc *
 gdk_pixbuf_loader_new (class)
 	SV * class
     C_ARGS:
-	
+	/* void */
+    CLEANUP:
+	UNUSED(class);
 
 ##  GdkPixbufLoader * gdk_pixbuf_loader_new_with_type (const char *image_type, GError **error) 
 GdkPixbufLoader_noinc *

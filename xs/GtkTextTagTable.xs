@@ -34,6 +34,9 @@ GtkTextTagTable_noinc *
 gtk_text_tag_table_new (class)
 	SV * class
     C_ARGS:
+	/* void */
+    CLEANUP:
+	UNUSED(class);
 
 void
 gtk_text_tag_table_add (table, tag)

@@ -70,6 +70,7 @@ new (class, x, y, width, height)
     PREINIT:
 	GdkRectangle rect;
     CODE:
+	UNUSED(class);
 	rect.x = x;
 	rect.y = y;
 	rect.width = width;
@@ -87,6 +88,7 @@ members (rectangle)
 	Gtk2::Gdk::Rectangle::width = 2
 	Gtk2::Gdk::Rectangle::height = 3
     CODE:
+	RETVAL = 0;
 	switch (ix) {
 		case 0: RETVAL = rectangle->x; break;
 		case 1: RETVAL = rectangle->y; break;

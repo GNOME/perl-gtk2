@@ -31,6 +31,8 @@ gtk_arrow_new (class, arrow_type, shadow_type)
 	GtkShadowType   shadow_type
     C_ARGS:
 	arrow_type, shadow_type
+    CLEANUP:
+	UNUSED(class);
 
 ## void gtk_arrow_set (GtkArrow *arrow, GtkArrowType arrow_type, GtkShadowType shadow_type)
 void

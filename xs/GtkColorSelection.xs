@@ -27,6 +27,9 @@ GtkWidget *
 gtk_color_selection_new (class)
 	SV * class
     C_ARGS:
+	/* void */
+    CLEANUP:
+	UNUSED(class);
 
 ## gboolean gtk_color_selection_get_has_opacity_control (GtkColorSelection *colorsel)
 gboolean
@@ -124,6 +127,7 @@ gtk_color_selection_palette_from_string (class, string)
 	gint n_colors;
 	int i;
     PPCODE:
+	UNUSED(class);
 	if (!gtk_color_selection_palette_from_string (string,
 						&colors, &n_colors))
 		XSRETURN_EMPTY;
@@ -144,6 +148,7 @@ gtk_color_selection_palette_to_string (class, ...)
 	gchar * string;
 	int i;
     CODE:
+	UNUSED(class);
 	n_colors = items - 1;
 	for (i = 0 ; i < n_colors ; i++) {
 		/* this will croak if any of the items are not valid */

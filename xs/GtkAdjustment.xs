@@ -32,6 +32,7 @@ value (GtkAdjustment *adjustment, gdouble newval = 0)
 	page_increment = 4
 	page_size      = 5
     CODE:
+	RETVAL = 0.0;
 	switch (ix) {
 	    case 0:
 		RETVAL = adjustment->value;
@@ -73,6 +74,8 @@ gtk_adjustment_new (class, value, lower, upper, step_increment, page_increment, 
 	gdouble   page_size
     C_ARGS:
 	value, lower, upper, step_increment, page_increment, page_size
+    CLEANUP:
+	UNUSED(class);
 
 void
 gtk_adjustment_changed (adjustment)

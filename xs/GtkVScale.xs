@@ -30,6 +30,8 @@ gtk_vscale_new (class, adjustment=NULL)
 	GtkAdjustment_ornull * adjustment
     C_ARGS:
 	adjustment
+    CLEANUP:
+	UNUSED(class);
 
 ## GtkWidget* gtk_vscale_new_with_range (gdouble min, gdouble max, gdouble step)
 GtkWidget *
@@ -40,4 +42,6 @@ gtk_vscale_new_with_range (class, min, max, step)
 	gdouble step
     C_ARGS:
 	min, max, step
+    CLEANUP:
+	UNUSED(class);
 

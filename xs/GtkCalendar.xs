@@ -63,6 +63,8 @@ gtk_calendar_new (class)
 	SV * class
     C_ARGS:
 	/*void*/
+    CLEANUP:
+	UNUSED(class);
 
 ## gboolean gtk_calendar_select_month (GtkCalendar *calendar, guint month, guint year)
 gboolean

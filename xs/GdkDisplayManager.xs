@@ -35,6 +35,8 @@ GdkDisplayManager *
 gdk_display_manager_get (SV * class)
     C_ARGS:
 	/*void*/
+    CLEANUP:
+	UNUSED(class);
 
 ##  GdkDisplay * gdk_display_manager_get_default_display (GdkDisplayManager *display_manager) 
 GdkDisplay *

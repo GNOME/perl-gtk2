@@ -30,6 +30,8 @@ gtk_window_new (class, type=GTK_WINDOW_TOPLEVEL)
 	GtkWindowType   type
     C_ARGS:
 	type
+    CLEANUP:
+	UNUSED(class);
 
 ## void gtk_window_set_title (GtkWindow *window, const gchar *title)
 void
@@ -268,6 +270,7 @@ gtk_window_set_default_icon_from_file (class, filename)
     PREINIT:
 	GError * err = NULL;
     CODE:
+	UNUSED(class);
 	if (!gtk_window_set_default_icon_from_file(filename, &err))
 		gperl_croak_gerror (filename, err);
 
@@ -289,6 +292,8 @@ gtk_window_set_default_icon_list (class, pixbuf, ...)
 	int i;
 	GList * list = NULL;
     CODE:
+	UNUSED(class);
+	UNUSED(pixbuf);
 	for (i = 1; i < items ; i++)
 		list = g_list_append (list, SvGdkPixbuf (ST (i)));
 	gtk_window_set_default_icon_list (list);
@@ -301,6 +306,7 @@ gtk_window_get_default_icon_list (class)
     PREINIT:
 	GList * list, * tmp;
     PPCODE:
+	UNUSED(class);
 	list = gtk_window_get_default_icon_list ();
 	for (tmp = list ; tmp != NULL ; tmp = tmp->next)
 		XPUSHs (sv_2mortal (newSVGdkPixbuf (tmp->data)));
@@ -318,6 +324,7 @@ gtk_window_list_toplevels (class)
     PREINIT:
 	GList * toplvls, * i;
     PPCODE:
+	UNUSED(class);
 	toplvls = gtk_window_list_toplevels ();
 	for (i = toplvls; i != NULL; i = i->next)
 		XPUSHs (sv_2mortal (newSVGtkWindow (i->data)));
@@ -455,6 +462,8 @@ gtk_window_group_new (class)
 	SV * class
     C_ARGS:
 	/*void*/
+    CLEANUP:
+	UNUSED(class);
 
 ## void gtk_window_group_add_window (GtkWindowGroup *window_group, GtkWindow *window)
 void

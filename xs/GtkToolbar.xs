@@ -179,7 +179,9 @@ GtkWidget *
 gtk_toolbar_new (class)
 	SV * class
     C_ARGS:
-
+	/* void */
+    CLEANUP:
+	UNUSED(class);
 
 ##GtkWidget* gtk_toolbar_append_item (GtkToolbar *toolbar, const char *text, const char *tooltip_text, const char *tooltip_private_text, GtkWidget *icon, GtkSignalFunc callback, gpointer user_data)
 GtkWidget *

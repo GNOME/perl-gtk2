@@ -42,6 +42,8 @@ gdk_gc_new (class, drawable)
 	GdkDrawable * drawable
     C_ARGS:
 	drawable
+    CLEANUP:
+	UNUSED(class);
 
 # FIXME need GdkGCValues
  ##GdkGC * gdk_gc_new_with_values (GdkDrawable * drawable, GdkGCValues * values);

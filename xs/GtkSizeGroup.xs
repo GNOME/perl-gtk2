@@ -29,6 +29,8 @@ gtk_size_group_new (class, mode)
 	GtkSizeGroupMode mode
     C_ARGS:
 	mode
+    CLEANUP:
+	UNUSED(class);
 
 ##  void gtk_size_group_set_mode (GtkSizeGroup *size_group, GtkSizeGroupMode mode) 
 void

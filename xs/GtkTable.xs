@@ -96,6 +96,8 @@ gtk_table_new (class, rows, columns, homogeneous=FALSE)
 	gboolean homogeneous
     C_ARGS:
 	rows, columns, homogeneous
+    CLEANUP:
+	UNUSED(class);
 
 void
 gtk_table_resize (table, rows, columns)

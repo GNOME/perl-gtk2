@@ -28,6 +28,9 @@ GtkWidget*
 gtk_combo_new (class)
 	SV * class
     C_ARGS:
+	/* void */
+    CLEANUP:
+	UNUSED(class);
 
 ## void gtk_combo_disable_activate (GtkCombo* combo)
 void
@@ -88,6 +91,7 @@ members (combo)
 	Gtk2::Combo::entry = 1
 	Gtk2::Combo::list  = 2
     CODE:
+	RETVAL = NULL;
 	switch (ix) {
 	    case 1: RETVAL = combo->entry; break;
 	    case 2: RETVAL = combo->list;  break;

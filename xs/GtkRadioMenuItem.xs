@@ -36,6 +36,7 @@ gtk_radio_menu_item_news (class, member_or_listref=NULL, label=NULL)
 	GSList           * group = NULL;
 	GtkRadioMenuItem * member = NULL;
     CODE:
+	UNUSED(class);
 	if( member_or_listref && member_or_listref != &PL_sv_undef
 	    && SvROK (member_or_listref) 
 	    && SvRV (member_or_listref) != &PL_sv_undef )

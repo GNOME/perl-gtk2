@@ -28,6 +28,9 @@ GtkWidget *
 gtk_font_selection_new (class)
 	SV * class
     C_ARGS:
+	/* void */
+    CLEANUP:
+	UNUSED(class);
 
 ## gchar* gtk_font_selection_get_font_name (GtkFontSelection *fontsel)
 gchar_own *
@@ -65,6 +68,8 @@ gtk_font_selection_dialog_new (class, title)
 	const gchar * title
     C_ARGS:
 	title
+    CLEANUP:
+	UNUSED(class);
 
 GtkWidget *
 members_get (fsd)

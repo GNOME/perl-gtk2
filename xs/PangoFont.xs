@@ -37,6 +37,8 @@ constant (class)
 	Gtk2::Pango::scale_x_large  = 7
 	Gtk2::Pango::scale_xx_large = 8
     CODE:
+	UNUSED(class);
+	RETVAL = 0.0;
 	switch (ix) {
 		case 1: RETVAL = (double)PANGO_SCALE; break;
 		case 2: RETVAL = PANGO_SCALE_XX_SMALL; break;
@@ -58,6 +60,9 @@ PANGO_PIXELS (class, d)
 	Gtk2::Pango::pixels = 1
     C_ARGS:
 	d
+    CLEANUP:
+	UNUSED(class);
+	UNUSED(ix);
 
 MODULE = Gtk2::Pango::Font	PACKAGE = Gtk2::Pango::FontDescription	PREFIX = pango_font_description_
 
@@ -66,6 +71,9 @@ PangoFontDescription *
 pango_font_description_new (class)
 	SV * class
     C_ARGS:
+	/* void */
+    CLEANUP:
+	UNUSED(class);
 
 ## guint pango_font_description_hash (const PangoFontDescription *desc)
 guint
@@ -189,6 +197,8 @@ pango_font_description_from_string (class, str)
 	const char * str
     C_ARGS:
 	str
+    CLEANUP:
+	UNUSED(class);
 
 ## char * pango_font_description_to_string (const PangoFontDescription *desc)
 char *

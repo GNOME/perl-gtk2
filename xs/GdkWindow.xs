@@ -49,6 +49,7 @@ gdk_window_at_pointer (class)
 	GdkWindow * window;
 	gint win_x, win_y;
     PPCODE:
+	UNUSED(class);
 	window = gdk_window_at_pointer (&win_x, &win_y);
 	EXTEND (SP, 3);
 	PUSHs (sv_2mortal (newSVGdkWindow (window)));
@@ -201,10 +202,14 @@ gdk_window_get_state (window)
 GdkWindow* gdk_window_foreign_new (SV * class, GdkNativeWindow anid);
     C_ARGS:
 	anid
+    CLEANUP:
+	UNUSED(class);
 
 GdkWindow* gdk_window_lookup (SV * class, GdkNativeWindow anid);
     C_ARGS:
 	anid
+    CLEANUP:
+	UNUSED(class);
 
 #endif
  
@@ -314,7 +319,16 @@ gdk_window_set_cursor (window, cursor)
 	GdkCursor_ornull * cursor
 
  ## void gdk_window_get_user_data (GdkWindow *window, gpointer *data)
-void gdk_window_get_user_data (GdkWindow * window, OUTLIST gulong data);
+## TODO: verify and check this
+gulong
+gdk_window_get_user_data (window)
+	GdkWindow * window
+    CODE:
+	gdk_window_get_user_data (window, (gpointer*)&RETVAL);
+	if( !RETVAL )
+		XSRETURN_UNDEF;
+    OUTPUT:
+    	RETVAL
 
  ## void gdk_window_get_geometry (GdkWindow *window, gint *x, gint *y, gint *width, gint *height, gint *depth)
 void gdk_window_get_geometry (GdkWindow *window, OUTLIST gint x, OUTLIST gint y, OUTLIST gint width, OUTLIST gint height, OUTLIST gint depth)
@@ -552,6 +566,8 @@ void
 gdk_window_process_all_updates (SV * class)
     C_ARGS:
 	/*void*/
+    CLEANUP:
+	UNUSED(class);
 
  ## void gdk_window_process_updates (GdkWindow *window, gboolean update_children)
 void
@@ -588,3 +604,6 @@ MODULE = Gtk2::Gdk::Window	PACKAGE = Gtk2::Gdk	PREFIX = gdk_
 GdkWindow *gdk_get_default_root_window (SV * class)
     C_ARGS:
 	/*void*/
+    CLEANUP:
+	UNUSED(class);
+

@@ -37,8 +37,10 @@ GdkDisplay_ornull *
 gdk_display_open (SV * class, const gchar * display_name)
     C_ARGS:
 	display_name
+    CLEANUP:
+	UNUSED(class);
 
-gchar * gdk_display_get_name (GdkDisplay * display)
+const gchar * gdk_display_get_name (GdkDisplay * display)
 
 gint gdk_display_get_n_screens (GdkDisplay *display) 
 
@@ -93,6 +95,8 @@ GdkDisplay_ornull *
 gdk_display_get_default (SV * class)
     C_ARGS:
 	/*void*/
+    CLEANUP:
+	UNUSED(class);
 
 ##  GdkDevice *gdk_display_get_core_pointer (GdkDisplay *display) 
 GdkDevice *

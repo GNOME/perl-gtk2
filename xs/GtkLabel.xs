@@ -31,7 +31,8 @@ gtk_label_new (class, str=NULL)
 	const gchar * str
     C_ARGS:
 	str
-
+    CLEANUP:
+	UNUSED(class);
 
 GtkWidget *
 gtk_label_new_with_mnemonic (class, str)
@@ -39,6 +40,8 @@ gtk_label_new_with_mnemonic (class, str)
 	const gchar * str
     C_ARGS:
 	str
+    CLEANUP:
+	UNUSED(class);
 
 ### gtk_label_[gs]et_text ---- string does *not* include any embedded stuff
 void

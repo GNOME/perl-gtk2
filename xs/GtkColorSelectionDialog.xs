@@ -38,4 +38,6 @@ gtk_color_selection_dialog_new (class, title)
 	const gchar * title
     C_ARGS:
 	title
+    CLEANUP:
+	UNUSED(class);
 

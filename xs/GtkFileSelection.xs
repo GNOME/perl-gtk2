@@ -37,6 +37,7 @@ member_widget (fs)
 	Gtk2::FileSelection::main_vbox       = 6
 	Gtk2::FileSelection::help_button     = 7
     CODE:
+	RETVAL = NULL;
 	switch (ix) {
 		case 0: RETVAL = fs->ok_button;       break;
 		case 1: RETVAL = fs->cancel_button;   break;
@@ -57,6 +58,8 @@ gtk_file_selection_new (class, title)
 	const gchar * title
     C_ARGS:
 	title
+    CLEANUP:
+	UNUSED(class);
 
 ## void gtk_file_selection_set_filename (GtkFileSelection *filesel, const gchar *filename)
 void

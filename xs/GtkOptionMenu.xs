@@ -27,7 +27,9 @@ GtkWidget *
 gtk_option_menu_new (class)
 	SV * class
     C_ARGS:
-
+	/* void */
+    CLEANUP:
+	UNUSED(class);
 
 GtkWidget *
 gtk_option_menu_get_menu (option_menu)

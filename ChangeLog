@@ -1,3 +1,23 @@
+2003/09/14 15:44 rwmcfa1
+
+	* xs/(most everything): quite warnings from -Wall, and/or add void
+	comments
+
+	* xs/GdkDisplay.xs: added const qualifier to gchar * return value
+
+	* xs/GdkDnd.xs: copy-and-paste bug fixed, get_protocol(_for_display)
+
+	* xs/GdkPixbuf.xs: formatting cleanup
+
+	* xs/GdkWindow.xs: quited warning about invalid paramter type
+
+	* xs/GtkIconFactory.xs: non-void paramter with PPCODE, fixed
+
+	* xs/GtkTearoffMenuItem.xs: teamoff -> tearoff, big bug
+
+	* xs/GtkTreeModel.xs: looking for -1 list terminator incorrectly, 
+	bug-fix
+
 2003/09/14 01:31 muppetman
 
 	* maps: remove some deprecated types

@@ -32,6 +32,7 @@ gtk_button_news (class, label=NULL)
 	Gtk2::Button::new_with_mnemonic = 1
 	Gtk2::Button::new_with_label = 2
     CODE:
+	UNUSED(class);
 	if (label) {
 		if (ix == 2)
 			RETVAL = gtk_button_new_with_label (label);
@@ -48,6 +49,8 @@ gtk_button_new_from_stock (class, stock_id)
 	const gchar * stock_id
     C_ARGS:
 	stock_id
+    CLEANUP:
+	UNUSED(class);
 
 void
 gtk_button_pressed (button)

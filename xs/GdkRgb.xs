@@ -50,12 +50,16 @@ void gdk_rgb_gc_set_foreground (GdkGC * gc, guint32 rgb)
     ALIAS:
 	Gtk2::Gdk::GC::rgb_gc_set_foreground = 0
 	Gtk2::Gdk::GC::set_rgb_foreground = 1
+    CLEANUP:
+	UNUSED(ix);
 
 ##  void gdk_rgb_gc_set_background (GdkGC *gc, guint32 rgb) 
 void gdk_rgb_gc_set_background (GdkGC * gc, guint32 rgb)
     ALIAS:
 	Gtk2::Gdk::GC::rgb_gc_set_background = 0
 	Gtk2::Gdk::GC::set_rgb_background = 1
+    CLEANUP:
+	UNUSED(ix);
 
 MODULE = Gtk2::Gdk::Rgb	PACKAGE = Gtk2::Gdk::Colormap	PREFIX = gdk_
 
@@ -179,6 +183,8 @@ gdk_rgb_set_verbose (class, verbose)
 	gboolean verbose
     C_ARGS:
 	verbose
+    CLEANUP:
+	UNUSED(class);
 
 ##  void gdk_rgb_set_install (gboolean install) 
 void
@@ -187,6 +193,8 @@ gdk_rgb_set_install (class, install)
 	gboolean install
     C_ARGS:
 	install
+    CLEANUP:
+	UNUSED(class);
 
 ##  void gdk_rgb_set_min_colors (gint min_colors) 
 void
@@ -195,6 +203,8 @@ gdk_rgb_set_min_colors (class, min_colors)
 	gint min_colors
     C_ARGS:
 	min_colors
+    CLEANUP:
+	UNUSED(class);
 
  ## no longer needed
 ##  GdkColormap *gdk_rgb_get_colormap (void) 
@@ -206,4 +216,6 @@ gdk_rgb_ditherable (class)
 	SV *class
     C_ARGS:
 	/*void*/
+    CLEANUP:
+	UNUSED(class);
 

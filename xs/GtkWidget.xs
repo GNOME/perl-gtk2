@@ -63,6 +63,7 @@ width (requisition, newval=NULL)
 	width = 0
 	height = 1
     CODE:
+	RETVAL = 0;
 	switch (ix) {
 		case 0:
 			RETVAL = requisition->width;
@@ -84,6 +85,7 @@ new (class, width=0, height=0)
     PREINIT:
 	GtkRequisition req;
     CODE:
+	UNUSED(class);
 	req.width = width;
 	req.height = height;
 	RETVAL = &req;
@@ -121,6 +123,7 @@ style (widget)
 	Gtk2::Widget::style = 1
 	Gtk2::Widget::get_style = 2
     CODE:
+	UNUSED(ix);
 	RETVAL = gtk_widget_get_style(widget);
     OUTPUT:
 	RETVAL
@@ -439,6 +442,8 @@ gtk_widget_get_parent (widget)
     ALIAS:
 	Gtk2::Widget::get_parent = 0
 	Gtk2::Widget::parent = 1
+    CLEANUP:
+	UNUSED(ix);
 
  #GdkWindow *gtk_widget_get_parent_window	  (GtkWidget	       *widget);
  #gboolean   gtk_widget_child_focus         (GtkWidget           *widget,
@@ -645,6 +650,8 @@ gtk_widget_get_default_style (class)
 	SV* class
     C_ARGS:
 	/*void*/
+    CLEANUP:
+	UNUSED(class);
 
  #GdkColormap* gtk_widget_get_default_colormap (void);
  #GdkVisual*   gtk_widget_get_default_visual   (void);
@@ -664,12 +671,16 @@ gtk_widget_set_default_direction (class, dir);
 	GtkTextDirection   dir
     C_ARGS:
     	dir
+    CLEANUP:
+	UNUSED(class);
 
 GtkTextDirection
 gtk_widget_get_default_direction (class);
 	SV * class
     C_ARGS:
 	/* void */
+    CLEANUP:
+	UNUSED(class);
 
  #/* Counterpart to gdk_window_shape_combine_mask.
  # */

@@ -42,6 +42,7 @@ gtk_list_store_new (class, ...)
     PREINIT:
 	GArray * typearray;
     CODE:
+	UNUSED(class);
 	GTK2PERL_STACK_ITEMS_TO_GTYPE_ARRAY (typearray, 1, items-1);
 	RETVAL = gtk_list_store_newv (typearray->len, (GType*)typearray->data);
 	g_array_free (typearray, TRUE);

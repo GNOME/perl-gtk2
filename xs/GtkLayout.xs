@@ -31,6 +31,8 @@ gtk_layout_new (class, hadjustment, vadjustment)
 	GtkAdjustment_ornull * vadjustment
     C_ARGS:
 	hadjustment, vadjustment
+    CLEANUP:
+	UNUSED(class);
 
 ## void gtk_layout_put (GtkLayout *layout, GtkWidget *child_widget, gint x, gint y)
 void

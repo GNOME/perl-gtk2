@@ -34,6 +34,8 @@ gtk_rc_add_default_file (class, filename)
 	const gchar * filename
     C_ARGS:
 	filename
+    CLEANUP:
+	UNUSED(class);
 
 ## void gtk_rc_set_default_files (gchar **filenames)
 void
@@ -42,6 +44,7 @@ gtk_rc_set_default_files (class, ...)
     PREINIT:
 	gchar **filenames = NULL;
     CODE:
+	UNUSED(class);
 	filenames = g_new0(gchar*, items);
 	for( items--; items > 0; items-- )
 		filenames[items] = SvGChar(ST(items));
@@ -84,6 +87,8 @@ gtk_rc_parse (class, filename)
 	const gchar * filename
     C_ARGS:
 	filename
+    CLEANUP:
+	UNUSED(class);
 
 ## void gtk_rc_parse_string (const gchar *rc_string)
 void
@@ -92,12 +97,17 @@ gtk_rc_parse_string (class, rc_string)
 	const gchar * rc_string
     C_ARGS:
 	rc_string
+    CLEANUP:
+	UNUSED(class);
 
 ## gboolean gtk_rc_reparse_all (void)
 gboolean
 gtk_rc_reparse_all (class)
 	SV * class
     C_ARGS:
+	/* void */
+    CLEANUP:
+	UNUSED(class);
 
 ## void gtk_rc_add_widget_name_style (GtkRcStyle *rc_style, const gchar *pattern)
 void
@@ -124,30 +134,44 @@ gtk_rc_find_module_in_path (class, module_file)
 	const gchar * module_file
     C_ARGS:
 	module_file
+    CLEANUP:
+	UNUSED(class);
 
 ## gchar* gtk_rc_get_theme_dir (void)
 gchar_own *
 gtk_rc_get_theme_dir (class)
 	SV * class
     C_ARGS:
+	/* void */
+    CLEANUP:
+	UNUSED(class);
 
 ## gchar* gtk_rc_get_module_dir (void)
 gchar_own *
 gtk_rc_get_module_dir (class)
 	SV * class
     C_ARGS:
+	/* void */
+    CLEANUP:
+	UNUSED(class);
 
 ## gchar* gtk_rc_get_im_module_path (void)
 gchar_own *
 gtk_rc_get_im_module_path (class)
 	SV * class
     C_ARGS:
+	/* void */
+    CLEANUP:
+	UNUSED(class);
 
 ## gchar* gtk_rc_get_im_module_file (void)
 gchar_own *
 gtk_rc_get_im_module_file (class)
 	SV * class
     C_ARGS:
+	/* void */
+    CLEANUP:
+	UNUSED(class);
 
 # TODO: GScanner * not in type map
 ## GScanner* gtk_rc_scanner_new (void)

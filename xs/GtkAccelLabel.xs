@@ -30,6 +30,8 @@ gtk_accel_label_new (class, string)
 	const gchar * string
     C_ARGS:
 	string
+    CLEANUP:
+	UNUSED(class);
 
 ## GtkWidget* gtk_accel_label_get_accel_widget (GtkAccelLabel *accel_label)
 GtkWidget *

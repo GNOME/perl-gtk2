@@ -33,6 +33,7 @@ member (GtkPaned * paned)
 	Gtk2::Paned::child2_resize = 5
 	Gtk2::Paned::child2_shrink = 6
     CODE:
+	RETVAL = NULL;
 	switch (ix) {
 		case 1: RETVAL = newSVGtkWidget (paned->child1); break;
 		case 2: RETVAL = newSViv (paned->child1_resize); break;

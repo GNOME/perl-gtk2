@@ -135,6 +135,8 @@ gdk_pixbuf_new (class, colorspace, has_alpha, bits_per_sample, width, height)
 	int height
     C_ARGS:
 	colorspace, has_alpha, bits_per_sample, width, height
+    CLEANUP:
+	UNUSED(class);
 
 ##  GdkPixbuf *gdk_pixbuf_copy (const GdkPixbuf *pixbuf) 
 GdkPixbuf_noinc *
@@ -158,6 +160,7 @@ gdk_pixbuf_new_from_file (class, filename)
     PREINIT:
 	GError * error = NULL;
     CODE:
+	UNUSED(class);
 	RETVAL = gdk_pixbuf_new_from_file (filename, &error);
 	if (!RETVAL)
 		gperl_croak_gerror (filename, error);
@@ -166,35 +169,37 @@ gdk_pixbuf_new_from_file (class, filename)
 
 ### FIXME need a callback here, or just install a SvREFCNT_dec?
 ###  GdkPixbuf *gdk_pixbuf_new_from_data (const guchar *data, GdkColorspace colorspace, gboolean has_alpha, int bits_per_sample, int width, int height, int rowstride, GdkPixbufDestroyNotify destroy_fn, gpointer destroy_fn_data) 
-#GdkPixbuf_noinc *
-#gdk_pixbuf_new_from_data (class, data, colorspace, has_alpha, bits_per_sample, width, height, rowstride, destroy_fn, destroy_fn_data)
-#	SV * class
-#	const guchar *data
-#	GdkColorspace colorspace
-#	gboolean has_alpha
-#	int bits_per_sample
-#	int width
-#	int height
-#	int rowstride
-#	GdkPixbufDestroyNotify destroy_fn
-#	gpointer destroy_fn_data
+##GdkPixbuf_noinc *
+##gdk_pixbuf_new_from_data (class, data, colorspace, has_alpha, bits_per_sample, width, height, rowstride, destroy_fn, destroy_fn_data)
+##	SV * class
+##	const guchar *data
+##	GdkColorspace colorspace
+##	gboolean has_alpha
+##	int bits_per_sample
+##	int width
+##	int height
+##	int rowstride
+##	GdkPixbufDestroyNotify destroy_fn
+##	gpointer destroy_fn_data
 
 ##  GdkPixbuf *gdk_pixbuf_new_from_xpm_data (const char **data) 
 GdkPixbuf_noinc *
 gdk_pixbuf_new_from_xpm_data (class, data, ...)
 	SV * class
 	SV * data
-	PREINIT:
-		char ** lines;
-		int i;
-	CODE:
-		lines = g_new (char *, items - 1);
-		for (i = 1; i < items; i++)
-			lines[i-1] = SvPV_nolen (ST (i));
-		RETVAL = gdk_pixbuf_new_from_xpm_data(lines);
-		g_free(lines);
-	OUTPUT:
-		RETVAL
+    PREINIT:
+	char ** lines;
+	int i;
+    CODE:
+	UNUSED(class);
+	UNUSED(data);
+	lines = g_new (char *, items - 1);
+	for (i = 1; i < items; i++)
+		lines[i-1] = SvPV_nolen (ST (i));
+	RETVAL = gdk_pixbuf_new_from_xpm_data((const char**)lines);
+	g_free(lines);
+    OUTPUT:
+	RETVAL
 
 ## croaks on error
 ##  GdkPixbuf* gdk_pixbuf_new_from_inline (gint data_length, const guint8 *data, gboolean copy_pixels, GError **error) 
@@ -207,6 +212,7 @@ gdk_pixbuf_new_from_inline (class, data_length, data, copy_pixels)
     PREINIT:
 	GError * error = NULL;
     CODE:
+	UNUSED(class);
 	RETVAL = gdk_pixbuf_new_from_inline (data_length, data, 
 	                                     copy_pixels, &error);
 	if (!RETVAL)
@@ -373,6 +379,7 @@ gdk_pixbuf_animation_new_from_file (class, filename, error)
     PREINIT:
 	GError * error = NULL;
     CODE:
+	UNUSED(class);
 	RETVAL = gdk_pixbuf_animation_new_from_file (filename, &error);
 	if (!RETVAL)
 		gperl_croak_gerror (filename, error);

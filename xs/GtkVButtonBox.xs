@@ -28,27 +28,38 @@ GtkWidget *
 gtk_vbutton_box_new (SV * class)
     C_ARGS:
 	/*void*/
+    CLEANUP:
+	UNUSED(class);
 
 ## void gtk_vbutton_box_set_spacing_default (gint spacing)
 void
 gtk_vbutton_box_set_spacing_default (SV * class, gint spacing)
     C_ARGS:
 	spacing
+    CLEANUP:
+	UNUSED(class);
 
 ## GtkButtonBoxStyle gtk_vbutton_box_get_layout_default (void)
 GtkButtonBoxStyle
 gtk_vbutton_box_get_layout_default (SV * class)
     C_ARGS:
 	/*void*/
+    CLEANUP:
+	UNUSED(class);
 
 ## void gtk_vbutton_box_set_layout_default (GtkButtonBoxStyle layout)
 void
 gtk_vbutton_box_set_layout_default (SV * class, GtkButtonBoxStyle layout)
     C_ARGS:
 	layout
+    CLEANUP:
+	UNUSED(class);
 
 ##gint gtk_vbutton_box_get_spacing_default (void)
 gint
 gtk_vbutton_box_get_spacing_default (SV * class)
     C_ARGS:
 	/*void*/
+    CLEANUP:
+	UNUSED(class);
+

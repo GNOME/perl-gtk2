@@ -28,6 +28,9 @@ GtkWidget *
 gtk_statusbar_new (class)
 	SV * class
     C_ARGS:
+	/* void */
+    CLEANUP:
+	UNUSED(class);
 
 ## void gtk_statusbar_pop (GtkStatusbar *statusbar, guint context_id)
 void

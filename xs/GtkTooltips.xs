@@ -28,6 +28,9 @@ GtkTooltips *
 gtk_tooltips_new (class)
 	SV * class
     C_ARGS:
+	/* void */
+    CLEANUP:
+	UNUSED(class);
 
 ## void gtk_tooltips_enable (GtkTooltips *tooltips)
 void
@@ -70,6 +73,7 @@ gtk_tooltips_data_get (class, widget)
 	GtkTooltipsData * ret = NULL;
 	HV              * hv;
     PPCODE:
+	UNUSED(class);
 	ret = gtk_tooltips_data_get(widget);
 	if( !ret )
 		XSRETURN_UNDEF;

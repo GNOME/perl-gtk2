@@ -28,6 +28,9 @@ GtkWidget *
 gtk_handle_box_new (class)
 	SV * class
     C_ARGS:
+	/* void */
+    CLEANUP:
+	UNUSED(class);
 
 ## void gtk_handle_box_set_shadow_type (GtkHandleBox *handle_box, GtkShadowType type)
 void

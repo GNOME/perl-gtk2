@@ -171,6 +171,9 @@ GdkScreen_ornull *
 gdk_screen_get_default (class)
 	SV * class
     C_ARGS:
+	/* void */
+    CLEANUP:
+	UNUSED(class);
 	
 
 ##  gboolean gdk_screen_get_setting (GdkScreen *screen, const gchar *name, GValue *value) 

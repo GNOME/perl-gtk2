@@ -34,3 +34,6 @@ gtk_message_dialog_new (class, parent, flags, type, buttons, message)
 	char * message
     C_ARGS:
 	parent, flags, type, buttons, message
+    CLEANUP:
+	UNUSED(class);
+

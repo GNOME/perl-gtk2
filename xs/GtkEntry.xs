@@ -33,6 +33,9 @@ GtkWidget*
 gtk_entry_new (class)
 	SV * class
     C_ARGS:
+	/* void */
+    CLEANUP:
+	UNUSED(class);
 
 ##GtkWidget* gtk_entry_new_with_max_length (gint max)
 GtkWidget *
@@ -41,6 +44,8 @@ gtk_entry_new_with_max_length (class, max)
 	gint   max
     C_ARGS:
 	max
+    CLEANUP:
+	UNUSED(class);
 
 void
 gtk_entry_set_visibility (entry, visible)

@@ -28,5 +28,8 @@ GtkWidget *
 gtk_menu_bar_new (class)
 	SV * class
     C_ARGS:
+	/* void */
+    CLEANUP:
+	UNUSED(class);
 
 ##void _gtk_menu_bar_cycle_focus (GtkMenuBar *menubar, GtkDirectionType dir

@@ -150,6 +150,7 @@ gtk_tree_view_new (class, model=NULL)
 	SV * class
 	GtkTreeModel * model
     CODE:
+	UNUSED(class);
 	if (model)
 		RETVAL = gtk_tree_view_new_with_model (model);
 	else
@@ -163,6 +164,8 @@ gtk_tree_view_new_with_model (class, model)
 	GtkTreeModel * model
     C_ARGS:
 	model
+    CLEANUP:
+	UNUSED(class);
 
 GtkTreeModel_ornull *
 gtk_tree_view_get_model (tree_view)

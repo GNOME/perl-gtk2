@@ -28,6 +28,7 @@ gtk_frame_new (class, label=NULL)
 	SV * class
 	SV * label
     CODE:
+	UNUSED(class);
 	RETVAL = gtk_frame_new ((!label || label == &PL_sv_undef)
 	                         ? NULL : SvGChar (label));
     OUTPUT:

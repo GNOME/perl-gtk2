@@ -86,6 +86,8 @@ gtk_tree_view_column_new (class)
 	SV * class
     C_ARGS:
 	/*void*/
+    CLEANUP:
+	UNUSED(class);
 
 GtkTreeViewColumn *
 gtk_tree_view_column_new_with_attributes (class, title, cell, ...)
@@ -93,6 +95,7 @@ gtk_tree_view_column_new_with_attributes (class, title, cell, ...)
 	const gchar * title
 	GtkCellRenderer * cell
     CODE:
+	UNUSED(class);
 	if (!check_stack_for_attributes (3))
 		croak ("Usage: Gtk2::TreeViewColumn->new_with_attributes (TITLE, CELLRENDERER, ATTR1, COL1, ATTR2, COL2, ...)");
 	RETVAL = gtk_tree_view_column_new ();

@@ -28,6 +28,8 @@ gtk_image_new (class)
 	SV * class
     C_ARGS:
 	/*void*/
+    CLEANUP:
+	UNUSED(class);
 
  ## GtkWidget* gtk_image_new_from_pixmap (GdkPixmap *pixmap, GdkBitmap *mask)
 GtkWidget*
@@ -37,6 +39,8 @@ gtk_image_new_from_pixmap (class, pixmap, mask)
 	GdkBitmap_ornull * mask
     C_ARGS:
 	pixmap, mask
+    CLEANUP:
+	UNUSED(class);
 
  ## GtkWidget* gtk_image_new_from_image (GdkImage *image, GdkBitmap *mask)
 GtkWidget*
@@ -46,6 +50,8 @@ gtk_image_new_from_image (class, image, mask)
 	GdkBitmap_ornull *mask
     C_ARGS:
 	image, mask
+    CLEANUP:
+	UNUSED(class);
 
 GtkWidget*
 gtk_image_new_from_file (class, filename)
@@ -53,6 +59,8 @@ gtk_image_new_from_file (class, filename)
 	const gchar *filename
     C_ARGS:
 	filename
+    CLEANUP:
+	UNUSED(class);
 
  ## GtkWidget* gtk_image_new_from_pixbuf (GdkPixbuf *pixbuf)
 GtkWidget*
@@ -61,6 +69,8 @@ gtk_image_new_from_pixbuf (class, pixbuf)
 	GdkPixbuf_ornull * pixbuf
     C_ARGS:
 	pixbuf
+    CLEANUP:
+	UNUSED(class);
 
 GtkWidget*
 gtk_image_new_from_stock (class, stock_id, size)
@@ -69,6 +79,8 @@ gtk_image_new_from_stock (class, stock_id, size)
 	GtkIconSize size
     C_ARGS:
 	stock_id, size
+    CLEANUP:
+	UNUSED(class);
  
  ## GtkWidget* gtk_image_new_from_icon_set (GtkIconSet *icon_set, GtkIconSize size)
 GtkWidget*
@@ -78,12 +90,16 @@ gtk_image_new_from_icon_set (class, icon_set, size)
 	GtkIconSize size
     C_ARGS:
 	icon_set, size
+    CLEANUP:
+	UNUSED(class);
 
  ## GtkWidget* gtk_image_new_from_animation (GdkPixbufAnimation *animation)
 GtkWidget*
 gtk_image_new_from_animation (SV * class, GdkPixbufAnimation *animation)
     C_ARGS:
 	animation
+    CLEANUP:
+	UNUSED(class);
 
  ## void gtk_image_set_from_pixmap (GtkImage *image, GdkPixmap *pixmap, GdkBitmap *mask)
 void

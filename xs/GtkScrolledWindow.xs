@@ -31,6 +31,8 @@ gtk_scrolled_window_new (class, hadjustment=NULL, vadjustment=NULL)
 	GtkAdjustment_ornull * vadjustment
     C_ARGS:
 	hadjustment, vadjustment
+    CLEANUP:
+	UNUSED(class);
 
 ## void gtk_scrolled_window_set_hadjustment (GtkScrolledWindow *scrolled_window, GtkAdjustment *hadjustment)
 void

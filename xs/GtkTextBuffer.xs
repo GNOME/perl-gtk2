@@ -31,6 +31,8 @@ gtk_text_buffer_new (class, tagtable=NULL)
 	GtkTextTagTable_ornull * tagtable
     C_ARGS:
 	tagtable
+    CLEANUP:
+	UNUSED(class);
 
 gint
 gtk_text_buffer_get_line_count (buffer)

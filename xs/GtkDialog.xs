@@ -49,6 +49,7 @@ gtk_dialog_widgets (dialog)
 	Gtk2::Dialog::vbox = 0
 	Gtk2::Dialog::action_area = 1
     CODE:
+	RETVAL = NULL;
 	switch(ix)
 	{
 	case(0): RETVAL = dialog->vbox; 	break;
@@ -79,6 +80,8 @@ gtk_dialog_new (class, ...)
 	GtkWindow * parent;
 	int flags;
     CODE:
+	UNUSED(class);
+	UNUSED(ix);
 	if (items == 1) {
 		/* the easy way out... */
 		dialog = gtk_dialog_new ();

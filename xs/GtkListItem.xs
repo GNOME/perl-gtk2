@@ -37,6 +37,7 @@ gtk_list_item_new (class, label=NULL)
 	SV    * class
 	gchar * label
     CODE:
+	UNUSED(class);
 	if( label )
 		RETVAL = gtk_list_item_new_with_label(label);
 	else

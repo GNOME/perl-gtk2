@@ -28,6 +28,9 @@ GtkWidget *
 gtk_curve_new (class)
 	SV * class
     C_ARGS:
+	/* void */
+    CLEANUP:
+	UNUSED(class);
 
 ## void gtk_curve_reset (GtkCurve *curve)
 void

@@ -51,6 +51,8 @@ gtk_drag_begin (class, widget, targets, actions, button, event)
 	GdkEvent *event
     C_ARGS:
 	widget, targets, actions, button, event
+    CLEANUP:
+	UNUSED(class);
 
 MODULE = Gtk2::Dnd	PACKAGE = Gtk2::Gdk::DragContext	PREFIX = gtk_drag_
 

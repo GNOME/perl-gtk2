@@ -27,4 +27,7 @@ GtkCellRenderer *
 gtk_cell_renderer_pixbuf_new (class)
 	SV * class
     C_ARGS:
+	/* void */
+    CLEANUP:
+	UNUSED(class);
 

@@ -125,6 +125,8 @@ gdk_draw_polygon (drawable, gc, filled, x1, y1, ...)
 	gint npoints;
 	gint i, j;
     CODE:
+	UNUSED(x1);
+	UNUSED(y1);
 	npoints = (items-3)/2;
 	points = g_new (GdkPoint, npoints);
 	for (i = 0, j = 3; i < npoints ; i++, j+=2) {
@@ -176,6 +178,8 @@ gdk_draw_points (drawable, gc, x1, y1, ...)
 	gint npoints;
 	gint i, j;
     CODE:
+	UNUSED(x1);
+	UNUSED(y1);
 	npoints = (items-2)/2;
 	points = g_new (GdkPoint, npoints);
 	for (i = 0, j = 2; i < npoints ; i++, j+=2) {
@@ -202,6 +206,10 @@ gdk_draw_segments (drawable, gc, x1, y1, x2, y2, ...)
 	gint nsegs;
 	gint i, j;
     CODE:
+	UNUSED(x1);
+	UNUSED(y1);
+	UNUSED(x2);
+	UNUSED(y2);
 	nsegs = (items-2)/4;
 	segs = g_new (GdkSegment, nsegs);
 	for (i = 0, j = 2; i < nsegs ; i++, j+=4) {

@@ -33,6 +33,8 @@ gtk_alignment_new (class, xalign, yalign, xscale, yscale)
 	gfloat yscale
     C_ARGS:
 	xalign, yalign, xscale, yscale
+    CLEANUP:
+	UNUSED(class);
 
 ## void gtk_alignment_set (GtkAlignment *alignment, gfloat xalign, gfloat yalign, gfloat xscale, gfloat yscale)
 void

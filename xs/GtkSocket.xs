@@ -30,6 +30,9 @@ GtkWidget *
 gtk_socket_new (class)
 	SV * class
     C_ARGS:
+	/* void */
+    CLEANUP:
+	UNUSED(class);
 
 ## void gtk_socket_add_id (GtkSocket *socket, GdkNativeWindow window_id)
 void

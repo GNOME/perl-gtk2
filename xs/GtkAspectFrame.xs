@@ -34,6 +34,8 @@ gtk_aspect_frame_new (class, label, xalign, yalign, ratio, obey_child)
 	gboolean      obey_child
     C_ARGS:
 	label, xalign, yalign, ratio, obey_child
+    CLEANUP:
+	UNUSED(class);
 
 ## void gtk_aspect_frame_set (GtkAspectFrame *aspect_frame, gfloat xalign, gfloat yalign, gfloat ratio, gboolean obey_child)
  ### NOTE: renamed to avoid clashing with Glib::Object->set

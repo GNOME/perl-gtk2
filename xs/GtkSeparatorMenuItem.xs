@@ -28,4 +28,7 @@ GtkWidget *
 gtk_separator_menu_item_new (class)
 	SV * class
     C_ARGS:
+	/* void */
+    CLEANUP:
+	UNUSED(class);
 

@@ -30,4 +30,6 @@ gtk_vscrollbar_new (class, adjustment=NULL)
 	GtkAdjustment_ornull * adjustment
     C_ARGS:
 	adjustment
+    CLEANUP:
+	UNUSED(class);
 

@@ -43,6 +43,8 @@ predefs (class)
 	Gtk2::Gdk::SELECTION_TYPE_WINDOW   = 15
 	Gtk2::Gdk::SELECTION_TYPE_STRING   = 16
     CODE:
+	UNUSED(class);
+	RETVAL = 0;
 	switch (ix) {
 	    case  1: RETVAL = GDK_SELECTION_PRIMARY; break;
 	    case  2: RETVAL = GDK_SELECTION_SECONDARY; break;
@@ -79,6 +81,8 @@ gdk_selection_owner_set (class, owner, selection, time_, send_event)
 	gboolean send_event
     C_ARGS:
 	owner, selection, time_, send_event
+    CLEANUP:
+	UNUSED(class);
 
 ##  GdkWindow* gdk_selection_owner_get (GdkAtom selection) 
 GdkWindow_ornull*
@@ -87,6 +91,8 @@ gdk_selection_owner_get (class, selection)
 	GdkAtom selection
     C_ARGS:
 	selection
+    CLEANUP:
+	UNUSED(class);
 
 #if GTK_CHECK_VERSION(2,2,0)
 
@@ -101,6 +107,8 @@ gdk_selection_owner_set_for_display (class, display, owner, selection, time_, se
 	gboolean send_event
     C_ARGS:
 	display, owner, selection, time_, send_event
+    CLEANUP:
+	UNUSED(class);
 
 ##  GdkWindow *gdk_selection_owner_get_for_display (GdkDisplay *display, GdkAtom selection) 
 GdkWindow_ornull *
@@ -110,6 +118,8 @@ gdk_selection_owner_get_for_display (class, display, selection)
 	GdkAtom selection
     C_ARGS:
 	display, selection
+    CLEANUP:
+	UNUSED(class);
 
 #endif /* >=2.2.0 */
 
@@ -123,6 +133,8 @@ gdk_selection_convert (class, requestor, selection, target, time_)
 	guint32 time_
     C_ARGS:
 	requestor, selection, target, time_
+    CLEANUP:
+	UNUSED(class);
 
   ## docs do not say deprecated, but recommend the use of GtkClipboard instead
 ##  gboolean gdk_selection_property_get (GdkWindow *requestor, guchar **data, GdkAtom *prop_type, gint *prop_format) 
@@ -155,6 +167,8 @@ gdk_selection_send_notify (class, requestor, selection, target, property, time_)
 	guint32 time_
     C_ARGS:
 	requestor, selection, target, property, time_
+    CLEANUP:
+	UNUSED(class);
 
 #if GTK_CHECK_VERSION(2,2,0)
 
@@ -170,5 +184,7 @@ gdk_selection_send_notify_for_display (class, display, requestor, selection, tar
 	guint32 time_
     C_ARGS:
 	display, requestor, selection, target, property, time_
+    CLEANUP:
+	UNUSED(class);
 
 #endif /* >=2.2.0 */

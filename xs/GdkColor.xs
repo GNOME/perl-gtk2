@@ -47,6 +47,9 @@ GdkColormap*
 gdk_colormap_get_system (class)
 	SV * class
     C_ARGS:
+	/* void */
+    CLEANUP:
+	UNUSED(class);
 
 
  ## deprecated
@@ -144,6 +147,7 @@ gdk_color_new (class, red, green, blue)
     PREINIT:
 	GdkColor c;
     CODE:
+	UNUSED(class);
 	c.red = red;
 	c.green = green;
 	c.blue = blue;
@@ -163,6 +167,7 @@ gdk_color_parse (class, spec)
     PREINIT:
 	GdkColor c;
     CODE:
+	UNUSED(class);
 	RETVAL = gdk_color_copy (&c);
 	if (!gdk_color_parse (spec, RETVAL)) {
 		gdk_color_free (RETVAL);

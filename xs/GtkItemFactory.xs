@@ -107,6 +107,7 @@ gtk_item_factory_new (class, container_type_package, path, accel_group)
     PREINIT:
 	GType container_type;
     CODE:
+	UNUSED(class);
 	container_type = gperl_type_from_package (container_type_package);
 	RETVAL = gtk_item_factory_new (container_type, path, accel_group);
     OUTPUT:
@@ -121,6 +122,8 @@ gtk_item_factory_from_widget (class, widget)
 	GtkWidget *widget
     C_ARGS:
 	widget
+    CLEANUP:
+	UNUSED(class);
 
 const gchar*
 gtk_item_factory_path_from_widget (class, widget)
@@ -128,6 +131,8 @@ gtk_item_factory_path_from_widget (class, widget)
 	GtkWidget *widget
     C_ARGS:
 	widget
+    CLEANUP:
+	UNUSED(class);
 
 GtkWidget_ornull*
 gtk_item_factory_get_item (ifactory, path)

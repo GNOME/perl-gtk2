@@ -113,6 +113,7 @@ gtk_container_set_focus_chain (container, widget1, ...)
 	GList *focusable_widgets = NULL;
 	int i;
     PPCODE:
+	UNUSED(widget1);
 	for (i = items - 1 ; i > 0 ; i--)
 		focusable_widgets = g_list_prepend (focusable_widgets,
 		                                    SvGtkWidget (ST (i)));

@@ -35,6 +35,9 @@ GtkWidget *
 gtk_progress_bar_new (class)
 	SV                   * class
     C_ARGS:
+	/* void */
+    CLEANUP:
+	UNUSED(class);
 
 ## void gtk_progress_bar_set_text (GtkProgressBar *pbar, const gchar *text)
 void

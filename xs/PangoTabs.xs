@@ -13,6 +13,8 @@ pango_tab_array_new (class, initial_size, positions_in_pixels, ...)
 	new = 1
 	new_with_positions = 2
     CODE:
+	UNUSED(class);
+	UNUSED(ix);
 	RETVAL = pango_tab_array_new (initial_size, positions_in_pixels);
 	if (items > 3) {
 		int i;

@@ -31,6 +31,8 @@ gtk_text_tag_new (class, name)
 	const gchar * name
     C_ARGS:
 	name
+    CLEANUP:
+	UNUSED(class);
 
 gint
 gtk_text_tag_get_priority (tag)
@@ -56,7 +58,9 @@ GtkTextAttributes_own *
 gtk_text_attributes_new (class)
 	SV * class
     C_ARGS:
-
+	/* void */
+    CLEANUP:
+	UNUSED(class);
 
 GtkTextAttributes_own*
 gtk_text_attributes_copy (src)

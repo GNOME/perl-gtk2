@@ -92,6 +92,7 @@ gtk_stock_add (class, ...)
     PREINIT:
 	int i;
     CODE:
+	UNUSED(class);
 	for (i = 1 ; i < items ; i++)
 		gtk_stock_add (SvGtkStockItem (ST (i)), 1);
 
@@ -107,6 +108,7 @@ gtk_stock_lookup (class, stock_id)
 	GtkStockItem item;
 	HV * hv;
     CODE:
+	UNUSED(class);
 	if (! gtk_stock_lookup (stock_id, &item))
 		XSRETURN_UNDEF;
 	hv = stock_item_to_hv (&item);
@@ -121,6 +123,7 @@ gtk_stock_list_ids (class)
     PREINIT:
 	GSList * ids, * i;
     PPCODE:
+	UNUSED(class);
 	ids = gtk_stock_list_ids ();
 	for (i = ids ; i != NULL ; i = i->next) {
 		XPUSHs (sv_2mortal (newSVpv ((char*)(i->data), 0)));

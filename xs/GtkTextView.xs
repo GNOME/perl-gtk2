@@ -28,6 +28,9 @@ GtkWidget *
 gtk_text_view_new (class)
 	SV * class
     C_ARGS:
+	/* void */
+    CLEANUP:
+	UNUSED(class);
 
 ## GtkWidget * gtk_text_view_new_with_buffer (GtkTextBuffer *buffer)
 GtkWidget *

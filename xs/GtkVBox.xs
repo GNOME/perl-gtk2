@@ -30,4 +30,6 @@ gtk_vbox_new (class, homogeneous=0, spacing=5)
 	gint spacing
     C_ARGS:
 	homogeneous, spacing
+    CLEANUP:
+	UNUSED(class);
 

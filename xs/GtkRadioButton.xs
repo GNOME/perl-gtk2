@@ -36,6 +36,7 @@ gtk_radio_button_new (class, member_or_listref=NULL, label=NULL)
 	GSList         * group = NULL;
 	GtkRadioButton * member = NULL;
     CODE:
+	UNUSED(class);
 	if( member_or_listref && member_or_listref != &PL_sv_undef
 	    && SvROK (member_or_listref)
 	    && SvRV (member_or_listref) != &PL_sv_undef )
@@ -73,6 +74,7 @@ gtk_radio_button_new_from_widget (class, group, label=NULL)
 	Gtk2::RadioButton::new_with_mnemonic_from_widget = 1
 	Gtk2::RadioButton::new_with_label_from_widget = 2
     CODE:
+	UNUSED(class);
 	if (label) {
 		if (ix == 2)
 			RETVAL = gtk_radio_button_new_with_label_from_widget (group, label);
