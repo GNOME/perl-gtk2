@@ -1,3 +1,16 @@
+Overview of Changes in Gtk2 1.032
+=================================
+
+* Lots of new regresion tests, and exsting tests are more thorough
+* apidoc POD updates.
+* GdkCursor's type member now accessable.
+* GdkKeys incorrect mapping fixed, unreg'd subclass warnings quelled.
+* SimpleList now supports a column type markup, for pango marked-up text
+* x/y event members are now available where they should be, GdkEvent doc 
+  improved. corrected some invalid function -> package mappings.
+* missing/TODO functions implemented in GdkDrawable
+* Bug fix related to colormaps fixed in GdkGC 
+
 Overview of Changes in Gtk2 1.031
 =================================
 
