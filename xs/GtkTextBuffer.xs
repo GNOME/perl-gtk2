@@ -160,7 +160,7 @@ gtk_text_buffer_insert_child_anchor (buffer, iter, anchor)
 	GtkTextIter *iter
 	GtkTextChildAnchor *anchor
 
-GtkTextMark* gtk_text_buffer_create_mark (GtkTextBuffer *buffer, const gchar *mark_name, GtkTextIter *where, gboolean left_gravity);
+GtkTextMark* gtk_text_buffer_create_mark (GtkTextBuffer *buffer, const gchar_ornull *mark_name, GtkTextIter *where, gboolean left_gravity);
 
 ## void gtk_text_buffer_move_mark (GtkTextBuffer *buffer, GtkTextMark *mark, const GtkTextIter *where)
 void

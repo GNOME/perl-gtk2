@@ -1,3 +1,10 @@
+2004/05/29 01:28 (+0200) pcg
+
+	Merge from HEAD:
+
+        * xs/GtkTextBuffer.xs: Allow creation of anonymous marks.
+        * xs/GdkColor.xs: scaling by 257 is better than scaling by 8.
+
 2004/04/25 13:25 (+0200) kaffeetisch
 
 	Merge from HEAD:

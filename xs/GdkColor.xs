@@ -181,7 +181,7 @@ MODULE = Gtk2::Gdk::Color	PACKAGE = Gtk2::Gdk::Color	PREFIX = gdk_color_
 Gdk's colors are 16-bit RGB values -- that is, the red, green, and blue
 components are integer values from 0 to 65535, with 65535 meaning full
 saturation.  If you are used to dealing with colors on the range of 0 to
-255, just scale those numbers by a factor of 8.
+255, just scale those numbers by a factor of 257 (yes, 257).
 
 =cut
 
