@@ -17,11 +17,18 @@
  * Boston, MA  02111-1307  USA.
  *
  * $Header$
+ *
+ * NOTE: GtkList and GtkListItem are deprecated and only included b/c GtkCombo
+ * still makes use of them, they are subject to removal at any point so you
+ * should not utilize them unless absolutly necessary.)
+ *
  */
 
 #include "gtk2perl.h"
 
 MODULE = Gtk2::List	PACKAGE = Gtk2::List	PREFIX = gtk_list_
+
+#ifdef GTK_TYPE_LIST
 
 ##  GtkWidget* gtk_list_new (void) 
 GtkWidget *
@@ -229,3 +236,4 @@ void
 gtk_list_end_drag_selection (list)
 	GtkList *list
 
+#endif /* GTK_TYPE_LIST */
