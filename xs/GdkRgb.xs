@@ -41,6 +41,7 @@ SvImageDataPointer (SV * sv)
 		croak ("expecting either a string containing pixel data or "
 		       "an integer pointing to the underlying C image data "
 		       "buffer");
+	/* not reached */
 }
 
 MODULE = Gtk2::Gdk::Rgb	PACKAGE = Gtk2::Gdk::GC	PREFIX = gdk_

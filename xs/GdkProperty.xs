@@ -76,7 +76,7 @@ gdk_property_get (window, property, type, offset, length, pdelete)
 	gint actual_format;
 	gint actual_length;
 	guchar *data;
-	int i;
+	guint i;
     PPCODE:
 	if (! gdk_property_get (window, property, type, offset, length, pdelete,
 	                        &actual_property_type, &actual_format,

@@ -118,7 +118,7 @@ pango_layout_get_width (layout)
 		case 3: RETVAL = pango_layout_get_justify (layout); break;
 		case 4: RETVAL = pango_layout_get_single_paragraph_mode (layout); break;
 		default:
-			RETVAL = 0.0;
+			RETVAL = 0;
 			g_assert_not_reached ();
 	}
    OUTPUT:
