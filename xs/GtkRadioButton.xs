@@ -23,7 +23,69 @@
 
 MODULE = Gtk2::RadioButton	PACKAGE = Gtk2::RadioButton	PREFIX = gtk_radio_button_
 
+=for position SYNOPSIS
 
+=head1 SYNOPSIS
+
+  # first group
+  $foo1 = Gtk2::RadioButton->new (undef, 'Foo One');
+  $foo2 = Gtk2::RadioButton->new ($foo1, 'Foo Two');
+  $foo3 = Gtk2::RadioButton->new ($foo2, 'Foo Three');
+
+  # second group, using the group reference
+  $bar1 = Gtk2::RadioButton->new (undef, 'Bar One');
+  $group = $bar1->get_group;
+  $bar2 = Gtk2::RadioButton->new ($group, 'Bar Two');
+  $bar3 = Gtk2::RadioButton->new ($group, 'Bar Three');
+
+  # move bar3 from the bar group to the foo group.
+  $bar->set_group ($foo->get_group);
+
+  # iterate over the widgets in the group
+  $group = $foo1->get_group;
+  foreach my $r (@$group) {
+      $r->set_sensitive ($whatever);
+  }
+
+=cut
+
+=for position DESCRIPTION
+
+=head1 DESCRIPTION
+
+A single radio button performs the same basic function as a Gtk2::CheckButton,
+as its position in the object hierarchy reflects.  It is only when multiple
+radio buttons are grouped together that they become a different user interface
+component in their own right.
+
+Every radio button is a member of some group of radio buttons.  When one is
+selected, all other radio buttons in the same group are deselected.  A
+Gtk2::RadioButton is one way of giving the user a choice from many options;
+Gtk2::OptionMenu and Gtk2::ComboBox (added in gtk+ 2.4) are alternatives.
+
+Each constructor can take either a group or widget from that group where the
+group is wanted; this is an enhancement over the C API.  Nevertheless, the
+_from_widget forms are provided for completeness.
+
+=cut
+
+=for apidoc Gtk2::RadioButton::new_with_mnemonic
+=for arg member_or_listref reference to radiobutton group or a Gtk2::RadioButton belonging to that group.
+Create a radio button with a mnemonic; this is an alias for C<new>.
+=cut
+
+=for apidoc Gtk2::RadioButton::new_with_label
+=for arg member_or_listref reference to radiobutton group or a Gtk2::RadioButton belonging to that group.
+Create a radio button with a plain text label, which will not be interpreted
+as a mnemonic.
+=cut
+
+=for apidoc
+=for arg member_or_listref reference to radiobutton group or a Gtk2::RadioButton belonging to that group.
+Create a radio button.  If I<$label> is provided, it will be interpreted
+as a mnemonic.  If I<$member_or_listref> is undef, the radio button will
+be created in a new group.
+=cut
 GtkWidget *
 gtk_radio_button_new (class, member_or_listref=NULL, label=NULL)
 	SV          * member_or_listref
@@ -81,6 +143,10 @@ gtk_radio_button_new_from_widget (class, group, label=NULL)
     OUTPUT:
 	RETVAL
 
+=for apidoc
+=for arg member_or_listref reference to the group or a Gtk2::RadioButton belonging to that group.
+Assign I<$radio_button> to a new group.
+=cut
 void
 gtk_radio_button_set_group (radio_button, member_or_listref)
 	GtkRadioButton * radio_button
@@ -109,7 +175,11 @@ gtk_radio_button_set_group (radio_button, member_or_listref)
 
 # GSList * gtk_radio_button_get_group (GtkRadioButton *radio_button)
 =for apidoc
-=for signature @group = $radio_button->get_group
+=for signature $group = $radio_button->get_group
+Return a reference to the radio group to which I<$radio_button> belongs.
+The group is a reference to an array of widget references; the array is B<not>
+magical, that is, it will not be updated automatically if the group changes;
+call C<get_group> each time you want to use the group.
 =cut
 void
 gtk_radio_button_get_group (radio_button)
