@@ -1,3 +1,13 @@
+2003/10/27 14:34 muppetman
+
+	* xs/GtkCellRenderer.xs: merged the cellrenderer subclassing stuff,
+	with lots of new-style experimental documentation.
+
+	* t/30.GtkCellRenderer.t: new test
+
+	* examples/cellrenderer_date.pl, examples/cellrenderer_popup.pl,
+	examples/cellrenderer_spinbutton.pl: new examples
+
 2003/10/22 13:31 muppetman
 
 	stuff found while writing a documentation generator...
