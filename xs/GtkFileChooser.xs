@@ -173,6 +173,8 @@ gtk_file_chooser_add_shortcut_folder (GtkFileChooser *chooser, const char *folde
 	    case 1: ret = gtk_file_chooser_remove_shortcut_folder (chooser, folder, &error); break;
 	    case 2: ret = gtk_file_chooser_add_shortcut_folder_uri (chooser, folder, &error); break;
 	    case 3: ret = gtk_file_chooser_remove_shortcut_folder_uri (chooser, folder, &error); break;
+	    default:
+		g_assert_not_reached ();
 	}
 	if (!ret)
 		gperl_croak_gerror (NULL, error);

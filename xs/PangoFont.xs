@@ -41,7 +41,6 @@ scale (class)
 	Gtk2::Pango::scale_x_large  = 6
 	Gtk2::Pango::scale_xx_large = 7
     CODE:
-	RETVAL = 0.0;
 	switch (ix) {
 		case 0: RETVAL = (double)PANGO_SCALE; break;
 		case 1: RETVAL = PANGO_SCALE_XX_SMALL; break;
@@ -51,6 +50,9 @@ scale (class)
 		case 5: RETVAL = PANGO_SCALE_LARGE; break;
 		case 6: RETVAL = PANGO_SCALE_X_LARGE; break;
 		case 7: RETVAL = PANGO_SCALE_XX_LARGE; break;
+		defualt:
+			RETVAL = 0.0;
+			g_assert_not_reached ();
 	}
     OUTPUT:
 	RETVAL

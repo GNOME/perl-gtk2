@@ -185,11 +185,13 @@ vbox (dialog)
     ALIAS:
 	Gtk2::Dialog::action_area = 1
     CODE:
-	RETVAL = NULL;
 	switch(ix)
 	{
 	case(0): RETVAL = dialog->vbox; 	break;
 	case(1): RETVAL = dialog->action_area;	break;
+	default:
+		RETVAL = NULL;
+		g_assert_not_reached ();
 	}
     OUTPUT:
 	RETVAL

@@ -294,7 +294,6 @@ selection (d)
 	Gtk2::SelectionData::length    = 5
 	Gtk2::SelectionData::display   = 6
     CODE:
-	RETVAL = NULL;
 	switch (ix) {
 	    case 0: RETVAL = newSVGdkAtom (d->selection); break;
 	    case 1: RETVAL = newSVGdkAtom (d->target); break;
@@ -305,6 +304,9 @@ selection (d)
 #if GTK_CHECK_VERSION(2,2,0)
 	    case 6: RETVAL = newSVGdkDisplay (d->display); break;
 #endif
+	    default:
+		RETVAL = NULL;
+		g_assert_not_reached ();
 	}
     OUTPUT:
 	RETVAL

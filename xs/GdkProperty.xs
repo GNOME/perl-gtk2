@@ -107,7 +107,8 @@ gdk_property_get (window, property, type, offset, length, pdelete)
 				break;
 			}
 			default:
-				warn ("Unhandled format value %d in gdk_property_get, should not happen", actual_format);
+				warn ("Unhandled format value %d in gdk_property_get, should not happen",
+				      actual_format);
 		}
 
 		g_free (data);
@@ -172,7 +173,8 @@ gdk_property_change (window, property, type, format, mode, ...)
 			break;
 		}
 		default:
-			croak ("Illegal format value %d used; should be either 8, 16 or 32", format);
+			croak ("Illegal format value %d used; should be either 8, 16 or 32", 
+			       format);
 	}
 
 	gdk_property_change (window, property, type, format, mode, data, nelements);

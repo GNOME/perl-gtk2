@@ -100,6 +100,8 @@ gdk_draw_rgb_image (drawable, gc, x, y, width, height, dith, buf, rowstride)
 		                     dith, SvImageDataPointer(buf),
 		                     rowstride);
 		break;
+	    default:
+		g_assert_not_reached ();
 	}
 
 ##  void gdk_draw_rgb_image_dithalign (GdkDrawable *drawable, GdkGC *gc, gint x, gint y, gint width, gint height, GdkRgbDither dith, guchar *rgb_buf, gint rowstride, gint xdith, gint ydith) 

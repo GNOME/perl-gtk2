@@ -208,11 +208,14 @@ MAJOR_VERSION ()
 	case 3: RETVAL = gtk_major_version; break;
 	case 4: RETVAL = gtk_minor_version; break;
 	case 5: RETVAL = gtk_micro_version; break;
+	default:
+		RETVAL = -1;
+		g_assert_not_reached ();
 	}
     OUTPUT:
 	RETVAL
 
-=for apidoc
+=for apidoc 
 Provides a mechanism for checking the version information that Gtk2 was
 compiled against. Essentially equvilent to the macro GTK_CHECK_VERSION. In most
 cases this function should be used rather than 

@@ -111,13 +111,15 @@ pango_layout_get_width (layout)
 	Gtk2::Pango::Layout::get_justify = 3
 	Gtk2::Pango::Layout::get_single_paragraph_mode = 4
     CODE:
-	RETVAL = 0;
 	switch (ix) {
 		case 0: RETVAL = pango_layout_get_width (layout); break;
 		case 1: RETVAL = pango_layout_get_indent (layout); break;
 		case 2: RETVAL = pango_layout_get_spacing (layout); break;
 		case 3: RETVAL = pango_layout_get_justify (layout); break;
 		case 4: RETVAL = pango_layout_get_single_paragraph_mode (layout); break;
+		defualt:
+			RETVAL = 0.0;
+			g_assert_not_reached ();
 	}
    OUTPUT:
 	RETVAL
@@ -143,6 +145,8 @@ pango_layout_set_width (layout, newval)
 		case 2: pango_layout_set_spacing (layout, newval); break;
 		case 3: pango_layout_set_justify (layout, newval); break;
 		case 4: pango_layout_set_single_paragraph_mode (layout, newval); break;
+		defualt:
+			g_assert_not_reached ();
 	}
 
 

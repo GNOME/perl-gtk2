@@ -114,12 +114,14 @@ screen_width (class)
 	Gtk2::Gdk::screen_width_mm = 2
 	Gtk2::Gdk::screen_height_mm = 3
     CODE:
-	RETVAL = 0;
 	switch (ix) {
 		case 0: RETVAL = gdk_screen_width (); break;
 		case 1: RETVAL = gdk_screen_height (); break;
 		case 2: RETVAL = gdk_screen_width_mm (); break;
 		case 3: RETVAL = gdk_screen_height_mm (); break;
+		default:
+			RETVAL = 0;
+			g_assert_not_reached ();
 	}
     OUTPUT:
 	RETVAL
@@ -277,6 +279,8 @@ gdk_threads_init (class)
 		case 0: gdk_threads_init (); break;
 		case 1: gdk_threads_enter (); break;
 		case 2: gdk_threads_leave (); break;
+		default:
+			g_assert_not_reached ();
 	}
 
 

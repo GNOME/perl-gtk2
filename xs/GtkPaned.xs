@@ -66,6 +66,9 @@ child1 (GtkPaned * paned)
 	switch (ix) {
 		case 0: RETVAL = paned->child1; break;
 		case 1: RETVAL = paned->child2; break;
+		default:
+			RETVAL = NULL;
+			g_assert_not_reached ();
 	}
     OUTPUT:
 	RETVAL
@@ -109,12 +112,14 @@ child1_resize (GtkPaned * paned, SV * newval=NULL)
 	Gtk2::Paned::child2_resize = 2
 	Gtk2::Paned::child2_shrink = 3
     CODE:
-	RETVAL = FALSE;
 	switch (ix) {
 		case 0: RETVAL = paned->child1_resize; break;
 		case 1: RETVAL = paned->child1_shrink; break;
 		case 2: RETVAL = paned->child2_resize; break;
 		case 3: RETVAL = paned->child2_shrink; break;
+		default:
+			RETVAL = FALSE;
+			g_assert_not_reached ();
 	}
 	if (newval) {
 		gboolean newbool = SvIV (newval);
@@ -123,6 +128,8 @@ child1_resize (GtkPaned * paned, SV * newval=NULL)
 			case 1: paned->child1_shrink = newbool; break;
 			case 2: paned->child2_resize = newbool; break;
 			case 3: paned->child2_shrink = newbool; break;
+			default:
+				g_assert_not_reached ();
 		}
 	}
     OUTPUT:

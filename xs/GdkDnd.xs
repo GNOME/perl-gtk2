@@ -35,7 +35,6 @@ protocol (dc)
 	Gtk2::Gdk::DragContext::action = 7
 	Gtk2::Gdk::DragContext::start_time = 8
     CODE:
-	RETVAL = NULL;
 	switch (ix) {
 	    case 0: RETVAL = newSVGdkDragProtocol (dc->protocol); break;
 	    case 1: RETVAL = newSViv (dc->is_source); break;
@@ -46,6 +45,9 @@ protocol (dc)
 	    case 6: RETVAL = newSVGdkDragAction (dc->suggested_action); break;
 	    case 7: RETVAL = newSVGdkDragAction (dc->action); break;
 	    case 8: RETVAL = newSVuv (dc->start_time); break;
+	    default:
+		RETVAL = NULL;
+		g_assert_not_reached ();
 	}
     OUTPUT:
 	RETVAL

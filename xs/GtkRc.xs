@@ -179,7 +179,9 @@ name (style, new=NULL)
 		case 1: RETVAL = newSVPangoFontDescription (style->font_desc); break;
 		case 2: RETVAL = newSViv (style->xthickness); break;
 		case 3: RETVAL = newSViv (style->ythickness); break;
-		default: RETVAL = NULL;
+		default: 
+			RETVAL = NULL;
+			g_assert_not_reached ();
 	}
 
 	if (new) {
@@ -204,6 +206,8 @@ name (style, new=NULL)
 			break;
 		    case 2: style->xthickness = SvIV (new); break;
 		    case 3: style->ythickness = SvIV (new); break;
+		    default:
+			g_assert_not_reached ();
 		}
 	}
     OUTPUT:
@@ -253,7 +257,9 @@ fg (style, state, new=NULL)
 		case 1: RETVAL = &(style->bg[state]); break;
 		case 2: RETVAL = &(style->text[state]); break;
 		case 3: RETVAL = &(style->base[state]); break;
-		default: RETVAL = NULL;
+		default:
+			RETVAL = NULL;
+			g_assert_not_reached ();
 	}
 
 	if (new) {
@@ -262,6 +268,8 @@ fg (style, state, new=NULL)
 			case 1: style->bg[state]   = *new; break;
 			case 2: style->text[state] = *new; break;
 			case 3: style->base[state] = *new; break;
+			default:
+				g_assert_not_reached ();
 		}
 	}
     OUTPUT:

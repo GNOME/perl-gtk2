@@ -699,6 +699,8 @@ GET_SIZE (GtkCellRenderer * cell, ...)
 			PUSHs (newSVGtkCellEditable_ornull (editable));
 		}
 		break;
+	    default:
+		g_assert_not_reached ();
 	}
 
 

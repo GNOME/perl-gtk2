@@ -77,7 +77,9 @@ ok_button (fsd)
 		case 0:	RETVAL = fsd->ok_button; break;
 		case 1:	RETVAL = fsd->apply_button; break;
 		case 2:	RETVAL = fsd->cancel_button; break;
-		default: croak("unhandled case in members_get - shouldn't happen");
+		default: 
+			RETVAL = NULL;
+			g_assert_not_reached ();
 	}
     OUTPUT:
 	RETVAL

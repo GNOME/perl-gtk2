@@ -55,7 +55,6 @@ width (requisition, newval=NULL)
     ALIAS:
 	height = 1
     CODE:
-	RETVAL = 0;
 	switch (ix) {
 		case 0:
 			RETVAL = requisition->width;
@@ -65,6 +64,9 @@ width (requisition, newval=NULL)
 			RETVAL = requisition->height;
 			if (newval) requisition->height = SvIV (newval);
 			break;
+		default:
+			RETVAL = 0;
+			g_assert_not_reached ();
 	}
     OUTPUT:
 	RETVAL
@@ -308,7 +310,9 @@ toplevel (widget, ...)
 		case 16: RETVAL = GTK_WIDGET_DOUBLE_BUFFERED  (widget); break;
 		case 17: RETVAL = GTK_WIDGET_CAN_DEFAULT      (widget); break;
 		case 18: RETVAL = GTK_WIDGET_HAS_DEFAULT      (widget); break;
-		default: croak ("unhandled case (%s) in flags_handler - shouldn't happen", ix);
+		default:
+			RETVAL = FALSE;
+			g_assert_not_reached ();
 	    }
 	} else {
 	    value = (gboolean) SvIV(ST(1));
@@ -332,7 +336,9 @@ toplevel (widget, ...)
 		case 16: flag = GTK_DOUBLE_BUFFERED  ; break;
 		case 17: flag = GTK_CAN_DEFAULT      ; break;
 		case 18: flag = GTK_HAS_DEFAULT      ; break;
-		default: croak ("unhandled case (%s) in flags_handler - shouldn't happen", ix);
+		default:
+			RETVAL = FALSE;
+			g_assert_not_reached ();
 	    }
 	    if ( value ) {
 	    	GTK_WIDGET_SET_FLAGS(widget, flag);
@@ -450,6 +456,8 @@ destroy (GtkWidget * widget)
 		case 15: gtk_widget_queue_resize (widget); break;
 		case 16: gtk_widget_freeze_child_notify (widget); break;
 		case 17: gtk_widget_thaw_child_notify   (widget); break;
+		default:
+			 g_assert_not_reached ();
 	}
 
 void

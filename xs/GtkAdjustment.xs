@@ -32,7 +32,6 @@ value (GtkAdjustment *adjustment, gdouble newval = 0)
 	page_increment = 4
 	page_size      = 5
     CODE:
-	RETVAL = 0.0;
 	switch (ix) {
 	    case 0:
 		RETVAL = adjustment->value;
@@ -58,6 +57,9 @@ value (GtkAdjustment *adjustment, gdouble newval = 0)
 		RETVAL = adjustment->page_size;
 		if (items > 1) adjustment->page_size = newval;
 		break;
+	    default:
+		RETVAL = 0.0;
+		g_assert_not_reached ();
 	}
     OUTPUT:
 	RETVAL

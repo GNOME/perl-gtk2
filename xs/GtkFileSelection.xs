@@ -44,7 +44,6 @@ dir_list (fs)
 	Gtk2::FileSelection::button_area      = 15
 	Gtk2::FileSelection::action_area      = 16
     CODE:
-	RETVAL = NULL;
 	switch (ix) {
 		case  0: RETVAL = fs->dir_list;         break;
 		case  1: RETVAL = fs->file_list;        break;
@@ -63,6 +62,9 @@ dir_list (fs)
 		case 14: RETVAL = fs->fileop_ren_file;  break;
 		case 15: RETVAL = fs->button_area;      break;
 		case 16: RETVAL = fs->action_area;      break;
+		default:
+			RETVAL = NULL;
+			g_assert_not_reached ();
 	}
     OUTPUT:
 	RETVAL

@@ -32,12 +32,14 @@ colorsel (dialog)
 	cancel_button = 2
 	help_button = 3
     CODE:
-	RETVAL = NULL;
 	switch (ix) {
 		case 0: RETVAL = dialog->colorsel; break;
 		case 1: RETVAL = dialog->ok_button; break;
 		case 2: RETVAL = dialog->cancel_button; break;
 		case 3: RETVAL = dialog->help_button; break;
+		default:
+			RETVAL = NULL;
+			g_assert_not_reached ();
 	}
     OUTPUT:
 	RETVAL

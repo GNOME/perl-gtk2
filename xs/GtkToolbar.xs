@@ -99,6 +99,8 @@ gtk2perl_toolbar_insert_internal (GtkToolbar * toolbar,
 			                             real_icon, NULL, NULL, 
 			                             SvIV (position));
 			break;
+		    default:
+			g_assert_not_reached ();
 		}
 		}
 		break;
@@ -137,6 +139,8 @@ gtk2perl_toolbar_insert_internal (GtkToolbar * toolbar,
 						        NULL, NULL,
 			                                SvIV (position));
 			break;
+		    default:
+			g_assert_not_reached ();
 		}
 		}
 		break;
@@ -160,9 +164,13 @@ gtk2perl_toolbar_insert_internal (GtkToolbar * toolbar,
 			                           real_tooltip_private_text,
 						   SvIV (position));
 			break;
+		    default:
+			g_assert_not_reached ();
 		}
 		}
 		break;
+		default:
+			g_assert_not_reached ();
 	}
 	if (callback && SvOK (callback))
 		gperl_signal_connect (newSVGtkWidget (w), "clicked",

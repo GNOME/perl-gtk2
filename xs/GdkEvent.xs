@@ -47,8 +47,6 @@ gdk_event_get_package (GType gtype,
 	PERL_UNUSED_VAR (gtype);
 
 	switch (event->type) {
-	    default:
-		warn ("unknown event type %d", event->type);
 	    case GDK_NOTHING:
 	    case GDK_DELETE:
 	    case GDK_DESTROY:
@@ -102,6 +100,8 @@ gdk_event_get_package (GType gtype,
 		return "Gtk2::Gdk::Event::WindowState";
 	    case GDK_SETTING:
 		return "Gtk2::Gdk::Event::Setting";
+	    default:
+		croak ("Illegal type %d in event->type", event->type);
 	}
 }
 
@@ -1030,7 +1030,6 @@ width (GdkEvent * eventconfigure, gint newvalue=0)
     ALIAS:
 	Gtk2::Gdk::Event::Configure::height = 1
     CODE:
-	RETVAL = -1;
 	switch (ix) {
 		case 0:
 			RETVAL = eventconfigure->configure.width;
@@ -1038,6 +1037,9 @@ width (GdkEvent * eventconfigure, gint newvalue=0)
 		case 1:
 			RETVAL = eventconfigure->configure.height;
 			break;
+		default:
+			RETVAL = 0;
+			g_assert_not_reached ();
 	}
 	if (items == 2)
 	{
@@ -1048,6 +1050,8 @@ width (GdkEvent * eventconfigure, gint newvalue=0)
 			case 1:
 				eventconfigure->configure.height = newvalue;
 				break;
+			default:
+				g_assert_not_reached ();
 		}
 	}
     OUTPUT:
@@ -1341,7 +1345,8 @@ data (GdkEvent * eventclient, ...)
 			break;
 		}
 		default:
-			croak ("Illegal format value %d used; should be either 8, 16 or 32", eventclient->client.data_format);
+			croak ("Illegal format value %d used; should be either 8, 16 or 32", 
+			       eventclient->client.data_format);
 	}
 
 MODULE = Gtk2::Gdk::Event	PACKAGE = Gtk2::Gdk::Event::Setting

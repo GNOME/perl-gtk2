@@ -1,5 +1,17 @@
 2004/02/25 19:38 (-0500) rwmcfa1
 
+	* xs/Gdk.xs, xs/GdkDnd.xs, xs/GdkEvent.xs, xs/GdkProperty.xs,
+	xs/GdkRgb.xs, xs/GdkSelection.xs, xs/GdkTypes.xs, xs/Gtk2.xs,
+	xs/GtkAdjustment.xs, xs/GtkCalendar.xs, xs/GtkCellRenderer.xs,
+	xs/GtkColorSelectionDialog.xs, xs/GtkCombo.xs, xs/GtkDialog.xs,
+	xs/GtkFileChooser.xs, xs/GtkFileSelection.xs, xs/GtkFontSelection.xs,
+	xs/GtkPaned.xs, xs/GtkRc.xs, xs/GtkSelection.xs, xs/GtkStyle.xs,
+	xs/GtkToolbar.xs, xs/GtkWidget.xs, xs/PangoFont.xs, xs/PangoLayout.xs:
+	improved switch error handling, better way of quiting un-init'd values
+	and don't wast str's on hard to reach cases, just assert not reached.
+
+2004/02/25 19:38 (-0500) rwmcfa1
+
 	* xs/GdkColor.xs xs/GdkEvent.xs xs/GtkAccelGroup.xs xs/GtkAccelMap.xs
 	xs/GtkCellRenderer.xs xs/GtkDialog.xs xs/GtkSelection.xs
 	xs/GtkTreeModel.xs: =pod position=<pos> -> =for position <pos> 

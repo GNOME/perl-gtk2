@@ -51,7 +51,9 @@ black (style)
 	    case 4: RETVAL = newSViv (style->ythickness); break;
 	    case 5: RETVAL = newSVGdkGC (style->black_gc); break;
 	    case 6: RETVAL = newSVGdkGC (style->white_gc); break;
-	    default: croak ("augh! unhandled stateless style member");
+	    default: 
+		RETVAL = NULL;
+		g_assert_not_reached ();
 	}
     OUTPUT:
 	RETVAL
@@ -78,7 +80,9 @@ fg (style, state)
 	    case 5: RETVAL = &(style->text[state]); break;
 	    case 6: RETVAL = &(style->base[state]); break;
 	    case 7: RETVAL = &(style->text_aa[state]); break;
-	    default: croak ("augh! unhandled style state color");
+	    default: 
+		RETVAL = NULL;
+		g_assert_not_reached ();
 	}
     OUTPUT:
 	RETVAL
@@ -106,7 +110,9 @@ fg_gc (style, state)
 	    case 5: RETVAL = style->text_gc[state]; break;
 	    case 6: RETVAL = style->base_gc[state]; break;
 	    case 7: RETVAL = style->text_aa_gc[state]; break;
-	    default: croak ("augh! unhandled style state color");
+	    default: 
+		RETVAL = NULL;
+		g_assert_not_reached ();
 	}
     OUTPUT:
 	RETVAL

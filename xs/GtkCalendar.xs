@@ -65,6 +65,8 @@ num_marked_dates (cal)
 	    case 4:
 		PUSHs (sv_2mortal (newSViv (cal->selected_day)));
 		break;
+	    default:
+		g_assert_not_reached ();
 	}
 
 ## GtkWidget* gtk_calendar_new (void)

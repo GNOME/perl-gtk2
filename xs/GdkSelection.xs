@@ -41,7 +41,6 @@ SELECTION_PRIMARY (class)
 	Gtk2::Gdk::SELECTION_TYPE_WINDOW   = 14
 	Gtk2::Gdk::SELECTION_TYPE_STRING   = 15
     CODE:
-	RETVAL = 0;
 	switch (ix) {
 	    case  0: RETVAL = GDK_SELECTION_PRIMARY; break;
 	    case  1: RETVAL = GDK_SELECTION_SECONDARY; break;
@@ -59,6 +58,9 @@ SELECTION_PRIMARY (class)
 	    case 13: RETVAL = GDK_SELECTION_TYPE_PIXMAP; break;
 	    case 14: RETVAL = GDK_SELECTION_TYPE_WINDOW; break;
 	    case 15: RETVAL = GDK_SELECTION_TYPE_STRING; break;
+	    default:
+		RETVAL = 0;
+		g_assert_not_reached ();
 	}
     OUTPUT:
 	RETVAL

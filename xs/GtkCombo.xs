@@ -90,10 +90,12 @@ entry (combo)
     ALIAS:
 	Gtk2::Combo::list = 1
     CODE:
-	RETVAL = NULL;
 	switch (ix) {
 	    case 0: RETVAL = combo->entry; break;
 	    case 1: RETVAL = combo->list;  break;
+	    default:
+		RETVAL = NULL;
+		g_assert_not_reached ();
 	}
     OUTPUT:
 	RETVAL

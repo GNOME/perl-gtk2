@@ -177,12 +177,14 @@ x (GdkRectangle *rectangle, SV *newvalue = 0)
 	width = 2
 	height = 3
     CODE:
-	RETVAL = 0;
 	switch (ix) {
 		case 0: RETVAL = rectangle->x; break;
 		case 1: RETVAL = rectangle->y; break;
 		case 2: RETVAL = rectangle->width; break;
 		case 3: RETVAL = rectangle->height; break;
+		default:
+			RETVAL = 0;
+			g_assert_not_reached ();
 	}
         if (newvalue) {
                 switch (ix) {
@@ -190,6 +192,8 @@ x (GdkRectangle *rectangle, SV *newvalue = 0)
                         case 1: rectangle->y      = SvIV (newvalue); break;
                         case 2: rectangle->width  = SvIV (newvalue); break;
                         case 3: rectangle->height = SvIV (newvalue); break;
+			default:
+				g_assert_not_reached ();
                 }
         }
     OUTPUT:
@@ -255,6 +259,8 @@ min_width (SV *object, SV *newvalue=NULL)
 		case 9: value = hv_fetch (geometry, "max_aspect", 10, 0); break;
 		case 10: /* fall-through */
 		case 11: value = hv_fetch (geometry, "win_gravity", 11, 0); break;
+		default:
+			g_assert_not_reached ();
 	}
 
 	if (value && SvOK (*value))
@@ -276,6 +282,8 @@ min_width (SV *object, SV *newvalue=NULL)
 			case 9: hv_store (geometry, "max_aspect", 10, newvalue, 0); break;
 			case 10: /* fall-through */
 			case 11: hv_store (geometry, "win_gravity", 11, newvalue, 0); break;
+			default:
+				g_assert_not_reached ();
 		}
 	}
     OUTPUT:
