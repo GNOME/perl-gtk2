@@ -1,4 +1,8 @@
-2003/12/15 23:11 (-0500) rwmcfa1
+2003/12/16 13:16 (-0500) rwmcfa1
+
+	* Makefile.PL: use the new BLIB_MOD_EXISTS var in place of pure_all
+
+2003/12/16 09:23 (-0500) rwmcfa1
 
 	* Makefile.PL: \ should of been \\, caused a hang on perl with no 
 	script name.
