@@ -1,3 +1,24 @@
+2003/09/26 03:45 muppetman
+
+	* Gtk2.pm, README, META.yml, debian/changelog: prep for 1.00rc3 release
+
+	* pm/SimpleList.pm: Gtk2::SimpleList->new_from_treeview allows an
+	existing Gtk2::TreeView to be turned into a SimpleList.  intended
+	for Glade users.
+
+	* xs/GtkClipboard.xs, api.pod: several nasty bugs mean that this
+	module couldn't have worked as it was.  added class parameter to get
+	and get_for_display.  implemented set_with_data and set_with_owner.
+	made the others actually work.
+
+	* gtk2perl.h, xs/GtkSelection.xs: moved the macro to gtk2perl.h as
+	GTK2PERL_STACK_ITEMS_TO_TARGET_ENTRY_ARRAY so clipboard could use it.
+
+	* t/27.GtkClipboard.t, MANIFEST: new test.
+
+	 * xs/GtkStyle.xs: somehow we had implemented the deprecated
+	 gtk_draw_flat_box instead of gtk_paint_flat_box.
+
 2003/09/24 14:15 muppetman
 
 	* api.pod, xs.GtkWidget.xs, t/01.GtkWidget.xs: simplify
