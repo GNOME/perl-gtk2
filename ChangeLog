@@ -1,3 +1,22 @@
+2004/02/10 01:45 (-0500) muppetman
+
+	A copyright.pod
+	A doctypes
+	M MANIFEST
+	  add copyright.pod and doctypes
+
+	* Makefile.PL: require ExtUtils::Depends 0.2; use
+	Glib::MakeHelper->postamble_docs_full(); use and install doctypes,
+	to add mappings for unregistered types.
+
+	* README: update the ExtUtils::Depends and ExtUtils::PkgConfig
+	requirements.
+
+	* t/GtkCellRenderer.t: 'focused' was not a valid CellRendererState
+	value until 2.2.0
+
+	* xs/Gtk2.xs, xs/GtkTreeModel.xs, xs/GtkTreeStore.xs: pod updates
+
 2004/02/09 01:32 (+0100) kaffeetisch
 
 	* t/GtkTreeModelSort.t
