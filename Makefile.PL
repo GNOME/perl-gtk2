@@ -6,8 +6,19 @@ use 5.008;
 use strict;
 use ExtUtils::MakeMaker;
 use Cwd;
-use ExtUtils::Depends;
-use Glib::PkgConfig;
+
+# these two will be installed if Glib was successfully installed.  however,
+# for ExtUtils, the error message 'ExtUtils::Depends not found' doesn't very
+# clearly indicate that Glib isn't installed...
+#use ExtUtils::Depends;
+#use Glib::PkgConfig;
+eval "use ExtUtils::Depends;"
+   . "use Glib::PkgConfig; 1"
+	or die "$@\n"
+	     . "********************************************************\n"
+	     . "The Glib module must be installed before Gtk2.\n"
+	     . "Glib-Perl is available from the same place as Gtk2-Perl.\n"
+	     . "********************************************************\n";
 
 require 'CodeGen.pm'; # other modules can just 'use Gtk2::CodeGen;' -- we
                       # can't because it's not installed yet.
