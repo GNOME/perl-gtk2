@@ -9,7 +9,7 @@ use Config;
 use Cwd;
 
 # minimum required version of Glib with which we can work.
-my $req_glib_ver = 0.97;
+my $req_glib_ver = '1.00rc1';
 
 # Writing a fake Makefile ensures that CPAN will pick up the correct
 # dependencies and install them.
@@ -17,7 +17,7 @@ unless (eval "use ExtUtils::Depends;"
            . "use Glib::PkgConfig;"
            # just seeing if Glib is available isn't enough, make sure
            # it's recent enough, too 
-           . "use Glib $req_glib_ver;"
+           . "use Glib '$req_glib_ver';"
            . "1") {
    warn "$@\n";
    WriteMakefile(
@@ -122,6 +122,10 @@ WriteMakefile(
     XSPROTOARG    => '-noprototypes',
     MAN3PODS      => \%pod_files,
     # PREREQ see beginning of file
+    PREREQ_FATAL => 1,
+    PREREQ_PM    => {
+        Glib::  => $req_glib_ver, # keep this in sync
+    },
     FUNCLIST      => \@exports,
     DL_FUNCS      => { Gtk2 => [] },
     $gtk2->get_makefile_vars,
