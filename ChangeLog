@@ -1,3 +1,8 @@
+2003/06/09 13:49 muppetman
+
+	* xs/GtkClipboard.xs: new stuff; 2.2.x only, so only smoke-tested on
+	my end...
+
 2003/06/08 16:40 muppetman
 
 	* api.pod: merged in stuff from the braindump
