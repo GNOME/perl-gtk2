@@ -82,7 +82,11 @@ sub create_items {
 	}
 }
 
+package Gtk2::Gdk::Atom;
 
+use overload
+	'==' => \&Gtk2::Gdk::Atom::eq,
+	fallback => 1;
 
 package Gtk2;
 
