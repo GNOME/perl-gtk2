@@ -1,3 +1,11 @@
+2004/02/04 23:11 (-0500) muppetman
+
+	* pm/SimpleList.pm, xs/GdkDnd.xs: minor commentary updates.
+
+	* pm/SimpleMenu.pm: commentary updates; ross wrote SimpleMenu 
+	himself (unless i'm mistaken), but the doc appears to have been
+	copied from SimpleList.
+
 2004/02/04 19:09 (-0500) rwmcfa1
 
 	* xs/Gtk2.xs: implemented linked version checking in BOOT section
