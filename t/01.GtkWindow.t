@@ -9,7 +9,7 @@
 
 #########################
 
-use Gtk2::TestHelper tests => 108;
+use Gtk2::TestHelper tests => 106;
 
 ok( my $win = Gtk2::Window->new );
 ok( $win = Gtk2::Window->new('popup') );
@@ -201,7 +201,24 @@ my $accel_group = Gtk2::AccelGroup->new;
 $win->add_accel_group ($accel_group);
 $win->remove_accel_group ($accel_group);
 
-Glib::Idle->add(sub {
+
+# we can set this here, but we'll have to wait until events have
+# been handled to check them.  see the run_main block, below.
+$win->set_frame_dimensions(0, 0, 300, 500);
+
+ok( $win2->parse_geometry("100x100+10+10") );
+
+SKIP: {
+	skip 'set_auto_startup_notification is new in 2.2', 0
+		unless Gtk2->CHECK_VERSION(2, 2, 0);
+
+	$win2->set_auto_startup_notification(FALSE);
+}
+
+$win->show;
+ok(1);
+
+run_main {
 		$win2->show;
 
 		# there are no widgets, so this should fail
@@ -298,29 +315,8 @@ Glib::Idle->add(sub {
 
 		$win2->reshow_with_initial_size;
 		ok(1);
+};
 
-		Gtk2->main_quit;
-		ok(1);
-		0;
-	});
-
-
-$win->set_frame_dimensions(0, 0, 300, 500);
-
-ok( $win2->parse_geometry("100x100+10+10") );
-
-SKIP: {
-	skip 'set_auto_startup_notification is new in 2.2', 0
-		unless Gtk2->CHECK_VERSION(2, 2, 0);
-
-	$win2->set_auto_startup_notification(FALSE);
-}
-
-$win->show;
-ok(1);
-
-Gtk2->main;
-ok(1);
 
 my $group = Gtk2::WindowGroup->new;
 isa_ok( $group, "Gtk2::WindowGroup" );
@@ -343,5 +339,5 @@ SKIP: {
 
 __END__
 
-Copyright (C) 2003 by the gtk2-perl team (see the file AUTHORS for the
+Copyright (C) 2003-2005 by the gtk2-perl team (see the file AUTHORS for the
 full list).  See LICENSE for more information.

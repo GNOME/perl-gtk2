@@ -12,6 +12,8 @@ use warnings;
 
 #########################
 
+# NOTE: this is the bootstrap test -- no Gtk2::TestHelper here!
+
 use Test::More tests => 35;
 BEGIN { use_ok('Gtk2') };
 

@@ -188,7 +188,7 @@ SKIP: {
 	$i++;
     }
 
-    Glib::Idle->add( sub {
+    run_main {
 		SKIP: {
 			skip 'function only in version > 2.2', 5
 				unless Gtk2->CHECK_VERSION (2, 2, 0);
@@ -223,14 +223,10 @@ SKIP: {
 		$store->clear;
 		ok ($store->iter_n_children == 0, 
 			'$store->clear/iter_n_children');
-		Gtk2->main_quit;
-		0;
-	} );
-
-    Gtk2->main;
+	};
 }
 
 __END__
 
-Copyright (C) 2003 by the gtk2-perl team (see the file AUTHORS for the
+Copyright (C) 2003-2005 by the gtk2-perl team (see the file AUTHORS for the
 full list).  See LICENSE for more information.

@@ -415,15 +415,9 @@ $view->signal_connect (button_press_event => sub {
 	});
 my $event = Gtk2::Gdk::Event->new ('button-press');
 
-Glib::Idle -> add(sub {
-	$view->signal_emit ('button_press_event', $event);
-	Gtk2 -> main_quit();
-	return 0;
-});
-
-Gtk2 -> main();
+run_main { $view->signal_emit ('button_press_event', $event) };
 
 __END__
 
-Copyright (C) 2003 by the gtk2-perl team (see the file AUTHORS for the
+Copyright (C) 2003-2005 by the gtk2-perl team (see the file AUTHORS for the
 full list).  See LICENSE for more information.

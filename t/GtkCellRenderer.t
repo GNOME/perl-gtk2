@@ -138,20 +138,18 @@ SKIP: {
 
 ##########################################################################
 
-Glib::Idle->add (sub {
+run_main {
 	$treeview->set_cursor (Gtk2::TreePath->new_from_string ('0'),
 	                       $column, 1);
 	$treeview->set_cursor (Gtk2::TreePath->new_from_string ('0'),
 	                       $column_compat, 1);
-	Gtk2->main_quit;
-});
+};
 
-Gtk2->main;
 
 is_deeply ([ sort keys %hits ], [ qw/edit init render size/ ], 'callbacks encountered');
 is_deeply ([ sort keys %hits_compat ], [ qw/edit init render size/ ], 'callbacks encountered');
 
 __END__
 
-Copyright (C) 2003 by the gtk2-perl team (see the file AUTHORS for the
+Copyright (C) 2003-2005 by the gtk2-perl team (see the file AUTHORS for the
 full list).  See LICENSE for more information.

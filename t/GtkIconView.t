@@ -58,7 +58,17 @@ foreach (qw/horizontal vertical/)
 	is ($iview->get_orientation, $_, '$iview->set|get_orienation, '.$_);
 }
 
-Glib::Idle->add (sub {
+# extended should be in this list, but it seems to fail 
+foreach (qw/none single browse multiple/)
+{
+	$iview->set_selection_mode ($_);
+	is ($iview->get_selection_mode, $_,
+	    '$iview->set|get_selection_mode '.$_);
+}
+
+#$win->show_all;
+
+run_main {
 	# this stuff is liable to be flaky, it may require TODO's
 	my $path = $iview->get_path_at_pos (50, 50);
 	isa_ok ($path, 'Gtk2::TreePath', '$iview->get_path_at_pos (50, 50)');
@@ -85,21 +95,7 @@ Glib::Idle->add (sub {
 	$iview->unselect_all;
 	@sels = $iview->get_selected_items;
 	is (scalar (@sels), 0, '$iview->get_selected_items, count 0');
-	
-	Gtk2->main_quit;
-	0;
-});
-
-# extended should be in this list, but it seems to fail 
-foreach (qw/none single browse multiple/)
-{
-	$iview->set_selection_mode ($_);
-	is ($iview->get_selection_mode, $_,
-	    '$iview->set|get_selection_mode '.$_);
-}
-
-#$win->show_all;
-Gtk2->main;
+};
 
 sub create_store
 {

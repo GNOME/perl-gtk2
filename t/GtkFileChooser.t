@@ -43,21 +43,13 @@ $filename = File::Spec->catfile ($cwd, 'gtk2perl.h');
 ok ($file_chooser->set_filename ($filename),
     'set filename to something that exists');
 
-Glib::Idle -> add(sub {
-  is ($file_chooser->get_filename, $filename,
-      'set current name to something that does exist');
-  Gtk2->main_quit;
-});
-Gtk2->main;
+is_idle (sub {$file_chooser->get_filename}, $filename,
+         'set current name to something that does exist');
 
 #ok (!$file_chooser->select_filename ('/something bogus'));
 ok ($file_chooser->select_filename ($filename));
 
-Glib::Idle -> add(sub {
-  is ($file_chooser->get_filename, $filename, 'select something');
-  Gtk2->main_quit;
-});
-Gtk2->main;
+is_idle (sub {$file_chooser->get_filename}, $filename, 'select something');
 
 my @list = $file_chooser->get_filenames;
 is (scalar (@list), 1, 'selected one thing');
@@ -95,20 +87,11 @@ is ($file_chooser->get_current_folder, $cwd);
 my $uri = Glib::filename_to_uri (File::Spec->rel2abs ($0), undef);
 ok ($file_chooser->set_uri ($uri));
 
-Glib::Idle -> add(sub {
-  is ($file_chooser->get_uri, $uri);
-  Gtk2->main_quit;
-});
-Gtk2->main;
+is_idle (sub {$file_chooser->get_uri}, $uri, 'uri');
 
 ok ($file_chooser->select_uri ($uri));
 
-Glib::Idle -> add(sub {
-  @list = $file_chooser->get_uris;
-  ok (scalar (@list), 'selected a uri');
-  Gtk2->main_quit;
-});
-Gtk2->main;
+ok_idle (sub {scalar ($file_chooser->get_uris)}, 'selected a uri');
 
 $file_chooser->unselect_uri ($uri);
 
@@ -137,12 +120,10 @@ $file_chooser->set_current_folder ($cwd);
 $filename = File::Spec->catfile ($cwd, 'gtk2perl.h');
 ok ($file_chooser->select_filename ($filename));
 
-Glib::Idle -> add(sub {
+run_main {
   is ($file_chooser->get_preview_filename, $filename, 'get_preview_filename');
   is ($file_chooser->get_preview_uri, "file://".$filename, 'get_preview_uri');
-  Gtk2->main_quit;
-});
-Gtk2->main;
+};
 
 
 # Extra widget
@@ -199,5 +180,5 @@ SKIP: {
 
 __END__
 
-Copyright (C) 2003 by the gtk2-perl team (see the file AUTHORS for the
+Copyright (C) 2003-2005 by the gtk2-perl team (see the file AUTHORS for the
 full list).  See LICENSE for more information.

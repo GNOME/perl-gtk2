@@ -7,7 +7,7 @@
 # 	- rm
 #########################
 
-use Gtk2::TestHelper tests => 58;
+use Gtk2::TestHelper tests => 57;
 
 my $win = Gtk2::Window->new;
 
@@ -115,8 +115,9 @@ ok(1);
 ok( eq_array( [ $nb->query_tab_label_packing($child) ],
 	      [ 1, undef, 'end' ] ) );
 
-Glib::Idle->add( sub
-	{
+$win->show_all;
+ok(1);
+run_main {
 		$nb->next_page;
 		ok(1);
 		$nb->prev_page;
@@ -135,20 +136,11 @@ Glib::Idle->add( sub
 		$nb->set_current_page(4);
        		ok(1);
 		ok( $nb->get_current_page == 4 );
+};
 
-		Gtk2->main_quit;
-		ok(1);
-
-		0
-	} );
-
-$win->show_all;
-ok(1);
-
-Gtk2->main;
 ok(1);
 
 __END__
 
-Copyright (C) 2003 by the gtk2-perl team (see the file AUTHORS for the
+Copyright (C) 2003-2005 by the gtk2-perl team (see the file AUTHORS for the
 full list).  See LICENSE for more information.
