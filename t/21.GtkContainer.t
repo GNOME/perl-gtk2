@@ -7,7 +7,7 @@ use Test::More;
 use Gtk2;
 
 if (Gtk2->init_check) {
-	plan tests => 11;
+	plan tests => 20;
 } else {
 	plan skip_all => 'no display';
 }
