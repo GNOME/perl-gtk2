@@ -1,3 +1,8 @@
+2004/03/05 16:13 (+0100) kaffeetisch
+
+	* t/GdkEvent.t: Make sure the test doesn't fail when unexpected
+	mouse events occur.
+
 2004/03/04 02:42 (+0100) kaffeetisch
 
 	* t/GtkCellEditable.t: Test-drive the custom cell editable stuff.

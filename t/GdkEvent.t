@@ -7,7 +7,7 @@
 # 	- rm
 #########################
 
-use Gtk2::TestHelper tests => 97;
+use Gtk2::TestHelper tests => 96;
 use Data::Dumper;
 
 # Expose #######################################################################
@@ -189,11 +189,17 @@ Gtk2::Gdk::Event->put ($event);
 is (Gtk2::Gdk->events_pending, 1);
 isa_ok (Gtk2::Gdk::Event->peek, "Gtk2::Gdk::Event::Crossing");
 
+my $i_know_you = 0;
+
 Gtk2::Gdk::Event -> handler_set(sub {
+	return if $i_know_you++;
+
 	my ($ev, $data) = @_;
-	isa_ok ($ev, 'Gtk2::Gdk::Event::Crossing', '$ev of expected type');
+
+	ok ((ref $ev eq 'Gtk2::Gdk::Event::Crossing' or
+	     ref $ev eq 'Gtk2::Gdk::Event'), '$ev of expected type');
 	is ($data, 'bla', 'user data passed properly');
-	is_deeply ($ev->get_state, ['control-mask'], '$ev->get_state');
+
 	# pass to gtk+ default handler
 	Gtk2->main_do_event ($ev);
 }, 'bla');
