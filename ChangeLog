@@ -1,3 +1,9 @@
+2004/10/24 10:52 (-0400) rwmcfa1
+
+	* t/GtkComboBox.t: gtk+ changed behavior, when something is selected
+	that isn't in the list (user entered). test modified accordingly. can't
+	select that which isn't there either.
+
 2004/10/20 19:37 (+0200) kaffeetisch
 
 	* xs_files-2.0, maps_pango-1.0, gtk2perl.h, t/PangoFontMap.t,

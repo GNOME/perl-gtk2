@@ -59,8 +59,7 @@ $combo_box->set_wrap_width (23);
 $combo_box->set_row_span_column (0);
 $combo_box->set_column_span_column (0);
 
-$combo_box->set_active (1);
-is ($combo_box->get_active, 1);
+is ($combo_box->get_active, -1);
 
 __END__
 
