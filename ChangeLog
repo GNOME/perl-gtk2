@@ -1,3 +1,11 @@
+2004/01/25 19:43 (-0500) rwmcfa1
+
+	* t/GdkDisplay.t: use DISPLAY env var instead of assuming :0.0 will 
+	work
+
+	* t/GtkComboBoxEntry.t: use ord to get rid of some errors trying to take
+	a to a power.
+
 2004/01/25 23:37 (+0100) kaffeetisch
 
 	* t/GdkDrawable.t: Skip the draw_image test if get_image returned

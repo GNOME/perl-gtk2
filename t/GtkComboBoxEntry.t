@@ -14,7 +14,7 @@ isa_ok ($entry_box, 'Gtk2::ComboBoxEntry');
 
 my $model = Gtk2::ListStore->new (qw/Glib::String Glib::Int Glib::String/);
 foreach (qw/a b c d e f g/) {
-	$model->set ($model->append, 0, $_, 1, ord($_), 2, $_**2);
+	$model->set ($model->append, 0, $_, 1, ord($_), 2, ord($_)**2);
 }
 $entry_box->set_model ($model);
 is ($entry_box->get_model, $model);
