@@ -244,7 +244,7 @@ GtkTreeRowReference* gtk_tree_row_reference_copy (GtkTreeRowReference *reference
 
 MODULE = Gtk2::TreeModel	PACKAGE = Gtk2::TreeModel	PREFIX = gtk_tree_model_
 
-=for flags Gtk2::TreeModelFlags
+=for flags GtkTreeModelFlags
 =cut
 
 ## GtkTreeModelFlags gtk_tree_model_get_flags (GtkTreeModel *tree_model)

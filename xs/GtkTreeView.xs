@@ -140,7 +140,7 @@ gtk2perl_tree_view_destroy_count_func (GtkTreeView * tree_view,
 
 MODULE = Gtk2::TreeView	PACKAGE = Gtk2::TreeView	PREFIX = gtk_tree_view_
 
-=for enum Gtk2::TreeViewDropPosition
+=for enum GtkTreeViewDropPosition
 =cut
 
 BOOT:
