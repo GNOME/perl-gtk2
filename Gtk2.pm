@@ -46,8 +46,8 @@ sub create_item {
 			= @$entry;
 	} elsif ('HASH' eq ref $entry) {
 		($path, $accelerator, $callback, $action, $type, $extra)
-			= @$entry{qw(path accelerator callback action
-			             type extra)};
+			= @$entry{qw(path accelerator callback callback_action
+			             item_type extra_data)};
 	} else {
 		use Carp;
 		croak "badly formed Gtk Item Factory Entry; use either list for for hash form:\n"
@@ -55,11 +55,12 @@ sub create_item {
 		    . "        [ path, accel, callback, action, type ]\n"
 		    . "    hash form:\n"
 		    . "        {\n"
-		    . "           path => \$path,\n"
-		    . "           accel => \$accel,  # optional\n"
-		    . "           callback => \$callback,\n"
-		    . "           action => \$action,\n"
-		    . "           type => \$type,    # optional\n"
+		    . "           path            => \$path,\n"
+		    . "           accelerator     => \$accel,   # optional\n"
+		    . "           callback        => \$callback,\n"
+		    . "           callback_action => \$action,\n"
+		    . "           item_type       => \$type,    # optional\n"
+		    . "           extra_data      => \$extra,   # optional\n"
 		    . "         }\n"
 		    . "  ";
 	}
@@ -77,10 +78,13 @@ sub create_item {
 }
 
 sub create_items {
+	croak "usage: \$itemfactory->create_items(callback_data, entry, "
+		."[entry, ...]" if( scalar(@_) < 3 );
+
 	my $self = shift;
-	my $data = shift;
+	my $callback_data = shift;
 	foreach my $entry (@_) {
-		$self->create_item ($entry, $data);
+		$self->create_item ($entry, $callback_data);
 	}
 }
 
