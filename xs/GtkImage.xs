@@ -46,7 +46,7 @@ gtk_image_new_from_image (class, image, mask)
 
 GtkWidget*
 gtk_image_new_from_file (class, filename)
-	GPerlFilename filename
+	GPerlFilename_ornull filename
     C_ARGS:
         filename
 
@@ -94,7 +94,7 @@ gtk_image_set_from_image (image, gdk_image, mask)
 void
 gtk_image_set_from_file (image, filename)
 	GtkImage *image
-	GPerlFilename filename
+	GPerlFilename_ornull filename
 
 void
 gtk_image_set_from_pixbuf (image, pixbuf)
