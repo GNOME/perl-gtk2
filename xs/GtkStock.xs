@@ -27,17 +27,30 @@ stock_item_to_hv (GtkStockItem * item)
 	return hv;
 }
 
+/*
+ * returns a pointer to a temp stock item you can use until control returns 
+ * to perl.
+ */
 GtkStockItem * 
-hv_to_stock_item (HV * hv)
+SvGtkStockItem (SV * sv)
 {
-	GtkStockItem * item = g_new0 (GtkStockItem, 1);
+	HV * hv;
 	SV ** svp;
+	GtkStockItem * item;
+
+	if (! (sv && SvOK (sv) && SvROK (sv) &&
+	       SvTYPE (SvRV (sv)) == SVt_PVHV))
+		croak ("malformed stock item; use a reference to a hash as a stock item");
+
+	hv = (HV*) SvRV (sv);
+
+	item = gperl_alloc_temp (sizeof (GtkStockItem));
 
 	svp = hv_fetch (hv, "stock_id", 8, FALSE);
-	if (svp) item->stock_id = g_strdup (SvPV_nolen (*svp));
+	if (svp) item->stock_id = SvPV_nolen (*svp);
 	
 	svp = hv_fetch (hv, "label", 5, FALSE);
-	if (svp) item->label = g_strdup (SvPV_nolen (*svp));
+	if (svp) item->label = SvPV_nolen (*svp);
 
 	svp = hv_fetch (hv, "modifier", 8, FALSE);
 	if (svp) item->modifier = SvGdkModifierType (*svp);
@@ -46,7 +59,7 @@ hv_to_stock_item (HV * hv)
 	if (svp) item->keyval = SvUV (*svp);
 
 	svp = hv_fetch (hv, "translation_domain", 18, FALSE);
-	if (svp) item->translation_domain = g_strdup (SvPV_nolen (*svp));
+	if (svp) item->translation_domain = SvPV_nolen (*svp);
 
 	return item;
 }
@@ -55,11 +68,15 @@ hv_to_stock_item (HV * hv)
 MODULE = Gtk2::Stock	PACKAGE = Gtk2::Stock	PREFIX = gtk_stock_
 
 ###  void gtk_stock_add (const GtkStockItem *items, guint n_items) 
-#void
-#gtk_stock_add (items, n_items)
-#	const GtkStockItem *items
-#	guint n_items
-#
+void
+gtk_stock_add (class, ...)
+	SV * class
+    PREINIT:
+	int i;
+    CODE:
+	for (i = 1 ; i < items ; i++)
+		gtk_stock_add (SvGtkStockItem (ST (i)), 1);
+
 ###  void gtk_stock_add_static (const GtkStockItem *items, guint n_items) 
 #void
 #gtk_stock_add_static (items, n_items)
