@@ -7,12 +7,6 @@
 
 /* these are shared with GtkTreeStore.xs */
 extern GArray * gtk2perl_tree_store_stack_items_to_gtype_array_or_croak (int first);
-extern void gtk2perl_tree_or_list_store_set (GObject * store, GtkTreeIter * iter);
-
-
-
-
-
 
 
 
@@ -64,7 +58,6 @@ gtk_list_store_set (list_store, iter, ...)
     PREINIT:
 	int i;
     CODE:
-//	gtk2perl_tree_or_list_store_set (G_OBJECT (list_store), iter);
 	/* require at least one pair --- that means there needs to be
 	 * four items on the stack.  also require that the stack has an
 	 * even number of items on it. */
@@ -75,12 +68,13 @@ gtk_list_store_set (list_store, iter, ...)
 	}
 	for (i = 2 ; i < items ; i+= 2) {
 		gint column;
-		SV * sv;
 		GValue gvalue = {0, };
 		if (!looks_like_number (ST (i)))
 			croak ("Usage: $liststore->set ($iter, column1, value1, column2, value2, ...)\n"
 			       "   the first value in each pair must be a column number");
 		column = SvIV (ST (i));
+
+		//warn ("  %d   %d   %s\n", i, column, SvPV_nolen (ST (i+1)));
 
 		g_value_init (&gvalue,
 		              gtk_tree_model_get_column_type (GTK_TREE_MODEL (list_store),
