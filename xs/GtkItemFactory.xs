@@ -59,40 +59,6 @@ gtk2perl_item_factory_item_activate (gpointer    nothing,
 	LEAVE;
 }
 
-/* we unfortunately have to fake out the type0 callback stuff */
-static void
-gtk2perl_item_factory_item_activate_type0 (gpointer    nothing,
-				           guint       callback_action,
-				           GtkWidget * widget)
-{
-	SV * callback_sv;
-	SV * callback_data;
-
-	dSP; 
-
-	callback_sv = (SV*)g_object_get_data (
-				G_OBJECT (widget), "_callback_sv");
-	callback_data = (SV*)g_object_get_data (
-				G_OBJECT (widget), "_callback_data");
-
-	ENTER;
-	SAVETMPS;
-
-	PUSHMARK (SP);
-	EXTEND (SP, 3);
-	PUSHs (sv_2mortal (newSVsv (callback_data
-	                            ? callback_data
-	                            : &PL_sv_undef)));
-	PUSHs (sv_2mortal (newSViv (callback_action)));
-	PUSHs (sv_2mortal (newSVGtkWidget (widget)));
-	PUTBACK;
-
-	call_sv (callback_sv, G_DISCARD);
-
-	FREETMPS;
-	LEAVE;
-}
-
 
 MODULE = Gtk2::ItemFactory	PACKAGE = Gtk2::ItemFactory	PREFIX = gtk_item_factory_
 
