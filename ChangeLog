@@ -1,3 +1,10 @@
+2003/11/23 20:01 (-0500) rwmcfa1
+
+	* xs/GdkKeys.xs: initial import, implements Gtk2::Gdk::Keymap and 
+	Gtk2::Gdk::Keyval functions. some need Gtk2::Gdk::KeymapKey typemap.
+
+	* xs_files-2.0: added ^
+
 2003/11/21 10:43 (-0500) muppetman
 
 	* xs/GtkWindow.xs: add some enums to Gtk2::Window's doc.
