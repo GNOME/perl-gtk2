@@ -1,3 +1,7 @@
+/*
+ * $Header$
+ */
+
 #include "gtk2perl.h"
 
 MODULE = Gtk2::Alignment	PACKAGE = Gtk2::Alignment	PREFIX = gtk_alignment_

@@ -1,3 +1,7 @@
+/*
+ * $Header$
+ */
+
 #include "gtk2perl.h"
 
 // typedef gint (* GtkTreeIterCompareFunc) (GtkTreeModel *model, GtkTreeIter *a, GtkTreeIter *b, gpointer user_data)

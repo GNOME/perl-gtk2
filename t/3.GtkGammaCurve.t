@@ -1,3 +1,7 @@
+#
+# $Header$
+#
+
 #########################
 # GtkGammaCurve Tests
 # 	- rm

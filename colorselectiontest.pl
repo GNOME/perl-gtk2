@@ -1,4 +1,8 @@
 #!/usr/bin/perl -w
+#
+# $Header$
+#
+
 
 use blib '../G';
 use blib '.';

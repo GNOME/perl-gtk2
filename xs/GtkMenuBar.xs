@@ -1,3 +1,7 @@
+/*
+ * $Header$
+ */
+
 #include "gtk2perl.h"
 
 MODULE = Gtk2::MenuBar	PACKAGE = Gtk2::MenuBar	PREFIX = gtk_menu_bar_

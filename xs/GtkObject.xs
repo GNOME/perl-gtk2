@@ -1,3 +1,7 @@
+/*
+ * $Header$
+ */
+
 #include "../gtk2perl.h"
 #include "../ppport.h"
 

@@ -1,3 +1,7 @@
+/*
+ * $Header$
+ */
+
 #include "gtk2perl.h"
 
 MODULE = Gtk2::Calendar	PACKAGE = Gtk2::Calendar	PREFIX = gtk_calendar_

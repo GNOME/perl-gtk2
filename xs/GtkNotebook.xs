@@ -1,3 +1,7 @@
+/*
+ * $Header$
+ */
+
 #include "gtk2perl.h"
 
 MODULE = Gtk2::Notebook	PACKAGE = Gtk2::Notebook	PREFIX = gtk_notebook_

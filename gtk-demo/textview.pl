@@ -1,5 +1,9 @@
 #!/usr/bin/perl -w 
 #
+# $Header$
+#
+
+#
 # Text Widget
 #
 # The GtkTextView widget displays a GtkTextBuffer. One GtkTextBuffer

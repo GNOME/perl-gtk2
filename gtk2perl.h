@@ -1,3 +1,7 @@
+/*
+ *  * $Header$
+ *   */
+
 #ifndef _GTK2PERL_H_
 #define _GTK2PERL_H_
 

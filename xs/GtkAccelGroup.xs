@@ -1,3 +1,7 @@
+/*
+ * $Header$
+ */
+
 #include "gtk2perl.h"
 
 MODULE = Gtk2::AccelGroup	PACKAGE = Gtk2::AccelGroup	PREFIX = gtk_accel_group_

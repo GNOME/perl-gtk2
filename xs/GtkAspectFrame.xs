@@ -1,3 +1,7 @@
+/*
+ * $Header$
+ */
+
 #include "gtk2perl.h"
 
 MODULE = Gtk2::AspectFrame	PACKAGE = Gtk2::AspectFrame	PREFIX = gtk_aspectframe_

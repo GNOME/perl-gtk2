@@ -1,3 +1,7 @@
+/*
+ * $Header$
+ */
+
 #include "gtk2perl.h"
 
 MODULE = Gtk2::MenuShell	PACKAGE = Gtk2::MenuShell	PREFIX = gtk_menu_shell_

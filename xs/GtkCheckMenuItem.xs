@@ -1,3 +1,7 @@
+/*
+ * $Header$
+ */
+
 #include "gtk2perl.h"
 
 MODULE = Gtk2::CheckMenuItem	PACKAGE = Gtk2::CheckMenuItem	PREFIX = gtk_check_menu_item_

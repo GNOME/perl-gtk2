@@ -1,3 +1,7 @@
+/*
+ * $Header$
+ */
+
 #include "gtk2perl.h"
 
 MODULE = Gtk2::Viewport	PACKAGE = Gtk2::Viewport	PREFIX = gtk_viewport_

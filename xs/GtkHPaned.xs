@@ -1,3 +1,7 @@
+/*
+ * $Header$
+ */
+
 #include "gtk2perl.h"
 
 MODULE = Gtk2::HPaned	PACKAGE = Gtk2::HPaned	PREFIX = gtk_hpaned_

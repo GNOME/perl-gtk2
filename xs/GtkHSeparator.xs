@@ -1,3 +1,7 @@
+/*
+ * $Header$
+ */
+
 #include "gtk2perl.h"
 
 MODULE = Gtk2::HSeparator	PACKAGE = Gtk2::HSeparator	PREFIX = gtk_hseparator_

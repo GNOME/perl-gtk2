@@ -1,3 +1,7 @@
+#
+# $Header$
+#
+
 package Gtk2;
 
 use 5.008;

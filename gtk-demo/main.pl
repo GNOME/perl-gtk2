@@ -1,4 +1,8 @@
 #!/usr/bin/perl -w
+#
+# $Header$
+#
+
 
 use strict;
 use Carp;

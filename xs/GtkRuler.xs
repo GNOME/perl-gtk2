@@ -1,3 +1,7 @@
+/*
+ * $Header$
+ */
+
 #include "gtk2perl.h"
 
 MODULE = Gtk2::Ruler	PACKAGE = Gtk2::Ruler	PREFIX = gtk_ruler_

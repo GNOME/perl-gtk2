@@ -1,3 +1,7 @@
+/*
+ * $Header$
+ */
+
 #include "gtk2perl.h"
 
 MODULE = Gtk2::HScale	PACKAGE = Gtk2::HScale	PREFIX = gtk_hscale_

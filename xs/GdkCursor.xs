@@ -1,3 +1,7 @@
+/*
+ * $Header$
+ */
+
 #include "gtk2perl.h"
 
 MODULE = Gtk2::Gdk::Cursor	PACKAGE = Gtk2::Gdk::Cursor	PREFIX = gdk_cursor_

@@ -1,4 +1,8 @@
 #!/usr/bin/perl -w
+#
+# $Header$
+#
+
 use Data::Dumper;
 
 $input_map = shift;

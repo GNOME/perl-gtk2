@@ -1,3 +1,7 @@
+#
+# $Header$
+#
+
 # Tree View/Tree Store
 #
 # The GtkTreeStore is used to store data in tree form, to be

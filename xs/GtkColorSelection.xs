@@ -1,3 +1,7 @@
+/*
+ * $Header$
+ */
+
 #include "gtk2perl.h"
 
 MODULE = Gtk2::ColorSelection	PACKAGE = Gtk2::ColorSelection	PREFIX = gtk_color_selection_

@@ -1,3 +1,7 @@
+/*
+ * $Header$
+ */
+
 #include "gtk2perl.h"
 
 MODULE = Gtk2::ProgressBar	PACKAGE = Gtk2::ProgressBar	PREFIX = gtk_progress_bar_

@@ -1,4 +1,8 @@
 #!/usr/bin/perl -w
+#
+# $Header$
+#
+
 
 # Copyright (C) 1998 Cesar Miquel, Shawn T. Amundson, Mattias Grönlund
 # Copyright (C) 2000 Tony Gale

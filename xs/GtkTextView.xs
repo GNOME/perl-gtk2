@@ -1,3 +1,7 @@
+/*
+ * $Header$
+ */
+
 #include "gtk2perl.h"
 
 MODULE = Gtk2::TextView	PACKAGE = Gtk2::TextView	PREFIX = gtk_text_view_

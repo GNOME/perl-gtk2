@@ -1,3 +1,7 @@
+/*
+ * $Header$
+ */
+
 #include "gtk2perl.h"
 
 MODULE = Gtk2::HBox	PACKAGE = Gtk2::HBox	PREFIX = gtk_hbox_

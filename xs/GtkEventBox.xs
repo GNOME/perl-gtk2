@@ -1,3 +1,7 @@
+/*
+ * $Header$
+ */
+
 #include "gtk2perl.h"
 
 MODULE = Gtk2::EventBox	PACKAGE = Gtk2::EventBox	PREFIX = gtk_event_box_

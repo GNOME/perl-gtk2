@@ -1,3 +1,7 @@
+/*
+ * $Header$
+ */
+
 #include "gtk2perl.h"
 
 MODULE = Gtk2::HRuler	PACKAGE = Gtk2::HRuler	PREFIX = gtk_hruler_

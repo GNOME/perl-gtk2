@@ -1,3 +1,7 @@
+#
+# $Header$
+#
+
 #########################
 # GtkButton Tests
 # 	- rm

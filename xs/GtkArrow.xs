@@ -1,3 +1,7 @@
+/*
+ * $Header$
+ */
+
 #include "gtk2perl.h"
 
 MODULE = Gtk2::Arrow	PACKAGE = Gtk2::Arrow	PREFIX = gtk_arrow_

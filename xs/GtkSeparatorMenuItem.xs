@@ -1,3 +1,7 @@
+/*
+ * $Header$
+ */
+
 #include "gtk2perl.h"
 
 MODULE = Gtk2::SeparatorMenuItem	PACKAGE = Gtk2::SeparatorMenuItem	PREFIX = gtk_separator_menu_item_

@@ -1,3 +1,7 @@
+/*
+ * $Header$
+ */
+
 #include "gtk2perl.h"
 
 MODULE = Gtk2::CellRendererText	PACKAGE = Gtk2::CellRendererText	PREFIX = gtk_cell_renderer_text_

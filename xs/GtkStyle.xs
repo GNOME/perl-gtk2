@@ -1,3 +1,7 @@
+/*
+ * $Header$
+ */
+
 #include "gtk2perl.h"
 
 MODULE = Gtk2::Style	PACKAGE = Gtk2::Style	PREFIX = gtk_style_

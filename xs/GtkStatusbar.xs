@@ -1,3 +1,7 @@
+/*
+ * $Header$
+ */
+
 #include "gtk2perl.h"
 
 MODULE = Gtk2::Statusbar	PACKAGE = Gtk2::Statusbar	PREFIX = gtk_statusbar_

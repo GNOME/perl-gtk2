@@ -1,3 +1,7 @@
+/*
+ * $Header$
+ */
+
 #include "gtk2perl.h"
 
 MODULE = Gtk2::VBox	PACKAGE = Gtk2::VBox	PREFIX = gtk_vbox_

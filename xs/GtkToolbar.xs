@@ -1,3 +1,7 @@
+/*
+ * $Header$
+ */
+
 #include "gtk2perl.h"
 
 MODULE = Gtk2::Toolbar	PACKAGE = Gtk2::Toolbar	PREFIX = gtk_toolbar_

@@ -1,3 +1,7 @@
+/*
+ * $Header$
+ */
+
 #include "gtk2perl.h"
 
 MODULE = Gtk2::Bin	PACKAGE = Gtk2::Bin	PREFIX = gtk_bin_

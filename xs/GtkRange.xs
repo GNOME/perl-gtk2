@@ -1,3 +1,7 @@
+/*
+ * $Header$
+ */
+
 #include "gtk2perl.h"
 
 MODULE = Gtk2::Range	PACKAGE = Gtk2::Range	PREFIX = gtk_range_

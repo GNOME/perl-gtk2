@@ -1,3 +1,7 @@
+/*
+ * $Header$
+ */
+
 #include "gtk2perl.h"
 
 MODULE = Gtk2::CellRendererToggle	PACKAGE = Gtk2::CellRendererToggle	PREFIX = gtk_cell_renderer_toggle_

@@ -1,3 +1,7 @@
+/*
+ * $Header$
+ */
+
 #include "gtk2perl.h"
 
 MODULE = Gtk2::TearoffMenuItem	PACKAGE = Gtk2::TeamoffMenuItem	PREFIX = gtk_teamoff_menu_item_

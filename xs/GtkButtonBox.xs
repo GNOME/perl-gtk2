@@ -1,3 +1,7 @@
+/*
+ * $Header$
+ */
+
 #include "gtk2perl.h"
 
 MODULE = Gtk2::ButtonBox	PACKAGE = Gtk2::ButtonBox	PREFIX = gtk_button_box_

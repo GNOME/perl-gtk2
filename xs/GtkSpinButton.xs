@@ -1,3 +1,7 @@
+/*
+ * $Header$
+ */
+
 #include "gtk2perl.h"
 
 MODULE = Gtk2::SpinButton	PACKAGE = Gtk2::SpinButton	PREFIX = gtk_spin_button_

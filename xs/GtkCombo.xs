@@ -1,3 +1,7 @@
+/*
+ * $Header$
+ */
+
 #include "gtk2perl.h"
 
 MODULE = Gtk2::Combo	PACKAGE = Gtk2::Combo	PREFIX = gtk_combo_

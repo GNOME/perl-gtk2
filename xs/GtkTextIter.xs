@@ -1,3 +1,7 @@
+/*
+ * $Header$
+ */
+
 #include "gtk2perl.h"
 
 MODULE = Gtk2::TextIter	PACKAGE = Gtk2::TextIter	PREFIX = gtk_text_iter_

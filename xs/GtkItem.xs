@@ -1,3 +1,7 @@
+/*
+ * $Header$
+ */
+
 #include "gtk2perl.h"
 
 MODULE = Gtk2::Item	PACKAGE = Gtk2::Item	PREFIX = gtk_item_

@@ -1,3 +1,7 @@
+/*
+ * $Header$
+ */
+
 #include "gtk2perl.h"
 
 MODULE = Gtk2::FontSelection	PACKAGE = Gtk2::FontSelection	PREFIX = gtk_font_selection_

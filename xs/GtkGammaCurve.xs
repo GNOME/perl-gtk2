@@ -1,3 +1,7 @@
+/*
+ * $Header$
+ */
+
 #include "gtk2perl.h"
 
 MODULE = Gtk2::GammaCurve	PACKAGE = Gtk2::GammaCurve	PREFIX = gtk_gamma_curve_

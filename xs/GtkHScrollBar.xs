@@ -1,3 +1,7 @@
+/*
+ * $Header$
+ */
+
 #include "gtk2perl.h"
 
 MODULE = Gtk2::HScrollBar	PACKAGE = Gtk2::HScrollBar	PREFIX = gtk_hscrollbar_

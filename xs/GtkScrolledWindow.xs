@@ -1,3 +1,7 @@
+/*
+ * $Header$
+ */
+
 #include "gtk2perl.h"
 
 MODULE = Gtk2::ScrolledWindow	PACKAGE = Gtk2::ScrolledWindow	PREFIX = gtk_scrolled_window_

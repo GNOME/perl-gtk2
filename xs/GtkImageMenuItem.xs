@@ -1,3 +1,7 @@
+/*
+ * $Header$
+ */
+
 #include "gtk2perl.h"
 
 MODULE = Gtk2::ImageMenuItem	PACKAGE = Gtk2::ImageMenuItem	PREFIX = gtk_image_menu_item_

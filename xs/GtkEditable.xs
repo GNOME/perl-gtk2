@@ -1,3 +1,7 @@
+/*
+ * $Header$
+ */
+
 #include "gtk2perl.h"
 
 MODULE = Gtk2::Editable	PACKAGE = Gtk2::Editable	PREFIX = gtk_editable_

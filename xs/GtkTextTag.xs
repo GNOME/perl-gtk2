@@ -1,3 +1,7 @@
+/*
+ * $Header$
+ */
+
 #include "gtk2perl.h"
 
 MODULE = Gtk2::TextTag	PACKAGE = Gtk2::TextTag	PREFIX = gtk_text_tag_

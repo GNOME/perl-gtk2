@@ -1,3 +1,7 @@
+/*
+ * $Header$
+ */
+
 #include "gtk2perl.h"
 
 MODULE = Gtk2::VButtonBox	PACKAGE = Gtk2::VButtonBox	PREFIX = gtk_vbutton_box_
