@@ -11,7 +11,7 @@
 
 # change 'tests => 1' to 'tests => last_test_to_print';
 
-use Test::More tests => 11;
+use Test::More tests => 12;
 BEGIN { use_ok('Gtk2') };
 
 #########################
@@ -47,6 +47,14 @@ ok( $rdobtn = Gtk2::RadioButton->new([ $rdobtn ], "bar2") );
 $vbox->pack_start($rdobtn, 0, 0, 0);
 
 ok( scalar(@{$rdobtn->get_group}) == 3 );
+
+for( $i = 0; $i < 5; $i++ )
+{
+	$rdobtns[$i] = Gtk2::RadioButton->new(\@rdobtns, $i);
+	$vbox->pack_start($rdobtns[$i], 0, 0, 0);
+}
+
+ok( scalar(@{$rdobtns[0]->get_group}) == 5 );
 
 G::Idle->add( sub 
 	{
