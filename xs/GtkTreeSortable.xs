@@ -23,7 +23,7 @@
 
 // typedef gint (* GtkTreeIterCompareFunc) (GtkTreeModel *model, GtkTreeIter *a, GtkTreeIter *b, gpointer user_data)
 
-MODULE = Gtk2::TreeSortable	PACKAGE = Gtk2::TreeSortable	PREFIX = gtk_tre_sortable_
+MODULE = Gtk2::TreeSortable	PACKAGE = Gtk2::TreeSortable	PREFIX = gtk_tree_sortable_
 
 ## void gtk_tree_sortable_sort_column_changed (GtkTreeSortable *sortable)
 void
