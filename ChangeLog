@@ -1,3 +1,38 @@
+2003/12/23 01:40 (-0500) muppetman [unstable-2-3-x-branch]
+
+	A xs/GtkIconTheme.xs
+	A xs/GtkTreeModelFilter.xs
+	* maps-2.3
+	* xs_files-2.3
+	* MANIFEST: new implementations for GtkIconTheme and GtkModelFilter
+
+	* xs/GdkDrawable.xs, xs/GtkTreeModelFilter.xs: typo
+
+	* xs/GtkActionGroup.xs: implement add_actions, add_toggle_actions,
+	and add_radio_actions.
+
+	* xs/GtkButton.xs: add set_alignment and get_alignment
+
+	* xs/GtkCellLayout.xs: add reorder
+
+	* xs/GtkExpander.xs: add set_use_markup and get_use_markup
+
+	* xs/GtkFileFilter.xs: there is no boxed type support for GtkFileFilterInfo,
+	so implement the wrap and unwrap functions.
+
+	* xs/GtkMenu.xs: add set_monitor
+
+	* xs/GtkMenuShell.xs: more new functions, select_first and cancel
+
+	* xs/GtkSeparatorToolItem.xs: add get_draw and set_draw
+
+	* xs/GtkToolButton.xs: add _ornull where applicable.
+
+	* xs/GtkToolbar.xs: remove some unused crap
+
+	* xs/GtkWindow.xs: add get_accept_focus, set_accept_focus, is_active,
+	and has_toplevel_focus
+
 2003/12/23 02:10 (-0500) muppetman [unstable-2-3-x-branch]
 
 	* AUTHORS MANIFEST Makefile.PL gtk2perl.h maps-2.0 pm/SimpleList.pm
