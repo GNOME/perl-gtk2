@@ -127,15 +127,6 @@ const gchar * gtk_about_dialog_get_translator_credits (GtkAboutDialog * about);
 
 void gtk_about_dialog_set_translator_credits (GtkAboutDialog * about, const gchar *translator_credits);
 
-## according to doc you need to ref this if you're going to keep a reference
-## around, and we're going to so...
-GdkPixbuf_ornull * gtk_about_dialog_get_logo (about)
-	GtkAboutDialog * about
-    CODE:
-	RETVAL = gtk_about_dialog_get_logo (about);
-	if (RETVAL)
-		g_object_ref (RETVAL);
-    OUTPUT:
-		RETVAL
+GdkPixbuf_ornull * gtk_about_dialog_get_logo (GtkAboutDialog * about);
 
 void gtk_about_dialog_set_logo (GtkAboutDialog * about, GdkPixbuf * logo);
