@@ -1,3 +1,7 @@
+2003/06/06 11:39 pcg
+
+        * xs/GtkTextTagTable.xs: new file, all methods of GtkTextTagTable.
+
 2003/06/05 10:53 rwmcfa1
 
 	* t/[0-9]*: prepended 0's onto the front of the 0 - 9 tests to improve
