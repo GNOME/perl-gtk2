@@ -29,7 +29,7 @@
 #undef newSVGtkIconSize
 #undef SvGtkIconSize
 
-SV *
+static SV *
 newSVGtkIconSize (GtkIconSize size)
 {
 	/* crap.  there is no try.  do, or do not. */
@@ -46,7 +46,7 @@ newSVGtkIconSize (GtkIconSize size)
 	return sv;
 }
 
-GtkIconSize
+static GtkIconSize
 SvGtkIconSize (SV * sv)
 {
 	GtkIconSize size;

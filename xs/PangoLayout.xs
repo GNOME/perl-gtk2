@@ -83,7 +83,7 @@ SvPangoRectangle (SV * sv)
 
 /* ------------------------------------------------------------------------- */
 
-SV *
+static SV *
 newSVPangoLogAttr (PangoLogAttr * logattr)
 {
 	HV * hv = newHV ();

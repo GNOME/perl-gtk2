@@ -1,3 +1,27 @@
+2004/04/20 15:41 (+0200) kaffeetisch
+
+	<warning size="big" weight="fat">
+	  This commit marks some functions static that were previously not
+	  static, but not in the header either.  It was a mistake that
+	  they were not static, so it needs to be fixed.  This fix has the
+	  potential to break ABI compatability, though.  So if you see any
+	  breakage that might be related to this change, please speak up
+	  and we'll revert it.
+	</warning>
+
+	* xs/GdkWindow.xs: Comment out newSVGdkWindowAttr and
+	SvGdkWindowAttr since they're currently unused.  Make
+	SvGdkWindowAttrReal static.
+
+	* xs/GtkIconFactory.xs: Make newSVGtkIconSize and SvGtkIconSize
+	static.
+
+	* xs/GtkStock.xs: Rename stock_item_to_hv to newSVGtkStockItem,
+	make it return a reference to a hash, fix the indention and make
+	it static.  Make SvGtkStockItem static.
+
+	* xs/PangoLayout.xs: Make newSVPangoLogAttr static.
+
 2004/04/19 20:30 (+0200) kaffeetisch
 
 	* Makefile.PL: Require Glib 1.050.

@@ -32,8 +32,8 @@ struct GtkStockItem {
 };
 */
 
-HV * 
-stock_item_to_hv (GtkStockItem * item)
+static SV * 
+newSVGtkStockItem (GtkStockItem * item)
 {
 	HV * hv = newHV();
 	hv_store (hv, "stock_id", 8, newSVpv (item->stock_id, 0), 0);
@@ -41,15 +41,15 @@ stock_item_to_hv (GtkStockItem * item)
 	hv_store (hv, "modifier", 8, newSVGdkModifierType (item->modifier), 0);
 	hv_store (hv, "keyval", 6, newSVuv (item->keyval), 0);
 	if (item->translation_domain)
-	hv_store (hv, "translation_domain", 18, newSVpv (item->translation_domain, 0), 0);
-	return hv;
+		hv_store (hv, "translation_domain", 18, newSVpv (item->translation_domain, 0), 0);
+	return newRV_noinc ((SV *) hv);
 }
 
 /*
  * returns a pointer to a temp stock item you can use until control returns 
  * to perl.
  */
-GtkStockItem * 
+static GtkStockItem * 
 SvGtkStockItem (SV * sv)
 {
 	HV * hv;
@@ -127,12 +127,10 @@ gtk_stock_lookup (class, stock_id)
 	const gchar *stock_id
     PREINIT:
 	GtkStockItem item;
-	HV * hv;
     CODE:
 	if (! gtk_stock_lookup (stock_id, &item))
 		XSRETURN_UNDEF;
-	hv = stock_item_to_hv (&item);
-	RETVAL = newRV_noinc ((SV*)hv);
+	RETVAL = newSVGtkStockItem (&item);
     OUTPUT:
 	RETVAL
 
