@@ -1,3 +1,14 @@
+2003/09/16 15:00 muppetman
+
+	* Makefile.PL: don't do any of the hand-coded install stuff on
+	windows --- there's no sane place to install, and nmake barfs on
+	the generated makefile code.
+
+	* xs/GtkDialog.xs: unused variables
+
+	* xs/GdkGC.xs, xs/GdkTypes.xs, xs/GtkCurve.xs, xs/GtkTreeView.xs:
+	casts to hush pedantic compilers
+
 2003/09/15 22:26 rwmcfa1
 
 	* Makefile.PL: spec file dependancies improved
