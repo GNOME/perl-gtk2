@@ -37,6 +37,5 @@ SvGdkGeometry
 SvGdkGeometryReal
 SvGtkTargetEntry
 SvGtkTargetList
-SvPangoRectangle
 );
 1;

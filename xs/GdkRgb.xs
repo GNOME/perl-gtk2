@@ -36,7 +36,7 @@ SvImageDataPointer (SV * sv)
 	if (SvIOK (sv))
 		return INT2PTR (guchar*, SvUV (sv));
 	else if (SvPOK (sv))
-		return SvPV_nolen (sv);
+		return (guchar *) SvPV_nolen (sv);
 	else
 		croak ("expecting either a string containing pixel data or "
 		       "an integer pointing to the underlying C image data "

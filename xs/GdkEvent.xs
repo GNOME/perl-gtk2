@@ -261,7 +261,9 @@ gdk_event_unwrap (GType gtype, const char * package, SV * sv)
 	package = gdk_event_get_package (gtype, event);
 
 	if (!sv_derived_from (sv, package))
-		croak ("variable is not of type %s", package);
+		croak ("%s is not of type %s",
+		       gperl_format_variable_for_output (sv),
+		       package);
 
 	return event;
 }

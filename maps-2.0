@@ -185,7 +185,7 @@ GTK_TYPE_ICON_FACTORY	GtkIconFactory	GObject	Gtk2::IconFactory
 GTK_TYPE_ICON_SET	GtkIconSet	GBoxed	Gtk2::IconSet
 GTK_TYPE_ICON_SIZE	GtkIconSize	GEnum	Gtk2::IconSize
 GTK_TYPE_ICON_SOURCE	GtkIconSource	GBoxed	Gtk2::IconSource
-GTK_TYPE_IDENTIFIER	GtkIdentifier	GString	Gtk2::Identifier
+# GTK_TYPE_IDENTIFIER	GtkIdentifier	GString	Gtk2::Identifier
 GTK_TYPE_IMAGE	GtkImage	GtkObject	Gtk2::Image
 GTK_TYPE_IMAGE_MENU_ITEM	GtkImageMenuItem	GtkObject	Gtk2::ImageMenuItem
 GTK_TYPE_IMAGE_TYPE	GtkImageType	GEnum	Gtk2::ImageType

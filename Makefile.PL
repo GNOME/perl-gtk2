@@ -71,12 +71,12 @@ our @xs_files = ();
 our @xs_lists = Glib::MakeHelper->select_files_by_version ("xs_files", @gtk_version);
 foreach my $filename (@xs_lists) {
 	my @names = Glib::MakeHelper->read_source_list_file ($filename);
-	print "$filename lists ".scalar(@names)." xs files\n";
+	print "Loaded ".scalar(@names)." xs files from $filename\n";
 	push @xs_files, @names;
 }
 my $target = ExtUtils::PkgConfig->variable ('gtk+-2.0', 'target');
 if ($target =~ /x11/) {
-	warn "congratulations, you're building on X11!\n";
+	warn "Congratulations, you're building on X11!\n";
 	push @xs_files, 'xs/GdkX11.xs';
 }
 

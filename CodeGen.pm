@@ -305,7 +305,7 @@ sub parse_maps {
 
 	    close IN;
 
-	    print "loaded $n type definitions from $file\n";
+	    print "Loaded $n type definitions from $file\n";
 	}
 
 	# create output

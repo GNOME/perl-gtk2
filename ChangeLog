@@ -1,3 +1,31 @@
+2004/09/19 23:35 (+0200) kaffeetisch
+
+	* CodeGen.pm, Makefile.PL: Use capitals at the start of everything
+	that is printed, to unify Makefile.PL output.
+
+	* maps-2.0: Comment out the GtkIdentifier entry -- it's never been
+	used and caused a warning.
+
+	* xs/GdkEvent.xs (gdk_event_unwrap): Use
+	gperl_format_variable_for_output when croaking.
+
+	* xs/GdkPixbuf.xs, xs/GdkPixbufLoader.xs, xs/GdkProperty.xs,
+	xs/GdkRgb.xs, xs/GdkSelection.xs: Add some casts to avoid compiler
+	warnings and to be on the safe side.
+
+	* xs/GtkClipboard.xs: Remove unneeded semicolons from the
+	DEFINE_QUARK calls.
+
+	* xs/GtkTreeModel.xs (to_arrayref): Use IV instead of UV.
+
+	Fixes for win32 build issues discovered by Arnold Putz:
+
+	* Gtk2.exports: Remove SvPangoRectangle since it has been
+	commented out.
+
+	* xs/GdkKeys.xs: Remove the semicolon from the end of a macro
+	definition.
+
 2004/09/13 23:01 (+0200) kaffeetisch
 
 	* t/GtkTextView.t, t/PangoContext.t, t/PangoLayout.t,

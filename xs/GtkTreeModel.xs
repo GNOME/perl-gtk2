@@ -881,7 +881,7 @@ model.  See L<Gtk2::TreeModel/CREATING A CUSTOM TREE MODEL> for
 more information.
 =cut
 SV*
-to_arrayref (GtkTreeIter * iter, UV stamp)
+to_arrayref (GtkTreeIter * iter, IV stamp)
     CODE:
 	if (iter->stamp != stamp)
 		croak ("invalid iter -- stamp %d does not match requested %d",

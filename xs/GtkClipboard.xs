@@ -37,14 +37,14 @@ stem ## _quark (void) 							\
 	return q;							\
 }
 
-DEFINE_QUARK (clipboard_received);
-DEFINE_QUARK (clipboard_text_received);
+DEFINE_QUARK (clipboard_received)
+DEFINE_QUARK (clipboard_text_received)
 #if GTK_CHECK_VERSION (2, 4, 0)
-DEFINE_QUARK (clipboard_targets_received);
+DEFINE_QUARK (clipboard_targets_received)
 #endif
-DEFINE_QUARK (clipboard_get);
-DEFINE_QUARK (clipboard_clear);
-DEFINE_QUARK (clipboard_user_data);
+DEFINE_QUARK (clipboard_get)
+DEFINE_QUARK (clipboard_clear)
+DEFINE_QUARK (clipboard_user_data)
 
 static void 
 gtk2perl_clipboard_received_func (GtkClipboard *clipboard,

@@ -138,7 +138,7 @@ gdk_selection_property_get (class, requestor)
 	                                 &prop_type, &prop_format))
 		XSRETURN_EMPTY;
 	EXTEND (SP, 3);
-	PUSHs (sv_2mortal (newSVpv (data, 0)));
+	PUSHs (sv_2mortal (newSVpv ((gchar *) data, 0)));
 	PUSHs (sv_2mortal (newSVGdkAtom (prop_type)));
 	PUSHs (sv_2mortal (newSViv (prop_format)));
 	g_free (data);

@@ -82,7 +82,7 @@ gdk_pixbuf_loader_write (loader, buf)
     PREINIT:
 	GError * error = NULL;
         STRLEN length;
-        const guchar *data = SvPVbyte (buf, length);
+        const guchar *data = (const guchar *) SvPVbyte (buf, length);
     CODE:
 	RETVAL = gdk_pixbuf_loader_write (loader, data, length, &error);
 	if (!RETVAL)

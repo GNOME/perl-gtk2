@@ -24,7 +24,7 @@
    NULL.  used as the first argument this allows a method to be invoked in two
    ways: as an object method and as a class static method. */
 typedef GdkKeymap GdkKeymap_orclass;
-#define SvGdkKeymap_orclass(sv) ((sv && SvOK (sv) && SvROK (sv)) ? SvGdkKeymap (sv) : NULL);
+#define SvGdkKeymap_orclass(sv) ((sv && SvOK (sv) && SvROK (sv)) ? SvGdkKeymap (sv) : NULL)
 
 static GdkKeymapKey *
 SvGdkKeymapKey (SV *sv)

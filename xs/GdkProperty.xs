@@ -52,7 +52,7 @@
 	EXTEND (sp, 3);					\
 	PUSHs (sv_2mortal (newSVGdkAtom (encoding)));	\
 	PUSHs (sv_2mortal (newSViv (format)));		\
-	PUSHs (sv_2mortal (newSVpv (ctext, length)));
+	PUSHs (sv_2mortal (newSVpv ((gchar *) ctext, length)));
 
 /* ------------------------------------------------------------------------- */
 

@@ -219,7 +219,7 @@ gdk_pixbuf_get_pixels (pixbuf)
 	guchar * pixels;
     CODE:
 	pixels = gdk_pixbuf_get_pixels (pixbuf);
-	RETVAL = newSVpv (pixels,
+	RETVAL = newSVpv ((gchar *) pixels,
 			  gdk_pixbuf_get_height (pixbuf)
 			  * gdk_pixbuf_get_rowstride (pixbuf));
     OUTPUT:
@@ -338,7 +338,8 @@ gdk_pixbuf_new_from_data (class, data, colorspace, has_alpha, bits_per_sample, w
 	if (!data || !SvPOK (data))
 		croak ("expecting a packed string for pixel data");
 	real_data = gperl_sv_copy (data);
-	RETVAL = gdk_pixbuf_new_from_data (SvPV_nolen (real_data),
+	RETVAL = gdk_pixbuf_new_from_data ((const guchar *)
+	                                     SvPV_nolen (real_data),
 	                                   colorspace, has_alpha,
 					   bits_per_sample,
 					   width, height, rowstride,
@@ -436,7 +437,7 @@ gdk_pixbuf_new_from_inline (class, data, copy_pixels=TRUE)
 	STRLEN data_length;
 	const guchar * raw_data;
     CODE:
-	raw_data = SvPV (data, data_length);
+	raw_data = (const guchar *) SvPV (data, data_length);
 	RETVAL = gdk_pixbuf_new_from_inline (data_length, raw_data, 
 	                                     copy_pixels, &error);
 	if (!RETVAL)
