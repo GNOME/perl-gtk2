@@ -27,6 +27,16 @@
 # GtkItemFactory provides a higher-level interface for creating menu bars
 # and menus; while you can construct menus manually, most people don't
 # do that. There's a separate demo for GtkItemFactory.
+#
+# NOTE: after gtk+-2.4.0, GtkItemFactory has been deprecated in favor of
+#	GtkUIManager.  There's a separate demo for GtkUIManager, which is
+#	available if your Gtk2 has been compiled against gtk+-2.4 or later.
+#
+#	similarly, 2.4's new GtkComboBox obseletes the GtkOptionMenu.
+#
+#	gtk2-perl retains support for the objects deprecated during the
+#	gtk+ 2.x series, so we retain the code here to avoid massive clutter
+#	of version guards. 
 # 
 #
 

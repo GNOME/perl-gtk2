@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w 
 #
-# Text Widget
+# Multiple Views
 #
 # The GtkTextView widget displays a GtkTextBuffer. One GtkTextBuffer
 # can be displayed by multiple GtkTextViews. This demo has two views
@@ -284,18 +284,22 @@ sub attach_widgets {
           $widget->signal_connect (clicked => \&easter_egg_callback);
 
       } elsif ($i == 1) {
-          my $menu = Gtk2::Menu->new;
-          
-          $widget = Gtk2::OptionMenu->new;
+	  if ((Gtk2->get_version_info)[1] > 2) {
+             $widget = Gtk2::ComboBox->new_text;
+             $widget->append_text ("Option 1");
+             $widget->append_text ("Option 2");
+             $widget->append_text ("Option 3");
 
-          my $menu_item = Gtk2::MenuItem->new ("Option 1");
-          $menu->append ($menu_item);
-          $menu_item = Gtk2::MenuItem->new ("Option 2");
-          $menu->append ($menu_item);
-          $menu_item = Gtk2::MenuItem->new ("Option 3");
-          $menu->append ($menu_item);
+          } else {
+             # ComboBox is not available, use OptionMenu instead
+             my $menu = Gtk2::Menu->new;
+             $menu->append (Gtk2::MenuItem->new ("Option 1"));
+             $menu->append (Gtk2::MenuItem->new ("Option 2"));
+             $menu->append (Gtk2::MenuItem->new ("Option 3"));
 
-          $widget->set_menu ($menu);
+             $widget = Gtk2::OptionMenu->new;
+             $widget->set_menu ($menu);
+          }
 
       } elsif ($i == 2) {
           $widget = Gtk2::HScale->new (undef);

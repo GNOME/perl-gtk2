@@ -48,6 +48,7 @@ gtk-demo/colorsel.pl
 gtk-demo/dialog.pl
 gtk-demo/drawingarea.pl
 gtk-demo/editable_cells.pl
+gtk-demo/entry_completion.pl
 gtk-demo/floppybuddy.gif
 gtk-demo/gnome-applets.png
 gtk-demo/gnome-calendar.png
@@ -57,6 +58,7 @@ gtk-demo/gnome-gmush.png
 gtk-demo/gnome-gsame.png
 gtk-demo/gnu-keys.png
 gtk-demo/gtk-logo-rgb.gif
+gtk-demo/hypertext.pl
 gtk-demo/images.pl
 gtk-demo/item_factory.pl
 gtk-demo/list_store.pl
@@ -68,6 +70,7 @@ gtk-demo/sizegroup.pl
 gtk-demo/stock_browser.pl
 gtk-demo/textview.pl
 gtk-demo/tree_store.pl
+gtk-demo/ui_manager.pl
 gtk.typemap
 maps-2.0
 maps-2.2
