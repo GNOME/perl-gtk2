@@ -1,3 +1,9 @@
+2003/07/05 06:06 pcg
+
+        * xs/GtkTextBuffer.xs, xs/GtkClipboard.xs: use length()
+        syntax. Beat me if it doesn't work, I tested in with 5.8.0 and
+        5.8.1-devel with no problems (and needed that change).
+
 2003/07/04 16:31 muppetman
 
 	* xs/GdkWindow.xs: added gdk_get_default_root_window
