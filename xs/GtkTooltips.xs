@@ -86,7 +86,4 @@ gtk_tooltips_force_window (tooltips)
 	GtkTooltips * tooltips
 
 ## void _gtk_tooltips_toggle_keyboard_mode (GtkWidget *widget)
-#void
-#_gtk_tooltips_toggle_keyboard_mode (widget)
-#	GtkWidget * widget
 

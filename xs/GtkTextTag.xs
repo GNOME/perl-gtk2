@@ -74,12 +74,4 @@ gtk_text_attributes_copy_values (dest, src)
 	src, dest
 
 #### void gtk_text_attributes_unref (GtkTextAttributes *values)
-##void
-##gtk_text_attributes_unref (values)
-##	GtkTextAttributes *values
-##
 #### void gtk_text_attributes_ref (GtkTextAttributes *values)
-##void
-##gtk_text_attributes_ref (values)
-##	GtkTextAttributes *values
-##

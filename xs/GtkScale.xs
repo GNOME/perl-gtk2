@@ -57,9 +57,3 @@ gtk_scale_get_value_pos (scale)
 	GtkScale * scale
 
 ## void _gtk_scale_get_value_size (GtkScale *scale, gint *width, gint *height)
-#void
-#_gtk_scale_get_value_size (scale, width, height)
-#	GtkScale * scale
-#	gint     * width
-#	gint     * height
-

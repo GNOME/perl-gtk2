@@ -64,15 +64,6 @@ gtk_plug_get_id (plug)
 	GtkPlug * plug
 
 ## void _gtk_plug_add_to_socket (GtkPlug *plug, GtkSocket *socket)
-#void
-#_gtk_plug_add_to_socket (plug, socket)
-#	GtkPlug   * plug
-#	GtkSocket * socket
-
 ## void _gtk_plug_remove_from_socket (GtkPlug *plug, GtkSocket *socket)
-#void
-#_gtk_plug_remove_from_socket (plug, socket)
-#	GtkPlug   * plug
-#	GtkSocket * socket
 
 #endif

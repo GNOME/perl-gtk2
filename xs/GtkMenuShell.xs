@@ -65,14 +65,6 @@ gtk_menu_shell_activate_item (menu_shell, menu_item, force_deactivate)
 	GtkWidget    * menu_item
 	gboolean       force_deactivate
 
+# __PRIVATE__
 ## void _gtk_menu_shell_select_first (GtkMenuShell *menu_shell, gboolean search_sensitive)
-#void
-#_gtk_menu_shell_select_first (menu_shell, search_sensitive)
-#	GtkMenuShell * menu_shell
-#	gboolean       search_sensitive
-
 ## void _gtk_menu_shell_activate (GtkMenuShell *menu_shell)
-#void
-#_gtk_menu_shell_activate (menu_shell)
-#	GtkMenuShell * menu_shell
-
