@@ -71,6 +71,20 @@ gint
 gtk_tree_path_get_depth (path)
 	GtkTreePath *path
 
+void
+gtk_tree_path_get_indices (path)
+	GtkTreePath * path
+    PREINIT:
+	gint * indices;
+	gint depth;
+	gint i;
+    PPCODE:
+	depth = gtk_tree_path_get_depth (path);
+	indices = gtk_tree_path_get_indices (path);
+	EXTEND (SP, depth);
+	for (i = 0 ; i < depth ; i++)
+		PUSHs (sv_2mortal (newSViv (indices[i])));
+
 ## perl developer need never know this exists
 ## void gtk_tree_path_free (GtkTreePath *path)
 
