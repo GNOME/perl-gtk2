@@ -55,7 +55,7 @@ SV * newSVGdkBitmap_noinc (GdkBitmap * bitmap);
  * (it has multiple bits set and therefore matches everything!)
  */
 #undef newSVGdkModifierType
-SV * newSVGdkModiferType (GdkModifierType mods);
+SV * newSVGdkModifierType (GdkModifierType mods);
 
 
 #endif /* _GTK2PERL_H_ */
