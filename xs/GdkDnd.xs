@@ -38,7 +38,7 @@ members (dc)
     CODE:
 	switch (ix) {
 	    case 1: RETVAL = newSVGdkDragProtocol (dc->protocol); break;
-	    case 2: RETVAL = newSVbool (dc->is_source); break;
+	    case 2: RETVAL = newSViv (dc->is_source); break;
 	    case 3: RETVAL = newSVGdkWindow (dc->source_window); break;
 	    case 4: RETVAL = newSVGdkWindow (dc->dest_window); break;
 	    /* must use get_targets to access targets */
