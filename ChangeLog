@@ -1,3 +1,10 @@
+2003/01/05 17:18 (+0100) kaffeetisch [test-suite-branch]
+
+	* t/GtkIconFactory.t: Initial import.
+
+	* t/GtkTooltips.t: Test data_get more thoroughly.  Call
+	force_window.
+
 2003/01/04 21:33 (+0100) kaffeetisch [test-suite-branch]
 
 	* t/GdkWindow.t: Add a title field to an attributes hash to hush a
