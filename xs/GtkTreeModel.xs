@@ -424,12 +424,28 @@ gtk_tree_model_get (tree_model, iter, ...)
     PREINIT:
 	int i;
     PPCODE:
-	for (i = 2 ; i < items ; i++) {
-		GValue gvalue = {0, };
-		gtk_tree_model_get_value (tree_model, iter, 
-		                          SvIV (ST (i)), &gvalue);
-		XPUSHs (sv_2mortal (gperl_sv_from_value (&gvalue)));
-		g_value_unset (&gvalue);
+	/* if column id's were passed, just return those columns */
+	if( items > 2 )
+	{
+		for (i = 2 ; i < items ; i++) {
+			GValue gvalue = {0, };
+			gtk_tree_model_get_value (tree_model, iter, 
+			                          SvIV (ST (i)), &gvalue);
+			XPUSHs (sv_2mortal (gperl_sv_from_value (&gvalue)));
+			g_value_unset (&gvalue);
+		}
+	}
+	else
+	{
+		/* otherwise return all of the columns */
+		for( i = 0; i < gtk_tree_model_get_n_columns(tree_model); i++ )
+		{
+			GValue gvalue = {0, };
+			gtk_tree_model_get_value (tree_model, iter, 
+			                          i, &gvalue);
+			XPUSHs (sv_2mortal (gperl_sv_from_value (&gvalue)));
+			g_value_unset (&gvalue);
+		}
 	}
 
  ## va_list means nothing to a perl developer, it's a c-specific thing.
