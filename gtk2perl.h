@@ -51,7 +51,8 @@
 
 #include "gtk2perl-autogen.h"
 
-#ifdef GDK_WINDOWING_WIN32 /* no plug/socket on win32 despite patches exist for years. */
+/* no plug/socket on non-X11 despite patches exist for years. */
+#ifndef GDK_WINDOWING_X11
 # undef GTK_TYPE_PLUG
 # undef GTK_TYPE_SOCKET
 #endif

@@ -23,7 +23,9 @@
 
 MODULE = Gtk2::Plug	PACKAGE = Gtk2::Plug	PREFIX = gtk_plug_
 
-#ifndef GDK_WINDOWING_WIN32 /* no plug/socket on win32 despite patches exist for years. */
+## no plug/socket on non-X11 despite patches exist for years.
+
+#ifdef GDK_WINDOWING_X11
 
 ## void gtk_plug_construct (GtkPlug *plug, GdkNativeWindow socket_id)
 void

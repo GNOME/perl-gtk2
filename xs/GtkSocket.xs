@@ -23,7 +23,9 @@
 
 MODULE = Gtk2::Socket	PACKAGE = Gtk2::Socket	PREFIX = gtk_socket_
 
-#ifndef GDK_WINDOWING_WIN32 /* no plug/socket on win32 despite patches exist for years. */
+## no plug/socket on non-X11 despite patches exist for years.
+
+#ifdef GDK_WINDOWING_X11
 
 ## GtkWidget* gtk_socket_new (void)
 GtkWidget *
