@@ -248,6 +248,7 @@ BOOT:
 
 ## void pango_font_family_list_faces (PangoFontFamily *family, PangoFontFace ***faces, int *n_faces)
 =for apidoc
+=for apidoc @faces = $family->list_faces
 Lists the different font faces that make up family. The faces in a family
 share a common design, but differ in slant, weight, width and other aspects.
 =cut
