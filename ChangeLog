@@ -1,5 +1,21 @@
 2003/12/14 17:16 (-0500) muppetman
 
+	* xs/GtkTreeModel.xs, AUTHORS: patch from Roderich Schupp implements
+	a custom marshaler for the rows-reordered signal.  applied with small
+	changes.
+
+	* xs/GtkTreeModel.xs: implement the old FIXMEd rows_reordered method.
+
+	* xs/GtkTreeStore.xs: off-by-one error in reorder().  changed loop
+	logic to be a little clearer at the expense of an extra iterator var.
+
+	* t/22.GtkListStore.t, t/23.GtkTreeStore.t: add code to test the
+	rows-reordered signal and rows_reordered method.  also removed the
+	init_check guards on these two, because they don't need a display
+	to run their tests.
+
+2003/12/14 17:16 (-0500) muppetman
+
 	* t/paned.t: wait for size-allocate instead of using timeouts... still
 	trying to get this test to be robust.
 
