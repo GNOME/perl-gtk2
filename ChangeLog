@@ -1,3 +1,7 @@
+
+2003/06/15 17:03 joered
+	* xs/Gtk2/GtkTextIter.xs: added binding for gtk_text_iter_copy
+
 2003/06/12 20:27 muppetman
 
 	* xs/GdkScreen.xs, xs/PangoTabs.xs: newly implemented
