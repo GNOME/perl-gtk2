@@ -1,9 +1,21 @@
-2003/08/14 20:43 muppetman
+2003/08/14 22:43 muppetman
 
 	busy day, busy day...
 
 	* t/00.Gtk2.t, t/16.GtkMenu-etc.t, t/19.GtkSimpleList.t: patch from
 	Torsten Schoenfeld hushes some warnings in make test
+
+	* xs/GtkTreeView.xs: another TreeView patch from Torsten, hacked up
+	a bit by me, to add some callbacks.  get_search_equal_func isn't
+	bound because there's really no reliable and not easily-broken way
+	to return a function pointer value or a code reference and then know
+	what to do with them on the other end.  (presumably for restoring
+	the search func after setting it.)  also, i left out the 
+	destroy_count_func stuff, as the docs say they are supposed to be
+	private.
+
+	* t/04.GtkSocket-GtkPlug.t: i did it wrong.  i swear it works,
+	this time.
 
 2003/08/14 16:59 muppetman
 
