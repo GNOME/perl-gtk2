@@ -24,6 +24,7 @@ examples/simple_menu.pl
 examples/socket.pl
 examples/testdnd.pl
 examples/timeouttest.pl
+fetch_faq.pl
 gdk.typemap
 genkeysyms.pl
 genmaps.pl
@@ -109,7 +110,7 @@ t/ignore_keyboard.pl
 TODO
 t/text-iter-searches.t
 xs_files-2.0
-xs_files-2.2  
+xs_files-2.2
 xs/GdkColor.xs
 xs/GdkCursor.xs
 xs/GdkDisplayManager.xs

@@ -110,6 +110,11 @@ our %pod_files = (
 	'pm/SimpleMenu.pm' => '$(INST_MAN3DIR)/Gtk2::SimpleMenu.$(MAN3EXT)',
 	'api.pod'          => '$(INST_MAN3DIR)/Gtk2::api.$(MAN3EXT)',
 	'devel.pod'        => '$(INST_MAN3DIR)/Gtk2::devel.$(MAN3EXT)',
+);
+
+unless (grep /disable[-_]apidoc/i, @ARGV)
+{
+	print STDERR "Including ApiDoc pod.\n";
 	# we will be installing a whole slew of pod files, generated directly
 	# from the xs source -- but to have them installed and manified
 	# properly, we have to know their names at Makefile.PL time.
@@ -117,8 +122,32 @@ our %pod_files = (
 	# basically means that if you create a new package name in the xs
 	# code, you'll need to re-run Makefile.PL.  you already need to
 	# re-run to pick up new XS files, so that's not such a big deal. 
-	Glib::MakeHelper->do_pod_files (@xs_files),
-);
+	%pod_files = ( 
+		%pod_files, 
+		Glib::MakeHelper->do_pod_files (@xs_files),
+	);
+}
+	
+if (grep /enable[-_]faq/i, @ARGV)
+{
+	print STDERR "Including FAQ in pod, retrieved from Gtk2-Perl site.\n";
+	# Writing a fake Makefile ensures that CPAN will pick up the correct
+	# dependencies and install them.
+	unless (eval "use LWP; 1") 
+	{
+	   warn "$@\n";
+	   WriteMakefile(
+	         PREREQ_FATAL => 1,
+	         PREREQ_PM    => {
+	            'LWP' => 0.1,
+	         },
+	   );
+	   exit 1; # not reached
+	}
+	require 'fetch_faq.pl';
+	$pm_files{'build/FAQ.pod'} = '$(INST_LIBDIR)/Gtk2/FAQ.pod';
+	$pod_files{'build/FAQ.pod'} = '$(INST_MAN3DIR)/Gtk2::devel.$(MAN3EXT)';
+}
 
 #
 # autogeneration
@@ -208,6 +237,8 @@ Makefile : ".join(" ", @lists)."
 build/stock_items.podi: podifystockitems.pl
 	\$(PERL) -I \$(INST_LIB) -I \$(INST_ARCHLIB) \$< > \$@
 
+build/FAQ.pod: fetch_faq.pl
+	$^X \$<
 ";
 
 	# this installation stuff doesn't make sense on windows, where

@@ -1,5 +1,12 @@
 2003/12/04 00:51 (-0500) rwmcfa1
 
+	* fetch_faq.pl, MANIFEST: initial import for fetch_faq.pl, needs 
+	testing
+
+	* Makefile.PL: --enable-faq and --disable-apidoc added and worked out
+
+2003/12/04 00:51 (-0500) rwmcfa1
+
 	* : Merge of rel-1-02 doc and fixes back. (following 3 apply)
 
 	* xs/(bunch).xs: ... (list) comments corrected
