@@ -36,12 +36,12 @@ static SV *
 newSVGtkStockItem (GtkStockItem * item)
 {
 	HV * hv = newHV();
-	hv_store (hv, "stock_id", 8, newSVpv (item->stock_id, 0), 0);
-	hv_store (hv, "label", 5, newSVpv (item->label, 0), 0);
+	hv_store (hv, "stock_id", 8, newSVGChar (item->stock_id), 0);
+	hv_store (hv, "label", 5, newSVGChar (item->label), 0);
 	hv_store (hv, "modifier", 8, newSVGdkModifierType (item->modifier), 0);
 	hv_store (hv, "keyval", 6, newSVuv (item->keyval), 0);
 	if (item->translation_domain)
-		hv_store (hv, "translation_domain", 18, newSVpv (item->translation_domain, 0), 0);
+		hv_store (hv, "translation_domain", 18, newSVGChar (item->translation_domain), 0);
 	return newRV_noinc ((SV *) hv);
 }
 
