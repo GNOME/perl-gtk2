@@ -104,6 +104,7 @@ t/accel-group-map.t
 t/calendar.t
 t/file-selection.t
 t/ignore_keyboard.pl
+t/paned.t
 t/text-iter-searches.t
 TODO
 tools/fetch_faq.pl
