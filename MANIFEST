@@ -29,6 +29,7 @@ examples/combo_box.pl
 examples/customlist.pl
 examples/customrenderer.pl
 examples/dialog.pl
+examples/draw_text.pl
 examples/file_chooser.pl
 examples/filesel_multisel.pl
 examples/histogramplot.pl
