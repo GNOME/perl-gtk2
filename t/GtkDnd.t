@@ -17,6 +17,7 @@ $button -> drag_dest_set("all", "copy",
 );
 
 my $list = $button -> drag_dest_get_target_list();
+$button -> drag_dest_set_target_list(undef);
 $button -> drag_dest_set_target_list($list);
 
 is($list -> find(Gtk2::Gdk -> TARGET_BITMAP), 23);
@@ -59,6 +60,15 @@ $button -> drag_source_set("shift-mask", "copy",
 # $button -> drag_source_set_icon(...);
 $button -> drag_source_set_icon_pixbuf($pixbuf);
 $button -> drag_source_set_icon_stock("gtk-quit");
+
+SKIP: {
+  skip("drag_source_[sg]et_target_list is new in 2.4", 0)
+    unless Gtk2->CHECK_VERSION (2, 3, 5); # FIXME 2.4
+
+  $list = $button -> drag_source_get_target_list();
+  $button -> drag_source_set_target_list(undef);
+  $button -> drag_source_set_target_list($list);
+}
 
 $button -> drag_source_unset();
 

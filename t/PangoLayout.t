@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 22;
+use Gtk2::TestHelper tests => 23;
 
 # $Header$
 
@@ -42,6 +42,14 @@ is($layout -> get_spacing(), 5);
 
 $layout -> set_justify(1);
 is($layout -> get_justify(), 1);
+
+SKIP: {
+  skip("[sg]et_auto_dir are new in 1.3.5", 1)
+    unless (Gtk2::Pango -> CHECK_VERSION(1, 3, 5));
+
+  $layout -> set_auto_dir(1);
+  is($layout -> get_auto_dir(), 1);
+}
 
 $layout -> set_alignment("left");
 is($layout -> get_alignment(), "left");

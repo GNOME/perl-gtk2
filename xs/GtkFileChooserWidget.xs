@@ -18,3 +18,10 @@ GtkWidget *gtk_file_chooser_widget_new (class, GtkFileChooserAction action);
     C_ARGS:
 	action
 
+#if GTK_CHECK_VERSION (2, 3, 5) /* FIXME 2.4: those guards can be removed altogether */
+
+GtkWidget *gtk_file_chooser_widget_new_with_backend (class, GtkFileChooserAction action, const gchar *backend);
+    C_ARGS:
+	action, backend
+
+#endif

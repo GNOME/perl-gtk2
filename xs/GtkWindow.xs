@@ -605,10 +605,23 @@ gtk_window_set_auto_startup_notification (class, setting)
 
 #endif
 
-#if GTK_CHECK_VERSION(2,3,5) /* FIXME 2.4 */
+#if GTK_CHECK_VERSION(2,3,4) /* FIXME 2.4 */
 
+=for apidoc
+=for arg event (Gtk2::Gdk::Event::Key)
+=cut
 gboolean
 gtk_window_activate_key (window, event)
+	GtkWindow *window
+	GdkEvent *event
+    C_ARGS:
+	window, (GdkEventKey *) event
+
+=for apidoc
+=for arg event (Gtk2::Gdk::Event::Key)
+=cut
+gboolean
+gtk_window_propagate_key_event (window, event)
 	GtkWindow *window
 	GdkEvent *event
     C_ARGS:

@@ -5,7 +5,7 @@
 use Gtk2::TestHelper
 	# FIXME 2.4
 	at_least_version => [2, 3, 0, "GtkFileChooser is new in 2.4"],
-	tests => 5;
+	tests => 6;
 
 
 my $dialog = Gtk2::FileChooserDialog->new ('some title', undef, 'save',
@@ -17,14 +17,21 @@ isa_ok ($dialog, 'Gtk2::FileChooser');
 
 is ($dialog->get_action, 'save');
 
-$dialog = Gtk2::FileChooserDialog->new_with_backend ('some title', undef,
-                                                     'save',
-                                                     'backend',
-                                                     'gtk-cancel' => 'cancel',
-                                                     'gtk-ok' => 'ok');
+SKIP: {
+	skip 'new_with_backend is new in 2.3.5', 3
+		unless Gtk2->CHECK_VERSION (2, 3, 5);
 
-isa_ok ($dialog, 'Gtk2::FileChooserDialog');
-isa_ok ($dialog, 'Gtk2::FileChooser');
+	$dialog = Gtk2::FileChooserDialog->new_with_backend ('some title', undef,
+	                                                     'open',
+	                                                     'backend',
+	                                                     'gtk-cancel' => 'cancel',
+	                                                     'gtk-ok' => 'ok');
+
+	isa_ok ($dialog, 'Gtk2::FileChooserDialog');
+	isa_ok ($dialog, 'Gtk2::FileChooser');
+
+	is ($dialog->get_action, 'open');
+}
 
 __END__
 

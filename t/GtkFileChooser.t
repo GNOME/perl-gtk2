@@ -50,14 +50,6 @@ my @list = $file_chooser->get_filenames;
 is (scalar (@list), 1, 'selected one thing');
 is ($list[0], $filename, 'selected '.$filename);
 
-TODO: {
-	local $TODO = "get_filenames is broken, too";
-
-	$file_chooser->unselect_filename ($filename);
-	@list = $file_chooser->get_filenames;
-	is (scalar (@list), 0, 'unselected everything');
-}
-
 $file_chooser->set_select_multiple (TRUE);
 ok ($file_chooser->get_select_multiple, 'select multiple');
 
@@ -87,13 +79,6 @@ $file_chooser->select_uri ($uri);
 ok (scalar (@list), 'selected a uri');
 
 $file_chooser->unselect_uri ($uri);
-
-TODO: {
-	local $TODO = "get_uris is broken, too";
-
-	@list = $file_chooser->get_uris;
-	ok (!scalar (@list), 'no uris selected');
-}
 
 $file_chooser->set_current_folder_uri ($uri);
 is ($file_chooser->get_current_folder_uri, $uri);
@@ -155,9 +140,18 @@ $file_chooser->add_shortcut_folder ($cwd);
 $file_chooser->add_shortcut_folder_uri ("file://" . $cwd);
 
 SKIP: {
-skip "FIXME FIXME list_shortcut_folders is currently broken", 2;
-#####is_deeply ([$file_chooser->list_shortcut_folders], [$cwd, $cwd]);
-#####is_deeply ([$file_chooser->list_shortcut_folder_uris], ["file://" . $cwd, "file://" . $cwd]);
+	skip "list_shortcut_folders, get_uris, and get_filenames were broken prior to 2.3.5", 4
+		unless Gtk2->CHECK_VERSION (2, 3, 5);
+
+	is_deeply ([$file_chooser->list_shortcut_folders], [$cwd, $cwd]);
+	is_deeply ([$file_chooser->list_shortcut_folder_uris], ["file://" . $cwd, "file://" . $cwd]);
+
+	@list = $file_chooser->get_uris;
+	ok (!scalar (@list), 'no uris selected');
+
+	$file_chooser->unselect_filename ($filename);
+	@list = $file_chooser->get_filenames;
+	is (scalar (@list), 0, 'unselected everything');
 }
 
 $file_chooser->remove_shortcut_folder ($cwd);

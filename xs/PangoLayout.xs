@@ -161,6 +161,20 @@ PangoWrapMode
 pango_layout_get_wrap (layout)
 	PangoLayout *layout
 
+#if PANGO_CHECK_VERSION (1, 3, 5)
+
+##  void pango_layout_set_auto_dir (PangoLayout *layout, gboolean auto_dir)
+void
+pango_layout_set_auto_dir (layout, auto_dir)
+	PangoLayout *layout
+	gboolean auto_dir
+
+##  gboolean pango_layout_get_auto_dir (PangoLayout *layout)
+gboolean
+pango_layout_get_auto_dir (layout)
+	PangoLayout *layout
+
+#endif
 
 ##  void pango_layout_set_alignment (PangoLayout *layout, PangoAlignment alignment) 
 void
