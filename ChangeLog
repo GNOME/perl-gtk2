@@ -1,3 +1,14 @@
+2003/11/13 13:25 (-0500) muppetman
+
+	* gdk.typemap: hush compiler warning 'incompatible type for arg 1 of
+	Perl_croak_nocontext' -- croak() is by default croak_nocontext, which
+	does not get aTHX_ passed to it.
+
+	* xs/GdkTypes.xs: typo in constrain_size -- no such function as
+	mewSViv, although the name is nice.  :)
+	add pod for the rectangle mutators, so their signatures make sense
+	in the docs.
+
 2003/11/12 18:28 pcg
 
 	* gdk.typemap, xs/GdkTypes.xs: implement Gtk2::Gdk::Geometry.
