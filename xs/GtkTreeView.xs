@@ -404,33 +404,56 @@ gtk_tree_view_get_visible_rect (tree_view)
 ##	gint *wx
 ##	gint *wy
 ##
+
 #### void gtk_tree_view_enable_model_drag_source (GtkTreeView *tree_view, GdkModifierType start_button_mask, const GtkTargetEntry *targets, gint n_targets, GdkDragAction actions)
-##void
-##gtk_tree_view_enable_model_drag_source (tree_view, start_button_mask, targets, n_targets, actions)
-##	GtkTreeView *tree_view
-##	GdkModifierType start_button_mask
-##	const GtkTargetEntry *targets
-##	gint n_targets
-##	GdkDragAction actions
-##
+void
+gtk_tree_view_enable_model_drag_source (tree_view, start_button_mask, actions, ...)
+	GtkTreeView *tree_view
+	GdkModifierType start_button_mask
+	GdkDragAction actions
+    PREINIT:
+    	GtkTargetEntry * targets = NULL;
+	gint n_targets, i;
+    CODE:
+#define FIRST_TARGET 3
+	n_targets = items - FIRST_TARGET;
+	targets = g_new (GtkTargetEntry, n_targets);
+	for (i = 0 ; i < n_targets ; i++)
+		gtk2perl_read_gtk_target_entry (ST (i+FIRST_TARGET), targets+i);
+	gtk_tree_view_enable_model_drag_source (tree_view, start_button_mask, targets, n_targets, actions);
+#undef FIRST_TARGET
+    CLEANUP:
+	g_free (targets);
+
 #### void gtk_tree_view_enable_model_drag_dest (GtkTreeView *tree_view, const GtkTargetEntry *targets, gint n_targets, GdkDragAction actions)
-##void
-##gtk_tree_view_enable_model_drag_dest (tree_view, targets, n_targets, actions)
-##	GtkTreeView *tree_view
-##	const GtkTargetEntry *targets
-##	gint n_targets
-##	GdkDragAction actions
-##
+void
+gtk_tree_view_enable_model_drag_dest (tree_view, actions, ...)
+	GtkTreeView *tree_view
+	GdkDragAction actions
+    PREINIT:
+	GtkTargetEntry * targets = NULL;
+	gint n_targets, i;
+    CODE:
+#define FIRST_TARGET 2
+	n_targets = items - FIRST_TARGET;
+	targets = g_new (GtkTargetEntry, n_targets);
+	for (i = 0 ; i < n_targets ; i++)
+		gtk2perl_read_gtk_target_entry (ST (i+FIRST_TARGET), targets+i);
+	gtk_tree_view_enable_model_drag_dest (tree_view, targets, n_targets, actions);
+#undef FIRST_TARGET
+    CLEANUP:
+	g_free (targets);
+
 #### void gtk_tree_view_unset_rows_drag_source (GtkTreeView *tree_view)
-##void
-##gtk_tree_view_unset_rows_drag_source (tree_view)
-##	GtkTreeView *tree_view
-##
+void
+gtk_tree_view_unset_rows_drag_source (tree_view)
+	GtkTreeView *tree_view
+
 #### void gtk_tree_view_unset_rows_drag_dest (GtkTreeView *tree_view)
-##void
-##gtk_tree_view_unset_rows_drag_dest (tree_view)
-##	GtkTreeView *tree_view
-##
+void
+gtk_tree_view_unset_rows_drag_dest (tree_view)
+	GtkTreeView *tree_view
+
 #### void gtk_tree_view_set_drag_dest_row (GtkTreeView *tree_view, GtkTreePath *path, GtkTreeViewDropPosition pos)
 ##void
 ##gtk_tree_view_set_drag_dest_row (tree_view, path, pos)

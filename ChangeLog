@@ -1,3 +1,8 @@
+2003/08/11 12:52 muppetman
+
+	* xs/GtkTreeView.xs, AUTHORS: patch from Torsten Schoenfeld to enable
+	drag and drop stuff for TreeView
+
 2003/08/09 23:31 pcg
 
 	* Makefile.PL: some more Win32 and command.com fixes.
