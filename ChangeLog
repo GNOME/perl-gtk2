@@ -1,3 +1,7 @@
+2004/03/11 23:20 (-0500) muppetman
+
+	* README: give shout-outs to the examples and gtk-demo.
+
 2004/03/12 03:09 (+0100) kaffeetisch
 
 	* Gtk2.pm: Don't indent the abstract.
