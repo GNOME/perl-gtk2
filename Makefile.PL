@@ -63,7 +63,7 @@ $gtk2->save_config ('build/IFiles.pm');
 WriteMakefile(
     NAME          => 'Gtk2',
     VERSION_FROM  => 'Gtk2.pm', # finds $VERSION
-    PREREQ_PM     => {}, # e.g., Module::Name => 1.1
+    PREREQ_PM     => {Glib => 0.20}, # e.g., Module::Name => 1.1
     ABSTRACT_FROM => 'Gtk2.pm', # retrieve abstract from module
     XSPROTOARG    => '-noprototypes',
     $gtk2->get_makefile_vars,
