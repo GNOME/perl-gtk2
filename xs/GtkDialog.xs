@@ -26,21 +26,19 @@ MODULE = Gtk2::Dialog	PACKAGE = Gtk2::Dialog	PREFIX = gtk_dialog_
 
 
 GtkWidget *
-vbox (dialog)
+gtk_dialog_widgets (dialog)
 	GtkDialog * dialog
+    ALIAS:
+	Gtk2::Dialog::vbox = 0
+	Gtk2::Dialog::action_area = 1
     CODE:
-	RETVAL = dialog->vbox;
+	switch(ix)
+	{
+	case(0): RETVAL = dialog->vbox; 	break;
+	case(1): RETVAL = dialog->action_area;	break;
+	}
     OUTPUT:
 	RETVAL
-
-GtkWidget *
-action_area (dialog)
-	GtkDialog * dialog
-    CODE:
-	RETVAL = dialog->action_area;
-    OUTPUT:
-	RETVAL
-
 
 ##GtkWidget *
 ##gtk_dialog_new (class)
@@ -61,7 +59,6 @@ gtk_dialog_new (class, ...)
 	GtkWindow * parent;
 	int flags;
     CODE:
-
 	if (items == 1) {
 		/* the easy way out... */
 		dialog = gtk_dialog_new ();
@@ -94,7 +91,7 @@ gtk_dialog_new (class, ...)
 
 		/* skip the first 4 stack items --- we've already seen them! */
 		for (i = 4; i < items; i += 2) {
-			char * text = SvPV_nolen (ST (i));
+			gchar * text = SvPV_nolen (ST (i));
 			int response_id = sv_to_response_id (ST (i+1));
 			gtk_dialog_add_button (GTK_DIALOG (dialog), text,
 			                       response_id);
@@ -125,10 +122,18 @@ gtk_dialog_add_button (dialog, button_text, response_id)
     OUTPUT:
 	RETVAL
 
-
-##void       gtk_dialog_add_buttons       (GtkDialog   *dialog,
-##                                         const gchar *first_button_text,
-##                                         ...);
+void 
+gtk_dialog_add_buttons (dialog, ...)
+	GtkDialog * dialog
+    PREINIT:
+	int i;
+    CODE:
+	if( !(items % 2) )
+		croak("gtk_dialog_add_buttons: odd number of parameters");
+	/* we can't make var args, so we'll call add_button for each */
+	for( i = 1; i < items; i += 2 )
+		gtk_dialog_add_button(dialog, SvPV_nolen(ST(i)), 
+			sv_to_response_id(ST(i+1)));
 
 void
 gtk_dialog_set_response_sensitive (dialog, response_id, setting)
