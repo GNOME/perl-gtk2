@@ -7,11 +7,12 @@ colorselectiontest.pl
 examples/buttonbox.pl
 examples/calendar.pl
 examples/histogramplot.pl
-examples/item_factory_demo.p
+examples/item_factory_demo.pl
 examples/layout.pl
 examples/plug.pl
 examples/scribble.pl
 examples/socket.pl
+examples/testdnd.pl
 examples/timeouttest.pl
 gdk.typemap
 genkeysyms.pl
@@ -51,9 +52,11 @@ gtk-demo/tree_store.pl
 LICENSE
 Makefile.PL
 MANIFEST
+MANIFEST.SKIP
 maps
-modules_list.txt
+META.yml                                Module meta-data in YAML
 pm/Helper.pm
+pm/Pango.pm
 ppport.h
 README
 t/00.Gtk2.t
@@ -86,6 +89,7 @@ xs/GdkPixbuf.xs
 xs/GdkPixmap.xs
 xs/GdkProperty.xs
 xs/GdkRegion.xs
+xs/GdkScreen.xs
 xs/GdkSelection.xs
 xs/GdkTypes.xs
 xs/GdkWindow.xs
@@ -109,6 +113,7 @@ xs/GtkCellRendererToggle.xs
 xs/GtkCellRenderer.xs
 xs/GtkCheckButton.xs
 xs/GtkCheckMenuItem.xs
+xs/GtkClipboard.xs
 xs/GtkColorSelectionDialog.xs
 xs/GtkColorSelection.xs
 xs/GtkCombo.xs
@@ -204,4 +209,4 @@ xs/GtkWindow.xs
 xs/PangoContext.xs
 xs/PangoFont.xs
 xs/PangoLayout.xs
-META.yml                                Module meta-data in YAML
+xs/PangoTabs.xs
