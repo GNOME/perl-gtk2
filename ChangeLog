@@ -1,3 +1,11 @@
+2003/12/31 02:16 (-0500) muppetman
+
+	* xs/GdkPixbuf.xs, xs/GdkWindow.xs, xs/Gtk2.xs, xs/GtkStock.xs,
+	xs/GtkWindow.xs: mark ax unused in functions which don't touch the
+	input stack, to hush compiler warnings
+
+	* xs/GtkMessageDialog.xs: add commentary describing a known warning.
+
 2003/12/30 12:47 (-0500) muppetman
 
 	* xs/GtkMessageDialog.xs: fix broken utf8 handling.  also now properly
