@@ -133,9 +133,7 @@ gdk_property_change (window, property, type, format, mode, ...)
 			break;
 		}
 		case 16: {
-			/* FIXME: valgrind says that this leaks 56 bytes in 2
-			   blocks.  why? */
-			gushort *short_data = g_new0 (gushort, items - first_index);
+			gushort *short_data = gperl_alloc_temp (sizeof (gushort) * (items - first_index));
 
 			for (i = first_index; i < items; i++)
 				short_data[i - first_index] = (gushort) SvUV (ST (i));
@@ -145,7 +143,7 @@ gdk_property_change (window, property, type, format, mode, ...)
 			break;
 		}
 		case 32: {
-			gulong *long_data = g_new0 (gulong, items - first_index);
+			gulong *long_data = gperl_alloc_temp (sizeof (gulong) * (items - first_index));
 
 			for (i = first_index; i < items; i++)
 				long_data[i - first_index] = (gulong) SvUV (ST (i));
