@@ -1,3 +1,8 @@
+2004/02/02 23:34 (+0100) kaffeetisch
+
+	* t/GtkComboBox.t: Always skip the failing tests because it's
+	gtk+'s fault.  Needs to be changed once it's fixed.
+
 2004/02/02 22:30 (+0100) kaffeetisch
 
 	* t/GtkTextIter.t: Test begins_tag, ends_tag, toggles_tag,
