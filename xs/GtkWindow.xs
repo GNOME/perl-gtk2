@@ -146,6 +146,14 @@ GdkWindowTypeHint
 gtk_window_get_type_hint (window)
 	GtkWindow * window
 
+#if GTK_CHECK_VERSION(2, 3, 0) /* FIXME 2.4 */
+
+gboolean gtk_window_get_accept_focus (GtkWindow *window)
+
+void gtk_window_set_accept_focus (GtkWindow *window, gboolean setting)
+
+#endif
+
 ## void gtk_window_set_destroy_with_parent (GtkWindow *window, gboolean setting)
 void
 gtk_window_set_destroy_with_parent (window, setting)
@@ -325,6 +333,14 @@ gtk_window_set_default_icon_from_file (class_or_instance, filename)
 	gtk_window_set_default_icon_from_file(filename, &error);
         if (error)
 		gperl_croak_gerror (filename, error);
+
+#endif
+
+#if GTK_CHECK_VERSION(2,3,0) /* FIXME 2.4 */
+
+void gtk_window_set_default_icon (class, GdkPixbuf * icon)
+    C_ARGS:
+	icon
 
 #endif
 
@@ -550,6 +566,18 @@ gtk_window_fullscreen (window)
 void
 gtk_window_unfullscreen (window)
 	GtkWindow * window
+
+#if GTK_CHECK_VERSION(2,3,0) /* FIXME 2.4 */
+
+void gtk_window_set_keep_above (GtkWindow *window, gboolean setting);
+
+void gtk_window_set_keep_below (GtkWindow *window, gboolean setting);
+
+gboolean gtk_window_is_active (GtkWindow *window);
+
+gboolean gtk_window_has_toplevel_focus (GtkWindow *window);
+
+#endif
 
 void
 gtk_window_set_skip_taskbar_hint (window, setting)

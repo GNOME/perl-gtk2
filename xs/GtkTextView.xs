@@ -249,6 +249,18 @@ gboolean
 gtk_text_view_get_editable (text_view)
 	GtkTextView * text_view
 
+#if GTK_CHECK_VERSION(2,3,0) /* FIXME 2.4 */
+
+void gtk_text_view_set_overwrite (GtkTextView *text_view, gboolean overwrite);
+
+gboolean gtk_text_view_get_overwrite (GtkTextView *text_view);
+
+void gtk_text_view_set_accepts_tab (GtkTextView	*text_view, gboolean accepts_tab);
+
+gboolean gtk_text_view_get_accepts_tab (GtkTextView *text_view);
+
+#endif
+
 ## void gtk_text_view_set_pixels_above_lines (GtkTextView *text_view, gint pixels_above_lines)
 void
 gtk_text_view_set_pixels_above_lines (text_view, pixels_above_lines)

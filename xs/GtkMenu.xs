@@ -230,3 +230,11 @@ gtk_menu_set_screen (menu, screen)
 	GdkScreen * screen
 
 #endif
+
+#if GTK_CHECK_VERSION(2,3,0) /* FIXME 2.4 */
+
+void gtk_menu_attach (GtkMenu *menu, GtkWidget *child, guint left_attach, guint right_attach, guint top_attach, guint bottom_attach);
+
+void gtk_menu_set_monitor (GtkMenu *menu, gint monitor_num);
+
+#endif

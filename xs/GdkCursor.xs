@@ -59,3 +59,15 @@ gdk_cursor_new_from_pixmap (class, source, mask, fg, bg, x, y)
     C_ARGS:
 	source, mask, fg, bg, x, y
 
+
+#if GTK_CHECK_VERSION(2, 3, 1) /* FIXME 2.4 */
+
+## GdkCursor * gdk_cursor_new_from_pixbuf (GdkDisplay *display, GdkPixbuf  *pixbuf, gint x, gint y)
+GdkCursor_own *
+gdk_cursor_new_from_pixbuf (display, pixbuf, x, y)
+	GdkDisplay *display
+	GdkPixbuf  *pixbuf
+	gint x
+	gint y
+
+#endif

@@ -39,6 +39,9 @@ stem ## _quark (void) 							\
 
 DEFINE_QUARK (clipboard_received);
 DEFINE_QUARK (clipboard_text_received);
+#if GTK_CHECK_VERSION (2, 3, 1) /* FIXME 2.4 */
+DEFINE_QUARK (clipboard_targets_received);
+#endif
 DEFINE_QUARK (clipboard_get);
 DEFINE_QUARK (clipboard_clear);
 DEFINE_QUARK (clipboard_user_data);
@@ -68,6 +71,32 @@ gtk2perl_clipboard_text_received_func (GtkClipboard *clipboard,
 
 	PERL_UNUSED_VAR (data);
 }
+
+#if GTK_CHECK_VERSION(2, 3, 1) /* FIXME 2.4 */
+
+static void
+gtk2perl_clipboard_targets_received_func (GtkClipboard *clipboard,
+                                          GdkAtom * targets,
+                                          gint n_targets,
+                                          gpointer data)
+{
+	SV * targetlist;
+	AV * av;
+	int i;
+	GPerlCallback * callback = (GPerlCallback*)
+		g_object_get_qdata (G_OBJECT (clipboard),
+		                    clipboard_targets_received_quark());
+
+	av = newAV ();
+	for (i = 0 ; i < n_targets ; i++)
+		av_push (av, newSVGdkAtom (targets[i]));
+	targetlist = sv_2mortal (newRV_noinc ((SV*) av));
+	gperl_callback_invoke (callback, NULL, clipboard, targetlist);
+
+	PERL_UNUSED_VAR (data);
+}
+
+#endif
 
 static void
 gtk2perl_clipboard_get_func (GtkClipboard *clipboard,
@@ -332,5 +361,44 @@ gtk_clipboard_wait_for_text (clipboard)
 gboolean
 gtk_clipboard_wait_is_text_available (clipboard)
 	GtkClipboard *clipboard
+
+#if GTK_CHECK_VERSION (2, 3, 1) /* FIXME 2.4 */
+
+ ## void gtk_clipboard_request_targets (GtkClipboard *clipboard, GtkClipboardTargetsReceivedFunc  callback, gpointer user_data);
+void gtk_clipboard_request_targets (GtkClipboard *clipboard, SV * callback, SV * user_data=NULL)
+    PREINIT:
+	GType param_types[] = {
+		GTK_TYPE_CLIPBOARD,
+		GPERL_TYPE_SV
+	};
+	GPerlCallback * real_callback;
+    CODE:
+	real_callback = gperl_callback_new (callback, user_data,
+	                                    2, param_types, G_TYPE_NONE);
+	g_object_set_qdata_full (G_OBJECT (clipboard),
+	                         clipboard_targets_received_quark (),
+	                         real_callback,
+	                         (GDestroyNotify) gperl_callback_destroy);
+	gtk_clipboard_request_targets
+			(clipboard,
+			 gtk2perl_clipboard_targets_received_func,
+			 real_callback);
+
+ ## gboolean gtk_clipboard_wait_for_targets (GtkClipboard  *clipboard, GdkAtom **targets, gint *n_targets);
+gboolean gtk_clipboard_wait_for_targets (GtkClipboard  *clipboard, ...)
+    PREINIT:
+	GdkAtom *targets = NULL;
+	gint n_targets, i;
+    PPCODE:
+	if (!gtk_clipboard_wait_for_targets (clipboard, &targets, &n_targets))
+		XSRETURN_EMPTY;
+	if (n_targets) {
+		EXTEND (SP, n_targets);
+		for (i = 0 ; i < n_targets ; i++)
+			PUSHs (sv_2mortal (newSVGdkAtom (targets[i])));
+		g_free (targets);
+	}
+
+#endif
 
 #endif /* defined GTK_TYPE_CLIPBOARD */

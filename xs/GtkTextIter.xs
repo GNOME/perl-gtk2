@@ -358,6 +358,18 @@ gtk_text_iter_backward_word_starts (iter, count)
 	GtkTextIter *iter
 	gint count
 
+#if GTK_CHECK_VERSION(2,3,0) /* FIXME 2.4 */
+
+gboolean gtk_text_iter_forward_visible_word_end (GtkTextIter *iter);
+
+gboolean gtk_text_iter_backward_visible_word_start (GtkTextIter *iter);
+
+gboolean gtk_text_iter_forward_visible_word_ends (GtkTextIter *iter, gint count);
+
+gboolean gtk_text_iter_backward_visible_word_starts (GtkTextIter *iter, gint count);
+
+#endif
+
 ## gboolean gtk_text_iter_forward_sentence_end (GtkTextIter *iter)
 gboolean
 gtk_text_iter_forward_sentence_end (iter)
@@ -401,6 +413,18 @@ gboolean
 gtk_text_iter_backward_cursor_positions (iter, count)
 	GtkTextIter *iter
 	gint count
+
+#if GTK_CHECK_VERSION(2,3,0) /* FIXME 2.4 */
+
+gboolean gtk_text_iter_forward_visible_cursor_position   (GtkTextIter *iter);
+
+gboolean gtk_text_iter_backward_visible_cursor_position  (GtkTextIter *iter);
+
+gboolean gtk_text_iter_forward_visible_cursor_positions  (GtkTextIter *iter, gint count);
+
+gboolean gtk_text_iter_backward_visible_cursor_positions (GtkTextIter *iter, gint count);
+
+#endif
 
 ## void gtk_text_iter_set_offset (GtkTextIter *iter, gint char_offset)
 void

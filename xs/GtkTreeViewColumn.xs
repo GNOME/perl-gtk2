@@ -262,6 +262,14 @@ const gchar *
 gtk_tree_view_column_get_title (tree_column)
 	GtkTreeViewColumn *tree_column
 
+#if GTK_CHECK_VERSION(2,3,0) /* FIXME 2.4 */
+
+void gtk_tree_view_column_set_expand (GtkTreeViewColumn *tree_column, gboolean expand);
+
+gboolean gtk_tree_view_column_get_expand (GtkTreeViewColumn *tree_column);
+
+#endif
+
 void
 gtk_tree_view_column_set_clickable (tree_column, clickable)
 	GtkTreeViewColumn *tree_column

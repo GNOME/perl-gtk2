@@ -314,4 +314,22 @@ gdk_drawable_get_image (drawable, x, y, width, height)
 	gint width
 	gint height
 
+#if GTK_CHECK_VERSION(2, 3, 1) /* FIXME 2.4 */
 
+GdkImage *
+gdk_drawable_copy_to_image (drawable, image, src_x, src_y, dest_x, dest_y, width, height)
+	GdkDrawable     * drawable
+	GdkImage_ornull * image
+	gint              src_x
+	gint              src_y
+	gint              dest_x
+	gint              dest_y
+	gint              width
+	gint              height
+    CLEANUP:
+	/* if the return value has been allocated anew,
+	 * the caller will own it. */
+	if (!image)
+		g_object_unref (RETVAL);
+
+#endif

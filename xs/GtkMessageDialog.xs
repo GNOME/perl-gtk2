@@ -61,3 +61,27 @@ gtk_message_dialog_new (class, parent, flags, type, buttons, format, ...)
     OUTPUT:
 	RETVAL
 
+#if GTK_CHECK_VERSION(2,3,0) /* FIXME 2.4 */
+
+=for apidoc
+=for arg message a string containing Pango markup
+Like C<new>, but allowing Pango markup tags in the message.  Note that this
+version is not variadic.
+=cut
+GtkWidget *
+gtk_message_dialog_new_with_markup (class, parent, flags, type, buttons, message)
+	GtkWindow_ornull * parent
+	GtkDialogFlags flags
+	GtkMessageType type
+	GtkButtonsType buttons
+	gchar * message
+    CODE:
+	RETVAL = gtk_message_dialog_new (parent, flags, type, buttons, NULL);
+	gtk_message_dialog_set_markup (GTK_MESSAGE_DIALOG (RETVAL), message);
+    OUTPUT:
+	RETVAL
+
+void
+gtk_message_dialog_set_markup (GtkMessageDialog *message_dialog, const gchar *str)
+
+#endif

@@ -43,36 +43,22 @@ gtk_check_menu_item_new (class, label=NULL)
     OUTPUT:
 	RETVAL
 
-## void gtk_check_menu_item_set_active (GtkCheckMenuItem *check_menu_item, gboolean is_active)
-void
-gtk_check_menu_item_set_active (check_menu_item, is_active)
-	GtkCheckMenuItem * check_menu_item
-	gboolean           is_active
+void gtk_check_menu_item_set_active (GtkCheckMenuItem *check_menu_item, gboolean is_active)
 
-## gboolean gtk_check_menu_item_get_active (GtkCheckMenuItem *check_menu_item)
-gboolean
-gtk_check_menu_item_get_active (check_menu_item)
-	GtkCheckMenuItem * check_menu_item
+gboolean gtk_check_menu_item_get_active (GtkCheckMenuItem *check_menu_item)
 
-## void gtk_check_menu_item_toggled (GtkCheckMenuItem *check_menu_item)
-void
-gtk_check_menu_item_toggled (check_menu_item)
-	GtkCheckMenuItem * check_menu_item
+void gtk_check_menu_item_toggled (GtkCheckMenuItem *check_menu_item)
 
-## void gtk_check_menu_item_set_inconsistent (GtkCheckMenuItem *check_menu_item, gboolean setting)
-void
-gtk_check_menu_item_set_inconsistent (check_menu_item, setting)
-	GtkCheckMenuItem * check_menu_item
-	gboolean setting
+void gtk_check_menu_item_set_inconsistent (GtkCheckMenuItem *check_menu_item, gboolean setting)
 
-## gboolean gtk_check_menu_item_get_inconsistent (GtkCheckMenuItem *check_menu_item)
-gboolean
-gtk_check_menu_item_get_inconsistent (check_menu_item)
-	GtkCheckMenuItem * check_menu_item
+gboolean gtk_check_menu_item_get_inconsistent (GtkCheckMenuItem *check_menu_item)
 
-## void gtk_check_menu_item_set_show_toggle (GtkCheckMenuItem *menu_item, gboolean always)
-void
-gtk_check_menu_item_set_show_toggle (menu_item, always)
-	GtkCheckMenuItem * menu_item
-	gboolean           always
+void gtk_check_menu_item_set_show_toggle (GtkCheckMenuItem *menu_item, gboolean always)
 
+#if GTK_CHECK_VERSION(2,3,0) /* FIXME 2.4 */
+
+void gtk_check_menu_item_set_draw_as_radio (GtkCheckMenuItem *check_menu_item, gboolean draw_as_radio);
+
+gboolean gtk_check_menu_item_get_draw_as_radio (GtkCheckMenuItem *check_menu_item);
+
+#endif

@@ -621,6 +621,18 @@ gdk_window_set_icon_name (window, name)
 	GdkWindow *window
 	const gchar *name
 
+#if GTK_CHECK_VERSION (2, 3, 1) /* FIXME 2.4 */
+
+void gdk_window_set_accept_focus (GdkWindow *window, gboolean accept_focus)
+
+void gdk_window_set_keep_above (GdkWindow *window, gboolean setting)
+
+void gdk_window_set_keep_below (GdkWindow *window, gboolean setting)
+
+GdkWindow * gdk_window_get_group (GdkWindow * window)
+
+#endif
+
  ## void gdk_window_set_group (GdkWindow *window, GdkWindow *leader)
 void
 gdk_window_set_group (window, leader)

@@ -104,11 +104,35 @@ void
 gtk_calendar_clear_marks (calendar)
 	GtkCalendar * calendar
 
+## void gtk_calendar_set_display_options (GtkCalendar *calendar, GtkCalendarDisplayOptions flags)
 ## void gtk_calendar_display_options (GtkCalendar *calendar, GtkCalendarDisplayOptions flags)
+=for apidoc display_options
+The old name for C<set_display_options>.
+=cut
+
 void
-gtk_calendar_display_options (calendar, flags)
+gtk_calendar_set_display_options (calendar, flags)
 	GtkCalendar               * calendar
 	GtkCalendarDisplayOptions   flags
+    ALIAS:
+	display_options = 1
+    CODE:
+#if GTK_CHECK_VERSION(2,3,0) /* FIXME 2.4 */
+	gtk_calendar_set_display_options (calendar, flags);
+#else
+	gtk_calendar_display_options (calendar, flags);
+#endif
+
+GtkCalendarDisplayOptions
+gtk_calendar_get_display_options (GtkCalendar * calendar)
+    CODE:
+#if GTK_CHECK_VERSION(2,3,0) /* FIXME 2.4 */
+	RETVAL = gtk_calendar_get_display_options (calendar);
+#else
+	RETVAL = calendar->display_flags;
+#endif
+    OUTPUT:
+	RETVAL
 
 ## void gtk_calendar_get_date (GtkCalendar *calendar, guint *year, guint *month, guint *day)
 void
