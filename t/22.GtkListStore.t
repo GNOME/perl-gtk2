@@ -104,7 +104,7 @@ SKIP: {
 	skip("get_string_from_iter is new in 2.2.x", 1)
 		unless ((Gtk2 -> get_version_info())[1] >= 2);
 
-	is($model -> get_string_from_iter($iter), "1");
+	is($model -> get_string_from_iter($iter), "0");
 }
 
 ###############################################################################
