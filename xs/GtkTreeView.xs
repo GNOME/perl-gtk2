@@ -29,10 +29,114 @@ void  gtk2perl_tree_cell_data_func (GtkTreeViewColumn * tree_column,
                                     GtkTreeIter * iter,
                                     gpointer data);
 
-// typedef gboolean (* GtkTreeViewColumnDropFunc) (GtkTreeView *tree_view, GtkTreeViewColumn *column, GtkTreeViewColumn *prev_column, GtkTreeViewColumn *next_column, gpointer data)
-// typedef void (* GtkTreeViewMappingFunc) (GtkTreeView *tree_view, GtkTreePath *path, gpointer user_data)
-// typedef gboolean (*GtkTreeViewSearchEqualFunc) (GtkTreeModel *model, gint column, const gchar *key, GtkTreeIter *iter, gpointer search_data)
-// typedef void (* GtkTreeDestroyCountFunc) (GtkTreeView *tree_view, GtkTreePath *path, gint children, gpointer user_data)
+static GPerlCallback *
+gtk2perl_tree_view_column_drop_func_create (SV * func, SV *data)
+{
+	GType param_types [] = {
+		GTK_TYPE_TREE_VIEW,
+		GTK_TYPE_TREE_VIEW_COLUMN,
+		GTK_TYPE_TREE_VIEW_COLUMN,
+		GTK_TYPE_TREE_VIEW_COLUMN
+	};
+	return gperl_callback_new (func, data, G_N_ELEMENTS (param_types),
+	                           param_types, G_TYPE_BOOLEAN);
+}
+
+static gboolean
+gtk2perl_tree_view_column_drop_func (GtkTreeView * tree_view,
+				     GtkTreeViewColumn * column,
+				     GtkTreeViewColumn * prev_column,
+				     GtkTreeViewColumn * next_column,
+				     gpointer data)
+{
+	GPerlCallback * callback = (GPerlCallback*)data;
+	GValue value = {0,};
+	gboolean retval;
+
+	g_value_init (&value, callback->return_type);
+	gperl_callback_invoke (callback, &value, tree_view, column,
+	                       prev_column, next_column);
+	retval = g_value_get_boolean (&value);
+	g_value_unset (&value);
+
+	return retval;
+}
+
+static GPerlCallback *
+gtk2perl_tree_view_mapping_func_create (SV * func, SV *data)
+{
+	GType param_types [] = {
+		GTK_TYPE_TREE_VIEW,
+		GTK_TYPE_TREE_PATH
+	};
+	return gperl_callback_new (func, data, G_N_ELEMENTS (param_types),
+	                           param_types, 0);
+}
+
+static void
+gtk2perl_tree_view_mapping_func (GtkTreeView * tree_view,
+				 GtkTreePath * tree_path,
+				 gpointer data)
+{
+	gperl_callback_invoke ((GPerlCallback*)data, NULL,
+	                        tree_view, tree_path);
+}
+
+static GPerlCallback *
+gtk2perl_tree_view_search_equal_func_create (SV * func, SV *data)
+{
+	GType param_types [] = {
+		GTK_TYPE_TREE_MODEL,
+		GTK_TYPE_INT,
+		G_TYPE_STRING,
+		GTK_TYPE_TREE_ITER
+	};
+	return gperl_callback_new (func, data, G_N_ELEMENTS (param_types),
+	                           param_types, G_TYPE_BOOLEAN);
+}
+
+static gboolean
+gtk2perl_tree_view_search_equal_func (GtkTreeModel * model,
+				      gint column,
+				      const gchar * key,
+				      GtkTreeIter * iter,
+				      gpointer data)
+{
+	GPerlCallback * callback = (GPerlCallback*)data;
+	GValue value = {0,};
+	gboolean retval;
+
+	g_value_init (&value, callback->return_type);
+	gperl_callback_invoke (callback, &value, model, column, key, iter);
+	retval = g_value_get_boolean (&value);
+	g_value_unset (&value);
+
+	return retval;
+}
+
+#if 0
+/* see commentary above gtk_tree_view_set_destroy_count_func() for details on
+ * why this is commented out. */
+GPerlCallback *
+gtk2perl_tree_view_destroy_count_func_create (SV * func, SV *data)
+{
+	GType param_types [] = {
+		GTK_TYPE_TREE_VIEW,
+		GTK_TYPE_TREE_PATH,
+		GTK_TYPE_INT
+	};
+	return gperl_callback_new (func, data, G_N_ELEMENTS(param_types), param_types, 0);
+}
+
+void
+gtk2perl_tree_view_destroy_count_func (GtkTreeView * tree_view,
+				       GtkTreePath * path,
+				       gint children,
+				       gpointer data)
+{
+	gperl_callback_invoke ((GPerlCallback*)data, NULL, tree_view, path, children);
+}
+#endif
 
 MODULE = Gtk2::TreeView	PACKAGE = Gtk2::TreeView	PREFIX = gtk_tree_view_
 
@@ -202,21 +306,37 @@ gtk_tree_view_set_expander_column (tree_view, column)
 	GtkTreeViewColumn_ornull *column
 
 #### void gtk_tree_view_set_column_drag_function (GtkTreeView *tree_view, GtkTreeViewColumnDropFunc func, gpointer user_data, GtkDestroyNotify destroy)
-##void
-##gtk_tree_view_set_column_drag_function (tree_view, func, user_data, destroy)
-##	GtkTreeView *tree_view
-##	GtkTreeViewColumnDropFunc func
-##	gpointer user_data
-##	GtkDestroyNotify destroy
+void
+gtk_tree_view_set_column_drag_function (tree_view, func, data=NULL)
+	GtkTreeView *tree_view
+	SV * func
+	SV * data
+    PREINIT:
+	GPerlCallback * callback;
+    CODE:
+	callback = gtk2perl_tree_view_column_drop_func_create (func, data);
+	gtk_tree_view_set_column_drag_function (tree_view,
+						gtk2perl_tree_view_column_drop_func,
+						callback,
+						(GDestroyNotify) gperl_callback_destroy);
 
-
-#### FIXME also allow undef instead of -1 to specify no scrolling
+#### also allow undef instead of -1 to specify no scrolling
 ## void gtk_tree_view_scroll_to_point (GtkTreeView *tree_view, gint tree_x, gint tree_y)
 void
 gtk_tree_view_scroll_to_point (tree_view, tree_x, tree_y)
 	GtkTreeView *tree_view
-	gint tree_x
-	gint tree_y
+	SV * tree_x
+	SV * tree_y
+    PREINIT:
+	gint real_tree_x = -1;
+	gint real_tree_y = -1;
+    CODE:
+	/* can't do SvTRUE, because 0 is defined but not true. */
+	real_tree_x = SvOK (tree_x) && looks_like_number (tree_x)
+	            ? SvIV (tree_x) : -1;
+	real_tree_y = SvOK (tree_y) && looks_like_number (tree_y)
+	            ? SvIV (tree_y) : -1;
+	gtk_tree_view_scroll_to_point (tree_view, real_tree_x, real_tree_y);
 
 void
 gtk_tree_view_scroll_to_cell (tree_view, path, column=NULL, use_align=FALSE, row_align=0.0, col_align=0.0)
@@ -262,11 +382,19 @@ gtk_tree_view_collapse_row (tree_view, path)
 	GtkTreePath *path
 
 #### void gtk_tree_view_map_expanded_rows (GtkTreeView *tree_view, GtkTreeViewMappingFunc func, gpointer data)
-##void
-##gtk_tree_view_map_expanded_rows (tree_view, func, data)
-##	GtkTreeView *tree_view
-##	GtkTreeViewMappingFunc func
-##	gpointer data
+void
+gtk_tree_view_map_expanded_rows (tree_view, func, data=NULL)
+	GtkTreeView *tree_view
+	SV * func
+	SV * data
+    PREINIT:
+	GPerlCallback * callback;
+    CODE:
+	callback = gtk2perl_tree_view_mapping_func_create (func, data);
+	gtk_tree_view_map_expanded_rows (tree_view,
+					 gtk2perl_tree_view_mapping_func,
+					 callback);
+	gperl_callback_destroy (callback);
 
 gboolean
 gtk_tree_view_row_expanded (tree_view, path)
@@ -380,30 +508,40 @@ gtk_tree_view_get_visible_rect (tree_view)
     OUTPUT:
 	RETVAL
 
+### GdkWindow* gtk_tree_view_get_bin_window (GtkTreeView *tree_view);
+GdkWindow *
+gtk_tree_view_get_bin_window (tree_view)
+	GtkTreeView *tree_view
 
-## FIXME this is where i stopped so i could try to go home
-
-###GdkWindow*  gtk_tree_view_get_bin_window    (GtkTreeView *tree_view);
-##
-##
 #### void gtk_tree_view_widget_to_tree_coords (GtkTreeView *tree_view, gint wx, gint wy, gint *tx, gint *ty)
-##void
-##gtk_tree_view_widget_to_tree_coords (tree_view, wx, wy, tx, ty)
-##	GtkTreeView *tree_view
-##	gint wx
-##	gint wy
-##	gint *tx
-##	gint *ty
-##
+void
+gtk_tree_view_widget_to_tree_coords (tree_view, wx, wy)
+	GtkTreeView *tree_view
+	gint wx
+	gint wy
+    PREINIT:
+	gint tx;
+	gint ty;
+    PPCODE:
+	gtk_tree_view_widget_to_tree_coords (tree_view, wx, wy, &tx, &ty);
+	EXTEND (SP, 2);
+	PUSHs (sv_2mortal (newSViv (tx)));
+	PUSHs (sv_2mortal (newSViv (ty)));
+
 #### void gtk_tree_view_tree_to_widget_coords (GtkTreeView *tree_view, gint tx, gint ty, gint *wx, gint *wy)
-##void
-##gtk_tree_view_tree_to_widget_coords (tree_view, tx, ty, wx, wy)
-##	GtkTreeView *tree_view
-##	gint tx
-##	gint ty
-##	gint *wx
-##	gint *wy
-##
+void
+gtk_tree_view_tree_to_widget_coords (tree_view, tx, ty)
+	GtkTreeView *tree_view
+	gint tx
+	gint ty
+    PREINIT:
+	gint wx;
+	gint wy;
+    PPCODE:
+	gtk_tree_view_tree_to_widget_coords (tree_view, tx, ty, &wx, &wy);
+	EXTEND (SP, 2);
+	PUSHs (sv_2mortal (newSViv (wx)));
+	PUSHs (sv_2mortal (newSViv (wy)));
 
 #### void gtk_tree_view_enable_model_drag_source (GtkTreeView *tree_view, GdkModifierType start_button_mask, const GtkTargetEntry *targets, gint n_targets, GdkDragAction actions)
 void
@@ -455,28 +593,41 @@ gtk_tree_view_unset_rows_drag_dest (tree_view)
 	GtkTreeView *tree_view
 
 #### void gtk_tree_view_set_drag_dest_row (GtkTreeView *tree_view, GtkTreePath *path, GtkTreeViewDropPosition pos)
-##void
-##gtk_tree_view_set_drag_dest_row (tree_view, path, pos)
-##	GtkTreeView *tree_view
-##	GtkTreePath *path
-##	GtkTreeViewDropPosition pos
-##
+void
+gtk_tree_view_set_drag_dest_row (tree_view, path, pos)
+	GtkTreeView *tree_view
+	GtkTreePath_ornull *path
+	GtkTreeViewDropPosition pos
+
 #### void gtk_tree_view_get_drag_dest_row (GtkTreeView *tree_view, GtkTreePath **path, GtkTreeViewDropPosition *pos)
-##void
-##gtk_tree_view_get_drag_dest_row (tree_view, path, pos)
-##	GtkTreeView *tree_view
-##	GtkTreePath **path
-##	GtkTreeViewDropPosition *pos
-##
+void
+gtk_tree_view_get_drag_dest_row (tree_view)
+	GtkTreeView *tree_view
+    PREINIT:
+	GtkTreePath *path;
+	GtkTreeViewDropPosition pos;
+    PPCODE:
+	gtk_tree_view_get_drag_dest_row (tree_view, &path, &pos);
+	EXTEND (SP, 2);
+	PUSHs (sv_2mortal (newSVGtkTreePath_own (path)));
+	PUSHs (sv_2mortal (newSVGtkTreeViewDropPosition (pos)));
+
 #### gboolean gtk_tree_view_get_dest_row_at_pos (GtkTreeView *tree_view, gint drag_x, gint drag_y, GtkTreePath **path, GtkTreeViewDropPosition *pos)
-##gboolean
-##gtk_tree_view_get_dest_row_at_pos (tree_view, drag_x, drag_y, path, pos)
-##	GtkTreeView *tree_view
-##	gint drag_x
-##	gint drag_y
-##	GtkTreePath **path
-##	GtkTreeViewDropPosition *pos
-##
+void
+gtk_tree_view_get_dest_row_at_pos (tree_view, drag_x, drag_y)
+	GtkTreeView *tree_view
+	gint drag_x
+	gint drag_y
+    PREINIT:
+	GtkTreePath *path;
+	GtkTreeViewDropPosition pos;
+    PPCODE:
+	if (!gtk_tree_view_get_dest_row_at_pos (tree_view, drag_x, drag_y, &path, &pos))
+		XSRETURN_EMPTY;
+	EXTEND (SP, 2);
+	PUSHs (sv_2mortal (newSVGtkTreePath_own (path)));
+	PUSHs (sv_2mortal (newSVGtkTreeViewDropPosition (pos)));
+
 ## void gtk_tree_view_set_enable_search (GtkTreeView *tree_view, gboolean enable_search)
 void
 gtk_tree_view_set_enable_search (tree_view, enable_search)
@@ -503,20 +654,40 @@ gtk_tree_view_set_search_column (tree_view, column)
 ##GtkTreeViewSearchEqualFunc
 ##gtk_tree_view_get_search_equal_func (tree_view)
 ##	GtkTreeView *tree_view
-##
+
 #### void gtk_tree_view_set_search_equal_func (GtkTreeView *tree_view, GtkTreeViewSearchEqualFunc search_equal_func, gpointer search_user_data, GtkDestroyNotify search_destroy)
-##void
-##gtk_tree_view_set_search_equal_func (tree_view, search_equal_func, search_user_data, search_destroy)
-##	GtkTreeView *tree_view
-##	GtkTreeViewSearchEqualFunc search_equal_func
-##	gpointer search_user_data
-##	GtkDestroyNotify search_destroy
-##
+void
+gtk_tree_view_set_search_equal_func (tree_view, func, data=NULL)
+	GtkTreeView *tree_view
+	SV * func
+	SV * data
+    PREINIT:
+	GPerlCallback * callback;
+    CODE:
+	callback = gtk2perl_tree_view_search_equal_func_create (func, data);
+	gtk_tree_view_set_search_equal_func (tree_view,
+	                         gtk2perl_tree_view_search_equal_func,
+	                         callback,
+	                         (GDestroyNotify) gperl_callback_destroy);
+
+
+#if 0
+
+## according to the documentation, this function "should almost never be
+## used", and is exported for ATK.  i'll leave it out.
 #### void gtk_tree_view_set_destroy_count_func (GtkTreeView *tree_view, GtkTreeDestroyCountFunc func, gpointer data, GtkDestroyNotify destroy)
-##void
-##gtk_tree_view_set_destroy_count_func (tree_view, func, data, destroy)
-##	GtkTreeView *tree_view
-##	GtkTreeDestroyCountFunc func
-##	gpointer data
-##	GtkDestroyNotify destroy
-##
+void
+gtk_tree_view_set_destroy_count_func (tree_view, func, data=NULL)
+	GtkTreeView *tree_view
+	SV * func
+	SV * data
+    PREINIT:
+	GPerlCallback * callback;
+    CODE:
+	callback = gtk2perl_tree_view_destroy_count_func_create (func, data);
+	gtk_tree_view_set_destroy_count_func (tree_view,
+					      gtk2perl_tree_view_destroy_count_func,
+					      callback,
+					      (GDestroyNotify) gperl_callback_destroy);
+
+#endif
