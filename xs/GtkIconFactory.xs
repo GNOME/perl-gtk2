@@ -45,7 +45,7 @@ gtk_icon_factory_lookup_default (class, stock_id)
 MODULE = Gtk2::IconFactory	PACKAGE = Gtk2::IconSize	PREFIX = gtk_icon_size_
 
 ##  gboolean gtk_icon_size_lookup (GtkIconSize size, gint *width, gint *height) 
-gboolean
+void
 gtk_icon_size_lookup (class, size)
 	SV * class
 	GtkIconSize size
