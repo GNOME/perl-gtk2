@@ -1,3 +1,12 @@
+2004/03/16 21:56 (-0500) muppetman
+
+	D maps-2.3
+	A maps-2.4
+	D xs_files-2.3
+	A xs_files-2.4
+	M MANIFEST
+	  rename the files related to 2.3
+
 2004/03/16 21:51 (-0500) muppetman
 
 	* gtk-demo/changedisplay.pl: remove cruft

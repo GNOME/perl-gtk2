@@ -83,7 +83,7 @@ gtk.typemap
 gtk2perl.h
 maps-2.0
 maps-2.2
-maps-2.3
+maps-2.4
 perl-Gtk2.spec.in
 pm/Helper.pm
 pm/Pango.pm
@@ -416,4 +416,4 @@ xs/PangoLayout.xs
 xs/PangoTabs.xs
 xs_files-2.0
 xs_files-2.2
-xs_files-2.3
+xs_files-2.4
