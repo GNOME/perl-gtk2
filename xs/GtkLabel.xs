@@ -24,6 +24,8 @@
 
 MODULE = Gtk2::Label	PACKAGE = Gtk2::Label	PREFIX = gtk_label_
 
+=for enum GtkJustification
+=cut
 
 GtkWidget *
 gtk_label_new (class, str=NULL)

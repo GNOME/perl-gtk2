@@ -1,3 +1,10 @@
+2003/12/08 13:47 (-0500) rwmcfa1
+
+	* t/paned.t: use strict and use warnings
+
+	* xs/GtkLabel.xs, xs/GtkSizeGroup.xs, xs/GtkStock.xs: apidoc, added 
+	enum(s)
+
 2003/12/08 11:14 (-0500) muppetman
 
 	* pm/SimpleList.pm: call signature comments to make maintenance easier.
