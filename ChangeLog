@@ -1,3 +1,8 @@
+2003/09/24 14:15 muppetman
+
+	* api.pod, xs.GtkWidget.xs, t/01.GtkWidget.xs: simplify
+	gtk_widget_intersect to return either a rectangle or undef.
+
 2003/09/24 11:39 rwmcfa1
 
 	* xs/GtkWidget.xs: implemented several missing functions

@@ -287,11 +287,9 @@ Note that the _menu versions of these functions do I<not> do this.
 
 =item Gtk2::Widget::intersect
 
-The intersection parameter is ommited. If called in scalar context the return 
-value is TRUE or FALSE based on the return value of the c function. If called 
-in array context the same boolean is return and in addition if that boolean is
-TRUE a Gtk2::Gdk::Rectangle object coresponding with the intersection paramter 
-is returned.
+The intersection parameter is omitted; the method instead returns a new
+Gtk2::Gdk::Rectangle representing the intersection, or undef if the area
+and the widget don't intersect.
 
 =item Gtk2::Widget::path
 

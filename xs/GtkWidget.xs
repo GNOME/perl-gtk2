@@ -408,19 +408,19 @@ gtk_widget_reparent (widget, new_parent)
 	GtkWidget * widget
 	GtkWidget * new_parent
 
-void
+GdkRectangle_copy *
 gtk_widget_intersect (widget, area)
 	GtkWidget    * widget
 	GdkRectangle * area
     PREINIT:
-	gboolean       ret;
-	GdkRectangle * intersection;
-    PPCODE:
-	intersection = g_new (GdkRectangle, 1);
-	ret = gtk_widget_intersect (widget, area, intersection);
-	XPUSHs (sv_2mortal (newSViv (ret)));
-	if( GIMME_V == G_ARRAY && ret )
-		XPUSHs (sv_2mortal (newSVGdkRectangle_own (intersection)));
+	gboolean     ret;
+	GdkRectangle intersection;
+    CODE:
+	if (!gtk_widget_intersect (widget, area, &intersection))
+		XSRETURN_UNDEF;
+	RETVAL = &intersection;
+    OUTPUT:
+	RETVAL
 
 # FIXME needs typemap for GdkRegion
  #GdkRegion *gtk_widget_region_intersect (GtkWidget *widget, GdkRegion *region);
