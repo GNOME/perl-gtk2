@@ -1047,31 +1047,6 @@ group (GdkEvent * eventkey, guint8 newvalue=0)
 	RETVAL
 
 
-## TODO/FIXME: remove altogether???
-##gint
-##length (GdkEvent * eventkey, guint newvalue=0)
-##    CODE:
-##	RETVAL = eventkey->key.length;
-##	if (items == 2)
-##		eventkey->key.length = newvalue;
-##    OUTPUT:
-##	RETVAL
-##
-##gchar *
-##string (GdkEvent * eventkey, gchar * newvalue=NULL)
-##    CODE:
-##	RETVAL = eventkey->key.string;
-##	if (items == 2)
-##	{
-##		g_free (eventkey->key.string);
-##		if (newvalue)
-##			eventkey->key.string = g_strdup (newvalue);
-##		else
-##			eventkey->key.string = NULL;
-##	}
-##    OUTPUT:
-##	RETVAL
-
 MODULE = Gtk2::Gdk::Event	PACKAGE = Gtk2::Gdk::Event::Crossing
 
 =for position post_hierarchy
