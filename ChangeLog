@@ -1,3 +1,14 @@
+2003/06/06 23:55 muppetman
+
+	* Gtk2.pm, xs/GdkProperty.xs, xs/GdkSelection.xs: added stuff for
+	handling GdkAtoms and selections and such.  it appears to have
+	some problems, but i don't know if they are binding problems or what.
+
+	* MANIFEST: added several missing files, make dist makes something
+	appropriate, now.
+
+	* Gtk2.pm: bumped version number to 0.22 for public release.
+
 2003/06/06 11:39 pcg
 
         * xs/GtkTextTagTable.xs: new file, all methods of GtkTextTagTable.
