@@ -26,8 +26,8 @@ examples/item_factory_demo.pl
 examples/layout.pl
 examples/plug.pl
 examples/scribble.pl
-examples/simplelist.pl
 examples/simple_menu.pl
+examples/simplelist.pl
 examples/socket.pl
 examples/testdnd.pl
 examples/timeouttest.pl
@@ -64,6 +64,7 @@ gtk-demo/sizegroup.pl
 gtk-demo/stock_browser.pl
 gtk-demo/textview.pl
 gtk-demo/tree_store.pl
+gtk.typemap
 gtk2perl.h
 maps
 pm/Helper.pm
@@ -97,6 +98,7 @@ t/22.GtkListStore.t
 t/23.GtkTreeStore.t
 t/24.GtkTreeView.t
 t/25.GtkTreeSelection.t
+t/26.GtkSimpleMenu.t
 testgtk.pl
 xs/Gdk.xs
 xs/GdkColor.xs
