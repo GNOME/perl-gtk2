@@ -67,11 +67,6 @@ members_get (fsd)
     OUTPUT:
 	RETVAL
 
-# TODO: ?
-##GtkType gtk_font_selection_dialog_get_type (void) G_GNUC_CONST
-#GtkType
-#gtk_font_selection_dialog_get_type ()
-
 ##gchar* gtk_font_selection_dialog_get_font_name (GtkFontSelectionDialog *fsd)
 gchar *
 gtk_font_selection_dialog_get_font_name (fsd)
