@@ -185,12 +185,11 @@ WriteMakefile(
 #
 # extra makefile override stuff... watch for falling wizardry.
 #
-package MY;
 
-sub postamble
+sub MY::postamble
 {
 	return Glib::MakeHelper->postamble_clean ()
-	     . Glib::MakeHelper->postamble_docs (@main::xs_files)
+	     . Glib::MakeHelper->postamble_docs (@xs_files)
 	     . Glib::MakeHelper->postamble_rpms (
 			'GTK_RUN' => $runtime_reqs{'Gtk+'},
 			'GTK' => $build_reqs{'Gtk+'},
@@ -210,12 +209,9 @@ install-\%: %
 	\@\$(RM_RF) tmp-\$+/
 
 # rebuild the makefile if the file lists change
-Makefile : ".join(" ", @main::lists)."
+Makefile : ".join(" ", @lists)."
 ";
 }
-
-
-package main;
 
 # this probably needs to go into ExtUtils::Depends.
 sub find_extra_libs {

@@ -234,9 +234,9 @@ cases.
 
 =item Gtk2::ScrollBar vs. GtkScrollbar
 
-All the scrollbar classes (Gtk2:ScrollBar, Gtk2::HScrollBar,
-Gtk2::VScrollBar) are written with a capital C<B> as opposed to a
-lowercase C<b> that is used in gtk2+ itself.
+These classes were incorrectly written with a capital C<B> in version 1.00
+and below.  They have been renamed in version 1.01 and the old way to
+write them is deprecated, but supported.
 
 =item Gtk2::Gdk::Pixbuf::render_pixmap_and_mask
 

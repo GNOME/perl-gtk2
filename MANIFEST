@@ -167,7 +167,7 @@ xs/GtkHButtonBox.xs
 xs/GtkHPaned.xs
 xs/GtkHRuler.xs
 xs/GtkHScale.xs
-xs/GtkHScrollBar.xs
+xs/GtkHScrollbar.xs
 xs/GtkHSeparator.xs
 xs/GtkHandleBox.xs
 xs/GtkIconFactory.xs
@@ -233,7 +233,7 @@ xs/GtkVButtonBox.xs
 xs/GtkVPaned.xs
 xs/GtkVRuler.xs
 xs/GtkVScale.xs
-xs/GtkVScrollBar.xs
+xs/GtkVScrollbar.xs
 xs/GtkVSeparator.xs
 xs/GtkViewport.xs
 xs/GtkWidget.xs

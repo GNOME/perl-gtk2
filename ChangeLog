@@ -1,3 +1,9 @@
+2003/11/03 18:37 pcg
+
+	* Makefile.PL: avoid package MY for easier access to variables.
+	* MANIFEST: ScrollBar => Scrollbar.
+        * api.pod: Document Scorll[bB] change.
+
 2003/11/03 12:18 muppetman
 
 	* Makefile.PL: @lists needs to be our, not my.  updated some comments.
@@ -10,7 +16,6 @@
 
 	* xs/GtkWidget.xs: Implement a bunch of minor methods, some of them
         even tested.
-
 
 2003/11/03 12:45 muppetman
 
