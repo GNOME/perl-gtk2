@@ -70,6 +70,7 @@ BOOT:
 	/* route Gtk+ log messages through perl's warn() and croak() */
 	gperl_handle_logs_for ("Gtk");
 	gperl_handle_logs_for ("Gdk");
+	gperl_handle_logs_for ("GdkPixbuf");
 	gperl_handle_logs_for ("Pango");
 	}
 
