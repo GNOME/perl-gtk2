@@ -1,3 +1,8 @@
+2004/08/28 01:19 (+0200) kaffeetisch
+
+	* t/GtkTextIter.t: Fix an error introduced in the last commit.
+	Found by Ross.
+
 2004/08/25 22:21 (+0200) kaffeetisch
 
 	* t/GtkTextIter.t: Make the [sg]et_visible_line_index and

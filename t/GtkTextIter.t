@@ -36,7 +36,7 @@ if (not defined Gtk2 -> check_version(2, 4, 8)) {
   is ($iter->get_visible_line_index, 10);
   is ($iter->get_visible_line_offset, 10);
 } else {
-  is ($iter->get_visible_line_index, 20);
+  is ($iter->get_visible_line_index, 30);
   is ($iter->get_visible_line_offset, 30);
 }
 
