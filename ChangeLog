@@ -2,9 +2,14 @@
 
 	* Glib.pm, NEWS, README, Makefile.PL: beta release 1.039
 
-	* t/GdkDnd.t: get_selection() seems to fail when using Apple's X server, but
-	not any others.  making it a TODO test.
-	
+	* t/GdkDnd.t: get_selection() seems to fail when using Apple's X server,
+	but not any others.  making it a TODO test.
+
+	* t/GtkTreeStore.t, t/GtkListStore.t: correct skip counts
+
+	* t/GdkProgressBar.t: use ok() for boolean tests, because false is
+	sometimes '' and sometimes undef.
+
 2004/03/11 23:20 (-0500) muppetman
 
 	* README: give shout-outs to the examples and gtk-demo.
