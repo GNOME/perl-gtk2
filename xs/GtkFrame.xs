@@ -9,9 +9,12 @@ MODULE = Gtk2::Frame	PACKAGE = Gtk2::Frame	PREFIX = gtk_frame_
 GtkWidget*
 gtk_frame_new (class, label=NULL)
 	SV * class
-	const gchar *label
-    C_ARGS:
-	label
+	SV * label
+    CODE:
+	RETVAL = gtk_frame_new ((!label || label == &PL_sv_undef)
+	                         ? NULL : SvPV_nolen (label));
+    OUTPUT:
+	RETVAL
 
 void
 gtk_frame_set_label (frame, label)
