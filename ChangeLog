@@ -1,3 +1,12 @@
+2003/12/07 21:44 (-0500) muppetman
+
+	* xs/GtkPaned.xs: turn the child[12]_(resize|shrink) accessors into
+	mutators, with doc; rearrange the xsubs to make more sense, and adapt
+	the docs from the C api reference for the description section.
+
+	A t/paned.t
+	* MANIFEST: new test
+
 2003/12/07 16:19 (-0500) rwmcfa1
 
  	* xs/GtkCalendar.xs, xs/GtkTextIter.xs, xs/GtkTreeModel.xs,
