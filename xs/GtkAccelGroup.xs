@@ -56,7 +56,7 @@ MODULE = Gtk2::AccelGroup	PACKAGE = Gtk2::AccelGroup	PREFIX = gtk_accel_group_
 =cut
 
 ## GtkAccelGroup* gtk_accel_group_new (void)
-GtkAccelGroup *
+GtkAccelGroup_noinc *
 gtk_accel_group_new (class)
     C_ARGS:
 	/*void*/

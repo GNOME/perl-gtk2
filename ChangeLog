@@ -1,9 +1,14 @@
-2004/01/22 17:16 (-0500) muppetman
+2004/01/22 00:46 (-0500) muppetman
+
+	* xs/GtkAccelGroup.xs, xs/GtkTextChildAnchor.xs, xs/GtkTreeModel.xs:
+	stop memory leaks
+
+2004/01/21 17:16 (-0500) muppetman
 
 	* xs/Gdk.xs: before 2.2.0, gdk_get_display() returned a static string.
 	don't free it if we're on old gtk+.
 
-2004/01/22 00:32 (-0500) muppetman
+2004/01/21 00:32 (-0500) muppetman
 
 	* xs/GdkColor.xs: use initializers to keep valgrind happy.
 
@@ -15,12 +20,12 @@
 	* xs/GdkWindow.xs: always initialize the attribute mask, regardless
 	of code path
 
-2004/01/21 21:42 (-0500) muppetman
+2004/01/20 21:42 (-0500) muppetman
 
 	* xs/GtkSelection.xs: free the value returned from 
 	gtk_selection_data_get_text().  also make sure Perl treats is as utf8.
 
-2004/01/21 21:00 (-0500) muppetman
+2004/01/20 21:00 (-0500) muppetman
 
 	* gtk2perl.h, xs/GtkClipboard.xs, xs/GtkSelection.xs: use
 	gperl_alloc_temp() instead of g_new0() in

@@ -24,7 +24,7 @@
 MODULE = Gtk2::TextChildAnchor	PACKAGE = Gtk2::TextChildAnchor	PREFIX = gtk_text_child_anchor_
 
 ##  GtkTextChildAnchor* gtk_text_child_anchor_new (void) 
-GtkTextChildAnchor*
+GtkTextChildAnchor_noinc *
 gtk_text_child_anchor_new (class)
     C_ARGS:
 	/* void */

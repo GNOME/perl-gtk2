@@ -144,7 +144,7 @@ gchar_own *
 gtk_tree_path_to_string (path)
 	GtkTreePath * path
 
-GtkTreePath *
+GtkTreePath_own *
 gtk_tree_path_new_first (class)
     C_ARGS:
 	/* void */
