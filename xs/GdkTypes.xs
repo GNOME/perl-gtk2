@@ -38,6 +38,25 @@ newSVGdkModifierType (GdkModifierType val)
 }
 
 
+SV *
+newSVGdkAtom (GdkAtom atom)
+{
+	SV * sv = newSV(0);
+	sv_setref_pv (sv, "Gtk2::Gdk::Atom", (void*)atom);
+	return sv;
+}
+
+GdkAtom
+SvGdkAtom (SV * sv)
+{
+	if (!sv || !SvOK (sv))
+		return (GdkAtom)NULL;
+	else if (sv_derived_from (sv, "Gtk2::Gdk::Atom"))
+                return (GdkAtom) SvIV ((SV*)SvRV (sv));
+        else
+                croak ("variable is not of type Gtk2::Gdk::Atom");
+}
+
 
 MODULE = Gtk2::Gdk::Types	PACKAGE = Gtk2::Gdk::Rectangle
 

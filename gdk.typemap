@@ -25,10 +25,13 @@ TYPEMAP
 # can be either a pointer or an integer, this handles both cases
 GdkNativeWindow	T_UV
 
-
+# GdkBitmap doesn't get its own type id, but needs to be treated separately.
 GdkBitmap *	T_GDK_BITMAP
 GdkBitmap_ornull *	T_GDK_BITMAP_ORNULL
 GdkBitmap_noinc *	T_GDK_BITMAP_NOINC
+
+# one of those magickal opaque pointer types
+GdkAtom 	T_GDK_ATOM
 
 INPUT
 T_GDK_BITMAP
@@ -36,9 +39,14 @@ T_GDK_BITMAP
 T_GDK_BITMAP_ORNULL
 	$var = SvGdkBitmap_ornull ($arg);
 
+T_GDK_ATOM
+	$var = SvGdkAtom ($arg);
+
 OUTPUT
 T_GDK_BITMAP
 	$arg = newSVGdkBitmap ($var);
 T_GDK_BITMAP_NOINC
 	$arg = newSVGdkBitmap_noinc ($var);
 
+T_GDK_ATOM
+	$arg = newSVGdkAtom ($var);
