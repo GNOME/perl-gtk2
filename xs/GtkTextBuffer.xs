@@ -96,8 +96,12 @@ gtk_text_buffer_insert_with_tags (buffer, iter, text, tag1, ...)
  
 
 ## void gtk_text_buffer_insert_with_tags_by_name (GtkTextBuffer *buffer, GtkTextIter *iter, const gchar *text, gint len, const gchar *first_tag_name, ...)
+=for apidoc
+=for arg tag1 (string) the first tag name
+=for arg ... (__hide__)
+=cut
 void
-gtk_text_buffer_insert_with_tags_by_name (buffer, iter, text, ...)
+gtk_text_buffer_insert_with_tags_by_name (buffer, iter, text, tag1, ...)
 	GtkTextBuffer *buffer
 	GtkTextIter *iter
 	const gchar *text
@@ -255,8 +259,13 @@ gtk_text_buffer_remove_all_tags (buffer, start, end)
 ##                                             ...);
 ## tag_name may be NULL.
 ## The returned tag is owned by the buffer's tag table!  do not use _noinc!
+=for apidoc
+=for arg property_name1 (string) the first property name
+=for arg property_value1 (string) the first property value
+=for arg ... (__hide__)
+=cut
 GtkTextTag *
-gtk_text_buffer_create_tag (buffer, tag_name, ...)
+gtk_text_buffer_create_tag (buffer, tag_name, property_name1, property_value1, ...)
 	GtkTextBuffer * buffer
 	const gchar_ornull * tag_name
     PREINIT:

@@ -36,8 +36,12 @@ BOOT:
 
 
 ## GtkListStore* gtk_list_store_new (gint n_columns, ...);
+=for apidoc
+=for arg pkg_name1 (string)
+=for arg ... (__hide__)
+=cut
 GtkListStore_noinc*
-gtk_list_store_new (class, ...)
+gtk_list_store_new (class, pkg_name1, ...)
     PREINIT:
 	GArray * typearray;
     CODE:
@@ -50,8 +54,12 @@ gtk_list_store_new (class, ...)
 
 # for initializing GListStores derived in perl
 ## void gtk_list_store_set_column_types (GtkListStore *list_store, gint n_columns, GType *types)
+=for apidoc
+=for arg pkg_name1 (string)
+=for arg ... (__hide__)
+=cut
 void
-gtk_list_store_set_column_types (list_store, ...)
+gtk_list_store_set_column_types (list_store, pkg_name1, ...)
 	GtkListStore *list_store
     PREINIT:
 	GArray * typearray;
@@ -63,8 +71,13 @@ gtk_list_store_set_column_types (list_store, ...)
 
 
 ## void gtk_list_store_set (GtkListStore *list_store, GtkTreeIter *iter, ...)
+=for apidoc
+=for arg col1 (integer) the first column number
+=for arg val1 (scalar) the first value
+=for arg ... (__hide__)
+=cut
 void
-gtk_list_store_set (list_store, iter, ...)
+gtk_list_store_set (list_store, iter, col1, val1, ...)
 	GtkListStore *list_store
 	GtkTreeIter *iter
     PREINIT:

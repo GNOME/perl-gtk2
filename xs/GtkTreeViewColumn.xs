@@ -84,13 +84,19 @@ gtk_tree_view_column_new (class)
     C_ARGS:
 	/*void*/
 
+=for apidoc
+=for signature treeviewcolumn = Gtk2::TreeViewColumn->new_with_attributes ($title, $cell, $attr1, $col1, ...)
+=for arg attr1 (string) the first attribute
+=for arg col1 (integer) the first column
+=for arg ... (__hide__)
+=cut
 GtkTreeViewColumn *
 gtk_tree_view_column_new_with_attributes (class, title, cell, ...)
 	const gchar * title
 	GtkCellRenderer * cell
     CODE:
 	if (!check_stack_for_attributes (3))
-		croak ("Usage: Gtk2::TreeViewColumn->new_with_attributes (TITLE, CELLRENDERER, ATTR1, COL1, ATTR2, COL2, ...)");
+		croak ("Usage: Gtk2::TreeViewColumn->new_with_attributes (title, cellrenderer, attr1, col1, ...)");
 	RETVAL = gtk_tree_view_column_new ();
 	gtk_tree_view_column_set_title (RETVAL, title);
 	gtk_tree_view_column_pack_start (RETVAL, cell, TRUE);
@@ -140,13 +146,18 @@ gtk_tree_view_column_add_attribute (tree_column, cell_renderer, attribute, colum
 	gint column
 
 #### void gtk_tree_view_column_set_attributes (GtkTreeViewColumn *tree_column, GtkCellRenderer *cell_renderer, ...)
+=for apidoc
+=for arg attr1 (string) the first attribute
+=for arg col1 (integer) the first column
+=for arg ... (__hide__)
+=cut
 void
 gtk_tree_view_column_set_attributes (tree_column, cell_renderer, ...)
 	GtkTreeViewColumn *tree_column
 	GtkCellRenderer *cell_renderer
     CODE:
 	if (!check_stack_for_attributes (2))
-		croak ("Usage: $treeviewcolumn->set_attributes (CELLRENDERER, ATTR1, COL1, ATTR2, COL2, ...)");
+		croak ("Usage: $treeviewcolumn->set_attributes (cellrenderer, attr1, col1, ...)");
 	set_attributes_from_arg_stack (tree_column, cell_renderer, 2);
 
 #### void gtk_tree_view_column_set_cell_data_func (GtkTreeViewColumn *tree_column, GtkCellRenderer *cell_renderer, GtkTreeCellDataFunc func, gpointer func_data, GtkDestroyNotify destroy)

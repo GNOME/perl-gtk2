@@ -1,3 +1,11 @@
+2003/12/01 23:25 (-0500) rwmcfa1
+
+	* xs/GdkDnd.xs xs/GdkProperty.xs, xs/GtkClipboard.xs, xs/GtkDnd.xs,
+	xs/GtkListStore.xs, xs/GtkSelection.xs, xs/GtkTextBuffer.xs,
+	xs/GtkTreeDnd.xs, xs/GtkTreeStore.xs, xs/GtkTreeView.xs,
+	xs/GtkTreeViewColumn.xs: api doc additions.
+
+
 2003/11/29 16:51 (-0500) muppetman
 
 	* t/ignore_keyboard.pl: merge test helper script from head

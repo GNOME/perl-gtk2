@@ -114,8 +114,12 @@ gtk_drag_unhighlight (widget)
 	GtkWidget *widget
 
 ####  void gtk_drag_dest_set (GtkWidget *widget, GtkDestDefaults flags, const GtkTargetEntry *targets, gint n_targets, GdkDragAction actions) 
+=for apidoc
+=for arg target1 (Gtk2::TargetEntry) the first target
+=for arg ... (__hide__)
+=cut
 void
-gtk_drag_dest_set (widget, flags, actions, ...)
+gtk_drag_dest_set (widget, flags, actions, target1, ...)
 	GtkWidget *widget
 	GtkDestDefaults flags
 	GdkDragAction actions
@@ -165,8 +169,12 @@ gtk_drag_dest_set_target_list (widget, target_list)
 	GtkTargetList_ornull *target_list
 
 ####  void gtk_drag_source_set (GtkWidget *widget, GdkModifierType start_button_mask, const GtkTargetEntry *targets, gint n_targets, GdkDragAction actions) 
+=for apidoc
+=for arg target1 (Gtk2::TargetEntry) the first target
+=for arg ... (__hide__)
+=cut
 void
-gtk_drag_source_set (widget, start_button_mask, actions, ...)
+gtk_drag_source_set (widget, start_button_mask, actions, target1, ...)
 	GtkWidget *widget
 	GdkModifierType start_button_mask
 	GdkDragAction actions

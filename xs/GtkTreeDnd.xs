@@ -36,6 +36,10 @@ gtk_tree_drag_source_drag_data_delete (drag_source, path)
 	GtkTreePath *path
 
 ### gboolean gtk_tree_drag_source_drag_data_get (GtkTreeDragSource *drag_source, GtkTreePath *path, GtkSelectionData *selection_data)
+=for apidoc
+=for arg selection_data (Gtk2::SelectionData) the first selection data
+=for arg ... (__hide__)
+=cut
 GtkSelectionData_copy *
 gtk_tree_drag_source_drag_data_get (drag_source, path, selection_data)
 	GtkTreeDragSource *drag_source

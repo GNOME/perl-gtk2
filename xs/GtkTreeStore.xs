@@ -33,8 +33,12 @@ BOOT:
 	gperl_set_isa ("Gtk2::TreeStore", "Gtk2::TreeSortable");
 
 ## GtkTreeStore* gtk_tree_store_new (gint n_columns, ...);
+=for apidoc
+=for arg pkg_name1 (string)
+=for arg ... (__hide__)
+=cut
 GtkTreeStore_noinc*
-gtk_tree_store_new (class, ...)
+gtk_tree_store_new (class, pkg_name1, ...)
     PREINIT:
 	GArray * typearray;
     CODE:
@@ -47,8 +51,12 @@ gtk_tree_store_new (class, ...)
 
 # for initializing GtkTreeStores derived in perl.
 ## void gtk_tree_store_set_column_types (GtkTreeStore *tree_store, gint n_columns, GType *types)
+=for apidoc
+=for arg pkg_name1 (string)
+=for arg ... (__hide__)
+=cut
 void
-gtk_tree_store_set_column_types (tree_store, ...)
+gtk_tree_store_set_column_types (tree_store, pkg_name1, ...)
 GtkTreeStore *tree_store
     PREINIT:
 	GArray * types;
@@ -58,8 +66,13 @@ GtkTreeStore *tree_store
 	                                 (GType*)(types->data));
 
 ## void gtk_tree_store_set (GtkTreeStore *tree_store, GtkTreeIter *iter, ...)
+=for apidoc
+=for arg col1 (integer) the first column number
+=for arg val1 (scalar) the first value
+=for arg ... (__hide__)
+=cut
 void
-gtk_tree_store_set (tree_store, iter, ...)
+gtk_tree_store_set (tree_store, iter, col1, val1, ...)
 	GtkTreeStore *tree_store
 	GtkTreeIter *iter
     PREINIT:
@@ -215,8 +228,12 @@ gtk_tree_store_iter_is_valid (tree_store, iter)
 
 # TODO: definitely needs testing
 #### void gtk_tree_store_reorder (GtkTreeStore *tree_store, GtkTreeIter *parent, gint *new_order)
+=for apidoc
+=for arg new_order1 (integer) the first position in new_order
+=for arg ... (__hide__)
+=cut
 void
-gtk_tree_store_reorder (tree_store, parent, new_order)
+gtk_tree_store_reorder (tree_store, parent, new_order1, ...)
 	GtkTreeStore       * tree_store
 	GtkTreeIter_ornull * parent
    PREINIT:

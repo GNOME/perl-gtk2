@@ -124,6 +124,10 @@ gtk_clipboard_get_display (clipboard)
 #endif /* >=2.2.0 */
 
 ####  gboolean gtk_clipboard_set_with_data (GtkClipboard *clipboard, const GtkTargetEntry *targets, guint n_targets, GtkClipboardGetFunc get_func, GtkClipboardClearFunc clear_func, gpointer user_data) 
+=for apidoc
+=for arg target1 (Gtk2::TargetEntry) the first target entry
+=for arg ... (__hide__)
+=cut
 gboolean
 gtk_clipboard_set_with_data (clipboard, get_func, clear_func, user_data, target1, ...)
 	GtkClipboard *clipboard
@@ -190,6 +194,10 @@ gtk_clipboard_set_with_data (clipboard, get_func, clear_func, user_data, target1
 	g_free (targets);
 
 ##  gboolean gtk_clipboard_set_with_owner (GtkClipboard *clipboard, const GtkTargetEntry *targets, guint n_targets, GtkClipboardGetFunc get_func, GtkClipboardClearFunc clear_func, GObject *owner) 
+=for apidoc
+=for arg target1 (Gtk2::TargetEntry) the first target entry
+=for arg ... (__hide__)
+=cut
 gboolean
 gtk_clipboard_set_with_owner (clipboard, get_func, clear_func, owner, target1, ...)
 	GtkClipboard *clipboard
