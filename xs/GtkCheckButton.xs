@@ -33,12 +33,12 @@ gtk_check_button_news (class, label=NULL)
     ALIAS:
 	Gtk2::CheckButton::new = 0
 	Gtk2::CheckButton::new_with_mnemonic = 1
-	Gtk2::CheckButton::new_with_label = 1
+	Gtk2::CheckButton::new_with_label = 2
     CODE:
 	if (label) {
 		if (ix == 2)
 			RETVAL = gtk_check_button_new_with_label (label);
-		else
+		else /* if (ix == 1) */
 			RETVAL = gtk_check_button_new_with_mnemonic (label);
 	} else
 		RETVAL = gtk_check_button_new ();

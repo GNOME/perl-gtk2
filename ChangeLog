@@ -3,6 +3,8 @@
 	* xs/GdkWindow.xs: uncommented the freeze/thaw updates functions per
 	thierry vignaud's request.
 
+	* xs/GtkCheckButton.xs: duplicate alias value found by ^
+
 2003/07/08 14:23 muppetman
 
 	* CodeGen.om: massive POD update; use regex to find module name
