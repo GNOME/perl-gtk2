@@ -177,9 +177,9 @@ gtk_list_store_prepend (list_store)
 	GtkTreeIter iter;
     CODE:
 	if (ix == 1)
-		gtk_list_store_append (list_store, &iter);
-	else
 		gtk_list_store_prepend (list_store, &iter);
+	else
+		gtk_list_store_append (list_store, &iter);
 	RETVAL = &iter;
     OUTPUT:
 	RETVAL
