@@ -1,3 +1,10 @@
+2003/07/18 12:00 muppetman
+
+	* xs/GtkTreeSortable.xs: implemented the missing sort callbacks.
+
+	* Gtk2.pm, README, Makefile.PL, META.yml: bump version to 0.90 for
+	first beta series release.  require at least Glib 0.26.
+
 2003/07/17 11:35 muppetman
 
 	* xs/GdkX11.xs: a few x11-backend-specific functions from gdkx.h,
