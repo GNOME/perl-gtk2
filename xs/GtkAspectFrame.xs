@@ -21,7 +21,7 @@
 
 #include "gtk2perl.h"
 
-MODULE = Gtk2::AspectFrame	PACKAGE = Gtk2::AspectFrame	PREFIX = gtk_aspectframe_
+MODULE = Gtk2::AspectFrame	PACKAGE = Gtk2::AspectFrame	PREFIX = gtk_aspect_frame_
 
 ## GtkWidget* gtk_aspect_frame_new (const gchar *label, gfloat xalign, gfloat yalign, gfloat ratio, gboolean obey_child)
 GtkWidget *
@@ -36,11 +36,14 @@ gtk_aspect_frame_new (class, label, xalign, yalign, ratio, obey_child)
 	label, xalign, yalign, ratio, obey_child
 
 ## void gtk_aspect_frame_set (GtkAspectFrame *aspect_frame, gfloat xalign, gfloat yalign, gfloat ratio, gboolean obey_child)
+ ### NOTE: renamed to avoid clashing with Glib::Object->set
 void
-gtk_aspect_frame_set (aspect_frame, xalign, yalign, ratio, obey_child)
+gtk_aspect_frame_set_params (aspect_frame, xalign, yalign, ratio, obey_child)
 	GtkAspectFrame * aspect_frame
 	gfloat           xalign
 	gfloat           yalign
 	gfloat           ratio
 	gboolean         obey_child
+    CODE:
+	gtk_aspect_frame_set (aspect_frame, xalign, yalign, ratio, obey_child);
 
