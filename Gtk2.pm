@@ -31,7 +31,7 @@ use Glib;
 
 require DynaLoader;
 
-our $VERSION = '1.012';
+our $VERSION = '1.030';
 
 our @ISA = qw(DynaLoader);
 
@@ -238,13 +238,14 @@ together.
 
 The gtk2-perl team:
 
- muppet E<lt>scott at asofyet dot orgE<gt>
- Ross McFarland E<lt>rwmcfa1 at neces dot comE<gt>
- Jörn Reder E<lt>joern at zyn dot deE<gt>
- Göran Thyni E<lt>gthyni at kirra dot netE<gt>
- Chas Owens E<lt>alas at wilma dot widomaker dot comE<gt>
- Guillaume Cottenceau E<lt>gc at mandrakesoft dot comE<gt>
- Marc Lehmann E<lt>pcg at goof dot comE<gt>
+ muppet <scott at asofyet dot org>
+ Ross McFarland <rwmcfa1 at neces dot com>
+ Torsten Schoenfeld <kaffeetisch at web dot de>
+ Marc Lehmann <pcg at goof dot com>
+ Göran Thyni <gthyni at kirra dot net>
+ Jörn Reder <joern at zyn dot de>
+ Chas Owens <alas at wilma dot widomaker dot com>
+ Guillaume Cottenceau <gc at mandrakesoft dot com>
 
 =head1 COPYRIGHT AND LICENSE
 
