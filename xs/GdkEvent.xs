@@ -102,6 +102,7 @@ gdk_event_get_package (GType gtype,
 		return "Gtk2::Gdk::Event::Setting";
 	    default:
 		croak ("Illegal type %d in event->type", event->type);
+		return NULL; /* not reached */
 	}
 }
 
@@ -1498,7 +1499,7 @@ data (GdkEvent * eventclient, ...)
 
 				for (i = first_index; i < items; i++) {
 					old[i - first_index] = eventclient->client.data.s[i - first_index];
-					eventclient->client.data.s[i - first_index] = SvIV (ST (i));
+					eventclient->client.data.s[i - first_index] = (gint16) SvIV (ST (i));
 				}
 
 				for (i = 0; i < 10; i++)
