@@ -7,7 +7,7 @@ Gtk2::Gdk::Threads -> init();
 
 if (Gtk2->init_check )
 {
-	plan test => 11;
+	plan tests => 11;
 }
 else
 {	
