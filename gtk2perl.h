@@ -80,7 +80,6 @@ void SvGdkGCValues (SV * data, GdkGCValues * v, GdkGCValuesMask * m);
 
 /* exported for various other parts of pango */
 SV * newSVPangoRectangle (PangoRectangle * rectangle);
-PangoRectangle * SvPangoRectangle (SV * sv);
 
 /*
  * GdkAtom, an opaque pointer

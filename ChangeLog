@@ -1,3 +1,15 @@
+2004/04/25 13:10 (+0200) kaffeetisch
+
+	* t/GdkDisplay.t: Add a reference to the relevant bug to the FIXME
+	comment on close().
+
+	* t/GtkDnd.t: Check that $context is defined before using it.
+
+	* gtk2perl.h
+	* xs/PangoLayout.xs: Make SvPangoRectangle accept an array
+	reference as well ... and comment it out and remove it from the
+	header.  It's not used at the moment.
+
 2004/04/20 15:41 (+0200) kaffeetisch
 
 	<warning size="big" weight="fat">

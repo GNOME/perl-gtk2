@@ -33,16 +33,18 @@ isa_ok($context, "Gtk2::Gdk::DragContext");
 $context = $button -> drag_begin($list, "default", 1, $event);
 isa_ok($context, "Gtk2::Gdk::DragContext");
 
-# warn $button -> drag_dest_find_target($context, $list);
-# $context -> finish(1, 0, 0);
-# $button -> drag_get_data($context, Gtk2::Gdk -> TARGET_STRING, 0);
-# warn $context -> get_source_widget();
+if (defined($context)) {
+  # warn $button -> drag_dest_find_target($context, $list);
+  # $context -> finish(1, 0, 0);
+  # $button -> drag_get_data($context, Gtk2::Gdk -> TARGET_STRING, 0);
+  # warn $context -> get_source_widget();
 
-$context -> set_icon_widget($window, 5, 5);
-# $context -> set_icon_pixmap(...);
-$context -> set_icon_pixbuf($pixbuf, 5, 5);
-$context -> set_icon_stock("gtk-add", 5, 5);
-$context -> set_icon_default();
+  $context -> set_icon_widget($window, 5, 5);
+  # $context -> set_icon_pixmap(...);
+  $context -> set_icon_pixbuf($pixbuf, 5, 5);
+  $context -> set_icon_stock("gtk-add", 5, 5);
+  $context -> set_icon_default();
+}
 
 is($button -> drag_check_threshold(5, 5, 100, 100), 1);
 

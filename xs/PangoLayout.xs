@@ -49,37 +49,60 @@ newSVPangoRectangle (PangoRectangle * rectangle)
 	return newRV_noinc ((SV *) hv);
 }
 
+#if 0 /* not used currently */
 PangoRectangle *
 SvPangoRectangle (SV * sv)
 {
 	PangoRectangle *rectangle;
-	HV * hv;
 	SV ** v;
 
-	if (!sv || !SvOK (sv) || !SvRV (sv) || SvTYPE (SvRV (sv)) != SVt_PVHV)
-		croak ("a PangoRectangle must be a hash reference");
+	if (!sv || !SvOK (sv) || !SvRV (sv) ||
+	    !(SvTYPE (SvRV (sv)) == SVt_PVHV || SvTYPE (SvRV (sv)) == SVt_PVAV))
+		croak ("a PangoRectangle must be a reference to a hash or an array");
 
 	rectangle = gperl_alloc_temp (sizeof (PangoRectangle));
-	hv = (HV *) SvRV (sv);
 
-	v = hv_fetch (hv, "x", 1, 0);
-	if (v && SvOK (*v))
-		rectangle->x = SvIV (*v);
+	if (SvTYPE (SvRV (sv)) == SVt_PVHV) {
+		HV * hv = (HV *) SvRV (sv);
 
-	v = hv_fetch (hv, "y", 1, 0);
-	if (v && SvOK (*v))
-		rectangle->y = SvIV (*v);
+		v = hv_fetch (hv, "x", 1, 0);
+		if (v && SvOK (*v))
+			rectangle->x = SvIV (*v);
 
-	v = hv_fetch (hv, "width", 5, 0);
-	if (v && SvOK (*v))
-		rectangle->width = SvIV (*v);
+		v = hv_fetch (hv, "y", 1, 0);
+		if (v && SvOK (*v))
+			rectangle->y = SvIV (*v);
 
-	v = hv_fetch (hv, "height", 6, 0);
-	if (v && SvOK (*v))
-		rectangle->height = SvIV (*v);
+		v = hv_fetch (hv, "width", 5, 0);
+		if (v && SvOK (*v))
+			rectangle->width = SvIV (*v);
+
+		v = hv_fetch (hv, "height", 6, 0);
+		if (v && SvOK (*v))
+			rectangle->height = SvIV (*v);
+	} else {
+		AV * av = (AV *) SvRV (sv);
+
+		v = av_fetch (av, 0, 0);
+		if (v && SvOK (*v))
+			rectangle->x = SvIV (*v);
+
+		v = av_fetch (av, 1, 0);
+		if (v && SvOK (*v))
+			rectangle->y = SvIV (*v);
+
+		v = av_fetch (av, 2, 0);
+		if (v && SvOK (*v))
+			rectangle->width = SvIV (*v);
+
+		v = av_fetch (av, 3, 0);
+		if (v && SvOK (*v))
+			rectangle->height = SvIV (*v);
+	}
 
 	return rectangle;
 }
+#endif
 
 /* ------------------------------------------------------------------------- */
 
