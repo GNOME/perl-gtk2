@@ -7,7 +7,7 @@
 # 	- rm
 #########################
 
-use Gtk2::TestHelper tests => 26, noinit => 1;
+use Gtk2::TestHelper tests => 30, noinit => 1;
 
 ok( my $vbox = Gtk2::VBox->new( 0, 5 ) );
 
@@ -35,6 +35,9 @@ foreach (@prog)
 
 	$_->set_text("Bla");
 	is( $_->get_text, "Bla" );
+
+	$_->set_text(undef);
+	is( $_->get_text, undef );
 
 	$_->set_pulse_step(0.42);
 	is( $_->get_pulse_step, 0.42 );

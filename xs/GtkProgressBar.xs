@@ -39,8 +39,8 @@ gtk_progress_bar_new (class)
 ## void gtk_progress_bar_set_text (GtkProgressBar *pbar, const gchar *text)
 void
 gtk_progress_bar_set_text (pbar, text)
-	GtkProgressBar * pbar
-	const gchar    * text
+	GtkProgressBar     * pbar
+	const gchar_ornull * text
 
 ## void gtk_progress_bar_set_fraction (GtkProgressBar *pbar, gdouble fraction)
 void
@@ -81,7 +81,7 @@ gtk_progress_bar_pulse (pbar)
 	GtkProgressBar * pbar
 
 ##G_CONST_RETURN gchar * gtk_progress_bar_get_text (GtkProgressBar *pbar)
-const gchar *
+const gchar_ornull *
 gtk_progress_bar_get_text (pbar)
 	GtkProgressBar * pbar
 
