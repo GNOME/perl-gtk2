@@ -140,14 +140,21 @@ gdk_gc_set_line_attributes (gc, line_width, line_style, cap_style, join_style)
 	GdkCapStyle cap_style
 	GdkJoinStyle join_style
 
-# FIXME get dash list from perl stack
-# ## void gdk_gc_set_dashes (GdkGC *gc, gint dash_offset, gint8 dash_list[], gint n)
-#void
-#gdk_gc_set_dashes (gc, dash_offset, a, n)
-#	GdkGC *gc
-#	gint dash_offset
-#	gint8 dash_list[]
-#	gint n
+ ## void gdk_gc_set_dashes (GdkGC *gc, gint dash_offset, gint8 dash_list[], gint n)
+void
+gdk_gc_set_dashes (gc, dash_offset, ...)
+	GdkGC * gc
+	gint    dash_offset
+    PREINIT:
+	gint8 * dash_list;
+	gint    n;
+    CODE:
+	n = --items;
+	dash_list = g_new(gint8, items-2);
+	for( ; items > 1; items-- )
+		dash_list[items-2] = SvIV(ST(items));
+	gdk_gc_set_dashes(gc, dash_offset, dash_list, n);
+	g_free(dash_list);
 
  ## void gdk_gc_offset (GdkGC *gc, gint x_offset, gint y_offset)
 void
