@@ -122,7 +122,7 @@ is (@size, 4);
 
 my $event = Gtk2::Gdk::Event->new ("button-press");
 
-$renderer->render ($window->window, $treeview, $rect, $rect, $rect, [qw(sorted focused)]);
+$renderer->render ($window->window, $treeview, $rect, $rect, $rect, [qw(sorted prelit)]);
 ok(!$renderer->activate ($event, $treeview, "0", $rect, $rect, qw(selected)));
 isa_ok ($renderer->start_editing ($event, $treeview, "0", $rect, $rect, qw(selected)), "Gtk2::Entry");
 
