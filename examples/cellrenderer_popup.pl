@@ -28,7 +28,8 @@ to use this object, then go ahead, but remember the gpl.
 # $Header$
 #
 
-use Gtk2 -init;
+# we require things from post 1.00 development.
+use Gtk2 1.01, -init;
 
 package Mup::CellRendererPopup;
 
