@@ -280,8 +280,8 @@ gdk_window_set_skip_pager_hint (window, skips_pager)
  ## void gdk_window_set_cursor (GdkWindow *window, GdkCursor *cursor)
 void
 gdk_window_set_cursor (window, cursor)
-	GdkWindow *window
-	GdkCursor *cursor
+	GdkWindow * window
+	GdkCursor_ornull * cursor
 
  ## void gdk_window_get_user_data (GdkWindow *window, gpointer *data)
  ##void
