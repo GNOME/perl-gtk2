@@ -114,7 +114,7 @@ colons in the MODULE name with underscores and prepending "boot_".
 We need to be careful not to include the boot code for the bootstrapped module,
 (say Toplevel, or Gtk2, or whatever) because the bootstrap code in 
 Toplevel.pm will call boot_Toplevel when loaded, and boot_Toplevel
-should actually includes the file we are creating here.
+should actually include the file we are creating here.
 
 The default value for the ignore parameter ignores any name not containing
 colons, because it is assumed that this will be a toplevel module, and any

@@ -516,8 +516,9 @@ structure.
 
 After creating a new Gtk2::SimpleList object with the desired columns you may
 set the list data with a simple Perl array assignment. Rows may be added or
-deleted with the all of the normal array operations. Data may be accessed and
-modified by treating the data member of the list object as an array reference.
+deleted with all of the normal array operations. You can treat the C<data>
+member of the list simplelist object as an array reference, and manipulate the
+list data with perl's normal array operators.
 
 A mechanism has also been put into place allowing columns to be Perl scalars.
 The scalar is converted to text through Perl's normal mechanisms and then
@@ -551,7 +552,8 @@ they are turned on. The parameter ctype is the type of the column, one of:
  pixbuf  a Gtk2::Gdk::Pixbuf
 
 or the name of a custom type you add with C<add_column_type>.
-These should be provided in pairs according to the desired columns for you list.
+These should be provided in pairs according to the desired columns for your
+list.
 
 =item $slist = Gtk2::SimpleList->new_from_treeview (treeview, cname, ctype, ...)
 

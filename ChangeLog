@@ -1,3 +1,10 @@
+2004/04/12 01:32 (+0200) kaffeetisch
+
+	* CodeGen.pm
+	* pm/SimpleList.pm
+	* pm/SimpleMenu.pm
+	* pm/TestHelper.pm: Some documentation fixes and additions.
+
 2004/04/10 00:21 (-0400) muppetman
 
 	* AUTHORS, pm/SimpleList.pm: SimpleList documentation fixes from
