@@ -290,7 +290,6 @@ gtk_window_set_icon_from_file (window, filename)
 #gboolean gtk_window_set_default_icon_from_file (GtkWindow *window, const gchar *filename, GError **err)
 void
 gtk_window_set_default_icon_from_file (class_or_instance, filename)
-        SV *class_or_instance
 	GPerlFilename filename
     PREINIT:
         GError *error = NULL;

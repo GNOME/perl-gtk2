@@ -110,7 +110,7 @@ bool_member (GtkPaned * paned, SV * newval=NULL)
 	Gtk2::Paned::child2_resize = 2
 	Gtk2::Paned::child2_shrink = 3
     CODE:
-	RETVAL = NULL;
+	RETVAL = FALSE;
 	switch (ix) {
 		case 0: RETVAL = paned->child1_resize; break;
 		case 1: RETVAL = paned->child1_shrink; break;

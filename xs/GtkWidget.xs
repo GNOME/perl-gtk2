@@ -347,6 +347,7 @@ flags (GtkWidget * widget)
     ALIAS:
 	get_flags = 1
     CODE:
+	PERL_UNUSED_VAR (ix);
 	RETVAL = GTK_WIDGET_FLAGS (widget);
     OUTPUT:
 	RETVAL
@@ -799,16 +800,16 @@ gchar* gtk_widget_get_composite_name (GtkWidget *widget)
 #/* Descend recursively and set rc-style on all widgets without user styles */
 void gtk_widget_reset_rc_styles (GtkWidget *widget)
  
-void gtk_widget_push_colormap (SV *class_or_widget, GdkColormap *cmap)
+void gtk_widget_push_colormap (class_or_widget, GdkColormap *cmap)
     C_ARGS: cmap
 
-void gtk_widget_pop_colormap (SV *class_or_widget)
+void gtk_widget_pop_colormap (class_or_widget)
     C_ARGS: /* void */
 
-void gtk_widget_push_composite_child (SV *class_or_widget)
+void gtk_widget_push_composite_child (class_or_widget)
     C_ARGS: /* void */
 
-void gtk_widget_pop_composite_child (SV *class_or_widget)
+void gtk_widget_pop_composite_child (class_or_widget)
     C_ARGS: /* void */
 
 # bunch of FIXMEs FIXME FIXME FIXME
@@ -837,6 +838,7 @@ style_get (GtkWidget * widget, first_property_name, ...)
     PREINIT:
 	int i;
     PPCODE:
+	PERL_UNUSED_VAR (ix);
 	EXTEND (SP, items - 1);
 	for (i = 1 ; i < items ; i++) {
 		GValue value = {0, };
@@ -856,17 +858,17 @@ style_get (GtkWidget * widget, first_property_name, ...)
  #/* Set certain default values to be used at widget creation time.
  # */
 
-void gtk_widget_set_default_colormap (SV *class_or_widget, GdkColormap *colormap);
+void gtk_widget_set_default_colormap (class_or_widget, GdkColormap *colormap);
     C_ARGS: colormap
 
 GtkStyle*
-gtk_widget_get_default_style (SV *class_or_widget)
+gtk_widget_get_default_style (class_or_widget)
     C_ARGS: /* void */
 
-GdkColormap* gtk_widget_get_default_colormap (SV *class_or_widget)
+GdkColormap* gtk_widget_get_default_colormap (class_or_widget)
     C_ARGS: /* void */
 
-GdkVisual* gtk_widget_get_default_visual (SV *class_or_widget)
+GdkVisual* gtk_widget_get_default_visual (class_or_widget)
     C_ARGS: /* void */
 
  #

@@ -126,7 +126,6 @@ MODULE = Gtk2::Gdk::Types	PACKAGE = Gtk2::Gdk::Geometry
 
 GdkGeometry *
 new (class)
-	SV *class
     PREINIT:
 	GdkGeometry geometry;
     CODE:
@@ -146,6 +145,7 @@ min_width (GdkGeometry *geometry, gint newvalue = 0)
         width_inc = 6
         height_inc = 7
     CODE:
+	RETVAL = 0;
 	switch (ix) {
                 case 0: RETVAL = geometry->min_width;   break;
                 case 1: RETVAL = geometry->min_height;  break;
@@ -176,6 +176,7 @@ min_aspect (GdkGeometry *geometry, gdouble newvalue = 0)
     ALIAS:
         max_aspect = 1
     CODE:
+	RETVAL = 0;
 	switch (ix) {
                 case 0: RETVAL = geometry->min_aspect; break;
                 case 1: RETVAL = geometry->max_aspect; break;

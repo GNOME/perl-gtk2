@@ -568,10 +568,10 @@ void
 gdk_window_thaw_updates (window)
 	GdkWindow * window
 
-void gdk_window_process_all_updates (GdkWindow *class_or_instance)
+void gdk_window_process_all_updates (class_or_instance)
     C_ARGS: /*void*/
 
-void gdk_window_set_debug_updates (GdkWindow *class_or_instance, gboolean enable)
+void gdk_window_set_debug_updates (class_or_instance, gboolean enable)
     C_ARGS: enable
 
  ## void gdk_window_process_updates (GdkWindow *window, gboolean update_children)

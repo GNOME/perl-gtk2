@@ -415,6 +415,7 @@ gtk_tree_model_get (tree_model, iter, ...)
     PREINIT:
 	int i;
     PPCODE:
+	PERL_UNUSED_VAR (ix);
 	/* if column id's were passed, just return those columns */
 	if( items > 2 )
 	{
