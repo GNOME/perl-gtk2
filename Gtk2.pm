@@ -14,7 +14,7 @@ use Glib;
 
 require DynaLoader;
 
-our $VERSION = '0.92';
+our $VERSION = '0.93';
 
 our @ISA = qw(DynaLoader);
 
@@ -173,21 +173,20 @@ join gtk-perl-list@gnome.org at lists.gnome.org.
 Also have a look at the gtk2-perl website and sourceforge project page,
 http://gtk2-perl.sourceforge.net
 
-FIXME we have no other documentation, but we probably need it.
-
-
-
 =head1 SEE ALSO
 
 perl(1), Glib(3pm).
 
+Gtk2::Gdk::Keysyms(3pm) contains a hash of key codes, culled from
+gdk/gdkkeysyms.h
+
 Gtk2::api(3pm) describes how to map the C API into perl, and some of the
 important differences in the perl bindings.
 
-The Gtk2::Helper module contains stuff that makes writing Gtk2 programs
+Gtk2::Helper(3pm) contains stuff that makes writing Gtk2 programs
 a little easier.
 
-Gtk2::SimpleList makes the GtkListStore and GtkTreeModel a I<lot>
+Gtk2::SimpleList(3pm) makes the GtkListStore and GtkTreeModel a I<lot>
 easier to use.
 
 Gtk2 also provides code to make it relatively painless to create perl
