@@ -427,18 +427,25 @@ type (event)
 	RETVAL
 
 GdkWindow_ornull *
-window (event)
-	GdkEvent * event
+window (GdkEvent * event, GdkWindow_ornull * newvalue=NULL)
     CODE:
 	RETVAL = event->any.window;
+	if (newvalue)
+	{
+		if (event->any.window)
+			g_object_unref (event->any.window);
+		g_object_ref (newvalue);
+		event->any.window = newvalue;
+	}
     OUTPUT:
 	RETVAL
 
 gint8
-send_event (event)
-	GdkEvent * event
+send_event (GdkEvent * event, gint8 newvalue=0)
     CODE:
 	RETVAL = event->any.send_event;
+	if (items == 2)
+		event->any.send_event = newvalue;
     OUTPUT:
 	RETVAL
 
@@ -461,23 +468,43 @@ BOOT:
  #};
 
 GdkRectangle*
-area (GdkEvent * eventexpose)
+area (GdkEvent * eventexpose, GdkRectangle * newvalue=NULL)
     CODE:
 	RETVAL = &(eventexpose->expose.area);
+	if (newvalue)
+	{
+		eventexpose->expose.area.x = newvalue->x;
+		eventexpose->expose.area.y = newvalue->y;
+		eventexpose->expose.area.width = newvalue->width;
+		eventexpose->expose.area.height = newvalue->height;
+	}
     OUTPUT:
 	RETVAL
 
-GdkRegion_copy*
-region (GdkEvent * eventexpose)
+GdkRegion_own_ornull *
+region (GdkEvent * eventexpose, GdkRegion_ornull * newvalue=NULL)
     CODE:
-	RETVAL = eventexpose->expose.region;
+	RETVAL = NULL;
+	if (eventexpose->expose.region)
+		RETVAL = gdk_region_copy (eventexpose->expose.region);
+	if (items == 2)
+	{
+		if (eventexpose->expose.region)
+			gdk_region_destroy (eventexpose->expose.region);
+		if (newvalue)
+			eventexpose->expose.region = gdk_region_copy (newvalue);
+		else
+			eventexpose->expose.region = NULL;
+	}
     OUTPUT:
 	RETVAL
 
 gint
-count (GdkEvent * eventexpose)
+count (GdkEvent * eventexpose, guint newvalue=0)
     CODE:
 	RETVAL = eventexpose->expose.count;
+	if (items == 2)
+		eventexpose->expose.count = newvalue;
     OUTPUT:
 	RETVAL
 
@@ -514,9 +541,11 @@ BOOT:
 
 # different return type, override Gtk2::Gdk::Event::state
 GdkVisibilityState
-state (GdkEvent * eventvisibility)
+state (GdkEvent * eventvisibility, GdkVisibilityState newvalue=0)
     CODE:
 	RETVAL = eventvisibility->visibility.state;
+	if (items == 2)
+		eventvisibility->visibility.state = newvalue;
     OUTPUT:
 	RETVAL
 
@@ -544,12 +573,15 @@ BOOT:
  #};
 
 guint
-is_hint (GdkEvent * eventmotion)
+is_hint (GdkEvent * eventmotion, guint newvalue=0)
     CODE:
 	RETVAL = eventmotion->motion.is_hint;
+	if (items == 2)
+		eventmotion->motion.is_hint = newvalue;
     OUTPUT:
 	RETVAL
 
+## TODO/FIXME: how would this be set
 GdkDevice_ornull *
 device (GdkEvent * eventmotion)
     CODE:
@@ -581,12 +613,15 @@ BOOT:
  #};
 
 guint
-button (GdkEvent * eventbutton)
+button (GdkEvent * eventbutton, guint newvalue=0)
     CODE:
 	RETVAL = eventbutton->button.button;
+	if (items == 2)
+		eventbutton->button.button = newvalue;
     OUTPUT:
 	RETVAL
 
+## TODO/FIXME: how would this be set
 GdkDevice_ornull *
 device (GdkEvent * eventbutton)
     CODE:
@@ -617,12 +652,15 @@ BOOT:
  #};
 
 GdkScrollDirection
-direction (GdkEvent * eventscroll)
+direction (GdkEvent * eventscroll, GdkScrollDirection newvalue=0)
     CODE:
 	RETVAL = eventscroll->scroll.direction;
+	if (items == 2)
+		eventscroll->scroll.direction = newvalue;
     OUTPUT:
 	RETVAL
 
+## TODO/FIXME: how would this be set
 GdkDevice_ornull *
 device (GdkEvent * eventscroll)
     CODE:
@@ -647,32 +685,68 @@ BOOT:
  #//  guint32 time;  <- gdk_event_get_time
  #//  guint state; <- get_state
  #  guint keyval;
- #  gint length;
- #  gchar *string;
+ #//  gint length; 	deprecated
+ #//  gchar *string; 	deprecated
  #  guint16 hardware_keycode;
  #  guint8 group;
  #};
 
 guint
-keyval (GdkEvent * eventkey)
+keyval (GdkEvent * eventkey, guint newvalue=0)
     CODE:
 	RETVAL = eventkey->key.keyval;
+	if (items == 2)
+		eventkey->key.keyval = newvalue;
     OUTPUT:
 	RETVAL
 
+guint16
+hardware_keycode (GdkEvent * eventkey, guint16 newvalue=0)
+    CODE:
+	RETVAL = eventkey->key.hardware_keycode;
+	if (items == 2)
+		eventkey->key.hardware_keycode = newvalue;
+    OUTPUT:
+	RETVAL
+
+guint8
+group (GdkEvent * eventkey, guint8 newvalue=0)
+    CODE:
+	RETVAL = eventkey->key.group;
+	if (items == 2)
+		eventkey->key.group = newvalue;
+    OUTPUT:
+	RETVAL
+
+
+#if 0
+## TODO/FIXME: remove altogether???
+
 gint
-length (GdkEvent * eventkey)
+length (GdkEvent * eventkey, guint newvalue=0)
     CODE:
 	RETVAL = eventkey->key.length;
+	if (items == 2)
+		eventkey->key.length = newvalue;
     OUTPUT:
 	RETVAL
 
 gchar *
-string (GdkEvent * eventkey)
+string (GdkEvent * eventkey, gchar * newvalue=NULL)
     CODE:
 	RETVAL = eventkey->key.string;
+	if (items == 2)
+	{
+		g_free (eventkey->key.string);
+		if (newvalue)
+			eventkey->key.string = g_strdup (newvalue);
+		else
+			eventkey->key.string = NULL;
+	}
     OUTPUT:
 	RETVAL
+
+#endif
 
 MODULE = Gtk2::Gdk::Event	PACKAGE = Gtk2::Gdk::Event::Crossing
 
@@ -699,24 +773,44 @@ BOOT:
  #//  guint state; <- get_state
  #};
 
+GdkWindow_ornull *
+subwindow (GdkEvent * event, GdkWindow_ornull * newvalue=NULL)
+    CODE:
+	RETVAL = event->crossing.subwindow;
+	if (newvalue)
+	{
+		if (event->crossing.subwindow)
+			g_object_unref (event->crossing.subwindow);
+		g_object_ref (newvalue);
+		event->crossing.subwindow = newvalue;
+	}
+    OUTPUT:
+	RETVAL
+
 GdkCrossingMode
-mode (GdkEvent * eventcrossing)
+mode (GdkEvent * eventcrossing, GdkCrossingMode newvalue=0)
     CODE:
 	RETVAL = eventcrossing->crossing.mode;
+	if (items == 2)
+		eventcrossing->crossing.mode = newvalue;
     OUTPUT:
 	RETVAL
 
 GdkNotifyType
-detail (GdkEvent * eventcrossing)
+detail (GdkEvent * eventcrossing, GdkNotifyType newvalue=0)
     CODE:
 	RETVAL = eventcrossing->crossing.detail;
+	if (items == 2)
+		eventcrossing->crossing.detail = newvalue;
     OUTPUT:
 	RETVAL
 
 gboolean
-focus (GdkEvent * eventcrossing)
+focus (GdkEvent * eventcrossing, gboolean newvalue=0)
     CODE:
 	RETVAL = eventcrossing->crossing.focus;
+	if (items == 2)
+		eventcrossing->crossing.focus = newvalue;
     OUTPUT:
 	RETVAL
 
@@ -737,9 +831,11 @@ BOOT:
  #};
 
 gint16
-in (GdkEvent * eventfocus)
+in (GdkEvent * eventfocus, gint16 newvalue=0)
     CODE:
 	RETVAL = eventfocus->focus_change.in;
+	if (items == 2)
+		eventfocus->focus_change.in = newvalue;
     OUTPUT:
 	RETVAL
 
@@ -762,14 +858,29 @@ BOOT:
  #};
 
 gint
-width (GdkEvent * eventconfigure)
+width (GdkEvent * eventconfigure, gint newvalue=0)
     ALIAS:
 	Gtk2::Gdk::Event::Configure::height = 1
     CODE:
+	RETVAL = -1;
 	switch (ix) {
-		case 0: RETVAL = eventconfigure->configure.width; break;
-		case 1: RETVAL = eventconfigure->configure.height; break;
-		default: RETVAL = 0;
+		case 0: 
+			RETVAL = eventconfigure->configure.width; 
+			break;
+		case 1: 
+			RETVAL = eventconfigure->configure.height; 
+			break;
+	}
+	if (items == 2)
+	{
+		switch (ix) {
+			case 0: 
+				eventconfigure->configure.width = newvalue;
+				break;
+			case 1: 
+				eventconfigure->configure.height = newvalue;
+				break;
+		}
 	}
     OUTPUT:
 	RETVAL
@@ -792,6 +903,24 @@ BOOT:
  #  guint state;
  #};
 
+GdkAtom
+atom (GdkEvent * eventproperty, GdkAtom newvalue=0)
+    CODE:
+	RETVAL = eventproperty->property.atom;
+	if (items == 2)
+		eventproperty->property.atom = newvalue;
+    OUTPUT:
+	RETVAL
+
+gint
+state (GdkEvent * eventproperty, guint newvalue=0)
+    CODE:
+	RETVAL = eventproperty->property.state;
+	if (items == 2)
+		eventproperty->property.state = newvalue;
+    OUTPUT:
+	RETVAL
+
 MODULE = Gtk2::Gdk::Event	PACKAGE = Gtk2::Gdk::Event::Selection
 
 BOOT:
@@ -811,6 +940,42 @@ BOOT:
  #//  guint32 time;  <- gdk_event_get_time
  #  GdkNativeWindow requestor;
  #};
+
+GdkAtom
+selection (GdkEvent * eventselection, GdkAtom newvalue=0)
+    CODE:
+	RETVAL = eventselection->selection.selection;
+	if (items == 2)
+		eventselection->selection.selection = newvalue;
+    OUTPUT:
+	RETVAL
+
+GdkAtom
+target (GdkEvent * eventselection, GdkAtom newvalue=0)
+    CODE:
+	RETVAL = eventselection->selection.target;
+	if (items == 2)
+		eventselection->selection.target = newvalue;
+    OUTPUT:
+	RETVAL
+
+GdkAtom
+property (GdkEvent * eventselection, GdkAtom newvalue=0)
+    CODE:
+	RETVAL = eventselection->selection.property;
+	if (items == 2)
+		eventselection->selection.property = newvalue;
+    OUTPUT:
+	RETVAL
+
+GdkNativeWindow
+requestor (GdkEvent * eventselection, GdkNativeWindow newvalue=0)
+    CODE:
+	RETVAL = eventselection->selection.requestor;
+	if (items == 2)
+		eventselection->selection.requestor = newvalue;
+    OUTPUT:
+	RETVAL
 
 MODULE = Gtk2::Gdk::Event	PACKAGE = Gtk2::Gdk::Event::Proximity
 
@@ -832,6 +997,7 @@ BOOT:
  #  GdkDevice *device;
  #};
 
+## TODO/FIXME: how do we set this
 GdkDevice_ornull *
 device (GdkEvent * eventproximity)
     CODE:
@@ -861,6 +1027,17 @@ BOOT:
  #  } data;
  #};
 
+gushort
+data_format (GdkEvent * eventclient, gushort newvalue=0)
+    CODE:
+	RETVAL = eventclient->client.data_format;
+	if (items == 2)
+		eventclient->client.data_format = newvalue;
+    OUTPUT:
+	RETVAL
+
+## TODO/FIXME: implement accessors for data
+
 MODULE = Gtk2::Gdk::Event	PACKAGE = Gtk2::Gdk::Event::Setting
 
 BOOT:
@@ -879,16 +1056,25 @@ BOOT:
  #};
 
 GdkSettingAction
-action (GdkEvent * eventsetting)
+action (GdkEvent * eventsetting, GdkSettingAction newvalue=0)
     CODE:
 	RETVAL = eventsetting->setting.action;
+	if (items == 2)
+		eventsetting->setting.action = newvalue;
     OUTPUT:
 	RETVAL
 
 char *
-name (GdkEvent * eventsetting)
+name (GdkEvent * eventsetting, char * newvalue=NULL)
     CODE:
 	RETVAL = eventsetting->setting.name;
+	if (items == 2)
+	{
+		if (newvalue)
+			eventsetting->setting.name = g_strdup (newvalue);
+		else
+			eventsetting->setting.name = NULL;
+	}
     OUTPUT:
 	RETVAL
 
@@ -910,16 +1096,20 @@ BOOT:
  #};
 
 GdkWindowState
-changed_mask (GdkEvent * eventwindowstate)
+changed_mask (GdkEvent * eventwindowstate, GdkWindowState newvalue=0)
     CODE:
 	RETVAL = eventwindowstate->window_state.changed_mask;
+	if (items == 2)
+		eventwindowstate->window_state.changed_mask = newvalue;
     OUTPUT:
 	RETVAL
 
 GdkWindowState
-new_window_state (GdkEvent * eventwindowstate)
+new_window_state (GdkEvent * eventwindowstate, GdkWindowState newvalue=0)
     CODE:
 	RETVAL = eventwindowstate->window_state.new_window_state;
+	if (items == 2)
+		eventwindowstate->window_state.new_window_state = newvalue;
     OUTPUT:
 	RETVAL
 
@@ -944,9 +1134,21 @@ BOOT:
  #};
 
 GdkDragContext *
-context (GdkEvent * eventdnd)
+context (GdkEvent * eventdnd, GdkDragContext * newvalue=NULL)
     CODE:
 	RETVAL = eventdnd->dnd.context;
+	if (items == 2)
+	{
+		if (eventdnd->dnd.context)
+			g_object_unref (eventdnd->dnd.context);
+		if (newvalue)
+		{
+			eventdnd->dnd.context = newvalue;
+			g_object_ref (newvalue);
+		}
+		else
+			eventdnd->dnd.context = NULL;
+	}
     OUTPUT:
 	RETVAL
 

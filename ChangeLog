@@ -1,3 +1,11 @@
+2004/01/16 18:35 (-0500) rwmcfa1
+
+	* xs/GdkEvents.xs: implemented setters for most everything and getter's
+	for most everything that didn't have them. rest are TODO/FIXME'd.
+
+	* t/GdkEvent.t: initial import, test all of the above implementations,
+	pretty thorough.
+
 2004/01/16 11:14 (-0500) rwmcfa1
 
 	* Makefile.PL: use the new BLIB_DONE var as a dep of the things that 
