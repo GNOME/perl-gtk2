@@ -195,8 +195,16 @@ void gtk_label_set_width_chars (GtkLabel *label, gint n_chars);
 
 gint gtk_label_get_width_chars (GtkLabel *label);
 
+void gtk_label_set_max_width_chars (GtkLabel *label, gint n_chars);
+
+gint gtk_label_get_max_width_chars (GtkLabel *label);
+
 void gtk_label_set_angle (GtkLabel *label, gdouble angle);
 
 gdouble gtk_label_get_angle (GtkLabel *label);
+
+void gtk_label_set_single_line_mode (GtkLabel *label, gboolean single_line_mode);
+
+gboolean gtk_label_get_single_line_mode (GtkLabel *label);
 
 #endif

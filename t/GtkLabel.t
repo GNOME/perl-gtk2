@@ -12,7 +12,7 @@
 
 #########################
 
-use Gtk2::TestHelper tests => 26;
+use Gtk2::TestHelper tests => 29;
 
 my $win = Gtk2::Window->new;
 
@@ -75,17 +75,25 @@ ok ($label->get_mnemonic_widget, '$label->get_mnemonic_widget, entry');
 $label->set_text_with_mnemonic ('_Urgs');
 
 SKIP: {
-	skip 'new 2.6 stuff', 3
+	skip 'new 2.6 stuff', 5
 		unless Gtk2->CHECK_VERSION (2, 6, 0);
 
 	$label->set_ellipsize ('middle');
-	is ($label->get_ellipsize, 'middle');
+	is ($label->get_ellipsize, 'middle', '[sg]et_ellipsize');
 
 	$label->set_width_chars (23);
-	is ($label->get_width_chars, 23);
+	is ($label->get_width_chars, 23, '[sg]et_width_chars');
+
+	$label->set_max_width_chars (32);
+	is ($label->get_max_width_chars, 32, '[sg]et_max_width_chars');
 
 	$label->set_angle (90);
-	is ($label->get_angle, 90);
+	is ($label->get_angle, 90, '[sg]et_angle');
+
+	$label->set_single_line_mode (TRUE);
+	ok ($label->get_single_line_mode, '[sg]et_single_line_mode');
+	$label->set_single_line_mode (FALSE);
+	ok (!$label->get_single_line_mode, '[sg]et_single_line_mode');
 }
 
 1;

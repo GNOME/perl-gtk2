@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 42;
+use Gtk2::TestHelper tests => 45;
 
 # $Header$
 
@@ -125,7 +125,18 @@ SKIP: {
   is($view -> get_accepts_tab(), 1);
 }
 
+SKIP: {
+  skip("new stuff in 2.6", 2)
+    unless Gtk2->CHECK_VERSION (2, 6, 0);
+
+  my ($iter, $trailing) = $view->get_iter_at_position (10, 20);
+  isa_ok ($iter, 'Gtk2::TextIter', 'get_iter_at_position in array context');
+  like ($trailing, qr/^\d+$/, 'trailing');
+  $iter = $view->get_iter_at_position (10, 20);
+  isa_ok ($iter, 'Gtk2::TextIter', 'get_iter_at_position in scalar context');
+}
+
 __END__
 
-Copyright (C) 2003 by the gtk2-perl team (see the file AUTHORS for the
-full list).  See LICENSE for more information.
+Copyright (C) 2003-2005 by the gtk2-perl team (see the file AUTHORS for
+the full list).  See LICENSE for more information.

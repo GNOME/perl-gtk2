@@ -1,5 +1,5 @@
 #!/usr/bin/perl -w
-use Gtk2::TestHelper tests => 43, noinit => 1;
+use Gtk2::TestHelper tests => 46, noinit => 1;
 
 # $Header$
 
@@ -224,6 +224,22 @@ SKIP: {
 		ok ($store->iter_n_children == 0, 
 			'$store->clear/iter_n_children');
 	};
+}
+
+SKIP: {
+	skip "new stuff in gtk+ 2.6", 3
+		unless Gtk2->CHECK_VERSION (2, 6, 0);
+
+	my $nrows_before = $store->iter_n_children;
+
+	my $iter = $store->insert_with_values (-1);
+	isa_ok ($iter, 'Gtk2::TreeIter', 'insert_with_values with no values');
+
+	$iter = $store->insert_with_values (-1, 0, 'foo', 3, TRUE, 2, 42);
+	isa_ok ($iter, 'Gtk2::TreeIter', 'insert_with_values with values');
+
+	is ($store->iter_n_children, $nrows_before + 2,
+	    'added expected number of rows');
 }
 
 __END__

@@ -1,3 +1,18 @@
+2005/01/08 22:45 (-0400) muppetman
+
+	* xs/GtkLabel.xs, t/GtkLabel.t: Bind and test
+	gtk_label_[gs]et_single_line_mode
+	gtk_label_[gs]et_max_width_chars
+
+	* xs/GtkListStore.xs, t/GtkListStore.t: Bind and test
+	gtk_list_store_insert_with_values
+
+	* xs/GtkTextView.xs, t/GtkTextView.t: Bind and test
+	gtk_text_view_get_iter_at_position
+
+	* xs/GtkToolItem.xs, t/GtkToolItem.t: Bind and test
+	gtk_tool_item_rebuild_menu
+
 2005/01/08 22:30 (-0400) muppetman
 
 	* xs/GtkActionGroup.xs, t/GtkActionGroup.t: enable and test

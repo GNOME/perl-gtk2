@@ -68,7 +68,14 @@ $tool_item->set_proxy_menu_item ("menu_item_id", $menu_item);
 is ($tool_item->retrieve_proxy_menu_item, $menu_item);
 is ($tool_item->get_proxy_menu_item ("menu_item_id"), $menu_item);
 
+SKIP: {
+    skip 'new stuff in gtk+ 2.6', 0
+        unless Gtk2->CHECK_VERSION (2, 6, 0);
+
+    $tool_item->rebuild_menu;
+}
+
 __END__
 
-Copyright (C) 2003 by the gtk2-perl team (see the file AUTHORS for the
+Copyright (C) 2003-2005 by the gtk2-perl team (see the file AUTHORS for the
 full list).  See LICENSE for more information.

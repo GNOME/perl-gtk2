@@ -62,3 +62,8 @@ GtkWidget * gtk_tool_item_get_proxy_menu_item (GtkToolItem *tool_item, const gch
 
 void gtk_tool_item_set_proxy_menu_item (GtkToolItem *tool_item, const gchar *menu_item_id, GtkWidget *menu_item);
 
+#if GTK_CHECK_VERSION (2, 6, 0)
+
+void gtk_tool_item_rebuild_menu (GtkToolItem *tool_item);
+
+#endif
