@@ -1,3 +1,9 @@
+2003/07/06 17:30 muppetman
+
+	* xs/Gtk2.xs: gtk_set_locale().
+
+	* Gtk2.pm: bump version for cvs devel series
+
 2003/07/05 06:06 pcg
 
         * xs/GtkTextBuffer.xs, xs/GtkClipboard.xs: use length() syntax.
