@@ -56,6 +56,8 @@ gtk_message_dialog_new (class, parent, flags, type, buttons, format, ...)
 	} else
 		RETVAL = gtk_message_dialog_new (parent, flags, type,
 		                                 buttons, NULL);
+		/* -Wall warns about the NULL format string here, but
+		 * gtk_message_dialog_new() explicitly allows it. */
     OUTPUT:
 	RETVAL
 
