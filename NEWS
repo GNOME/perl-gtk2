@@ -1,3 +1,23 @@
+Overview of changes in Gtk2 1.072
+=================================
+
+* API additions:  [Torsten, muppet]
+  - New objects in 2.6: Gtk2::CellRendererCombo, Gtk2::CellRendererProgress,
+    Gtk2::FileChooserButton, Gtk2::MenuToolButton
+  - 59 new gtk+ 2.6 functions, in Gtk2, Gtk2::Action, Gtk2::Clipboard,
+    Gtk2::Gdk::Display, Gtk2::Gdk::DragContext, Gtk2::Gdk::Rgb,
+    Gtk2::Gdk::Window, Gtk2::Label, Gtk2::ListStore, Gtk2::Menu,
+    Gtk2::MessageDialog, Gtk2::Pango::FontDescription, Gtk2::Pango::Layout,
+    Gtk2::ProgressBar, Gtk2::SelectionData, Gtk2::TargetList,
+    Gtk2::TextBuffer, Gtk2::TextView, Gtk2::ToolItem, Gtk2::Widget,
+    Gtk2::Window
+* Enable translation of action groups when built against gtk+ 2.6.  [muppet]
+* Improvements to examples.  [Torsten, muppet]
+* Bugfixes and cleanup.  [Torsten]
+* Test suite improvements and fixes.  [Torsten, Ross, muppet]
+* Add a _noinc_ornull variant to the typemaps for GObjects.  [Torsten]
+* Allow undef where appropriate for Gtk2::AboutDialog.  [Torsten]
+
 Overview of changes in Gtk2 1.071
 =================================
 

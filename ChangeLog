@@ -1,3 +1,13 @@
+2005/01/10 01:19 (-0400) muppetman
+
+	* Gtk2.pm, META.yml, NEWS, README: Unstable release 1.072.
+
+	* xs/GtkDialog.xs: Document Gtk2::alternative_dialog_button_order
+	in Gtk2::main, to avoid creating a Gtk2.pod that conflicts with
+	Gtk2.pm.
+
+	* t/GtkLabel.t, t/GtkTextView.t: Correct skip counts.
+
 2005/01/08 22:45 (-0400) muppetman
 
 	* xs/GtkLabel.xs, t/GtkLabel.t: Bind and test
