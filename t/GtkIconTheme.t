@@ -5,7 +5,7 @@
 use Gtk2::TestHelper
 	# FIXME 2.4
 	at_least_version => [2, 3, 0, "GtkIconTheme is new in 2.4"],
-	tests => 11;
+	tests => 15;
 
 my $icon_theme = Gtk2::IconTheme->new;
 isa_ok ($icon_theme, 'Gtk2::IconTheme');
@@ -41,42 +41,34 @@ SKIP: {
 ok (!$icon_theme->has_icon ('gtk-open'));
 ok (!$icon_theme->has_icon ('something crazy'));
 
+my $icon_info = $icon_theme->lookup_icon ("stock_edit", 24, "use-builtin");
+isa_ok ($icon_info, "Gtk2::IconInfo");
+
+my $pixbuf = $icon_theme->load_icon ("stock_edit", 24, "use-builtin");
+isa_ok ($pixbuf, "Gtk2::Gdk::Pixbuf");
+
+is ($icon_info->get_base_size, 24);
+like ($icon_info->get_filename, qr/stock_edit/);
+
+$icon_info->set_raw_coordinates (1);
+
+# FIXME:
+# isa_ok ($icon_info->get_builtin_pixbuf, "Gtk2::Gdk::Pixbuf");
+# isa_ok($icon_info->get_embedded_rect, "Gtk2::Gdk::Rectangle");
+# warn $icon_info->get_attach_points;
+# warn $icon_info->get_display_name;
+
+$icon_theme->add_builtin_icon ("stock_edit", 24, $pixbuf);
+
 # cannot call set_custom_theme on a default theme
 $icon_theme = Gtk2::IconTheme->new;
 $icon_theme->set_custom_theme ('crazy custom theme');
 
 is ($icon_theme->get_example_icon_name, undef);
 
-##GtkIconInfo_own_ornull = $icon_theme->lookup_icon (const gchar *icon_name, gint size, GtkIconLookupFlags flags);
-##
-##GdkPixbuf_ornull = $icon_theme->load_icon (const gchar *icon_name, gint size, GtkIconLookupFlags flags);
-
 ok (!$icon_theme->rescan_if_needed);
-
-##$icon_theme->add_builtin_icon (const gchar *icon_name, gint size, GdkPixbuf *pixbuf);
-
 
 __END__
 
-gint = $icon_info->get_base_size
-
-const gchar * = $icon_info->get_filename
-
-GdkPixbuf * = $icon_info->get_builtin_pixbuf
-
-GdkPixbuf * = $icon_info->load_icon
-
-$icon_info->set_raw_coordinates (gboolean raw_coordinates);
-
-GdkRectangle_copy * = $icon_info->get_embedded_rect
-
- ## gboolean $icon_info->get_attach_points (GtkIconInfo *icon_info, GdkPoint **points, gint *n_points);
-=for apidoc
-
-Returns the attach points as an interleaved list of x and y coordinates.
-
-=cut
-my @points = $icon_info->get_attach_points;
-
-const gchar * = $icon_info->get_display_name
-
+Copyright (C) 2003 by the gtk2-perl team (see the file AUTHORS for the
+full list).  See LICENSE for more information.

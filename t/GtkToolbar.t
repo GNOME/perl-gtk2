@@ -7,7 +7,7 @@
 # 	- rm
 #########################
 
-use Gtk2::TestHelper tests => 23;
+use Gtk2::TestHelper tests => 29;
 
 ok( my $dlg = Gtk2::Dialog->new('GtkToolbar.t Test Window', undef,
 		[ ], 'gtk-quit', 1 ) );
@@ -109,6 +109,27 @@ $both->clicked;
 $tips->clicked;
 $size->clicked;
 $quit_btn->clicked;
+
+SKIP: {
+	skip "stuff new in 2.4", 1
+		if Gtk2->check_version (2, 3, 0); # FIXME 2.4
+
+	$tlbr = Gtk2::Toolbar->new;
+
+	is( $tlbr->get_drop_index (10, 10), 0 );
+
+	my $item = Gtk2::ToolItem->new;
+	$tlbr->insert ($item, 0);
+	is( $tlbr->get_item_index ($item), 0 );
+	is( $tlbr->get_n_items, 1 );
+	is( $tlbr->get_nth_item (0), $item );
+	ok( $tlbr->get_relief_style );
+
+	$tlbr->set_show_arrow (1);
+	is( $tlbr->get_show_arrow, 1 );
+
+	$tlbr->set_drop_highlight_item (Gtk2::ToolItem->new, 1);
+}
 
 __END__
 

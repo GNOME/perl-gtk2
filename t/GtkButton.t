@@ -9,7 +9,7 @@
 
 #########################
 
-use Gtk2::TestHelper tests => 36, noinit => 1;
+use Gtk2::TestHelper tests => 36;
 
 ok( my $button = Gtk2::Button->new("Not Yet") );
 ok(1);

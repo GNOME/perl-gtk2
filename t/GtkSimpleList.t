@@ -244,41 +244,41 @@ Glib::Idle->add( sub
 		@ret = splice @{$list->{data}}, 2, 2,
 				[ 'spliced', 1, 0.1, undef ],
 				[ 'spliced', 2, 0.1, undef ];
-		ok (eq_array (\@ret, 
-			[ [ 'unshifted', 2, '0.1', 0, 
+		is_deeply (\@ret, 
+			[ [ 'unshifted', 2, 0.1, 0, 
 			    undef, undef, undef, undef, undef ],
-			  [ 'unshifted', 1, '0.1', 0, 
-			    undef, undef, undef, undef, undef ] ]), 'splice @, 2, 2 @');
+			  [ 'unshifted', 1, 0.1, 0, 
+			    undef, undef, undef, undef, undef ] ], 'splice @, 2, 2 @');
 		
 		@ret = splice @{$list->{data}}, -2, 1,
 			[ 'negspliced', 1, 0.1, undef ],
 			[ 'negspliced', 2, 0.1, undef ],
 			[ 'negspliced', 3, 0.1, undef ];
-		ok (eq_array (\@ret, 
-			[ [ 'pushed', 3, '0.1', 0, 
-			    undef, undef, undef, undef, undef ] ]), 'splice @, -2, 1 @');
+		is_deeply (\@ret, 
+			[ [ 'pushed', 3, 0.1, 0, 
+			    undef, undef, undef, undef, undef ] ], 'splice @, -2, 1 @');
 
 		@ret = splice @{$list->{data}}, 8;
-		ok (eq_array (\@ret, 
-			[ [ 'negspliced', 3, '0.1', 0, 
+		is_deeply (\@ret, 
+			[ [ 'negspliced', 3, 0.1, 0, 
 			    undef, undef, undef, undef, undef ],
-			  [ 'pushed', 4, '0.1', 0, 
-			    undef, undef, undef, undef, undef ] ]), 'splice @, 8');
+			  [ 'pushed', 4, 0.1, 0, 
+			    undef, undef, undef, undef, undef ] ], 'splice @, 8');
 
 		@ret = splice @{$list->{data}}, -2;
-		ok (eq_array (\@ret, 
-			[ [ 'negspliced', 1, '0.1', 0, 
+		is_deeply (\@ret, 
+			[ [ 'negspliced', 1, 0.1, 0, 
 			    undef, undef, undef, undef, undef ],
-			  [ 'negspliced', 2, '0.1', 0, 
-			    undef, undef, undef, undef, undef ] ]), 'splice @, -2');
+			  [ 'negspliced', 2, 0.1, 0, 
+			    undef, undef, undef, undef, undef ] ], 'splice @, -2');
 		
 		@ret = splice @{$list->{data}}, -2, 0, 
 			[ 'norem', 1, 0.1, undef ],
 			[ 'norem', 2, 0.1, undef ];
-		ok (eq_array (\@ret, []), 'splice @, -2, 0, @');
+		is_deeply (\@ret, [], 'splice @, -2, 0, @');
 
 		@ret = splice @{$list->{data}};
-		ok (eq_array (\@ret, 
+		is_deeply (\@ret, 
 			[ [ 'unshifted', 4, 0.1, 0,
 			    undef, undef, undef, undef, undef ],
 			  [ 'unshifted', 3, 0.1, 0,
@@ -294,7 +294,7 @@ Glib::Idle->add( sub
 			  [ 'pushed', 1, 0.1, 0,
 			    undef, undef, undef, undef, undef ],
 			  [ 'pushed', 2, 0.1, 0,
-			    undef, undef, undef, undef, undef ] ]), 'splice @');
+			    undef, undef, undef, undef, undef ] ], 'splice @');
 
 		Gtk2->main_quit;
 		return 0;

@@ -22,7 +22,7 @@ isa_ok($fs -> history_menu(), "Gtk2::Menu");
 isa_ok($fs -> fileop_c_dir(), "Gtk2::Button");
 isa_ok($fs -> fileop_del_file(), "Gtk2::Button");
 isa_ok($fs -> fileop_ren_file(), "Gtk2::Button");
-isa_ok($fs -> button_area(), "Gtk2::HButtonBox");
+isa_ok($fs -> button_area(), "Gtk2::Widget");
 isa_ok($fs -> action_area(), "Gtk2::HBox");
 
 use Cwd;

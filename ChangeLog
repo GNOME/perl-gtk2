@@ -1,3 +1,30 @@
+2004/02/20 22:32 (+0100) kaffeetisch
+
+	* t/GtkIconTheme.t: Test lookup_icon, load_icon, add_builtin_icon
+	and Gtk2::IconInfo::get_base_size, ::get_filename,
+	::set_raw_coordinates.
+
+	* t/GtkButton.t
+	* t/GtkImageMenuItem.t
+	* t/GtkMessageDialog.t: Don't use noinit.  Recent changes seem to
+	require an initialized gtk+.
+
+	* t/GtkToolbar.t: Test the new 2.4 stuff: get_drop_index, insert,
+	get_item_index, get_n_items, get_nth_item, get_relief_style,
+	[sg]et_show_arrow, and set_drop_highlight_item.
+
+	Fixes for stuff found by Marc Brockschmidt:
+
+	* t/GdkWindow.t: Only test if get_origin returned the correct
+	number of values, but not if they are what we expect.
+
+	* t/GtkFileSelection.t: Only test if button_area is a Gtk2::Widget
+	since certain file selector modifications seem to use different
+	kinds of widgets for it.
+
+	* t/GtkSimpleList.t: Don't test for quoted "0.1"'s because this
+	fails with locales that use different decimal delimiters.
+
 2004/02/20 01:38 (-0500) muppetman
 
 	* Gtk2.pm, README, Makefile.PL, NEWS: unstable release 1.036

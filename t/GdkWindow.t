@@ -221,8 +221,11 @@ SKIP: {
 # there's no way to predict this
 @ret = $window -> get_root_origin();
 is (scalar (@ret), 2, 'get_root_origin');
+
+@ret = $window -> get_origin();
+is (scalar (@ret), 2, 'get_origin');
+
 isa_ok($window -> get_frame_extents(), "Gtk2::Gdk::Rectangle");
-is_deeply([$window -> get_origin()], [20, 20]);
 
 my ($pointer_window, $relative_x, $relative_y, $pointer_mask) = $window -> get_pointer();
 # $pointer_window
