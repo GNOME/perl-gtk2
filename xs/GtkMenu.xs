@@ -20,7 +20,7 @@
  */
 
 #include "gtk2perl.h"
-
+#include <gperl_marshal.h>
 
 
 /*
@@ -38,8 +38,10 @@ gtk2perl_menu_position_func (GtkMenu * menu,
                              gboolean * push_in,
                              GPerlCallback * callback)
 {
-	dSP;
+	dGPERL_CALLBACK_MARSHAL_SP;
 	int n;
+
+	GPERL_CALLBACK_MARSHAL_INIT (callback);
 
 	ENTER;
 	SAVETMPS;
