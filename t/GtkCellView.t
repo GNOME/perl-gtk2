@@ -12,7 +12,7 @@
 use strict;
 use warnings;
 
-use Gtk2::TestHelper tests => 13,
+use Gtk2::TestHelper tests => 9,
     at_least_version => [2, 5, 0, "GtkCellView is new in 2.6"], # FIXME: 2.6
     ;
 
@@ -51,19 +51,10 @@ isa_ok ($cview->get_size_of_row ($treepath), 'Gtk2::Requisition');
 ok (eval { $cview->set_background_color (Gtk2::Gdk::Color->new (0, 0, 0)); 1; },
     '$cview->set_background_color');
 
-ok (eval { $cview->set_cell_data; 1; }, '$cview->set_cell_data');
-
 isa_ok ($cview->get_cell_renderers, 'Gtk2::CellRendererPixbuf', 
 	'$cview->get_cell_renderers');
 
 my $renderer = ($cview->get_cell_renderers)[0];
-
-$cview->set_value ($renderer, stock_id => 'gtk-ok');
-is ($renderer->get ('stock_id'), 'gtk-ok');
-
-$cview->set_values ($renderer, stock_id => 'gtk-cancel', stock_size => 24);
-is ($renderer->get ('stock_id'), 'gtk-cancel');
-is ($renderer->get ('stock_size'), 24);
 
 sub create_store
 {

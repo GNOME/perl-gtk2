@@ -25,7 +25,7 @@ ok (!$icon_theme->has_icon ('something crazy'));
 my $icon_info = $icon_theme->lookup_icon ('stock_edit', 24, 'use-builtin');
 
 SKIP: {
-	skip 'lookup_icon returned undef, skipping the rest', 7
+	skip 'lookup_icon returned undef, skipping the rest', 5
 		unless defined $icon_info;
 
 	isa_ok ($icon_info, 'Gtk2::IconInfo');
@@ -53,7 +53,12 @@ SKIP: {
 	skip 'new 2.6 stuff', 1
 		unless Gtk2->CHECK_VERSION (2, 5, 0); # FIXME: 2.6
 
-	like (($icon_theme->get_icon_sizes ('stock_edit'))[0], qr/^\d+$/);
+	my @sizes = $icon_theme->get_icon_sizes ('stock_edit');
+
+	skip 'get_icon_sizes returned empty, can not test them', 1
+		unless (@sizes);
+	
+	like ($sizes[0], qr/^\d+$/);
 }
 
 my @paths = qw(/tmp /etc /home);

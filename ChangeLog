@@ -1,3 +1,12 @@
+2004/12/16 15:27 (-0400) rwmcfa1
+
+	* t/GtkCellView.t, xs/GtkCellView.xs: set_cell_data, set_value, and 
+	set_values functions removed and/or made static (not public any more)
+	so we shouldn't bind and thus test them.
+
+	* t/GtkIconTheme.t: corrected skip count in lookup_icon. don't test 
+	get_icon_sizes return if it returns an empty list.
+
 2004/12/04 21:44 (-0400) muppetman
 
 	* examples/histogramplot.h: Add key navigation to the plot widget.
