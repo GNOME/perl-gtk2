@@ -197,6 +197,13 @@ a little easier.
 Gtk2::SimpleList(3pm) makes the GtkListStore and GtkTreeModel a I<lot>
 easier to use.
 
+Gtk2::Pango(3pm) exports various little-used but important constants you may
+need to work with pango directly.
+
+Gtk2::Dialog::Responses(3pm) defines named constants for the numeric values
+of standard Gtk2::Dialog response codes seen only inside the response
+signal handler.
+
 Gtk2 also provides code to make it relatively painless to create perl
 wrappers for other GLib/Gtk-based libraries.  See Gtk2::CodeGen, 
 Glib::PkgConfig, and ExtUtils::Depends.  If you're writing bindings,

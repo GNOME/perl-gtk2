@@ -70,6 +70,7 @@ gtk2perl.h
 maps
 pm/Helper.pm
 pm/Pango.pm
+pm/Responses.pm
 pm/SimpleList.pm
 pm/SimpleMenu.pm
 ppport.h
