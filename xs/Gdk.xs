@@ -95,10 +95,9 @@ gdk_get_display (class)
     C_ARGS:
 	/* void */
     CLEANUP:
-	/* FIXME should this be a runtime rather than compile-time check? */
-#if GTK_CHECK_VERSION (2, 2, 0)
-	g_free (RETVAL);
-#endif
+	/* in versions later than 2.2.0, this string is malloc'd. */
+	if (NULL == gtk_check_version (2, 2, 0))
+		g_free (RETVAL);
 
 ##  void gdk_flush (void) 
 void
