@@ -4,50 +4,6 @@
 
 #include "gtk2perl.h"
 
-/*
- * this name is ridiculously long to as to be descriptive and avoid
- * namespace pollution --- the symbol must be exported from this
- * module so that Gtk2::ListStore can get to it.
- *
- * converts ST(first) through ST(items) on the perl stack into an array of
- * GTypes.  for use with gtk_(list|tree)_store_new and _set.  this helper
- * fiddles with the stack but does not alter it.
- *
- * assumes the items between first and items on the stack are package names,
- * and croaks if any of them have not been registered with gperl (that is,
- * if they can't be turned into GTypes).
- *
- * caller must free the return GArray.
- */
-GArray *
-gtk2perl_tree_store_stack_items_to_gtype_array_or_croak (int first)
-{
-	GArray * typearray;
-	int i;
-
-	dXSARGS;
-
-	typearray = g_array_new (FALSE, FALSE, sizeof (GType));
-	g_array_set_size (typearray, items - first);
-
-	for (i = first ; i < items ; i++) {
-		char * package = SvPV_nolen (ST (i));
-		/* look up GType by package name. */
-		GType t = gperl_type_from_package (package);
-		if (t == 0) {
-			g_array_free (typearray, TRUE);
-			croak ("package %s is not registered with GPerl",
-			       package);
-			g_assert ("not reached");
-			return NULL; /* not reached */
-		}
-		g_array_index (typearray, GType, i-first) = t;
-	}
-
-	return typearray;
-}
-
-
 MODULE = Gtk2::TreeStore	PACKAGE = Gtk2::TreeStore	PREFIX = gtk_tree_store_
 
 BOOT:
@@ -64,11 +20,28 @@ GtkTreeStore_noinc*
 gtk_tree_store_new (class, ...)
 	SV * class
     PREINIT:
-	GArray * types;
+	GArray * typearray;
+	int i;
     CODE:
-	types = gtk2perl_tree_store_stack_items_to_gtype_array_or_croak (1);
-	RETVAL = gtk_tree_store_newv (types->len, (GType*)(types->data));
-	g_array_free (types, TRUE);
+	typearray = g_array_new (FALSE, FALSE, sizeof (GType));
+#define first 1
+	g_array_set_size (typearray, items - first);
+
+	for (i = first ; i < items ; i++) {
+		char * package = SvPV_nolen (ST (i));
+		/* look up GType by package name. */
+		GType t = gperl_type_from_package (package);
+		if (t == 0) {
+			g_array_free (typearray, TRUE);
+			croak ("package %s is not registered with GPerl",
+			       package);
+			g_assert ("not reached");
+		}
+		g_array_index (typearray, GType, i-first) = t;
+	}
+	RETVAL = gtk_tree_store_newv (typearray->len, (GType*)(typearray->data));
+	g_array_free (typearray, TRUE);
+#undef first
     OUTPUT:
 	RETVAL
 

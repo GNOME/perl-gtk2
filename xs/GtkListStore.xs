@@ -5,10 +5,6 @@
 #include "gtk2perl.h"
 
 
-/* these are shared with GtkTreeStore.xs */
-extern GArray * gtk2perl_tree_store_stack_items_to_gtype_array_or_croak (int first);
-
-
 
 MODULE = Gtk2::ListStore	PACKAGE = Gtk2::ListStore	PREFIX = gtk_list_store_
 
@@ -28,10 +24,27 @@ gtk_list_store_new (class, ...)
 	SV * class
     PREINIT:
 	GArray * typearray;
+	int i;
     CODE:
-	typearray = gtk2perl_tree_store_stack_items_to_gtype_array_or_croak (1);
+#define first 1
+	typearray = g_array_new (FALSE, FALSE, sizeof (GType));
+	g_array_set_size (typearray, items - first);
+
+	for (i = first ; i < items ; i++) {
+		char * package = SvPV_nolen (ST (i));
+		/* look up GType by package name. */
+		GType t = gperl_type_from_package (package);
+		if (t == 0) {
+			g_array_free (typearray, TRUE);
+			croak ("package %s is not registered with GPerl",
+			       package);
+			g_assert ("not reached");
+		}
+		g_array_index (typearray, GType, i-first) = t;
+	}
 	RETVAL = gtk_list_store_newv (typearray->len, (GType*)typearray->data);
 	g_array_free (typearray, TRUE);
+#undef first
     OUTPUT:
 	RETVAL
 
@@ -53,7 +66,7 @@ gtk_list_store_new (class, ...)
 ## void gtk_list_store_set (GtkListStore *list_store, GtkTreeIter *iter, ...)
 void
 gtk_list_store_set (list_store, iter, ...)
-	GtkListStore *list_store
+	GtkListStore *list_store;
 	GtkTreeIter *iter
     PREINIT:
 	int i;
