@@ -1,5 +1,10 @@
 2003/12/15 23:11 (-0500) rwmcfa1
 
+	* Makefile.PL: \ should of been \\, caused a hang on perl with no 
+	script name.
+
+2003/12/15 23:11 (-0500) rwmcfa1
+
 	* xs/GtkList.xs: checks on non-null list should of been list_items, 
 	minor bug, but a bug nontheless.
 

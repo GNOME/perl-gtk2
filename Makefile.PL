@@ -234,7 +234,7 @@ Makefile : ".join(" ", @lists)."
 	\$(PERLRUNINST) -M\$(NAME) tools/podifyenums.pl \$(NAME) maps > \$@
 
 build/stock_items.podi: pure_all tools/podifystockitems.pl
-	\$(PERL) -I \$(INST_LIB) -I \$(INST_ARCHLIB) \
+	\$(PERL) -I \$(INST_LIB) -I \$(INST_ARCHLIB) \\
 		tools/podifystockitems.pl > \$@
 
 build/FAQ.pod: tools/fetch_faq.pl
