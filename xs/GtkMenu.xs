@@ -4,6 +4,57 @@
 
 #include "gtk2perl.h"
 
+
+
+/*
+ * yet another special case that isn't appropriate for either
+ * GPerlClosure or GPerlCallback --- the menu position function has
+ * mostly output parameters, so we need to change the callbacks's
+ * signature for perl, getting multiple return values from the stack.
+ * this one's easy, though.
+ */
+
+void
+gtk2perl_menu_position_func (GtkMenu * menu,
+                             gint * x,
+                             gint * y,
+                             gboolean * push_in,
+                             GPerlCallback * callback)
+{
+	dSP;
+	int n;
+
+	ENTER;
+	SAVETMPS;
+
+	PUSHMARK (SP);
+
+	XPUSHs (sv_2mortal (newSVGtkMenu (menu)));
+	XPUSHs (sv_2mortal (newSViv (*x)));
+	XPUSHs (sv_2mortal (newSViv (*y)));
+	XPUSHs (sv_2mortal (newSViv (*push_in)));
+	XPUSHs (sv_2mortal (callback->data ? callback->data : &PL_sv_undef));
+
+	PUTBACK;
+
+	n = call_sv (callback->func, G_ARRAY);
+
+	SPAGAIN;
+
+	if (n < 2)
+		croak ("menu position callback must return two integers (x, and y) or three integers (x, y, and push_in)");
+
+	/* POPi takes things off the *end* of the stack! */
+	if (n > 2) *push_in = POPi;
+	if (n > 1) *y = POPi;
+	if (n > 0) *x = POPi;
+
+	FREETMPS;
+	LEAVE;
+}
+
+
+
 MODULE = Gtk2::Menu	PACKAGE = Gtk2::Menu	PREFIX = gtk_menu_
 
 GtkWidget*
@@ -22,7 +73,25 @@ gtk_menu_popup (menu, parent_menu_shell, parent_menu_item, menu_pos_func, data, 
 	guint activate_time
 	###guint32 activate_time
     CODE:
-	croak ("gtk_menu_popup -- binding not implemented");
+	if (menu_pos_func == NULL || menu_pos_func == &PL_sv_undef) {
+		gtk_menu_popup (menu, parent_menu_shell, parent_menu_item,
+		                NULL, NULL, button, activate_time);
+	} else {
+		GPerlCallback * callback;
+		/* we don't need to worry about the callback arg types since
+		 * we already have to marshall this callback ourselves. */
+		callback = gperl_callback_new (menu_pos_func, data, 0, NULL, 0);
+		gtk_menu_popup (menu, parent_menu_shell, parent_menu_item,
+		        (GtkMenuPositionFunc) gtk2perl_menu_position_func,
+			callback, button, activate_time);
+		/* NOTE: this isn't a proper destructor, as it could leak
+		 *    if replaced somewhere else.  on the other hand, how
+		 *    likely is that? */
+		g_object_set_data_full (G_OBJECT (menu), "_menu_pos_callback",
+		                        callback,
+		                        (GDestroyNotify)
+		                             gperl_callback_destroy);
+	}
 
 void
 gtk_menu_reposition (menu)
