@@ -4,12 +4,14 @@
 
 use Gtk2::TestHelper
 	at_least_version => [2, 4, 0, "GtkComboBoxEntry is new in 2.4"],
-	tests => 8;
+	tests => 10;
 
 my $entry_box;
 
 $entry_box = Gtk2::ComboBoxEntry->new;
 isa_ok ($entry_box, 'Gtk2::ComboBoxEntry');
+isa_ok ($entry_box, 'Gtk2::CellEditable');
+isa_ok ($entry_box, 'Gtk2::CellLayout');
 
 my $model = Gtk2::ListStore->new (qw/Glib::String Glib::Int Glib::String/);
 foreach (qw/a b c d e f g/) {
