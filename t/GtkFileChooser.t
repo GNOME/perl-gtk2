@@ -91,9 +91,10 @@ ok (scalar (@list), 'selected a uri');
 
 $file_chooser->unselect_uri ($uri);
 
+# need to get the file off the end for these
+$uri =~ s{/GtkFileChooser.t$}{};
 ok ($file_chooser->set_current_folder_uri ($uri));
 is ($file_chooser->get_current_folder_uri, $uri);
-
 
 ## Preview widget
 ##
