@@ -1,0 +1,5 @@
+.cvsignore
+build/*
+CVS/*
+Makefile
+Makefile.old
