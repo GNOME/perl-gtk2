@@ -1,3 +1,9 @@
+2003/12/05 07:49 (-0500) rwmcfa1
+
+	* t/accel-group-map.t: initial import of accel group and accel map test
+	accel has some issues, way more to come, and resolution of those as 
+	well.
+
 2003/12/04 23:23 (-0500) rwmcfa1
 
 	* t/calendar.t: initial import
