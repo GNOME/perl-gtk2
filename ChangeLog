@@ -1,3 +1,19 @@
+2004/01/12 01:04 (-0500) muppetman [unstable-2-3-x-branch]
+
+	A gtk-demo/entry_completion.pl
+	A gtk-demo/hypertext.pl
+	A gtk-demo/ui_manager.pl
+	M MANIFEST: new stuff in gtk-demo
+
+	* gtk-demo/main.pl, gtk-demo/menus.pl, gtk-demo/main.pl,
+	gtk-demo/menus.pl, gtk-demo/sizegroup.pl, gtk-demo/textview.pl:
+	updates to gtk-demo.
+
+	* gtk2perl.h: define newSVGdkBitmap_ornull
+
+	* xs/GdkWindow.xs: expand the implementation of get_pointer to
+	avoid odd bugs
+
 2003/12/30 12:47 (-0500) muppetman [unstable-2-3-x-branch]
 
 	* xs/GtkMessageDialog.xs: fix broken utf8 handling.  also now properly
