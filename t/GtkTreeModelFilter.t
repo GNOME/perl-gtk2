@@ -1,7 +1,7 @@
 #!/usr/bin/perl -w
 use strict;
 use Gtk2::TestHelper
-  tests => 20,
+  tests => 24,
   noinit => 1,
   at_least_version => [2, 4, 0, "GtkTreeModelFilter is new in 2.4"];
 
@@ -16,9 +16,13 @@ $list -> set($list -> append(), 0 => 23);
 
 my $filter = Gtk2::TreeModelFilter -> new($list);
 isa_ok($filter, "Gtk2::TreeModelFilter");
+isa_ok($filter, "Gtk2::TreeModel");
+isa_ok($filter, "Gtk2::TreeDragSource");
 
 $filter = Gtk2::TreeModelFilter -> new($list, undef);
 isa_ok($filter, "Gtk2::TreeModelFilter");
+isa_ok($filter, "Gtk2::TreeModel");
+isa_ok($filter, "Gtk2::TreeDragSource");
 
 is($filter -> get_model(), $list);
 
@@ -54,5 +58,5 @@ $filter -> set_modify_func("Glib::Int", sub { warn @_; }, 42);
 
 __END__
 
-Copyright (C) 2003 by the gtk2-perl team (see the file AUTHORS for the
+Copyright (C) 2003-2005 by the gtk2-perl team (see the file AUTHORS for the
 full list).  See LICENSE for more information.
