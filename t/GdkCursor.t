@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 5;
+use Gtk2::TestHelper tests => 6;
 
 # $Header$
 
@@ -8,7 +8,27 @@ my $cursor = Gtk2::Gdk::Cursor -> new("watch");
 isa_ok($cursor, "Gtk2::Gdk::Cursor");
 is($cursor -> type(), "watch");
 
-# FIXME: new_from_pixmap
+# new_from_pixmap
+
+use constant width => 16;
+use constant height => 16;
+my $eyes_bits = pack 'C*',
+   0x18, 0x18, 0x24, 0x24, 0x42, 0x42, 0x42, 0x42, 0xe1, 0xe1, 0xf1, 0xf1,
+   0xf1, 0xf1, 0xf1, 0xf1, 0xf1, 0xf1, 0xf1, 0xf1, 0xf1, 0xf1, 0xe1, 0xe1,
+   0x42, 0x42, 0x42, 0x42, 0x24, 0x24, 0x18, 0x18;
+
+my $eyes_mask_bits = pack 'C*',
+   0x18, 0x18, 0x3c, 0x3c, 0x7e, 0x7e, 0x7e, 0x7e, 0xff, 0xff, 0xff, 0xff,
+   0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,
+   0x7e, 0x7e, 0x7e, 0x7e, 0x3c, 0x3c, 0x18, 0x18;
+
+my $fg = Gtk2::Gdk::Color->new (0, 0, 0); # black
+my $bg = Gtk2::Gdk::Color->new (65535, 65535, 65535); # white
+my $source = Gtk2::Gdk::Bitmap->create_from_data (undef, $eyes_bits, width, height);
+my $mask = Gtk2::Gdk::Bitmap->create_from_data (undef, $eyes_mask_bits, width, height);
+$cursor = Gtk2::Gdk::Cursor->new_from_pixmap ($source, $mask, $fg, $bg, 8, 8);
+isa_ok($cursor, "Gtk2::Gdk::Cursor");
+
 
 SKIP: {
   skip("new_from_pixbuf is new in 2.3", 1)
