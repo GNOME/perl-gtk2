@@ -1,3 +1,10 @@
+2003/12/11 16:53 (-0500) muppetman
+
+	* t/27.GtkClipboard.t, t/30.GtkCellRenderer.t, t/text-iter-searches.t:
+	these didn't skip all tests when there is no display, making builds
+	fail on headless build servers.  it would be nice to wrap up some of
+	this testing boilerplate a bit more.
+
 2003/12/04 22:28 (-0500) muppetman
 
 	* Gtk2.pm, README, Makefile.PL: bump version to 1.014 for release, and
