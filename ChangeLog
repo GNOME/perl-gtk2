@@ -1,3 +1,12 @@
+2003/06/02 18:10 muppetman
+
+	another patch from marc lehmann:
+
+	* xs/GtkAdjustment.xs: added accessors and mutators for struct members
+
+	* gtk-demo/textview.pl: fix demo to actually use unicode as opposed
+	to the garbled latin1.
+
 2003/06/02 12:24 muppetman
 
 	* xs/GtkDialog.xs: allow enum strings as well as integers to

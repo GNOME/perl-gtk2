@@ -23,6 +23,45 @@
 
 MODULE = Gtk2::Adjustment	PACKAGE = Gtk2::Adjustment	PREFIX = gtk_adjustment_
 
+gdouble
+value (GtkAdjustment *adjustment, gdouble newval = 0)
+    ALIAS:
+	lower          = 1
+	upper          = 2
+	step_incrememt = 3
+	page_incrememt = 4
+	page_size      = 5
+    CODE:
+	switch (ix) {
+	    case 0:
+		RETVAL = adjustment->value;
+		if (items > 1) adjustment->value = newval;
+		break;
+	    case 1:
+		RETVAL = adjustment->lower;
+		if (items > 1) adjustment->lower = newval;
+		break;
+	    case 2:
+		RETVAL = adjustment->upper;
+		if (items > 1) adjustment->upper = newval;
+		break;
+	    case 3:
+		RETVAL = adjustment->step_increment;
+		if (items > 1) adjustment->step_increment = newval;
+		break;
+	    case 4:
+		RETVAL = adjustment->page_increment;
+		if (items > 1) adjustment->page_increment = newval;
+		break;
+	    case 5:
+		RETVAL = adjustment->page_size;
+		if (items > 1) adjustment->page_size = newval;
+		break;
+	}
+    OUTPUT:
+	RETVAL
+
+
 GtkObject*
 gtk_adjustment_new (class, value, lower, upper, step_increment, page_increment, page_size)
 	SV      * class
