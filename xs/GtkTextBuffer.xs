@@ -72,12 +72,10 @@ gtk_text_buffer_insert_range_interactive (buffer, iter, start, end, default_edit
 
 #### void gtk_text_buffer_insert_with_tags (GtkTextBuffer *buffer, GtkTextIter *iter, const gchar *text, gint len, GtkTextTag *first_tag, ...)
 =for apidoc
-=for signature $buffer->insert_with_tags ($iter, $text, $tag1, ...)
-=for arg $tag1 (Gtk2::TextTag)
-=for arg ... (__hide__)
+=for arg ... of Gtk2::TextTag's
 =cut
 void
-gtk_text_buffer_insert_with_tags (buffer, iter, text, tag1, ...)
+gtk_text_buffer_insert_with_tags (buffer, iter, text, ...)
 	GtkTextBuffer *buffer
 	GtkTextIter *iter
 	const gchar *text
@@ -97,11 +95,10 @@ gtk_text_buffer_insert_with_tags (buffer, iter, text, tag1, ...)
 
 ## void gtk_text_buffer_insert_with_tags_by_name (GtkTextBuffer *buffer, GtkTextIter *iter, const gchar *text, gint len, const gchar *first_tag_name, ...)
 =for apidoc
-=for arg tag1 (string) the first tag name
-=for arg ... (__hide__)
+=for arg ... of strings, tag names
 =cut
 void
-gtk_text_buffer_insert_with_tags_by_name (buffer, iter, text, tag1, ...)
+gtk_text_buffer_insert_with_tags_by_name (buffer, iter, text, ...)
 	GtkTextBuffer *buffer
 	GtkTextIter *iter
 	const gchar *text
@@ -262,7 +259,7 @@ gtk_text_buffer_remove_all_tags (buffer, start, end)
 =for apidoc
 =for arg property_name1 (string) the first property name
 =for arg property_value1 (string) the first property value
-=for arg ... (__hide__)
+=for arg ... pairs of names and values
 =cut
 GtkTextTag *
 gtk_text_buffer_create_tag (buffer, tag_name, property_name1, property_value1, ...)

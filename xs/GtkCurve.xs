@@ -74,9 +74,7 @@ gtk_curve_get_vector (curve, veclen=32)
 
 ## void gtk_curve_set_vector (GtkCurve *curve, int veclen, gfloat vector[])
 =for apidoc
-=for signature $curve->set_vector (point1, ...)
-=for arg point1 (float) the value to set the first point to
-=for arg ... (__hide__)
+=for arg ... of float's, the points of the curve
 =cut
 void
 gtk_curve_set_vector (curve, ...)

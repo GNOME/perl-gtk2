@@ -61,7 +61,7 @@ gtk_tree_path_new (class, path=NULL)
 ## GtkTreePath * gtk_tree_path_new_from_indices (gint first_index, ...)
 =for apidoc
 =for arg first_index (integer) a non-negative index value
-=for arg ... zero or more index values
+=for arg ... of zero or more index values
 
 The C API reference docs for this function say to mark the end of the list
 with a -1, but Perl doesn't need list terminators, so don't do that.
@@ -339,7 +339,7 @@ gtk_tree_model_get_path (tree_model, iter)
 ## void gtk_tree_model_get_value (GtkTreeModel *tree_model, GtkTreeIter *iter, gint column, GValue *value)
 
 =for apidoc Gtk2::TreeModel::get
-=for arg ... column indices
+=for arg ... of column indices
 
 Fetch and return the model's values in the row pointed to by I<$iter>.
 If you specify no column indices, it returns the values for all of the

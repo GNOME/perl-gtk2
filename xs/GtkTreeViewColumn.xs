@@ -88,7 +88,7 @@ gtk_tree_view_column_new (class)
 =for signature treeviewcolumn = Gtk2::TreeViewColumn->new_with_attributes ($title, $cell, $attr1, $col1, ...)
 =for arg attr1 (string) the first attribute
 =for arg col1 (integer) the first column
-=for arg ... (__hide__)
+=for arg ... pairs of attributes and columns
 =cut
 GtkTreeViewColumn *
 gtk_tree_view_column_new_with_attributes (class, title, cell, ...)
@@ -149,7 +149,7 @@ gtk_tree_view_column_add_attribute (tree_column, cell_renderer, attribute, colum
 =for apidoc
 =for arg attr1 (string) the first attribute
 =for arg col1 (integer) the first column
-=for arg ... (__hide__)
+=for arg ... pairs of attributes and columns
 =cut
 void
 gtk_tree_view_column_set_attributes (tree_column, cell_renderer, ...)

@@ -536,11 +536,10 @@ void gtk_tree_view_tree_to_widget_coords (GtkTreeView *tree_view, gint tx, gint 
 
 #### void gtk_tree_view_enable_model_drag_source (GtkTreeView *tree_view, GdkModifierType start_button_mask, const GtkTargetEntry *targets, gint n_targets, GdkDragAction actions)
 =for apidoc
-=for arg target1 (Gtk2::TargetEntry) the first target
-=for arg ... (__hide__)
+=for arg ... of Gtk2::TargetEntry's
 =cut
 void
-gtk_tree_view_enable_model_drag_source (tree_view, start_button_mask, actions, target1, ...)
+gtk_tree_view_enable_model_drag_source (tree_view, start_button_mask, actions, ...)
 	GtkTreeView *tree_view
 	GdkModifierType start_button_mask
 	GdkDragAction actions
@@ -560,11 +559,10 @@ gtk_tree_view_enable_model_drag_source (tree_view, start_button_mask, actions, t
 
 #### void gtk_tree_view_enable_model_drag_dest (GtkTreeView *tree_view, const GtkTargetEntry *targets, gint n_targets, GdkDragAction actions)
 =for apidoc
-=for arg target1 (Gtk2::TargetEntry) the first target
-=for arg ... (__hide__)
+=for arg ... of Gtk2::TargetEntry's
 =cut
 void
-gtk_tree_view_enable_model_drag_dest (tree_view, actions, target1, ...)
+gtk_tree_view_enable_model_drag_dest (tree_view, actions, ...)
 	GtkTreeView *tree_view
 	GdkDragAction actions
     PREINIT:

@@ -106,7 +106,7 @@ gtk_object_destroy (object)
 
 =for apidoc
 =for arg object_class package name of object to create
-=for arg ... list of property-name => value pairs
+=for arg ... of property-name => value pairs
 Create a new object of type I<$object_class>, with some optional initial
 property values.  You may see this used in some code as Gtk2::Widget->new,
 e.g.

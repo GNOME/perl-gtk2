@@ -254,7 +254,7 @@ gtk_paint_shadow (style, window, state_type, shadow_type, area, widget, detail, 
 =for apidoc
 =for arg x1 (gint) x coordinate of the first vertex
 =for arg y1 (gint) y coordinate of the first vertex
-=for arg ... more vertex coordinate pairs
+=for arg ... pairs of x and y coordinates
 =cut
 void
 gtk_paint_polygon (style, window, state_type, shadow_type, area, widget, detail, fill, x1, y1, ...)

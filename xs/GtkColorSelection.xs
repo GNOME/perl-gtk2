@@ -135,9 +135,8 @@ gtk_color_selection_palette_from_string (class, string)
 
 ## gchar* gtk_color_selection_palette_to_string (const GdkColor *colors, gint n_colors)
 =for apidoc
-=for signature (string) = Gtk::ColorSelection->palette_to_string ($color1, ...)
-=for arg color1 (Gtk2::Gdk::Color) the first color of the palette
-=for arg ... (__hide__)
+=for signature (string) = Gtk::ColorSelection->palette_to_string (...)
+=for arg ... of Gtk2::Gdk::Color's for the palette
 Encodes a palette as a string, useful for persistent storage.
 =cut
 SV *
