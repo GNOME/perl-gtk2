@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003-2004 by the gtk2-perl team (see the file AUTHORS)
+ * Copyright (c) 2003-2005 by the gtk2-perl team (see the file AUTHORS)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -215,6 +215,14 @@ pango_font_description_to_filename (desc)
 	PangoFontDescription *desc
     CLEANUP:
 	g_free (RETVAL);
+
+#if PANGO_CHECK_VERSION (1, 8, 0)
+
+void pango_font_description_set_absolute_size (PangoFontDescription *desc, double size);
+
+gboolean pango_font_description_get_size_is_absolute (const PangoFontDescription *desc);
+
+#endif
 
 MODULE = Gtk2::Pango::Font	PACKAGE = Gtk2::Pango::FontMetrics	PREFIX = pango_font_metrics_
 

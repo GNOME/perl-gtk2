@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 50;
+use Gtk2::TestHelper tests => 52;
 
 # $Header$
 
@@ -19,14 +19,26 @@ is($layout -> get_text(), "Bla bla.");
 $layout -> set_markup("Bla bla.");
 is($layout -> set_markup_with_accel("Bla _bla.", "_"), "b");
 
+my $font = Gtk2::Pango::FontDescription -> new();
+
+$layout -> set_font_description($font);
+
 SKIP: {
-  skip("set_font_description is slightly borken currently", 0)
+  skip("set_font_description was slightly borken", 0)
     unless (Gtk2::Pango -> CHECK_VERSION(1, 4, 0));
 
   $layout -> set_font_description(undef);
 }
 
-$layout -> set_font_description(Gtk2::Pango::FontDescription -> new());
+SKIP: {
+  skip("new 1.8 stuff", 2)
+    unless (Gtk2::Pango -> CHECK_VERSION(1, 8, 0));
+
+  is($layout -> get_font_description(), undef);
+
+  $layout -> set_font_description($font);
+  isa_ok($layout -> get_font_description(), "Gtk2::Pango::FontDescription");
+}
 
 $layout -> set_width(23);
 is($layout -> get_width(), 23);
@@ -138,5 +150,5 @@ SKIP: {
 
 __END__
 
-Copyright (C) 2003-2004 by the gtk2-perl team (see the file AUTHORS for the
+Copyright (C) 2003-2005 by the gtk2-perl team (see the file AUTHORS for the
 full list).  See LICENSE for more information.

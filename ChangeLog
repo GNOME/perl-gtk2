@@ -1,3 +1,17 @@
+2005/01/07 22:27 (+0200) kaffeetisch
+
+	* examples/cellrenderer_data.pl,
+	examples/cellrenderer_spinbutton.pl, examples/customrenderer.pl:
+	Change package names to use custom prefixes, to avoid putting
+	stuff in the Gtk2 namespace.
+
+	* t/PangoFont.t, xs/PangoFont.xs: Bind and test
+	pango_font_description_set_absolute_size and
+	pango_font_description_get_size_is_absolute.
+
+	* t/PangoLayout.t, xs/PangoLayout.xs: Bind and test
+	pango_layout_get_font_description.
+
 2005/01/05 23:24 (-0400) muppetman
 
 	* pm/TestHelper.pm, t/00.Gtk2.t, t/01.GtkWindow.t,

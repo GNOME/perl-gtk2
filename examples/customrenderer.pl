@@ -62,7 +62,7 @@ sub REMOVE_WIDGET { warn "remove widget\n"; }
 ###############################################################################
 # and now, a CellRenderer that uses Mup::MultilineEntry for editing.
 
-package Gtk2::CellRendererMultiline;
+package Mup::CellRendererMultiline;
 
 use Glib qw(TRUE FALSE);
 
@@ -126,7 +126,7 @@ sub cell_edited {
 	$model->set ($model->get_iter ($iter), 0 => $new_value);
 }
 
-my $renderer = Gtk2::CellRendererMultiline->new;
+my $renderer = Mup::CellRendererMultiline->new;
 $renderer->set (editable => TRUE);
 $renderer->signal_connect (edited => \&cell_edited);
 my $column = Gtk2::TreeViewColumn->new_with_attributes ("custom renderer",

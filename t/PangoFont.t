@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 52;
+use Gtk2::TestHelper tests => 53;
 
 # $Header$
 
@@ -43,6 +43,14 @@ isa_ok($description, "Gtk2::Pango::FontDescription");
 
 is($description -> to_string(), "Sans 12");
 ok(defined($description -> to_filename()));
+
+SKIP: {
+  skip("new 1.8 stuff", 1)
+    unless (Gtk2::Pango -> CHECK_VERSION(1, 8, 0));
+
+  $description -> set_absolute_size(23.42);
+  is($description -> get_size_is_absolute(), TRUE);
+}
 
 ###############################################################################
 
@@ -127,5 +135,5 @@ SKIP: {
 
 __END__
 
-Copyright (C) 2003-2004 by the gtk2-perl team (see the file AUTHORS for the
+Copyright (C) 2003-2005 by the gtk2-perl team (see the file AUTHORS for the
 full list).  See LICENSE for more information.
