@@ -1,3 +1,9 @@
+2004/01/05 21:55 (-0500) rwmcfa1
+
+	* examples/color_list.pl: initial import, an example of how to colorize
+	rows of a simple list (in as simple a way as possible). also shows 
+	another use of custom col types for SimpleList.
+
 2004/01/05 21:55 (-0500) muppetman
 
 	* xs/GtkRc.xs: gperl_object_type_from_package takes a string, not
