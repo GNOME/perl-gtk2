@@ -105,7 +105,7 @@ gtk_tree_sortable_set_default_sort_func (sortable, sort_func, user_data=NULL)
 	SV * sort_func
 	SV * user_data
     CODE:
-	if (!sort_func || !SvTRUE (sort_func)) {
+	if (!sort_func || !SvOK (sort_func)) {
 		gtk_tree_sortable_set_default_sort_func
 					(sortable, NULL, NULL, NULL);
 	} else {

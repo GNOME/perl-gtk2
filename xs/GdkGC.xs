@@ -170,7 +170,7 @@ gdk_gc_new (class, GdkDrawable * drawable, SV * values=NULL)
     ALIAS:
 	new_with_values = 1
     CODE:
-	if (values && SvTRUE (values)) {
+	if (values && SvOK (values)) {
 		GdkGCValuesMask m;
 		GdkGCValues v;
 		read_gcvalues_from_sv (values, &v, &m);

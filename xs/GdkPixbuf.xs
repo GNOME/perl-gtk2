@@ -291,7 +291,7 @@ gdk_pixbuf_new_from_data (class, data, colorspace, has_alpha, bits_per_sample, w
     PREINIT:
 	SV * real_data;
     CODE:
-	if (!SvTRUE (data) || !SvPOK (data))
+	if (!data || !SvPOK (data))
 		croak ("expecting a packed string for pixel data");
 	real_data = gperl_sv_copy (data);
 	RETVAL = gdk_pixbuf_new_from_data (SvPV_nolen (real_data),

@@ -237,11 +237,10 @@ GtkTreeRowReference* gtk_tree_row_reference_copy (GtkTreeRowReference *reference
 
 ####MODULE = Gtk2::TreeModel	PACKAGE = Gtk2::TreeIter	PREFIX = gtk_tree_iter_
 
-## not intended for use in applications.  the bindings take care of
-## this for us.
-## GtkTreeIter * gtk_tree_iter_copy (GtkTreeIter *iter)
+## we get this from Glib::Boxed::copy
+## GtkTreeIter * gtk_tree_iter_copy (GtkTreeIter * iter)
 
-#### should be done by DESTROY, not needed
+## we get this from Glib::Boxed::DESTROY
 ## void gtk_tree_iter_free (GtkTreeIter *iter)
 
 
@@ -403,17 +402,20 @@ gtk_tree_model_get (tree_model, iter, ...)
 
 ##
 ## gboolean gtk_tree_model_iter_next (GtkTreeModel *tree_model, GtkTreeIter *iter)
-GtkTreeIter_copy *
+GtkTreeIter_own *
 gtk_tree_model_iter_next (tree_model, iter)
 	GtkTreeModel *tree_model
 	GtkTreeIter *iter
-    PREINIT:
-	GtkTreeIter niter = {0, };
     CODE:
-	niter = *gtk_tree_iter_copy (iter);
-	if (!gtk_tree_model_iter_next (tree_model, &niter))
+	/* the C version modifies the iter we pass; to make this fit more
+	 * with the rest of our Perl interface, we want *not* to modify
+	 * the one passed and instead return the modified iter... which
+	 * means we have to copy *first*. */
+	RETVAL = gtk_tree_iter_copy (iter);
+	if (!gtk_tree_model_iter_next (tree_model, RETVAL)) {
+		gtk_tree_iter_free (RETVAL);
 		XSRETURN_UNDEF;
-	RETVAL = &niter;
+	}
     OUTPUT:
 	RETVAL
 

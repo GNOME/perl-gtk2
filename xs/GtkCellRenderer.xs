@@ -252,7 +252,7 @@ gtk2perl_cell_renderer_start_editing (GtkCellRenderer      * cell,
 		SPAGAIN;
 
 		sv = POPs;
-		editable = SvTRUE (sv)
+		editable = SvOK (sv)
 		         ? GTK_CELL_EDITABLE (SvGObject (sv))
 		         : NULL;
 

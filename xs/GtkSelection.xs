@@ -94,7 +94,7 @@ newSVGtkTargetList (GtkTargetList * list)
 GtkTargetList *
 SvGtkTargetList (SV * sv)
 {
-	if (!SvTRUE (sv) || !SvROK (sv) ||
+	if (!sv || !SvROK (sv) ||
 	    !sv_derived_from (sv, "Gtk2::TargetList"))
 		croak ("variable is not of type Gtk2::TargetList");
 	return (GtkTargetList*) SvUV (SvRV (sv));
