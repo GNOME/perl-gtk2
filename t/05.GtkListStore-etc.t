@@ -71,10 +71,26 @@ ok ($iter = $store->insert (0), '$store->insert (0)');
 ok ($iter = $store->insert_before ($iter), '$store->insert_before');
 ok ($iter = $store->insert_after ($iter), '$store->insert_after');
 ok ($iter = $store->get_iter_first, '$store->get_iter_first, treemodel');
-ok ($store->remove ($iter), '$store->remove 1');
+if ((Gtk2->get_version_info)[1] >= 2)
+{
+	ok ($store->remove ($iter), '$store->remove 1');
+}
+else
+{
+	$store->remove ($iter);
+	ok (1, '$store->remove 1');
+}
 ok ($iter = $store->prepend, '$store->prepend');
-ok ($store->remove ($iter), '$store->remove 2');
-
+if ((Gtk2->get_version_info)[1] >= 2)
+{
+	ok ($store->remove ($iter), '$store->remove 2');
+}
+else
+{
+	$store->remove ($iter);
+	ok (1, '$store->remove 2');
+}
+	
 ok (my $tree = Gtk2::TreeView->new_with_model($store), 'new treeview');
 $win->add($tree);
 
@@ -110,8 +126,9 @@ foreach (@cols)
 $win->show_all;
 
 Glib::Idle->add( sub {
-		if( (Gtk2->get_version_info)[1] >= 2 )
-		{
+		SKIP: {
+			skip 'function only in version > 2.2', 5
+				unless ((Gtk2->get_version_info)[1] >= 2);
 			$store->reorder(4, 3, 2, 0, 1);
 			$iter = $store->get_iter_first;
 			ok ($store->iter_is_valid ($iter), 

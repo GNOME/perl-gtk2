@@ -1,3 +1,8 @@
+2003/12/17 21:54 (-0500) rwmcfa1
+
+	* t/05.GtkListStore-etc.t: bad bugs fixed, skips were needed, and stuff
+	like that.
+
 2003/12/16 22:44 (-0500) rwmcfa1
 
 	* xs/GdkTypes.xs, xs/GdkWindow.xs, xs/GtkHScrollbar.xs, xs/GtkPaned.xs,
