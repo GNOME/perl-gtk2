@@ -1,3 +1,10 @@
+2004/06/22 20:19 (-0400) rwmcfa1
+
+	* examples/thread_usage.pl: now that we can truely support threads
+	there might as well an example of how to use the ability. this one
+	replaces the old how to work around the fact that threads aren't
+	supported which is no longer relavant.
+
 2004/06/14 19:32 (+0200) kaffeetisch
 
 	* xs/GtkFileFilter.xs: Fix erroneous initialization.

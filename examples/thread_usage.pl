@@ -3,155 +3,245 @@
 #
 # $Header$
 #
-# There are 2 rules that must be followed in order to successfully Gtk2 in a
-# threaded application. The first is only touch the gui elements from one of
-# the two threads. The second is that all threads need to be spawned _before_
-# any Glib/Gtk2 objects have been created.
-#
-# TODO/FIXME: if you click Quit, exits are enqueued and main_quit called, so
-# there's still work being done, but the ui is no longer responsive.
-#
 # -rm
 #
 
 use strict;
 use warnings;
-
-use threads;
-use Thread::Queue;
+use Data::Dumper;
 
 use Glib qw(TRUE FALSE);
-use Gtk2 '-init';
+use Gtk2 qw/-init -threads-init 1.050/;
 
-# rule 2, all threads spawned before any Glib/Gtk2 variables
-my $numworkers = 3;
-my $workqueue = Thread::Queue->new;
-my @thrds = ();
-foreach (0..$numworkers)
-{
-	my $retqueue = Thread::Queue->new;
-	push @thrds, {
-		thrd => threads->new (\&worker_thread, $workqueue, $retqueue),
-		retq => $retqueue,
-		num  => $_,
-	}
-}
-# we now have 3 workers waiting to do our bidding
+die "Glib::Object thread safetly failed"
+	unless Glib::Object->set_threadsafe (TRUE);
 
-# now build up the ui
 my $win = Gtk2::Window->new;
-$win->set_title ('Thread Usage');
+$win->signal_connect (destroy => sub { Gtk2->main_quit; });
+$win->set_title ($0);
 $win->set_border_width (6);
-$win->set_default_size (400, 170);
+$win->set_default_size (640, 480);
 
 my $hbox = Gtk2::HBox->new (FALSE, 6);
 $win->add ($hbox);
 
 my $vbox = Gtk2::VBox->new (FALSE, 6);
-$hbox->pack_start ($vbox, TRUE, TRUE, 0);
-my ($frame, $label);
-# for each of the worker threads, add a status display
-foreach (0..$numworkers)
+$hbox->pack_start ($vbox, FALSE, FALSE, 0);
+
+my $worklog = Log->new;
+$hbox->pack_start ($worklog, TRUE, TRUE, 0);
+
+my @workers;
+my $worker;
+foreach (1..5)
 {
-	$frame = Gtk2::Frame->new ("Worker $_");
-	$vbox->pack_start ($frame, FALSE, FALSE, 0);
-	$label = Gtk2::Label->new ('Idle');
-	$frame->add ($label);
-	$thrds[$_]->{label} = $label;
+	$worker = Worker->new ($worklog);
+	$vbox->pack_start ($worker, FALSE, FALSE, 0);
+	$worker->set_worker_label ('Worker '.$_);
+	push @workers, $worker;
 }
 
-$vbox = Gtk2::VBox->new (FALSE, 6);
-$hbox->pack_start ($vbox, FALSE, FALSE, 6);
-
-$frame = Gtk2::Frame->new ('Pending Commands');
-$vbox->pack_start ($frame, FALSE, FALSE, 0);
-$label = Gtk2::Label->new (0);
-$frame->add ($label);
-
-# a button to push jobs onto the command queue
-my $btn = Gtk2::Button->new ('_Spawn Job');
-$vbox->pack_start ($btn, FALSE, FALSE, 0);
-$btn->signal_connect (clicked => sub {
-		$workqueue->enqueue (rand);
-	});
-
-# a sub that sends as many exit commands as we have threads.
-# we have to make sure that each thread would only take up 
-# a single exit.
-sub queue_exits 
-{
-	foreach (@thrds)
-	{
-		$workqueue->enqueue ('exit');
-	}
-}
-
-$btn = Gtk2::Button->new ('_Queue Exits');
-$vbox->pack_start ($btn, FALSE, FALSE, 0);
-# queue the threads exit, not the app though
-$btn->signal_connect (clicked => \&queue_exits);
-
-$btn = Gtk2::Button->new ('_Quit');
-$vbox->pack_start ($btn, FALSE, FALSE, 0);
-# queue the threads exit and exit the gui app
-$btn->signal_connect (clicked => sub {
-		# won't hurt to queue too many exits, this way
-		# we'll be sure to have the threads, and thus the app
-		# exit
-		queue_exits (); 
-		Gtk2->main_quit;
-	});
-
-# the magic of how we follow rule number 1, a timeout callback.
-Glib::Timeout->add (250, sub {
-		my $tmp;
-		# check on the status of each of the threads
-		foreach (@thrds)
-		{
-			# don't block, that would be really bad.
-			$tmp = $_->{retq}->dequeue_nb;
-			# if there was something waiting for us
-			# update the ui with it
-			$_->{label}->set_text ($tmp) if ($tmp);
-		}
-		# update the pending commands display
-		$label->set_text ($workqueue->pending);
+my $pending = Gtk2::Label->new ('0 jobs pending');
+$vbox->pack_start ($pending, FALSE, FALSE, 0);
+Glib::Timeout->add (500, sub {
+		$pending->set_text (Worker->jobs_pending.' jobs pending');
 		1;
+	});
+
+my $count = 0;
+
+my $go = Gtk2::Button->new ('_Go');
+$vbox->pack_start ($go, FALSE, FALSE, 0);
+$go->signal_connect (clicked => sub {
+		foreach (@workers)
+		{
+			Worker->do_job ($count + rand);
+			$count++;
+		}
+	});
+
+my $quit = Gtk2::Button->new_from_stock ('gtk-quit');
+$vbox->pack_start ($quit, FALSE, FALSE, 0);
+$quit->signal_connect (clicked => sub { 
+		$go->set_sensitive (FALSE);
+		$quit->set_sensitive (FALSE);
+		Worker->all_fired;
+		Gtk2->main_quit;
 	});
 
 $win->show_all;
 Gtk2->main;
 
-# clean up after ourselves, after main_quit is called we will block here
-# until all threads have exited, it is important that each thread have 
-# an exit command waitting for it by this point.
-foreach (@thrds)
+package Worker;
+
+use strict;
+use warnings;
+use Data::Dumper;
+
+use threads;
+use threads::shared;
+use Thread::Queue;
+
+use Glib qw(TRUE FALSE);
+
+use base 'Gtk2::HBox';
+
+our $_nworkers : shared = 0;
+my $_jobs;
+
+BEGIN
 {
-	print 'Waiting on thread '.$_->{num}.', which did '
-	    . $_->{thrd}->join." jobs\n";
+	$_jobs = Thread::Queue->new;
 }
 
-################################################################################
-
-sub worker_thread
+sub do_job
 {
-	my $workq = shift;
-	my $retq = shift;
+	shift; # class
 
-	$retq->enqueue ('Waiting');
+	$_jobs->enqueue (shift);
+}
 
-	my $jobs = 0;
-	while (1)
+sub all_fired
+{
+	shift; # class
+
+	# put on a quit command for each worker
+	foreach (1..$_nworkers)
 	{
-		my $work = $workq->dequeue;
-		if ($work eq 'exit')
-		{
-			$retq->enqueue ("Exiting");
-			return $jobs;
-		}
-		$retq->enqueue ("Working on $work");
-		sleep 10;	# fake working real hard
-		$retq->enqueue ("Done with $work");
-		$jobs++;
+		$_jobs->enqueue (undef);
 	}
+	while ($_nworkers)
+	{
+		Gtk2->main_iteration;
+	}
+}
+
+sub jobs_pending
+{
+	return $_jobs->pending;
+}
+
+sub new
+{
+	my $class = shift;
+	my $worklog = shift;
+
+	my $self = Gtk2::HBox->new (FALSE, 6);
+
+	# rebless to a worker
+	bless $self, $class;
+
+	# gui section
+	
+	my $label = Gtk2::Label->new ('Worker:');
+	$self->pack_start ($label, FALSE, FALSE, 0);
+
+	my $progress = Gtk2::ProgressBar->new;
+	$self->pack_start ($progress, FALSE, FALSE, 0);
+	$progress->set_text ('Idle');
+
+	$self->{label} = $label;
+	$self->{progress} = $progress;
+	$self->{worklog} = $worklog;
+	
+	# thread section
+
+	$self->{child} = threads->new (\&_worker_thread, $self);
+
+	$_nworkers++;
+	
+	return $self;
+}
+
+sub set_worker_label
+{
+	my $self = shift;
+	my $name = shift;
+
+	$self->{label}->set_text ($name);
+}
+
+sub _worker_thread
+{
+	my $self = shift;
+
+	my $progress = $self->{progress};
+	my $worklog = $self->{worklog};
+
+	my $i;
+	my $job;
+	my $sleep;
+	# undef job means quit
+	while (defined ($job = $_jobs->dequeue))
+	{
+		$worklog->insert_msg ($self->{label}->get_text
+			              ." is doing job ($job)\n");
+		if (rand > 0.5)
+		{
+			$sleep = 1 + rand;
+		}
+		else
+		{
+			$sleep = 1 - rand;
+		}
+		for ($i = 0; $i < 1.1; $i += 0.25)
+		{
+			Gtk2::Gdk::Threads->enter;
+			$progress->set_fraction ($i);
+			$progress->set_text ($i * 100 .'%');
+			Gtk2::Gdk::Threads->leave;
+			# we're state employee's, so let's do some 'work'...
+			sleep $sleep;
+		}
+		$worklog->insert_msg ($self->{label}->get_text
+				      ." done with job ($job)\n");
+	}
+
+	$_nworkers--;
+}
+
+package Log;
+
+use strict;
+use warnings;
+
+use Glib qw(TRUE FALSE);
+
+use base 'Gtk2::ScrolledWindow';
+
+sub new
+{
+	my $class = shift;
+
+	my $self = Gtk2::ScrolledWindow->new;
+	
+	my $buffer = Gtk2::TextBuffer->new;
+
+	my $view = Gtk2::TextView->new_with_buffer ($buffer);
+	$self->add ($view);
+	$view->set (editable => FALSE, cursor_visible => FALSE);
+
+	$self->{view} = $view;
+	$self->{buffer} = $buffer;
+	
+	bless $self, $class;
+	
+	$self->insert_msg ("Start...\n-------------------------------------\n");
+	
+	return $self;
+}
+  
+sub insert_msg
+{
+	my $self = shift;
+	my $msg = shift;
+
+	my $buffer = $self->{buffer};
+	
+	Gtk2::Gdk::Threads->enter;
+	my $iter = $buffer->get_end_iter;
+	$buffer->insert ($iter, $msg);
+	$iter = $buffer->get_end_iter;
+	$self->{view}->scroll_to_iter ($iter, 0.0, FALSE, 0.0, 0.0);
+	Gtk2::Gdk::Threads->leave;
 }
