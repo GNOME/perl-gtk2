@@ -21,7 +21,7 @@ xs/GdkRgb.xs
 xs/GdkSelection.xs
 xs/GdkTypes.xs
 xs/GdkWindow.xs
-xs/GdkX11.xs # FIXME this should only be built when using the X11 backend
+#xs/GdkX11.xs is only built when using the X11 backend
 
 # Gtk+ proper
 xs/Gtk2.xs

@@ -74,6 +74,11 @@ foreach my $filename (@xs_lists) {
 	print "$filename lists ".scalar(@names)." xs files\n";
 	push @xs_files, @names;
 }
+my $target = ExtUtils::PkgConfig->variable ('gtk+-2.0', 'target');
+if ($target =~ /x11/) {
+	warn "congratulations, you're building on X11!\n";
+	push @xs_files, 'xs/GdkX11.xs';
+}
 
 #
 # create version macros for pango
