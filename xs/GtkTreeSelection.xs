@@ -106,8 +106,7 @@ gtk_tree_selection_get_selected_rows (selection)
 	GList * list, * i;
     PPCODE:
 	list = gtk_tree_selection_get_selected_rows (selection, &model);
-	EXTEND (SP, 1+g_list_length (list));
-	PUSHs (sv_2mortal (newSVGtkTreeModel (model)));
+	EXTEND (SP, g_list_length (list));
 	for (i = list ; i != NULL ; i = i->next)
 		PUSHs (sv_2mortal (newSVGtkTreePath_own ((GtkTreePath*)i->data)));
 	g_list_free (list);
@@ -128,16 +127,13 @@ gtk_tree_selection_get_selected_rows (selection)
 	GtkTreeSelection * selection
     PREINIT:
 	GtkTreeView * view;
-	GtkTreeModel * model = NULL;
 	GList * paths = NULL, * i;
     PPCODE:
 	view = gtk_tree_selection_get_tree_view (selection);
-	model = gtk_tree_view_get_model (view);
 	gtk_tree_selection_selected_foreach (selection,
 					     (GtkTreeSelectionForeachFunc)
 					       get_selected_rows, &paths);
-	EXTEND (SP, 1+g_list_length (paths));
-	PUSHs (sv_2mortal (newSVGtkTreeModel (model)));
+	EXTEND (SP, g_list_length (paths));
 	for (i = paths ; i != NULL ; i = i->next)
 		PUSHs (sv_2mortal (newSVGtkTreePath_own ((GtkTreePath*)i->data)));
 	g_list_free (paths);
