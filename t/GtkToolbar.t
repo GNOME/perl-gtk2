@@ -2,12 +2,10 @@
 # $Header$
 #
 
-#########################
-# GtkToolbar Tests
-# 	- rm
-#########################
-
 use Gtk2::TestHelper tests => 53;
+
+use strict;
+use warnings;
 
 #
 # the new 2.4 API and the pre-2.4 API cannot be used on the same widget,
@@ -88,7 +86,7 @@ for ([   '',    '',      '', 'Gtk2::Image', sub {1},    [] ],
 					 $_->[3], # icon
 					 $_->[4], # callback
 					 $_->[5], # user_data
-					 position); # position
+					 1); # position
 	isa_ok ($widget, 'Gtk2::Widget');
 
 	$widget = $toolbar->insert_stock ('gtk-open', # stock-id
@@ -96,7 +94,7 @@ for ([   '',    '',      '', 'Gtk2::Image', sub {1},    [] ],
 					  $_->[2], # tooltip_private_text
 					  $_->[4], # callback
 					  $_->[5], # user_data
-					  position); # position
+					  2); # position
 	isa_ok ($widget, 'Gtk2::Widget');
 }
 
