@@ -7,7 +7,7 @@
 # 	- rm
 #########################
 
-use Gtk2::TestHelper tests => 56;
+use Gtk2::TestHelper tests => 57;
 use Data::Dumper;
 
 # Expose #######################################################################

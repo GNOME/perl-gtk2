@@ -430,7 +430,7 @@ GdkWindow_ornull *
 window (GdkEvent * event, GdkWindow_ornull * newvalue=NULL)
     CODE:
 	RETVAL = event->any.window;
-	if (newvalue)
+	if (items == 2 && newvalue != event->any.window)
 	{
 		if (event->any.window)
 			g_object_unref (event->any.window);
@@ -471,7 +471,7 @@ GdkRectangle*
 area (GdkEvent * eventexpose, GdkRectangle * newvalue=NULL)
     CODE:
 	RETVAL = &(eventexpose->expose.area);
-	if (newvalue)
+	if (items == 2)
 	{
 		eventexpose->expose.area.x = newvalue->x;
 		eventexpose->expose.area.y = newvalue->y;
@@ -487,7 +487,7 @@ region (GdkEvent * eventexpose, GdkRegion_ornull * newvalue=NULL)
 	RETVAL = NULL;
 	if (eventexpose->expose.region)
 		RETVAL = gdk_region_copy (eventexpose->expose.region);
-	if (items == 2)
+	if (items == 2 && newvalue != eventexpose->expose.region)
 	{
 		if (eventexpose->expose.region)
 			gdk_region_destroy (eventexpose->expose.region);
@@ -719,34 +719,30 @@ group (GdkEvent * eventkey, guint8 newvalue=0)
 	RETVAL
 
 
-#if 0
 ## TODO/FIXME: remove altogether???
-
-gint
-length (GdkEvent * eventkey, guint newvalue=0)
-    CODE:
-	RETVAL = eventkey->key.length;
-	if (items == 2)
-		eventkey->key.length = newvalue;
-    OUTPUT:
-	RETVAL
-
-gchar *
-string (GdkEvent * eventkey, gchar * newvalue=NULL)
-    CODE:
-	RETVAL = eventkey->key.string;
-	if (items == 2)
-	{
-		g_free (eventkey->key.string);
-		if (newvalue)
-			eventkey->key.string = g_strdup (newvalue);
-		else
-			eventkey->key.string = NULL;
-	}
-    OUTPUT:
-	RETVAL
-
-#endif
+##gint
+##length (GdkEvent * eventkey, guint newvalue=0)
+##    CODE:
+##	RETVAL = eventkey->key.length;
+##	if (items == 2)
+##		eventkey->key.length = newvalue;
+##    OUTPUT:
+##	RETVAL
+##
+##gchar *
+##string (GdkEvent * eventkey, gchar * newvalue=NULL)
+##    CODE:
+##	RETVAL = eventkey->key.string;
+##	if (items == 2)
+##	{
+##		g_free (eventkey->key.string);
+##		if (newvalue)
+##			eventkey->key.string = g_strdup (newvalue);
+##		else
+##			eventkey->key.string = NULL;
+##	}
+##    OUTPUT:
+##	RETVAL
 
 MODULE = Gtk2::Gdk::Event	PACKAGE = Gtk2::Gdk::Event::Crossing
 
@@ -777,7 +773,7 @@ GdkWindow_ornull *
 subwindow (GdkEvent * event, GdkWindow_ornull * newvalue=NULL)
     CODE:
 	RETVAL = event->crossing.subwindow;
-	if (newvalue)
+	if (items == 2 && newvalue != event->crossing.subwindow)
 	{
 		if (event->crossing.subwindow)
 			g_object_unref (event->crossing.subwindow);
@@ -1137,7 +1133,7 @@ GdkDragContext *
 context (GdkEvent * eventdnd, GdkDragContext * newvalue=NULL)
     CODE:
 	RETVAL = eventdnd->dnd.context;
-	if (items == 2)
+	if (items == 2 && newvalue != eventdnd->dnd.context)
 	{
 		if (eventdnd->dnd.context)
 			g_object_unref (eventdnd->dnd.context);
