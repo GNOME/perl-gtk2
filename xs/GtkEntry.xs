@@ -51,12 +51,14 @@ gboolean
 gtk_entry_get_visibility (entry)
 	GtkEntry *entry
 
+# FIXME  need typemap for gunichar
  ## void gtk_entry_set_invisible_char (GtkEntry *entry, gunichar ch)
  ##void
  ##gtk_entry_set_invisible_char (entry, ch)
  ##	GtkEntry *entry
  ##	gunichar ch
- ##
+ #
+# FIXME need typemap for gunichar
  ## gunichar gtk_entry_get_invisible_char (GtkEntry *entry)
  ##gunichar
  ##gtk_entry_get_invisible_char (entry)
@@ -108,18 +110,13 @@ const gchar*
 gtk_entry_get_text (entry)
 	GtkEntry      *entry
 
- ## PangoLayout* gtk_entry_get_layout (GtkEntry *entry)
- ##PangoLayout*
- ##gtk_entry_get_layout (entry)
- ##	GtkEntry *entry
- ##
+PangoLayout*
+gtk_entry_get_layout (entry)
+	GtkEntry *entry
+
  ## void gtk_entry_get_layout_offsets (GtkEntry *entry, gint *x, gint *y)
- ##void
- ##gtk_entry_get_layout_offsets (entry, x, y)
- ##	GtkEntry *entry
- ##	gint *x
- ##	gint *y
- ##
+void
+gtk_entry_get_layout_offsets (GtkEntry *entry, OUTLIST gint x, OUTLIST gint y)
 
 void
 gtk_entry_append_text (entry, text)
