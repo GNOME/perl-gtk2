@@ -8,10 +8,10 @@ MODULE = Gtk2::Viewport	PACKAGE = Gtk2::Viewport	PREFIX = gtk_viewport_
 
 ## GtkWidget* gtk_viewport_new (GtkAdjustment *hadjustment, GtkAdjustment *vadjustment)
 GtkWidget *
-gtk_viewport_new (class, hadjustment, vadjustment)
+gtk_viewport_new (class, hadjustment=NULL, vadjustment=NULL)
 	SV            * class
-	GtkAdjustment * hadjustment
-	GtkAdjustment * vadjustment
+	GtkAdjustment_ornull * hadjustment
+	GtkAdjustment_ornull * vadjustment
     C_ARGS:
 	hadjustment, vadjustment
 
