@@ -1,3 +1,9 @@
+2004/01/04 19:11 (-0500) rwmcfa1
+
+	* pm/SimpleList.pm, pm/SimpleMenu.pm: quit using base and just add the 
+	parent type to @ISA by hand. this will prevent some problems with
+	co-existing (really old) inline versions of Gtk2-Perl.
+
 2004/01/04 11:49 (-0500) rwmcfa1
 
 	* xs/GdkWindow.xs: for some reason get_pointer was having issues with 

@@ -8,7 +8,9 @@ package Gtk2::SimpleList;
 use strict;
 use Carp;
 use Gtk2;
-use base 'Gtk2::TreeView';
+
+our @ISA;
+push @ISA, 'Gtk2::TreeView';
 
 our $VERSION = '0.14';
 
