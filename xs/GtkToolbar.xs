@@ -82,9 +82,9 @@ gtk2perl_toolbar_insert_internal (GtkToolbar * toolbar,
 		switch (op) {
 		    case PREPEND:
 			w = gtk_toolbar_prepend_item (toolbar, real_text,
-			                             real_tooltip_text,
-			                             real_tooltip_private_text,
-			                             real_icon, NULL, NULL);
+			                              real_tooltip_text,
+			                              real_tooltip_private_text,
+			                              real_icon, NULL, NULL);
 			break;
 		    case APPEND:
 			w = gtk_toolbar_append_item (toolbar, real_text,
@@ -146,7 +146,7 @@ gtk2perl_toolbar_insert_internal (GtkToolbar * toolbar,
 		break;
 	    case WIDGET:
 		{
-		w = SvGtkWidget_ornull (widget);
+		w = SvGtkWidget (widget);
 		switch (op) {
 		    case PREPEND:
 			gtk_toolbar_prepend_widget (toolbar, w,
@@ -206,7 +206,7 @@ GtkReliefStyle gtk_toolbar_get_relief_style (GtkToolbar *toolbar);
 
 gint gtk_toolbar_get_drop_index (GtkToolbar *toolbar, gint x, gint y);
 
-void gtk_toolbar_set_drop_highlight_item (GtkToolbar * toolbar, GtkToolItem * tool_item, gint index);
+void gtk_toolbar_set_drop_highlight_item (GtkToolbar * toolbar, GtkToolItem_ornull * tool_item, gint index);
 
 #endif
 
@@ -216,6 +216,13 @@ void gtk_toolbar_set_drop_highlight_item (GtkToolbar * toolbar, GtkToolItem * to
 #
 
 ##GtkWidget* gtk_toolbar_append_item (GtkToolbar *toolbar, const char *text, const char *tooltip_text, const char *tooltip_private_text, GtkWidget *icon, GtkSignalFunc callback, gpointer user_data)
+=for apidoc
+=for arg text (gchar)
+=for arg tooltip_text (gchar_ornull)
+=for arg tooltip_private_text (gchar_ornull)
+=for arg icon (GtkWidget_ornull)
+=for arg callback (subroutine)
+=cut
 GtkWidget *
 gtk_toolbar_append_item (toolbar, text, tooltip_text, tooltip_private_text, icon, callback=NULL, user_data=NULL)
 	GtkToolbar * toolbar
@@ -242,6 +249,13 @@ gtk_toolbar_append_item (toolbar, text, tooltip_text, tooltip_private_text, icon
 	RETVAL
 
 ## GtkWidget* gtk_toolbar_prepend_item (GtkToolbar *toolbar, const char *text, const char *tooltip_text, const char *tooltip_private_text, GtkWidget *icon, GtkSignalFunc callback, gpointer user_data)
+=for apidoc
+=for arg text (gchar)
+=for arg tooltip_text (gchar_ornull)
+=for arg tooltip_private_text (gchar_ornull)
+=for arg icon (GtkWidget_ornull)
+=for arg callback (subroutine)
+=cut
 GtkWidget *
 gtk_toolbar_prepend_item (toolbar, text, tooltip_text, tooltip_private_text, icon, callback=NULL, user_data=NULL)
 	GtkToolbar * toolbar
@@ -268,6 +282,14 @@ gtk_toolbar_prepend_item (toolbar, text, tooltip_text, tooltip_private_text, ico
 	RETVAL
 
 
+=for apidoc
+=for arg text (gchar)
+=for arg tooltip_text (gchar_ornull)
+=for arg tooltip_private_text (gchar_ornull)
+=for arg icon (GtkWidget_ornull)
+=for arg callback (subroutine)
+=for arg position (int)
+=cut
 GtkWidget *
 gtk_toolbar_insert_item (toolbar, text, tooltip_text, tooltip_private_text, icon, callback, user_data, position)
 	GtkToolbar    * toolbar
@@ -296,6 +318,13 @@ gtk_toolbar_insert_item (toolbar, text, tooltip_text, tooltip_private_text, icon
 
 
 ##GtkWidget* gtk_toolbar_insert_stock (GtkToolbar *toolbar, const gchar *stock_id, const char *tooltip_text, const char *tooltip_private_text, GtkSignalFunc callback, gpointer user_data, gint position)
+=for apidoc
+=for arg stock_id (gchar)
+=for arg tooltip_text (gchar_ornull)
+=for arg tooltip_private_text (gchar_ornull)
+=for arg callback (subroutine)
+=for arg position (int)
+=cut
 GtkWidget *
 gtk_toolbar_insert_stock (toolbar, stock_id, tooltip_text, tooltip_private_text, callback, user_data, position)
 	GtkToolbar    * toolbar
@@ -323,6 +352,15 @@ gtk_toolbar_insert_stock (toolbar, stock_id, tooltip_text, tooltip_private_text,
 
 
 ## GtkWidget* gtk_toolbar_prepend_element (GtkToolbar *toolbar, GtkToolbarChildType type, GtkWidget *widget, const char *text, const char *tooltip_text, const char *tooltip_private_text, GtkWidget *icon, GtkSignalFunc callback, gpointer user_data)
+=for apidoc
+=for arg type (GtkToolbarChildType)
+=for arg widget (GtkWidget_ornull)
+=for arg text (gchar)
+=for arg tooltip_text (gchar_ornull)
+=for arg tooltip_private_text (gchar_ornull)
+=for arg icon (GtkWidget_ornull)
+=for arg callback (subroutine)
+=cut
 GtkWidget *
 gtk_toolbar_prepend_element (toolbar, type, widget, text, tooltip_text, tooltip_private_text, icon, callback=NULL, user_data=NULL)
 	GtkToolbar * toolbar
@@ -351,6 +389,16 @@ gtk_toolbar_prepend_element (toolbar, type, widget, text, tooltip_text, tooltip_
 	RETVAL
 
 ## GtkWidget* gtk_toolbar_insert_element (GtkToolbar *toolbar, GtkToolbarChildType type, GtkWidget *widget, const char *text, const char *tooltip_text, const char *tooltip_private_text, GtkWidget *icon, GtkSignalFunc callback, gpointer user_data, gint position)
+=for apidoc
+=for arg type (GtkToolbarChildType)
+=for arg widget (GtkWidget_ornull)
+=for arg text (gchar)
+=for arg tooltip_text (gchar_ornull)
+=for arg tooltip_private_text (gchar_ornull)
+=for arg icon (GtkWidget_ornull)
+=for arg callback (subroutine)
+=for arg position (int)
+=cut
 GtkWidget *
 gtk_toolbar_insert_element (toolbar, type, widget, text, tooltip_text, tooltip_private_text, icon, callback, user_data, position)
 	GtkToolbar * toolbar
@@ -380,6 +428,15 @@ gtk_toolbar_insert_element (toolbar, type, widget, text, tooltip_text, tooltip_p
 	RETVAL
 
 ##GtkWidget* gtk_toolbar_append_element (GtkToolbar *toolbar, GtkToolbarChildType type, GtkWidget *widget, const char *text, const char *tooltip_text, const char *tooltip_private_text, GtkWidget *icon, GtkSignalFunc callback, gpointer user_data)
+=for apidoc
+=for arg type (GtkToolbarChildType)
+=for arg widget (GtkWidget_ornull)
+=for arg text (gchar)
+=for arg tooltip_text (gchar_ornull)
+=for arg tooltip_private_text (gchar_ornull)
+=for arg icon (GtkWidget_ornull)
+=for arg callback (subroutine)
+=cut
 GtkWidget *
 gtk_toolbar_append_element (toolbar, type, widget, text, tooltip_text, tooltip_private_text, icon, callback=NULL, user_data=NULL)
 	GtkToolbar * toolbar
@@ -408,6 +465,11 @@ gtk_toolbar_append_element (toolbar, type, widget, text, tooltip_text, tooltip_p
 	RETVAL
 
 ## void gtk_toolbar_prepend_widget (GtkToolbar *toolbar, GtkWidget *widget, const char *tooltip_text, const char *tooltip_private_text)
+=for apidoc
+=for arg widget (GtkWidget)
+=for arg tooltip_text (gchar_ornull)
+=for arg tooltip_private_text (gchar_ornull)
+=cut
 void
 gtk_toolbar_prepend_widget (toolbar, widget, tooltip_text, tooltip_private_text)
 	GtkToolbar * toolbar
@@ -429,6 +491,12 @@ gtk_toolbar_prepend_widget (toolbar, widget, tooltip_text, tooltip_private_text)
 	                                  PREPEND);
 
 ## void gtk_toolbar_insert_widget (GtkToolbar *toolbar, GtkWidget *widget, const char *tooltip_text, const char *tooltip_private_text, gint position)
+=for apidoc
+=for arg widget (GtkWidget)
+=for arg tooltip_text (gchar_ornull)
+=for arg tooltip_private_text (gchar_ornull)
+=for arg position (int)
+=cut
 void
 gtk_toolbar_insert_widget (toolbar, widget, tooltip_text, tooltip_private_text, position)
 	GtkToolbar * toolbar
@@ -451,6 +519,11 @@ gtk_toolbar_insert_widget (toolbar, widget, tooltip_text, tooltip_private_text, 
 	                                  INSERT);
 
 ##void gtk_toolbar_append_widget (GtkToolbar *toolbar, GtkWidget *widget, const char *tooltip_text, const char *tooltip_private_text)
+=for apidoc
+=for arg widget (GtkWidget)
+=for arg tooltip_text (gchar_ornull)
+=for arg tooltip_private_text (gchar_ornull)
+=cut
 void
 gtk_toolbar_append_widget (toolbar, widget, tooltip_text, tooltip_private_text)
 	GtkToolbar * toolbar
