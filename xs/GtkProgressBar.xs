@@ -6,6 +6,13 @@
 
 MODULE = Gtk2::ProgressBar	PACKAGE = Gtk2::ProgressBar	PREFIX = gtk_progress_bar_
 
+BOOT:
+	/* GtkProgressBar is a child of GtkProgress which is deprecated and
+	 * doesn't exist as far as the perl wrappers are concerned. this causes
+	 * GtkProgressBar to inherit the object just above GtkProgress, a 
+	 * GtkWidget. */
+        gperl_set_isa ("Gtk2::ProgressBar", "Gtk2::Widget");
+
 ## GtkWidget* gtk_progress_bar_new (void)
 GtkWidget *
 gtk_progress_bar_new (class)
