@@ -95,11 +95,13 @@ gdk_color_new (class, red, green, blue)
 	int red
 	int green
 	int blue
+    PREINIT:
+	GdkColor c;
     CODE:
-	RETVAL = g_new0 (GdkColor, 1);
-	RETVAL->red = red;
-	RETVAL->green = green;
-	RETVAL->blue = blue;
+	c.red = red;
+	c.green = green;
+	c.blue = blue;
+	RETVAL = gdk_color_copy (&c);
     OUTPUT:
 	RETVAL
 
@@ -112,10 +114,12 @@ GdkColor_own *
 gdk_color_parse (class, spec)
 	SV * class
 	const gchar *spec
+    PREINIT:
+	GdkColor c;
     CODE:
-	RETVAL = g_new0 (GdkColor, 1);
+	RETVAL = gdk_color_copy (&c);
 	if (!gdk_color_parse (spec, RETVAL)) {
-		g_free (RETVAL);
+		gdk_color_free (RETVAL);
 		XSRETURN_UNDEF;
 	}
     OUTPUT:
