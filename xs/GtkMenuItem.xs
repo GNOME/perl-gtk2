@@ -20,8 +20,67 @@
  */
 
 #include "gtk2perl.h"
+#include <gperl_marshal.h>
+
+/*
+
+  void (* toggle_size_request)  (GtkMenuItem *menu_item,
+                                 gint        *requisition);
+
+*/
+
+static void
+gtk2perl_menu_item_toggle_size_request_marshal (GClosure * closure,
+                                                GValue * return_value,
+                                                guint n_param_values,
+                                                const GValue * param_values,
+                                                gpointer invocation_hint,
+                                                gpointer marshal_data)
+{
+	gint * requisition;
+	dGPERL_CLOSURE_MARSHAL_ARGS;
+
+	GPERL_CLOSURE_MARSHAL_INIT (closure, marshal_data);
+
+	PERL_UNUSED_VAR (return_value);
+	PERL_UNUSED_VAR (n_param_values);
+	PERL_UNUSED_VAR (invocation_hint);
+
+	ENTER;
+	SAVETMPS;
+
+	PUSHMARK (SP);
+
+	GPERL_CLOSURE_MARSHAL_PUSH_INSTANCE (param_values);
+
+	requisition = g_value_get_pointer (param_values+1);
+
+	GPERL_CLOSURE_MARSHAL_PUSH_DATA;
+
+	PUTBACK;
+
+	GPERL_CLOSURE_MARSHAL_CALL (G_SCALAR);
+
+	if (count == 1) {
+		*requisition = POPi;
+	} else {
+		/* NOTE: croaking here can cause bad things to happen to the
+		 * app, because croaking in signal handlers is bad juju. */
+		croak ("an toggle-size-request signal handler must return one "
+		       "item (the requisition), but the callback returned %d "
+		       "items", count);
+	}
+
+	PUTBACK;
+	FREETMPS;
+	LEAVE;
+}
 
 MODULE = Gtk2::MenuItem	PACKAGE = Gtk2::MenuItem	PREFIX = gtk_menu_item_
+
+BOOT:
+	gperl_signal_set_marshaller_for (GTK_TYPE_MENU_ITEM, "toggle_size_request",
+	                                 gtk2perl_menu_item_toggle_size_request_marshal);
 
 GtkWidget*
 gtk_menu_item_new (class, label=NULL)
@@ -65,19 +124,12 @@ void
 gtk_menu_item_activate (menu_item)
 	GtkMenuItem *menu_item
 
- # FIXME
- ## void gtk_menu_item_toggle_size_request (GtkMenuItem *menu_item, gint *requisition)
- ##void
- ##gtk_menu_item_toggle_size_request (menu_item, requisition)
- ##	GtkMenuItem *menu_item
- ##	gint *requisition
+void gtk_menu_item_toggle_size_request (GtkMenuItem *menu_item, OUTLIST gint requisition)
 
- # FIXME
- ## void gtk_menu_item_toggle_size_allocate (GtkMenuItem *menu_item, gint allocation)
- ##void
- ##gtk_menu_item_toggle_size_allocate (menu_item, allocation)
- ##	GtkMenuItem *menu_item
- ##	gint allocation
+void
+gtk_menu_item_toggle_size_allocate (menu_item, allocation)
+	GtkMenuItem *menu_item
+	gint allocation
 
 void
 gtk_menu_item_set_right_justified (menu_item, right_justified)

@@ -1,3 +1,23 @@
+2004/03/01 03:50 (+0100) kaffeetisch
+
+	A t/GtkTreeModelIface.t: New test for the custom tree model stuff.
+
+	* t/GdkEvent.t: Use the same window in multiple places.  Test
+	Gtk2::Gdk::setting_get.  Skip the
+	Gtk2::Gdk::Event::Selection::requestor test on Win32.
+
+	* t/GdkEvent.t
+	* xs/GdkEvent.xs: Bind and test handler_set.
+
+	* t/GtkMenuItem.t
+	* xs/GtkMenuItem.xs: Use a custom marshaller for the
+	toggle_size_request signal since it uses a pointer to an integer
+	as a means to return a value from a signal handler.  Bind and test
+	toggle_size_request and toggle_size_allocate.
+
+	* t/GtkTreeModel.t
+	* xs/GtkTreeModel.xs: Bind and test ref_node and unref_node.
+
 2004/03/01 01:54 (+0100) kaffeetisch
 
 	* t/GtkFileChooser.t

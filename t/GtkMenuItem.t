@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 6, noinit => 1;
+use Gtk2::TestHelper tests => 12, noinit => 1;
 
 # $Header$
 
@@ -32,6 +32,22 @@ is($item -> get_submenu(), $menu);
 
 $item -> remove_submenu();
 $item -> set_accel_path("<bla/bla/bla>");
+
+$item -> signal_connect(toggle_size_request => sub {
+  is (shift, $item);
+  is (shift, "bla");
+  return 23;
+}, "bla");
+
+is ($item -> toggle_size_request(), 23);
+
+$item -> signal_connect(toggle_size_allocate => sub {
+  is (shift, $item);
+  is (shift, 23);
+  is (shift, "bla");
+}, "bla");
+
+$item -> toggle_size_allocate(23);
 
 __END__
 

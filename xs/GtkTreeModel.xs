@@ -975,8 +975,17 @@ gtk_tree_model_iter_parent (tree_model, child)
     OUTPUT:
 	RETVAL
 
-#### void gtk_tree_model_ref_node (GtkTreeModel *tree_model, GtkTreeIter *iter)
-#### void gtk_tree_model_unref_node (GtkTreeModel *tree_model, GtkTreeIter *iter)
+## void gtk_tree_model_ref_node (GtkTreeModel *tree_model, GtkTreeIter *iter)
+void
+gtk_tree_model_ref_node (tree_model, iter)
+	GtkTreeModel *tree_model
+	GtkTreeIter *iter
+
+## void gtk_tree_model_unref_node (GtkTreeModel *tree_model, GtkTreeIter *iter)
+void
+gtk_tree_model_unref_node (tree_model, iter)
+	GtkTreeModel *tree_model
+	GtkTreeIter *iter
 
 ## void gtk_tree_model_foreach (GtkTreeModel *model, GtkTreeModelForeachFunc func, gpointer user_data)
 =for apidoc

@@ -152,6 +152,12 @@ gtk2perl_gdk_event_new (GdkEventType type)
 }
 #endif
 
+void
+gtk2perl_event_func (GdkEvent *event, gpointer data)
+{
+	gperl_callback_invoke ((GPerlCallback *) data, NULL, event);
+}
+
 MODULE = Gtk2::Gdk::Event	PACKAGE = Gtk2::Gdk	PREFIX = gdk_
 
  ## gboolean gdk_events_pending (void)
@@ -377,13 +383,22 @@ gdk_event_get_axis (event, axis_use)
     OUTPUT:
 	RETVAL
 
- # FIXME needs a callback... do we really want this from perl?
  ## void gdk_event_handler_set (GdkEventFunc func, gpointer data, GDestroyNotify notify)
- ##void
- ##gdk_event_handler_set (func, data, notify)
- ##	GdkEventFunc func
- ##	gpointer data
- ##	GDestroyNotify notify
+void
+gdk_event_handler_set (class, func, data)
+	SV * func
+	SV * data
+    PREINIT:
+	GPerlCallback *callback;
+	GType params[] = {
+		GDK_TYPE_EVENT
+	};
+    CODE:
+	callback = gperl_callback_new (func, data, G_N_ELEMENTS (params),
+	                               params, 0);
+	gdk_event_handler_set (gtk2perl_event_func,
+	                       callback,
+	                       (GDestroyNotify) gperl_callback_destroy);
 
 #ifdef GDK_TYPE_SCREEN
 

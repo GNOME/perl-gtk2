@@ -7,7 +7,7 @@
 # 	- rm
 #########################
 
-use Gtk2::TestHelper tests => 85;
+use Gtk2::TestHelper tests => 88;
 use Data::Dumper;
 
 # Expose #######################################################################
@@ -97,13 +97,15 @@ is ($event->group, 11, '$key_event->group');
 isa_ok ($event = Gtk2::Gdk::Event->new ('enter-notify'),
 	'Gtk2::Gdk::Event::Crossing', 'Gtk2::Gdk::Event->new crossing');
 
-$event->subwindow (Gtk2::Gdk::Window->new (undef, {
+my $window = Gtk2::Gdk::Window->new (undef, {
 			width => 20,
 			height => 20,
 			wclass => "output",
 			window_type => "toplevel"
-		}));
-isa_ok ($event->subwindow, 'Gtk2::Gdk::Window', '$crossing_event->window');
+		});
+
+$event->subwindow ($window);
+is ($event->subwindow, $window, '$crossing_event->window');
 
 $event->mode ('grab');
 is ($event->mode, 'grab', '$crossing_event->mode');
@@ -140,13 +142,8 @@ SKIP: {
 	is ($event->get_screen, $screen, '$event->get_screen');
 }
 
-$event->window (Gtk2::Gdk::Window->new (undef, {
-			width => 20,
-			height => 20,
-			wclass => "output",
-			window_type => "toplevel"
-		}));
-isa_ok ($event->window, 'Gtk2::Gdk::Window', '$event->window');
+$event->window ($window);
+is ($event->window, $window, '$event->window');
 
 $event->send_event (3);
 is ($event->send_event, 3, '$event->send_event');
@@ -171,14 +168,21 @@ Gtk2::Gdk::Event->put ($event);
 is (Gtk2::Gdk->events_pending, 1);
 isa_ok (Gtk2::Gdk::Event->peek, "Gtk2::Gdk::Event::Crossing");
 
+Gtk2::Gdk::Event -> handler_set(sub {
+	isa_ok (shift, 'Gtk2::Gdk::Event::Crossing');
+	is (shift, 'bla');
+}, 'bla');
+
+Gtk2::Gdk::Event->put ($event);
+Gtk2->main_iteration while Gtk2->events_pending;
+
 # FIXME: how to test?  seems to block.
-# my $window = Gtk2::Window->new; $window->realize;
-# warn Gtk2::Gdk::Event->get_graphics_expose ($window->window);
+# warn Gtk2::Gdk::Event->get_graphics_expose ($window);
 
 Gtk2::Gdk -> set_show_events (1);
 is (Gtk2::Gdk -> get_show_events, 1);
 
-# FIXME: warn Gtk2::Gdk->setting_get ("bla");
+like (Gtk2::Gdk->setting_get ("gtk-double-click-time"), qr/^\d+$/);
 
 # Focus ########################################################################
 
@@ -294,9 +298,13 @@ isa_ok ($event->target, 'Gtk2::Gdk::Atom', '$selection_event->target');
 $event->property (Gtk2::Gdk::Atom->new ('foo'));
 isa_ok ($event->property, 'Gtk2::Gdk::Atom', '$selection_event->property');
 
-# TODO/FIXME: how do we come up with a GdkNativeWindow?
-#$event->requestor ('');
-is ($event->requestor, 0, '$selection_event->requestor');
+SKIP: {
+	skip "can't do x11 stuff on this platform", 1
+		if $^O eq 'MSWin32';
+
+	$event->requestor ($window->get_xid);
+	is ($event->requestor, $window->get_xid, '$selection_event->requestor');
+}
 
 __END__
 

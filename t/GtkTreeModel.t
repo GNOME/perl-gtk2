@@ -77,6 +77,9 @@ SKIP: {
 
 ###############################################################################
 
+$model -> ref_node($model -> get_iter_first());
+$model -> unref_node($model -> get_iter_first());
+
 $model -> foreach(sub {
 	my ($model, $path, $iter) = @_;
 
