@@ -176,7 +176,7 @@ $view -> insert_column(my $view_column_two = Gtk2::TreeViewColumn -> new(), 1);
 $view -> insert_column_with_attributes(0,
 				       "Bla",
 				       Gtk2::CellRendererToggle -> new(),
-				       text => 0);
+				       active => 1);
 $view -> insert_column_with_data_func(1,
 				      "Blub",
 				      Gtk2::CellRendererText -> new(),
@@ -388,5 +388,5 @@ Gtk2 -> main();
 
 __END__
 
-Copyright (C) 2003 by the gtk2-perl team (see the file AUTHORS for the
+Copyright (C) 2003-2005 by the gtk2-perl team (see the file AUTHORS for the
 full list).  See LICENSE for more information.
