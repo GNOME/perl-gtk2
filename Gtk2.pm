@@ -14,7 +14,7 @@ use Glib;
 
 require DynaLoader;
 
-our $VERSION = '0.90';
+our $VERSION = '0.91';
 
 our @ISA = qw(DynaLoader);
 
@@ -179,7 +179,7 @@ FIXME we have no other documentation, but we probably need it.
 
 =head1 SEE ALSO
 
-perl(1), Glib(1).
+perl(1), Glib(3pm).
 
 The Gtk2::Helper module contains stuff that makes writing Gtk2 programs
 a little easier.
