@@ -1,3 +1,11 @@
+2003/06/22 13:37 pcg
+
+        * gtk-demo/*: fix various minor problems, including using
+        binmode for binary streams, and removing misleading "use bytes".
+        * xs/GdkPixbufLoader.xs: the right way to access scalars is *not*
+        SvPVX, but SvPV. Also removed "count" from ->write, since strings
+        in perl are always counted and exposing this c-ism gives no benefit.
+
 2003/06/20 11:33 muppetman
 
 	* Gtk2.pm, README: bump version for 0.24 release

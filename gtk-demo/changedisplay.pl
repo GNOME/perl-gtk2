@@ -419,7 +419,7 @@ sub create_screen_frame {
   $tree_view->append_column ($column);
 
   $info->{screen_selection} = $tree_view->get_selection;
-  $selection->signal_connect (changed => \&screen_changed_cb, $info);
+  $info->{screen_selection}->signal_connect (changed => \&screen_changed_cb, $info);
 
   return $frame;
 }
