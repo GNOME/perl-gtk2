@@ -121,7 +121,21 @@ get_flags (widget)
  # */
  ##define GTK_WIDGET_SET_FLAGS(wid,flag)	  G_STMT_START{ (GTK_WIDGET_FLAGS (wid) |= (flag)); }G_STMT_END
  ##define GTK_WIDGET_UNSET_FLAGS(wid,flag)  G_STMT_START{ (GTK_WIDGET_FLAGS (wid) &= ~(flag)); }G_STMT_END
- #
+
+void
+set_flags (widget, flags)
+	GtkWidget * widget
+	GtkWidgetFlags flags
+    CODE:
+	GTK_WIDGET_SET_FLAGS (widget, flags);
+
+void
+unset_flags (widget, flags)
+	GtkWidget * widget
+	GtkWidgetFlags flags
+    CODE:
+	GTK_WIDGET_UNSET_FLAGS (widget, flags);
+
  #/* A requisition is a desired amount of space which a
  # *  widget may request.
  # */
