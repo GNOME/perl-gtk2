@@ -1,3 +1,8 @@
+2003/12/23 11:10 (-0500) rwmcfa1
+
+	* examples/adding_stock_icons.pl: an example of adding your own stock
+	id/icons.
+
 2003/12/18 12:56 (-0500) rwmcfa1
 
 	* xs/GtkWidget.xs: implementation of some functions that weren't before

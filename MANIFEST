@@ -13,6 +13,7 @@ TODO
 api.pod
 devel.pod
 examples/accel_groups.pl
+examples/adding_stock_icons.pl
 examples/buttonbox.pl
 examples/calendar.pl
 examples/cellrenderer_date.pl
