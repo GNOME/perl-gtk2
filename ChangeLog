@@ -1,3 +1,25 @@
+2003/12/05 13:42 (-0500) muppetman
+
+	D Changes: we haven't maintained this since May, we use ChangeLog.
+
+	D fetch_faq.pl
+	D genkeysyms.pl
+	D genmaps.pl
+	D podifystockitems.pl
+	A tools/fetch_faq.pl
+	A tools/genkeysyms.pl
+	A tools/genmaps.pl
+	A tools/podifystockitems.pl
+	move the not-to-be-installed helper scripts to a subdirectory to
+	reduce clutter.
+
+	A tools/podifyenums.pl
+	* Makefile.PL: add tool and use it to generate a single pod file
+	listing the values of all the enum and flags types listed in the
+	maps file, installed as Gtk2::enums(3pm).
+
+	* MANIFEST: updated to reflect all that movement.
+
 2003/12/05 12:53 (-0500) rwmcfa1
 
 	* t/accel-group-map.t: updated and more complete

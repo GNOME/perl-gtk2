@@ -1,7 +1,6 @@
 api.pod
 AUTHORS
 ChangeLog
-Changes
 CodeGen.pm
 devel.pod
 examples/accel_groups.pl
@@ -24,10 +23,7 @@ examples/simple_menu.pl
 examples/socket.pl
 examples/testdnd.pl
 examples/timeouttest.pl
-fetch_faq.pl
 gdk.typemap
-genkeysyms.pl
-genmaps.pl
 Gtk2.exports
 gtk2perl.h
 Gtk2.pm
@@ -73,7 +69,6 @@ pm/Helper.pm
 pm/Pango.pm
 pm/SimpleList.pm
 pm/SimpleMenu.pm
-podifystockitems.pl
 ppport.h
 README
 t/00.Gtk2.t
@@ -105,10 +100,17 @@ t/25.GtkTreeSelection.t
 t/26.GtkSimpleMenu.t
 t/27.GtkClipboard.t
 t/30.GtkCellRenderer.t
+t/accel-group-map.t
+t/calendar.t
 t/file-selection.t
 t/ignore_keyboard.pl
-TODO
 t/text-iter-searches.t
+TODO
+tools/fetch_faq.pl
+tools/genkeysyms.pl
+tools/genmaps.pl
+tools/podifyenums.pl
+tools/podifystockitems.pl
 xs_files-2.0
 xs_files-2.2
 xs/GdkColor.xs
