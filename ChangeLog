@@ -1,3 +1,17 @@
+2004/07/09 22:52 (-0400) muppetman
+
+	* examples/cellrenderer_popup.pl: add a toggle to show off both
+	the boxes and no-boxes styles; use named constants instead of
+	magic numbers.
+
+	* examples/cellrenderer_spinbutton.pl: some tweaks to the renderer;
+	center vertically in the cell; handle focus-out gracefully (thanks
+	to jens wilke for both); draw the editor widget only as large as
+	necessary; use named constants for TRUE and FALSE instead of
+	magic numbers.
+ 
+	* xs/GtkTreeModel.xs: fix some buggy code in the synopsis
+
 2004/07/07 22:23 (-0400) muppetman
 
 	* examples/cellrenderer-popup.pl: fix a bug in the menu-positioning
