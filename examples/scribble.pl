@@ -46,20 +46,10 @@ sub configure_event {
 #  if (pixmap)
 #    g_object_unref (pixmap);
 
-#  pixmap = gdk_pixmap_new (widget->window,
-#			   widget->allocation.width,
-#			   widget->allocation.height,
-#			   -1);
   $pixmap = Gtk2::Gdk::Pixmap->new ($widget->window,
                                     $widget->allocation->width,
                                     $widget->allocation->height,
                                     -1);
-#  gdk_draw_rectangle (pixmap,
-#		      widget->style->white_gc,
-#		      TRUE,
-#		      0, 0,
-#		      widget->allocation.width,
-#		      widget->allocation.height);
   $pixmap->draw_rectangle ($widget->style->white_gc,
                            TRUE,
                            0, 0,
@@ -74,21 +64,12 @@ sub expose_event {
   my $widget = shift; # GtkWidget      *widget
   my $event  = shift; # GdkEventExpose *event
 
-#  gdk_draw_drawable (widget->window,
-#		     widget->style->fg_gc[GTK_WIDGET_STATE (widget)],
-#		     pixmap,
-#		     event->area.x, event->area.y,
-#		     event->area.x, event->area.y,
-#		     event->area.width, event->area.height);
   $widget->window->draw_drawable (
 		     $widget->style->fg_gc($widget->state),
 		     $pixmap,
-#		     $event->area->x, $event->area->y,
-#		     $event->area->x, $event->area->y,
-#		     $event->area->width, $event->area->height);
-		     $event->area->[0], $event->area->[1],
-		     $event->area->[0], $event->area->[1],
-		     $event->area->[2], $event->area->[3]);
+		     $event->area->x, $event->area->y,
+		     $event->area->x, $event->area->y,
+		     $event->area->width, $event->area->height);
 
   return FALSE;
 }
@@ -99,24 +80,7 @@ sub draw_brush {
   my $x = shift; # gdouble    x
   my $y = shift; # gdouble    y
 
-#  GdkRectangle update_rect;
-
-#  update_rect.x = x - 5;
-#  update_rect.y = y - 5;
-#  update_rect.width = 10;
-#  update_rect.height = 10;
-#  my %update_rect;
-#  $update_rect{x} = $x - 5;
-#  $update_rect{y} = $y - 5;
-#  $update_rect{width} = 10;
-#  $update_rect{height} = 10;
-#  $pixmap->draw_rectangle ($widget->style->black_gc,
-#                           TRUE,
-#                           $update_rect{x}, $update_rect{y},
-#                           $update_rect{width}, $update_rect{height});
-#  
-#  $widget->queue_draw_area ($update_rect{x}, $update_rect{y},
-#                            $update_rect{width}, $update_rect{height});
+  # this is not a real GdkRectangle structure; we don't actually need one.
   my @update_rect;
   $update_rect[0] = $x - 5;
   $update_rect[1] = $y - 5;
@@ -133,7 +97,6 @@ sub button_press_event {
   my $event = shift;	# GdkEventButton *event
 
   if ($event->button == 1 && defined $pixmap) {
-#    draw_brush ($widget, $event->x, $event->y);
     draw_brush ($widget, $event->coords);
   }
   return TRUE;
@@ -143,8 +106,6 @@ sub motion_notify_event {
   my $widget = shift; # GtkWidget *widget
   my $event  = shift; # GdkEventMotion *event
 
-#  int x, y;
-#  GdkModifierType state;
   my ($x, $y, $state);
 
   if ($event->is_hint) {
@@ -155,8 +116,8 @@ sub motion_notify_event {
     $state = $event->state;
   }
 
-  use Data::Dumper;
-  print Data::Dumper->Dump ([$x, $y, $state], [qw/x y state/]);
+  #use Data::Dumper;
+  #print Data::Dumper->Dump ([$x, $y, $state], [qw/x y state/]);
 
 #  if (state & GDK_BUTTON1_MASK && pixmap != NULL)
   if (grep (/button1-mask/, @$state) && defined $pixmap) {

@@ -58,17 +58,12 @@ sub scribble_expose_event {
   # but honestly any GC would work. The only thing to worry about
   # is whether the GC has an inappropriate clip region set.
   #
-#use Data::Dumper;
-#print Dumper($event->area);
   $widget->window->draw_drawable ($widget->style->fg_gc($widget->state),
                                   $pixmap,
                                   # Only copy the area that was exposed.
                                   $event->area->x, $event->area->y,
                                   $event->area->x, $event->area->y,
                                   $event->area->width, $event->area->height);
-#                                  $event->area->[0], $event->area->[1],
-#                                  $event->area->[0], $event->area->[1],
-#                                  $event->area->[2], $event->area->[3]);
   
   return FALSE;
 }
@@ -76,23 +71,12 @@ sub scribble_expose_event {
 # Draw a rectangle on the screen
 sub draw_brush {
   my ($widget, $x, $y) = @_;
-#  GdkRectangle update_rect;
-#
-#  update_rect.x = x - 3;
-#  update_rect.y = y - 3;
-#  update_rect.width = 6;
-#  update_rect.height = 6;
-#  my @update_rect = ($x - 3, $y - 3, 6, 6);
   my $update_rect = Gtk2::Gdk::Rectangle->new ($x - 3, $y - 3, 6, 6);
 
   # Paint to the pixmap, where we store our state
   $pixmap->draw_rectangle ($widget->style->black_gc,
                            TRUE,
-			   @$update_rect);
-#                           $update_rect->[0], #update_rect.x,
-#                           $update_rect->[1], #update_rect.y,
-#                           $update_rect->[2], #update_rect.width,
-#                           $update_rect->[3]); #update_rect.height);
+			   $update_rect->values);
 #                           $update_rect->x,
 #                           $update_rect->y,
 #                           $update_rect->width,

@@ -187,7 +187,7 @@ gdk_error_trap_pop (class)
 MODULE = Gtk2::Gdk	PACKAGE = Gtk2::Gdk::Rectangle	PREFIX = gdk_rectangle_
 
 ##  gboolean gdk_rectangle_intersect (GdkRectangle *src1, GdkRectangle *src2, GdkRectangle *dest) 
-GdkRectangle *
+GdkRectangle_copy *
 gdk_rectangle_intersect (src1, src2)
 	GdkRectangle *src1
 	GdkRectangle *src2
@@ -201,7 +201,7 @@ gdk_rectangle_intersect (src1, src2)
 	RETVAL
 
 ##  void gdk_rectangle_union (GdkRectangle *src1, GdkRectangle *src2, GdkRectangle *dest) 
-GdkRectangle *
+GdkRectangle_copy *
 gdk_rectangle_union (src1, src2)
 	GdkRectangle *src1
 	GdkRectangle *src2

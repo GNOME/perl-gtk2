@@ -119,13 +119,6 @@ sub create_items {
 }
 
 
-package Gtk2::Gdk::Rectangle;
-
-# easier, named access to GdkRectangle components
-sub x      : lvalue { $_[0]->[0] }
-sub y      : lvalue { $_[0]->[1] }
-sub width  : lvalue { $_[0]->[2] }
-sub height : lvalue { $_[0]->[3] }
 
 package Gtk2;
 

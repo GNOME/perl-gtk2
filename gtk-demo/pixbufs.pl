@@ -148,28 +148,13 @@ sub timeout {
       $k = 2.0 * $k * $k;
       $k = MAX (0.25, $k);
 
-      #r1.x = xpos;
-      #r1.y = ypos;
-      #r1.width = iw * k;
-      #r1.height = ih * k;
-#      my @r1 = ($xpos, $ypos, $iw * $k, $ih * $k);
       my $r1 = Gtk2::Gdk::Rectangle->new ($xpos, $ypos, $iw * $k, $ih * $k);
 
-      #r2.x = 0;
-      #r2.y = 0;
-      #r2.width = back_width;
-      #r2.height = back_height;
-#      my @r2 = (0, 0, $back_width, $back_height);
       my $r2 = Gtk2::Gdk::Rectangle->new (0, 0, $back_width, $back_height);
 
-      #if (gdk_rectangle_intersect (&r1, &r2, &dest))
-##      my $dest = Gtk2::Gdk::Rectangle->intersect (\@r1, \@r2);
       my $dest = $r1->intersect ($r2);
-##      my $dest = Gtk2::Gdk::Rectangle::intersect (\@r1, \@r2);
       if ($dest) {
 	$images[$i]->composite ($frame,
-#			        $dest->[0], $dest->[1], # dest.x, dest.y,
-#			        $dest->[2], $dest->[3], # dest.width, dest.height,
 			        $dest->x, $dest->y,
 			        $dest->width, $dest->height,
 			        $xpos, $ypos,

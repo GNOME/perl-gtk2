@@ -22,57 +22,9 @@ newSVGdkModifierType (GdkModifierType val)
 
 
 
-SV *
-newSVGdkRectangle (GdkRectangle * rect)
-{
-	AV * av;
-	SV * r;
-	
-	if (!rect)
-		return newSVsv (&PL_sv_undef);
-		
-	av = newAV ();
-	r = newRV_noinc ((SV*) av);
-	
-	av_push (av, newSViv (rect->x));
-	av_push (av, newSViv (rect->y));
-	av_push (av, newSViv (rect->width));
-	av_push (av, newSViv (rect->height));
-
-	sv_bless (r, gv_stashpv ("Gtk2::Gdk::Rectangle", TRUE));
-
-	return r;
-}
-
-GdkRectangle *
-SvGdkRectangle (SV * sv)
-{
-	AV * av;
-	GdkRectangle * rect = NULL;
-
-	if ((!sv) || (!SvOK(sv)) || (!SvRV(sv)) ||
-	    SvTYPE(SvRV(sv)) != SVt_PVAV)
-		return NULL;
-	
-	av = (AV*) SvRV (sv);
-
-	if (av_len (av) != 3)
-		croak ("rectangle array must have four elements");
-
-	rect = gperl_alloc_temp (sizeof (GdkRectangle));
-	
-	rect->x      = SvIV (*av_fetch (av, 0, 0));
-	rect->y      = SvIV (*av_fetch (av, 1, 0));
-	rect->width  = SvIV (*av_fetch (av, 2, 0));
-	rect->height = SvIV (*av_fetch (av, 3, 0));
-
-	return rect;
-}
-
-
 MODULE = Gtk2::Gdk::Types	PACKAGE = Gtk2::Gdk::Rectangle
 
-GdkRectangle *
+GdkRectangle_copy *
 new (class, x, y, width, height)
 	SV * class
 	gint x
@@ -90,24 +42,30 @@ new (class, x, y, width, height)
     OUTPUT:
 	RETVAL
 
-#if 0
+gint
+members (rectangle)
+	GdkRectangle * rectangle
+    ALIAS:
+	Gtk2::Gdk::Rectangle::x = 0
+	Gtk2::Gdk::Rectangle::y = 1
+	Gtk2::Gdk::Rectangle::width = 2
+	Gtk2::Gdk::Rectangle::height = 3
+    CODE:
+	switch (ix) {
+		case 0: RETVAL = rectangle->x; break;
+		case 1: RETVAL = rectangle->y; break;
+		case 2: RETVAL = rectangle->width; break;
+		case 3: RETVAL = rectangle->height; break;
+	}
+    OUTPUT:
+	RETVAL
 
-##gint
-##members (rectangle)
-##	GdkRectangle * rectangle
-##    ALIAS:
-##	Gtk2::Gdk::Rectangle::x = 0
-##	Gtk2::Gdk::Rectangle::y = 1
-##	Gtk2::Gdk::Rectangle::width = 2
-##	Gtk2::Gdk::Rectangle::height = 3
-##    CODE:
-##	switch (ix) {
-##		case 0: RETVAL = rectangle->x; break;
-##		case 1: RETVAL = rectangle->y; break;
-##		case 2: RETVAL = rectangle->width; break;
-##		case 3: RETVAL = rectangle->height; break;
-##	}
-##    OUTPUT:
-##	RETVAL
-
-#endif
+void
+values (rectangle)
+	GdkRectangle * rectangle
+    PPCODE:
+	EXTEND (SP, 4);
+	PUSHs (sv_2mortal (newSViv (rectangle->x)));
+	PUSHs (sv_2mortal (newSViv (rectangle->y)));
+	PUSHs (sv_2mortal (newSViv (rectangle->width)));
+	PUSHs (sv_2mortal (newSViv (rectangle->height)));
