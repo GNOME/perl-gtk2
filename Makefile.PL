@@ -151,7 +151,7 @@ sub postamble
 
 	"
 realclean ::
-	-rm -Rf build
+	-rm -Rf build perl-\$(DISTNAME).spec
 
 # the tmp-xxx stuff is just so that only the pl files get installed
 install-\%: %
@@ -164,7 +164,7 @@ install-\%: %
 rpms/:
 	-mkdir @dirs
 
-perl-\$(DISTNAME).spec: perl-\$(DISTNAME).spec.in
+perl-\$(DISTNAME).spec: perl-\$(DISTNAME).spec.in \$(VERSION_FROM) Makefile
 	sed -e \"s/\@VERSION\@/\$(VERSION)/g\" -e \"s/\@SOURCE\@/\$(DISTNAME)-\$(VERSION).tar.gz/g\" \$< > \$@
 
 dist-rpms: Makefile dist perl-\$(DISTNAME).spec rpms/

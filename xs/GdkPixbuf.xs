@@ -267,7 +267,7 @@ gdk_pixbuf_save (pixbuf, filename, type, ...)
 
 
 ##  GdkPixbuf *gdk_pixbuf_add_alpha (const GdkPixbuf *pixbuf, gboolean substitute_color, guchar r, guchar g, guchar b) 
-GdkPixbuf *
+GdkPixbuf_noinc *
 gdk_pixbuf_add_alpha (pixbuf, substitute_color, r, g, b)
 	GdkPixbuf *pixbuf
 	gboolean substitute_color

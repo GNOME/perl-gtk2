@@ -1,3 +1,9 @@
+2003/09/15 22:26 rwmcfa1
+
+	* Makefile.PL: spec file dependancies improved
+
+	* xs/GdkPixbuf.xs: fixed ref count bug.
+
 2003/09/15 16:02 muppetman
 
 	* Gtk2.pm: remove Gtk2::Dialog::Responses, add a bunch of missing
