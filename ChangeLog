@@ -1,3 +1,9 @@
+2005/01/31 20:53 (+0100) kaffeetisch
+
+	* t/GtkAccelGroup.t, t/GtkAccelMap.t, t/GtkBox.t,
+	t/GtkFileChooser.t, t/GtkNotebook.t, t/GtkStock.t: Fix or disable
+	tests that fail with newer versions of Test::More.
+
 2005/01/29 23:15 (-0400) muppetman
 
 	Backport bugfixes from HEAD

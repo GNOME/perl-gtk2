@@ -12,21 +12,21 @@ my $frame = Gtk2::Frame -> new("Bla");
 my $button = Gtk2::Button -> new("Bla");
 my $entry = Gtk2::Entry -> new();
 
-$box -> pack_start($label, 0, 1, 5);
-$box -> pack_end($frame, 1, 0, 10);
+$box -> pack_start($label, FALSE, TRUE, 5);
+$box -> pack_end($frame, TRUE, FALSE, 10);
 $box -> pack_start_defaults($button);
 $box -> pack_end_defaults($entry);
 
-is_deeply([$box -> query_child_packing($label)], [undef, 1, 5, "start"]);
-is_deeply([$box -> query_child_packing($frame)], [1, undef, 10, "end"]);
-is_deeply([$box -> query_child_packing($button)], [1, 1, 0, "start"]);
-is_deeply([$box -> query_child_packing($entry)], [1, 1, 0, "end"]);
+is_deeply([$box -> query_child_packing($label)], [FALSE, TRUE, 5, "start"]);
+is_deeply([$box -> query_child_packing($frame)], [TRUE, FALSE, 10, "end"]);
+is_deeply([$box -> query_child_packing($button)], [TRUE, TRUE, 0, "start"]);
+is_deeply([$box -> query_child_packing($entry)], [TRUE, TRUE, 0, "end"]);
 
-$box -> set_child_packing($button, 0, 0, 23, "end");
-is_deeply([$box -> query_child_packing($button)], [undef, undef, 23, "end"]);
+$box -> set_child_packing($button, FALSE, FALSE, 23, "end");
+is_deeply([$box -> query_child_packing($button)], [FALSE, FALSE, 23, "end"]);
 
-$box -> set_homogeneous(1);
-is($box -> get_homogeneous(), 1);
+$box -> set_homogeneous(TRUE);
+is($box -> get_homogeneous(), TRUE);
 
 $box -> set_spacing(5);
 is($box -> get_spacing(), 5);
@@ -36,18 +36,18 @@ $box -> reorder_child($label, -1);
 ###############################################################################
 # Ross' 0.7.GtkBoxes.t.
 
-ok( my $vbox = Gtk2::VBox->new(0,5) );
+ok( my $vbox = Gtk2::VBox->new(FALSE,5) );
 
 my ($r, $c);
 for( $r = 0; $r < 3; $r++ )
 {
-	ok( my $hbox = Gtk2::HBox->new(0, 5), "created hbox for row $r" );
-	$vbox->pack_start($hbox, 0, 0, 5);
+	ok( my $hbox = Gtk2::HBox->new(FALSE, 5), "created hbox for row $r" );
+	$vbox->pack_start($hbox, FALSE, FALSE, 5);
 	$hbox->set_name ("hbox $r");
 	for( $c = 0; $c < 3; $c++ )
 	{
 		ok( my $label = Gtk2::Label->new("(r,c):($r,$c)"), 'created label' );
-		$hbox->pack_start($label, 0, 0, 10);
+		$hbox->pack_start($label, FALSE, FALSE, 10);
 
 		# make sure we are where we think we are
 		is( $label->get_ancestor ('Gtk2::Box'), $hbox, 'ancestry' );
@@ -71,5 +71,5 @@ for( $r = 0; $r < 3; $r++ )
 
 __END__
 
-Copyright (C) 2003 by the gtk2-perl team (see the file AUTHORS for the
+Copyright (C) 2003-2005 by the gtk2-perl team (see the file AUTHORS for the
 full list).  See LICENSE for more information.

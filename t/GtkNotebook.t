@@ -107,13 +107,13 @@ ok( $nb->get_tab_label_text($child) eq 're-set2' );
 
 ok( $nb->get_nth_page(1)->get_text eq 'Page 2c' );
 
-ok( eq_array( [ $nb->query_tab_label_packing($child) ],
-	      [ undef, 1, 'start' ] ) );
+is_deeply( [ $nb->query_tab_label_packing($child) ],
+	   [ FALSE, TRUE, 'start' ] );
 
 $nb->set_tab_label_packing($child, 1, 0, 'end');
 ok(1);
-ok( eq_array( [ $nb->query_tab_label_packing($child) ],
-	      [ 1, undef, 'end' ] ) );
+is_deeply( [ $nb->query_tab_label_packing($child) ],
+	   [ TRUE, FALSE, 'end' ] );
 
 Glib::Idle->add( sub
 	{
@@ -150,5 +150,5 @@ ok(1);
 
 __END__
 
-Copyright (C) 2003 by the gtk2-perl team (see the file AUTHORS for the
+Copyright (C) 2003-2005 by the gtk2-perl team (see the file AUTHORS for the
 full list).  See LICENSE for more information.
