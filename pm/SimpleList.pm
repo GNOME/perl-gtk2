@@ -447,11 +447,9 @@ Gtk2::SimpleList - A simple interface to Gtk2's complex MVC list widget
 
 =head1 SYNOPSIS
 
+  use Glib qw(TRUE FALSE);
   use Gtk2 '-init';
   use Gtk2::SimpleList;
-
-  use constant TRUE  => 1;
-  use constant FALSE => 0;
 
   my $slist = Gtk2::SimpleList->new (
                 'Text Field'    => 'text',
@@ -482,7 +480,8 @@ Gtk2::SimpleList - A simple interface to Gtk2's complex MVC list widget
   # simple way to make text columns editable
   $slist->set_column_editable ($col_num, TRUE);
 
-  # Gtk2::SimpleList is derived from Gtk2::TreeView
+  # Gtk2::SimpleList derives from Gtk2::TreeView, so all methods
+  # on a treeview are available.
   $slist->set_rules_hint (TRUE);
   $slist->signal_connect (row_activated => \&row_clicked);
 

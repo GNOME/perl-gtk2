@@ -100,6 +100,8 @@ gdk_drag_begin (class, window, ...)
 	for (i = items - 1 ; i >= 2 ; i--)
 		targets = g_list_prepend (targets,
 		                        GUINT_TO_POINTER (SvGdkAtom (ST (i))));
+			/* the Gdk source code uses GUINT_TO_POINTER
+			 * when storing atoms in hashes. */
 	RETVAL = gdk_drag_begin (window, targets);
     OUTPUT:
 	RETVAL
