@@ -1,3 +1,8 @@
+2004/01/20 12:29 (-0500) muppetman
+
+	* xs/GdkKeys.xs: change PREFIX to fix gdk_keyval_* functions.
+	they are now Gtk2::Gdk->keyval_*, like in gtk-perl.
+
 2004/01/19 21:55 (-0500) muppetman
 
 	* t/GtkEntryCompletion.t: flesh this out a bit

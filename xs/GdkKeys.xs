@@ -126,7 +126,7 @@ gdk_keymap_get_direction (keymap)
 	GdkKeymap *keymap
 
 
-MODULE = Gtk2::Gdk::Keys PACKAGE = Gtk2::Gdk::Keyval PREFIX = gtk_keyval_
+MODULE = Gtk2::Gdk::Keys PACKAGE = Gtk2::Gdk PREFIX = gdk_
 
 gchar *
 gdk_keyval_name (class, keyval)
