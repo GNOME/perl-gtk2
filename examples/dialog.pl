@@ -1,13 +1,19 @@
 #!/usr/bin/perl
 
+=doc
+
+gtk+ 2.x provides a nice enhancement to the Dialog API, allowing you to use
+the idea of responses instead of just connecting to buttons, and making
+modal dialogs very easy.  There are two ways to use the Gtk2::Dialog --
+by calling $dialog->run() for modal dialogs, or by connecting to the response
+signal and handling things yourself, usually for modeless dialogs.
+
+=cut
+
 use strict;
 use warnings;
-
+use Glib qw(TRUE FALSE);
 use Gtk2 '-init';
-
-use constant TRUE => 1;
-use constant FALSE => !TRUE;
-
 
 
 
@@ -16,24 +22,29 @@ use constant FALSE => !TRUE;
 # is probably the way you want to go. 
 
 my $dialog = Gtk2::Dialog->new ('Run Dialog Demo', undef, 'modal',
-	'gtk-ok' => 1,
-	'_Reset' => 2,
+	'gtk-ok' => 'ok',  # response ids may be one of the built-in enums...
+	'_Reset' => 2,     # or any positive integer.
 );
-
-# get the dialog's vbox to put some stuff into.
-my $vbox = $dialog->vbox;
 
 # put an hbox with a label and entry into the dialog's vbox area.
 my $hbox = Gtk2::HBox->new (FALSE, 6);
 $hbox->pack_start (Gtk2::Label->new ('Test:'), TRUE, TRUE, 0);
 my $entry = Gtk2::Entry->new;
 $hbox->pack_start ($entry, TRUE, TRUE, 0);
-$vbox->pack_start ($hbox, TRUE, TRUE, 0);
+$hbox->show_all;
 
-# show the vbox so that it will be visible
-$vbox->show_all;
+# the dialog provides a vbox for the area at the top, where your
+# own widgets go.
+$dialog->vbox->pack_start ($hbox, TRUE, TRUE, 0);
 
-# run the dialog
+# Set which response is the default:
+$dialog->set_default_response ('ok');
+
+# A very common usability enhancement is to allow hitting Enter in the
+# entry to activate the default response.  This turns that on:
+$entry->set_activates_default (TRUE);
+
+# run the dialog.  this will show for you.
 my $response = $dialog->run;
 # when a button is clicked the dialog will go away and the response (clicked 
 # button) will be returned from the call to run
@@ -60,9 +71,18 @@ $dialog->signal_connect (response => sub {
 
 		print "The user clicked: $response\n";
 		print 'The text entry was: '.$entry->get_text."\n";
-		if ($response == 1)
+		if ($response eq 'ok')
 		{
 			# the user clicked ok
+			Gtk2->main_quit;
+		}
+		elsif ($response eq 'delete-event')
+		{
+			# Because we didn't connect anything to delete-event
+			# directly, the default handler will still destroy
+			# the window.  By the time we get here, the window
+			# will be gone already, and the only thing for it in
+			# this example is to quit.
 			Gtk2->main_quit;
 		}
 		else # if ($response == 2)
@@ -74,6 +94,6 @@ $dialog->signal_connect (response => sub {
 
 # show the dialog
 $dialog->show;
-# and enter a main loop so that it will become interactice, the main loop will
-# be quit by clicking ok. 
+# and enter a main loop so that it will become interactive, the main loop will
+# be quit by the callback attached to response.
 Gtk2->main;

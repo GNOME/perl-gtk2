@@ -1,3 +1,8 @@
+2004/03/20 21:42 (-0500) muppetman
+
+	* examples/dialog.pl: handle delete-event, beef up commentary, use
+	$dialog->set_default_response, explain that response ids are magical.
+
 2004/03/20 20:32 (-0500) muppetman
 
 	* xs/GdkEvent.xs, xs/GtkAccelGroup.xs, xs/GtkAccelMap.xs,
