@@ -458,7 +458,7 @@ gtk_widget_get_events (widget)
  #void	   gtk_widget_set_style		(GtkWidget	*widget,
  #					 GtkStyle	*style);
  #void	   gtk_widget_ensure_style	(GtkWidget	*widget);
- #GtkStyle*  gtk_widget_get_style		(GtkWidget	*widget);
+#GtkStyle*  gtk_widget_get_style		(GtkWidget	*widget);
  #
  ###void gtk_widget_modify_style (GtkWidget *widget, GtkRcStyle *style);
  #void
@@ -539,7 +539,15 @@ gtk_widget_render_icon (widget, stock_id, size, detail=NULL)
  #/* Set certain default values to be used at widget creation time.
  # */
  #void	     gtk_widget_set_default_colormap (GdkColormap *colormap);
- #GtkStyle*    gtk_widget_get_default_style    (void);
+
+GtkStyle* 
+gtk_widget_get_default_style (class)
+     SV* class
+CODE:
+     RETVAL = gtk_widget_get_default_style();
+OUTPUT:
+     RETVAL
+
  #GdkColormap* gtk_widget_get_default_colormap (void);
  #GdkVisual*   gtk_widget_get_default_visual   (void);
  #
