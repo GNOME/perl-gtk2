@@ -5,46 +5,64 @@
 use Gtk2::TestHelper
 	# FIXME 2.4
 	at_least_version => [2, 3, 0, "GtkIconTheme is new in 2.4"],
-	tests => 1, noinit => 1;
-
-SKIP: { skip "NOT IMPLEMENTED", 1; }
-__END__
+	tests => 10;
 
 my $icon_theme = Gtk2::IconTheme->new;
 isa_ok ($icon_theme, 'Gtk2::IconTheme');
 
 $icon_theme = Gtk2::IconTheme->get_default;
+isa_ok ($icon_theme, 'Gtk2::IconTheme');
 
-$icon_theme = Gtk2::IconTheme->get_for_screen (GdkScreen *screen);
+$icon_theme = Gtk2::IconTheme->get_for_screen (Gtk2::Gdk::Screen->get_default);
+isa_ok ($icon_theme, 'Gtk2::IconTheme');
 
-$icon_theme->set_screen (GdkScreen *screen);
+$icon_theme->set_screen (Gtk2::Gdk::Screen->get_default);
 
-$icon_theme->set_search_path (@paths)
+my @paths = qw(/tmp /etc /home);
+$icon_theme->set_search_path (@paths);
 
-my @paths = $icon_theme->get_search_path
+is_deeply ([$icon_theme->get_search_path],
+           [ map {s{^/}{}; $_} @paths ]);
 
-$icon_theme->append_search_path (GPerlFilename_const path);
+$icon_theme->append_search_path ('/usr/local/tmp');
+push @paths, '/usr/local/tmp';
+is_deeply ([$icon_theme->get_search_path],
+           [ map {s{^/}{}; $_} @paths ]);
 
-$icon_theme->prepend_search_path (GPerlFilename_const path);
+TODO: {
+	local $TODO = "not sure what's wrong here";
+$icon_theme->prepend_search_path ('/usr/tmp');
+unshift @paths, '/usr/tmp';
+use Data::Dumper;
+print Dumper ([$icon_theme->get_search_path],
+           [ map {s{^/}{}; $_} @paths ]);
+is_deeply ([$icon_theme->get_search_path],
+           [ map {s{^/}{}; $_} @paths ]);
+}
 
-$icon_theme->set_custom_theme (const gchar *theme_name);
+ok (!$icon_theme->has_icon ('gtk-open'));
+ok (!$icon_theme->has_icon ('something crazy'));
 
-gboolean $icon_theme->has_icon (const gchar *icon_name);
+my @icons = $icon_theme->list_icons (undef);
+use Data::Dumper;
+print Dumper (@icons);
 
-GtkIconInfo_own_ornull = $icon_theme->lookup_icon (const gchar *icon_name, gint size, GtkIconLookupFlags flags);
+# cannot call set_custom_theme on a default theme
+$icon_theme = Gtk2::IconTheme->new;
+$icon_theme->set_custom_theme ('crazy custom theme');
 
-GdkPixbuf_ornull = $icon_theme->load_icon (const gchar *icon_name, gint size, GtkIconLookupFlags flags)
+is ($icon_theme->get_example_icon_name, undef);
 
-my @icons = $icon_theme->list_icons (const char * context)
+##GtkIconInfo_own_ornull = $icon_theme->lookup_icon (const gchar *icon_name, gint size, GtkIconLookupFlags flags);
+##
+##GdkPixbuf_ornull = $icon_theme->load_icon (const gchar *icon_name, gint size, GtkIconLookupFlags flags);
 
- ## char * $icon_theme->get_example_icon_name (GtkIconTheme *icon_theme);
-gchar_own = $icon_theme->get_example_icon_name;
+ok (!$icon_theme->rescan_if_needed);
 
-gboolean = $icon_theme->rescan_if_needed
-
-$icon_theme->add_builtin_icon (const gchar *icon_name, gint size, GdkPixbuf *pixbuf);
+##$icon_theme->add_builtin_icon (const gchar *icon_name, gint size, GdkPixbuf *pixbuf);
 
 
+__END__
 
 gint = $icon_info->get_base_size
 
