@@ -48,7 +48,7 @@ $completion->delete_action (0);
 
 SKIP: {
 	skip 'new 2.6 stuff', 3
-		unless Gtk2->CHECK_VERSION (2, 5, 0); # FIXME: 2.6
+		unless Gtk2->CHECK_VERSION (2, 6, 0);
 
 	is ($completion->get_text_column, 0);
 

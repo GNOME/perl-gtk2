@@ -134,7 +134,7 @@ gtk2perl_tree_view_destroy_count_func (GtkTreeView * tree_view,
 }
 #endif
 
-#if GTK_CHECK_VERSION (2, 5, 2) /* FIXME 2.6.0 */
+#if GTK_CHECK_VERSION (2, 6, 0)
 
 /* Also used in GtkComboBox.xs. */
 
@@ -732,7 +732,7 @@ gtk_tree_view_set_search_equal_func (tree_view, func, data=NULL)
 ##					      (GDestroyNotify) gperl_callback_destroy);
 
 
-#if GTK_CHECK_VERSION(2,5,2)
+#if GTK_CHECK_VERSION(2, 6, 0)
 
 void gtk_tree_view_set_fixed_height_mode (GtkTreeView *treeview, gboolean enable);
 

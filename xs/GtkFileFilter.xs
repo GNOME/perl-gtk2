@@ -127,7 +127,7 @@ gboolean gtk_file_filter_filter (GtkFileFilter *filter, SV *filter_info);
     C_ARGS:
 	filter, SvGtkFileFilterInfo (filter_info)
 
-#if GTK_CHECK_VERSION (2, 5, 5) /* FIXME: 2.6 */
+#if GTK_CHECK_VERSION (2, 6, 0)
 
 void gtk_file_filter_add_pixbuf_formats (GtkFileFilter *filter)
 

@@ -88,7 +88,7 @@ void gtk_entry_completion_delete_action (GtkEntryCompletion *completion, gint in
 ##
 void gtk_entry_completion_set_text_column (GtkEntryCompletion *completion, gint column);
 
-#if GTK_CHECK_VERSION (2, 5, 0) /* FIXME: 2.6 */
+#if GTK_CHECK_VERSION (2, 6, 0)
 
 gint gtk_entry_completion_get_text_column (GtkEntryCompletion *completion);
 

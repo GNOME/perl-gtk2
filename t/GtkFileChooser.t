@@ -172,7 +172,7 @@ $file_chooser->remove_shortcut_folder_uri ($cwd);
 
 SKIP: {
 	skip("[sg]et_show_hidden are new in 2.6", 1)
-		unless Gtk2->CHECK_VERSION (2, 5, 6); # FIXME: 2.6
+		unless Gtk2->CHECK_VERSION (2, 6, 0);
 
 	$file_chooser->set_show_hidden (TRUE);
 	is ($file_chooser->get_show_hidden, TRUE);

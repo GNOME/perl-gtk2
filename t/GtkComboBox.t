@@ -67,7 +67,7 @@ is ($combo_box->get_active, 1, 'set and get active');
 
 SKIP: {
 	skip "new api in gtk+ 2.6", 8
-		unless Gtk2->CHECK_VERSION (2, 5, 4); # FIXME 2.6.0
+		unless Gtk2->CHECK_VERSION (2, 6, 0);
 
 	my $active_path = Gtk2::TreePath->new_from_string
 				("".$combo_box->get_active."");
@@ -75,14 +75,14 @@ SKIP: {
 	    $model->get ($model->get_iter ($active_path), 0),
 	    'get active text');
 
-	$combo_box->set_add_tearoffs (1);
+	$combo_box->set_add_tearoffs (TRUE);
 	ok ($combo_box->get_add_tearoffs, 'tearoff accessors');
-	$combo_box->set_add_tearoffs (0);
+	$combo_box->set_add_tearoffs (FALSE);
 	ok (!$combo_box->get_add_tearoffs, 'tearoff accessors');
 
-	$combo_box->set_focus_on_click (1);
+	$combo_box->set_focus_on_click (TRUE);
 	ok ($combo_box->get_focus_on_click, 'focus-on-click accessors');
-	$combo_box->set_focus_on_click (0);
+	$combo_box->set_focus_on_click (FALSE);
 	ok (!$combo_box->get_focus_on_click, 'focus-on-click accessors');
 
 	$combo_box->set_row_separator_func (sub {
@@ -98,11 +98,6 @@ SKIP: {
 
 	$combo_box->popup;
 	$combo_box->popdown;
-}
-
-SKIP: {
-	skip "new api in gtk+ 2.6", 3,
-		unless Gtk2->CHECK_VERSION (2, 5, 0); # FIXME 2.6.0
 
 	$combo_box->set_wrap_width (1);
 	$combo_box->set_row_span_column (1);

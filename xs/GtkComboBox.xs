@@ -8,7 +8,7 @@
 
 #include "gtk2perl.h"
 
-#if GTK_CHECK_VERSION (2, 5, 2) /* FIXME 2.6.0 */
+#if GTK_CHECK_VERSION (2, 6, 0)
 
 /* Defined in GtkTreeView.xs. */
 
@@ -92,7 +92,7 @@ void gtk_combo_box_popup (GtkComboBox *combo_box);
 
 void gtk_combo_box_popdown (GtkComboBox *combo_box);
 
-#if GTK_CHECK_VERSION (2, 5, 0) /* FIXME: 2.6.0 */
+#if GTK_CHECK_VERSION (2, 6, 0)
 
 gint gtk_combo_box_get_wrap_width (GtkComboBox *combo_box);
 
@@ -102,7 +102,7 @@ gint gtk_combo_box_get_column_span_column (GtkComboBox *combo_box);
 
 #endif
 
-#if GTK_CHECK_VERSION (2, 5, 2) /* FIXME 2.6.0 */
+#if GTK_CHECK_VERSION (2, 6, 0)
 
 gchar_own * gtk_combo_box_get_active_text (GtkComboBox *combo_box);
 

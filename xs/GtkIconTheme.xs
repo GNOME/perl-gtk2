@@ -114,7 +114,7 @@ void gtk_icon_theme_add_builtin_icon (class, const gchar *icon_name, gint size, 
     C_ARGS:
 	icon_name, size, pixbuf
 
-#if GTK_CHECK_VERSION (2, 5, 0) /* FIXME: 2.6 */
+#if GTK_CHECK_VERSION (2, 6, 0)
 
  ## gint * gtk_icon_theme_get_icon_sizes (GtkIconTheme *icon_theme, const gchar *icon_name);
 void

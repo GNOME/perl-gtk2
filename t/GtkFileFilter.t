@@ -43,7 +43,7 @@ ok (!$file_filter->filter ($filter_info));
 
 SKIP: {
 	skip 'add_pixbuf_formats is new in 2.6', 0
-		unless Gtk2->CHECK_VERSION (2, 5, 5); # FIXME: 2.6
+		unless Gtk2->CHECK_VERSION (2, 6, 0);
 
 	$file_filter->add_pixbuf_formats;
 }

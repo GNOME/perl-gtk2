@@ -301,7 +301,7 @@ SKIP: {
 	#       constant; if not, i suppose we'll just have to disable the
 	#       row separator func test.
 	skip "new toys in 2.6", 30
-		unless Gtk2->CHECK_VERSION (2, 5, 0); # FIXME 2.6.0
+		unless Gtk2->CHECK_VERSION (2, 6, 0);
 
 	# here are a few new properties which default to off; let's check
 	# the accessors & mutators by turning them on and then back off,

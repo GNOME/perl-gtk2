@@ -100,7 +100,7 @@ gdk_event_get_package (GType gtype,
 		return "Gtk2::Gdk::Event::WindowState";
 	    case GDK_SETTING:
 		return "Gtk2::Gdk::Event::Setting";
-#if GTK_CHECK_VERSION (2, 5, 0) /* FIXME: 2.6 */
+#if GTK_CHECK_VERSION (2, 6, 0)
 	    case GDK_OWNER_CHANGE:
 		return "Gtk2::Gdk::Event::OwnerChange";
 #endif
@@ -164,7 +164,7 @@ gtk2perl_gdk_event_set_state (GdkEvent * event,
 		    case GDK_UNMAP:
 		    case GDK_WINDOW_STATE:
 		    case GDK_SETTING:
-#if GTK_CHECK_VERSION (2, 5, 0) /* FIXME: 2.6 */
+#if GTK_CHECK_VERSION (2, 6, 0)
 		    case GDK_OWNER_CHANGE:
 #endif
 			/* no state field */
@@ -219,7 +219,7 @@ gtk2perl_gdk_event_set_time (GdkEvent * event,
 		     case GDK_DROP_FINISHED:
 			event->dnd.time = newtime;
 			break;
-#if GTK_CHECK_VERSION (2, 5, 0) /* FIXME: 2.6 */
+#if GTK_CHECK_VERSION (2, 6, 0)
 		     case GDK_OWNER_CHANGE:
 			event->owner_change.time = newtime;
 #endif
@@ -1676,7 +1676,7 @@ context (GdkEvent * eventdnd, GdkDragContext_ornull * newvalue=NULL)
     CLEANUP:
 	if (RETVAL) g_object_unref (RETVAL);
 
-#if GTK_CHECK_VERSION (2, 5, 0) /* FIXME: 2.6 */
+#if GTK_CHECK_VERSION (2, 6, 0)
 
 MODULE = Gtk2::Gdk::Event	PACKAGE = Gtk2::Gdk::Event::OwnerChange
 

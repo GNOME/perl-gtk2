@@ -167,7 +167,7 @@ void gtk_button_get_alignment (GtkButton *button, OUTLIST gfloat xalign, OUTLIST
 
 #endif
 
-#if GTK_CHECK_VERSION(2,5,6) /* FIXME: 2.6 */
+#if GTK_CHECK_VERSION(2,6,0)
 
 void gtk_button_set_image (GtkButton *button, GtkWidget_ornull *image)
 

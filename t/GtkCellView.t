@@ -13,7 +13,7 @@ use strict;
 use warnings;
 
 use Gtk2::TestHelper tests => 10,
-    at_least_version => [2, 5, 0, "GtkCellView is new in 2.6"], # FIXME: 2.6
+    at_least_version => [2, 6, 0, "GtkCellView is new in 2.6"],
     ;
 
 use constant PIXBUF => 0;

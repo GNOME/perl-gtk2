@@ -50,7 +50,7 @@ SKIP: {
 
 SKIP: {
   skip 'get_label is new in 2.6', 1
-    unless Gtk2->CHECK_VERSION (2, 5, 4); # FIXME: 2.6
+    unless Gtk2->CHECK_VERSION (2, 6, 0);
 
   is(Gtk2::Accelerator -> get_label($key, $mask), 'Shift+KP Enter');
 }

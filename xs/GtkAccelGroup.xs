@@ -233,7 +233,7 @@ gtk_accelerator_valid (class, keyval, modifiers)
 #	for( i = 0; i < n_entries; i++ )
 #		PUSHs(sv_2mortal(newSVGtkAccelGroupEntry(entries[i])));
 
-#if GTK_CHECK_VERSION (2, 5, 4) /* FIXME: 2.6 */
+#if GTK_CHECK_VERSION (2, 6, 0)
 
 ##  gchar * gtk_accelerator_get_label (guint accelerator_key, GdkModifierType accelerator_mods)
 gchar_own *

@@ -201,7 +201,7 @@ void gtk_file_chooser_list_shortcut_folders (GtkFileChooser *chooser);
 	}
 	g_slist_free (slist);
 
-#if GTK_CHECK_VERSION (2, 5, 6) /* FIXME: 2.6 */
+#if GTK_CHECK_VERSION (2, 6, 0)
 
 void gtk_file_chooser_set_show_hidden (GtkFileChooser *chooser, gboolean show_hidden)
 

@@ -92,7 +92,7 @@ $button3->clicked; ok(1);
 
 SKIP: {
 	skip("[sg]et_image are new in 2.6", 2)
-		unless Gtk2->CHECK_VERSION (2, 5, 6); # FIXME: 2.6
+		unless Gtk2->CHECK_VERSION (2, 6, 0);
 
 	my $widget = Gtk2::Label->new ("Bla");
 

@@ -180,7 +180,7 @@ SKIP:
 
 SKIP: {
 	skip 'new stuff in 2.6', 4
-		unless Gtk2->CHECK_VERSION (2, 5, 4); # FIXME: 2.6
+		unless Gtk2->CHECK_VERSION (2, 6, 0);
 
 	$img = Gtk2::Image->new_from_icon_name ('gtk-ok', 'button');
 	isa_ok ($img, 'Gtk2::Image');

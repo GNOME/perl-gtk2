@@ -13,7 +13,7 @@ use strict;
 use warnings;
 
 use Gtk2::TestHelper tests => 25,
-    at_least_version => [2, 5, 0, "GtkIconView is new in 2.6"], # FIXME: 2.6
+    at_least_version => [2, 6, 0, "GtkIconView is new in 2.6"],
     ;
 
 use constant TEXT => 0;

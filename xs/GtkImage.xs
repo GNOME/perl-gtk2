@@ -155,7 +155,7 @@ GdkPixbufAnimation* gtk_image_get_animation (GtkImage *image)
  ## void gtk_image_get (GtkImage *image, GdkImage **val, GdkBitmap **mask)
  ##void gtk_image_set (GtkImage *image, GdkImage *val, GdkBitmap *mask)
 
-#if GTK_CHECK_VERSION (2, 5, 4) /* FIXME: 2.6 */
+#if GTK_CHECK_VERSION (2, 6, 0)
 
 ##  GtkWidget * gtk_image_new_from_icon_name (const gchar *icon_name, GtkIconSize size)
 GtkWidget *

@@ -392,7 +392,7 @@ SKIP: {
 
 SKIP: {
 	skip ("the owner-change event is new in 2.6", 5)
-		unless (Gtk2->CHECK_VERSION (2, 5, 0)); # FIXME: 2.6
+		unless (Gtk2->CHECK_VERSION (2, 6, 0));
 
 	isa_ok ($event = Gtk2::Gdk::Event->new ("owner-change"),
 		"Gtk2::Gdk::Event::OwnerChange");
