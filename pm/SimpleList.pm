@@ -632,10 +632,10 @@ you have to do to render the cell the way you want.  Here are some examples:
   # Perl would convert it to a string
   Gtk2::SimpleList->add_column_type( 'a_scalar', 
           type     => 'Glib::Scalar',
-	  renderer => 'Text',
+	  renderer => 'Gtk2::CellRendererText',
           attr     => sub {
                my ($treecol, $cell, $model, $iter, $col_num) = @_;
-               my $info = $model->get ($iter, $i);
+               my $info = $model->get ($iter, $col_num);
                $cell->set (text => $info);
 	  }
      );
@@ -644,11 +644,11 @@ you have to do to render the cell the way you want.  Here are some examples:
   # that in a text renderer
   Gtk2::SimpleList->add_column_type( 'sum_of_array', 
           type     => 'Glib::Scalar',
-	  renderer => 'Text',
+	  renderer => 'Gtk2::CellRendererText',
           attr     => sub {
                my ($treecol, $cell, $model, $iter, $col_num) = @_;
                my $sum = 0;
-               my $info = $model->get ($iter, $i);
+               my $info = $model->get ($iter, $col_num);
                foreach (@$info)
                {
                    $sum += $_;
@@ -708,7 +708,7 @@ Gtk2::ListStore(3pm).
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2003 by the Gtk2-Perl team.
+Copyright 2003-2004 by the Gtk2-Perl team.
 
 This library is free software; you can redistribute it and/or modify it under
 the terms of the GNU Library General Public License as published by the Free
