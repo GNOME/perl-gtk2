@@ -1,3 +1,11 @@
+2003/10/28 23:21 muppetman
+
+	* Makefile.PL: use the new semantics for Glib::MakeHelper methods.
+	never just 'use' a non-standard dependency module, place those
+	use lines in the eval'd string.  otherwise, the Makefile.PL won't
+	pass the compile phase, and CPAN won't pick up dependencies 
+	properly.
+
 2003/10/28 16:47 rwmcfa1
 
 	* Gtk2/MANIFEST: missing files added

@@ -21,6 +21,9 @@
 use 5.008;
 use strict;
 use warnings;
+# use only standard modules here!  any non-standard module, or anything which is
+# a dependency which may not be installed, should be use'd from the dependency
+# test eval, below.
 use ExtUtils::MakeMaker;
 use File::Spec;
 use Cwd;
@@ -42,24 +45,22 @@ our %runtime_reqs = (
 # dependencies and install them.
 unless (eval "use ExtUtils::Depends;"
            . "use ExtUtils::PkgConfig;"
-           # just seeing if Glib is available isn't enough, make sure
-           # it's recent enough, too 
-           . "use Glib '$build_reqs{'perl-Glib'}';"
+           . "use Glib::MakeHelper;" # for do_pod_files()
            . "1") {
    warn "$@\n";
    WriteMakefile(
          PREREQ_FATAL => 1,
          PREREQ_PM    => {
-            'Glib'                => $build_reqs{'perl-Glib'},
             'ExtUtils::Depends'   => $build_reqs{'perl-ExtUtils-Depends'},
             'ExtUtils::PkgConfig' => $build_reqs{'perl-ExtUtils-PkgConfig'},
+            'Glib'                => $build_reqs{'perl-Glib'},
          },
    );
    exit 1; # not reached
 }
 
-require 'CodeGen.pm'; # other modules can just 'use Gtk2::CodeGen;' -- we
-                      # can't because it's not installed yet.
+require 'CodeGen.pm'; # other modules can should 'use Gtk2::CodeGen;' --
+                      # we can't because it's not installed yet.
 
 my %pkgcfg = ExtUtils::PkgConfig->find ('gtk+-2.0 >= '.$build_reqs{'Gtk+'});
 
@@ -73,6 +74,7 @@ mkdir 'build', 0777;
 # MakeMaker, forever will it dominate our destiny; we must specify
 # install paths for the modules and man files by hand.
 #
+our @xs_files = <xs/*.xs>;
 our %pm_files = (
 	'Gtk2.pm'          => '$(INST_LIBDIR)/Gtk2.pm',
 	'build/Keysyms.pm' => '$(INST_LIBDIR)/Gtk2/Gdk/Keysyms.pm',
@@ -94,15 +96,21 @@ our %pod_files = (
 	'pm/SimpleMenu.pm' => '$(INST_MAN3DIR)/Gtk2::SimpleMenu.$(MAN3EXT)',
 	'api.pod'          => '$(INST_MAN3DIR)/Gtk2::api.$(MAN3EXT)',
 	'devel.pod'        => '$(INST_MAN3DIR)/Gtk2::devel.$(MAN3EXT)',
+	# we will be installing a whole slew of pod files, generated directly
+	# from the xs source -- but to have them installed and manified
+	# properly, we have to know their names at Makefile.PL time.
+	#   This is a bit of a chicken and egg problem, and this solution
+	# basically means that if you create a new package name in the xs
+	# code, you'll need to re-run Makefile.PL.  you already need to
+	# re-run to pick up new XS files, so that's not such a big deal. 
+	Glib::MakeHelper->do_pod_files (@xs_files),
 );
-our @xs_files = <xs/*.xs>;
-
-use Glib::MakeHelper;
-do_pod_files (@xs_files);
 
 #
 # autogeneration
 #
+
+
 # we have a whole lot of types which need cast macros, typemap entries,
 # and package mapping registration; instead of writing this by hand, we
 # use a map file which defines how things are laid out, and then use
@@ -177,10 +185,10 @@ package MY;
 
 sub postamble
 {
-	use Glib::MakeHelper;
-	return postamble_clean ()
-	      .postamble_docs ()
-	      .postamble_rpms (
+#	eval "use Glib::MakeHelper; 1" or return '';
+	return Glib::MakeHelper->postamble_clean ()
+	     . Glib::MakeHelper->postamble_docs (@main::xs_files)
+	     . Glib::MakeHelper->postamble_rpms (
 			'GTK_RUN' => $runtime_reqs{'Gtk+'},
 			'GTK' => $build_reqs{'Gtk+'},
 			'PERL_EXTUTILS_DEPENDS' => 
