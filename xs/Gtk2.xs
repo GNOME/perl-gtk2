@@ -87,7 +87,7 @@ install_key_snooper (SV * func, SV * data)
 			                           gperl_callback_destroy);
 	callback = gperl_callback_new (func, data, 2, param_types, G_TYPE_INT);
 	id = gtk_key_snooper_install (gtk2perl_key_snoop_func, callback);
-	g_hash_table_insert (key_snoopers, (gpointer) id, callback);
+	g_hash_table_insert (key_snoopers, GUINT_TO_POINTER (id), callback);
 	return id;
 }
 
@@ -96,7 +96,7 @@ remove_key_snooper (guint id)
 {
 	g_return_if_fail (key_snoopers != NULL);
 	gtk_key_snooper_remove (id);
-	g_hash_table_remove (key_snoopers, (gpointer) id);
+	g_hash_table_remove (key_snoopers, GUINT_TO_POINTER (id));
 }
 
 MODULE = Gtk2		PACKAGE = Gtk2		PREFIX = gtk_

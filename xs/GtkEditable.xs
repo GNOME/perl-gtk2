@@ -41,7 +41,7 @@ gtk2perl_editable_insert_text_marshal (GClosure * closure,
                                        gpointer invocation_hint,
                                        gpointer marshal_data)
 {
-	int len;
+	STRLEN len;
 	gint * position_p;
 	SV * string, * position;
 	dGPERL_CLOSURE_MARSHAL_ARGS;
