@@ -1,5 +1,18 @@
 2003/12/17 22:49 (-0500) muppetman
 
+	* gtk2perl.h, maps: in versions prior to 2.3.0, GtkTreeSearchFlags was
+	declared such that glib-mkenums interpreted and registered it as a
+	GEnum type.  sometime before 2.3.0, this was corrected, and the type
+	is registered as a GFlags.  Correct the maps file to declare this as
+	GFlags (since that's correct), and mangle things with macro tricks to
+	get things to work correctly with older libraries.
+
+	* t/00.Gtk2.t: immediately after init, events_pending returns 0 on
+	2.0.x and 2.2.x, but insists on returning 1 on my system.  marked
+	that test as TODO for >= 2.3.0 until we figure out what's up.
+
+2003/12/17 22:49 (-0500) muppetman
+
 	* xs/GtkLabel.xs: use _ornull on get_mnemonic_widget to avoid warnings
 	on 2.0.x.  it's perplexing that this didn't generate warnings on 2.2.4.
 	also flesh out get_attributes to allow proper NULL return.
