@@ -33,9 +33,9 @@ foreach (qw(bla blee bliii bloooo)) {
 
 		my $iter_child_child = $model -> append($iter_child);
 
-		$model -> set($iter_child_child,
-                              0 => reverse($_) x $multiplier,
-                              1 => length(reverse($_) x $multiplier));
+		$model -> set_value($iter_child_child,
+                                    0 => reverse($_) x $multiplier,
+                                    1 => length(reverse($_) x $multiplier));
 	}
 }
 

@@ -22,6 +22,7 @@ isa_ok($sort -> convert_path_to_child_path($path), "Gtk2::TreePath");
 isa_ok($sort -> convert_iter_to_child_iter($iter), "Gtk2::TreeIter");
 
 $sort -> reset_default_sort_func();
+$sort -> clear_cache();
 
 SKIP: {
   skip("iter_is_valid is new in 2.2", 1)

@@ -92,12 +92,9 @@ gtk_tree_model_sort_reset_default_sort_func (tree_model_sort)
 	GtkTreeModelSort *tree_model_sort
 
 
-## the API docs say this should almost never be called.
-## therefore, it's out unless somebody can find a need for it.
-#### void gtk_tree_model_sort_clear_cache (GtkTreeModelSort *tree_model_sort)
-##void
-##gtk_tree_model_sort_clear_cache (tree_model_sort)
-##	GtkTreeModelSort *tree_model_sort
+void
+gtk_tree_model_sort_clear_cache (tree_model_sort)
+	GtkTreeModelSort *tree_model_sort
 
 #if GTK_CHECK_VERSION(2,2,0)
 

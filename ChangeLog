@@ -1,3 +1,11 @@
+2004/02/09 01:32 (+0100) kaffeetisch
+
+	* t/GtkTreeModelSort.t
+	* xs/GtkTreeModelSort.xs: Bind and test clear_cache.
+
+	* t/GtkTreeStore.t
+	* xs/GtkTreeStore.xs: Alias set_value to set.  Test it.
+
 2004/02/08 22:28 (+0100) kaffeetisch
 
 	* MANIFEST

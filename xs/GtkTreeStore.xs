@@ -73,9 +73,12 @@ void
 gtk_tree_store_set (tree_store, iter, col1, val1, ...)
 	GtkTreeStore *tree_store
 	GtkTreeIter *iter
+    ALIAS:
+	Gtk2::TreeStore::set_value = 1
     PREINIT:
 	int i, ncols;
     CODE:
+	PERL_UNUSED_VAR (ix);
 	/* require at least one pair --- that means there needs to be
 	 * four items on the stack.  also require that the stack has an
 	 * even number of items on it. */
