@@ -183,7 +183,7 @@ gdk_event_get_time (event)
 
  ## gboolean gdk_event_get_state (GdkEvent *event, GdkModifierType *state)
 GdkModifierType
-state (event, state)
+state (event)
 	GdkEvent *event
     ALIAS:
 	Gtk2::Gdk::Event::get_state = 0
@@ -253,7 +253,7 @@ gdk_event_get_root_coords (event)
 
  ## gboolean gdk_event_get_axis (GdkEvent *event, GdkAxisUse axis_use, gdouble *value)
 gdouble
-axis (event, axis_use, value)
+axis (event, axis_use)
 	GdkEvent *event
 	GdkAxisUse axis_use
     CODE:
@@ -291,14 +291,14 @@ axis (event, axis_use, value)
 
 #if GTK_CHECK_VERSION(2,2,0)
 
-#void
-#gdk_event_set_screen (event, screen)
-#	GdkEvent * event
-#	GdkScreen * scree
-#
-#GdkScreen *
-#gdk_event_get_screen (event)
-#	GdkEvent * event
+void
+gdk_event_set_screen (event, screen)
+	GdkEvent * event
+	GdkScreen * screen
+
+GdkScreen *
+gdk_event_get_screen (event)
+	GdkEvent * event
 
 #endif
 
