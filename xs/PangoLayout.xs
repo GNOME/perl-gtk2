@@ -36,7 +36,9 @@ newSVPangoLogAttr (PangoLogAttr * logattr)
 	hv_store (hv, "is_sentence_boundary",        20, newSVuv (logattr->is_sentence_boundary),        0);
 	hv_store (hv, "is_sentence_start",           17, newSVuv (logattr->is_sentence_start),           0);
 	hv_store (hv, "is_sentence_end",             15, newSVuv (logattr->is_sentence_end),             0);
+#if PANGO_CHECK_VERSION (1, 3, 0)
 	hv_store (hv, "backspace_deletes_character", 27, newSVuv (logattr->backspace_deletes_character), 0);
+#endif
 
 	return newRV_noinc ((SV*) hv);
 }

@@ -54,6 +54,7 @@ is($layout -> get_single_paragraph_mode(), 1);
 
 my $attribute = ($layout -> get_log_attrs())[0];
 isa_ok($attribute, "HASH");
+
 is_deeply($attribute, {
   is_line_break => 0,
   is_mandatory_break => 0,
@@ -65,7 +66,9 @@ is_deeply($attribute, {
   is_sentence_boundary => 0,
   is_sentence_start => 1,
   is_sentence_end => 0,
-  backspace_deletes_character => 1
+  Gtk2::Pango -> check_version(1, 3, 0) ?
+    (backspace_deletes_character => 1) :
+    ()
 });
 
 my ($index, $trailing) = $layout -> xy_to_index(5, 5);

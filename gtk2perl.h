@@ -32,6 +32,7 @@
 GType gtk2perl_gdk_region_get_type (void) G_GNUC_CONST;
 
 #include "gtk2perl-autogen.h"
+#include "gtk2perl-versions.h"
 
 #ifdef GDK_WINDOWING_WIN32 /* no plug/socket on win32 despite patches exist for years. */
 # undef GTK_TYPE_PLUG

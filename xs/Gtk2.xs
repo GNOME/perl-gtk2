@@ -427,3 +427,24 @@ void
 gtk_propagate_event (widget, event)
 	GtkWidget * widget
 	GdkEvent * event
+
+MODULE = Gtk2		PACKAGE = Gtk2::Pango		PREFIX = pango_
+
+void
+pango_get_version_info (class)
+    PPCODE:
+	EXTEND (SP, 3);
+	PUSHs (sv_2mortal (newSViv (PANGO_MAJOR_VERSION)));
+	PUSHs (sv_2mortal (newSViv (PANGO_MINOR_VERSION)));
+	PUSHs (sv_2mortal (newSViv (PANGO_MICRO_VERSION)));
+	PERL_UNUSED_VAR (ax);
+
+bool
+pango_check_version (class, major, minor, micro)
+	int major
+	int minor
+	int micro
+    CODE:
+	RETVAL = PANGO_CHECK_VERSION (major, minor, micro);
+    OUTPUT:
+	RETVAL

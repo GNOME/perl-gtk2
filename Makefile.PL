@@ -31,7 +31,7 @@ use Cwd;
 # minimum required version of dependancies we need to build
 our %build_reqs = (
 	'perl-ExtUtils-Depends'   => '0.1',
-	'perl-ExtUtils-PkgConfig' => '1.00',
+	'perl-ExtUtils-PkgConfig' => '1.03',
 	'perl-Glib'               => '1.031',
 	'Gtk+'                    => '2.0.0',
 );
@@ -74,6 +74,14 @@ foreach my $filename (@xs_lists) {
 	print "$filename lists ".scalar(@names)." xs files\n";
 	push @xs_files, @names;
 }
+
+#
+# create version macros for pango
+#
+ExtUtils::PkgConfig->write_version_macros(
+	"build/gtk2perl-versions.h",
+	pango => "PANGO"
+);
 
 #
 # since we've started down the dark path of breaking from standard 
@@ -186,7 +194,7 @@ $gtk2->add_typemaps (map {File::Spec->catfile($cwd,$_)}
 		     );
 $gtk2->add_headers ('gtk2perl.h');
 
-$gtk2->install (qw(gtk2perl.h build/gtk2perl-autogen.h));
+$gtk2->install (qw(gtk2perl.h build/gtk2perl-autogen.h build/gtk2perl-versions.h));
 $gtk2->save_config ('build/IFiles.pm');
 
 # exports list needed for win32, unused on others
