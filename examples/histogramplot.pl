@@ -21,6 +21,7 @@
 # $Header$
 #
 
+# originally written in C by muppet in 2001 or 2002, i can't remember.
 # ported from C to gtk2-perl 2003 by muppet
 
 package Histogram::Plot;
@@ -124,7 +125,7 @@ use Glib::Object::Subclass
 
 #
 # at the lowest level, new Glib::Objects are created by Glib::Object::new.
-# this function creates the instance and calls the instance initializers
+# that function creates the instance and calls the instance initializers
 # for all classes in the object's lineage, from the parent to the descendant.
 # if there's any setup you would need to do in a constructor, it goes here.
 #
@@ -215,6 +216,11 @@ sub calc_dims {
 	$plot->{height} = $plot->{bottom};
 }
 
+# this gets called when the widget's parent container wants to know
+# how much space we want.  it's important to note that this sub will be
+# called from deep within the gtk library, not from perl code, which is
+# why it had to be implemented as a class closure override.
+# we modify the requisition passed to us.
 sub do_size_request {
 	my ($plot, $requisition) = @_;
 	warn "in class override for $_[0]\::do_size_request";
@@ -222,6 +228,7 @@ sub do_size_request {
 	$requisition->width ($plot->{textwidth} + 2 + MIN_CHART_WIDTH);
 	$requisition->height ($plot->{textheight} + MIN_CHART_HEIGHT);
 
+	# chain up to the parent class.
 	shift->signal_chain_from_overridden (@_);
 }
 
@@ -381,11 +388,8 @@ sub motion_notify_event {
 		$y = $event->y;
 		$state = $event->state;
 	}
-	#warn "x $x y $y state $state\n";
-
 	if ($plot->{dragging}) {
 		return FALSE
-			##if (!(state & GDK_BUTTON1_MASK) ||
 			if (!(grep /button1-mask/, @$state) ||
 			    not defined $plot->{pixmap});
 		
@@ -468,68 +472,16 @@ sub histogram_draw {
 			 $plot->{minscale_layout});
 }
 
-#####
-
-###
-## @brief create a new histogram plot
-##
-## @return pointer to the HistogramPlot.
-###
-#sub new {
-#	return Glib::Object::new (@_);
-#}
-
-###
-## @brief create a new histogram plot with a given dataset
-##
-## @param hist the histogram with which to initialize.  must be 256 elements long.
-## @param threshold initial threshold.
-##
-## @return pointer to the HistogramPlot.
-###
-sub new_with_data {
-	my $class = shift;
-	my $threshold = shift;
-	my @hist = @_;
-
-	my $plot = Histogram::Plot->new;
-
-	$plot->set_plot_data ($threshold, @hist);
-
-	return $plot;
-}
-
-
-###
-## @brief redraw the window.
-##
-## useful after histogram_window_setdata.
-###
-sub update {
-	my $plot = shift;
-	# if the pixmap doesn't exist, we haven't been put on screen yet.
-	# don't bother drawing anything.
-	if ($plot->{pixmap}) {
-		$plot->histogram_draw;
-		$plot->queue_draw;
-	}
-}
-
-
-###
-## @brief change the data displayed in the window.
-##
-## @note you will need to call histogram_window_update to see the changes
-## you make here.
-## @param histogram new histogram.  if not NULL, copy to the histwin's
-##                  internal histogram cache. MUST be 256 items long.
-## @param threshold new threshold.  ignored if undef.
-###
+#
+# change the data displayed in the window, with all the necessary
+# work to get it properly updated.
+#
+# @threshold: new threshold.  ignored if undef.
+# @histogram: new histogram.  if not empty, copy to the histwin's
+#             internal histogram cache.  MUST be 256 items long.
+#
 sub set_plot_data {
 	my ($plot, $threshold, @hist) = @_;
-	#warn "$plot->set_plot_data";
-
-	###print Dumper($plot);
 
 	$plot->{threshold} = $threshold if defined $threshold;
 
@@ -551,41 +503,39 @@ sub set_plot_data {
 	# update dims since text may have changed
 	$plot->calc_dims;
 
-	$plot->update;
+	# if the pixmap doesn't exist, we haven't been put on screen yet.
+	# don't bother drawing anything.
+	if ($plot->{pixmap}) {
+		$plot->histogram_draw;
+		$plot->queue_draw;
+	}
 }
-
-
-###
-## @brief retrieve the data displayed in the window.
-##
-## @param histogram if not NULL, destination for the histogram.
-##                  MUST be a pointer to an array at least 256 items long.
-##                  if NULL, don't retrieve the histogram.
-## @param threshold if not NULL, destination for the threshold.
-###
-sub get_plot_data {
-	my $plot;
-	return $plot->{threshold}, @{ $plot->{histogram} };
-}
-
 
 sub do_threshold_changed {
-	warn "default";
+	warn "default threshold handler";
 }
+
+################
+#
+# public methods
+#
+# we inherit new from Glib::Object::Subclass, and all the stuff we'd need
+# to get to is available as object properties, so, well, there's no work
+# to do here.  :-)
+#
 
 
 ##########################################################################
+# now let's take that code for a test drive...
+#
 package main;
 
 use Gtk2 qw/-init -locale/;
 use constant TRUE => 1;
 use constant FALSE => 0;
 
-#Gtk2->init;
-
-
 my $window = Gtk2::Window->new;
-$window->signal_connect (delete_event => sub { Gtk2->main_quit; 1 });
+$window->signal_connect (delete_event => sub { Gtk2->main_quit; FALSE });
 
 my $vbox = Gtk2::VBox->new;
 $window->add ($vbox);
