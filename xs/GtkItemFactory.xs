@@ -31,9 +31,9 @@ gtk2perl_item_factory_item_activate (gpointer    nothing,
 	SV    * callback_sv;
 	SV    * callback_data;
 
-	PERL_UNUSED_VAR (nothing);
+	dSP;
 
-	dSP; 
+	PERL_UNUSED_VAR (nothing);
 
 	/* the the callback and it's data out of the widget */
 	callback_sv = (SV*)g_object_get_data (

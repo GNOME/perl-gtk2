@@ -1,3 +1,8 @@
+2003/11/06 13:48 kaffeetisch
+
+	* xs/GtkItemFactory.xs: Call dSP before PERL_UNUSED_VAR to make it
+	compile on FreeBSD.
+
 2003/11/03 14:05 muppetman
 
 	* xs/GdkEvent.xs: GenPod uses instance arg names now, so we can
