@@ -38,7 +38,7 @@ $win->add($socket);
 
 ok( $id = $socket->get_id );
 
-$str = "$ -e '\$id = $id;\n\n".<<EOL;
+$str = "$^X -Mblib -e '\$id = $id;\n\n".<<EOL;
 use Gtk2;
 
 Gtk2->init;

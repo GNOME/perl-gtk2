@@ -1,3 +1,9 @@
+2003/08/25 13:40 pcg
+
+        * t/04.GtkSocket-GtkPlug.t: Applied patch by Skye Cove to add
+        -Mblib. Also change ctrl-x character to the more readable (and
+        transferable) ^X.
+
 2003/08/22 01:38 muppetman
 
 	* Gtk2.pm, README, MANIFEST, META.yml, debian/changelog:
