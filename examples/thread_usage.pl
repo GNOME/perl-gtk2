@@ -104,13 +104,13 @@ $btn->signal_connect (clicked => sub {
 		Gtk2->main_quit;
 	});
 
-# the magic of how we follow rule number 1, an idle loop.
-Glib::Idle->add (sub {
+# the magic of how we follow rule number 1, a timeout callback.
+Glib::Timeout->add (250, sub {
 		my $tmp;
 		# check on the status of each of the threads
 		foreach (@thrds)
 		{
-			# don't block, that would be really bad in idle.
+			# don't block, that would be really bad.
 			$tmp = $_->{retq}->dequeue_nb;
 			# if there was something waiting for us
 			# update the ui with it
