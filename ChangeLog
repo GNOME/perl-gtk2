@@ -1,3 +1,11 @@
+2004/01/17 00:46 (+0100) kaffeetisch
+
+	A t/GtkTextBuffer.t
+	A t/GtkTextMark.t
+	A t/GtkTextTag.t
+	A t/GtkTextTagTable.t
+	* MANIFEST: Initial import.
+
 2004/01/16 18:35 (-0500) rwmcfa1
 
 	* xs/GdkEvents.xs: implemented setters for most everything and getter's
