@@ -377,7 +377,7 @@ gtk_tree_view_insert_column_with_attributes (tree_view, position, title, cell, .
 	GtkTreeViewColumn * column;
     CODE:
 	if (!check_stack_for_attributes (4))
-		croak ("Usage: Gtk2::TreeViewColumn->new_with_attributes (TITLE, CELLRENDERER, ATTR1, COL1, ATTR2, COL2, ...)");
+		croak ("Usage: Gtk2::TreeViewColumn->new_with_attributes (POSITOIN, TITLE, CELLRENDERER, ATTR1, COL1, ATTR2, COL2, ...)");
 	column = gtk_tree_view_column_new ();
 	RETVAL = gtk_tree_view_insert_column (tree_view, column, position);
 	gtk_tree_view_column_set_title (column, title);
