@@ -66,7 +66,7 @@ is_deeply($attribute, {
   is_sentence_boundary => 0,
   is_sentence_start => 1,
   is_sentence_end => 0,
-  Gtk2::Pango -> check_version(1, 3, 0) ?
+  Gtk2::Pango -> CHECK_VERSION(1, 3, 0) ?
     (backspace_deletes_character => 1) :
     ()
 });

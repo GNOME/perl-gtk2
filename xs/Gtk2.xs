@@ -123,20 +123,54 @@ BOOT:
 
 	/* make sure that we're running/linked against a version at least as 
 	 * new as we built against, otherwise bad things can happen. */
-	if (!(GTK_MAJOR_VERSION > (gtk_major_version) ||
-			
-	      (GTK_MAJOR_VERSION == (gtk_major_version) && 
-	       GTK_MINOR_VERSION > (gtk_minor_version)) ||
-
-	      (GTK_MAJOR_VERSION == (gtk_major_version) && 
-	       GTK_MINOR_VERSION == (gtk_minor_version) &&
-	       GTK_MICRO_VERSION >= (gtk_micro_version))))
+	if ((gtk_major_version < GTK_MAJOR_VERSION)
+	    ||
+	    (gtk_major_version == GTK_MAJOR_VERSION && 
+	     gtk_minor_version < GTK_MINOR_VERSION)
+	    ||
+	    (gtk_major_version == GTK_MAJOR_VERSION && 
+	     gtk_minor_version == GTK_MINOR_VERSION &&
+	     gtk_micro_version < GTK_MICRO_VERSION))
 		warn ("*** This build of Gtk2 was compiled with gtk+ %d.%d.%d,"
 		      " but is currently running with %d.%d.%d, which is too"
 		      " old.  We'll continue, but expect problems!\n",
 		      GTK_MAJOR_VERSION, GTK_MINOR_VERSION, GTK_MICRO_VERSION,
 		      gtk_major_version, gtk_minor_version, gtk_micro_version);
 	}
+
+#############################################################################
+#############################################################################
+
+=for object Gtk2::version Library Version Information
+=cut
+
+=head1 SYNOPSIS
+
+  use Gtk2 '1.023';  # require at least version 1.023 of the bindings
+
+  if ($Gtk2::VERSION >= 1.040 and Gtk2->CHECK_VERSION (2, 4, 0)) {
+     # the GtkFileChooser, new in gtk+ 2.4.0 and first supported in
+     # Gtk2-Perl at 1.040, is available
+  } else {
+     # GtkFileChooser is not available, fall back to GtkFileSelection
+  }
+
+=head1 DESCRIPTION
+
+Since the Gtk2 Perl module is a bridge to an external library with its own
+versions and API revisions, we have three different versions available for
+inspection.  Which one you need to use at which time depends entirely on
+the situation.  Gtk2 uses the same scheme as Glib and the underlying gtk+
+C library; that is, the standard
+C<$Gtk2::VERSION> for the version of the bindings, all-caps
+(MAJOR|MINOR|MICRO)_VERSION functions for the bound version, and
+lower-case (major|minor|micro)_version functions for the runtime version.
+See L<Glib::Version> and http://developer.gnome.org/doc/API/2.0/gtk/gtk-Feature-Test-Macros.html for more information.
+
+Note also that gtk_check_version() and GTK_CHECK_VERSION() have different
+semantics in C, and we have preserved those faithfully.
+
+=cut
 
  ##GTKMAIN_C_VAR const guint gtk_binary_age;
  ##GTKMAIN_C_VAR const guint gtk_interface_age;
@@ -161,34 +195,34 @@ gtk_check_version (class, required_major, required_minor, required_micro)
     C_ARGS:
 	required_major, required_minor, required_micro
 
-=for apidoc Gtk2::MAJOR_VERSION
-Provides access to the version information that Gtk2 was compiled against.
-Essentially equivalent to the #define's GTK_MAJOR_VERSION.
+=for apidoc Gtk2::MAJOR_VERSION __function__
+The major version of the gtk+ library against which Gtk2 was compiled.
+Equivalent to gtk+'s GTK_MAJOR_VERSION.
 =cut
 
-=for apidoc Gtk2::MINOR_VERSION
-Provides access to the version information that Gtk2 was compiled against.
-Essentially equivalent to the #define's GTK_MINOR_VERSION.
+=for apidoc Gtk2::MINOR_VERSION __function__
+The minor version of the gtk+ library against which Gtk2 was compiled.
+Equivalent to gtk+'s GTK_MINOR_VERSION.
 =cut
 
-=for apidoc Gtk2::MICRO_VERSION
-Provides access to the version information that Gtk2 was compiled against.
-Essentially equivalent to the #define's GTK_MICRO_VERSION.
+=for apidoc Gtk2::MICRO_VERSION __function__
+The micro version of the gtk+ library against which Gtk2 was compiled.
+Equivalent to gtk+'s GTK_MICRO_VERSION.
 =cut
 
-=for apidoc Gtk2::major_version
-Provides access to the version information that Gtk2 is linked against.
-Essentially equivalent to the global variable gtk_major_version.
+=for apidoc Gtk2::major_version __function__
+The major version of the gtk+ library current in use at runtime.
+Equivalent to gtk+'s global variable gtk_major_version.
 =cut
 
-=for apidoc Gtk2::minor_version
-Provides access to the version information that Gtk2 is linked against.
-Essentially equivalent to the global variable gtk_minor_version.
+=for apidoc Gtk2::minor_version __function__
+The minor version of the gtk+ library current in use at runtime.
+Equivalent to gtk+'s global variable gtk_minor_version.
 =cut
 
-=for apidoc Gtk2::micro_version
-Provides access to the version information that Gtk2 is linked against.
-Essentially equivalent to the global variable gtk_micro_version.
+=for apidoc Gtk2::micro_version __function__
+The micro version of the gtk+ library current in use at runtime.
+Equivalent to gtk+'s global variable gtk_micro_version.
 =cut
 
 guint
@@ -228,6 +262,13 @@ CHECK_VERSION (class, guint required_major, guint required_minor, guint required
 				    required_micro);
     OUTPUT:
 	RETVAL
+
+
+#############################################################################
+#############################################################################
+
+=for object Gtk2::main
+=cut
 
 =for apidoc Gtk2::init_check
 This is the non-fatal version of C<< Gtk2->init >>; instead of calling C<exit>
@@ -513,7 +554,7 @@ pango_get_version_info (class)
 	PERL_UNUSED_VAR (ax);
 
 bool
-pango_check_version (class, major, minor, micro)
+CHECK_VERSION (class, major, minor, micro)
 	int major
 	int minor
 	int micro
