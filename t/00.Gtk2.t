@@ -12,15 +12,26 @@ use warnings;
 
 #########################
 
-use Test::More tests => 20;
+use Test::More tests => 28;
 BEGIN { use_ok('Gtk2') };
 
 #########################
 
 my @version = Gtk2->get_version_info;
 is( @version, 3, 'version info is three items long' );
-is( Gtk2->check_version(0,0,0), 'Gtk+ version too new (major mismatch)' );
-is( Gtk2->check_version(50,0,0), 'Gtk+ version too old (major mismatch)' );
+is (Gtk2->check_version(0,0,0), 'Gtk+ version too new (major mismatch)',
+    'check_version pass');
+is (Gtk2->check_version(50,0,0), 'Gtk+ version too old (major mismatch)',
+    'check_version fail');
+ok (Gtk2::major_version, 'major_version');
+ok (Gtk2::minor_version, 'minor_version');
+ok (Gtk2::micro_version, 'micro_version');
+
+ok (Gtk2->CHECK_VERSION(0,0,0), 'CHECK_VERSION pass');
+ok (!Gtk2->CHECK_VERSION(50,0,0), 'CHECK_VERSION fail');
+ok (Gtk2::MAJOR_VERSION, 'MAJOR_VERSION');
+ok (Gtk2::MINOR_VERSION, 'MINOR_VERSION');
+ok (Gtk2::MICRO_VERSION, 'MICRO_VERSION');
 
 SKIP:
 {

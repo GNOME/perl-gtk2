@@ -161,6 +161,71 @@ gtk_check_version (class, required_major, required_minor, required_micro)
     C_ARGS:
 	required_major, required_minor, required_micro
 
+=for apidoc Gtk2::MAJOR_VERSION
+Provides access to the version information that Gtk2 was compiled against.
+Essentially equivalent to the #define's GTK_MAJOR_VERSION.
+=cut
+
+=for apidoc Gtk2::MINOR_VERSION
+Provides access to the version information that Gtk2 was compiled against.
+Essentially equivalent to the #define's GTK_MINOR_VERSION.
+=cut
+
+=for apidoc Gtk2::MICRO_VERSION
+Provides access to the version information that Gtk2 was compiled against.
+Essentially equivalent to the #define's GTK_MICRO_VERSION.
+=cut
+
+=for apidoc Gtk2::major_version
+Provides access to the version information that Gtk2 is linked against.
+Essentially equivalent to the global variable gtk_major_version.
+=cut
+
+=for apidoc Gtk2::minor_version
+Provides access to the version information that Gtk2 is linked against.
+Essentially equivalent to the global variable gtk_minor_version.
+=cut
+
+=for apidoc Gtk2::micro_version
+Provides access to the version information that Gtk2 is linked against.
+Essentially equivalent to the global variable gtk_micro_version.
+=cut
+
+guint
+MAJOR_VERSION ()
+    ALIAS:
+	Gtk2::MINOR_VERSION = 1
+	Gtk2::MICRO_VERSION = 2
+	Gtk2::major_version = 3
+	Gtk2::minor_version = 4
+	Gtk2::micro_version = 5
+    CODE:
+	switch (ix)
+	{
+	case 0: RETVAL = GTK_MAJOR_VERSION; break;
+	case 1: RETVAL = GTK_MINOR_VERSION; break;
+	case 2: RETVAL = GTK_MICRO_VERSION; break;
+	case 3: RETVAL = gtk_major_version; break;
+	case 4: RETVAL = gtk_minor_version; break;
+	case 5: RETVAL = gtk_micro_version; break;
+	}
+    OUTPUT:
+	RETVAL
+
+=for apidoc
+Provides a mechanism for checking the version information that Gtk2 was
+compiled against. Essentially equvilent to the macro GTK_CHECK_VERSION. In most
+cases this function should be used rather than 
+L<check_version ()|Gtk2-E<gt>check_version>.
+=cut
+gboolean
+CHECK_VERSION (class, guint required_major, guint required_minor, guint required_micro)
+    CODE:
+	RETVAL = GTK_CHECK_VERSION (required_major, required_minor,
+				    required_micro);
+    OUTPUT:
+	RETVAL
+
 =for apidoc Gtk2::init_check
 This is the non-fatal version of C<< Gtk2->init >>; instead of calling C<exit>
 if Gtk+ initialization fails, C<< Gtk2->init_check >> returns false.  This

@@ -1,3 +1,12 @@
+2004/02/22 15:35 (-0500) rwmcfa1
+
+	* xs/Gtk2.xs: added gtk_(major|minor|micro)_version and
+	GTK_(MAJOR|MINOR|MICRO)_VERSION and finally CHECK_VERSION. thus the 
+	correct method for handling version numbers begins. more doc on howto
+	do version checking and using this stuff where appliciable to come.
+
+	* t/00.Gtk2.t: test out new stuff ^.
+
 2004/02/22 20:56 (+0100) kaffeetisch
 
 	* t/GtkFileChooserDialog.t
