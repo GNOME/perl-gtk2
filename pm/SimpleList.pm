@@ -5,6 +5,7 @@
 #########################
 package Gtk2::SimpleList;
 
+use strict;
 use Carp;
 use Gtk2;
 use base 'Gtk2::TreeView';
@@ -195,6 +196,7 @@ sub set_data_array
 
 ##################################
 package Gtk2::SimpleList::TiedRow;
+
 use strict;
 use Gtk2;
 use Carp;
