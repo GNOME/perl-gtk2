@@ -80,14 +80,24 @@ gtk2perl_translate_func (const gchar *path,
 {
 	GPerlCallback * callback = (GPerlCallback*)data;
 	GValue value = {0,};
-	gchar *retval;
+	SV * tempsv = NULL;
+	gchar * retval;
 
 	g_value_init (&value, callback->return_type);
 	gperl_callback_invoke (callback, &value, path);
 	retval = (gchar *) g_value_get_string (&value);
+	/* g_value_unset() will free the string to which retval points.
+	 * we will need to keep a copy; let's use a mortal scalar to keep
+	 * it around long enough to be useful to the C callers. */
+	if (retval)
+		tempsv = sv_2mortal (newSVGChar (retval));
 	g_value_unset (&value);
 
-	return retval;
+	/* using SvPV rather than SvGChar because we used newSVGChar to create
+	 * it above, so we're assured that it's been upgraded to utf8 already.
+	 * this avoids uncertainty about whether SvGChar may vivify the mortal
+	 * value.  (i'm paranoid.) */
+	return tempsv ? SvPV_nolen (tempsv) : NULL;
 }
 
 /* ------------------------------------------------------------------------- */
