@@ -334,9 +334,9 @@ gtk_tree_view_scroll_to_point (tree_view, tree_x, tree_y)
 	gint real_tree_y = -1;
     CODE:
 	/* can't do SvTRUE, because 0 is defined but not true. */
-	real_tree_x = SvOK (tree_x) && looks_like_number (tree_x)
+	real_tree_x = tree_x && SvOK (tree_x) && looks_like_number (tree_x)
 	            ? SvIV (tree_x) : -1;
-	real_tree_y = SvOK (tree_y) && looks_like_number (tree_y)
+	real_tree_y = tree_y && SvOK (tree_y) && looks_like_number (tree_y)
 	            ? SvIV (tree_y) : -1;
 	gtk_tree_view_scroll_to_point (tree_view, real_tree_x, real_tree_y);
 

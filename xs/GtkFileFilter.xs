@@ -23,11 +23,19 @@ newSVGtkFileFilterInfo (const GtkFileFilterInfo * info)
 
 	hv = newHV ();
 
-	hv_store (hv, "contains", 8, newSVGtkFileFilterFlags (info->contains), 0);
-	hv_store (hv, "filename", 8, gperl_sv_from_filename (info->filename), 0);
-	hv_store (hv, "uri", 3, newSVpv (info->uri, PL_na), 0);
-	hv_store (hv, "display_name", 12, newSVGChar (info->display_name), 0);
-	hv_store (hv, "mime_type", 9, newSVGChar (info->mime_type), 0);
+	hv_store (hv, "contains", 8,
+	          newSVGtkFileFilterFlags (info->contains), 0);
+	if (info->filename)
+		hv_store (hv, "filename", 8,
+		          gperl_sv_from_filename (info->filename), 0);
+	if (info->uri)
+		hv_store (hv, "uri", 3, newSVpv (info->uri, PL_na), 0);
+	if (info->display_name)
+		hv_store (hv, "display_name", 12,
+		          newSVGChar (info->display_name), 0);
+	if (info->mime_type)
+		hv_store (hv, "mime_type", 9,
+		          newSVGChar (info->mime_type), 0);
 
 	return newRV_noinc ((SV*) hv);
 }
@@ -39,7 +47,7 @@ SvGtkFileFilterInfo (SV * sv)
 	SV ** svp;
 	GtkFileFilterInfo * info;
 
-	if (!SvOK (sv) || !SvROK (sv) || SvTYPE (SvRV (sv)) != SVt_PVHV)
+	if (!sv || !SvOK (sv) || !SvROK (sv) || SvTYPE (SvRV (sv)) != SVt_PVHV)
 		croak ("invalid file filter info - expecting a hash reference");
 
 	hv = (HV*) SvRV (sv);
@@ -93,7 +101,7 @@ void gtk_file_filter_add_pattern (GtkFileFilter *filter, const gchar *pattern);
 
  ### /* there appears to be no boxed type support for GtkFileFilterInfo */
 
-void gtk_file_filter_add_custom (GtkFileFilter *filter, GtkFileFilterFlags needed, SV * func, SV * data);
+void gtk_file_filter_add_custom (GtkFileFilter *filter, GtkFileFilterFlags needed, SV * func, SV * data=NULL);
     PREINIT:
 	GType param_types[] = {
 		GPERL_TYPE_SV

@@ -142,7 +142,7 @@ _create_item (ifactory, path, accelerator, callback_action, item_type, extra_dat
 
 	/* if the user supplied a callback then we'll need to call our
 	 * marshaler in order to call it */
-	if (SvOK (callback_sv))
+	if (callback_sv && SvOK (callback_sv))
 		entry.callback = gtk2perl_item_factory_item_activate;
 
 	/* create the item in the normal manner now */

@@ -26,7 +26,7 @@ void gtk_radio_action_set_group (GtkRadioAction *action, SV *member_or_listref);
 		    SvTYPE (SvRV (member_or_listref)) == SVt_PVAV) {
 			AV * av = (AV*) SvRV (member_or_listref);
 			SV ** svp = av_fetch (av, 0, 0);
-			if (SvOK (*svp))
+			if (svp && *svp && SvOK (*svp))
 				member = SvGtkRadioAction (*svp);
 		} else
 			member = SvGtkRadioAction_ornull (member_or_listref);

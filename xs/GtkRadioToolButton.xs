@@ -9,7 +9,7 @@ group_from_sv (SV * member_or_listref)
 		if (SvTYPE (SvRV (member_or_listref)) == SVt_PVAV) {
 			AV * av = (AV*) SvRV (member_or_listref);
 			SV ** svp = av_fetch (av, 0, FALSE);
-			if (svp && SvOK (*svp))
+			if (svp && *svp && SvOK (*svp))
 				member = SvGtkRadioToolButton (*svp);
 		} else
 			member = SvGtkRadioToolButton_ornull (member_or_listref);

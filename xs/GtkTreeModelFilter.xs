@@ -111,7 +111,7 @@ void gtk_tree_model_filter_set_modify_func (GtkTreeModelFilter *filter, SV * typ
 		n_columns = 1;
 		real_types = &it;
 	}
-	if (SvOK (func)) {
+	if (func && SvOK (func)) {
 		GType param_types[] = {
 			GTK_TYPE_TREE_MODEL,
 			GTK_TYPE_TREE_ITER,
