@@ -1,3 +1,11 @@
+2003/09/05 01:02 muppetman
+
+	* xs/Gtk2.xs: route Gtk-related g_log domains through gperl
+
+	* MANIFEST: updated
+
+	* xs/GdkRgb.xs: keep SvImageDataPointer private
+
 2003/09/04 22:20 muppetman
 
 	* Gtk2.pm, README, debian/changelog, META.yml, ChangeLog: prep for
