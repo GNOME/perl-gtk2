@@ -1,3 +1,8 @@
+2003/12/29 06:19 (+0100) kaffeetisch
+
+	* t/01.GtkWindow.t: Disable the begin_resize_drag and
+	begin_move_drag tests.
+
 2003/12/29 03:21 (+0100) kaffeetisch
 
 	* t/01.GtkWindow.t
