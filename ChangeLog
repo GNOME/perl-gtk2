@@ -1,3 +1,8 @@
+2003/07/08 16:23 muppetman
+
+	* CodeGen.om: massive POD update; use regex to find module name
+	instead of relying on people putting whitespace around the '='
+
 2003/07/07 23:10 muppetman
 
 	* CodeGen.pm: slight rework of write_boot.  now you can pass in an
