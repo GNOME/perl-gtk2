@@ -440,7 +440,7 @@ gtk_tree_model_get (tree_model, iter, ...)
 
 ## void gtk_tree_model_foreach (GtkTreeModel *model, GtkTreeModelForeachFunc func, gpointer user_data)
 void
-gtk_tree_model_foreach (model, func, user_data)
+gtk_tree_model_foreach (model, func, user_data=NULL)
 	GtkTreeModel *model
 	SV * func
 	SV * user_data
