@@ -338,7 +338,7 @@ If you specify no column indices, it returns the values for all of the
 columns, otherwise, returns just those columns' values (in order).
 
 This overrides overrides Glib::Object's C<get>, so you'll want to use
-C<< $object->get_property >> to set object properties.
+C<< $object->get_property >> to get object properties.
 
 =cut
 void

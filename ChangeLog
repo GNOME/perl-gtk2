@@ -1,3 +1,8 @@
+2003/12/14 20:12 (+0100) kaffeetisch
+
+	* xs/GtkTreeModel.xs: Fix a slight glitch in the API doc of
+	gtk_tree_model_get.
+
 2003/12/12 11:39 (-0500) muppetman
 
 	* xs/GtkWidget.xs: alias values in get_flags got changed, but the
