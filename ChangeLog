@@ -1,3 +1,7 @@
+2003/05/31 11:07 rwmcfa1
+
+	* xs/GtkRc.xs: implemented gtk_rc_set_default_files
+
 2003/05/28 14:02 muppetman
 
 	* Makefile.PL: decent diagnostic messages for missing Glib modules

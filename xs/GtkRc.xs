@@ -35,11 +35,19 @@ gtk_rc_add_default_file (class, filename)
     C_ARGS:
 	filename
 
-# TODO: implement this one
 ## void gtk_rc_set_default_files (gchar **filenames)
-#void
-#gtk_rc_set_default_files (filenames)
-#	gchar **filenames
+void
+gtk_rc_set_default_files (class, ...)
+	SV     *class
+    PREINIT:
+	gchar **filenames = NULL;
+    CODE:
+	filenames = g_new0(gchar*, items);
+	for( items--; items > 0; items-- )
+		filenames[items] = SvGChar(ST(items));
+	gtk_rc_set_default_files(filenames);
+	g_free(filenames);
+	
 
 ## GtkStyle* gtk_rc_get_style (GtkWidget *widget)
 GtkStyle*
@@ -61,7 +69,7 @@ gtk_rc_reparse_all_for_settings (settings, force_load)
 	GtkSettings *settings
 	gboolean force_load
 
-# GScanner * not in typemap
+# TODO: GScanner * not in typemap
 ## gchar* gtk_rc_find_pixmap_in_path (GtkSettings *settings, GScanner *scanner, const gchar *pixmap_file)
 #gchar*
 #gtk_rc_find_pixmap_in_path (settings, scanner, pixmap_file)
@@ -141,27 +149,27 @@ gtk_rc_get_im_module_file (class)
 	SV * class
     C_ARGS:
 
-# GScanner * not in type map
+# TODO: GScanner * not in type map
 ## GScanner* gtk_rc_scanner_new (void)
 #GScanner*
 #gtk_rc_scanner_new (void)
 #	void
 
-# GScanner * not in type map
+# TODO: GScanner * not in type map
 ## guint gtk_rc_parse_color (GScanner *scanner, GdkColor *color)
 #guint
 #gtk_rc_parse_color (scanner, color)
 #	GScanner *scanner
 #	GdkColor *color
 
-# GScanner * not in type map
+# TODO: GScanner * not in type map
 ## guint gtk_rc_parse_state (GScanner *scanner, GtkStateType *state)
 #guint
 #gtk_rc_parse_state (scanner, state)
 #	GScanner *scanner
 #	GtkStateType *state
 
-# GScanner * not in type map
+# TODO: GScanner * not in type map
 ## guint gtk_rc_parse_priority (GScanner *scanner, GtkPathPriorityType *priority)
 #guint
 #gtk_rc_parse_priority (scanner, priority)
