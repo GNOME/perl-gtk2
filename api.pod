@@ -147,7 +147,7 @@ returned error message.  The ideology here is that GError is to be used
 for runtime exceptions, and C<croak> is how you do that in perl.  You can
 catch a croak very easily by wrapping the function in an eval:
 
-   eval { $pixbuf = Gtk2::Gdk::Pixbuf->new_from_file ($filename); };
+   eval { $image = Gtk2::Image->new_from_file ($filename); };
    if ($@) {
         # couldn't open the file, $@ has the message
    } else {
