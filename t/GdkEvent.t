@@ -7,7 +7,7 @@
 # 	- rm
 #########################
 
-use Gtk2::TestHelper tests => 67;
+use Gtk2::TestHelper tests => 79;
 use Data::Dumper;
 
 # Expose #######################################################################
@@ -117,8 +117,10 @@ is ($event->focus, 1, '$crossing_event->focus');
 # try out the base class stuff, crossing is good b/c it has most of the stuff
 
 is ($event->time, 0, '$event->time');
+is ($event->get_time, 0, '$event->time');
 
 is ($event->state, [], '$event->state');
+is ($event->get_state, [], '$event->state');
 
 ok (eq_array ([$event->coords], [0, 0]), '$event->coords');
 is ($event->x, 0, '$event->x');
@@ -128,13 +130,15 @@ ok (eq_array ([$event->get_root_coords], [0, 0]), '$event->get_root_coords');
 is ($event->x_root, 0, '$event->x_root');
 is ($event->y_root, 0, '$event->y_root');
 
-#SKIP: {
-#	skip "GdkScreen didn't exist until 2.2.x", 1
-#		unless (Gtk2->get_bound_version_info)[1] >= 2;
-# TODO/FIXME:
-#	$event->set_screen (Gtk2::Gdk::Screen->new);
-#	isa_ok ($event->get_screen, 'Gtk2::Gdk::Screen', '$event->get_screen');
-#}
+SKIP: {
+	skip "GdkScreen didn't exist until 2.2.x", 1
+		if Gtk2->check_version (2, 2, 0);
+
+	my $screen = Gtk2::Gdk::Screen->get_default;
+
+	$event->set_screen ($screen);
+	is ($event->get_screen, $screen, '$event->get_screen');
+}
 
 $event->window (Gtk2::Gdk::Window->new (undef, {
 			width => 20,
@@ -152,6 +156,29 @@ is ($event->x, 13, '$crossing_event->x');
 
 $event->y (13);
 is ($event->y, 13, '$crossing_event->y');
+
+is ($event->axis ("x"), 13);
+is ($event->get_axis ("y"), 13);
+
+is_deeply ([$event->coords], [13, 13]);
+is_deeply ([$event->get_coords], [13, 13]);
+
+Gtk2::Gdk::Event->put ($event);
+is (Gtk2::Gdk->events_pending, 1);
+isa_ok (Gtk2::Gdk::Event->get, "Gtk2::Gdk::Event::Crossing");
+
+Gtk2::Gdk::Event->put ($event);
+is (Gtk2::Gdk->events_pending, 1);
+isa_ok (Gtk2::Gdk::Event->peek, "Gtk2::Gdk::Event::Crossing");
+
+# FIXME: how to test?  seems to block.
+# my $window = Gtk2::Window->new; $window->realize;
+# warn Gtk2::Gdk::Event->get_graphics_expose ($window->window);
+
+Gtk2::Gdk -> set_show_events (1);
+is (Gtk2::Gdk -> get_show_events, 1);
+
+# FIXME: warn Gtk2::Gdk->setting_get ("bla");
 
 # Focus ########################################################################
 

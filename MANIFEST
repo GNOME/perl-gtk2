@@ -89,12 +89,14 @@ t/01.GtkWindow.t
 t/02.GtkContainer.t
 t/Gdk.t
 t/GdkColor.t
+t/GdkCursor.t
 t/GdkDisplay.t
 t/GdkDisplayManager.t
 t/GdkDnd.t
 t/GdkDrawable.t
 t/GdkEvent.t
 t/GdkGC.t
+t/GdkKeys.t
 t/GdkProperty.t
 t/GdkRegion.t
 t/GdkScreen.t

@@ -152,6 +152,14 @@ gtk2perl_gdk_event_new (GdkEventType type)
 }
 #endif
 
+MODULE = Gtk2::Gdk::Event	PACKAGE = Gtk2::Gdk	PREFIX = gdk_
+
+ ## gboolean gdk_events_pending (void)
+gboolean
+gdk_events_pending (class)
+    C_ARGS:
+	/*void*/
+
 MODULE = Gtk2::Gdk::Event	PACKAGE = Gtk2::Gdk::Event	PREFIX = gdk_event_
 
 =head1 EVENT TYPES
@@ -218,12 +226,6 @@ BOOT:
 	                      &gdk_event_wrapper_class);
 	gperl_set_isa ("Gtk2::Gdk::Event", "Glib::Boxed");
 
- ## gboolean gdk_events_pending (void)
-gboolean
-gdk_events_pending (class)
-    C_ARGS:
-	/*void*/
-
  ## GdkEvent* gdk_event_get (void)
  ## GdkEvent* gdk_event_peek (void)
 ## caller must free
@@ -238,8 +240,10 @@ gdk_event_get (class)
 
  ## GdkEvent* gdk_event_get_graphics_expose (GdkWindow *window)
 GdkEvent_own_ornull*
-gdk_event_get_graphics_expose (window)
+gdk_event_get_graphics_expose (class, window)
 	GdkWindow *window
+    C_ARGS:
+	window
 
  ## void gdk_event_put (GdkEvent *event)
 ## call as Gtk2::Gdk::Event->put ($event)
@@ -361,10 +365,13 @@ gdk_event_get_root_coords (event)
 
  ## gboolean gdk_event_get_axis (GdkEvent *event, GdkAxisUse axis_use, gdouble *value)
 gdouble
-axis (event, axis_use)
+gdk_event_get_axis (event, axis_use)
 	GdkEvent *event
 	GdkAxisUse axis_use
+    ALIAS:
+	Gtk2::Gdk::Event::axis = 1
     CODE:
+	PERL_UNUSED_VAR (ix);
 	if (!gdk_event_get_axis (event, axis_use, &RETVAL))
 		XSRETURN_UNDEF;
     OUTPUT:
@@ -1075,7 +1082,7 @@ atom (GdkEvent * eventproperty, GdkAtom newvalue=0)
     OUTPUT:
 	RETVAL
 
-gint
+guint
 state (GdkEvent * eventproperty, guint newvalue=0)
     CODE:
 	RETVAL = eventproperty->property.state;
@@ -1401,5 +1408,3 @@ gdk_setting_get (class, name)
 	g_value_unset (&value);
     OUTPUT:
 	RETVAL
-
-MODULE = Gtk2::Gdk::Event	PACKAGE = Gtk2::Gdk::Event	PREFIX = gdk_event_

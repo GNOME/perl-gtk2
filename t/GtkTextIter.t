@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 68, noinit => 1;
+use Gtk2::TestHelper tests => 70, noinit => 1;
 
 my $model = Gtk2::TextBuffer->new;
 $model->insert ($model->get_start_iter, join " ", "Lore ipsem dolor.  I think that is misspelled.\n"x80);
@@ -31,7 +31,13 @@ my ($right, $left) = ($model->get_iter_at_offset (9),
 $left->order ($right);
 is ($iter->in_range ($left, $right), 1);
 
-# warn $iter->get_marks;
+my $mark_one = $model->create_mark ("bla", $iter, 1);
+my $mark_two = $model->create_mark ("blub", $iter, 1);
+
+my @marks = $iter->get_marks;
+is ($marks[1], $mark_one);
+is ($marks[0], $mark_two);
+
 # warn $iter->get_toggled_tags(0);
 # warn $iter->get_toggled_tags(1);
 # warn $iter->get_child_anchor;

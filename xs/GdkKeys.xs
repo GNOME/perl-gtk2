@@ -20,7 +20,10 @@
  */
 #include "gtk2perl.h"
 
-MODULE = Gtk2::Gdk::Keys PACKAGE = Gtk2::Gdk::Keymap PREFIX = gtk_keymap_
+MODULE = Gtk2::Gdk::Keys PACKAGE = Gtk2::Gdk::Keymap PREFIX = gdk_keymap_
+
+BOOT:
+	gperl_object_set_no_warn_unreg_subclass (GDK_TYPE_KEYMAP, TRUE);
 
 ##  GdkKeymap* gdk_keymap_get_default (void) 
 GdkKeymap*

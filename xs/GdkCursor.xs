@@ -23,10 +23,18 @@
 
 MODULE = Gtk2::Gdk::Cursor	PACKAGE = Gtk2::Gdk::Cursor	PREFIX = gdk_cursor_
 
+GdkCursorType
+gdk_cursor_type (cursor)
+	GdkCursor *cursor
+    CODE:
+	RETVAL = cursor->type;
+    OUTPUT:
+	RETVAL
+
 #if GTK_CHECK_VERSION(2,2,0)
 
 ## GdkCursor* gdk_cursor_new_for_display (GdkDisplay *display, GdkCursorType cursor_type)
-GdkCursor*
+GdkCursor_own*
 gdk_cursor_new_for_display (class, display, cursor_type)
 	GdkDisplay *display
 	GdkCursorType cursor_type
@@ -64,10 +72,12 @@ gdk_cursor_new_from_pixmap (class, source, mask, fg, bg, x, y)
 
 ## GdkCursor * gdk_cursor_new_from_pixbuf (GdkDisplay *display, GdkPixbuf  *pixbuf, gint x, gint y)
 GdkCursor_own *
-gdk_cursor_new_from_pixbuf (display, pixbuf, x, y)
+gdk_cursor_new_from_pixbuf (class, display, pixbuf, x, y)
 	GdkDisplay *display
 	GdkPixbuf  *pixbuf
 	gint x
 	gint y
+    C_ARGS:
+	display, pixbuf, x, y
 
 #endif

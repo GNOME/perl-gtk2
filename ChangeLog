@@ -1,3 +1,29 @@
+2004/01/27 23:10 (+0100) kaffeetisch
+
+	A t/GdkCursor.t
+	A t/GdkKeys.t
+	* MANIFEST: New tests.
+
+	* t/GdkEvent.t: Test get_time, get_state, [sg]et_screen, axis and
+	get_axis, coords and get_coords, put, get, peek,
+	[sg]et_show_events, and Gtk2::Gdk::events_pending.
+
+	* t/GtkTextIter.t: Test get_marks.
+
+	* xs/GdkCursor.xs: Implement an accessor for cursor->type.  Take
+	ownership of the cursor returned by new_for_display.  Add a class
+	argument to new_from_pixbuf.
+
+	* xs/GdkEvent.xs: Bind gdk_events_pending as
+	Gtk2::Gdk::events_pending instead of
+	Gtk2::Gdk::Event::gdk_events_pending.  Bind
+	gdk_event_get_graphics_expose as
+	Gtk2::Gdk::Event::get_graphics_expose.  Provide get_axis in
+	addition to axis.  state returns a guint, no gint.
+
+	* xs/GdkKeys.xs: Change the PREFIX from gtk_keymap_ to gk_keymap_.
+	Don't warn about unregistered subclasses.
+
 2004/01/26 21:35 (+0100) kaffeetisch
 
 	* t/GdkWindow.t: Use a parent window for calls that seem to
