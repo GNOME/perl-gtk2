@@ -81,7 +81,14 @@ $style -> paint_slider($window -> window(), "normal", "none", $rectangle, $butto
 $style -> paint_vline($window -> window(), "normal", $rectangle, $button, "detail", 10, 10, 10);
 $style -> paint_expander($window -> window(), "normal", $rectangle, $view, "detail", 10, 10, "collapsed");
 # $style -> paint_layout($window -> window(), "normal", "none", $rectangle, $button, "detail", 10, 10, Gtk2::Pango::Layout -> new(Gtk2::Pango::Context -> new()));
-$style -> paint_resize_grip($window -> window(), "normal", $rectangle, $button, "detail", "north-west", 10, 10, 10, 10);
+
+# versions of gtk+ prior to 2.2.0 handled only 'south-east', which isn't so
+# bad, except that they actually called g_assert_not_reached() in the branch
+# of code that you reach by passing other values.  so, eh, never pass anything
+# but south-east to old gtk+.
+$style -> paint_resize_grip($window -> window(), "normal", $rectangle, $button, "detail", "north-west", 10, 10, 10, 10)
+	if !Gtk2->check_version (2, 2, 0);
+$style -> paint_resize_grip($window -> window(), "normal", $rectangle, $button, "detail", "south-east", 10, 10, 10, 10);
 
 $style -> detach();
 isa_ok($style, "Gtk2::Style");
