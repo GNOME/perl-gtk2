@@ -16,11 +16,15 @@ my ($width, $height) = Gtk2::IconSize -> lookup("button");
 like($width, qr/^\d+$/);
 like($height, qr/^\d+$/);
 
-my $settings = $button -> get_settings();
-($width, $height) = Gtk2::IconSize -> lookup_for_settings($settings, "button");
+SKIP: {
+  skip "lookup_for_settings is new in 2.2.0", 2
+    unless Gtk2->CHECK_VERSION (2, 2, 0);
+  my $settings = $button -> get_settings();
+  ($width, $height) = Gtk2::IconSize -> lookup_for_settings($settings, "button");
 
-like($width, qr/^\d+$/);
-like($height, qr/^\d+$/);
+  like($width, qr/^\d+$/);
+  like($height, qr/^\d+$/);
+}
 
 is(Gtk2::IconSize -> register("answer", 23, 42), "answer");
 
