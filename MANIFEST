@@ -257,6 +257,7 @@ t/GtkVScrollbar.t
 t/GtkVSeparator.t
 t/GtkViewport.t
 t/GtkWidget.t
+t/PangoAttribute.t
 t/PangoContext.t
 t/PangoFont.t
 t/PangoFontMap.t
@@ -438,6 +439,7 @@ xs/GtkVSeparator.xs
 xs/GtkViewport.xs
 xs/GtkWidget.xs
 xs/GtkWindow.xs
+xs/PangoAttributes.xs
 xs/PangoContext.xs
 xs/PangoFont.xs
 xs/PangoFontMap.xs

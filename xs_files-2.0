@@ -142,6 +142,7 @@ xs/GtkWidget.xs
 xs/GtkWindow.xs
 
 # Pango stuff
+xs/PangoAttributes.xs
 xs/PangoContext.xs
 xs/PangoFont.xs
 xs/PangoFontset.xs
