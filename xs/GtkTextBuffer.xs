@@ -57,7 +57,7 @@ gtk_text_buffer_insert (buffer, iter, text)
 
 ###void gtk_text_buffer_insert_at_cursor (GtkTextBuffer *buffer, const gchar *text, length(text))
 void
-gtk_text_buffer_insert_at_cursor (buffer, iter, text)
+gtk_text_buffer_insert_at_cursor (buffer, text)
 	GtkTextBuffer * buffer
 	const gchar * text
     CODE:
