@@ -40,7 +40,7 @@
 	* maps: added GTK_TYPE_LIST and GTK_TYPE_LIST_ITEM
 
 	* xs/GtkList.xs, xs/GtkListItem.xs: initial import required for use of
-	Gtk2::Combo from perl even thought they are both deprecated. in the 
+	Gtk2::Combo from perl even though they are both deprecated. in the 
 	future hopefully this won't be necessary. (also added files to the
 	MANIFEST)
 
@@ -52,13 +52,17 @@
 
         * gtk-demo/*: fix various minor problems, including using
         binmode for binary streams, and removing misleading "use bytes".
+
         * xs/GdkPixbufLoader.xs: the right way to access scalars is *not*
         SvPVX, but SvPV. Also removed "count" from ->write, since strings
         in perl are always counted and exposing this c-ism gives no benefit.
+
         * Makefile.PL: change the glib-not-found error message to the perl
         standard.
+
         * xs/GdkWindow.xs: enabled various non-deprecated methods I needed
         but weren't implemented yet, plus some rarely used ones.
+
         * t/01.GtkWindow.t: compare references with == not eq, and
         "$x == undef" is not the right way to tets defined'ness.
 
