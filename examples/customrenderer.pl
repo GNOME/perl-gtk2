@@ -1,5 +1,12 @@
 #!/usr/bin/perl -w
 
+=doc
+
+Implement a custom CellRenderer with a multi-line editor, by deriving a
+TextView subclass which implements the CellEditable GInterface.
+
+=cut
+
 #
 # Copyright (C) 2003 by muppet.
 # 
@@ -25,6 +32,9 @@ use strict;
 use Gtk2 -init;
 use Gtk2::Gdk::Keysyms;
 
+#############################################################################
+# First, we need a TextView which implements CellEditable.
+
 package Mup::MultilineEntry;
 
 use Data::Dumper;
@@ -33,6 +43,8 @@ use constant FALSE => 0;
 
 use Glib::Object::Subclass
 	Gtk2::TextView::,
+	# tell Glib that this new type will implement the CellEditable
+	# GInterface.
 	interfaces => [ Gtk2::CellEditable:: ],
 	;
 
@@ -48,6 +60,7 @@ sub EDITING_DONE { warn "editing done\n"; }
 sub REMOVE_WIDGET { warn "remove widget\n"; }
 
 ###############################################################################
+# and now, a CellRenderer that uses Mup::MultilineEntry for editing.
 
 package Gtk2::CellRendererMultiline;
 
@@ -87,15 +100,15 @@ sub START_EDITING {
 
 
 ###############################################################################
+# driver code.
 
 package main;
 
-use constant TRUE => 1;
-use constant FALSE => 0;
+use Glib qw(TRUE FALSE);
 
 my $window = Gtk2::Window->new;
 $window->set_title ("Multiline CellRenderer");
-$window->signal_connect (delete_event => sub { Gtk2->main_quit; });
+$window->signal_connect (delete_event => sub { Gtk2->main_quit; FALSE });
 
 my $model = Gtk2::ListStore->new (qw(Glib::String));
 my $view = Gtk2::TreeView->new ($model);
