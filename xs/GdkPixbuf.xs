@@ -32,10 +32,8 @@ gtk2perl_pixbuf_destroy_notify (guchar * pixels,
 
 MODULE = Gtk2::Gdk::Pixbuf	PACKAGE = Gtk2::Gdk::Pixbuf	PREFIX = gdk_pixbuf_
 
-BOOT:
-	gperl_register_error_domain (GDK_PIXBUF_ERROR,
-	                             GDK_TYPE_PIXBUF_ERROR,
-	                             "Gtk2::Gdk::Pixbuf::Error");
+=for enum GdkPixbufError
+=cut
 
 =for enum GdkPixbufAlphaMode
 =cut

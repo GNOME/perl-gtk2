@@ -16,11 +16,6 @@ MODULE = Gtk2::FileChooser PACKAGE = Gtk2::FileChooser PREFIX = gtk_file_chooser
 =for enum GtkFileChooserError
 =cut
 
-BOOT:
-	gperl_register_error_domain (GTK_FILE_CHOOSER_ERROR,
-	                             GTK_TYPE_FILE_CHOOSER_ERROR,
-	                             "Gtk2::FileChooser::Error");
-
 ## Configuration
 ##
 void gtk_file_chooser_set_action (GtkFileChooser *chooser, GtkFileChooserAction action);

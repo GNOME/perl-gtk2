@@ -17,6 +17,17 @@
 #
 # $Header$
 #
+
+#
+# this file defines mappings only for types that existed in gtk+ 2.0.x
+#
+
+# Error domains
+# domain	enum type	base type	package
+GDK_PIXBUF_ERROR	GDK_TYPE_PIXBUF_ERROR	GError Gtk2::Gdk::Pixbuf::Error
+
+# the rest of the types
+# typemacro	C type name	base type	package
 ATK_TYPE_ACTION	AtkAction	GInterface	Gtk2::Atk::Action
 ATK_TYPE_COMPONENT	AtkComponent	GInterface	Gtk2::Atk::Component
 ATK_TYPE_DOCUMENT	AtkDocument	GInterface	Gtk2::Atk::Document
