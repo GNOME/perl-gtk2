@@ -219,6 +219,14 @@ avoid a clash with $gobject->set
 
 =over
 
+=item Gtk2::List::insert_items
+
+position and items parameters flipped order so that an open ended parameter
+list could be used.  $list->insert_items($position, $item1, $item2, ...) 
+(Note that GtkList and GtkListItem are deprecated and only included b/c
+GtkCombo still makes use of them, they are subject to removal at any point so
+you should not utilize them unless absolutly necessary.)
+
 =item Gtk2::TreeSelection::get_selected
 
 in scalar context, returns $iter; in list context, returns ($iter, $model)
