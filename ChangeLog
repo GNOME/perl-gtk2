@@ -1,3 +1,53 @@
+2003/08/18 11:54 muppetman
+
+	went for a complete audit of xs/*.xs, looking for FIXMEs and 
+	unimplemented functions.  this is part of that completeness sweep.
+
+	* xs/GdkPixmap.xs xs/GtkClipboard.xs xs/GtkDnd.xs xs/GtkItemFactory.xs
+	xs/GtkMenu.xs xs/GtkTextIter.xs xs/GtkTreeViewColumn.xs xs/PangoFont.xs
+	xs/PangoLayout.xs xs/PangoContext.xs: updated FIXME comments
+
+	* xs/GdkWindow.xs: updated FIXMEs, implemented several missing functions
+
+	* xs/Gtk2.xs: quit_add_destroy, get_current_event, 
+	get_current_event_(time|state), get_event_widget
+
+	* xs/GtkAccelGroup.xs xs/GtkHButtonBox.xs xs/GtkVButtonBox.xs
+	xs/GtkHScale.xs xs/GtkVScale.xs xs/GtkWindow.xs: some static methods
+	were implemented incorrectly (not taking the class parameter).
+	this fixes that, but will break any code that used it.  since i've
+	not heard any complaints, i assume no-one is using it.  at any rate,
+	it was wrong, is now right.
+
+	* xs/GtkButtonBox.xs xs/GtkMenuShell.xs xs/GtkPlug.xs xs/GtkScale.xs
+	xs/GtkTextTag.xs xs/GtkTooltips.xs: removed commented implementation
+	of private function; it will never be bound
+
+	* xs/GtkEntry.xs: update FIXME comments, implement get_layout and
+	get_layout_offesets
+
+	* xs/GtkLabel.xs: implemented (get|set)_attributes
+
+	* xs/GtkList.xs xs/GtkSelection.xs xs/GtkStock.xs xs/GtkTreeModel.xs
+	xs/GtkTreeView.xs: clarified commentary
+
+	* xs/GtkListStore.xs xs/GtkTreeStore.xs gtk2perl.h: implement
+	gtk_(list|tree)_store_set_column_types, since it is now possible
+	to derive GObject types in perl; this is necessary to implement
+	the constructor of a derived list or tree store.  factored out
+	the stack handling code, into gtk2perl.h, to avoid needing to
+	create another header.
+
+	* xs/GtkTextBuffer.xs: implemented missing clipboard functions:
+	add_selection_clipboard remove_selection_clipboard cut_clipboard
+	copy_clipboard paste_clipboard
+
+	* xs/GtkWidget.xs: implemented get_pointer, is_ancestor,
+	translate_coordinates, set_style, ensure_style; added FIXMEs
+
+	* xs/GdkEvent.xs: let gdk_event_set_screen in there twice, because
+	i wasn't building against 2.2.x.  fixed.
+
 2003/08/18 03:56 muppetman
 
 	* TODO: updates
