@@ -1,3 +1,8 @@
+2005/04/04	muppetman
+
+	* xs/GtkDnd.xs, t/GtkDnd.t: allow undef for the mask parameter
+	to gtk_drag_set_icon_pixmap(), with tests.
+
 2005/04/02	muppetman
 
 	A examples/draw_text.pl

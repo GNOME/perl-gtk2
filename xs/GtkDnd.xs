@@ -50,7 +50,7 @@ gtk_drag_set_icon_pixmap (context, colormap, pixmap, mask, hot_x, hot_y)
 	GdkDragContext *context
 	GdkColormap *colormap
 	GdkPixmap *pixmap
-	GdkBitmap *mask
+	GdkBitmap_ornull *mask
 	gint hot_x
 	gint hot_y
 
