@@ -65,14 +65,6 @@ SV * newSVGdkBitmap_noinc (GdkBitmap * bitmap);
 
 
 /*
- * override the autogen stuff for GdkModifierType, so we can make sure
- * that GDK_MODIFIER_MASK doesn't get in there and mess things up.
- * (it has multiple bits set and therefore matches everything!)
- */
-#undef newSVGdkModifierType
-SV * newSVGdkModifierType (GdkModifierType mods);
-
-/*
  * GdkAtom, an opaque pointer
  */
 SV * newSVGdkAtom (GdkAtom atom);

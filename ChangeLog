@@ -1,3 +1,7 @@
+2003/11/07 21:09 pcg
+
+	* gtk2perl.h: removed newSVGdkModifierType hack.
+
 2003/11/07 16:49 pcg
 
 	* xs/GdkWindow.xs: implement gdk_window_set_debug_updates.
