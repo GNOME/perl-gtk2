@@ -9,10 +9,13 @@
 
 #########################
 
-use Test::More tests => 80;
+use Test::More tests => 87;
 BEGIN { use_ok('Gtk2') };
 
 #########################
+
+use constant TRUE => 1;
+use constant FALSE => 0;
 
 ok( Gtk2->init );
 
@@ -27,14 +30,14 @@ ok(1);
 $win->set_title('Test Window');
 ok(1);
 
-ok( $win->get_title eq 'Test Window' );
+is( $win->get_title, 'Test Window' );
 
-$win->set_resizable('true');
+$win->set_resizable(TRUE);
 ok(1);
 
 ok( $win->get_resizable );
 
-$win->set_modal('true');
+$win->set_modal(TRUE);
 ok(1);
 
 ok( $win->get_modal );
@@ -42,7 +45,11 @@ ok( $win->get_modal );
 $win->set_default_size(640, 480);
 ok(1);
 
-ok( $win->get_default_size );
+# the window manager needn't honor our request, but the
+# widget should be holding the values and the bindings
+# should return them correctly.
+@s = $win->get_default_size;
+ok( $s[0] == 640 && $s[1] == 480 );
 
 #$win->set_geometry_hints(...);
 
@@ -52,14 +59,15 @@ foreach (qw/north-west north north-east west center east
 	$win->set_gravity($_);
 	ok(1);
 	
-	ok( $win->get_gravity eq $_ );
+	is( $win->get_gravity , $_, "gravity $_" );
 }
 
 foreach (qw/none center mouse center-always center-on-parent/)
 {
 	$win->set_position($_);
-	ok(1);
+	ok(1, "set_position $_");
 }
+# i don't think this does what we think it does
 $win->get_position;
 ok(1);
 
@@ -68,55 +76,61 @@ ok( $win2 = Gtk2::Window->new );
 $win2->set_transient_for($win);
 ok(1);
 
-ok( $win2->get_transient_for == $win );
+ok( $win2->get_transient_for, $win );
 
-$win2->set_destroy_with_parent('true');
+$win2->set_destroy_with_parent(TRUE);
 ok(1);
 
 ok( $win2->get_destroy_with_parent );
 
 @toplvls = Gtk2::Window->list_toplevels;
-ok(scalar(@toplvls) == 4);
+is(scalar(@toplvls), 4);
 
-$win2->set_decorated('true');
+$win2->set_decorated(TRUE);
 ok(1);
 ok( $win2->get_decorated );
 
-$win2->set_has_frame('false');
+$win2->set_has_frame(FALSE);
 ok(1);
 
-# i set it false ^ but it's true here?
-ok( $win2->get_has_frame );
+ok( !$win2->get_has_frame );
 
 $win2->set_role('tool');
 ok(1);
 
-ok( $win2->get_role eq 'tool' );
+is( $win2->get_role, 'tool' );
 
 foreach (qw/normal dialog menu toolbar/)
 {
 	$win2->set_type_hint($_);
 	ok(1);
 
-	ok( $win2->get_type_hint eq $_ );
+	is( $win2->get_type_hint, $_ );
 }
 
-if( (Gtk2->get_version_info)[1] >= 2 )
-{
+SKIP: {
+	skip 'stuff missing in 2.0.x', 6
+		unless (Gtk2->get_version_info)[1] >= 2;
+
 	foreach (qw/splashscreen utility dock desktop/)
 	{
 		$win2->set_type_hint($_);
-	
-		ok(0) unless ( $win2->get_type_hint eq $_ );
+
+		is( $win2->get_type_hint, $_ );
 	}
 
-	$win2->set_skip_taskbar_hint('true');
-	
-	ok(0) unless( $win2->get_skip_taskbar_hint );
+	SKIP: {
+		skip 'taskbar stuff missing on windows', 1
+			if $^O eq 'MSWin32';
+
+		$win2->set_skip_taskbar_hint('true');
+
+		ok( $win2->get_skip_taskbar_hint );
+	}
 
 	$win2->set_skip_pager_hint('true');
 
-	ok(0) unless( $win2->get_skip_pager_hint );
+	ok( $win2->get_skip_pager_hint );
 }
 
 ok( ! $win->get_default_icon_list );
@@ -173,10 +187,19 @@ Glib::Idle->add(sub {
 		ok(1);
 
 		# gtk2.2 req
-		if( (Gtk2->get_version_info)[1] >= 2 )
-		{
+		SKIP: {
+			if ($^O eq 'MSWin32') {
+				$reason = 'GdkScreen not available on win32';
+			} elsif ((Gtk2->get_version_info)[1] < 2) {
+				$reason = 'stuff not available before 2.2.x';
+			} else {
+				$reason = undef;
+			}
+
+			skip $reason, 1 if defined $reason;
+
 			# $win->set_screen(...)
-			ok(0) unless( $win->get_screen );
+			ok( $win->get_screen );
 
 			$win->fullscreen;
 			$win->unfullscreen;
@@ -187,7 +210,7 @@ Glib::Idle->add(sub {
 		$win->resize(480,600);
 
 		# window managers don't horor our size request exactly,
-		# or at least we aren't garunteed they will
+		# or at least we aren't guaranteed they will
 		ok( $win->get_size );
 		ok( $win->get_frame_dimensions );
 
