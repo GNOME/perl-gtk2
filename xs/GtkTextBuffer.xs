@@ -98,14 +98,33 @@ gtk_text_buffer_insert_range_interactive (buffer, iter, start, end, default_edit
 ##	...
 ##
 #### void gtk_text_buffer_insert_with_tags_by_name (GtkTextBuffer *buffer, GtkTextIter *iter, const gchar *text, gint len, const gchar *first_tag_name, ...)
-##void
-##gtk_text_buffer_insert_with_tags_by_name (buffer, iter, text, len, first_tag_name, first_tag_name)
-##	GtkTextBuffer *buffer
-##	GtkTextIter *iter
-##	const gchar *text
-##	gint len
-##	const gchar *first_tag_name
-##	...
+void
+gtk_text_buffer_insert_with_tags_by_name (buffer, iter, text, ...)
+	GtkTextBuffer *buffer
+	GtkTextIter *iter
+	const gchar *text
+    PREINIT:
+	int i;
+	gint start_offset;
+	GtkTextTagTable * tag_table;
+	GtkTextIter start;
+    CODE:
+	start_offset = gtk_text_iter_get_offset (iter);
+	gtk_text_buffer_insert (buffer, iter, text, -1);
+	tag_table = gtk_text_buffer_get_tag_table (buffer);
+	gtk_text_buffer_get_iter_at_offset (buffer, &start, start_offset);
+	for (i = 3 ; i < items ; i++) {
+		char * tag_name;
+		GtkTextTag * tag;
+
+		tag_name = SvPV_nolen (ST (i));
+		tag = gtk_text_tag_table_lookup (tag_table, tag_name);
+		if (!tag)
+			warn ("no tag with name %s", tag_name);
+		else
+			gtk_text_buffer_apply_tag (buffer, tag, &start, iter);
+	}
+
 
 ## void gtk_text_buffer_delete (GtkTextBuffer *buffer, GtkTextIter *start, GtkTextIter *end)
 void
@@ -363,8 +382,8 @@ void
 gtk_text_buffer_get_bounds (buffer)
 	GtkTextBuffer *buffer
     PREINIT:
-	GtkTextIter start;
-	GtkTextIter end;
+	GtkTextIter start = {0, };
+	GtkTextIter end = {0, };
     PPCODE:
 	gtk_text_buffer_get_bounds (buffer, &start, &end);
 	EXTEND (SP, 2);
