@@ -278,7 +278,7 @@ gtk2perl_gdk_event_new (GdkEventType type)
 }
 #endif
 
-void
+static void
 gtk2perl_event_func (GdkEvent *event, gpointer data)
 {
 	gperl_callback_invoke ((GPerlCallback *) data, NULL, event);
