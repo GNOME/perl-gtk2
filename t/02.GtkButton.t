@@ -9,62 +9,117 @@
 
 #########################
 
-# change 'tests => 1' to 'tests => last_test_to_print';
-
-use Test::More tests => 8;
+use Test::More tests => 39;
 BEGIN { use_ok('Gtk2') };
 
 #########################
 
-# Insert your test code below, the Test::More module is use()ed here so read
-# its man page ( perldoc Test::More ) for help writing this test script.
+Gtk2->init;
 
-ok( Gtk2->init );
-
-ok( $win = Gtk2::Window->new('toplevel') );
-
-$win->set_title('Gtkbutton.t Test Window');
+$win = Gtk2::Window->new;
+$win->set_title('02.Gtkbutton.t');
 
 ok( $button = Gtk2::Button->new("Not Yet") );
+ok(1);
+ok( $button = Gtk2::Button->new_with_label("Not Yet") );
+ok(1);
+ok( $button = Gtk2::Button->new_with_mnemonic("_Not Yet") );
+ok(1);
+
 $button->show;
+ok(1);
+
 $button->signal_connect( "clicked" , sub
 	{
-		if( $_[0]->child->get_text eq 'Quit' )
+		if( $_[0]->get_label eq 'Click _Me' )
 		{
-			Gtk2->main_quit;
+			$_[0]->set_label("Next");
+			ok(1);
+
+			ok( $_[0]->get_label eq 'Next' );
 		}
 		else
 		{
-			$_[0]->child->set_text("Quit");
+			$win3->show_all;
 		}
 	} );
+ok(1);
 
 $win->add($button);
+ok(1);
+
 $win->show;
 
-$button->set_relief("half");
+foreach (qw/normal half none/)
+{
+	$button->set_relief($_);
+	ok(1);
 
-ok( $button->get_relief eq 'half' );
+	ok( $button->get_relief eq $_ );
+}
 
-$button->set_label('Click Me');
+$button->set_label('Click _Me');
+ok(1);
 
-ok( $button->get_label eq 'Click Me' );
+ok( $button->get_label eq 'Click _Me' );
 
-ok( $win2 = Gtk2::Window->new('toplevel') );
-ok( $button_stock = Gtk2::Button->new_from_stock('Apply') );
+$win2 = Gtk2::Window->new;
+
+ok( $button_stock = Gtk2::Button->new_from_stock('gtk-apply') );
+
 $win2->add($button_stock);
+ok(1);
+
 $button_stock->show;
+ok(1);
+
+$button_stock->set_use_underline(1);
+ok(1);
+
+ok( $button_stock->get_use_underline );
+
+$win3 = Gtk2::Window->new;
+
+ok( $button3 = Gtk2::Button->new('gtk-quit') );
+
+$button3->signal_connect( "clicked" , sub
+	{
+		Gtk2->main_quit;
+		ok(1);
+	} );
+
+$button3->set_use_stock(1);
+ok(1);
+
+ok( $button3->get_use_stock );
+
+$win3->add($button3);
 
 Glib::Idle->add( sub 
 	{
 		$win2->show;
 		$button->pressed;
+		ok(1);
 		$button->released;
-		#$button->clicked;
+		ok(1);
+		$button->clicked;
+		ok(1);
 		$button->enter;
+		ok(1);
 		$button->leave;
-		Gtk2->main_quit;
+		ok(1);
+		Glib::Idle->add( sub 
+			{
+				$button->clicked;
+				ok(1);
+				$button3->clicked;
+				ok(1);
+				0;
+			} );
+		ok(1);
 		0;
 	} );
+ok(1);
 
 Gtk2->main;
+ok(1);
