@@ -1,3 +1,12 @@
+2004/01/19 15:40 (-0500) muppetman
+
+	* xs/GtkIconTheme.xs, xs/GtkToggleToolButton.xs: add missing
+	class parameter
+
+	* xs/GtkRadioAction.xs: was checking for the wrong kind of object
+
+	* xs/GtkTreeModelFilter.xs: allow NULL for new's root
+
 2004/01/18 13:17 (-0500) rwmcfa1
 
 	* xs/GtkWidget.xs: valgrind found a mem leak, fix by muppet.
