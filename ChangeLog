@@ -233,7 +233,6 @@
 	* xs/GtkWindow.xs: Move the window group methods into the proper
 	namespace.
 
->>>>>>> 1.312
 2004/01/08 18:55 (-0500) rwmcfa1
 
 	* xs/GdkWindow.xs: fixed bug found in test branch where attribute_mask
