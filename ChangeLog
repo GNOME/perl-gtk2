@@ -1,3 +1,17 @@
+2004/02/07 02:22 (-0500) muppetman
+
+	* xs/GtkCellEditable.xs: allow perl implementations of GtkCellEditable
+
+	* xs/GtkTreeModel.xs: allow perl implementations of GtkTreeModel.
+	big thanks to Bjarne Steinsbo for helping iron out the memory
+	management wrinkles for GtkTreeIter.  doc on writing tree models is
+	incomplete but started; i'd prefer if that doc section came *after*
+	the normal method listing, but Glib::GenPod doesn't support that
+	sort of thing at the moment.
+
+	* examples/customlist.pl, examples/customrenderer.pl, MANIFEST:
+	new examples, implementing interfaces
+
 2004/02/06 22:25 (+0100) kaffeetisch
 
 	* MANIFEST
