@@ -1,3 +1,17 @@
+2003/11/18 17:21 (-0500) muppetman
+
+	* t/file-selection.t: new test
+
+	* t/22.GtkListStore.t: fix GtkListStore test to expect new iter->next
+	semantics.
+
+	* xs/GtkFileSelection.xs: gtk_file_selection_get_filename returns a
+	statically allocated string -- use GPerlFilename_const instead of
+	GPerlFilename_own to avoid core dumps.
+
+	* xs/GtkIconFactory.xs: use GPerlFilename_const to hush compiler
+	warnings.  
+
 2003/11/18 09:42 (-0500) rwmcfa1
 
 	* xs/GtkTreeModel.xs: $model->iter_next fixed, we needed to make a copy
