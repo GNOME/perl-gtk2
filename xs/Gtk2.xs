@@ -166,18 +166,24 @@ C library; that is, the standard
 C<$Gtk2::VERSION> for the version of the bindings, all-caps
 (MAJOR|MINOR|MICRO)_VERSION functions for the bound version, and
 lower-case (major|minor|micro)_version functions for the runtime version.
-See L<Glib::Version> and http://developer.gnome.org/doc/API/2.0/gtk/gtk-Feature-Test-Macros.html for more information.
+See L<Glib::version> and http://developer.gnome.org/doc/API/2.0/gtk/gtk-Feature-Test-Macros.html for more information.
 
 Note also that gtk_check_version() and GTK_CHECK_VERSION() have different
 semantics in C, and we have preserved those faithfully.
 
 =cut
 
+=for see_also Glib::version
+=cut
+
+  # we have no use for these in perl.
  ##GTKMAIN_C_VAR const guint gtk_binary_age;
  ##GTKMAIN_C_VAR const guint gtk_interface_age;
 
 =for apidoc
-=for signature (major_version, minor_version, micro_version) = Gtk2->get_version_info
+=for signature (major, minor, micro) = Gtk2->get_version_info
+Shorthand to fetch as a list the gtk+ version against which Gtk2 is linked.
+See C<Gtk2::major_version>, etc.
 =cut
 void
 gtk_get_version_info (class)
@@ -188,6 +194,15 @@ gtk_get_version_info (class)
 	PUSHs(sv_2mortal(newSViv(gtk_micro_version)));
 	PERL_UNUSED_VAR (ax);
 
+=for apidoc
+Returns undef if the version of gtk+ currently in use is compatible with the
+given version, otherwise returns a string describing the mismatch.  Note that
+this is not the same logic as C<Gtk2::CHECK_VERSION>.  This check is not
+terribly reliable, and should not be used to test for availability of widgets
+or functions in the Gtk2 module --- use C<Gtk2::CHECK_VERSION> for that.
+See L<Glib::version> for a more detailed description of when you'd want to
+do a runtime-version test.
+=cut
 gchar * 
 gtk_check_version (class, required_major, required_minor, required_micro)
 	guint   required_major
@@ -249,6 +264,20 @@ MAJOR_VERSION ()
 	}
     OUTPUT:
 	RETVAL
+
+=for apidoc
+=for signature (MAJOR, MINOR, MICRO) = Gtk2->GET_VERSION_INFO
+Shorthand to fetch as a list the gtk+ version for which Gtk2 was compiled.
+See C<Gtk2::MAJOR_VERSION>, etc.
+=cut
+void
+GET_VERSION_INFO (class)
+    PPCODE:
+	EXTEND (SP, 3);
+	PUSHs (sv_2mortal (newSViv (GTK_MAJOR_VERSION)));
+	PUSHs (sv_2mortal (newSViv (GTK_MINOR_VERSION)));
+	PUSHs (sv_2mortal (newSViv (GTK_MICRO_VERSION)));
+	PERL_UNUSED_VAR (ax);
 
 =for apidoc 
 Provides a mechanism for checking the version information that Gtk2 was
@@ -543,13 +572,26 @@ gtk_propagate_event (widget, event)
 	GtkWidget * widget
 	GdkEvent * event
 
-MODULE = Gtk2		PACKAGE = Gtk2::Pango		PREFIX = pango_
+MODULE = Gtk2		PACKAGE = Gtk2::Pango		PREFIX = PANGO_
+
+# Don't doc these in Gtk2::Pango, or we'll clobber the docs for the
+# pango constants module!
+
+=for object Gtk2::Pango::version
+=cut
+
+=for see_also Gtk2::version 
+=cut
+
+=for see_also Glib::version
+=cut
 
 =for apidoc
-=for signature (major_version, minor_version, micro_version) = Gtk2::Pango->get_version_info
+=for signature (MAJOR, MINOR, MICRO) = Gtk2::Pango->GET_VERSION_INFO
+Fetch as a list the version of pango with which Gtk2 was built.
 =cut
 void
-pango_get_version_info (class)
+GET_VERSION_INFO (class)
     PPCODE:
 	EXTEND (SP, 3);
 	PUSHs (sv_2mortal (newSViv (PANGO_MAJOR_VERSION)));
@@ -558,11 +600,6 @@ pango_get_version_info (class)
 	PERL_UNUSED_VAR (ax);
 
 bool
-CHECK_VERSION (class, major, minor, micro)
-	int major
-	int minor
-	int micro
-    CODE:
-	RETVAL = PANGO_CHECK_VERSION (major, minor, micro);
-    OUTPUT:
-	RETVAL
+PANGO_CHECK_VERSION (class, int major, int minor, int micro)
+    C_ARGS:
+	major, minor, micro
