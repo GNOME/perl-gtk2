@@ -73,7 +73,7 @@ my %pod_files = (
 	'CodeGen.pm'       => '$(INST_MAN3DIR)/Gtk2::CodeGen.3pm',
 	'pm/Helper.pm'     => '$(INST_MAN3DIR)/Gtk2::Helper.3pm',
 	'pm/Pango.pm'      => '$(INST_MAN3DIR)/Gtk2::Pango.3pm',
-	'pm/SimpleList.pm' => '$(INST_MAN3DIR)/Gtk2::SimpleList.pm',
+	'pm/SimpleList.pm' => '$(INST_MAN3DIR)/Gtk2::SimpleList.3pm',
 	'api.pod'          => '$(INST_MAN3DIR)/Gtk2::api.3pm',
 );
 
