@@ -1,3 +1,10 @@
+2004/01/12 09:49 (-0500) rwmcfa1
+
+	* pm/TestHelper.pm: if we're not 2.2.0 or greated don't allow init
+	to be skipped. earlier rel's have to for some pagno thing.
+
+	* t/GtkClipboard.t: the clipboard didn't exist for sure until 2.2.0
+
 2004/01/11 23:59 (+0100) kaffeetisch
 
 	* MANIFEST

@@ -2,7 +2,7 @@
 
 #use Data::Dumper;
 use Gtk2::TestHelper tests => 58,
-	at_least_version => [2, 1, 0, "GtkClipboard didn't exist in 2.0.x"];
+	at_least_version => [2, 2, 0, "GtkClipboard didn't exist in 2.0.x"];
 
 my $clipboard;
 

@@ -12,6 +12,8 @@ sub import
 {
 	shift;
 	my %opts = (@_);
+		
+	my ($major, $minor, $micro) = Gtk2->get_version_info;
 
 	croak "tests must be provided at import" unless (exists ($opts{tests}));
 
@@ -24,7 +26,6 @@ sub import
 	{
 		my ($rmajor, $rminor, $rmicro, $text) = 
 						@{$opts{at_least_version}};
-		my ($major, $minor, $micro) = Gtk2->get_version_info;
 		unless ($major >= $rmajor &&
 			$minor >= $rminor &&
 			$micro >= $rmicro)
@@ -32,6 +33,9 @@ sub import
 			plan skip_all => $text;
 		}
 	}
+		
+	delete $opts{noinit}
+		unless ($major >= 2 && $minor >= 2 && $micro >= 0 );
 
 	if( $opts{noinit} || Gtk2->init_check )
 	{
