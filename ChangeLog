@@ -1,3 +1,8 @@
+2003/11/03 14:05 muppetman
+
+	* xs/GdkEvent.xs: GenPod uses instance arg names now, so we can
+	remove all the ugly signature overrides.
+
 2003/11/03 18:37 pcg
 
 	* Makefile.PL: avoid package MY for easier access to variables.

@@ -464,34 +464,25 @@ BOOT:
  #  gint count; /* If non-zero, how many more events follow. */
  #};
 
-=for apidoc
-=signature $rectangle = $eventexpose->area
-=cut
 GdkRectangle*
-area (event)
-	GdkEvent * event
+area (GdkEvent * eventexpose)
     CODE:
-	RETVAL = &(event->expose.area);
+	RETVAL = &(eventexpose->expose.area);
     OUTPUT:
 	RETVAL
 
  # FIXME need GdkRegion
 #GdkRegion_copy*
-#region (event)
-#	GdkEvent * event
+#region (GdkEvent * eventexpose)
 #    CODE:
-#	RETVAL = event->expose.region;
+#	RETVAL = eventexpose->expose.region;
 #    OUTPUT:
 #	RETVAL
 
-=for apidoc
-=signature integer = $eventexpose->count
-=cut
 gint
-count (event)
-	GdkEvent * event
+count (GdkEvent * eventexpose)
     CODE:
-	RETVAL = event->expose.count;
+	RETVAL = eventexpose->expose.count;
     OUTPUT:
 	RETVAL
 
@@ -526,15 +517,11 @@ BOOT:
  #  GdkVisibilityState state;
  #};
 
-=for apidoc
-=signature $visibilitystate = $eventvisibility->state
-=cut
 # different return type, override Gtk2::Gdk::Event::state
 GdkVisibilityState
-state (event)
-	GdkEvent * event
+state (GdkEvent * eventvisibility)
     CODE:
-	RETVAL = event->visibility.state;
+	RETVAL = eventvisibility->visibility.state;
     OUTPUT:
 	RETVAL
 
@@ -561,24 +548,17 @@ BOOT:
  #//  gdouble x_root, y_root; <- get_root_coords
  #};
 
-=for apidoc
-=signature unsigned = $eventmotion->is_hint
-=cut
 guint
-is_hint (event)
-	GdkEvent * event
+is_hint (GdkEvent * eventmotion)
     CODE:
-	RETVAL = event->motion.is_hint;
+	RETVAL = eventmotion->motion.is_hint;
     OUTPUT:
 	RETVAL
 
-=for apidoc
-=signature $device = $eventmotion->device
-=cut
 GdkDevice_ornull *
-device (GdkEvent * event)
+device (GdkEvent * eventmotion)
     CODE:
-	RETVAL = event->motion.device;
+	RETVAL = eventmotion->motion.device;
     OUTPUT:
 	RETVAL
 
@@ -605,24 +585,17 @@ BOOT:
  #//  gdouble x_root, y_root; <- get_root_coords
  #};
 
-=for apidoc
-=signature unsigned = $eventbutton->button
-=cut
 guint
-button (event)
-	GdkEvent * event
+button (GdkEvent * eventbutton)
     CODE:
-	RETVAL = event->button.button;
+	RETVAL = eventbutton->button.button;
     OUTPUT:
 	RETVAL
 
-=for apidoc
-=signature $device = $eventbutton->device
-=cut
 GdkDevice_ornull *
-device (GdkEvent * event)
+device (GdkEvent * eventbutton)
     CODE:
-	RETVAL = event->motion.device;
+	RETVAL = eventbutton->button.device;
     OUTPUT:
 	RETVAL
 
@@ -648,24 +621,17 @@ BOOT:
  #//  gdouble x_root, y_root; <- get_root_coords
  #};
 
-=for apidoc
-=signature $scrolldirection = $eventscroll->direction
-=cut
 GdkScrollDirection
-direction (event)
-	GdkEvent * event
+direction (GdkEvent * eventscroll)
     CODE:
-	RETVAL = event->scroll.direction;
+	RETVAL = eventscroll->scroll.direction;
     OUTPUT:
 	RETVAL
 
-=for apidoc
-=signature $device = $eventscroll->device
-=cut
 GdkDevice_ornull *
-device (GdkEvent * event)
+device (GdkEvent * eventscroll)
     CODE:
-	RETVAL = event->scroll.device;
+	RETVAL = eventscroll->scroll.device;
     OUTPUT:
 	RETVAL
 
@@ -692,36 +658,24 @@ BOOT:
  #  guint8 group;
  #};
 
-=for apidoc
-=signature unsigned = $eventkey->keyval
-=cut
 guint
-keyval (event)
-	GdkEvent * event
+keyval (GdkEvent * eventkey)
     CODE:
-	RETVAL = event->key.keyval;
+	RETVAL = eventkey->key.keyval;
     OUTPUT:
 	RETVAL
 
-=for apidoc
-=signature integer = $eventkey->length
-=cut
 gint
-length (event)
-	GdkEvent * event
+length (GdkEvent * eventkey)
     CODE:
-	RETVAL = event->key.length;
+	RETVAL = eventkey->key.length;
     OUTPUT:
 	RETVAL
 
-=for apidoc
-=signature string = $eventkey->string
-=cut
 gchar *
-string (event)
-	GdkEvent * event
+string (GdkEvent * eventkey)
     CODE:
-	RETVAL = event->key.string;
+	RETVAL = eventkey->key.string;
     OUTPUT:
 	RETVAL
 
@@ -750,34 +704,24 @@ BOOT:
  #//  guint state; <- get_state
  #};
 
-=for apidoc
-=signature $crossingmode = $eventcrossing->mode
-=cut
 GdkCrossingMode
-mode (event)
-	GdkEvent * event
+mode (GdkEvent * eventcrossing)
     CODE:
-	RETVAL = event->crossing.mode;
+	RETVAL = eventcrossing->crossing.mode;
     OUTPUT:
 	RETVAL
 
-=for apidoc
-=signature $notifytype = $eventcrossing->detail
-=cut
 GdkNotifyType
-detail (GdkEvent * event)
+detail (GdkEvent * eventcrossing)
     CODE:
-	RETVAL = event->crossing.detail;
+	RETVAL = eventcrossing->crossing.detail;
     OUTPUT:
 	RETVAL
 
-=for apidoc
-=signature boolean = $eventcrossing->focus
-=cut
 gboolean
-focus (GdkEvent * event)
+focus (GdkEvent * eventcrossing)
     CODE:
-	RETVAL = event->crossing.focus;
+	RETVAL = eventcrossing->crossing.focus;
     OUTPUT:
 	RETVAL
 
@@ -797,14 +741,10 @@ BOOT:
  #  gint16 in;
  #};
 
-=for apidoc
-=signature integer = $eventfocus->in
-=cut
 gint16
-in (event)
-	GdkEvent * event
+in (GdkEvent * eventfocus)
     CODE:
-	RETVAL = event->focus_change.in;
+	RETVAL = eventfocus->focus_change.in;
     OUTPUT:
 	RETVAL
 
@@ -826,22 +766,15 @@ BOOT:
  #  gint height;
  #};
 
-=for apidoc Gtk2::Gdk::Event::Configure::width
-=signature integer = $eventconfigure->width
-=cut
-
-=for apidoc Gtk2::Gdk::Event::Configure::height
-=signature integer = $eventconfigure->height
-=cut
-
 gint
-dim (event)
-	GdkEvent * event
+dim (GdkEvent * eventconfigure)
     ALIAS:
 	Gtk2::Gdk::Event::Configure::width  = 0
 	Gtk2::Gdk::Event::Configure::height = 1
     CODE:
-	RETVAL = ix ? event->configure.height : event->configure.width;
+	RETVAL = ix
+	       ? eventconfigure->configure.height
+	       : eventconfigure->configure.width;
     OUTPUT:
 	RETVAL
 
@@ -903,13 +836,10 @@ BOOT:
  #  GdkDevice *device;
  #};
 
-=for apidoc
-=signature $device = $eventproximity->device
-=cut
 GdkDevice_ornull *
-device (GdkEvent * event)
+device (GdkEvent * eventproximity)
     CODE:
-	RETVAL = event->motion.device;
+	RETVAL = eventproximity->motion.device;
     OUTPUT:
 	RETVAL
 
@@ -952,23 +882,17 @@ BOOT:
  #  char *name;
  #};
 
-=for apidoc
-=signature $settingaction = $eventsetting->action
-=cut
 GdkSettingAction
-action (GdkEvent * event)
+action (GdkEvent * eventsetting)
     CODE:
-	RETVAL = event->setting.action;
+	RETVAL = eventsetting->setting.action;
     OUTPUT:
 	RETVAL
 
-=for apidoc
-=signature string = $eventsetting->name
-=cut
 char *
-name (GdkEvent * event)
+name (GdkEvent * eventsetting)
     CODE:
-	RETVAL = event->setting.name;
+	RETVAL = eventsetting->setting.name;
     OUTPUT:
 	RETVAL
 
@@ -989,25 +913,17 @@ BOOT:
  #  GdkWindowState new_window_state;
  #};
 
-=for apidoc
-=signature $windowstate = $eventwindowstate->changed_mask
-=cut
 GdkWindowState
-changed_mask (event)
-	GdkEvent * event
+changed_mask (GdkEvent * eventwindowstate)
     CODE:
-	RETVAL = event->window_state.changed_mask;
+	RETVAL = eventwindowstate->window_state.changed_mask;
     OUTPUT:
 	RETVAL
 
-=for apidoc
-=signature $windowstate = $eventwindowstate->new_window_state
-=cut
 GdkWindowState
-new_window_state (event)
-	GdkEvent * event
+new_window_state (GdkEvent * eventwindowstate)
     CODE:
-	RETVAL = event->window_state.new_window_state;
+	RETVAL = eventwindowstate->window_state.new_window_state;
     OUTPUT:
 	RETVAL
 
@@ -1031,14 +947,10 @@ BOOT:
  #//  gshort x_root, y_root; <- get_root_coords
  #};
 
-=for apidoc
-=signature $dragcontext = $eventdnd->context
-=cut
 GdkDragContext *
-context (event)
-	GdkEvent * event
+context (GdkEvent * eventdnd)
     CODE:
-	RETVAL = event->dnd.context;
+	RETVAL = eventdnd->dnd.context;
     OUTPUT:
 	RETVAL
 
