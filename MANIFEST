@@ -228,6 +228,7 @@ t/GtkViewport.t
 t/GtkWidget.t
 t/PangoContext.t
 t/PangoFont.t
+t/PangoLayout.t
 t/PangoTabs.t
 tools/fetch_faq.pl
 tools/genkeysyms.pl

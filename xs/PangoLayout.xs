@@ -26,16 +26,17 @@ newSVPangoLogAttr (PangoLogAttr * logattr)
 {
 	HV * hv = newHV ();
 
-	hv_store (hv, "is_line_break",        13, newSViv (logattr->is_line_break),        0);
-	hv_store (hv, "is_mandatory_break",   18, newSViv (logattr->is_mandatory_break),   0);
-	hv_store (hv, "is_char_break",        13, newSViv (logattr->is_char_break),        0);
-	hv_store (hv, "is_white",              8, newSViv (logattr->is_white),             0);
-	hv_store (hv, "is_cursor_position",   18, newSViv (logattr->is_cursor_position),   0);
-	hv_store (hv, "is_word_start",        13, newSViv (logattr->is_word_start),        0);
-	hv_store (hv, "is_word_end",          11, newSViv (logattr->is_word_end),          0);
-	hv_store (hv, "is_sentence_boundary", 20, newSViv (logattr->is_sentence_boundary), 0);
-	hv_store (hv, "is_sentence_start",    17, newSViv (logattr->is_sentence_start),    0);
-	hv_store (hv, "is_sentence_end",      15, newSViv (logattr->is_sentence_end),      0);
+	hv_store (hv, "is_line_break",               13, newSVuv (logattr->is_line_break),               0);
+	hv_store (hv, "is_mandatory_break",          18, newSVuv (logattr->is_mandatory_break),          0);
+	hv_store (hv, "is_char_break",               13, newSVuv (logattr->is_char_break),               0);
+	hv_store (hv, "is_white",                     8, newSVuv (logattr->is_white),                    0);
+	hv_store (hv, "is_cursor_position",          18, newSVuv (logattr->is_cursor_position),          0);
+	hv_store (hv, "is_word_start",               13, newSVuv (logattr->is_word_start),               0);
+	hv_store (hv, "is_word_end",                 11, newSVuv (logattr->is_word_end),                 0);
+	hv_store (hv, "is_sentence_boundary",        20, newSVuv (logattr->is_sentence_boundary),        0);
+	hv_store (hv, "is_sentence_start",           17, newSVuv (logattr->is_sentence_start),           0);
+	hv_store (hv, "is_sentence_end",             15, newSVuv (logattr->is_sentence_end),             0);
+	hv_store (hv, "backspace_deletes_character", 27, newSVuv (logattr->backspace_deletes_character), 0);
 
 	return newRV_noinc ((SV*) hv);
 }

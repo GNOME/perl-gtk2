@@ -1,3 +1,11 @@
+2004/02/03 00:21 (+0100) kaffeetisch
+
+	* xs/PangoLayout.xs: Change the PangoLogAttr to use UVs instead of
+	IVs.  Add backspace_deletes_character.
+
+	A t/PangoLayout.t
+	* MANIFEST: New test.
+
 2004/02/02 23:34 (+0100) kaffeetisch
 
 	* t/GdkDrawable.t: Change the TODO into another block that gets
