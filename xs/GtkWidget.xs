@@ -277,51 +277,58 @@ unset_flags (widget, flags)
  #GtkWidget* gtk_widget_ref		  (GtkWidget	       *widget);
  #void	   gtk_widget_unref		  (GtkWidget	       *widget);
 
-void
-gtk_widget_destroy (widget)
-	GtkWidget * widget
 
  #void	   gtk_widget_destroyed		  (GtkWidget	       *widget,
  #					   GtkWidget	      **widget_pointer);
 
- #void
- #gtk_widget_unparent (widget)
- #	GtkWidget * widget
-
+##
+## by consolidating all of the various xsubs with the signature
+##    void $widget->method(void)
+## into one aliased xsub, i managed to cut a couple of kilobytes from the
+## resultant stripped i686 object file.
+##
 void
-gtk_widget_show	(widget)
-	GtkWidget * widget
-
-void
-gtk_widget_show_now (widget)
-	GtkWidget * widget
-
-void
-gtk_widget_hide (widget)
-	GtkWidget * widget
-
-void
-gtk_widget_show_all (widget)
-	GtkWidget * widget
-
-void
-gtk_widget_hide_all (widget)
-	GtkWidget * widget
-
- #void	   gtk_widget_map		  (GtkWidget	       *widget);
- #void	   gtk_widget_unmap		  (GtkWidget	       *widget);
-
-void
-gtk_widget_realize (widget)
-	GtkWidget * widget
-
-void
-gtk_widget_unrealize (widget)
-	GtkWidget * widget
-
- #/* Queuing draws */
-
-void gtk_widget_queue_draw (GtkWidget * widget);
+void_methods (GtkWidget * widget)
+    ALIAS:
+	destroy   = 0
+	unparent  = 1
+	show      = 2
+	show_now  = 3
+	hide      = 4
+	show_all  = 5
+	hide_all  = 6
+	map       = 7
+	unmap     = 8
+	realize   = 9
+	unrealize = 10
+	grab_focus   = 11
+	grab_default = 12
+	reset_shapes = 13
+	queue_draw   = 14
+	queue_resize = 15
+	freeze_child_notify = 16
+	thaw_child_notify   = 17
+    CODE:
+	switch (ix) {
+		case  0: gtk_widget_destroy   (widget); break;
+		case  1: gtk_widget_unparent  (widget); break;
+		case  2: gtk_widget_show      (widget); break;
+		case  3: gtk_widget_show_now  (widget); break;
+		case  4: gtk_widget_hide      (widget); break;
+		case  5: gtk_widget_show_all  (widget); break;
+		case  6: gtk_widget_hide_all  (widget); break;
+		case  7: gtk_widget_map       (widget); break;
+		case  8: gtk_widget_unmap     (widget); break;
+		case  9: gtk_widget_realize   (widget); break;
+		case 10: gtk_widget_unrealize (widget); break;
+		case 11: gtk_widget_grab_focus   (widget); break;
+		case 12: gtk_widget_grab_default (widget); break;
+		case 13: gtk_widget_reset_shapes (widget); break;
+		case 14: gtk_widget_queue_draw   (widget); break;
+		case 15: gtk_widget_queue_resize (widget); break;
+		case 16: gtk_widget_freeze_child_notify (widget); break;
+		case 17: gtk_widget_thaw_child_notify   (widget); break;
+	}
 
 void
 gtk_widget_queue_draw_area (widget, x, y, width, height)
@@ -330,8 +337,6 @@ gtk_widget_queue_draw_area (widget, x, y, width, height)
 	gint y
 	gint width
 	gint height
-
- #void	   gtk_widget_queue_resize	  (GtkWidget	       *widget);
 
 GtkRequisition_copy *
 gtk_widget_size_request (widget)
@@ -344,10 +349,8 @@ gtk_widget_size_request (widget)
     OUTPUT:
 	RETVAL
 
- #void	   gtk_widget_size_allocate	  (GtkWidget	       *widget,
- #					   GtkAllocation       *allocation);
- #void       gtk_widget_get_child_requisition (GtkWidget	       *widget,
- #					     GtkRequisition    *requisition);
+ #void gtk_widget_size_allocate (GtkWidget *widget, GtkAllocation *allocation);
+ #void gtk_widget_get_child_requisition (GtkWidget *widget, GtkRequisition *requisition);
 
 void
 gtk_widget_add_accelerator (widget, accel_signal, accel_group, accel_key, accel_mods, flags)
@@ -368,7 +371,7 @@ gtk_widget_remove_accelerator (widget, accel_group, accel_key, accel_mods)
  #void       gtk_widget_set_accel_path      (GtkWidget           *widget,
  #					   const gchar         *accel_path,
  #					   GtkAccelGroup       *accel_group);
- #const gchar* _gtk_widget_get_accel_path   (GtkWidget           *widget);
+
  #GList*     gtk_widget_list_accel_closures (GtkWidget	       *widget);
  #gboolean   gtk_widget_mnemonic_activate   (GtkWidget           *widget,
  #					   gboolean             group_cycling);
@@ -376,7 +379,6 @@ gtk_widget_remove_accelerator (widget, accel_group, accel_key, accel_mods)
  #					   GdkEvent	       *event);
  #gint       gtk_widget_send_expose         (GtkWidget           *widget,
  #					   GdkEvent            *event);
- #
 
 gboolean
 gtk_widget_activate (widget)
@@ -394,23 +396,13 @@ gtk_widget_reparent (widget, new_parent)
  #gboolean   gtk_widget_intersect		  (GtkWidget	       *widget,
  #					   GdkRectangle	       *area,
  #					   GdkRectangle	       *intersection);
- #GdkRegion *gtk_widget_region_intersect	  (GtkWidget	       *widget,
- #					   GdkRegion	       *region);
- #
- #void	gtk_widget_freeze_child_notify	  (GtkWidget	       *widget);
- #void	gtk_widget_child_notify		  (GtkWidget	       *widget,
- #					   const gchar	       *child_property);
- #void	gtk_widget_thaw_child_notify	  (GtkWidget	       *widget);
- #
- #gboolean   gtk_widget_is_focus            (GtkWidget           *widget);
 
-void
-gtk_widget_grab_focus (widget)
-	GtkWidget * widget
+# FIXME needs typemap for GdkRegion
+ #GdkRegion *gtk_widget_region_intersect (GtkWidget *widget, GdkRegion *region);
 
-void
-gtk_widget_grab_default (widget)
-	GtkWidget * widget
+void gtk_widget_child_notify (GtkWidget	*widget, const gchar *child_property);
+
+gboolean gtk_widget_is_focus (GtkWidget *widget);
 
 void
 gtk_widget_set_name (widget, name)
@@ -429,20 +421,14 @@ gtk_widget_set_sensitive (widget, sensitive)
 	GtkWidget * widget
 	gboolean sensitive
 
- #void                  gtk_widget_set_app_paintable      (GtkWidget    *widget,
- #							 gboolean      app_paintable);
- #void                  gtk_widget_set_double_buffered    (GtkWidget    *widget,
- #							 gboolean      double_buffered);
- #void                  gtk_widget_set_redraw_on_allocate (GtkWidget    *widget,
- #							 gboolean      redraw_on_allocate);
- #void                  gtk_widget_set_parent             (GtkWidget    *widget,
- #							 GtkWidget    *parent);
- #void                  gtk_widget_set_parent_window      (GtkWidget    *widget,
- #							 GdkWindow    *parent_window);
- #void                  gtk_widget_set_child_visible      (GtkWidget    *widget,
- #							 gboolean      is_visible);
- #gboolean              gtk_widget_get_child_visible      (GtkWidget    *widget);
- #
+ #void gtk_widget_set_app_paintable (GtkWidget *widget, gboolean app_paintable);
+ #void gtk_widget_set_double_buffered (GtkWidget *widget, gboolean double_buffered);
+ #void gtk_widget_set_redraw_on_allocate (GtkWidget *widget, gboolean redraw_on_allocate);
+ #void gtk_widget_set_parent (GtkWidget *widget, GtkWidget *parent);
+ #void gtk_widget_set_parent_window (GtkWidget *widget, GdkWindow *parent_window);
+ #void gtk_widget_set_child_visible (GtkWidget *widget, gboolean is_visible);
+ #gboolean gtk_widget_get_child_visible (GtkWidget *widget);
+
 
  ## must allow NULL on return, in case somebody calls this on
  ## an unparented widget
@@ -500,8 +486,22 @@ GtkWidget_ornull *
 gtk_widget_get_toplevel	(widget)
 	GtkWidget * widget
 
- #GtkWidget*   gtk_widget_get_ancestor	(GtkWidget	*widget,
- #					 GtkType	widget_type);
+# useful for grabbing the box which contains you
+ #GtkWidget* gtk_widget_get_ancestor (GtkWidget *widget, GtkType widget_type);
+GtkWidget_ornull*
+gtk_widget_get_ancestor (widget, ancestor_package)
+	GtkWidget *widget
+	const char * ancestor_package
+    PREINIT:
+	GtkType widget_type;
+    CODE:
+	widget_type = gperl_object_type_from_package (ancestor_package);
+	if (!widget_type)
+		croak ("package %s is not registered to a GType",
+		       ancestor_package);
+	RETVAL = gtk_widget_get_ancestor (widget, widget_type);
+    OUTPUT:
+	RETVAL
 
 GdkColormap*
 gtk_widget_get_colormap	(widget)
@@ -527,10 +527,6 @@ gtk_widget_get_colormap	(widget)
 GdkEventMask
 gtk_widget_get_events (widget)
 	GtkWidget	*widget
-    CODE:
-	RETVAL = gtk_widget_get_events (widget);
-    OUTPUT:
-	RETVAL
 
  #void gtk_widget_get_pointer (GtkWidget *widget, gint *x, gint *y);
 void
@@ -565,14 +561,9 @@ void gtk_widget_set_style (GtkWidget *widget, GtkStyle_ornull *style);
 
 void gtk_widget_ensure_style (GtkWidget *widget);
 
-# FIXME need GtkRcStyle stuff for this
- ###void gtk_widget_modify_style (GtkWidget *widget, GtkRcStyle *style);
- #void
- #gtk_widget_modify_style (widget, style)
- #	GtkWidget  * widget
- #	GtkRcStyle * style
- #
- #GtkRcStyle *gtk_widget_get_modifier_style (GtkWidget            *widget);
+void gtk_widget_modify_style (GtkWidget *widget, GtkRcStyle *style);
+
+GtkRcStyle * gtk_widget_get_modifier_style (GtkWidget * widget);
 
 void gtk_widget_modify_fg (GtkWidget * widget, GtkStateType state, GdkColor * color);
 
@@ -582,12 +573,7 @@ void gtk_widget_modify_text (GtkWidget * widget, GtkStateType state, GdkColor * 
 
 void gtk_widget_modify_base (GtkWidget * widget, GtkStateType state, GdkColor * color);
 
-
-##void gtk_widget_modify_font (GtkWidget *widget, PangoFontDescription *font_desc)
-void
-gtk_widget_modify_font (widget, font_desc)
-	GtkWidget            * widget
-	PangoFontDescription * font_desc
+void gtk_widget_modify_font (GtkWidget *widget, PangoFontDescription *font_desc)
 
 
  #PangoContext *gtk_widget_create_pango_context (GtkWidget   *widget);
@@ -656,11 +642,9 @@ gtk_widget_render_icon (widget, stock_id, size, detail=NULL)
 
 GtkStyle* 
 gtk_widget_get_default_style (class)
-     SV* class
-CODE:
-     RETVAL = gtk_widget_get_default_style();
-OUTPUT:
-     RETVAL
+	SV* class
+    C_ARGS:
+	/*void*/
 
  #GdkColormap* gtk_widget_get_default_colormap (void);
  #GdkVisual*   gtk_widget_get_default_visual   (void);
@@ -669,7 +653,7 @@ OUTPUT:
  # */
  #
  #void             gtk_widget_set_direction         (GtkWidget        *widget,
- #						   GtkTextDirection  dir);
+ #			'GtkWindow.GtkVBox.hbox 0.GtkLabel			   GtkTextDirection  dir);
  #GtkTextDirection gtk_widget_get_direction         (GtkWidget        *widget);
  #
  #void             gtk_widget_set_default_direction (GtkTextDirection  dir);
@@ -681,33 +665,46 @@ OUTPUT:
  #					    GdkBitmap *shape_mask,
  #					    gint       offset_x,
  #					    gint       offset_y);
- #
- #/* Compute a widget's path in the form "GtkWindow.MyLabel", and
- # * return newly alocated strings.
- # */
- #void	     gtk_widget_path		   (GtkWidget *widget,
- #					    guint     *path_length,
- #					    gchar    **path,
- #					    gchar    **path_reversed);
- #void	     gtk_widget_class_path	   (GtkWidget *widget,
- #					    guint     *path_length,
- #					    gchar    **path,
- #					    gchar    **path_reversed);
- #
+
+
+
+
+ # void gtk_widget_path (GtkWidget *widget, guint *path_length, gchar **path, gchar **path_reversed);
+ # void gtk_widget_class_path (GtkWidget *widget, guint *path_length, gchar **path, gchar **path_reversed);
+ ## both changed to ($path, $path_reversed) = $widget->(path|class_path);
+ ## returns the path_reversed straight from C, no matter how nonsensical...
+void
+gtk_widget_path (GtkWidget *widget)
+    ALIAS:
+	class_path = 1
+    PREINIT:
+	gchar *path = NULL, *path_reversed = NULL;
+    PPCODE:
+	if (ix == 1)
+		gtk_widget_class_path (widget, NULL, &path, &path_reversed);
+	else
+		gtk_widget_path (widget, NULL, &path, &path_reversed);
+	EXTEND (SP, 2);
+	PUSHs (sv_2mortal (newSVGChar (path)));
+	PUSHs (sv_2mortal (newSVGChar (path_reversed)));
+	g_free (path);
+	g_free (path_reversed);
+	
+
+ # boxed support, bindings not needed
  #GtkRequisition *gtk_requisition_copy     (const GtkRequisition *requisition);
  #void            gtk_requisition_free     (GtkRequisition       *requisition);
- #
+
+ # private, will not be bound 
  #GdkColormap* _gtk_widget_peek_colormap (void);
 
-##void gtk_widget_reset_shapes (GtkWidget *widget)
-void
-gtk_widget_reset_shapes (widget)
-	GtkWidget * widget
+
 
 
 #if GTK_CHECK_VERSION(2,2,0)
 
-# GtkWidgetClass not in typemap
+# GtkWidgetClass not in typemap, should use type_from_package and
+# then look up the class
 ##GParamSpec* gtk_widget_class_find_style_property (GtkWidgetClass *klass, const gchar *property_name)
 #GParamSpec *
 #gtk_widget_class_find_style_property (klass, property_name)
