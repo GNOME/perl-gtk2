@@ -1,4 +1,4 @@
-2004/02/27 00:36 (-0500) muppetman
+2004/02/27 01:12 (-0500) muppetman
 
 	* ChangeLog, t/00.Gtk2.t, t/01.GtkWindow.t, t/Gdk.t, t/GdkColor.t,
 	t/GdkCursor.t, t/GdkDisplay.t, t/GdkDnd.t, t/GdkDrawable.t,
@@ -14,6 +14,11 @@
 	t/GtkTreeSelection.t, t/GtkTreeStore.t, t/GtkTreeView-Dnd.t,
 	t/GtkTreeView.t: use Gtk2->CHECK_VERSION instead of check_version
 	and get_version_info.
+
+	* examples/combo_box.pl, examples/file_chooser.pl,
+	gtk-demo/hypertext.pl, gtk-demo/main.pl: ditto.
+
+	* xs/Gtk2.xs: commentary
 
 2004/02/26 23:00 (-0500) muppetman
 
