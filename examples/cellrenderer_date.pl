@@ -39,7 +39,6 @@ use Glib::Object::Subclass
     Glib::ParamSpec -> string("date", "Date", "What's the date again?", "", [qw(readable writable)]),
   ]
 ;
-__PACKAGE__->_install_overrides;
 
 use constant x_padding => 2;
 use constant y_padding => 3;
@@ -47,13 +46,202 @@ use constant y_padding => 3;
 use constant arrow_width => 15;
 use constant arrow_height => 15;
 
-our $popup_window;
-our $arrow = Gtk2::Arrow -> new("down", "none");
+sub hide_popup {
+  my ($cell) = @_;
+
+  Gtk2 -> grab_remove($cell -> { _popup });
+  $cell -> { _popup } -> hide();
+}
+
+sub get_today {
+  my ($cell) = @_;
+
+  my ($day, $month, $year) = (localtime())[3, 4, 5];
+  $year += 1900;
+  $month += 1;
+
+  return ($year, $month, $day);
+}
+
+sub get_date {
+  my ($cell) = @_;
+
+  my $text = $cell -> get("date");
+  my ($year, $month, $day) = $text
+    ? split(/[\/-]/, $text)
+    : $cell -> get_today();
+
+  return ($year, $month, $day);
+}
+
+sub add_padding {
+  my ($cell, $year, $month, $day) = @_;
+  return ($year, sprintf("%02d", $month), sprintf("%02d", $day));
+}
+
+sub INIT_INSTANCE {
+  my ($cell) = @_;
+
+  my $popup = Gtk2::Window -> new ('popup');
+  my $vbox = Gtk2::VBox -> new(0, 0);
+
+  my $calendar = Gtk2::Calendar -> new();
+
+  my $hbox = Gtk2::HBox -> new(0, 0);
+
+  my $today = Gtk2::Button -> new('Today');
+  my $none = Gtk2::Button -> new('None');
+
+  $cell -> {_arrow} = Gtk2::Arrow -> new("down", "none");
+
+  # We can't just provide the callbacks now because they might need access to
+  # cell-specific variables.  And we can't just connect the signals in
+  # START_EDITING because we'd be connecting many signal handlers to the same
+  # widgets.
+  $today -> signal_connect(clicked => sub {
+    $cell -> { _today_clicked_callback } -> (@_)
+      if (exists($cell -> { _today_clicked_callback }));
+  });
+
+  $none -> signal_connect(clicked => sub {
+    $cell -> { _none_clicked_callback } -> (@_)
+      if (exists($cell -> { _none_clicked_callback }));
+  });
+
+  $calendar -> signal_connect(day_selected_double_click => sub {
+    $cell -> { _day_selected_double_click_callback } -> (@_)
+      if (exists($cell -> { _day_selected_double_click_callback }));
+  });
+
+  $calendar -> signal_connect(month_changed => sub {
+    $cell -> { _month_changed } -> (@_)
+      if (exists($cell -> { _month_changed }));
+  });
+
+  $hbox -> pack_start($today, 1, 1, 0);
+  $hbox -> pack_start($none, 1, 1, 0);
+
+  $vbox -> pack_start($calendar, 1, 1, 0);
+  $vbox -> pack_start($hbox, 0, 0, 0);
+
+  # Find out if the click happended outside of our window.  If so, hide it.
+  # Largely copied from Planner (the former MrProject).
+
+  # Implement via Gtk2::get_event_widget?
+  $popup -> signal_connect(button_press_event => sub {
+    my ($popup, $event) = @_;
+
+    if ($event -> button() == 1) {
+      my ($x, $y) = ($event -> x_root(), $event -> y_root());
+      my ($xoffset, $yoffset) = $popup -> window() -> get_root_origin();
+
+      my $allocation = $popup -> allocation();
+
+      my $x1 = $xoffset + 2 * $allocation -> x();
+      my $y1 = $yoffset + 2 * $allocation -> y();
+      my $x2 = $x1 + $allocation -> width();
+      my $y2 = $y1 + $allocation -> height();
+
+      unless ($x > $x1 && $x < $x2 && $y > $y1 && $y < $y2) {
+        $cell -> hide_popup();
+        return 1;
+      }
+    }
+
+    return 0;
+  });
+
+  $popup -> add($vbox);
+
+  $cell -> { _popup } = $popup;
+  $cell -> { _calendar } = $calendar;
+}
+
+sub START_EDITING {
+  my ($cell, $event, $view, $path, $background_area, $cell_area, $flags) = @_;
+
+  my $popup = $cell -> { _popup };
+  my $calendar = $cell -> { _calendar };
+
+  # Specify the callbacks.  Will be called by the signal handlers set up in
+  # INIT_INSTANCE.
+  $cell -> { _today_clicked_callback } = sub {
+    my ($button) = @_;
+    my ($year, $month, $day) = $cell -> get_today();
+
+    $cell -> signal_emit(edited => $path, join("-", $cell -> add_padding($year, $month, $day)));
+    $cell -> hide_popup();
+  };
+
+  $cell -> { _none_clicked_callback } = sub {
+    my ($button) = @_;
+
+    $cell -> signal_emit(edited => $path, "");
+    $cell -> hide_popup();
+  };
+
+  $cell -> { _day_selected_double_click_callback } = sub {
+    my ($calendar) = @_;
+    my ($year, $month, $day) = $calendar -> get_date();
+
+    $cell -> signal_emit(edited => $path, join("-", $cell -> add_padding($year, ++$month, $day)));
+    $cell -> hide_popup();
+  };
+
+  $cell -> { _month_changed } = sub {
+    my ($calendar) = @_;
+
+    my ($selected_year, $selected_month) = $calendar -> get_date();
+    my ($current_year, $current_month, $current_day) = $cell -> get_today();
+
+    if ($selected_year == $current_year &&
+        ++$selected_month == $current_month) {
+      $calendar -> mark_day($current_day);
+    }
+    else {
+      $calendar -> unmark_day($current_day);
+    }
+  };
+
+  my ($year, $month, $day) = $cell -> get_date();
+
+  $calendar -> select_month($month - 1, $year);
+  $calendar -> select_day($day);
+
+  # Necessary to get the correct allocation of the popup.
+  $popup -> move(-500, -500);
+  $popup -> show_all();
+
+  # Align the top right edge of the popup with the the bottom right edge of the
+  # cell.
+  my ($x_origin, $y_origin) =  $view -> get_bin_window() -> get_origin();
+  my ($x_cell, $y_cell) =
+    $view -> tree_to_widget_coords($cell_area -> x(), $cell_area -> y());
+
+  $popup -> move(
+    $x_origin + $x_cell + $cell_area -> width() - $popup -> allocation() -> width(),
+    $y_origin + $y_cell + $cell_area -> height()
+  );
+
+  # Grab the focus and the pointer.
+  Gtk2 -> grab_add($popup);
+  $popup -> grab_focus();
+
+  Gtk2::Gdk -> pointer_grab($popup -> window(),
+                            1,
+                            [qw(button-press-mask
+                                button-release-mask
+                                pointer-motion-mask)],
+                            undef,
+                            undef,
+                            0);
+
+  return;
+}
 
 sub get_date_string {
-  my ($cell) = @_;
-  my ($year, $month, $day) = split(/\//, $cell -> { date });
-  return join("/", ($year, sprintf("%02d", $month), sprintf("%02d", $day)));
+  my $cell = shift;
+  return $cell->get ('date');
 }
 
 sub calc_size {
@@ -66,7 +254,7 @@ sub calc_size {
           $height + y_padding * 2);
 }
 
-sub on_get_size {
+sub GET_SIZE {
   my ($cell, $widget, $cell_area) = @_;
 
   my $layout = $cell -> get_layout($widget);
@@ -81,7 +269,7 @@ sub get_layout {
   return $widget -> create_pango_layout("");
 }
 
-sub on_render {
+sub RENDER {
   my ($cell, $window, $widget, $background_area, $cell_area, $expose_area, $flags) = @_;
   my $state;
 
@@ -114,7 +302,7 @@ sub on_render {
                                        $widget->state,
                                        'none',
                                        $cell_area,
-                                       $arrow,
+                                       $cell -> { _arrow },
                                        "",
                                        "down",
                                        1,
@@ -122,70 +310,6 @@ sub on_render {
                                        $cell_area -> y + $cell_area -> height - arrow_height - 2,
                                        arrow_width - 3,
                                        arrow_height);
-}
-
-sub on_start_editing {
-  my ($cell, $event, $view, $path, $background_area, $cell_area, $flags) = @_;
-
-  if (defined($popup_window)) {
-    $popup_window -> destroy();
-    $popup_window = undef;
-  }
-
-  
-
-  my ($x_origin, $y_origin) =  $view -> get_bin_window() -> get_origin();
-  my ($x_cell, $y_cell) = $view -> tree_to_widget_coords($cell_area -> x(), $cell_area -> y());
-
-  $popup_window = Gtk2::Window -> new("popup");
-  my $calendar = Gtk2::Calendar -> new();
-
-  my ($year, $month, $day) = split(/\//, $cell -> get_date_string());
-
-  $calendar -> select_month($month - 1, $year);
-  $calendar -> select_day($day);
-
-  $calendar -> display_options([qw(show_heading
-                                   show_day_names
-                                   week_start_monday)]);
-
-  # FIXME this needs some serious work on focus handling and events and
-  # keyboard and pointer grabs and such so that the date popup goes away
-  # at the right time.  i tried looking through GtkCombo for inspiration,
-  # but that's a little beyond what i'm up for right now.  -- muppet
-#  $popup_window -> signal_connect(button_press_event => sub {
-#    my ($widget, $event) = @_;
-#    warn "hey there";
-#    return 0;
-#  });
-#  $popup_window -> signal_connect(key_press_event => sub {
-#    my ($widget, $event) = @_;
-#    use Gtk2::Gdk::Keysyms;
-#    if ($event -> keyval == $Gtk2::Gdk::Keysyms{ Escape }) {
-#      $popup_window->destroy;
-#      $popup_window = undef;
-#      return 1;
-#    }
-#    return 0;
-#  });
-  $calendar -> signal_connect(day_selected_double_click => sub {
-    my ($calendar) = @_;
-
-    $cell -> signal_emit(edited => $path, [$calendar -> get_date()]);
-    $popup_window -> destroy();
-    $popup_window = undef;
-  });
-
-  $popup_window -> move($x_origin + $x_cell,
-                        $y_origin + $y_cell + $cell_area -> height());
-
-  $popup_window -> add($calendar);
-  $popup_window -> show_all();
-
-#  $calendar->grab_focus;
-#  Gtk2->grab_add ($popup_window);
-
-  return;
 }
 
 
@@ -200,7 +324,7 @@ $window -> signal_connect (delete_event => sub { Gtk2 -> main_quit(); });
 my $model = Gtk2::ListStore -> new(qw(Glib::String));
 my $view = Gtk2::TreeView -> new($model);
 
-foreach (qw(2003/10/1 2003/10/2 2003/10/3)) {
+foreach (qw(2003-10-1 2003-10-2 2003-10-3)) {
   $model -> set($model -> append(), 0 => $_);
 }
 
@@ -209,10 +333,9 @@ $renderer -> set(mode => "editable");
 
 $renderer -> signal_connect(edited => sub {
   my ($cell, $path, $new_date) = @_;
-  my ($year, $month, $day) = @{$new_date};
 
   $model -> set($model -> get_iter(Gtk2::TreePath -> new_from_string($path)),
-                0 => join("/", ($year, $month + 1, $day)));
+                0 => $new_date);
 });
 
 my $column = Gtk2::TreeViewColumn -> new_with_attributes ("Date",
