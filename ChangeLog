@@ -1,3 +1,16 @@
+2004/02/14 00:29 (+0100) kaffeetisch
+
+	* t/GtkComboBox.t: Use a proper skip.  The bug's fixed in cvs now.
+
+	* t/GtkIconTheme.t: Change the TODO into a SKIP.  The bug's been
+	fixed in cvs.  Test list_icons.
+
+	* t/GtkItemFactory.t: Skip two tests if a certain function
+	returned undef.  Very rarely caused test failures for me.
+
+	* t/PangoTabs.t: Change the skip_all into a normal skip.  The bug
+	is fixed in cvs and will hopefully be in the next release.
+
 2004/02/12 19:00 (-0500) muppetman
 
 	* Gtk2.pm, Makefile.PL, README, NEWS: unstable release 1.035

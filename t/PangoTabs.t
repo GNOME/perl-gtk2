@@ -1,26 +1,29 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper
-  tests => 6, noinit => 1, # FIXME: change that once it's been fixed.
-  skip_all => "PangoTabs is rather borken, skip the whole test for now";
+use Gtk2::TestHelper tests => 6, noinit => 1;
 
 # $Header$
 
-my $array = Gtk2::Pango::TabArray -> new(8, 0);
-isa_ok($array, "Gtk2::Pango::TabArray");
+SKIP: {
+  skip("PangoTabs was broken prior to 1.3.3", 6)
+    unless (Gtk2::Pango -> check_version(1, 3, 3));
 
-$array = Gtk2::Pango::TabArray -> new(2, 1, "left", 8, "left", 16);
-isa_ok($array, "Gtk2::Pango::TabArray");
+  my $array = Gtk2::Pango::TabArray -> new(8, 0);
+  isa_ok($array, "Gtk2::Pango::TabArray");
 
-$array -> resize(3);
-is($array -> get_size(), 3);
+  $array = Gtk2::Pango::TabArray -> new(2, 1, "left", 8, "left", 16);
+  isa_ok($array, "Gtk2::Pango::TabArray");
 
-$array -> set_tab(2, "left", 24);
-is_deeply([$array -> get_tab(2)], ["left", 24]);
+  $array -> resize(3);
+  is($array -> get_size(), 3);
 
-is_deeply([$array -> get_tabs()], ["left", 8, "left", 16, "left", 24]);
+  $array -> set_tab(2, "left", 24);
+  is_deeply([$array -> get_tab(2)], ["left", 24]);
 
-is($array -> get_positions_in_pixels(), 1);
+  is_deeply([$array -> get_tabs()], ["left", 8, "left", 16, "left", 24]);
+
+  is($array -> get_positions_in_pixels(), 1);
+}
 
 __END__
 

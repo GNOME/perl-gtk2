@@ -34,8 +34,8 @@ is ($model->get_path ($combo_box->get_active_iter)->to_string,
     $combo_box->get_active);
 
 SKIP: {
-	skip "set_active_iter is currently borken", 1
-		unless 0; # FIXME: change that once it's fixed.
+	skip "set_active_iter was borken prior to 2.3.3", 1
+		if Gtk2->check_version(2, 3, 3);
 
 	my $iter = $model->get_iter_first;
 	$combo_box->set_active_iter ($iter);

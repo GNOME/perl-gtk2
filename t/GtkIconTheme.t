@@ -5,7 +5,7 @@
 use Gtk2::TestHelper
 	# FIXME 2.4
 	at_least_version => [2, 3, 0, "GtkIconTheme is new in 2.4"],
-	tests => 10;
+	tests => 11;
 
 my $icon_theme = Gtk2::IconTheme->new;
 isa_ok ($icon_theme, 'Gtk2::IconTheme');
@@ -18,8 +18,11 @@ isa_ok ($icon_theme, 'Gtk2::IconTheme');
 
 $icon_theme->set_screen (Gtk2::Gdk::Screen->get_default);
 
-TODO: {
-	local $TODO = "the various path function are currently broken";
+ok ($icon_theme->list_icons (undef));
+
+SKIP: {
+	skip "the search path api was broken prior to 2.3.3", 3
+		if Gtk2->check_version(2, 3, 3);
 	
 	my @paths = qw(/tmp /etc /home);
 	$icon_theme->set_search_path (@paths);
@@ -37,10 +40,6 @@ TODO: {
 
 ok (!$icon_theme->has_icon ('gtk-open'));
 ok (!$icon_theme->has_icon ('something crazy'));
-
-my @icons = $icon_theme->list_icons (undef);
-use Data::Dumper;
-print Dumper (@icons);
 
 # cannot call set_custom_theme on a default theme
 $icon_theme = Gtk2::IconTheme->new;
