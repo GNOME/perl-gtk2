@@ -1,3 +1,13 @@
+2004/02/11 20:25 (+0100) kaffeetisch
+
+	* examples/cellrenderer_date.pl: Adjust the positioning code to
+	work correctly with scrolled tree views.
+
+	* t/GtkUIManager.t: Test insert_action_group, get_action_groups,
+	remove_action_group, get_accel_group, add_ui_from_string,
+	add_ui_from_string, add_ui, remove_ui, ensure_update, get_ui,
+	get_widget, get_toplevels, and get_action.
+
 2004/02/11 00:37 (+0100) kaffeetisch
 
 	* t/GtkComboBox.t: Test new, new_with_model, set_wrap_width,

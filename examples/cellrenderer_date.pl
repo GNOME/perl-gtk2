@@ -215,12 +215,10 @@ sub START_EDITING {
   # Align the top right edge of the popup with the the bottom right edge of the
   # cell.
   my ($x_origin, $y_origin) =  $view -> get_bin_window() -> get_origin();
-  my ($x_cell, $y_cell) =
-    $view -> tree_to_widget_coords($cell_area -> x(), $cell_area -> y());
 
   $popup -> move(
-    $x_origin + $x_cell + $cell_area -> width() - $popup -> allocation() -> width(),
-    $y_origin + $y_cell + $cell_area -> height()
+    $x_origin + $cell_area -> x() + $cell_area -> width() - $popup -> allocation() -> width(),
+    $y_origin + $cell_area -> y() + $cell_area -> height()
   );
 
   # Grab the focus and the pointer.
