@@ -23,6 +23,8 @@
 
 MODULE = Gtk2::Socket	PACKAGE = Gtk2::Socket	PREFIX = gtk_socket_
 
+#ifndef GDK_WINDOWING_WIN32 /* no plug/socket on win32 despite patches exist for years. */
+
 ## GtkWidget* gtk_socket_new (void)
 GtkWidget *
 gtk_socket_new (class)
@@ -45,4 +47,6 @@ void
 gtk_socket_steal (socket, wid)
 	GtkSocket       * socket
 	GdkNativeWindow   wid
+
+#endif
 

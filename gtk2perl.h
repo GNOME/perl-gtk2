@@ -26,6 +26,11 @@
 #include <gtk/gtk.h>
 #include "gtk2perl-autogen.h"
 
+#ifdef GDK_WINDOWING_WIN32 /* no plug/socket on win32 despite patches exist for years. */
+# undef GTK_TYPE_PLUG
+# undef GTK_TYPE_SOCKET
+#endif
+
 /**
  * gtk2perl_new_gtkobject:
  * @object: object to wrap.

@@ -30,7 +30,6 @@ gtk_radio_button_new (class, member_or_listref=NULL, label=NULL)
 	SV          * member_or_listref
 	const gchar * label
     ALIAS:
-	Gtk2::RadioButton::new = 0
 	Gtk2::RadioButton::new_with_mnemonic = 1
 	Gtk2::RadioButton::new_with_label = 2
     PREINIT:
@@ -66,12 +65,11 @@ gtk_radio_button_new (class, member_or_listref=NULL, label=NULL)
 
 
 GtkWidget *
-gtk_radio_button_news_from_widget (class, group, label=NULL)
+gtk_radio_button_new_from_widget (class, group, label=NULL)
 	SV                    * class
 	GtkRadioButton_ornull * group
 	const gchar           * label
     ALIAS:
-	Gtk2::RadioButton::new_from_widget = 0
 	Gtk2::RadioButton::new_with_mnemonic_from_widget = 1
 	Gtk2::RadioButton::new_with_label_from_widget = 2
     CODE:
