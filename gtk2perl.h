@@ -67,6 +67,7 @@ typedef GdkBitmap GdkBitmap_noinc;
  * GType exists for GdkBitmap. */
 SV * newSVGdkBitmap (GdkBitmap * bitmap);
 SV * newSVGdkBitmap_noinc (GdkBitmap * bitmap);
+#define newSVGdkBitmap_ornull(b) (b ? newSVGdkBitmap (b) : Nullsv)
 
 
 /*
