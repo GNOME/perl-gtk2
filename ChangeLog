@@ -1,3 +1,12 @@
+2004/01/20 21:33 (+0100) kaffeetisch
+
+	* t/01.GtkWindow.t
+	* t/GtkMessageDialog.t
+	* t/GtkTreeView.t: Tests for 2.4 stuff.
+
+	* xs/GtkRc.xs: Add a FIXME comment about the weird sporadic
+	segfaults I'm seeing.
+
 2004/01/20 12:29 (-0500) muppetman
 
 	* xs/GdkKeys.xs: change PREFIX to fix gdk_keyval_* functions.

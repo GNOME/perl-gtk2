@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 116;
+use Gtk2::TestHelper tests => 117;
 
 my @version_info = Gtk2 -> get_version_info();
 
@@ -99,6 +99,14 @@ SKIP: {
 		unless ($version_info[1] >= 2);
 
 	ok(!$view_column -> cell_is_visible());
+}
+
+SKIP: {
+	skip("[sg]et_expand are new in 2.3", 1)
+		if (Gtk2 -> check_version(2, 3, 0));
+
+	$view_column -> set_expand(1);
+	is($view_column -> get_expand(), 1);
 }
 
 ###############################################################################
@@ -350,16 +358,9 @@ $view->signal_connect (button_press_event => sub {
 
 	});
 my $event = Gtk2::Gdk::Event->new ('button-press');
-Glib::Idle->add (sub {
-		$view->signal_emit ('button_press_event', $event);
-		Gtk2->main_quit;
-		0;
-	});
-Gtk2->main;
-
-###############################################################################
 
 Glib::Idle -> add(sub {
+	$view->signal_emit ('button_press_event', $event);
 	Gtk2 -> main_quit();
 	return 0;
 });

@@ -9,7 +9,7 @@
 
 #########################
 
-use Gtk2::TestHelper tests => 101;
+use Gtk2::TestHelper tests => 104;
 
 ok( my $win = Gtk2::Window->new );
 ok( $win = Gtk2::Window->new('popup') );
@@ -243,6 +243,22 @@ Glib::Idle->add(sub {
 
 			$win->fullscreen;
 			$win->unfullscreen;
+		}
+
+		SKIP: {
+			skip "new things in 2.3", 3
+				if Gtk2->check_version (2, 3, 0);
+
+			is($win->is_active, 1);
+			is($win->has_toplevel_focus, 1);
+
+			$win->set_keep_above (1);
+			$win->set_keep_below (1);
+
+			$win->set_accept_focus (1);
+			is ($win->get_accept_focus, 1);
+
+			$win->set_default_icon (Gtk2::Gdk::Pixbuf->new ("rgb", 0, 8, 15, 15));
 		}
 
 		# Commented out because there seems to be no way to finish the

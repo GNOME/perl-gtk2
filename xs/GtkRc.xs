@@ -165,6 +165,9 @@ MODULE = Gtk2::Rc	PACKAGE = Gtk2::RcStyle	PREFIX = gtk_rc_style_
 
 ## void _gtk_rc_reset_styles (GtkSettings *settings)
 
+# FIXME: "name" and "bg_pixmap_name" seem to be broken.  valgrind warns about
+# an invalid free, looks like Perl and gtk+ try to free the string.
+
 SV *
 name (style, new=NULL)
 	GtkRcStyle *style
