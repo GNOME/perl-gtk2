@@ -1,3 +1,8 @@
+2004/01/12 09:49 (-0500) rwmcfa1
+
+	* t/GtkTreeView.xs: added tests for set_cursor_on_cell, scroll_to_point,
+	get_path_at_pos, tree_to_widget_coords, and widget_to_tree_coords.
+
 2004/01/12 23:45 (+0100) kaffeetisch
 
 	* t/GtkDnd.t: Skip a few things if Gtk2::Gdk::Event::new isn't
