@@ -334,7 +334,24 @@ void gdk_window_get_root_origin (GdkWindow *window, OUTLIST gint x, OUTLIST gint
  ## GdkWindow* gdk_window_get_pointer (GdkWindow *window, gint *x, gint *y, GdkModifierType *mask)
  ## perl call signature:
  ## (window_ornull, x, y, mask) = $GdkWindow->get_pointer
-GdkWindow_ornull* gdk_window_get_pointer (GdkWindow *window, OUTLIST gint x, OUTLIST gint y, OUTLIST GdkModifierType mask)
+  ## i really don't see the difference between the inline OUTLIST format
+  ## and my hand-coded stuff below, but the inline stuff barfs all over
+  ## itself at runtime.  can't quite figure it out.
+###GdkWindow_ornull* gdk_window_get_pointer (GdkWindow *window, OUTLIST gint x, OUTLIST gint y, OUTLIST GdkModifierType mask)
+void
+gdk_window_get_pointer (window)
+	GdkWindow * window
+    PREINIT:
+	GdkWindow * window_at_pointer;
+	gint x, y;
+	GdkModifierType mask;
+    PPCODE:
+	window_at_pointer = gdk_window_get_pointer (window, &x, &y, &mask);
+	EXTEND (SP, 4);
+	PUSHs (sv_2mortal (newSVGdkWindow_ornull (window_at_pointer)));
+	PUSHs (sv_2mortal (newSViv (x)));
+	PUSHs (sv_2mortal (newSViv (y)));
+	PUSHs (sv_2mortal (newSVGdkModifierType (mask)));
 
  ## GdkWindow * gdk_window_get_parent (GdkWindow *window)
  ##GdkWindow *
