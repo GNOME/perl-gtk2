@@ -10,7 +10,7 @@ my $context = $label -> create_pango_context();
 isa_ok($context, "Gtk2::Pango::Context");
 
 SKIP: {
-  skip("get_font_map is new in 1.6", 4)
+  skip("get_font_map is new in 1.6", 3)
     unless (Gtk2::Pango -> CHECK_VERSION(1, 6, 0));
 
   my $map = $context -> get_font_map();

@@ -1,3 +1,7 @@
+2004/10/24 11:48 (-0400) muppetman
+
+	* t/PangoFontMap.t: correct skip count
+
 2004/10/24 10:52 (-0400) rwmcfa1
 
 	* t/GtkComboBox.t: gtk+ changed behavior, when something is selected
