@@ -1,3 +1,8 @@
+2003/09/11 23:41 muppetman
+
+	* examples/histogramplot.pl: update to use the new, fixed overrides
+	features of Glib::Object::Subclass in Glib 1.00rc1.
+
 2003/09/11 11:01 rwmcfa1
 
 	* t/*.t: use strict and use warnings added and fixes made to allow
