@@ -25,45 +25,64 @@
 this is an interface
 */
 
-#define PREP(cell)	\
+#define PREP		\
 	dSP;		\
 	ENTER;		\
 	SAVETMPS;	\
 	PUSHMARK (SP);	\
 	PUSHs (sv_2mortal (newSVGObject (G_OBJECT (cell))));
 
-#define CALL(name)	\
-	PUTBACK;				\
-	call_method (name, G_VOID|G_DISCARD);
+#define CALL		\
+	PUTBACK;	\
+	call_sv ((SV *)GvCV (slot), G_VOID|G_DISCARD);
 
-#define FINISH	\
+#define FINISH		\
 	FREETMPS;	\
 	LEAVE;
 
+#define GET_METHOD(method)	\
+	HV * stash = gperl_object_stash_from_type (G_OBJECT_TYPE (cell)); \
+	GV * slot = gv_fetchmethod (stash, method);
+
+#define METHOD_EXISTS (slot && GvCV (slot))
+		
+
 static void
-gtk2perl_cell_editable_start_editing (GtkCellEditable *cell_editable,
+gtk2perl_cell_editable_start_editing (GtkCellEditable *cell,
                                       GdkEvent *event)
 {
-	PREP (cell_editable);
-	XPUSHs (sv_2mortal (newSVGdkEvent (event)));
-	CALL ("START_EDITING");
-	FINISH;
+	GET_METHOD ("START_EDITING");
+
+	if (METHOD_EXISTS) {
+		PREP;
+		XPUSHs (sv_2mortal (newSVGdkEvent (event)));
+		CALL;
+		FINISH;
+	}
 }
 
 static void
-gtk2perl_cell_editable_editing_done (GtkCellEditable *cell_editable)
+gtk2perl_cell_editable_editing_done (GtkCellEditable *cell)
 {
-	PREP (cell_editable);
-	CALL ("EDITING_DONE");
-	FINISH;
+	GET_METHOD ("EDITING_DONE");
+
+	if (METHOD_EXISTS) {
+		PREP;
+		CALL;
+		FINISH;
+	}
 }
 
 static void
-gtk2perl_cell_editable_remove_widget (GtkCellEditable *cell_editable)
+gtk2perl_cell_editable_remove_widget (GtkCellEditable *cell)
 {
-	PREP (cell_editable);
-	CALL ("REMOVE_WIDGET");
-	FINISH;
+	GET_METHOD ("REMOVE_WIDGET");
+
+	if (METHOD_EXISTS) {
+		PREP;
+		CALL;
+		FINISH;
+	}
 }
 
 static void

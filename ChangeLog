@@ -1,6 +1,11 @@
+2004/03/03 05:32 (+0100) kaffeetisch
+
+	* xs/GtkCellEditable.xs: Make implementing the GtkCellEditable
+	vfuncs optional by checking if they exist before calling them.
+
 2004/03/03 00:35 (+0100) kaffeetisch
 
-	* t/GtkFileChooser.t: Change the TODOs into SKIPs -- the bugs have
+	* t/GtkFileChooser.t: Change the TODOs to SKIPs -- the bugs have
 	been fixed in 2.3.5.
 
 	* t/GtkDnd.t
