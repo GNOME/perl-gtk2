@@ -6,7 +6,6 @@ Gtk2.pm
 LICENSE
 MANIFEST			This list of files
 MANIFEST.SKIP
-MANIFEST_
 META.yml
 Makefile.PL
 README
