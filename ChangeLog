@@ -1,3 +1,8 @@
+2004/02/02 08:06 (-0500) rwmcfa1
+
+	* pm/TestHelper.pm: added the ablity to skip_all, pretty much just a
+	pass through to Test::More, but a nice feature to have anyway.
+
 2004/02/03 00:21 (+0100) kaffeetisch
 
 	* xs/PangoLayout.xs: Change the PangoLogAttr to use UVs instead of

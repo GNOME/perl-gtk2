@@ -12,7 +12,9 @@ sub import
 {
 	shift;
 	my %opts = (@_);
-		
+
+	plan skip_all => $opts{skip_all} if ($opts{skip_all});
+
 	my ($major, $minor, $micro) = Gtk2->get_version_info;
 
 	croak "tests must be provided at import" unless (exists ($opts{tests}));
