@@ -1,7 +1,8 @@
 #!/usr/bin/perl -w
 
 #
-# Copyright (C) 2003 by Torsten Schoenfeld, with minor hacks by muppet.
+# Copyright (C) 2003-2004 by Torsten Schoenfeld, with hacks by muppet, some
+# suggested by Jens Wilke.
 # 
 # This library is free software; you can redistribute it and/or modify it under
 # the terms of the GNU Library General Public License as published by the Free
@@ -29,6 +30,7 @@ package Gtk2::CellRendererSpinButton;
 
 use POSIX qw(DBL_MAX UINT_MAX);
 
+use Glib qw(TRUE FALSE);
 use constant x_padding => 2;
 use constant y_padding => 3;
 
@@ -75,7 +77,7 @@ sub calc_size {
   my ($width, $height) = $layout -> get_pixel_size();
 
   return ($area ? $cell->{xalign} * ($area->width - ($width + 3 * x_padding)) : 0,
-          0,
+          $area ? ($area->height - $height) / 2 - y_padding : 0,
           $width + x_padding * 2,
           $height + y_padding * 2);
 }
@@ -131,6 +133,15 @@ sub RENDER {
                                        $layout);
 }
 
+sub _cell_editing_done {
+  my ($self, $path, $new_value) = @_;
+  if ($self->{_focus_out_id}) {
+    $self->signal_handler_disconnect($self->{_focus_out_id});
+    delete $self->{_focus_out_id};
+  }
+  $self->signal_emit('edited', $path, $new_value);
+}
+
 sub START_EDITING {
   my ($cell, $event, $view, $path, $background_area, $cell_area, $flags) = @_;
   my $spin_button = Gtk2::SpinButton -> new_with_range($cell -> get(qw(min max step)));
@@ -141,28 +152,48 @@ sub START_EDITING {
   $spin_button -> grab_focus();
 
   $spin_button -> signal_connect(key_press_event => sub {
-    my ($event_box, $event) = @_;
+    my (undef, $event) = @_;
 
     if ($event -> keyval == $Gtk2::Gdk::Keysyms{ Return } ||
         $event -> keyval == $Gtk2::Gdk::Keysyms{ KP_Enter }) {
       $spin_button -> update();
-      $cell -> signal_emit(edited => $path, $spin_button -> get_value());
+      $cell -> _cell_editing_done($path, $spin_button -> get_value());
       $spin_button -> destroy();
-      return 1;
+      return TRUE;
     }
     elsif ($event -> keyval == $Gtk2::Gdk::Keysyms{ Up }) {
       $spin_button -> spin('step-forward', ($spin_button -> get_increments())[0]);
-      return 1;
+      return TRUE;
     }
     elsif ($event -> keyval == $Gtk2::Gdk::Keysyms{ Down }) {
       $spin_button -> spin('step-backward', ($spin_button -> get_increments())[0]);
-      return 1;
+      return TRUE;
     }
 
-    return 0;
+    return FALSE;
   });
 
+  $spin_button -> {_focus_out_id} = 
+      $spin_button -> signal_connect(focus_out_event => sub {
+        my (undef, $event) = @_;
+        $cell -> _cell_editing_done($path, $spin_button -> get_value());
+        # the spinbutton needs the focus-out event, don't eat it.
+        return FALSE;
+      });
+
   $spin_button -> show_all();
+
+  # we don't want the editor widget to be the full height of the cell;
+  # if the cell is taller than the spinbutton, the entry will grow, but
+  # the spinner buttons won't.  tell the system that the cell is only
+  # as tall as the spinbutton wants to be, and it will do the right thing.
+  # this means we have to ask the spinbutton how big it wants to be; it
+  # hasn't been mapped yet, so we'll have to trigger an actual size_request
+  # calculation.
+  my $requisition = $spin_button->size_request;
+  $cell_area->y ($cell_area->y
+                 + ($cell_area->height - $requisition->height) / 2);
+  $cell_area->height ($requisition->height);
 
   return $spin_button;
 }
@@ -171,6 +202,8 @@ sub START_EDITING {
 ###############################################################################
 
 package main;
+
+use Glib qw(TRUE FALSE);
 
 my $window = Gtk2::Window -> new("toplevel");
 $window -> set_title ("CellRendererSpinButton");
@@ -203,6 +236,7 @@ $renderer -> signal_connect(edited => \&cell_edited);
 my $column = Gtk2::TreeViewColumn -> new_with_attributes ("no digits",
                                                           $renderer,
                                                           value => 0);
+$column->set_resizable (TRUE);
 
 $view -> append_column($column);
 
@@ -223,6 +257,7 @@ $renderer -> signal_connect(edited => \&cell_edited);
 $column = Gtk2::TreeViewColumn -> new_with_attributes ("one digit",
                                                        $renderer,
                                                        value => 0);
+$column->set_resizable (TRUE);
 
 $view -> append_column($column);
 
@@ -243,8 +278,10 @@ $renderer -> signal_connect(edited => \&cell_edited);
 $column = Gtk2::TreeViewColumn -> new_with_attributes ("two digits",
                                                        $renderer,
                                                        value => 0);
+$column->set_resizable (TRUE);
 
 $view -> append_column($column);
+
 
 $window -> add($view);
 $window -> show_all();
