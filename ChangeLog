@@ -1,3 +1,10 @@
+2004/01/21 21:00 (-0500) muppetman
+
+	* gtk2perl.h, xs/GtkClipboard.xs, xs/GtkSelection.xs: use
+	gperl_alloc_temp() instead of g_new0() in
+	GTK2PERL_STACK_ITEMS_TO_TARGET_ENTRY_ARRAY(), and adjust the code
+	to suit.
+
 2004/01/21 00:45 (+0100) kaffeetisch
 
 	* t/Gdk.t: Use show_now instead of show to make sure the window's

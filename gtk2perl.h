@@ -86,7 +86,7 @@ void gtk2perl_read_gtk_target_entry (SV * sv, GtkTargetEntry * entry);
 	{							\
 	guint i;						\
 	ntargets = items - first;				\
-	targets = g_new0 (GtkTargetEntry, ntargets);		\
+	targets = gperl_alloc_temp (sizeof (GtkTargetEntry) * ntargets); \
 	for (i = 0 ; i < ntargets ; i++)			\
 		gtk2perl_read_gtk_target_entry (ST (i + first),	\
 		                                targets + i);	\

@@ -218,8 +218,6 @@ gtk_clipboard_set_with_data (clipboard, get_func, clear_func, user_data, ...)
 	}
     OUTPUT:
 	RETVAL
-    CLEANUP:
-	g_free (targets);
 
 ##  gboolean gtk_clipboard_set_with_owner (GtkClipboard *clipboard, const GtkTargetEntry *targets, guint n_targets, GtkClipboardGetFunc get_func, GtkClipboardClearFunc clear_func, GObject *owner) 
 =for apidoc

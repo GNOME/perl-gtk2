@@ -123,7 +123,6 @@ gtk_target_list_new (class, ...)
     OUTPUT:
 	RETVAL
     CLEANUP:
-	g_free (targets);
 	gtk_target_list_unref (RETVAL);
 
  ## unmapped, automagical
@@ -150,8 +149,6 @@ gtk_target_list_add_table (GtkTargetList * list, ...)
     CODE:
 	GTK2PERL_STACK_ITEMS_TO_TARGET_ENTRY_ARRAY (1, targets, ntargets);
 	gtk_target_list_add_table (list, targets, ntargets);
-    CLEANUP:
-	g_free (targets);
 
 ##  void gtk_target_list_remove (GtkTargetList *list, GdkAtom target) 
 void
@@ -220,7 +217,6 @@ gtk_selection_add_targets (widget, selection, ...)
     CODE:
 	GTK2PERL_STACK_ITEMS_TO_TARGET_ENTRY_ARRAY (2, targets, ntargets);
 	gtk_selection_add_targets (widget, selection, targets, ntargets);
-	g_free (targets);
 
 ##  void gtk_selection_clear_targets (GtkWidget *widget, GdkAtom selection) 
 void
