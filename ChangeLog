@@ -1,3 +1,9 @@
+2003/11/13 21:26 (-0500) muppetman
+
+	* xs/GdkWindow.xs, xs/GtkWidget.xs: genfirstpass appears to have
+	skipped shape_combine_mask all those months ago.  implemented it in
+	both GdkWindow and GtkWidget because i like cool shaped windows.
+
 2003/11/13 13:25 (-0500) muppetman
 
 	* gdk.typemap: hush compiler warning 'incompatible type for arg 1 of

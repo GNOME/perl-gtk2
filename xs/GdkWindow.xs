@@ -176,6 +176,8 @@ gdk_window_scroll (window, dx, dy)
 	gint dx
 	gint dy
 
+void gdk_window_shape_combine_mask (GdkWindow * window, GdkBitmap * mask, gint x, gint y);
+
   ## FIXME needs typemap for GdkRegion
  ## void gdk_window_shape_combine_region (GdkWindow *window, GdkRegion *shape_region, gint offset_x, gint offset_y)
  ##void

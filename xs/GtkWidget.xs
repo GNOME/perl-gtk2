@@ -742,10 +742,7 @@ gtk_widget_get_default_direction (class);
 
  #/* Counterpart to gdk_window_shape_combine_mask.
  # */
- #void	     gtk_widget_shape_combine_mask (GtkWidget *widget,
- #					    GdkBitmap *shape_mask,
- #					    gint       offset_x,
- #					    gint       offset_y);
+void gtk_widget_shape_combine_mask (GtkWidget *widget, GdkBitmap *shape_mask, gint offset_x, gint offset_y);
 
 
 
