@@ -1,3 +1,17 @@
+2004/01/09 06:19 (+0100) kaffeetisch
+
+	* xs/GtkAccelGroup.xs: Don't unref the closure in connect_by_path.
+	Make Gtk2::Accelerator::get_default_mod_mask return a
+	GdkModifierType.  Add a class argument to
+	Gtk2::Accelerator::valid.
+
+	* xs/GtkSelection.xs: The flags member of GtkTargetEntry's is a
+	GtkTargetFlags not an UV.  Move Gtk2::Selection::remove_all to the
+	proper namespace.
+
+	* xs/GtkWindow.xs: Move the window group methods into the proper
+	namespace.
+
 2004/01/08 18:55 (-0500) rwmcfa1
 
 	* xs/GdkWindow.xs: fixed bug found in test branch where attribute_mask
