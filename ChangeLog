@@ -1,3 +1,13 @@
+2004/10/24 12:00 (-0400) muppetman
+
+	* xs/GtkTreeView.xs, t/GtkTreeView.t: bind and test
+	gtk_tree_view_[gs]et_fixed_height_mode,
+	gtk_tree_view_[gs]et_hover_selection,
+	gtk_tree_view_[gs]et_hover_expand,
+	gtk_tree_view_set_row_separator_func.  the getter for row
+	separator func is not bound, and i don't think we can do it
+	reasonably.
+
 2004/10/24 11:56 (-0400) muppetman
 
 	* xs/GtkComboBox.xs, t/GtkComboBox.t: bind and test

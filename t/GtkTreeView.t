@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 126;
+use Gtk2::TestHelper tests => 156;
 
 # $Header$
 
@@ -291,6 +291,43 @@ ok(!$view -> row_expanded($path));
 
 $view -> set_search_equal_func(sub { return 1; });
 $view -> set_column_drag_function(sub { return 1; });
+
+###############################################################################
+
+SKIP: {
+	# NOTE: the skip count here includes 2 for each tested accessor and
+	#       three for each row that results in a call to the row
+	#       separator callback.  i'm assuming that the number will be
+	#       constant; if not, i suppose we'll just have to disable the
+	#       row separator func test.
+	skip "new toys in 2.6", 30
+		unless Gtk2->CHECK_VERSION (2, 5, 0); # FIXME 2.6.0
+
+	# here are a few new properties which default to off; let's check
+	# the accessors & mutators by turning them on and then back off,
+	# to avoid disrupting the tests that follow.
+	foreach my $thing (qw(fixed_height_mode
+			      hover_selection
+			      hover_expand)) {
+		my $setter = "set_$thing";
+		my $getter = "get_$thing";
+		$view->$setter (1);
+		ok ($view->$getter, $thing);
+
+		$view->$setter (0);
+		ok (!$view->$getter, $thing);
+	}
+
+# FIXME is this a reasonable way to test this?
+	$view->set_row_separator_func (sub {
+		my ($model, $iter, $data) = @_;
+		isa_ok ($model, 'Gtk2::TreeModel');
+		isa_ok ($iter, 'Gtk2::TreeIter');
+		isa_ok ($data, 'HASH');
+		my $path = $model->get_path ($iter);
+		return 1 == ($path->get_indices)[0];
+	}, {thing=>'foo'});
+}
 
 ###############################################################################
 

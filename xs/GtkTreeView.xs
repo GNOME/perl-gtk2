@@ -134,6 +134,38 @@ gtk2perl_tree_view_destroy_count_func (GtkTreeView * tree_view,
 }
 #endif
 
+#if GTK_CHECK_VERSION (2, 5, 2) /* FIXME 2.6.0 */
+
+static GPerlCallback *
+gtk2perl_tree_view_row_separator_func_create (SV * func, SV * data)
+{
+	GType param_types[2];
+	param_types[0] = GTK_TYPE_TREE_MODEL;
+	param_types[1] = GTK_TYPE_TREE_ITER;
+	return gperl_callback_new (func, data, G_N_ELEMENTS (param_types),
+				   param_types, G_TYPE_BOOLEAN);
+}
+
+static gboolean
+gtk2perl_tree_view_row_separator_func (GtkTreeModel      *model,
+				       GtkTreeIter       *iter,
+				       gpointer           data)
+{
+	GPerlCallback * callback = (GPerlCallback *) data;
+	GValue value = {0, };
+	gboolean retval;
+
+	g_value_init (&value, callback->return_type);
+	gperl_callback_invoke (callback, &value, model, iter);
+	retval = g_value_get_boolean (&value);
+	g_value_unset (&value);
+
+	return retval;
+}
+
+#endif /* 2.6.0 */
+
+
 MODULE = Gtk2::TreeView	PACKAGE = Gtk2::TreeView	PREFIX = gtk_tree_view_
 
 =for enum GtkTreeViewDropPosition
@@ -696,3 +728,38 @@ gtk_tree_view_set_search_equal_func (tree_view, func, data=NULL)
 ##					      gtk2perl_tree_view_destroy_count_func,
 ##					      callback,
 ##					      (GDestroyNotify) gperl_callback_destroy);
+
+
+#if GTK_CHECK_VERSION(2,5,2)
+
+void gtk_tree_view_set_fixed_height_mode (GtkTreeView *treeview, gboolean enable);
+
+gboolean gtk_tree_view_get_fixed_height_mode (GtkTreeView *treeview);
+
+void gtk_tree_view_set_hover_selection (GtkTreeView *treeview, gboolean hover);
+
+gboolean gtk_tree_view_get_hover_selection (GtkTreeView *treeview);
+
+void gtk_tree_view_set_hover_expand (GtkTreeView *treeview, gboolean expand);
+
+gboolean gtk_tree_view_get_hover_expand (GtkTreeView *treeview);
+
+# XXX this won't be easy to implement; how do you handle non-binding
+#     functions, and where will we store the GPerlCallback?:
+#GtkTreeViewRowSeparatorFunc gtk_tree_view_get_row_separator_func (GtkTreeView *tree_view);
+
+#void gtk_tree_view_set_row_separator_func (GtkTreeView *tree_view, GtkTreeViewRowSeparatorFunc func, gpointer data, GtkDestroyNotify destroy);
+void
+gtk_tree_view_set_row_separator_func (GtkTreeView *tree_view, SV * func, SV * data=NULL);
+    PREINIT:
+	GPerlCallback * callback;
+    CODE:
+	callback = gtk2perl_tree_view_row_separator_func_create (func, data);
+	gtk_tree_view_set_row_separator_func
+				(tree_view, 
+				 gtk2perl_tree_view_row_separator_func,
+				 callback,
+				 (GDestroyNotify) gperl_callback_destroy);
+
+
+#endif
