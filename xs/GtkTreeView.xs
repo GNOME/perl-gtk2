@@ -323,30 +323,45 @@ gtk_tree_view_get_path_at_pos (tree_view, x, y)
 	PUSHs (sv_2mortal (newSViv (cell_y)));
 
 
-### FIXME return rect
 ### void gtk_tree_view_get_cell_area (GtkTreeView *tree_view, GtkTreePath *path, GtkTreeViewColumn *column, GdkRectangle *rect)
-#void
-#gtk_tree_view_get_cell_area (tree_view, path, column, rect)
-#	GtkTreeView *tree_view
-#	GtkTreePath *path
-#	GtkTreeViewColumn *column
-#	GdkRectangle *rect
+GdkRectangle_copy *
+gtk_tree_view_get_cell_area (tree_view, path, column)
+	GtkTreeView *tree_view
+	GtkTreePath *path
+	GtkTreeViewColumn *column
+    PREINIT:
+	GdkRectangle rect;
+    CODE:
+	gtk_tree_view_get_cell_area (tree_view, path, column, &rect);
+	RETVAL = &rect;
+    OUTPUT:
+	RETVAL
 
-### FIXME return rect
 ### void gtk_tree_view_get_background_area (GtkTreeView *tree_view, GtkTreePath *path, GtkTreeViewColumn *column, GdkRectangle *rect)
-#void
-#gtk_tree_view_get_background_area (tree_view, path, column, rect)
-#	GtkTreeView *tree_view
-#	GtkTreePath *path
-#	GtkTreeViewColumn *column
-#	GdkRectangle *rect
+GdkRectangle_copy *
+gtk_tree_view_get_background_area (tree_view, path, column)
+	GtkTreeView *tree_view
+	GtkTreePath *path
+	GtkTreeViewColumn *column
+    PREINIT:
+	GdkRectangle rect;
+    CODE:
+	gtk_tree_view_get_background_area (tree_view, path, column, &rect);
+	RETVAL = &rect;
+    OUTPUT:
+	RETVAL
 
-### FIXME return rect
 ### void gtk_tree_view_get_visible_rect (GtkTreeView *tree_view, GdkRectangle *visible_rect)
-#void
-#gtk_tree_view_get_visible_rect (tree_view, visible_rect)
-#	GtkTreeView *tree_view
-#	GdkRectangle *visible_rect
+GdkRectangle_copy *
+gtk_tree_view_get_visible_rect (tree_view)
+	GtkTreeView *tree_view
+    PREINIT:
+	GdkRectangle visible_rect;
+    CODE:
+	gtk_tree_view_get_visible_rect (tree_view, &visible_rect);
+	RETVAL = &visible_rect;
+    OUTPUT:
+	RETVAL
 
 
 ## FIXME this is where i stopped so i could try to go home

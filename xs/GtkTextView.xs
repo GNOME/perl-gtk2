@@ -63,10 +63,16 @@ gtk_text_view_place_cursor_onscreen (text_view)
 	GtkTextView * text_view
 
 ## void gtk_text_view_get_visible_rect (GtkTextView *text_view, GdkRectangle *visible_rect)
-void
-gtk_text_view_get_visible_rect (text_view, visible_rect)
+GdkRectangle_copy*
+gtk_text_view_get_visible_rect (text_view)
 	GtkTextView  * text_view
-	GdkRectangle * visible_rect
+    PREINIT:
+	GdkRectangle visible_rect;
+    CODE:
+	gtk_text_view_get_visible_rect (text_view, &visible_rect);
+	RETVAL = &visible_rect;
+    OUTPUT:
+	RETVAL
 
 ## void gtk_text_view_set_cursor_visible (GtkTextView *text_view, gboolean setting)
 void
@@ -79,13 +85,18 @@ gboolean
 gtk_text_view_get_cursor_visible (text_view)
 	GtkTextView * text_view
 
-# TODO:  had to lose the const on GtkTextIter
 ## void gtk_text_view_get_iter_location (GtkTextView *text_view, const GtkTextIter *iter, GdkRectangle *location)
-void
-gtk_text_view_get_iter_location (text_view, iter, location)
+GdkRectangle_copy*
+gtk_text_view_get_iter_location (text_view, iter)
 	GtkTextView  * text_view
 	GtkTextIter  * iter
-	GdkRectangle * location
+    PREINIT:
+	GdkRectangle location;
+    CODE:
+	gtk_text_view_get_iter_location (text_view, iter, &location);
+	RETVAL = &location;
+    OUTPUT:
+	RETVAL
 
 ## void gtk_text_view_get_iter_at_location (GtkTextView *text_view, GtkTextIter *iter, gint x, gint y)
 void
