@@ -21,7 +21,35 @@
 
 #include "gtk2perl.h"
 
-// typedef gint (* GtkTreeIterCompareFunc) (GtkTreeModel *model, GtkTreeIter *a, GtkTreeIter *b, gpointer user_data)
+static GPerlCallback *
+new_sort_func (SV * sort_func, SV * user_data)
+{
+	GType param_types[] = {
+		GTK_TYPE_TREE_MODEL,
+		GTK_TYPE_TREE_ITER,
+		GTK_TYPE_TREE_ITER
+	};
+	return gperl_callback_new (sort_func, user_data,
+	                           3, param_types, G_TYPE_INT);
+}
+
+static gint
+gtk2perl_tree_iter_compare_func (GtkTreeModel *model,
+                                 GtkTreeIter *a,
+                                 GtkTreeIter *b,
+                                 gpointer user_data)
+{
+	gint ret;
+	GValue retval = {0,};
+	GPerlCallback * callback = (GPerlCallback*) user_data;
+
+	g_value_init (&retval, callback->return_type);
+	gperl_callback_invoke (callback, &retval, model, a, b);
+	ret = g_value_get_int (&retval);
+	g_value_unset (&retval);
+
+	return ret;
+}
 
 MODULE = Gtk2::TreeSortable	PACKAGE = Gtk2::TreeSortable	PREFIX = gtk_tree_sortable_
 
@@ -53,21 +81,36 @@ gtk_tree_sortable_set_sort_column_id (sortable, sort_column_id, order)
 	GtkSortType order
 
 #### void gtk_tree_sortable_set_sort_func (GtkTreeSortable *sortable, gint sort_column_id, GtkTreeIterCompareFunc sort_func, gpointer user_data, GtkDestroyNotify destroy)
-##void
-##gtk_tree_sortable_set_sort_func (sortable, sort_column_id, sort_func, user_data, destroy)
-##	GtkTreeSortable *sortable
-##	gint sort_column_id
-##	GtkTreeIterCompareFunc sort_func
-##	gpointer user_data
-##	GtkDestroyNotify destroy
-##
+void
+gtk_tree_sortable_set_sort_func (sortable, sort_column_id, sort_func, user_data=NULL)
+	GtkTreeSortable *sortable
+	gint sort_column_id
+	SV * sort_func
+	SV * user_data
+    CODE:
+	gtk_tree_sortable_set_sort_func (sortable, sort_column_id,
+	                                 gtk2perl_tree_iter_compare_func,
+	                                 new_sort_func (sort_func, user_data),
+	                                 (GtkDestroyNotify)
+	                                       gperl_callback_destroy);
+
 #### void gtk_tree_sortable_set_default_sort_func (GtkTreeSortable *sortable, GtkTreeIterCompareFunc sort_func, gpointer user_data, GtkDestroyNotify destroy)
-##void
-##gtk_tree_sortable_set_default_sort_func (sortable, sort_func, user_data, destroy)
-##	GtkTreeSortable *sortable
-##	GtkTreeIterCompareFunc sort_func
-##	gpointer user_data
-##	GtkDestroyNotify destroy
+void
+gtk_tree_sortable_set_default_sort_func (sortable, sort_func, user_data=NULL)
+	GtkTreeSortable *sortable
+	SV * sort_func
+	SV * user_data
+    CODE:
+	if (!sort_func || !SvTRUE (sort_func)) {
+		gtk_tree_sortable_set_default_sort_func
+					(sortable, NULL, NULL, NULL);
+	} else {
+		gtk_tree_sortable_set_default_sort_func
+				(sortable, 
+				 gtk2perl_tree_iter_compare_func,
+		                 new_sort_func (sort_func, user_data),
+				 (GtkDestroyNotify) gperl_callback_destroy);
+	}
 
 ## gboolean gtk_tree_sortable_has_default_sort_func (GtkTreeSortable *sortable)
 gboolean
