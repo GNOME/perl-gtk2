@@ -1,3 +1,9 @@
+2003/08/06 12:57 muppetman
+
+	* xs/GtkWindow.xs: plug a memleak in list_toplevels
+
+	* xs/GtkWidget.xs: ->get_clipboard
+
 2003/08/05 22:16 muppetman
 
 	* pm/SimpleList.pm: pod patch from James Curbo
