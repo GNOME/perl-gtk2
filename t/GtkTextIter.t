@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 82, noinit => 1;
+use Gtk2::TestHelper tests => 89, noinit => 1;
 
 # $Header$
 
@@ -24,10 +24,10 @@ $iter->set_line_offset (10);
 is ($iter->get_line_offset, 10);
 $iter->set_line_index (10);
 is ($iter->get_line_index, 10);
-# $iter->set_visible_line_index (10);
-is ($iter->get_visible_line_index, 10);
-# $iter->set_visible_line_offset (10);
-is ($iter->get_visible_line_offset, 10);
+$iter->set_visible_line_index (10);
+is ($iter->get_visible_line_index, 20);
+$iter->set_visible_line_offset (10);
+is ($iter->get_visible_line_offset, 30);
 
 $iter->set_offset (10);
 is ($iter->get_offset, 10);
@@ -47,14 +47,13 @@ ok (!$iter->begins_tag ($tag));
 ok (!$iter->ends_tag ($tag));
 ok (!$iter->toggles_tag ($tag));
 
-# FIXME:
-# warn $iter->get_toggled_tags(0);
-# warn $iter->get_toggled_tags(1);
-# warn $iter->get_child_anchor;
-# warn $iter->has_tag ($tag);
-# warn $iter->get_tags;
-# warn $iter->get_pixbuf
-# warn $iter->get_attributes;
+ok (!$iter->get_toggled_tags(0));
+ok (!$iter->get_toggled_tags(1));
+ok (!$iter->get_child_anchor);
+ok (!$iter->has_tag ($tag));
+ok (!$iter->get_tags);
+ok (!$iter->get_pixbuf);
+ok (!$iter->get_attributes);
 
 isa_ok ($iter->get_language, "Gtk2::Pango::Language");
 

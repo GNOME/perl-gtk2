@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 37;
+use Gtk2::TestHelper tests => 39;
 
 # $Header$
 
@@ -180,8 +180,9 @@ $window -> set_override_redirect(0);
 # $window -> add_filter(...);
 # $window -> remove_filter(...);
 
-# FIXME
-# $window -> shape_combine_mask(...);
+my $bitmap = Gtk2::Gdk::Bitmap->create_from_data ($window, "", 1, 1);
+
+$window -> shape_combine_mask($bitmap, 5, 5);
 $window -> shape_combine_region($region, 1, 1);
 
 $window -> set_child_shapes();
@@ -190,8 +191,9 @@ $window -> set_static_gravities(0); # FIXME: check retval?
 $window -> set_title("Blub");
 $window -> set_background(Gtk2::Gdk::Color -> new(255, 255, 255));
 
-# FIXME
-# $window -> set_back_pixmap(...);
+my $pixmap = Gtk2::Gdk::Pixmap->new ($window, 1, 1, $window->get_depth);
+
+$window -> set_back_pixmap($pixmap, 0);
 
 $window -> set_cursor(Gtk2::Gdk::Cursor -> new("arrow"));
 
@@ -251,8 +253,9 @@ $window_three -> set_group($window_three);
 
 $window -> set_decorations("all");
 
-# We can't do that because not all WM's honor the decorations request.
-# is_deeply([$window -> get_decorations()], [1, "all"]);
+my @deco = $window -> get_decorations();
+like($deco[0], qr/^(?:1|)$/);
+isa_ok($deco[1], "Gtk2::Gdk::WMDecoration");
 
 $window -> set_functions("all");
 
@@ -260,7 +263,6 @@ isa_ok((Gtk2::Gdk::Window -> get_toplevels())[0], "Gtk2::Gdk::Window");
 
 isa_ok(Gtk2::Gdk -> get_default_root_window(), "Gtk2::Gdk::Window");
 
-# FIXME
 $window -> set_user_data(123);
 is($window -> get_user_data(), 123);
 

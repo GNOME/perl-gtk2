@@ -1,3 +1,17 @@
+2004/02/28 17:43 (+0100) kaffeetisch
+
+	* t/Gdk.t: Handle the case of an already grabbed pointer
+	gracefully.
+
+	* t/GdkWindow.t: Test shape_combine_mask and set_back_pixmap.
+	Re-enable the get_decorations test, in less strict fashion.
+
+	* t/GtkTextIter.t: Finally test the last missing methods:
+	get_toggled_tags, get_child_anchor, has_tag, get_tags, get_pixbuf,
+	and get_attributes.
+
+	* t/PangoLayout.t: Fix the skip: Pango 1.3.3 has been released.
+
 2004/02/27 15:20 (-0500) muppetman
 
 	* t/GtkWidget.t, xs/GtkWidget.xs: large patch from Torsten adds

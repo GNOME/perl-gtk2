@@ -46,8 +46,16 @@ like(Gtk2::Gdk -> screen_height_mm(), $number);
 my $window = Gtk2::Window -> new();
 $window -> show_now();
 
-is(Gtk2::Gdk -> pointer_grab($window -> window(), 1, qw(button-press-mask), undef, Gtk2::Gdk::Cursor -> new("arrow"), 0), "success");
-is(Gtk2::Gdk -> pointer_is_grabbed(), 1);
+my $result = Gtk2::Gdk -> pointer_grab($window -> window(),
+                                       1,
+                                       qw(button-press-mask),
+                                       undef,
+                                       Gtk2::Gdk::Cursor -> new("arrow"),
+                                       0);
+
+like($result, qr/^(?:success|already-grabbed)$/);
+like(Gtk2::Gdk -> pointer_is_grabbed(), qr/^(?:1|)$/);
+
 Gtk2::Gdk -> pointer_ungrab(0);
 
 # Gtk2::Gdk -> set_double_click_time(20);

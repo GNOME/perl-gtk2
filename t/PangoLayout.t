@@ -21,7 +21,7 @@ is($layout -> set_markup_with_accel("Bla _bla.", "_"), "b");
 
 SKIP: {
   skip("set_font_description is slightly borken currently", 0)
-    unless (0); # FIXME: change that once it's been fixed.
+    unless (Gtk2::Pango -> CHECK_VERSION(1, 3, 3));
 
   $layout -> set_font_description(undef);
 }
