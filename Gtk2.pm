@@ -28,7 +28,15 @@ sub import {
 # this is critical -- tell dynaloader to load the module so that its 
 # symbols are available to all other modules.  without this, nobody
 # else can use important functions like gtk2perl_new_object!
-sub dl_load_flags { 0x01 }
+# 
+# hrm.  win32 doesn't really use this, because we have to link the whole
+# thing at compile time to ensure all the symbols are defined.
+#
+# on darwin, at least with the particular 5.8.0 binary i'm using, perl
+# complains "Can't make loaded symbols global on this platform" when this
+# is set to 0x01, but goes on to work fine.  returning 0 here avoids the
+# warning and doesn't appear to break anything.
+sub dl_load_flags { $^O eq 'darwin' ? 0x00 : 0x01 }
 
 # now load the XS code.
 bootstrap Gtk2 $VERSION;
