@@ -1,3 +1,7 @@
+2003/12/04 00:56 (-0500) rwmcfa1
+
+	* xs/GtkRadioButton.xs: broken signature fixed
+
 2003/12/03 21:13 (-0500) muppetman
 
 	* Gtk2.pm: sync the AUTHORS section with the AUTHORS file.
