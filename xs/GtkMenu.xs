@@ -127,9 +127,14 @@ gtk_menu_popup (menu, parent_menu_shell, parent_menu_item, menu_pos_func, data, 
 		gtk_menu_popup (menu, parent_menu_shell, parent_menu_item,
 		        (GtkMenuPositionFunc) gtk2perl_menu_position_func,
 			callback, button, activate_time);
-		/* NOTE: this isn't a proper destructor, as it could leak
-		 *    if replaced somewhere else.  on the other hand, how
-		 *    likely is that? */
+		/* The menu will store the callback we give it, and can
+		 * conceivably invoke the callback multiple times
+		 * (repositioning, changing screens, etc).  Each call to
+		 * gtk_menu_popup() replaces the function pointer.  So,
+		 * if we use a weak reference, we can leak multiple callbacks;
+		 * if we use object data, we can clean up the ones we install
+		 * and reinstall.  Not likely, of course, but there are
+		 * pathological programmers out there. */
 		g_object_set_data_full (G_OBJECT (menu), "_menu_pos_callback",
 		                        callback,
 		                        (GDestroyNotify)
