@@ -42,34 +42,48 @@ $hframe->set_size_request (50,50);
 $vframe1->set_size_request (50,50);
 $vframe2->set_size_request (50,50);
 
+if ((Gtk2->get_version_info)[1] < 2) {
+	# crap.  we didn't have a way to query style property information
+	# until 2.2, so we can't implement gtk_wigdet_style_get () here.
+	# we have to improvise.
+	Glib::Timeout->add (100, sub { Gtk2->main_quit; 0 });
+	Gtk2->main;
+	$pad = $window->allocation->height
+	     - $vframe1->allocation->height
+	     - $vframe2->allocation->height;
+} else {
+	$pad = $hpaned->style_get ('handle-size');
+}
+print "handle-size $pad\n";
+
 @windowprops = (
 	[ FALSE,  TRUE,   TRUE, FALSE,  300, 400 ],
 	[ FALSE,  TRUE,   TRUE, FALSE,  400, 300 ],
-	[ FALSE, FALSE,  FALSE, FALSE,  106, 106 ],
+	[ FALSE, FALSE,  FALSE, FALSE,  100, 100 ],
 	[ FALSE, FALSE,  FALSE, FALSE,  300, 400 ],
 	[ FALSE, FALSE,  FALSE, FALSE,  400, 300 ],
-	[  TRUE, FALSE,  FALSE,  TRUE,  106, 106 ],
+	[  TRUE, FALSE,  FALSE,  TRUE,  100, 100 ],
 	[  TRUE, FALSE,  FALSE,  TRUE,  300, 400 ],
 	[  TRUE, FALSE,  FALSE,  TRUE,  400, 300 ],
-	[  TRUE, FALSE,  FALSE,  TRUE,  106, 106 ],
+	[  TRUE, FALSE,  FALSE,  TRUE,  100, 100 ],
 );
 @framesizes = (
-	[   4,  14,    4,   4,    4,   4 ],
-	[  50, 400,  244, 344,  244,  50 ],
-	[  50, 300,  344, 244,  344,  50 ],
-	[  50, 106,   50,  50,   50,  50 ],
-	[ 147, 400,  147, 197,  147, 197 ],
-	[ 197, 300,  197, 147,  197, 147 ],
-	[  50, 106,   50,  50,   50,  50 ],
-	[ 244, 400,   50,  50,   50, 344 ],
-	[ 344, 300,   50,  50,   50, 244 ],
-	[  50, 106,   50,  50,   50,  50 ],
+	[   4,   8+$pad,    4,   4,    4,   4 ],
+	[  50, 400+$pad,  250, 350,  250,  50 ],
+	[  50, 300+$pad,  350, 250,  350,  50 ],
+	[  50, 100+$pad,   50,  50,   50,  50 ],
+	[ 150, 400+$pad,  150, 200,  150, 200 ],
+	[ 200, 300+$pad,  200, 150,  200, 150 ],
+	[  50, 100+$pad,   50,  50,   50,  50 ],
+	[ 250, 400+$pad,   50,  50,   50, 350 ],
+	[ 350, 300+$pad,   50,  50,   50, 250 ],
+	[  50, 100+$pad,   50,  50,   50,  50 ],
 );
 use Data::Dumper;
 
 $i;
 
-Glib::Timeout->add (100, sub {
+Glib::Timeout->add (250, sub {
 #Glib::Timeout->add (1000, sub {
 	my ($w, $h);
 	my $this;
@@ -102,7 +116,7 @@ Glib::Timeout->add (100, sub {
 		$hpaned->child2_resize ($this->[1]);
 		$vpaned->child1_resize ($this->[2]);
 		$vpaned->child2_resize ($this->[3]);
-		$window->resize ($this->[4], $this->[5]);
+		$window->resize ($this->[4] + $pad, $this->[5] + $pad);
 		1;
 	} else {
 		Gtk2->main_quit;

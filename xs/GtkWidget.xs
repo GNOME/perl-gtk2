@@ -790,17 +790,39 @@ void gtk_widget_pop_composite_child (SV *class_or_widget)
  #void gtk_widget_class_install_style_property_parser (GtkWidgetClass     *klass,
  #						     GParamSpec         *pspec,
  #						     GtkRcPropertyParser parser);
- #void gtk_widget_style_get_property (GtkWidget	     *widget,
- #				    const gchar    *property_name,
- #				    GValue	     *value);
- #void gtk_widget_style_get_valist   (GtkWidget	     *widget,
- #				    const gchar    *first_property_name,
- #				    va_list         var_args);
- #void gtk_widget_style_get          (GtkWidget	     *widget,
- #				    const gchar    *first_property_name,
- #				    ...);
- #
- #
+ #void gtk_widget_style_get_property (GtkWidget *widget, const gchar *property_name, GValue *value);
+ #void gtk_widget_style_get_valist (GtkWidget *widget, const gchar *first_property_name, va_list var_args);
+ #void gtk_widget_style_get (GtkWidget *widget, const gchar *first_property_name, ...);
+### gtk_widget_class_find_style_property isn't available until 2.2.0, so we
+### can't implement gtk_widget_style_get and friends until 2.2.0, because
+### we have to be able to query the property's pspec to know what type of
+### GValue to send it.
+
+#if GTK_CHECK_VERSION(2,2,0)
+
+void
+style_get (GtkWidget * widget, first_property_name, ...)
+    ALIAS:
+	style_get_property = 1
+    PREINIT:
+	int i;
+    PPCODE:
+	EXTEND (SP, items - 1);
+	for (i = 1 ; i < items ; i++) {
+		GValue value = {0, };
+		gchar * name = SvGChar (ST (i));
+		GParamSpec * pspec;
+		pspec = gtk_widget_class_find_style_property
+		                         (GTK_WIDGET_GET_CLASS (widget), name);
+		g_value_init (&value, G_PARAM_SPEC_VALUE_TYPE (pspec));
+		gtk_widget_style_get_property (widget, name, &value);
+		PUSHs (sv_2mortal (gperl_sv_from_value (&value)));
+		g_value_unset (&value);
+	}
+
+#endif
+
+
  #/* Set certain default values to be used at widget creation time.
  # */
 

@@ -1,3 +1,9 @@
+2003/12/08 02:39 (-0500) muppetman
+
+	* xs/GtkWidget.xs: implement gtk_widget_style_get for >= 2.2.0
+
+	* t/paned.t: more robust testing
+
 2003/12/07 22:34 (-0500) rwmcfa1
 
 	* t/trivial-widgets.t: initial import
