@@ -1,3 +1,12 @@
+2003/06/01 22:52 muppetman
+
+	* xs/GtkAspectFrame.xs, GtkTreeSortable.xs: fixed package typos;
+	change Gtk2::AspectFrame::set to set_params to avoid clashing with
+	Glib::Object::set.  (patch from Marc Lehmann, pcg at goof dot com)
+
+	* xs/GtkTreeSelection.xs: patch from rene seindal, remove model from
+	return value of get_selected_rows.
+
 2003/05/31 11:07 rwmcfa1
 
 	* xs/GtkRc.xs: implemented gtk_rc_set_default_files
@@ -27,12 +36,20 @@
 
 2003/05/27 14:38 rwmcfa1
 
-	* xs/GtkWidget.xs: get_style was missing, in it's place was style, they're
-	aliases of one another now.
+	* xs/GtkWidget.xs: get_style was missing, in it's place was style,
+	they're aliases of one another now.
 
 2003/05/26 23:58 muppetman
 
 	* xs/GtkMenu.xs: get_attach_widget
+
+2003/05/26 04:05 muppetman
+
+	* Gtk2.pm: bumped version number for development series 0.21
+
+	* xs/GtkTreeSelection.xs: wrapped get_selected_rows and
+	count_selected_rows for 2.2 and implemented them for 2.0.x;
+	get_selected handles scalar context gracefully.
 
 2003/05/26 21:04 rwmcfa1
 
@@ -40,7 +57,6 @@
 	iter for some reason, was otherwise correct.
 
 2003/05/22 10:30 muppetman
-
 
 	* AUTHORS, LICENSE, *: added copyright and license info to just about
 	every file, and pointers to the AUTHORS file which contains the list
