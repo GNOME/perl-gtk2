@@ -349,13 +349,7 @@ sub gen_enum_stuff {
 # define newSV$classname(val)	(gperl_convert_back_enum ($typemacro, val))
 #endif /* $typemacro */
 ";
-	push @typemap, "$classname	T_$typemacro";
-	push @input, "T_$typemacro
-	\$var = Sv$classname(\$arg);
-";
-	push @output, "T_$typemacro
-	\$arg = newSV$classname(\$var);
-";
+	push @typemap, "$classname	T_GPERL_GENERIC_WRAPPER";
 	push @boot, "#ifdef $typemacro
 gperl_register_fundamental ($typemacro, \"$package\");
 #endif /* $typemacro */"
@@ -370,13 +364,7 @@ sub gen_flags_stuff {
 # define newSV$classname(val)	(gperl_convert_back_flags ($typemacro, val))
 #endif /* $typemacro */
 ";
-	push @typemap, "$classname	T_$typemacro";
-	push @input, "T_$typemacro
-	\$var = Sv$classname(\$arg);
-";
-	push @output, "T_$typemacro
-	\$arg = newSV$classname(\$var);
-";
+	push @typemap, "$classname	T_GPERL_GENERIC_WRAPPER";
 	push @boot, "#ifdef $typemacro
 gperl_register_fundamental ($typemacro, \"$package\");
 #endif /* $typemacro */"
@@ -401,25 +389,11 @@ sub gen_boxed_stuff {
 # define newSV$classname\_own_ornull(val)	((val) ? newSV$classname\_own(val) : &PL_sv_undef)
 #endif /* $typemacro */
 ";
-	push @typemap, "$classname *	T_$typemacro";
-	push @typemap, "$classname\_ornull *	T_$typemacro\_ORNULL";
-	push @typemap, "$classname\_own *	T_$typemacro\_OWN";
-	push @typemap, "$classname\_copy *	T_$typemacro\_COPY";
-	push @typemap, "$classname\_own_ornull *	T_$typemacro\_OWN_ORNULL";
-	push @input, "T_$typemacro
-	\$var = Sv$classname(\$arg);
-T_$typemacro\_ORNULL
-	\$var = Sv$classname\_ornull(\$arg);
-";
-	push @output, "T_$typemacro
-	\$arg = newSV$classname(\$var);
-T_$typemacro\_OWN
-	\$arg = newSV$classname\_own(\$var);
-T_$typemacro\_COPY
-	\$arg = newSV$classname\_copy(\$var);
-T_$typemacro\_OWN_ORNULL
-	\$arg = newSV$classname\_own_ornull(\$var);
-";
+	push @typemap, "$classname *	T_GPERL_GENERIC_WRAPPER";
+	push @typemap, "$classname\_ornull *	T_GPERL_GENERIC_WRAPPER";
+	push @typemap, "$classname\_own *	T_GPERL_GENERIC_WRAPPER";
+	push @typemap, "$classname\_copy *	T_GPERL_GENERIC_WRAPPER";
+	push @typemap, "$classname\_own_ornull *	T_GPERL_GENERIC_WRAPPER";
 	push @boot, "#ifdef $typemacro
 gperl_register_boxed ($typemacro, \"$package\", NULL);
 #endif /* $typemacro */"
@@ -442,18 +416,8 @@ sub gen_object_stuff {
 # define newSV$classname\_ornull(val)	(((val) == NULL) ? &PL_sv_undef : $get_wrapper)
 ";
 
-	push @typemap, "$classname *	T_$typemacro";
-	push @typemap, "$classname\_ornull *	T_$typemacro\_NULLOK";
-	push @input, "T_$typemacro
-	\$var = Sv$classname(\$arg);
-T_$typemacro\_NULLOK
-	\$var = Sv$classname\_ornull(\$arg);
-";
-	push @output, "T_$typemacro
-	\$arg = newSV$classname(\$var);
-T_$typemacro\_NULLOK
-	\$arg = newSV$classname\_ornull(\$var);
-";
+	push @typemap, "$classname *	T_GPERL_GENERIC_WRAPPER";
+	push @typemap, "$classname\_ornull *	T_GPERL_GENERIC_WRAPPER";
 	push @boot, "#ifdef $typemacro
 gperl_register_object ($typemacro, \"$package\");
 #endif /* $typemacro */";
@@ -464,10 +428,7 @@ gperl_register_object ($typemacro, \"$package\");
 		$header[$#header] .= "typedef $classname $classname\_noinc;
 #define newSV$classname\_noinc(val)	(gperl_new_object (G_OBJECT (val), TRUE))
 ";
-		push @typemap, "$classname\_noinc *	T_$typemacro\_NOINC";
-		$output[$#output] .= "T_$typemacro\_NOINC
-	\$arg = newSV$classname\_noinc(\$var);
-";
+		push @typemap, "$classname\_noinc *	T_GPERL_GENERIC_WRAPPER";
 	}
 
 	# close the header ifdef
