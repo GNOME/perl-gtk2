@@ -21,13 +21,13 @@ use constant MIN_CHART_HEIGHT => 100;
 my %drag_info;
 use constant DRAG_PAD => 2;
 
-sub SCREEN_TO_THRESHOLD {
+sub screen_to_threshold {
 	my ($plot, $sx) = @_;
 	my $data = $plot->get_data ('data');
 	my $val = ($sx - $data->{chartleft}) * 256 / $data->{chartwidth};
 	return $val < 0 ? 0 : $val > 255 ? 255 : $val;
 }
-sub THRESHOLD_TO_SCREEN {
+sub threshold_to_screen {
 	my $data = $_[0]->get_data ('data');
 	$_[1] / 256.0 * $data->{chartwidth} + $data->{chartleft}
 }
@@ -35,37 +35,23 @@ sub THRESHOLD_TO_SCREEN {
 ####static GtkDrawingAreaClass * parent_class = NULL;
 my $threshold_changed_signal = 0;
 
-G::Type->register ("Gtk2::DrawingArea", __PACKAGE__);
+#G::Type->register ("Gtk2::DrawingArea", __PACKAGE__);
 
-=out
-
-sub histogram_plot_class_init {
-	my $class = shift;
-
-	GObjectClass * object_class = G_OBJECT_CLASS (class);
-	GtkWidgetClass * widget_class = GTK_WIDGET_CLASS (class);
-
-	parent_class = g_type_class_peek_parent (class);
-
-	widget_class->size_request = histogram_plot_size_request;
-	object_class->finalize = histogram_plot_finalize;
-
-	$threshold_changed_signal = 
-		g_signal_new ("threshold_changed",
-			      G_OBJECT_CLASS_TYPE (object_class),
-			      G_SIGNAL_RUN_FIRST,
-			      G_STRUCT_OFFSET (LiarHistogramPlotClass, 
-					       threshold_changed),
-			      NULL, NULL,
-			      g_cclosure_marshal_VOID__VOID,
-			      G_TYPE_NONE, 0);
-}
-
-=cut
+G::Type->register ("Gtk2::DrawingArea", __PACKAGE__,
+	signals => {
+		threshold_changed => {
+			flags       => [qw/run-first/],
+#			return_type => 'none', # void return
+			param_types => [], # instance and data are automatic
+		},
+	},
+	properties => {
+	},
+);
 
 sub INSTANCE_INIT {
 	my $plot = shift;
-	warn "INSTANCE_INIT $plot";
+	#warn "INSTANCE_INIT $plot";
 
 	$plot->set_data(data => {
 		threshold       => 0,
@@ -106,13 +92,8 @@ sub max : lvalue { $_[0]->member ('max') }
 sub histogram_plot_finalize {
 	my $plot = shift;
 
-	LiarHistogramPlot * plot;
+	HistogramPlot * plot;
 
-	g_return_if_fail (object != NULL);
-	g_return_if_fail (LIAR_IS_HISTOGRAM_PLOT (object));
-
-	plot = LIAR_HISTOGRAM_PLOT (object);
-	
 	if (plot->pixmap) {
 		g_object_unref (G_OBJECT (plot->pixmap));
 		plot->pixmap = NULL;
@@ -159,6 +140,8 @@ sub calc_dims {
 }
 
 
+# FIXME this virtual override doesn't get called, because the C function
+#       pointer in the parent class' class structure has not been altered.
 sub size_request {
 	my ($plot, $requisition) = @_;
 
@@ -206,22 +189,13 @@ sub draw_th_marker {
 	my $data = $plot->get_data ('data');
 
 	if ( ! $data->{th_gc} ) {
-		#GdkGCValues values;
-		#gdk_gc_get_values ($plot->style->fg_gc($plot->state),
-   		#		   &values);
-		#plot->th_gc = gdk_gc_new_with_values (plot->pixmap, &values,
-   		#				      GDK_GC_FOREGROUND 
-   		#				      | GDK_GC_BACKGROUND 
-   		#				      | GDK_GC_LINE_STYLE 
-   		#				      | GDK_GC_LINE_WIDTH);
-		#$plot->th_gc = $plot->style->fg_gc ($plot->state)->copy;
 		$data->{th_gc} = Gtk2::Gdk::GC->new ($data->{pixmap});
 		$data->{th_gc}->copy ($plot->style->fg_gc ($plot->state));
 		$data->{th_gc}->set_function ('invert');
 	}
 	$w->draw_line ($data->{th_gc},
-		       $plot->THRESHOLD_TO_SCREEN ($data->{threshold}), 0,
-		       $plot->THRESHOLD_TO_SCREEN ($data->{threshold}), $data->{bottom});
+		       $plot->threshold_to_screen ($data->{threshold}), 0,
+		       $plot->threshold_to_screen ($data->{threshold}), $data->{bottom});
 
 	$data->{current_layout}->set_text (sprintf '%d', $data->{threshold});
 	my ($textwidth, $textheight) = $data->{current_layout}->get_pixel_size;
@@ -230,14 +204,14 @@ sub draw_th_marker {
 	# erase text
 	$w->draw_rectangle ($plot->style->bg_gc($plot->state), 
 			    TRUE,
-			    $plot->THRESHOLD_TO_SCREEN ($data->{threshold})
+			    $plot->threshold_to_screen ($data->{threshold})
 			    	- $data->{marker_textwidth} - 1,
 			    $data->{bottom} + 1,
 			    $data->{marker_textwidth} + 1,
 			    $textheight);
 
 	$w->draw_layout ($plot->th_gc, 
-			 $plot->THRESHOLD_TO_SCREEN ($data->{threshold})
+			 $plot->threshold_to_screen ($data->{threshold})
 				 	- $data->{marker_textwidth},
 				 $data->{bottom} + 1,
 				 $data->{current_layout})
@@ -253,7 +227,7 @@ sub marker_hit {
 
 	my $data = $plot->get_data ('data');
 
-	my $screen_th = $plot->THRESHOLD_TO_SCREEN ($data->{threshold});
+	my $screen_th = $plot->threshold_to_screen ($data->{threshold});
 	if ($screen_y > $data->{bottom}) {
 		# check for hit on text
 		if ($screen_x > $screen_th - $data->{marker_textwidth} &&
@@ -271,9 +245,6 @@ sub marker_hit {
 }
 
 sub button_press_event {
-	#( GtkWidget         * widget, /* actually same as plot */
-	#	    GdkEventButton    * event,
-	#	    LiarHistogramPlot * plot ) /* actually same as widget */
 	my ($plot, $event) = @_;
 
 	my $data = $plot->get_data ('data');
@@ -290,23 +261,20 @@ sub button_press_event {
 	$plot->draw_th_marker ($data->{pixmap}, FALSE);
 	$plot->window->draw_drawable ($plot->style->fg_gc($plot->state),
 				      $data->{pixmap},
-			$plot->THRESHOLD_TO_SCREEN ($data->{threshold}) - $data->{marker_textwidth}, 0,
-			$plot->THRESHOLD_TO_SCREEN ($data->{threshold}) - $data->{marker_textwidth}, 0,
+			$plot->threshold_to_screen ($data->{threshold}) - $data->{marker_textwidth}, 0,
+			$plot->threshold_to_screen ($data->{threshold}) - $data->{marker_textwidth}, 0,
 			$data->{marker_textwidth} + 1, $plot->allocation->height);
 	# and draw the new one on the window.
 	$plot->draw_th_marker ($plot->window, TRUE);
 	$data->{dragging} = TRUE;
 
 	$drag_info{offset_x} = 
-		$plot->THRESHOLD_TO_SCREEN ($data->{threshold}) - $event->x;
+		$plot->threshold_to_screen ($data->{threshold}) - $event->x;
 
 	return TRUE;
 }
 
 sub button_release_event {
-	#(GtkWidget         * widget, /* same as plot */
-	# GdkEventButton    * event,
-	# LiarHistogramPlot * plot) /* same as widget */
 	my ($plot, $event) = @_;
 
 	my $data = $plot->get_data ('data');
@@ -319,7 +287,7 @@ sub button_release_event {
 	# erase the previous threshold line from the window...
 	$plot->draw_th_marker ($plot->window, FALSE);
 	$data->{threshold} = 
-		$plot->SCREEN_TO_THRESHOLD ($event->x + $drag_info{offset_x});
+		$plot->screen_to_threshold ($event->x + $drag_info{offset_x});
 	# and draw the new one on the pixmap.
 	$plot->draw_th_marker ($data->{pixmap}, TRUE);
 	$plot->window->draw_drawable ($plot->style->fg_gc ($plot->state),
@@ -328,8 +296,10 @@ sub button_release_event {
 				      $plot->allocation->width,
 				      $plot->allocation->height);
 	$data->{dragging} = FALSE;
-#	$plot->signal_emit ($threshold_changed_signal, 0)
-#		if $plot->threshold_back != $plot->threshold;
+
+	# let any listeners know that if the threshold has changed
+	$plot->signal_emit ("threshold-changed")
+		if $data->{threshold_back} != $plot->threshold;
 
 	return TRUE;
 }
@@ -361,11 +331,11 @@ sub motion_notify_event {
 		$x += $drag_info{offset_x};
 		
 		# confine to valid region
-		my $t = $plot->SCREEN_TO_THRESHOLD ($x);
-		$x = $plot->THRESHOLD_TO_SCREEN (0) if $t < 0;
-		$x = $plot->THRESHOLD_TO_SCREEN (255) if $t > 255;
+		my $t = $plot->screen_to_threshold ($x);
+		$x = $plot->threshold_to_screen (0) if $t < 0;
+		$x = $plot->threshold_to_screen (255) if $t > 255;
 		
-		$plot->threshold = $plot->SCREEN_TO_THRESHOLD ($x);
+		$plot->threshold = $plot->screen_to_threshold ($x);
 		$plot->draw_th_marker ($plot->window, TRUE);
 
 	} else {
@@ -441,13 +411,13 @@ sub histogram_draw {
 ###
 ## @brief create a new histogram plot
 ##
-## @return pointer to the LiarHistogramPlot.
+## @return pointer to the HistogramPlot.
 ###
 sub new {
 	my $class = shift;
 	#my $plot = G::Object->_new ('Histogram::Plot');
 	my $plot = Gtk2::Widget->new ('Histogram::Plot');
-	print "$plot\n";
+	#print "$plot\n";
 
 	$plot->signal_connect (expose_event => \&expose_event);
 	$plot->signal_connect (configure_event => \&configure_event);
@@ -471,7 +441,7 @@ sub new {
 ## @param hist the histogram with which to initialize.  must be 256 elements long.
 ## @param threshold initial threshold.
 ##
-## @return pointer to the LiarHistogramPlot.
+## @return pointer to the HistogramPlot.
 ###
 sub new_with_data {
 	my $class = shift;
@@ -556,7 +526,9 @@ sub get_plot_data {
 }
 
 
-
+sub do_threshold_changed {
+	warn "default";
+}
 
 
 
@@ -576,5 +548,8 @@ my $plot = Histogram::Plot->new_with_data (127,
 $window->add ($plot);
 
 $window->show_all;
+
+use Data::Dumper;
+$plot->signal_connect (threshold_changed => sub { print Dumper(\@_); }, $window);
 
 Gtk2->main;
