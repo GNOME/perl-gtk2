@@ -187,7 +187,9 @@ gtk_dialog_get_has_separator (dialog)
 void
 gtk_dialog_response (dialog, response_id)
 	GtkDialog * dialog
-	gint        response_id
+	SV        * response_id
+    C_ARGS:
+	dialog, sv_to_response_id (response_id)
 
 
  ## Returns response_id
