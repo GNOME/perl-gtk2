@@ -128,6 +128,10 @@ gdk_region_get_clipbox (region)
 	RETVAL
 
 ##  void gdk_region_get_rectangles (GdkRegion *region, GdkRectangle **rectangles, gint *n_rectangles) 
+=for apidoc
+Returns a list of rectangles (Gtk2::Gdk::Rectangle's), the area covered by the
+region.
+=cut
 void
 gdk_region_get_rectangles (region)
 	GdkRegion *region
