@@ -1,3 +1,8 @@
+2003/07/09 10:47 rwmcfa1
+
+	* xs/Gdk.xs: accept nulls for confine_to and cursor parameters of
+	gdk_pointer_grab
+
 2003/07/08 15:38 rwmcfa1
 
 	* xs/GdkWindow.xs: uncommented the freeze/thaw updates functions per

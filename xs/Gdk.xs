@@ -127,13 +127,13 @@ screendims (class)
 ##  GdkGrabStatus gdk_pointer_grab (GdkWindow *window, gboolean owner_events, GdkEventMask event_mask, GdkWindow *confine_to, GdkCursor *cursor, guint32 time_) 
 GdkGrabStatus
 gdk_pointer_grab (class, window, owner_events, event_mask, confine_to, cursor, time_)
-	SV * class
-	GdkWindow *window
-	gboolean owner_events
-	GdkEventMask event_mask
-	GdkWindow *confine_to
-	GdkCursor *cursor
-	guint32 time_
+	SV               * class
+	GdkWindow        * window
+	gboolean           owner_events
+	GdkEventMask       event_mask
+	GdkWindow_ornull * confine_to
+	GdkCursor_ornull * cursor
+	guint32            time_
     C_ARGS:
 	window, owner_events, event_mask, confine_to, cursor, time_
 
