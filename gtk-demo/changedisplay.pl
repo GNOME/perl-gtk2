@@ -528,7 +528,6 @@ sub do {
 	$info->{window} = $dialog;
     } else {
 
-###      info->window = Gtk2::Dialog->new_with_buttons ("Change Screen or display",
       $info->{window} = Gtk2::Dialog->new ("Change Screen or display",
                                            undef, # parent
                                            'no-separator',
