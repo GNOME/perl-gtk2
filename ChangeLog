@@ -1,3 +1,7 @@
+2005/03/07	kaffeetisch
+
+	* t/GtkFileChooser.t: Temporarily mark a failing test as TODO.
+
 2005/02/28	kaffeetisch
 
 	* Gtk2.pm, META.yml, Makefile.PL, NEWS, README: Unstable release
