@@ -103,9 +103,8 @@ gdk_flush (class)
 	
 
 gint
-screendims (class)
+screen_width (class)
     ALIAS:
-	Gtk2::Gdk::screen_width = 0
 	Gtk2::Gdk::screen_height = 1
 	Gtk2::Gdk::screen_width_mm = 2
 	Gtk2::Gdk::screen_height_mm = 3

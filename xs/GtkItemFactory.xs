@@ -20,11 +20,13 @@
  */
 #include "gtk2perl.h"
 
+/* ------------------------------------------------------------------------- */
+
 /*
  * a custom marshaler for the item factory callbacks
  */
 static void
-gtk2perl_item_factory_item_activate (gpointer    nothing,
+gtk2perl_item_factory_item_activate (gpointer    data,
 				     guint       callback_action,
 				     GtkWidget * widget)
 {
@@ -33,13 +35,12 @@ gtk2perl_item_factory_item_activate (gpointer    nothing,
 
 	dSP;
 
-	PERL_UNUSED_VAR (nothing);
+	/* the callback out of the widget */
+	callback_sv = (SV *) g_object_get_data (
+				G_OBJECT (widget),
+				"_gtk2perl_item_factory_callback_sv");
 
-	/* the the callback and it's data out of the widget */
-	callback_sv = (SV*)g_object_get_data (
-				G_OBJECT (widget), "_callback_sv");
-	callback_data = (SV*)g_object_get_data (
-				G_OBJECT (widget), "_callback_data");
+	callback_data = (SV *) data;
 
 	ENTER;
 	SAVETMPS;
@@ -61,6 +62,155 @@ gtk2perl_item_factory_item_activate (gpointer    nothing,
 	LEAVE;
 }
 
+/* ------------------------------------------------------------------------- */
+
+GPerlCallback *
+gtk2perl_translate_func_create (SV * func, SV * data)
+{
+	GType param_types [] = {
+		G_TYPE_STRING
+	};
+	return gperl_callback_new (func, data, G_N_ELEMENTS (param_types),
+				   param_types, G_TYPE_STRING);
+}
+
+gchar *
+gtk2perl_translate_func (const gchar *path,
+			 gpointer data)
+{
+	GPerlCallback * callback = (GPerlCallback*)data;
+	GValue value = {0,};
+	gchar *retval;
+
+	g_value_init (&value, callback->return_type);
+	gperl_callback_invoke (callback, &value, path);
+	retval = (gchar *) g_value_get_string (&value);
+	g_value_unset (&value);
+
+	return retval;
+}
+
+/* ------------------------------------------------------------------------- */
+
+#define HV_FETCH_AND_CHECK(_member, _sv) \
+	if (hv_exists (hv, #_member, strlen (#_member))) { \
+		value = hv_fetch (hv, #_member, strlen (#_member), FALSE); \
+		if (value && SvOK (*value)) \
+			entry->_member = _sv; \
+	}
+
+#define AV_FETCH_AND_CHECK(_index, _member, _sv) \
+	value = av_fetch (av, _index, 0); \
+	if (value && SvOK (*value)) \
+		entry->_member = _sv;
+
+GtkItemFactoryEntry *
+SvGtkItemFactoryEntry (SV *data, SV **callback)
+{
+	GtkItemFactoryEntry *entry = gperl_alloc_temp (sizeof (GtkItemFactoryEntry));
+	memset (entry, 0, sizeof (GtkItemFactoryEntry));
+
+	if (!(data && SvOK (data)))
+		return entry; /* fail silently if undef */
+
+	if ((!SvRV (data)) ||
+	    (SvTYPE (SvRV (data)) != SVt_PVHV && SvTYPE (SvRV (data)) != SVt_PVAV))
+		croak ("badly formed GtkItemFactoryEntry; use either list for for hash form:\n"
+		       "    list form:\n"
+		       "        [ path, accel, callback, action, type ]\n"
+		       "    hash form:\n"
+		       "        {\n"
+		       "           path            => $path,\n"
+		       "           accelerator     => $accel,   # optional\n"
+		       "           callback        => $callback,\n"
+		       "           callback_action => $action,\n"
+		       "           item_type       => $type,    # optional\n"
+		       "           extra_data      => $extra,   # optional\n"
+		       "         }\n"
+		       "  ");
+
+	if (SvTYPE (SvRV (data)) == SVt_PVHV) {
+		HV *hv = (HV *) SvRV (data);
+		SV **value;
+
+		HV_FETCH_AND_CHECK (path, SvGChar (*value));
+		HV_FETCH_AND_CHECK (accelerator, SvGChar (*value));
+
+		if (hv_exists (hv, "callback", 8)) {
+			value = hv_fetch (hv, "callback", 8, FALSE);
+
+			if (callback && value && SvOK (*value)) {
+				*callback = *value;
+				entry->callback = gtk2perl_item_factory_item_activate;
+			}
+		}
+
+		HV_FETCH_AND_CHECK (callback_action, SvIV (*value));
+		HV_FETCH_AND_CHECK (item_type, SvGChar (*value));
+		HV_FETCH_AND_CHECK (extra_data, SvPOK (*value) ? SvGChar (*value) : NULL);
+	} else if (SvTYPE (SvRV (data)) == SVt_PVAV) {
+		AV *av = (AV *) SvRV (data);
+		SV **value;
+
+		AV_FETCH_AND_CHECK (0, path, SvGChar (*value));
+		AV_FETCH_AND_CHECK (1, accelerator, SvGChar (*value));
+
+		value = av_fetch (av, 2, 0);
+
+		if (callback && value && SvOK (*value)) {
+			*callback = *value;
+			entry->callback = gtk2perl_item_factory_item_activate;
+		}
+
+		AV_FETCH_AND_CHECK (3, callback_action, SvIV (*value));
+		AV_FETCH_AND_CHECK (4, item_type, SvGChar (*value));
+		AV_FETCH_AND_CHECK (5, extra_data, SvPOK (*value) ? SvGChar (*value) : NULL);
+	}
+
+	return entry;
+}
+
+void
+gtk2perl_item_factory_create_item_helper (GtkItemFactory *ifactory,
+                                          SV *entry_ref,
+                                          SV *callback_data)
+{
+	GtkItemFactoryEntry *entry;
+	gchar *clean_path;
+	GtkWidget *widget = NULL;
+
+	SV *callback_sv = NULL, *tmp_defsv;
+
+	entry = SvGtkItemFactoryEntry (entry_ref, &callback_sv);
+
+	/* remove all those underscores that gtk+ turns into accelerators to
+	 * get a clean path that can later be used for item retrieval */
+	tmp_defsv = newSVsv (DEFSV);
+
+	sv_setsv (DEFSV, sv_2mortal (newSVGChar (entry->path)));
+	eval_pv ("s/_(?!_+)//g; s/_+/_/g;", 1);
+	clean_path = SvGChar (sv_2mortal (newSVsv (DEFSV)));
+
+	sv_setsv (DEFSV, tmp_defsv);
+
+	/* create the item in the normal manner now */
+	gtk_item_factory_create_item (ifactory, entry, callback_data, 1);
+	
+	/* get the widget that was created by create_item (this is why
+	 * we needed clean_path) */
+	widget = gtk_item_factory_get_item (ifactory, clean_path);
+	if (widget) {
+		/* put the sv we need to call into the widget */
+		g_object_set_data_full (G_OBJECT (widget),
+		                        "_gtk2perl_item_factory_callback_sv",
+		                        gperl_sv_copy (callback_sv),
+		                        (GtkDestroyNotify) gperl_sv_free);
+	} else {
+		croak("ItemFactory couldn't retrieve widget it just created");
+	}
+}
+
+/* ------------------------------------------------------------------------- */
 
 MODULE = Gtk2::ItemFactory	PACKAGE = Gtk2::ItemFactory	PREFIX = gtk_item_factory_
 
@@ -114,83 +264,69 @@ gtk_item_factory_get_item_by_action (ifactory, action)
 	GtkItemFactory *ifactory
 	guint action
 
+=for apidoc
 
-### this is called by Gtk2::IconFactory::create_item, which is implemented
-### in perl and mangles the arguments for us.
+=for arg entry_ref GtkItemFactoryEntry
+
+=cut
 void
-_create_item (ifactory, path, accelerator, callback_action, item_type, extra_data, clean_path, callback_sv, callback_data)
-	GtkItemFactory * ifactory
-	gchar * path
-	gchar * accelerator
-	gint    callback_action
-	gchar * item_type
-	SV    * extra_data
-	char  * clean_path
-	SV    * callback_sv
-	SV    * callback_data
-    PREINIT:
-	GtkItemFactoryEntry   entry = {0, };
-	GtkWidget           * widget = NULL;
+gtk_item_factory_create_item (ifactory, entry_ref, callback_data=NULL)
+	GtkItemFactory *ifactory
+	SV *entry_ref
+	SV *callback_data
     CODE:
-	entry.path = path;
-	entry.accelerator = accelerator;
-	/* start out with no callback, we'll probably add one in a min */
-	entry.callback = NULL;
-	entry.callback_action = callback_action;
-	entry.item_type = item_type;
-	entry.extra_data = SvPOK (extra_data) ? SvGChar (extra_data) : NULL; 
+	gtk2perl_item_factory_create_item_helper (ifactory, entry_ref, callback_data);
 
-	/* if the user supplied a callback then we'll need to call our
-	 * marshaler in order to call it */
-	if (SvOK (callback_sv))
-		entry.callback = gtk2perl_item_factory_item_activate;
+=for apidoc
 
-	/* create the item in the normal manner now */
-	gtk_item_factory_create_item (ifactory, &entry, NULL, 1);
-	
-	/* get the widget that was created by create_item (this is why
-	 * we needed clean_path) */
-	widget = gtk_item_factory_get_item (ifactory, clean_path);
-	if ( widget )
-	{
-		/* put the sv we need to call into the widget */
-		g_object_set_data_full (G_OBJECT (widget), "_callback_sv", 
-					(gpointer)gperl_sv_copy(callback_sv),
-				        (GtkDestroyNotify)gperl_sv_free);
-		
-		/* and put the callback data in there as well */
-		g_object_set_data_full (G_OBJECT (widget), "_callback_data", 
-					(gpointer)gperl_sv_copy(callback_data),
-					(GtkDestroyNotify)gperl_sv_free);
-	}
-	else
-		croak("ItemFactory couldn't retrieve widget it just created");
+=for arg ... GtkItemFactoryEntry's
 
-
-###### implemented in perl, see Gtk2.pm
-#####  void gtk_item_factory_create_items (GtkItemFactory *ifactory, guint n_entries, GtkItemFactoryEntry *entries, gpointer callback_data) 
+=cut
+void
+gtk_item_factory_create_items (ifactory, callback_data, ...)
+	GtkItemFactory *ifactory
+	SV *callback_data
+    PREINIT:
+	int i;
+    CODE:
+	for (i = 2; i < items; i++)
+		gtk2perl_item_factory_create_item_helper (ifactory, ST (i), callback_data);
 
 void
 gtk_item_factory_delete_item (ifactory, path)
 	GtkItemFactory *ifactory
 	const gchar *path
 
-#### FIXME how to handle GtkItemFactoryEntry?:
-###  void gtk_item_factory_delete_entry (GtkItemFactory *ifactory, GtkItemFactoryEntry *entry) 
-#void
-#gtk_item_factory_delete_entry (ifactory, entry)
-#	GtkItemFactory *ifactory
-#	GtkItemFactoryEntry *entry
+=for apidoc
 
-#### FIXME how to handle GtkItemFactoryEntry?:
-#### FIXME get entries from stack or anon array?:  definitely no n_entries
-###  void gtk_item_factory_delete_entries (GtkItemFactory *ifactory, guint n_entries, GtkItemFactoryEntry *entries) 
-#void
-#gtk_item_factory_delete_entries (ifactory, n_entries, entries)
-#	GtkItemFactory *ifactory
-#	guint n_entries
-#	GtkItemFactoryEntry *entries
+=for arg entry_ref GtkItemFactoryEntry
 
+=cut
+void
+gtk_item_factory_delete_entry (ifactory, entry_ref)
+	GtkItemFactory *ifactory
+	SV *entry_ref
+    PREINIT:
+	GtkItemFactoryEntry *entry;
+    CODE:
+	entry = SvGtkItemFactoryEntry (entry_ref, NULL);
+	gtk_item_factory_delete_entry (ifactory, entry);
+
+=for apidoc
+
+=for arg ... GtkItemFactoryEntry's
+
+=cut
+void gtk_item_factory_delete_entries (ifactory, ...)
+	GtkItemFactory *ifactory
+    PREINIT:
+	int i;
+	GtkItemFactoryEntry *entry;
+    CODE:
+	for (i = 1; i < items; i++) {
+		entry = SvGtkItemFactoryEntry (ST (i), NULL);
+		gtk_item_factory_delete_entry (ifactory, entry);
+	}
 
 ##  void gtk_item_factory_popup (GtkItemFactory *ifactory, guint x, guint y, guint mouse_button, guint32 time_) 
 ##  void gtk_item_factory_popup_with_data(GtkItemFactory *ifactory, gpointer popup_data, GtkDestroyNotify destroy, guint x, guint y, guint mouse_button, guint32 time_) 
@@ -207,7 +343,7 @@ gtk_item_factory_popup (ifactory, x, y, mouse_button, time_, popup_data=NULL)
     PREINIT:
 	SV * real_popup_data = NULL;
     CODE:
-	if (popup_data && popup_data != &PL_sv_undef)
+	if (popup_data && SvOK (popup_data))
 		real_popup_data = gperl_sv_copy (popup_data);
 	gtk_item_factory_popup_with_data (ifactory,
 	                                  real_popup_data, 
@@ -216,27 +352,48 @@ gtk_item_factory_popup (ifactory, x, y, mouse_button, time_, popup_data=NULL)
 	                                   : NULL, 
 	                                  x, y, mouse_button, time_);
 
-### FIXME these will need special handling to fetch the data set
-###       by $item_factory->popup
-###  gpointer gtk_item_factory_popup_data (GtkItemFactory *ifactory) 
-#gpointer
-#gtk_item_factory_popup_data (ifactory)
-#	GtkItemFactory *ifactory
+SV *
+gtk_item_factory_popup_data (ifactory)
+	GtkItemFactory *ifactory
+    CODE:
+	RETVAL = (SV *) gtk_item_factory_popup_data (ifactory);
 
-###  gpointer gtk_item_factory_popup_data_from_widget (GtkWidget *widget) 
-#gpointer
-#gtk_item_factory_popup_data_from_widget (widget)
-#	GtkWidget *widget
+	if (RETVAL) {
+		RETVAL = gperl_sv_copy (RETVAL);
+	} else {
+		RETVAL = &PL_sv_undef;
+	}
+    OUTPUT:
+	RETVAL
 
-# FIXME
-###  void gtk_item_factory_set_translate_func (GtkItemFactory *ifactory, GtkTranslateFunc func, gpointer data, GtkDestroyNotify notify) 
-#void
-#gtk_item_factory_set_translate_func (ifactory, func, data, notify)
-#	GtkItemFactory *ifactory
-#	GtkTranslateFunc func
-#	gpointer data
-#	GtkDestroyNotify notify
+SV *
+gtk_item_factory_popup_data_from_widget (class, widget)
+	GtkWidget *widget
+    CODE:
+	RETVAL = (SV *) gtk_item_factory_popup_data_from_widget (widget);
 
+	if (RETVAL) {
+		RETVAL = gperl_sv_copy (RETVAL);
+	} else {
+		RETVAL = &PL_sv_undef;
+	}
+    OUTPUT:
+	RETVAL
+
+void
+gtk_item_factory_set_translate_func (ifactory, func, data=NULL)
+	GtkItemFactory *ifactory
+	SV *func
+	SV *data
+    PREINIT:
+	GPerlCallback *callback;
+    CODE:
+	callback = gtk2perl_translate_func_create (func, data);
+	gtk_item_factory_set_translate_func (ifactory,
+	                                     gtk2perl_translate_func,
+	                                     callback,
+	                                     (GtkDestroyNotify)
+	                                       gperl_callback_destroy);
 
 ##
 ## deprecated

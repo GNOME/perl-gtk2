@@ -56,10 +56,9 @@ non-mnemonic version explicitly (e.g. C<Gtk2::Button::new_with_label>).
 =cut
 
 GtkWidget *
-gtk_button_news (class, label=NULL)
+gtk_button_new (class, label=NULL)
 	const gchar * label
     ALIAS:
-	Gtk2::Button::new = 0
 	Gtk2::Button::new_with_mnemonic = 1
 	Gtk2::Button::new_with_label = 2
     CODE:

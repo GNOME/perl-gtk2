@@ -28,9 +28,8 @@ MODULE = Gtk2::Pango::Font	PACKAGE = Gtk2::Pango
 
 ### some constants...
 double
-constant (class)
+scale (class)
     ALIAS:
-	Gtk2::Pango::scale          = 0
 	Gtk2::Pango::scale_xx_small = 1
 	Gtk2::Pango::scale_x_small  = 2
 	Gtk2::Pango::scale_small    = 3

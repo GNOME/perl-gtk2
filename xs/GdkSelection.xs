@@ -23,9 +23,8 @@
 MODULE = Gtk2::Gdk::Selection	PACKAGE = Gtk2::Gdk
 
 GdkAtom
-predefs (class)
+SELECTION_PRIMARY (class)
     ALIAS:
-	Gtk2::Gdk::SELECTION_PRIMARY       =  0
 	Gtk2::Gdk::SELECTION_SECONDARY     =  1
 	Gtk2::Gdk::SELECTION_CLIPBOARD     =  2
 	Gtk2::Gdk::TARGET_BITMAP           =  3

@@ -27,10 +27,9 @@ MODULE = Gtk2::CheckMenuItem	PACKAGE = Gtk2::CheckMenuItem	PREFIX = gtk_check_me
 ## GtkWidget* gtk_check_menu_item_new_with_mnemonic (const gchar *label)
 ## GtkWidget* gtk_check_menu_item_new_with_label (const gchar *label)
 GtkWidget *
-gtk_check_menu_item_news (class, label=NULL)
+gtk_check_menu_item_new (class, label=NULL)
 	const gchar * label
     ALIAS:
-	Gtk2::CheckMenuItem::new = 0
 	Gtk2::CheckMenuItem::new_with_mnemonic = 1
 	Gtk2::CheckMenuItem::new_with_label = 2
     CODE:

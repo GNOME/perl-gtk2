@@ -570,6 +570,7 @@ gdk_window_get_children (window)
     PREINIT:
 	GList *windows = NULL, *i;
     PPCODE:
+	PERL_UNUSED_VAR (ix);
 	windows = gdk_window_peek_children (window);
 	for (i = windows; i != NULL; i = i->next)
 		XPUSHs (sv_2mortal (newSVGdkWindow (i->data)));

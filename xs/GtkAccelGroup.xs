@@ -103,7 +103,7 @@ gtk_accel_group_connect_by_path (accel_group, accel_path, func)
 	closure = gperl_closure_new (func, NULL, FALSE);
 	gtk_accel_group_connect_by_path (accel_group, accel_path, closure);
 	/* i wonder if we get the same problem here as above? */
-	g_closure_unref (closure);
+	/* g_closure_unref (closure); */
 
 # this will not work quite as advertised --- a GClosure can be
 # attached to only one GtkAccelGroup, but we'll be creating a new
@@ -191,7 +191,7 @@ gtk_accelerator_set_default_mod_mask (class, default_mod_mask)
 
 ## guint gtk_accelerator_get_default_mod_mask (void)
 ## call as Gtk2::Accelerator->get_default_mod_mask
-guint
+GdkModifierType
 gtk_accelerator_get_default_mod_mask (class)
     C_ARGS:
 	/* void */
@@ -205,9 +205,11 @@ gtk_accelerator_get_default_mod_mask (class)
 
 ##gboolean gtk_accelerator_valid (guint keyval, GdkModifierType modifiers) G_GNUC_CONST
 gboolean
-gtk_accelerator_valid (keyval, modifiers)
+gtk_accelerator_valid (class, keyval, modifiers)
 	guint           keyval
 	GdkModifierType modifiers
+    C_ARGS:
+	keyval, modifiers
 
 # internal
 ##GtkAccelGroupEntry* gtk_accel_group_query (GtkAccelGroup *accel_group, guint accel_key, GdkModifierType accel_mods, guint *n_entries)

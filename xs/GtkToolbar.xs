@@ -61,10 +61,10 @@ gtk2perl_toolbar_insert_internal (GtkToolbar * toolbar,
 	const char * real_tooltip_text = NULL;
 	const char * real_tooltip_private_text = NULL;
 
-	if (tooltip_text && tooltip_text != &PL_sv_undef)
+	if (tooltip_text && SvOK (tooltip_text))
 		real_tooltip_text = SvGChar (tooltip_text);
 
-	if (tooltip_private_text && tooltip_private_text != &PL_sv_undef)
+	if (tooltip_private_text && SvOK (tooltip_private_text))
 		real_tooltip_private_text = SvGChar (tooltip_private_text);
 
 	switch (which) {
@@ -164,7 +164,7 @@ gtk2perl_toolbar_insert_internal (GtkToolbar * toolbar,
 		}
 		break;
 	}
-	if (callback && callback != &PL_sv_undef)
+	if (callback && SvOK (callback))
 		gperl_signal_connect (newSVGtkWidget (w), "clicked",
 		                      callback, user_data, 0);
 

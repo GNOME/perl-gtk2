@@ -126,7 +126,7 @@ BOOT:
  ##GTKMAIN_C_VAR const guint gtk_interface_age;
 
 =for apidoc
-=for signature (major_version, minor_version, micro_version) = Gtk2->version_info
+=for signature (major_version, minor_version, micro_version) = Gtk2->get_version_info
 =cut
 void
 gtk_get_version_info (class)
@@ -230,6 +230,10 @@ const gchar * gtk_set_locale (class)
 	/*void*/
 
  ##PangoLanguage *gtk_get_default_language (void);
+PangoLanguage *
+gtk_get_default_language (class)
+    C_ARGS:
+	/*void*/
 
 gint
 gtk_events_pending (class)
@@ -262,6 +266,12 @@ gboolean
 gtk_main_iteration (class)
     C_ARGS:
 	/*void*/
+
+gboolean
+gtk_main_iteration_do (class, blocking)
+	gboolean blocking
+    C_ARGS:
+	blocking
 
  ### gtk-perl implemented these as widget methods, but they are not widget
  ### methods.  they deal with the global grab setting.  this is bound to 
@@ -411,9 +421,6 @@ gtk_get_event_widget (class, GdkEvent_ornull * event)
     C_ARGS:
 	event
 
- ## the docs say you shouldn't need this outside implementing gtk itself.
- ##void gtk_propagate_event (GtkWidget * widget, GdkEvent * event);
-
 # this stuff is only here to generate pod pages for abstract and functionless
 # object, that is the objects exist only as parents and have no functions of
 # their own
@@ -423,3 +430,11 @@ gtk_get_event_widget (class, GdkEvent_ornull * event)
 
 =for object Gtk2::Scrollbar
 =cut
+
+MODULE = Gtk2		PACKAGE = Gtk2::Widget		PREFIX = gtk_
+
+ ##void gtk_propagate_event (GtkWidget * widget, GdkEvent * event);
+void
+gtk_propagate_event (widget, event)
+	GtkWidget * widget
+	GdkEvent * event

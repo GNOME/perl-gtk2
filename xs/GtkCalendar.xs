@@ -36,10 +36,9 @@ MODULE = Gtk2::Calendar	PACKAGE = Gtk2::Calendar	PREFIX = gtk_calendar_
 =cut
 
 void
-members (cal)
+num_marked_dates (cal)
 	GtkCalendar* cal
     ALIAS:
-	num_marked_dates  = 0
 	marked_date       = 1
 	year              = 2
 	month             = 3

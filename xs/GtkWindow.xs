@@ -511,24 +511,6 @@ gtk_window_parse_geometry (window, geometry)
 	GtkWindow   * window
 	const gchar * geometry
 
-## GtkWindowGroup * gtk_window_group_new (void)
-GtkWindowGroup *
-gtk_window_group_new (class)
-    C_ARGS:
-	/*void*/
-
-## void gtk_window_group_add_window (GtkWindowGroup *window_group, GtkWindow *window)
-void
-gtk_window_group_add_window (window_group, window)
-	GtkWindowGroup * window_group
-	GtkWindow      * window
-
-## void gtk_window_group_remove_window (GtkWindowGroup *window_group, GtkWindow *window)
-void
-gtk_window_group_remove_window (window_group, window)
-	GtkWindowGroup * window_group
-	GtkWindow      * window
-
 ## void gtk_window_remove_embedded_xid (GtkWindow *window, guint xid)
 void
 gtk_window_remove_embedded_xid (window, xid)
@@ -592,6 +574,26 @@ gtk_window_set_auto_startup_notification (class, setting)
 	setting
 
 #endif
+
+MODULE = Gtk2::Window	PACKAGE = Gtk2::WindowGroup	PREFIX = gtk_window_group_
+
+## GtkWindowGroup * gtk_window_group_new (void)
+GtkWindowGroup *
+gtk_window_group_new (class)
+    C_ARGS:
+	/*void*/
+
+## void gtk_window_group_add_window (GtkWindowGroup *window_group, GtkWindow *window)
+void
+gtk_window_group_add_window (window_group, window)
+	GtkWindowGroup * window_group
+	GtkWindow      * window
+
+## void gtk_window_group_remove_window (GtkWindowGroup *window_group, GtkWindow *window)
+void
+gtk_window_group_remove_window (window_group, window)
+	GtkWindowGroup * window_group
+	GtkWindow      * window
 
  ## er... dunno about these.
  ##

@@ -69,7 +69,7 @@ gtk2perl_read_gtk_target_entry (SV * sv,
 		if ((s=hv_fetch (h, "target", 6, 0)) && SvOK (*s))
 			e->target = SvPV (*s, len);
 		if ((s=hv_fetch (h, "flags", 5, 0)) && SvOK (*s))
-			e->flags = SvUV (*s);
+			e->flags = SvGtkTargetFlags (*s);
 		if ((s=hv_fetch (h, "info", 4, 0)) && SvOK (*s))
 			e->info = SvUV (*s);
 	} else {
@@ -236,13 +236,17 @@ gtk_selection_convert (widget, selection, target, time_)
 	GdkAtom target
 	guint32 time_
 
+##  void gtk_selection_remove_all (GtkWidget *widget) 
+void
+gtk_selection_remove_all (widget)
+	GtkWidget *widget
+
 MODULE = Gtk2::Selection	PACKAGE = Gtk2::SelectionData	PREFIX = gtk_selection_data_
 
 SV *
-members (d)
+selection (d)
 	GtkSelectionData * d
     ALIAS:
-	Gtk2::SelectionData::selection = 0
 	Gtk2::SelectionData::target    = 1
 	Gtk2::SelectionData::type      = 2
 	Gtk2::SelectionData::format    = 3
@@ -314,11 +318,6 @@ gtk_selection_data_get_targets (selection_data)
 gboolean
 gtk_selection_data_targets_include_text (selection_data)
 	GtkSelectionData *selection_data
-
-##  void gtk_selection_remove_all (GtkWidget *widget) 
-void
-gtk_selection_remove_all (widget)
-	GtkWidget *widget
 
 ##  gboolean gtk_selection_clear (GtkWidget *widget, GdkEventSelection *event) 
 gboolean

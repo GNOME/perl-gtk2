@@ -219,9 +219,8 @@ new (class)
 	RETVAL
 
 SV *
-accessors (SV *object, SV *newvalue=NULL)
+min_width (SV *object, SV *newvalue=NULL)
     ALIAS:
-	min_width = 0
         min_height = 1
         max_width = 2
         max_height = 3
@@ -232,7 +231,7 @@ accessors (SV *object, SV *newvalue=NULL)
 	min_aspect = 8
 	max_aspect = 9
 	win_gravity = 10
-	gravity = 10
+	gravity = 11
     PREINIT:
 	SV **value = NULL;
 	HV *geometry;
@@ -251,7 +250,8 @@ accessors (SV *object, SV *newvalue=NULL)
 		case 7: value = hv_fetch (geometry, "height_inc", 10, 0); break;
 		case 8: value = hv_fetch (geometry, "min_aspect", 10, 0); break;
 		case 9: value = hv_fetch (geometry, "max_aspect", 10, 0); break;
-		case 10: value = hv_fetch (geometry, "win_gravity", 11, 0); break;
+		case 10: /* fall-through */
+		case 11: value = hv_fetch (geometry, "win_gravity", 11, 0); break;
 	}
 
 	if (value && SvOK (*value))
@@ -271,7 +271,8 @@ accessors (SV *object, SV *newvalue=NULL)
 			case 7: hv_store (geometry, "height_inc", 10, newvalue, 0); break;
 			case 8: hv_store (geometry, "min_aspect", 10, newvalue, 0); break;
 			case 9: hv_store (geometry, "max_aspect", 10, newvalue, 0); break;
-			case 10: hv_store (geometry, "win_gravity", 11, newvalue, 0); break;
+			case 10: /* fall-through */
+			case 11: hv_store (geometry, "win_gravity", 11, newvalue, 0); break;
 		}
 	}
     OUTPUT:

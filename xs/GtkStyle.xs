@@ -33,10 +33,9 @@ BOOT:
 	gperl_object_set_no_warn_unreg_subclass (GTK_TYPE_STYLE, TRUE);
 
 SV *
-stateless_member (style)
+black (style)
 	GtkStyle * style
     ALIAS:
-	Gtk2::Style::black = 0
 	Gtk2::Style::white = 1
 	Gtk2::Style::font_desc = 2
 	Gtk2::Style::xthickness = 3
@@ -60,11 +59,10 @@ stateless_member (style)
 
 ## FIXME: is it correct to _copy these?
 GdkColor_copy *
-state_color (style, state)
+fg (style, state)
 	GtkStyle * style
 	GtkStateType state
     ALIAS:
-	Gtk2::Style::fg = 0
 	Gtk2::Style::bg = 1
 	Gtk2::Style::light = 2
 	Gtk2::Style::dark = 3
@@ -89,11 +87,10 @@ state_color (style, state)
 
 # legitimate reference, not a copy
 GdkGC *
-state_gc (style, state)
+fg_gc (style, state)
 	GtkStyle * style
 	GtkStateType state
     ALIAS:
-	Gtk2::Style::fg_gc = 0
 	Gtk2::Style::bg_gc = 1
 	Gtk2::Style::light_gc = 2
 	Gtk2::Style::dark_gc = 3

@@ -90,11 +90,6 @@ gtk_accel_map_save (class, file_name)
 
 
 ##  void gtk_accel_map_load_fd (gint fd)
-void
-gtk_accel_map_load_fd (class, fd)
-	gint fd
-    C_ARGS:
-	fd
 
 ## TODO: GScanner ...
 ##  void gtk_accel_map_load_scanner (GScanner *scanner)
@@ -103,11 +98,6 @@ gtk_accel_map_load_fd (class, fd)
 ##	GScanner *scanner
 
 ##  void gtk_accel_map_save_fd (gint fd)
-void
-gtk_accel_map_save_fd (class, fd)
-	gint fd
-    C_ARGS:
-	fd
 
 ##  void gtk_accel_map_add_filter (const gchar *filter_pattern)
 void

@@ -20,6 +20,19 @@ sub import
 		plan skip_all => "not appliciable on win32";
 	}
 
+	if ($opts{at_least_version})
+	{
+		my ($rmajor, $rminor, $rmicro, $text) = 
+						@{$opts{at_least_version}};
+		my ($major, $minor, $micro) = Gtk2->get_version_info;
+		unless ($major >= $rmajor &&
+			$minor >= $rminor &&
+			$micro >= $rmicro)
+		{
+			plan skip_all => $text;
+		}
+	}
+
 	if( $opts{noinit} || Gtk2->init_check )
 	{
 		plan tests => $opts{tests};

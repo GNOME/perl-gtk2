@@ -63,8 +63,9 @@ gtk_tooltips_set_tip (tooltips, widget, tip_text, tip_private=NULL)
 
 ## GtkTooltipsData* gtk_tooltips_data_get (GtkWidget *widget)
 =for apidoc
-=for signature hash = $tooltips->data_get ($widget)
-Returns a hash with the keys: tooptips, widget, tip_text, and tip_private.
+=for signature hash_ref = $tooltips->data_get ($widget)
+Returns a hash reference with the keys: tooptips, widget, tip_text, and
+tip_private.
 
 tooltips is the GtkTooltips group that this tooltip belongs to. widget is the
 GtkWidget that this tooltip data is associated with. tip_text is a string
@@ -84,11 +85,18 @@ gtk_tooltips_data_get (class, widget)
 	ret = gtk_tooltips_data_get(widget);
 	if( !ret )
 		XSRETURN_UNDEF;
+
 	hv = newHV();
-	hv_store(hv, "tooltips", 8, newSVGtkTooltips(ret->tooltips),0);
-	hv_store(hv, "widget", 6, newSVGtkWidget(GTK_WIDGET(ret->widget)),0);
-	hv_store(hv, "tip_text", 8, newSVpv(ret->tip_text, PL_na),0);
-	hv_store(hv, "tip_private", 11, newSVpv(ret->tip_private, PL_na),0);
+
+	if (ret->tooltips)
+		hv_store(hv, "tooltips", 8, newSVGtkTooltips(ret->tooltips),0);
+	if (ret->widget)
+		hv_store(hv, "widget", 6, newSVGtkWidget(GTK_WIDGET(ret->widget)),0);
+	if (ret->tip_text)
+		hv_store(hv, "tip_text", 8, newSVpv(ret->tip_text, PL_na),0);
+	if (ret->tip_private)
+		hv_store(hv, "tip_private", 11, newSVpv(ret->tip_private, PL_na),0);
+
 	XPUSHs(sv_2mortal(newRV_noinc((SV*)hv)));
 
 ## void gtk_tooltips_force_window (GtkTooltips *tooltips)
