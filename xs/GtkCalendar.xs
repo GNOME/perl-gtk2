@@ -23,11 +23,46 @@
 
 MODULE = Gtk2::Calendar	PACKAGE = Gtk2::Calendar	PREFIX = gtk_calendar_
 
+void
+members (cal)
+	GtkCalendar* cal
+    ALIAS:
+	num_marked_dates  = 0
+	marked_date       = 1
+	year              = 2
+	month             = 3
+	selected_day      = 4
+    PPCODE:
+	switch (ix) {
+	    case 0:
+		PUSHs (sv_2mortal (newSViv (cal->num_marked_dates)));
+		break;
+ 	    case 1:
+		{
+		int i;
+		EXTEND (SP, 31);
+		for (i = 0; i < 31; i++) {
+			PUSHs (sv_2mortal (newSViv (cal->marked_date[i])));
+		}
+		}
+		break;
+	    case 2:
+		PUSHs (sv_2mortal (newSViv (cal->year)));
+		break;
+	    case 3:
+		PUSHs (sv_2mortal (newSViv (cal->month)));
+		break;
+	    case 4:
+		PUSHs (sv_2mortal (newSViv (cal->selected_day)));
+		break;
+	}
+
 ## GtkWidget* gtk_calendar_new (void)
 GtkWidget*
 gtk_calendar_new (class)
 	SV * class
     C_ARGS:
+	/*void*/
 
 ## gboolean gtk_calendar_select_month (GtkCalendar *calendar, guint month, guint year)
 gboolean
