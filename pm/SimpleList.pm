@@ -10,7 +10,7 @@ use Carp;
 use Gtk2;
 use base 'Gtk2::TreeView';
 
-our $VERSION = '0.13';
+our $VERSION = '0.14';
 
 =cut
 
@@ -62,7 +62,12 @@ sub text_cell_edited {
 }
 
 sub new {
+	return shift->new_from_treeview (undef, @_);
+}
+
+sub new_from_treeview {
 	my $class = shift;
+	my $view = shift;
 	my @column_info = ();
 	for (my $i = 0; $i < @_ ; $i+=2) {
 		croak "expecting pairs of title=>type"
@@ -79,7 +84,13 @@ sub new {
 		};
 	}
 	my $model = Gtk2::ListStore->new (map { $_->{type} } @column_info);
-	my $view = Gtk2::TreeView->new ($model);
+	if (defined $view) {
+		# just in case, 'cause i'm paranoid like that.
+		map { $view->remove_column ($_) } $view->get_columns;
+		$view->set_model ($model);
+	} else {
+		$view = Gtk2::TreeView->new ($model);
+	}
 	for (my $i = 0; $i < @column_info ; $i++) {
 		if( 'CODE' eq ref $column_info[$i]{attr} )
 		{
@@ -436,6 +447,15 @@ Gtk2::SimpleList - A simple interface to Gtk2's complex MVC list widget
   $slist->set_rules_hint (TRUE);
   $slist->signal_connect (row_activated => \&row_clicked);
 
+  # turn an existing TreeView into a SimpleList; useful for
+  # Glade-generated interfaces.
+  $simplelist = Gtk2::SimpleList->new_from_treeview (
+                    $glade->get_widget ('treeview'),
+                    'Text Field'    => 'text',
+                    'Int Field'     => 'int',
+                    'Double Field'  => 'double',
+                 );
+
 =head1 ABSTRACT
 
 SimpleList is a simple interface to the powerful but complex Gtk2::TreeView
@@ -486,6 +506,14 @@ they are turned on. The parameter ctype is the type of the column, one of:
 
 or the name of a custom type you add with C<add_column_type>.
 These should be provided in pairs according to the desired columns for you list.
+
+=item $slist = Gtk2::SimpleList->new_from_treeview (treeview, cname, ctype, ...)
+
+Like C<< Gtk2::SimpleList->new() >>, but turns an existing Gtk2::TreeView into
+a Gtk2::SimpleList.  This is intended mostly for use with stuff like Glade,
+where the widget is created for you.  This will create and attach a new model
+and remove any existing columns from I<treeview>.  Returns I<treeview>,
+re-blessed as a Gtk2::SimpleList.
 
 =item $slist->set_data_array (arrayref)
 
