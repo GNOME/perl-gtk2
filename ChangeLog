@@ -95,8 +95,8 @@
 	* t/GtkWidget.t
 	* t/PangoContext.t
 	* t/PangoFont.t
-	* t/PangoTabs.t: Add a $Header$ tag to all tests that don't have
-	one already.  Sigh.  Somebody remind me about adding those in the
+	* t/PangoTabs.t: Add a Header tag to all tests that don't have one
+	already.  Sigh.  Somebody remind me about adding those in the
 	first place next time.
 
 	* xs/GdkProperty.xs
