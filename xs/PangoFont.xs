@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003 by the gtk2-perl team (see the file AUTHORS)
+ * Copyright (c) 2003-2004 by the gtk2-perl team (see the file AUTHORS)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -20,6 +20,13 @@
  */
 
 #include "gtk2perl.h"
+
+/* FIXME: should we ever bind PangoFontMap, move this to the corresponding .xs
+          file. */
+MODULE = Gtk2::Pango::Font	PACKAGE = Gtk2::Pango::FontMap
+
+BOOT:
+	gperl_object_set_no_warn_unreg_subclass (PANGO_TYPE_FONT_MAP, TRUE);
 
 MODULE = Gtk2::Pango::Font	PACKAGE = Gtk2::Pango
 

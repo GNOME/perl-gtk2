@@ -1,3 +1,23 @@
+2004/07/12 20:46 (+0200) kaffeetisch
+
+	* CodeGen.pm: Use explicit casts to gpointer in newSV$classname,
+	newSV$classname\_own, and newSV$classname\_copy, in order to allow
+	the const modifier on boxed types.  Also add
+	newSV$classname\_ornull and the corresponding typemap.
+
+	* xs/GtkCellRenderer.xs: Remove two macros that are now
+	automatically generated.
+
+	* xs/GtkTreeView.xs: Add some bits from the C API documentation to
+	the POD of get_path_at_pos.  (#145109)
+
+	* t/PangoContext.t
+	* xs/PangoContext.xs: Bind get_font_map.  Make [sg]et_matrix
+	accept undef.
+
+	* xs/PangoFont.xs: Don't warn about unregistered subclasses of
+	PangoFontMap.
+
 2004/07/09 22:52 (-0400) muppetman
 
 	* examples/cellrenderer_popup.pl: add a toggle to show off both

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003 by the gtk2-perl team (see the file AUTHORS)
+ * Copyright (c) 2003-2004 by the gtk2-perl team (see the file AUTHORS)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -40,10 +40,6 @@ warn_deprecated (const char * old_and_busted,
 	}
 }
 
-#define newSVGdkRectangle_ornull(r)	\
-	((r) ? newSVGdkRectangle(r) : newSVsv (&PL_sv_undef))
-#define newSVGdkEvent_ornull(e)	\
-	((e) ? newSVGdkEvent(e) : newSVsv (&PL_sv_undef))
 #define newSVGChar_ornull(s)	\
 	((s) ? newSVGChar(s) : newSVsv (&PL_sv_undef))
 

@@ -395,15 +395,17 @@ sub gen_boxed_stuff {
   typedef $classname $classname\_own;
   typedef $classname $classname\_copy;
   typedef $classname $classname\_own_ornull;
-# define newSV$classname(val)	(gperl_new_boxed ((val), $typemacro, FALSE))
-# define newSV$classname\_own(val)	(gperl_new_boxed ((val), $typemacro, TRUE))
-# define newSV$classname\_copy(val)	(gperl_new_boxed_copy ((val), $typemacro))
+# define newSV$classname(val)	(gperl_new_boxed ((gpointer) (val), $typemacro, FALSE))
+# define newSV$classname\_ornull(val)	((val) ? newSV$classname(val) : &PL_sv_undef)
+# define newSV$classname\_own(val)	(gperl_new_boxed ((gpointer) (val), $typemacro, TRUE))
+# define newSV$classname\_copy(val)	(gperl_new_boxed_copy ((gpointer) (val), $typemacro))
 # define newSV$classname\_own_ornull(val)	((val) ? newSV$classname\_own(val) : &PL_sv_undef)
 #endif /* $typemacro */
 ";
 	push @typemap, "$classname *	T_GPERL_GENERIC_WRAPPER";
 	push @typemap, "const $classname *	T_GPERL_GENERIC_WRAPPER";
 	push @typemap, "$classname\_ornull *	T_GPERL_GENERIC_WRAPPER";
+	push @typemap, "const $classname\_ornull *	T_GPERL_GENERIC_WRAPPER";
 	push @typemap, "$classname\_own *	T_GPERL_GENERIC_WRAPPER";
 	push @typemap, "$classname\_copy *	T_GPERL_GENERIC_WRAPPER";
 	push @typemap, "$classname\_own_ornull *	T_GPERL_GENERIC_WRAPPER";
@@ -477,8 +479,8 @@ muppet <scott at asofyet dot org>
 
 =head1 COPYRIGHT
 
-Copyright (C) 2003 by the gtk2-perl team (see the file AUTHORS for the full
-list)
+Copyright (C) 2003-2004 by the gtk2-perl team (see the file AUTHORS for the
+full list)
 
 This library is free software; you can redistribute it and/or modify it under
 the terms of the GNU Library General Public License as published by the Free

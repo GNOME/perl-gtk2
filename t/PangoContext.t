@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 10;
+use Gtk2::TestHelper tests => 12;
 
 # $Header$
 
@@ -30,11 +30,21 @@ isa_ok($context -> load_fontset($font, $language), "Gtk2::Pango::Fontset");
 isa_ok($context -> get_metrics($font, $language), "Gtk2::Pango::FontMetrics");
 
 SKIP: {
-  skip("[sg]et_matrix are new in 1.6", 1)
+  skip("[sg]et_matrix are new in 1.6", 2)
     unless (Gtk2::Pango -> CHECK_VERSION(1, 5, 0)); # FIXME: 1.6
 
   $context -> set_matrix(Gtk2::Pango::Matrix -> new());
   isa_ok($context -> get_matrix(), "Gtk2::Pango::Matrix");
+
+  $context -> set_matrix(undef);
+  is($context -> get_matrix(), undef);
+}
+
+SKIP: {
+  skip("get_font_map is new in 1.6", 1)
+    unless (Gtk2::Pango -> CHECK_VERSION(1, 5, 1)); # FIXME: 1.6
+
+  isa_ok($context -> get_font_map(), "Gtk2::Pango::FontMap");
 }
 
 __END__
