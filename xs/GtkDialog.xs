@@ -65,21 +65,17 @@ gtk2perl_dialog_response_marshal (GClosure * closure,
 	GPerlClosure *pc = (GPerlClosure *)closure;
 	SV * data;
 	SV * instance;
-#ifndef PERL_IMPLICIT_CONTEXT
 	dSP;
-#else
-	SV **SP;
+#ifdef PERL_IMPLICIT_CONTEXT
+	/* make sure we're executed by the same interpreter that created
+	 * the closure object. */
+	PERL_SET_CONTEXT (marshal_data);
+	SPAGAIN;
+#endif
 
 	PERL_UNUSED_VAR (return_value);
 	PERL_UNUSED_VAR (n_param_values);
 	PERL_UNUSED_VAR (invocation_hint);
-
-	/* make sure we're executed by the same interpreter that created
-	 * the closure object. */
-	PERL_SET_CONTEXT (marshal_data);
-
-	SPAGAIN;
-#endif
 
 	ENTER;
 	SAVETMPS;
@@ -89,16 +85,16 @@ gtk2perl_dialog_response_marshal (GClosure * closure,
 	if (GPERL_CLOSURE_SWAP_DATA (pc)) {
 		/* swap instance and data */
 		data     = gperl_sv_from_value (param_values);
-		instance = pc->data;
+		instance = SvREFCNT_inc (pc->data);
 	} else {
 		/* normal */
 		instance = gperl_sv_from_value (param_values);
-		data     = pc->data;
+		data     = SvREFCNT_inc (pc->data);
 	}
 
 	EXTEND (SP, 2);
 	/* the instance is always the first item in @_ */
-	PUSHs (instance);
+	PUSHs (sv_2mortal (instance));
 
 	/* the second parameter for this signal is defined as an int
 	 * but is actually a response code, and can have GtkResponseType
@@ -107,7 +103,7 @@ gtk2perl_dialog_response_marshal (GClosure * closure,
 				(g_value_get_int (param_values + 1))));
 
 	if (data)
-		XPUSHs (data);
+		XPUSHs (sv_2mortal (data));
 	PUTBACK;
 
 	call_sv (pc->callback, G_DISCARD | G_EVAL);
