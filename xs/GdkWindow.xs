@@ -215,9 +215,13 @@ GdkWindow* gdk_window_lookup (SV * class, GdkNativeWindow anid);
  
 #ifdef GDK_TYPE_DISPLAY
  
-GdkWindow *gdk_window_foreign_new_for_display (GdkDisplay *display, GdkNativeWindow  anid);
+GdkWindow *gdk_window_foreign_new_for_display (class, GdkDisplay *display, GdkNativeWindow  anid);
+    C_ARGS:
+	display, anid
 
-GdkWindow* gdk_window_lookup_for_display (GdkDisplay *display, GdkNativeWindow anid)
+GdkWindow* gdk_window_lookup_for_display (class, GdkDisplay *display, GdkNativeWindow anid)
+    C_ARGS:
+	display, anid
 
 #endif /* have GdkDisplay */
 
