@@ -9,15 +9,23 @@
 
 #########################
 
-use Test::More tests => 87;
-BEGIN { use_ok('Gtk2') };
+use Gtk2;
+use Test::More;
+
+if( Gtk2->init_check )
+{
+	plan tests => 85;
+}
+else
+{
+	plan skip_all =>
+		'Gtk2->init_check failed, probably unable to open DISPLAY';
+}
 
 #########################
 
 use constant TRUE => 1;
 use constant FALSE => 0;
-
-ok( Gtk2->init );
 
 ok( $win = Gtk2::Window->new );
 ok( $win = Gtk2::Window->new('popup') );
@@ -53,12 +61,12 @@ ok( $s[0] == 640 && $s[1] == 480 );
 
 #$win->set_geometry_hints(...);
 
-foreach (qw/north-west north north-east west center east 
+foreach (qw/north-west north north-east west center east
 	    south-west south south-east static/)
 {
 	$win->set_gravity($_);
 	ok(1);
-	
+
 	is( $win->get_gravity , $_, "gravity $_" );
 }
 
@@ -135,7 +143,7 @@ SKIP: {
 
 ok( ! $win->get_default_icon_list );
 
-# need pixbufs 
+# need pixbufs
 #$win->set_default_icon_list(...)
 
 # need file
@@ -150,9 +158,9 @@ ok( ! $win->get_icon );
 # doesn't have an icon ^
 ok( ! $win->get_icon_list );
 
-Glib::Idle->add(sub { 
+Glib::Idle->add(sub {
 		$win2->show;
-		
+
 		# there are no widgets, so this should fail
 		ok( ! $win->activate_focus );
 
@@ -164,10 +172,10 @@ Glib::Idle->add(sub {
 
 		$win->present;
 		ok(1);
-		
+
 		$win->iconify;
 		ok(1);
-		
+
 		# doesnt work no error message
 		$win->deiconify;
 		ok(1);

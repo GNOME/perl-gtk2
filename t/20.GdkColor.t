@@ -1,8 +1,26 @@
-use Test::More tests => 7;
+#
+# $Header$
+#
+
+#########################
+# GdkColor Tests
+# 	- muppet
+#########################
+
+use Gtk2;
+use Test::More;
 
 BEGIN { use_ok ('Gtk2') }
 
-Gtk2->init;
+if( Gtk2->init_check )
+{
+	plan tests => 6;
+}
+else
+{
+	plan skip_all =>
+		'Gtk2->init_check failed, probably unable to open DISPLAY';
+}
 
 my $cmap = Gtk2::Gdk::Colormap->get_system;
 ok ($cmap, 'system colormap');

@@ -11,24 +11,26 @@
 
 # change 'tests => 1' to 'tests => last_test_to_print';
 
+use Gtk2;
 use Test::More;
 
-if ($^O eq 'MSWin32') {
+if ($^O eq 'MSWin32')
+{
 	plan skip_all => "socket and plug not implemented on win32";
 	# ...despite patches that have been around for a long time
-	exit;
 }
-
-plan tests => 5;
-
-BEGIN { use_ok('Gtk2') };
+elsif( not Gtk2->init_check )
+{
+	plan skip_all =>
+		'Gtk2->init_check failed, probably unable to open DISPLAY';
+}
+else
+{
+	plan tests => 4;
+}
 
 #########################
 
-# Insert your test code below, the Test::More module is use()ed here so read
-# its man page ( perldoc Test::More ) for help writing this test script.
-
-ok( Gtk2->init );
 ok( $win = Gtk2::Window->new );
 
 ok( $socket = Gtk2::Socket->new );

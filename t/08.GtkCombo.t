@@ -9,17 +9,20 @@
 
 #########################
 
-# change 'tests => 1' to 'tests => last_test_to_print';
+use Gtk2;
+use Test::More;
 
-use Test::More tests => 5;
-BEGIN { use_ok('Gtk2') };
+if( Gtk2->init_check )
+{
+	plan tests => 3;
+}
+else
+{
+	plan skip_all =>
+		'Gtk2->init_check failed, probably unable to open DISPLAY';
+}
 
 #########################
-
-# Insert your test code below, the Test::More module is use()ed here so read
-# its man page ( perldoc Test::More ) for help writing this test script.
-
-ok( Gtk2->init );
 
 ok( $win = Gtk2::Window->new() );
 
@@ -32,7 +35,7 @@ $combo->set_popdown_strings( qw/str1 str2 str3 str4/ );
 
 $combo->set_value_in_list(1, 0);
 
-Glib::Idle->add( sub 
+Glib::Idle->add( sub
 	{
 		Gtk2->main_quit;
 		0;

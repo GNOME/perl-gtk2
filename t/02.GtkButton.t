@@ -9,12 +9,20 @@
 
 #########################
 
-use Test::More tests => 39;
-BEGIN { use_ok('Gtk2') };
+use Gtk2;
+use Test::More;
 
 #########################
 
-Gtk2->init;
+if( Gtk2->init_check )
+{
+	plan tests => 38;
+}
+else
+{
+	plan skip_all =>
+		'Gtk2->init_check failed, probably unable to open DISPLAY';
+}
 
 $win = Gtk2::Window->new;
 $win->set_title('02.Gtkbutton.t');
@@ -95,7 +103,7 @@ ok( $button3->get_use_stock );
 
 $win3->add($button3);
 
-Glib::Idle->add( sub 
+Glib::Idle->add( sub
 	{
 		$win2->show;
 		$button->pressed;
@@ -108,7 +116,7 @@ Glib::Idle->add( sub
 		ok(1);
 		$button->leave;
 		ok(1);
-		Glib::Idle->add( sub 
+		Glib::Idle->add( sub
 			{
 				$button->clicked;
 				ok(1);

@@ -9,12 +9,20 @@
 
 #########################
 
-use Test::More tests => 59;
-BEGIN { use_ok('Gtk2') };
+use Gtk2;
+use Test::More;
+
+if( Gtk2->init_check )
+{
+	plan tests => 58;
+}
+else
+{
+	plan skip_all =>
+		'Gtk2->init_check failed, probably unable to open DISPLAY';
+}
 
 #########################
-
-Gtk2->init;
 
 my $win = Gtk2::Window->new;
 
@@ -91,7 +99,7 @@ ok(1);
 $nb->popup_enable;
 ok(1);
 ok( ! $nb->get_scrollable );
-		
+
 # in reality this one is only in gtk2.2+, but it's been implemented in
 # the xs wrapper since it's trivial anyway
 ok( $nb->get_n_pages == 6 );
@@ -114,16 +122,16 @@ ok( $nb->get_tab_label_text($child) eq 're-set2' );
 
 ok( $nb->get_nth_page(1)->get_text eq 'Page 2c' );
 
-ok( eq_array( [ $nb->query_tab_label_packing($child) ], 
+ok( eq_array( [ $nb->query_tab_label_packing($child) ],
 	      [ undef, 1, 'start' ] ) );
 
 $nb->set_tab_label_packing($child, 1, 0, 'end');
 ok(1);
-ok( eq_array( [ $nb->query_tab_label_packing($child) ], 
+ok( eq_array( [ $nb->query_tab_label_packing($child) ],
 	      [ 1, undef, 'end' ] ) );
 
-Glib::Idle->add( sub 
-	{ 
+Glib::Idle->add( sub
+	{
 		$nb->next_page;
 		ok(1);
 		$nb->prev_page;
@@ -138,7 +146,7 @@ Glib::Idle->add( sub
 		$nb->next_page;
 		ok(1);
 		ok( $nb->get_current_page == 1 );
-		
+
 		$nb->set_current_page(4);
        		ok(1);
 		ok( $nb->get_current_page == 4 );
@@ -146,7 +154,7 @@ Glib::Idle->add( sub
 		Gtk2->main_quit;
 		ok(1);
 
-		0 
+		0
 	} );
 
 $win->show_all;

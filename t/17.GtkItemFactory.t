@@ -9,10 +9,18 @@
 
 #########################
 
-use Test::More tests => 10;
-BEGIN { use_ok('Gtk2') };
+use Gtk2;
+use Test::More;
 
-use Data::Dumper;
+if( Gtk2->init_check )
+{
+	plan tests => 9;
+}
+else
+{
+	plan skip_all =>
+		'Gtk2->init_check failed, probably unable to open DISPLAY';
+}
 
 #########################
 

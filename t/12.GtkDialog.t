@@ -9,17 +9,20 @@
 
 #########################
 
-# change 'tests => 1' to 'tests => last_test_to_print';
+use Gtk2;
+use Test::More;
 
-use Test::More tests => 20;
-BEGIN { use_ok('Gtk2') };
+if( Gtk2->init_check )
+{
+	plan tests => 18;
+}
+else
+{
+	plan skip_all =>
+		'Gtk2->init_check failed, probably unable to open DISPLAY';
+}
 
 #########################
-
-# Insert your test code below, the Test::More module is use()ed here so read
-# its man page ( perldoc Test::More ) for help writing this test script.
-
-ok( Gtk2->init );
 
 ok( $win = Gtk2::Window->new('toplevel') );
 $win->set_title('GtkDialog.t Test Window');
@@ -27,8 +30,8 @@ $win->set_title('GtkDialog.t Test Window');
 $win->add( Gtk2::Label->new('Main Dialog') );
 
 # a constructor made dialog, run
-ok( $d1 = Gtk2::Dialog->new("Test Dialog", $win, 
-		[qw/destroy-with-parent no-separator/], 
+ok( $d1 = Gtk2::Dialog->new("Test Dialog", $win,
+		[qw/destroy-with-parent no-separator/],
 		'gtk-cancel', 2, 'gtk-quit', 3 ) );
 ok( $btn1 = $d1->add_button('Another', 4) );
 ok( $d1->get_has_separator == 0 );
@@ -60,8 +63,8 @@ ok( $d2->run == 1 );
 $d2->hide;
 
 # a constructor made dialog, show
-ok( $d3 = Gtk2::Dialog->new("Test Dialog", $win, 
-		[qw/destroy-with-parent no-separator/], 
+ok( $d3 = Gtk2::Dialog->new("Test Dialog", $win,
+		[qw/destroy-with-parent no-separator/],
 		'gtk-ok', 22, 'gtk-quit', 33 ) );
 ok( $btn3 = $d3->add_button('Another', 44) );
 ok( $d3->get_has_separator == 0 );

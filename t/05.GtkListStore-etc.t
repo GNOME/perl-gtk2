@@ -8,14 +8,20 @@
 
 #########################
 
-# change 'tests => 1' to 'tests => last_test_to_print';
+use Gtk2;
+use Test::More;
 
-use Test::More tests => 5;
-BEGIN { use_ok('Gtk2') };
+if( Gtk2->init_check )
+{
+	plan tests => 3;
+}
+else
+{
+	plan skip_all =>
+		'Gtk2->init_check failed, probably unable to open DISPLAY';
+}
 
 #########################
-
-ok( Gtk2->init );
 
 ok( $win = Gtk2::Window->new );
 
@@ -36,7 +42,7 @@ ok( $store = Gtk2::ListStore->new( map {$_->{type}} @cols ) );
 foreach (@data)
 {
 	my $iter = $store->append;
-	$store->set($iter, 
+	$store->set($iter,
 		1, $_->{Work},
 		0, $_->{Author},
 		2, $_->{Sold},

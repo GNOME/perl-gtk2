@@ -7,34 +7,40 @@
 # 	- rm
 #########################
 
+use Gtk2;
+use Test::More;
 
+if( Gtk2->init_check )
+{
+	plan tests => 27;
+	require_ok( 'Gtk2::SimpleList' );
+}
+else
+{
+	plan skip_all =>
+		'Gtk2->init_check failed, probably unable to open DISPLAY';
+}
 
-#########################
-
-use Gtk2 '-init';
-
-use Test::More tests => 27;
-BEGIN { use_ok('Gtk2::SimpleList') };
 
 #########################
 
 Gtk2::SimpleList->add_column_type(
 	'ralacs', 	# think about it for a second...
-		type     => 'Glib::Scalar',      
-		renderer => 'Gtk2::CellRendererText',   
+		type     => 'Glib::Scalar',
+		renderer => 'Gtk2::CellRendererText',
 		attr     => sub {
 			my ($tree_column, $cell, $model, $iter, $i) = @_;
 			my ($info) = $model->get ($iter, $i);
 			$info = join('',reverse(split('', $info || '' )));
 			$cell->set (text => $info );
-		} 
+		}
 	);
 
 # add a new type of column that sums up an array reference
 Gtk2::SimpleList->add_column_type(
 	'sum_of_array',
-		type     => 'Glib::Scalar',      
-		renderer => 'Gtk2::CellRendererText',   
+		type     => 'Glib::Scalar',
+		renderer => 'Gtk2::CellRendererText',
 		attr     => sub {
 			my ($tree_column, $cell, $model, $iter, $i) = @_;
 			my $sum = 0;
@@ -44,7 +50,7 @@ Gtk2::SimpleList->add_column_type(
 				$sum += $_;
 			}
 			$cell->set (text => $sum);
-		} 
+		}
 	);
 
 my $win = Gtk2::Window->new;
@@ -104,7 +110,7 @@ my $count = 0;
 Glib::Idle->add( sub
 	{
 		my $ldata = $list->{data};
-		
+
 		ok( scalar(@$ldata) == 4 );
 
 		# test the initial values we put in there
