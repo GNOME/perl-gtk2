@@ -71,6 +71,7 @@ gtk_text_buffer_insert_range_interactive (buffer, iter, start, end, default_edit
 	GtkTextIter *end
 	gboolean default_editable
 
+## FIXME
 #### void gtk_text_buffer_insert_with_tags (GtkTextBuffer *buffer, GtkTextIter *iter, const gchar *text, gint len, GtkTextTag *first_tag, ...)
 ##void
 ##gtk_text_buffer_insert_with_tags (buffer, iter, text, len, first_tag, first_tag)
@@ -80,8 +81,8 @@ gtk_text_buffer_insert_range_interactive (buffer, iter, start, end, default_edit
 ##	gint len
 ##	GtkTextTag *first_tag
 ##	...
-##
-#### void gtk_text_buffer_insert_with_tags_by_name (GtkTextBuffer *buffer, GtkTextIter *iter, const gchar *text, gint len, const gchar *first_tag_name, ...)
+
+## void gtk_text_buffer_insert_with_tags_by_name (GtkTextBuffer *buffer, GtkTextIter *iter, const gchar *text, gint len, const gchar *first_tag_name, ...)
 void
 gtk_text_buffer_insert_with_tags_by_name (buffer, iter, text, ...)
 	GtkTextBuffer *buffer
@@ -405,41 +406,42 @@ gtk_text_buffer_set_modified (buffer, setting)
 	GtkTextBuffer *buffer
 	gboolean setting
 
-#### FIXME need typemap for GtkClipboard for these.  GtkClipboard needs
-####       GtkAtom, and i need to learn what all that means before
-####       i can start implementing it.
-##### void gtk_text_buffer_add_selection_clipboard (GtkTextBuffer *buffer, GtkClipboard *clipboard)
-###void
-###gtk_text_buffer_add_selection_clipboard (buffer, clipboard)
-###	GtkTextBuffer *buffer
-###	GtkClipboard *clipboard
-###
-##### void gtk_text_buffer_remove_selection_clipboard (GtkTextBuffer *buffer, GtkClipboard *clipboard)
-###void
-###gtk_text_buffer_remove_selection_clipboard (buffer, clipboard)
-###	GtkTextBuffer *buffer
-###	GtkClipboard *clipboard
-###
-##### void gtk_text_buffer_cut_clipboard (GtkTextBuffer *buffer, GtkClipboard *clipboard, gboolean default_editable)
-###void
-###gtk_text_buffer_cut_clipboard (buffer, clipboard, default_editable)
-###	GtkTextBuffer *buffer
-###	GtkClipboard *clipboard
-###	gboolean default_editable
-###
-##### void gtk_text_buffer_copy_clipboard (GtkTextBuffer *buffer, GtkClipboard *clipboard)
-###void
-###gtk_text_buffer_copy_clipboard (buffer, clipboard)
-###	GtkTextBuffer *buffer
-###	GtkClipboard *clipboard
-###
-##### void gtk_text_buffer_paste_clipboard (GtkTextBuffer *buffer, GtkClipboard *clipboard, GtkTextIter *override_location, gboolean default_editable)
-###void
-###gtk_text_buffer_paste_clipboard (buffer, clipboard, override_location, default_editable)
-###	GtkTextBuffer *buffer
-###	GtkClipboard *clipboard
-###	GtkTextIter_ornull *override_location
-###	gboolean default_editable
+#ifdef GTK_TYPE_CLIPBOARD
+
+## void gtk_text_buffer_add_selection_clipboard (GtkTextBuffer *buffer, GtkClipboard *clipboard)
+void
+gtk_text_buffer_add_selection_clipboard (buffer, clipboard)
+	GtkTextBuffer *buffer
+	GtkClipboard *clipboard
+
+## void gtk_text_buffer_remove_selection_clipboard (GtkTextBuffer *buffer, GtkClipboard *clipboard)
+void
+gtk_text_buffer_remove_selection_clipboard (buffer, clipboard)
+	GtkTextBuffer *buffer
+	GtkClipboard *clipboard
+
+## void gtk_text_buffer_cut_clipboard (GtkTextBuffer *buffer, GtkClipboard *clipboard, gboolean default_editable)
+void
+gtk_text_buffer_cut_clipboard (buffer, clipboard, default_editable)
+	GtkTextBuffer *buffer
+	GtkClipboard *clipboard
+	gboolean default_editable
+
+## void gtk_text_buffer_copy_clipboard (GtkTextBuffer *buffer, GtkClipboard *clipboard)
+void
+gtk_text_buffer_copy_clipboard (buffer, clipboard)
+	GtkTextBuffer *buffer
+	GtkClipboard *clipboard
+
+## void gtk_text_buffer_paste_clipboard (GtkTextBuffer *buffer, GtkClipboard *clipboard, GtkTextIter *override_location, gboolean default_editable)
+void
+gtk_text_buffer_paste_clipboard (buffer, clipboard, override_location, default_editable)
+	GtkTextBuffer *buffer
+	GtkClipboard *clipboard
+	GtkTextIter_ornull *override_location
+	gboolean default_editable
+
+#endif /* defined GTK_TYPE_CLIPBOARD */
 
 ## gboolean gtk_text_buffer_get_selection_bounds (GtkTextBuffer *buffer, GtkTextIter *start, GtkTextIter *end)
 ## returns empty list if there is no selection
