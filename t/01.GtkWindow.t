@@ -285,7 +285,7 @@ $win->set_frame_dimensions(0, 0, 300, 500);
 ok( $win2->parse_geometry("100x100+10+10") );
 
 SKIP: {
-	skip 'set_auto_startup_notification is new in 2.2', 1
+	skip 'set_auto_startup_notification is new in 2.2', 0
 		if Gtk2->check_version(2, 2, 0);
 
 	$win2->set_auto_startup_notification(FALSE);
