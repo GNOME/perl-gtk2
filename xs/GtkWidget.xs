@@ -494,11 +494,14 @@ gtk_widget_modify_font (widget, font_desc)
 	GtkWidget            * widget
 	PangoFontDescription * font_desc
 
- #
+
  #PangoContext *gtk_widget_create_pango_context (GtkWidget   *widget);
  #PangoContext *gtk_widget_get_pango_context    (GtkWidget   *widget);
- #PangoLayout  *gtk_widget_create_pango_layout  (GtkWidget   *widget,
- #					       const gchar *text);
+
+PangoLayout_noinc *
+gtk_widget_create_pango_layout (widget, text)
+	GtkWidget   * widget
+        const gchar *text
 
  ### FIXME may return NULL if stockid isn't known.... but then, it will
  ###       croak on converting unknown stock ids, too.
