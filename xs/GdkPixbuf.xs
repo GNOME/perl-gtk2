@@ -35,6 +35,19 @@ MODULE = Gtk2::Gdk::Pixbuf	PACKAGE = Gtk2::Gdk::Pixbuf	PREFIX = gdk_pixbuf_
 =for enum GdkPixbufAlphaMode
 =cut
 
+ ## void gdk_pixbuf_render_threshold_alpha (GdkPixbuf * pixbuf, GdkBitmap * bitmap, int src_x, int src_y, int dest_x, int dest_y, int width, int height, int alpha_threshold);
+void
+gdk_pixbuf_render_threshold_alpha (pixbuf, bitmap, src_x, src_y, dest_x, dest_y, width, height, alpha_threshold)
+	GdkPixbuf * pixbuf
+	GdkBitmap * bitmap
+	int src_x
+	int src_y
+	int dest_x
+	int dest_y
+	int width
+	int height
+	int alpha_threshold
+
  ## void gdk_pixbuf_render_to_drawable (GdkPixbuf *pixbuf, GdkDrawable *drawable, GdkGC *gc, int src_x, int src_y, int dest_x, int dest_y, int width, int height, GdkRgbDither dither, int x_dither, int y_dither)
 void
 gdk_pixbuf_render_to_drawable (pixbuf, drawable, gc, src_x, src_y, dest_x, dest_y, width, height, dither, x_dither, y_dither)
@@ -107,6 +120,32 @@ gdk_pixbuf_render_pixmap_and_mask (pixbuf, alpha_threshold)
         if (GIMME_V == G_ARRAY)
           XPUSHs (newSVGdkBitmap (bm));
 }
+
+ ## GdkPixbuf *gdk_pixbuf_get_from_drawable (GdkPixbuf *dest, GdkDrawable *src, GdkColormap *cmap, int src_x, int src_y, int dest_x, int dest_y, int width, int height);
+GdkPixbuf_noinc *
+gdk_pixbuf_get_from_drawable (dest, src, cmap, src_x, src_y, dest_x, dest_y, width, height)
+	GdkPixbuf   *dest
+	GdkDrawable *src
+	GdkColormap *cmap
+	int          src_x
+	int          src_y
+	int          dest_x
+	int          dest_y
+	int          width
+	int          height
+
+ ## GdkPixbuf *gdk_pixbuf_get_from_image (GdkPixbuf *dest, GdkImage *src, GdkColormap *cmap, int src_x, int src_y, int dest_x, int dest_y, int width, int height);
+GdkPixbuf_noinc *
+gdk_pixbuf_get_from_image (dest, src, cmap, src_x, src_y, dest_x, dest_y, width, height)
+	GdkPixbuf   *dest
+	GdkImage    *src
+	GdkColormap *cmap
+	int          src_x
+	int          src_y
+	int          dest_x
+	int          dest_y
+	int          width
+	int          height
 
 
 ##  GQuark gdk_pixbuf_error_quark (void) G_GNUC_CONST 

@@ -1,3 +1,9 @@
+2003/11/17 11:44 (-0500) muppetman
+
+	* xs/GdkPixbuf.xs: more missing methods, get_from_drawable and
+	get_from_image.  looks like these were missing because of bugs
+	in genfirstpass a long time ago.
+
 2003/11/17 10:33 (-0500) muppetman
 
 	* xs/GdkDrawable.xs: wrong PREFIX resulted in wrong method name for
