@@ -9,13 +9,9 @@
 
 #########################
 
-use Gtk2::TestHelper tests => 68;
-
-ok( my $win = Gtk2::Window->new() );
-$win->set_border_width(10);
+use Gtk2::TestHelper tests => 67;
 
 ok( my $vbox = Gtk2::VBox->new(0,5) );
-$win->add($vbox);
 
 my ($r, $c);
 for( $r = 0; $r < 3; $r++ )
@@ -47,15 +43,6 @@ for( $r = 0; $r < 3; $r++ )
 		##print "class path $path\n";
 	}
 }
-
-$win->show_all;
-
-Glib::Idle->add( sub {
-		Gtk2->main_quit;
-		0;
-	} );
-
-Gtk2->main;
 
 1;
 

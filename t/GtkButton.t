@@ -1,0 +1,108 @@
+#
+# $Header$
+#
+
+#########################
+# GtkButton Tests
+# 	- rm
+#########################
+
+#########################
+
+use Gtk2::TestHelper tests => 36;
+
+ok( my $button = Gtk2::Button->new("Not Yet") );
+ok(1);
+ok( $button = Gtk2::Button->new_with_label("Not Yet") );
+ok(1);
+ok( $button = Gtk2::Button->new_with_mnemonic("_Not Yet") );
+ok(1);
+
+$button->signal_connect( "clicked" , sub
+	{
+		if( $_[0]->get_label eq 'Click _Me' )
+		{
+			$_[0]->set_label("Next");
+			ok(1);
+
+			ok( $_[0]->get_label eq 'Next' );
+		}
+	} );
+ok(1);
+
+foreach (qw/normal half none/)
+{
+	$button->set_relief($_);
+	ok(1);
+
+	ok( $button->get_relief eq $_ );
+}
+
+$button->set_label('Click _Me');
+ok(1);
+
+ok( $button->get_label eq 'Click _Me' );
+
+ok( my $button_stock = Gtk2::Button->new_from_stock('gtk-apply') );
+
+$button_stock->show;
+ok(1);
+
+$button_stock->set_use_underline(1);
+ok(1);
+
+ok( $button_stock->get_use_underline );
+
+SKIP: {
+	skip("[sg]et_focus_on_click and [sg]et_alignment are new in 2.4", 4)
+		if (Gtk2->check_version(2, 4, 0));
+
+	$button_stock->set_focus_on_click(0);
+	ok(1);
+
+	ok( ! $button_stock->get_focus_on_click() );
+
+	$button_stock->set_alignment(0.7);
+	ok(1);
+
+	is($button_stock->get_alignment(), 0.7);
+}
+
+ok( my $button3 = Gtk2::Button->new('gtk-quit') );
+
+$button3->signal_connect( "clicked" , sub
+	{
+		ok(1);
+	} );
+
+$button3->set_use_stock(1);
+ok(1);
+
+ok( $button3->get_use_stock );
+
+$button->pressed; ok(1);
+$button->released; ok(1);
+$button->clicked; ok(1);
+$button->enter; ok(1);
+$button->leave; ok(1);
+$button->clicked; ok(1);
+$button3->clicked; ok(1);
+
+__END__
+
+Copyright (C) 2003 by the gtk2-perl team (see the file AUTHORS for the
+full list)
+
+This library is free software; you can redistribute it and/or modify it under
+the terms of the GNU Library General Public License as published by the Free
+Software Foundation; either version 2.1 of the License, or (at your option) any
+later version.
+
+This library is distributed in the hope that it will be useful, but WITHOUT ANY
+WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+PARTICULAR PURPOSE.  See the GNU Library General Public License for more
+details.
+
+You should have received a copy of the GNU Library General Public License along
+with this library; if not, write to the Free Software Foundation, Inc., 59
+Temple Place - Suite 330, Boston, MA  02111-1307  USA.
