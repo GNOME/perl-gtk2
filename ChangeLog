@@ -1,3 +1,12 @@
+2005/01/16 02:34 (-0400) muppetman
+
+	* xs/GtkTreeModelFilter.xs, t/GtkTreeModelFilter.t: Set up @ISA 
+	to reflect the fact that GtkTreeModelFilter implements the
+	GtkTreeModel and GtkTreeDragSource interfaces.  Add isa_ok()
+	tests to verify.
+
+	* t/GtkTreeView.t: Change column type to hush gtk+ assertions.
+
 2005/01/10 09:00 (-0400) muppetman
 
 	* MANIFEST: add files that should've been there for 1.072.
