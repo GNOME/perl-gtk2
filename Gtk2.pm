@@ -4,6 +4,8 @@
 
 package Gtk2;
 
+# Gtk uses unicode strings; thus we require perl>=5.8.x,
+# which is unicode internally.
 use 5.008;
 use strict;
 use warnings;
@@ -15,27 +17,18 @@ require DynaLoader;
 
 our @ISA = qw(Exporter DynaLoader);
 
-# Items to export into callers namespace by default. Note: do not export
-# names by default without a very good reason. Use EXPORT_OK instead.
-# Do not simply export all your public functions/methods/constants.
-
-# This allows declaration	use Gtk2 ':all';
-# If you do not need this, moving things directly into @EXPORT or @EXPORT_OK
-# will save memory.
-our %EXPORT_TAGS = ( 'all' => [ qw(
-	
-) ] );
-
-our @EXPORT_OK = ( @{ $EXPORT_TAGS{'all'} } );
-
-our @EXPORT = qw(
-	
-);
+# we export nothink.  nothink!
+our @EXPORT_OK = ();
+our @EXPORT = qw();
 
 our $VERSION = '0.01';
 
+# this is critical -- tell dynaloader to load the module so that its 
+# symbols are available to all other modules.  without this, nobody
+# else can use important functions like gtk2perl_new_object!
 sub dl_load_flags { 0x01 }
 
+# now load the XS code.
 bootstrap Gtk2 $VERSION;
 
 # Preloaded methods go here.
@@ -96,7 +89,7 @@ package Gtk2;
 
 1;
 __END__
-# Below is stub documentation for your module. You'd better edit it!
+# documentation is a good thing.
 
 =head1 NAME
 
@@ -116,9 +109,10 @@ Gtk2 - Perl interface to the 2.x series of the Gimp Toolkit library
 =head1 ABSTRACT
 
   Perl bindings to the 2.x series of the Gtk+ widget set.
-  This module allows you to write graphical user interfaces in a perlish
-  and object-oriented way, freeing you from the casting and memory 
-  management in C, yet remaining very close in spirit to original API.
+  This module allows you to write graphical user interfaces in a 
+  perlish and object-oriented way, freeing you from the casting
+  and memory management in C, yet remaining very close in spirit
+  to original API.
 
 =head1 DESCRIPTION
 
@@ -133,17 +127,30 @@ documentation should be considered the canonical source.
 To discuss gtk2-perl, ask questions and flame/praise the authors,
 join gtk-perl-list@gnome.org at lists.gnome.org.
 
-If you have a web site set up for your module, mention it here.
+Also have a look at the gtk2-perl website and sourceforge project page,
+http://gtk2-perl.sourceforge.net
 
 FIXME we have no other documentation, but we probably need it.
+
+
 
 =head1 SEE ALSO
 
 perl(1), G(1).
 
-=head1 AUTHOR
+The Gtk2::Helper module contains stuff that makes writing Gtk2 programs
+a little easier.
 
-muppet E<lt>scott@asofyet.orgE<gt>
+Gtk2 also provides code to make it relatively painless to create perl
+wrappers for other GLib/Gtk-based libraries.  See Gtk2::CodeGen, 
+G::PkgConfig, and ExtUtils::Depends.
+
+=head1 AUTHORS
+
+muppet E<lt>scott at asofyet dot orgE<gt>
+Ross McFarland E<lt>rwmcfa1 at neces dot comE<gt>
+Jörn Reder E<lt>joern at zyn dot deE<gt>
+Göran Thyni E<lt>gthyni at kirra dot netE<gt>
 
 =head1 COPYRIGHT AND LICENSE
 
