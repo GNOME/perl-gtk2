@@ -13,6 +13,9 @@ MODULE = Gtk2::FileChooserWidget	PACKAGE = Gtk2::FileChooserWidget	PREFIX = gtk_
 BOOT:
 	/* GtkFileChooserWidget implements the GtkFileChooserIface */
 	gperl_prepend_isa ("Gtk2::FileChooserWidget", "Gtk2::FileChooser");
+	/* apparently private, but still in list_interfaces 
+	gperl_set_isa ("Gtk2::FileChooserWidget", "Gtk2::FileChooserEmbed");
+	 */
 
 GtkWidget *gtk_file_chooser_widget_new (class, GtkFileChooserAction action);
     C_ARGS:

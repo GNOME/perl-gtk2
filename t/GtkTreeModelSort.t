@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 7, noinit => 1;
+use Gtk2::TestHelper tests => 8, noinit => 1;
 
 # $Header$
 
@@ -11,6 +11,7 @@ $list -> set($list -> append(), 0 => 23);
 
 my $sort = Gtk2::TreeModelSort -> new_with_model($list);
 isa_ok($sort, "Gtk2::TreeModelSort");
+isa_ok($sort, "Gtk2::TreeDragSource");
 is($sort -> get_model(), $list);
 
 my $path = Gtk2::TreePath -> new_from_string("1");

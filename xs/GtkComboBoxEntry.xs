@@ -10,6 +10,10 @@
 
 MODULE = Gtk2::ComboBoxEntry	PACKAGE = Gtk2::ComboBoxEntry	PREFIX = gtk_combo_box_entry_
 
+BOOT:
+	gperl_set_isa ("Gtk2::ComboBoxEntry", "Gtk2::CellEditable");
+	gperl_set_isa ("Gtk2::ComboBoxEntry", "Gtk2::CellLayout");
+
  ## GtkWidget *gtk_combo_box_entry_new (void);
  ## GtkWidget *gtk_combo_box_entry_new_with_model (GtkTreeModel *model, gint text_column);
 =for apidoc new_with_model

@@ -12,6 +12,7 @@ MODULE = Gtk2::ComboBox	PACKAGE = Gtk2::ComboBox	PREFIX = gtk_combo_box_
 
 BOOT:
 	gperl_set_isa ("Gtk2::ComboBox", "Gtk2::CellLayout");
+	gperl_set_isa ("Gtk2::ComboBox", "Gtk2::CellEditable");
 
 GtkWidget *gtk_combo_box_new (class, GtkTreeModel *model=NULL)
     ALIAS:
@@ -27,6 +28,7 @@ GtkWidget *gtk_combo_box_new (class, GtkTreeModel *model=NULL)
 	PERL_UNUSED_VAR (ix);
 
 ##/* grids */
+
 void gtk_combo_box_set_wrap_width (GtkComboBox *combo_box, gint width);
 
 void gtk_combo_box_set_row_span_column (GtkComboBox *combo_box, gint row_span);

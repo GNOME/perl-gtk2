@@ -23,6 +23,10 @@
 
 MODULE = Gtk2::SpinButton	PACKAGE = Gtk2::SpinButton	PREFIX = gtk_spin_button_
 
+BOOT:
+	gperl_set_isa ("Gtk2::SpinButton", "Gtk2::CellEditable");
+	gperl_set_isa ("Gtk2::SpinButton", "Gtk2::Editable");
+
 ##GtkWidget * gtk_spin_button_new (GtkAdjustment *adjustment, gdouble climb_rate, guint digits)
 GtkWidget *
 gtk_spin_button_new (class, adjustment, climb_rate, digits)

@@ -3,7 +3,7 @@
 # $Header$
 
 use Gtk2::TestHelper
-	tests => 10,
+	tests => 12,
 	noinit => 1,
 	at_least_version => [2, 4, 0, "GtkComboBox is new in 2.4"],
 	;
@@ -13,6 +13,7 @@ my $combo_box;
 ## convenience -- text
 $combo_box = Gtk2::ComboBox->new_text;
 isa_ok ($combo_box, 'Gtk2::ComboBox');
+isa_ok ($combo_box, 'Gtk2::CellEditable');
 
 $combo_box->append_text ("some text");
 $combo_box->append_text ("more text");
@@ -55,14 +56,17 @@ $model = Gtk2::ListStore->new ('Glib::String');
 $combo_box->set_model ($model);
 is ($combo_box->get_model, $model);
 
-$combo_box->set_wrap_width (23);
-$combo_box->set_row_span_column (0);
-$combo_box->set_column_span_column (0);
+# get active returns -1 when nothing is selected
+is ($combo_box->get_active, -1);
+
+foreach my $t (qw(fee fie foe fum)) {
+	$model->set ($model->append, 0, $t);
+}
 
 $combo_box->set_active (1);
-is ($combo_box->get_active, 1);
+is ($combo_box->get_active, 1, 'set and get active');
 
 __END__
 
-Copyright (C) 2003 by the gtk2-perl team (see the file AUTHORS for the
+Copyright (C) 2003-2005 by the gtk2-perl team (see the file AUTHORS for the
 full list).  See LICENSE for more information.
