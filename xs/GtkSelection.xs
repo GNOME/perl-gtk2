@@ -153,6 +153,8 @@ gtk_selection_owner_set_for_display (class, display, widget, selection, time_)
 	GtkWidget_ornull *widget
 	GdkAtom selection
 	guint32 time_
+    C_ARGS:
+    	display, widget, selection, time_
 
 #endif /* >= 2.2.0 */
 
