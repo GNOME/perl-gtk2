@@ -188,9 +188,9 @@ WriteMakefile(
 
 sub MY::postamble
 {
-	return Glib::MakeHelper->postamble_clean ()
-	     . Glib::MakeHelper->postamble_docs (@xs_files)
-	     . Glib::MakeHelper->postamble_rpms (
+	my $text = Glib::MakeHelper->postamble_clean ()
+	         . Glib::MakeHelper->postamble_docs (@xs_files)
+	         . Glib::MakeHelper->postamble_rpms (
 			'GTK_RUN' => $runtime_reqs{'Gtk+'},
 			'GTK' => $build_reqs{'Gtk+'},
 			'PERL_EXTUTILS_DEPENDS' => 
@@ -198,8 +198,11 @@ sub MY::postamble
 			'PERL_EXTUTILS_PKGCONFIG' => 
 				$build_reqs{'perl-ExtUtils-PkgConfig'},
 			'PERL_GLIB' => $build_reqs{'perl-Glib'},
-		)
-	      ."
+	           );
+	# this installation stuff doesn't make sense on windows, where
+	# we don't really have a /usr.  also, nmake barfs on $+.
+	unless ($^O eq 'MSWin32') {
+		$text .= "
 # the tmp-xxx stuff is just so that only the pl files get installed
 install-\%: %
 	\@\$(MKPATH) tmp-\$+/
@@ -211,6 +214,8 @@ install-\%: %
 # rebuild the makefile if the file lists change
 Makefile : ".join(" ", @lists)."
 ";
+	}
+	return $text;
 }
 
 # this probably needs to go into ExtUtils::Depends.

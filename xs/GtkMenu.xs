@@ -38,8 +38,8 @@ gtk2perl_menu_position_func (GtkMenu * menu,
                              gboolean * push_in,
                              GPerlCallback * callback)
 {
-	dGPERL_CALLBACK_MARSHAL_SP;
 	int n;
+	dGPERL_CALLBACK_MARSHAL_SP;
 
 	GPERL_CALLBACK_MARSHAL_INIT (callback);
 
