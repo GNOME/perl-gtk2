@@ -7,7 +7,6 @@
 
 MODULE = Gtk2::MessageDialog	PACKAGE = Gtk2::MessageDialog	PREFIX = gtk_message_dialog_
 
-## TODO: this should take var args (printf style)
 GtkWidget *
 gtk_message_dialog_new (class, parent, flags, type, buttons, message)
 	SV * class
