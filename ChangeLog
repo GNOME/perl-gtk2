@@ -1,3 +1,11 @@
+2004/06/04 13:52 (-0400) rwmcfa1
+
+	* Gtk2.pm: added a -threads-init option to import, added doc on -init
+	and -threads-init. 
+
+	* TODO: removed an outdated todo (example programs, they already can be)
+	and removed the above addressed TODO.
+
 2004/06/08 21:39 (-0400) muppetman
 
 	* TODO: updated.
