@@ -1,0 +1,271 @@
+#include "gtk2perl.h"
+
+MODULE = Gtk2::IconFactory	PACKAGE = Gtk2::IconFactory	PREFIX = gtk_icon_factory_
+
+##  GtkIconFactory* gtk_icon_factory_new (void) 
+GtkIconFactory_noinc *
+gtk_icon_factory_new (class)
+	SV * class
+    C_ARGS:
+	
+
+##  void gtk_icon_factory_add (GtkIconFactory *factory, const gchar *stock_id, GtkIconSet *icon_set) 
+void
+gtk_icon_factory_add (factory, stock_id, icon_set)
+	GtkIconFactory *factory
+	const gchar *stock_id
+	GtkIconSet *icon_set
+
+##  GtkIconSet* gtk_icon_factory_lookup (GtkIconFactory *factory, const gchar *stock_id) 
+GtkIconSet*
+gtk_icon_factory_lookup (factory, stock_id)
+	GtkIconFactory *factory
+	const gchar *stock_id
+
+##  void gtk_icon_factory_add_default (GtkIconFactory *factory) 
+void
+gtk_icon_factory_add_default (factory)
+	GtkIconFactory *factory
+
+## not normally used, according to API ref
+###  void gtk_icon_factory_remove_default (GtkIconFactory *factory) 
+#void
+#gtk_icon_factory_remove_default (factory)
+#	GtkIconFactory *factory
+
+# apps should generally use themes for this, but the stock browser needs it
+##  GtkIconSet* gtk_icon_factory_lookup_default (const gchar *stock_id) 
+GtkIconSet*
+gtk_icon_factory_lookup_default (class, stock_id)
+	SV * class
+	const gchar *stock_id
+    C_ARGS:
+	stock_id
+
+MODULE = Gtk2::IconFactory	PACKAGE = Gtk2::IconSize	PREFIX = gtk_icon_size_
+
+##  gboolean gtk_icon_size_lookup (GtkIconSize size, gint *width, gint *height) 
+gboolean
+gtk_icon_size_lookup (class, size)
+	SV * class
+	GtkIconSize size
+    PREINIT:
+	gint width;
+	gint height;
+    PPCODE:
+	if (!gtk_icon_size_lookup (size, &width, &height))
+		XSRETURN_EMPTY;
+	EXTEND (SP, 2);
+	PUSHs (sv_2mortal (newSViv (width)));
+	PUSHs (sv_2mortal (newSViv (height)));
+
+#if GTK_CHECK_VERSION(2,2,0)
+
+##  gboolean gtk_icon_size_lookup_for_settings (GtkSettings *settings, GtkIconSize size, gint *width, gint *height) 
+gboolean
+gtk_icon_size_lookup_for_settings (class, settings, size, width, height)
+	SV * class
+	GtkSettings *settings
+	GtkIconSize size
+    PREINIT:
+	gint width;
+	gint height;
+    PPCODE:
+	if (!gtk_icon_size_lookup_for_settings (settings, size, &width, &height))
+		XSRETURN_EMPTY;
+	EXTEND (SP, 2);
+	PUSHs (sv_2mortal (newSViv (width)));
+	PUSHs (sv_2mortal (newSViv (height)));
+
+#endif /* >= 2.2.0 */
+
+##  GtkIconSize gtk_icon_size_register (const gchar *name, gint width, gint height) 
+GtkIconSize
+gtk_icon_size_register (class, name, width, height)
+	SV * class
+	const gchar *name
+	gint width
+	gint height
+    C_ARGS:
+	name, width, height
+
+##  void gtk_icon_size_register_alias (const gchar *alias, GtkIconSize target) 
+void
+gtk_icon_size_register_alias (class, alias, target)
+	SV * class
+	const gchar *alias
+	GtkIconSize target
+    C_ARGS:
+	alias, target
+
+##  GtkIconSize gtk_icon_size_from_name (const gchar *name) 
+GtkIconSize
+gtk_icon_size_from_name (class, name)
+	SV * class
+	const gchar *name
+    C_ARGS:
+	name
+
+MODULE = Gtk2::IconFactory	PACKAGE = Gtk2::IconSet	PREFIX = gtk_icon_set_
+
+##  GtkIconSet* gtk_icon_set_new (void) 
+GtkIconSet_own*
+gtk_icon_set_new (class)
+	SV * class
+    C_ARGS:
+	
+
+##  GtkIconSet* gtk_icon_set_new_from_pixbuf (GdkPixbuf *pixbuf) 
+GtkIconSet_own*
+gtk_icon_set_new_from_pixbuf (class, pixbuf)
+	SV * class
+	GdkPixbuf *pixbuf
+    C_ARGS:
+	pixbuf
+
+###  GtkIconSet* gtk_icon_set_ref (GtkIconSet *icon_set) 
+###  void gtk_icon_set_unref (GtkIconSet *icon_set) 
+
+##  GtkIconSet* gtk_icon_set_copy (GtkIconSet *icon_set) 
+GtkIconSet_own*
+gtk_icon_set_copy (icon_set)
+	GtkIconSet *icon_set
+
+#### apps should almost always use gtk_widget_render_icon
+###  GdkPixbuf* gtk_icon_set_render_icon (GtkIconSet *icon_set, GtkStyle *style, GtkTextDirection direction, GtkStateType state, GtkIconSize size, GtkWidget *widget, const char *detail) 
+#GdkPixbuf*
+#gtk_icon_set_render_icon (icon_set, style, direction, state, size, widget, detail)
+#	GtkIconSet *icon_set
+#	GtkStyle *style
+#	GtkTextDirection direction
+#	GtkStateType state
+#	GtkIconSize size
+#	GtkWidget *widget
+#	const char *detail
+#
+##  void gtk_icon_set_add_source (GtkIconSet *icon_set, const GtkIconSource *source) 
+void
+gtk_icon_set_add_source (icon_set, source)
+	GtkIconSet *icon_set
+	GtkIconSource *source
+
+##  void gtk_icon_set_get_sizes (GtkIconSet *icon_set, GtkIconSize **sizes, gint *n_sizes) 
+void
+gtk_icon_set_get_sizes (icon_set)
+	GtkIconSet *icon_set
+    PREINIT:
+	GtkIconSize * sizes = NULL;
+	gint n_sizes, i;
+    PPCODE:
+	gtk_icon_set_get_sizes (icon_set, &sizes, &n_sizes);
+	EXTEND (SP, n_sizes);
+	for (i = 0 ; i < n_sizes ; i++)
+		PUSHs (sv_2mortal (newSVGtkIconSize (sizes[i])));
+	g_free (sizes);
+	
+
+MODULE = Gtk2::IconFactory	PACKAGE = Gtk2::IconSource	PREFIX = gtk_icon_source_
+
+##  GtkIconSource* gtk_icon_source_new (void) 
+GtkIconSource_own*
+gtk_icon_source_new (class)
+	SV * class
+    C_ARGS:
+	
+
+##  GtkIconSource* gtk_icon_source_copy (const GtkIconSource *source) 
+GtkIconSource_own *
+gtk_icon_source_copy (source)
+	GtkIconSource *source
+
+##  void gtk_icon_source_free (GtkIconSource *source) 
+void
+gtk_icon_source_free (source)
+	GtkIconSource *source
+
+##  void gtk_icon_source_set_filename (GtkIconSource *source, const gchar *filename) 
+void
+gtk_icon_source_set_filename (source, filename)
+	GtkIconSource *source
+	const gchar *filename
+
+const gchar *
+gtk_icon_source_get_filename (source)
+	GtkIconSource *source
+
+##  void gtk_icon_source_set_pixbuf (GtkIconSource *source, GdkPixbuf *pixbuf) 
+void
+gtk_icon_source_set_pixbuf (source, pixbuf)
+	GtkIconSource *source
+	GdkPixbuf *pixbuf
+
+##  GdkPixbuf* gtk_icon_source_get_pixbuf (const GtkIconSource *source) 
+GdkPixbuf_ornull*
+gtk_icon_source_get_pixbuf (source)
+	GtkIconSource *source
+
+##  void gtk_icon_source_set_direction_wildcarded (GtkIconSource *source, gboolean setting) 
+void
+gtk_icon_source_set_direction_wildcarded (source, setting)
+	GtkIconSource *source
+	gboolean setting
+
+##  void gtk_icon_source_set_state_wildcarded (GtkIconSource *source, gboolean setting) 
+void
+gtk_icon_source_set_state_wildcarded (source, setting)
+	GtkIconSource *source
+	gboolean setting
+
+##  void gtk_icon_source_set_size_wildcarded (GtkIconSource *source, gboolean setting) 
+void
+gtk_icon_source_set_size_wildcarded (source, setting)
+	GtkIconSource *source
+	gboolean setting
+
+##  gboolean gtk_icon_source_get_size_wildcarded (const GtkIconSource *source) 
+gboolean
+gtk_icon_source_get_size_wildcarded (source)
+	GtkIconSource *source
+
+##  gboolean gtk_icon_source_get_state_wildcarded (const GtkIconSource *source) 
+gboolean
+gtk_icon_source_get_state_wildcarded (source)
+	GtkIconSource *source
+
+##  gboolean gtk_icon_source_get_direction_wildcarded (const GtkIconSource *source) 
+gboolean
+gtk_icon_source_get_direction_wildcarded (source)
+	GtkIconSource *source
+
+##  void gtk_icon_source_set_direction (GtkIconSource *source, GtkTextDirection direction) 
+void
+gtk_icon_source_set_direction (source, direction)
+	GtkIconSource *source
+	GtkTextDirection direction
+
+##  void gtk_icon_source_set_state (GtkIconSource *source, GtkStateType state) 
+void
+gtk_icon_source_set_state (source, state)
+	GtkIconSource *source
+	GtkStateType state
+
+##  void gtk_icon_source_set_size (GtkIconSource *source, GtkIconSize size) 
+void
+gtk_icon_source_set_size (source, size)
+	GtkIconSource *source
+	GtkIconSize size
+
+##  GtkTextDirection gtk_icon_source_get_direction (const GtkIconSource *source) 
+GtkTextDirection
+gtk_icon_source_get_direction (source)
+	GtkIconSource *source
+
+##  GtkStateType gtk_icon_source_get_state (const GtkIconSource *source) 
+GtkStateType
+gtk_icon_source_get_state (source)
+	GtkIconSource *source
+
+##  GtkIconSize gtk_icon_source_get_size (const GtkIconSource *source) 
+GtkIconSize
+gtk_icon_source_get_size (source)
+	GtkIconSource *source
