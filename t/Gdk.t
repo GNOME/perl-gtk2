@@ -26,7 +26,7 @@ like(Gtk2::Gdk -> screen_width_mm(), $number);
 like(Gtk2::Gdk -> screen_height_mm(), $number);
 
 my $window = Gtk2::Window -> new();
-$window -> show();
+$window -> show_now();
 
 is(Gtk2::Gdk -> pointer_grab($window -> window(), 1, qw(button-press-mask), undef, Gtk2::Gdk::Cursor -> new("arrow"), 0), "success");
 is(Gtk2::Gdk -> pointer_is_grabbed(), 1);
