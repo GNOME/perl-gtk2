@@ -1,6 +1,11 @@
 2003/09/09 19:52 rwmcfa1
 
-	*
+	* Makefile.PL: new rule to install examples/gtk-demo
+
+        * perl-Gtk2.spec: use new ^ rule to put examples and demo in bin rpm
+
+        * gtk-demo/appwindow.pl: fixed small bug with demo_find_file from last
+        commit.
 
 2003/09/09 17:28 rwmcfa1
 
