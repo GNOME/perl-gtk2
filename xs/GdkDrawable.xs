@@ -95,15 +95,27 @@ gdk_draw_arc (drawable, gc, filled, x, y, width, height, angle1, angle2)
 	gint angle1
 	gint angle2
 
- ## FIXME do custom perl stack handling to read the points
  ## void gdk_draw_polygon (GdkDrawable *drawable, GdkGC *gc, gboolean filled, GdkPoint *points, gint npoints)
- ##void
- ##gdk_draw_polygon (drawable, gc, filled, points, npoints)
- ##	GdkDrawable *drawable
- ##	GdkGC *gc
- ##	gboolean filled
- ##	GdkPoint *points
- ##	gint npoints
+void
+gdk_draw_polygon (drawable, gc, filled, x1, y1, ...)
+	GdkDrawable *drawable
+	GdkGC *gc
+	gboolean filled
+	int x1
+	int y1
+    PREINIT:
+	GdkPoint * points;
+	gint npoints;
+	gint i, j;
+    CODE:
+	npoints = (items-3)/2;
+	points = g_new (GdkPoint, npoints);
+	for (i = 0, j = 3; i < npoints ; i++, j+=2) {
+		points[i].x = SvIV (ST (j));
+		points[i].y = SvIV (ST (j+1));
+	}
+	gdk_draw_polygon (drawable, gc, filled, points, npoints);
+	g_free (points);
 
  ## void gdk_draw_drawable (GdkDrawable *drawable, GdkGC *gc, GdkDrawable *src, gint xsrc, gint ysrc, gint xdest, gint ydest, gint width, gint height)
 void
@@ -131,32 +143,59 @@ gdk_draw_image (drawable, gc, image, xsrc, ysrc, xdest, ydest, width, height)
 	gint width
 	gint height
 
- ## FIXME do custom perl stack handling to read the points
- #### void gdk_draw_points (GdkDrawable *drawable, GdkGC *gc, GdkPoint *points, gint npoints)
- ##void
- ##gdk_draw_points (drawable, gc, points, npoints)
- ##       GdkDrawable *drawable
- ##       GdkGC *gc
- ##       GdkPoint *points
- ##       gint npoints
- ##
- ## FIXME do custom perl stack handling to read the segments
+ ## void gdk_draw_points (GdkDrawable *drawable, GdkGC *gc, GdkPoint *points, gint npoints)
+ ## void gdk_draw_lines (GdkDrawable *drawable, GdkGC *gc, GdkPoint *points, gint npoints)
+void
+gdk_draw_points (drawable, gc, x1, y1, ...)
+	GdkDrawable *drawable
+	GdkGC *gc
+	int x1
+	int y1 
+    ALIAS:
+	Gtk2::Gdk::Drawable::draw_points = 1
+	Gtk2::Gdk::Drawable::draw_lines  = 2
+    PREINIT:
+	GdkPoint * points;
+	gint npoints;
+	gint i, j;
+    CODE:
+	npoints = (items-2)/2;
+	points = g_new (GdkPoint, npoints);
+	for (i = 0, j = 2; i < npoints ; i++, j+=2) {
+		points[i].x = SvIV (ST (j));
+		points[i].y = SvIV (ST (j+1));
+	}
+	if (ix == 1)
+		gdk_draw_points (drawable, gc, points, npoints);
+	else
+		gdk_draw_lines (drawable, gc, points, npoints);
+	g_free (points);
+
  #### void gdk_draw_segments (GdkDrawable *drawable, GdkGC *gc, GdkSegment *segs, gint nsegs)
- ##void
- ##gdk_draw_segments (drawable, gc, segs, nsegs)
- ##	GdkDrawable *drawable
- ##	GdkGC *gc
- ##	GdkSegment *segs
- ##	gint nsegs
- ##
- ## FIXME do custom perl stack handling to read the points
- ## ## void gdk_draw_lines (GdkDrawable *drawable, GdkGC *gc, GdkPoint *points, gint npoints)
- ##void
- ##gdk_draw_lines (drawable, gc, points, npoints)
- ##	GdkDrawable *drawable
- ##	GdkGC *gc
- ##	GdkPoint *points
- ##	gint npoints
+void
+gdk_draw_segments (drawable, gc, x1, y1, x2, y2, ...)
+	GdkDrawable *drawable
+	GdkGC *gc
+	int x1
+	int y1
+	int x2
+	int y2
+    PREINIT:
+	GdkSegment * segs;
+	gint nsegs;
+	gint i, j;
+    CODE:
+	nsegs = (items-2)/4;
+	segs = g_new (GdkSegment, nsegs);
+	for (i = 0, j = 2; i < nsegs ; i++, j+=4) {
+		segs[i].x1 = SvIV (ST (j+0));
+		segs[i].y1 = SvIV (ST (j+1));
+		segs[i].x2 = SvIV (ST (j+2));
+		segs[i].y2 = SvIV (ST (j+3));
+	}
+	gdk_draw_segments (drawable, gc, segs, nsegs);
+	g_free (segs);
+
 
 #if GTK_CHECK_VERSION(2,2,0)
 
@@ -196,16 +235,16 @@ gdk_draw_pixbuf (drawable, gc, pixbuf, src_x, src_y, dest_x, dest_y, width, heig
 ##	gint x
 ##	gint y
 ##	PangoLayoutLine *line
-##
-## ## void gdk_draw_layout (GdkDrawable *drawable, GdkGC *gc, gint x, gint y, PangoLayout *layout)
-##void
-##gdk_draw_layout (drawable, gc, x, y, layout)
-##	GdkDrawable *drawable
-##	GdkGC *gc
-##	gint x
-##	gint y
-##	PangoLayout *layout
-##
+
+ ## void gdk_draw_layout (GdkDrawable *drawable, GdkGC *gc, gint x, gint y, PangoLayout *layout)
+void
+gdk_draw_layout (drawable, gc, x, y, layout)
+	GdkDrawable *drawable
+	GdkGC *gc
+	gint x
+	gint y
+	PangoLayout *layout
+
 ## ## void gdk_draw_layout_line_with_colors (GdkDrawable *drawable, GdkGC *gc, gint x, gint y, PangoLayoutLine *line, GdkColor *foreground, GdkColor *background)
 ##void
 ##gdk_draw_layout_line_with_colors (drawable, gc, x, y, line, foreground, background)
@@ -216,17 +255,17 @@ gdk_draw_pixbuf (drawable, gc, pixbuf, src_x, src_y, dest_x, dest_y, width, heig
 ##	PangoLayoutLine *line
 ##	GdkColor *foreground
 ##	GdkColor *background
-##
-## ## void gdk_draw_layout_with_colors (GdkDrawable *drawable, GdkGC *gc, gint x, gint y, PangoLayout *layout, GdkColor *foreground, GdkColor *background)
-##void
-##gdk_draw_layout_with_colors (drawable, gc, x, y, layout, foreground, background)
-##	GdkDrawable *drawable
-##	GdkGC *gc
-##	gint x
-##	gint y
-##	PangoLayout *layout
-##	GdkColor *foreground
-##	GdkColor *background
+
+ ## void gdk_draw_layout_with_colors (GdkDrawable *drawable, GdkGC *gc, gint x, gint y, PangoLayout *layout, GdkColor *foreground, GdkColor *background)
+void
+gdk_draw_layout_with_colors (drawable, gc, x, y, layout, foreground, background)
+	GdkDrawable *drawable
+	GdkGC *gc
+	gint x
+	gint y
+	PangoLayout *layout
+	GdkColor *foreground
+	GdkColor *background
 
  ## GdkImage* gdk_drawable_get_image (GdkDrawable *drawable, gint x, gint y, gint width, gint height)
 GdkImage*
