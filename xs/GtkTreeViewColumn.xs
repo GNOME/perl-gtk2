@@ -378,7 +378,7 @@ MODULE = Gtk2::TreeViewColumn	PACKAGE = Gtk2::TreeView	PREFIX = gtk_tree_view_
 
 ## gint gtk_tree_view_insert_column_with_attributes (GtkTreeView *tree_view, gint position, const gchar *title, GtkCellRenderer *cell, ...)
 =for apidoc
-=signature $tree_view->insert_column_with_attributes ($position, $title, $cellrenderer, $attr1, $col1, $attr2, $col2, ...)
+=for signature $tree_view->insert_column_with_attributes ($position, $title, $cellrenderer, $attr1, $col1, $attr2, $col2, ...)
 =cut
 gint
 gtk_tree_view_insert_column_with_attributes (tree_view, position, title, cell, ...)

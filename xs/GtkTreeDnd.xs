@@ -81,7 +81,7 @@ gtk_tree_set_row_drag_data (selection_data, tree_model, path)
 
 ## gboolean gtk_tree_get_row_drag_data (GtkSelectionData *selection_data, GtkTreeModel **tree_model, GtkTreePath **path)
 =for apidoc
-=signature (tree_model, path) = $selection_data->get_row_drag_data
+=for signature (tree_model, path) = $selection_data->get_row_drag_data
 =cut
 void
 gtk_tree_get_row_drag_data (selection_data)

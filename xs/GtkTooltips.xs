@@ -63,7 +63,7 @@ gtk_tooltips_set_tip (tooltips, widget, tip_text, tip_private=NULL)
 
 ## GtkTooltipsData* gtk_tooltips_data_get (GtkWidget *widget)
 =for apidoc
-=signature hash = $tooltips->data_get ($widget)
+=for signature hash = $tooltips->data_get ($widget)
 Returns a hash with the keys: tooptips, widget, tip_text, and tip_private.
 
 tooltips is the GtkTooltips group that this tooltip belongs to. widget is the

@@ -68,9 +68,9 @@ gtk_combo_set_item_string (combo, item, item_value)
 
 ##void gtk_combo_set_popdown_strings (GtkCombo* combo, GList *strings)
 =for apidoc
-=signature $combo->set_popdown_strings (str1, ...)
-=arg str1 (string)
-=arg ... (__hide__)
+=for signature $combo->set_popdown_strings (str1, ...)
+=for arg str1 (string)
+=for arg ... (__hide__)
 =cut
 void
 gtk_combo_set_popdown_strings (combo, str1, ...)

@@ -140,7 +140,7 @@ gtk_editable_select_region (editable, start, end)
 
  ## returns an empty list if there is no selection
 =for apidoc
-=signature (start, end) = $editable->get_selection_bounds
+=for signature (start, end) = $editable->get_selection_bounds
 Returns integers, start and end.
 =cut
 void

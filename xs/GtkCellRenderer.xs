@@ -338,7 +338,7 @@ your cell renderer implementation!
 
 ## void gtk_cell_renderer_get_size (GtkCellRenderer *cell, GtkWidget *widget, GdkRectangle *cell_area, gint *x_offset, gint *y_offset, gint *width, gint *height)
 =for apidoc
-=signature (cell_area, x_offset, y_offset, width, height) = $cell->renderer_get_size ($widget)
+=for signature (cell_area, x_offset, y_offset, width, height) = $cell->renderer_get_size ($widget)
 =cut
 void
 gtk_cell_renderer_get_size (cell, widget)
@@ -408,7 +408,7 @@ gtk_cell_renderer_start_editing (cell, event, widget, path, background_area, cel
 
 =for apidoc
 
-=signature YourCellRendererPackage->_install_overrides
+=for signature YourCellRendererPackage->_install_overrides
 
 Modify the underlying GObjectClass structure for the package
 I<YouCellRendererPackage> to call Perl methods as virtual overrides for the
@@ -453,11 +453,11 @@ _install_overrides (const char * package)
 #
 =for apidoc parent_get_size
 
-=signature ($xoffset, $yoffset, $width, $height) = $cell->parent_get_size ($widget, $rectangle)
+=for signature ($xoffset, $yoffset, $width, $height) = $cell->parent_get_size ($widget, $rectangle)
 
-=arg ... (__hide__)
-=arg widget (GtkWidget)
-=arg rectangle (GdkRectangle_ornull)
+=for arg ... (__hide__)
+=for arg widget (GtkWidget)
+=for arg rectangle (GdkRectangle_ornull)
 
 Invoke the C<get_size> method of the parent class; only valid in virtual
 overrides for C<on_get_size>.
@@ -483,15 +483,15 @@ overrides for C<on_render>.
 
 =for apidoc parent_activate
 
-=signature boolean = $cell->parent_activate ($event, $widget, $path, $background_area, $cell_area, $flags)
+=for signature boolean = $cell->parent_activate ($event, $widget, $path, $background_area, $cell_area, $flags)
 
-=arg ... (__hide__)
-=arg event (GdkEvent)
-=arg widget (GtkWidget)
-=arg background_area (GdkRectangle_ornull)
-=arg cell_area (GdkRectangle_ornull)
-=arg expose_area (GdkRectangle_ornull)
-=arg flags (GtkCellRendererState)
+=for arg ... (__hide__)
+=for arg event (GdkEvent)
+=for arg widget (GtkWidget)
+=for arg background_area (GdkRectangle_ornull)
+=for arg cell_area (GdkRectangle_ornull)
+=for arg expose_area (GdkRectangle_ornull)
+=for arg flags (GtkCellRendererState)
 
 Invoke the C<activate> method of the parent class; only valid in virtual
 overrides for C<on_activate>.
@@ -500,15 +500,15 @@ overrides for C<on_activate>.
 
 =for apidoc parent_start_editing
 
-=signature GtkEditable_ornull = $cell->parent_start_editing ($widget, $rectangle)
+=for signature GtkEditable_ornull = $cell->parent_start_editing ($widget, $rectangle)
 
-=arg ... (__hide__)
-=arg event (GdkEvent)
-=arg widget (GtkWidget)
-=arg path (char*)
-=arg background_area (GdkRectangle_ornull)
-=arg cell_area (GdkRectangle_ornull)
-=arg flags (GtkCellRendererState)
+=for arg ... (__hide__)
+=for arg event (GdkEvent)
+=for arg widget (GtkWidget)
+=for arg path (char*)
+=for arg background_area (GdkRectangle_ornull)
+=for arg cell_area (GdkRectangle_ornull)
+=for arg flags (GtkCellRendererState)
 
 Invoke the C<start_editing> method of the parent class; only valid in virtual
 overrides for C<on_start_editing>.
