@@ -93,20 +93,30 @@ way to say 'no flags'.
   FOO_BAR_BAZ | FOO_BAR_QUU | FOO_BAR_QUUX => [qw/baz quu qux/]
   0 => []
 
-In some cases you need to see if a bit is set in a bitfield; the best thing i
-can think of for that is
+In some cases you need to see if a bit is set in a bitfield; Methods
+returning flags therefore return an overloaded object. See L<Glib> for
+more details on which operations are allowed on these flag objects, but
+here is a quick example:
 
  in C:
   /* event->state is a bitfield */
-  if (event->state & GDK_CONTROL_MASK)
-          g_printerr ("control was down\n");
+  if (event->state & GDK_CONTROL_MASK) g_printerr ("control was down\n");
 
  in perl:
-  # $event->state is a reference to an array of flag constants
-  warn "control was down\n"
-      if grep {/control-mask/} @{ $event->state };
+  # $event->state is a special object
+  warn "control was down\n" if $event->state & "control-mask";
 
-FIXME if anyone can think of a better way to check this, i'm all ears.
+But this also works:
+
+  warn "control was down\n" if $event->state * "control-mask";
+  warn "control was down\n" if $event->state >= "control-mask";
+  warn "control and shift were down\n"
+                            if $event->state >= ["control-mask", "shift-mask"];
+
+And treating it as an array of strings (as in older versions) is still
+supported:
+
+  warn "control was down\n" if grep /control-mask/, @{ $event->state };
 
 The gtk stock item stuff is a little different -- the GTK_STOCK_* constants
 are actually macros which evaluate to strings, so they aren't handled by the

@@ -1,3 +1,7 @@
+2003/11/10 01:51 pcg
+
+	* api.pod: Document new operation on GFlags.
+
 2003/11/08 01:20 (-0500) muppetman
 
 	* examples/cellrenderer_date.pl, examples/cellrenderer_popup.pl,
