@@ -181,8 +181,14 @@ FIXME we have no other documentation, but we probably need it.
 
 perl(1), Glib(3pm).
 
+Gtk2::api(3pm) describes how to map the C API into perl, and some of the
+important differences in the perl bindings.
+
 The Gtk2::Helper module contains stuff that makes writing Gtk2 programs
 a little easier.
+
+Gtk2::SimpleList makes the GtkListStore and GtkTreeModel a I<lot>
+easier to use.
 
 Gtk2 also provides code to make it relatively painless to create perl
 wrappers for other GLib/Gtk-based libraries.  See Gtk2::CodeGen, 
