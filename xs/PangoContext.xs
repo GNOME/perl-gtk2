@@ -22,19 +22,17 @@
 
 MODULE = Gtk2::Pango::Context	PACKAGE = Gtk2::Pango::Context	PREFIX = pango_context_
 
-# FIXME
-###  PangoContext *pango_context_new (void) 
-#PangoContext_noinc *
-#pango_context_new (class)
-#    C_ARGS:
-#	
+##  PangoContext *pango_context_new (void) 
+PangoContext_noinc *
+pango_context_new (class)
+    C_ARGS:
+	/*void*/
 
-# FIXME
-###  void pango_context_set_font_map (PangoContext *context, PangoFontMap *font_map) 
-#void
-#pango_context_set_font_map (context, font_map)
-#	PangoContext *context
-#	PangoFontMap *font_map
+##  void pango_context_set_font_map (PangoContext *context, PangoFontMap *font_map) 
+void
+pango_context_set_font_map (context, font_map)
+	PangoContext *context
+	PangoFontMap *font_map
 
 ## FIXME
 ###  void pango_context_list_families (PangoContext *context, PangoFontFamily ***families, int *n_families) 
