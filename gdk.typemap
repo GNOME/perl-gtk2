@@ -1,0 +1,5 @@
+# this is where Gdk hand coded typemap stuff resides
+TYPEMAP
+
+# can be either a pointer or an integer, this handles both cases
+GdkNativeWindow	T_UV

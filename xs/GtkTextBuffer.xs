@@ -1,0 +1,484 @@
+#include "gtk2perl.h"
+
+/* is a GObject */
+
+MODULE = Gtk2::TextBuffer	PACKAGE = Gtk2::TextBuffer	PREFIX = gtk_text_buffer_
+
+GtkTextBuffer_noinc*
+gtk_text_buffer_new (class, tagtable=NULL)
+	SV * class
+	GtkTextTagTable_ornull * tagtable
+    C_ARGS:
+	tagtable
+
+gint
+gtk_text_buffer_get_line_count (buffer)
+	GtkTextBuffer *buffer
+
+gint
+gtk_text_buffer_get_char_count (buffer)
+	GtkTextBuffer *buffer
+
+GtkTextTagTable*
+gtk_text_buffer_get_tag_table (buffer)
+	GtkTextBuffer *buffer
+
+
+## why this no work, because of the gchar instead of char?:
+###void gtk_text_buffer_insert (GtkTextBuffer * buffer, GtkTextIter * iter, const gchar * text, length(text))
+void
+gtk_text_buffer_insert (buffer, iter, text)
+	GtkTextBuffer * buffer
+	GtkTextIter * iter
+	const gchar * text
+    CODE:
+	gtk_text_buffer_insert (buffer, iter, text, strlen(text));
+
+###void gtk_text_buffer_insert_at_cursor (GtkTextBuffer *buffer, const gchar *text, length(text))
+void
+gtk_text_buffer_insert_at_cursor (buffer, iter, text)
+	GtkTextBuffer * buffer
+	const gchar * text
+    CODE:
+	gtk_text_buffer_insert_at_cursor (buffer, text, strlen(text));
+
+###gboolean gtk_text_buffer_insert_interactive (GtkTextBuffer *buffer, GtkTextIter *iter, const gchar *text, length(text), gboolean default_editable)
+gboolean
+gtk_text_buffer_insert_interactive (buffer, iter, text, default_editable)
+	GtkTextBuffer * buffer
+	GtkTextIter * iter
+	const gchar * text
+	gboolean default_editable
+    CODE:
+	gtk_text_buffer_insert_interactive (buffer, iter, text, strlen(text), 
+	                                    default_editable);
+    OUTPUT:
+	RETVAL
+
+
+###gboolean gtk_text_buffer_insert_interactive_at_cursor (GtkTextBuffer *buffer, const gchar *text, length(text), gboolean default_editable)
+gboolean
+gtk_text_buffer_insert_interactive_at_cursor (buffer, text, default_editable)
+	GtkTextBuffer * buffer
+	const gchar * text
+	gboolean default_editable
+    CODE:
+	gtk_text_buffer_insert_interactive_at_cursor (buffer, text,
+	                                              strlen(text), 
+	                                              default_editable);
+    OUTPUT:
+	RETVAL
+
+
+## void gtk_text_buffer_insert_range (GtkTextBuffer *buffer, GtkTextIter *iter, const GtkTextIter *start, const GtkTextIter *end)
+void
+gtk_text_buffer_insert_range (buffer, iter, start, end)
+	GtkTextBuffer *buffer
+	GtkTextIter *iter
+	GtkTextIter *start
+	GtkTextIter *end
+
+## gboolean gtk_text_buffer_insert_range_interactive (GtkTextBuffer *buffer, GtkTextIter *iter, const GtkTextIter *start, const GtkTextIter *end, gboolean default_editable)
+gboolean
+gtk_text_buffer_insert_range_interactive (buffer, iter, start, end, default_editable)
+	GtkTextBuffer *buffer
+	GtkTextIter *iter
+	GtkTextIter *start
+	GtkTextIter *end
+	gboolean default_editable
+
+#### void gtk_text_buffer_insert_with_tags (GtkTextBuffer *buffer, GtkTextIter *iter, const gchar *text, gint len, GtkTextTag *first_tag, ...)
+##void
+##gtk_text_buffer_insert_with_tags (buffer, iter, text, len, first_tag, first_tag)
+##	GtkTextBuffer *buffer
+##	GtkTextIter *iter
+##	const gchar *text
+##	gint len
+##	GtkTextTag *first_tag
+##	...
+##
+#### void gtk_text_buffer_insert_with_tags_by_name (GtkTextBuffer *buffer, GtkTextIter *iter, const gchar *text, gint len, const gchar *first_tag_name, ...)
+##void
+##gtk_text_buffer_insert_with_tags_by_name (buffer, iter, text, len, first_tag_name, first_tag_name)
+##	GtkTextBuffer *buffer
+##	GtkTextIter *iter
+##	const gchar *text
+##	gint len
+##	const gchar *first_tag_name
+##	...
+
+## void gtk_text_buffer_delete (GtkTextBuffer *buffer, GtkTextIter *start, GtkTextIter *end)
+void
+gtk_text_buffer_delete (buffer, start, end)
+	GtkTextBuffer *buffer
+	GtkTextIter *start
+	GtkTextIter *end
+
+## gboolean gtk_text_buffer_delete_interactive (GtkTextBuffer *buffer, GtkTextIter *start_iter, GtkTextIter *end_iter, gboolean default_editable)
+gboolean
+gtk_text_buffer_delete_interactive (buffer, start_iter, end_iter, default_editable)
+	GtkTextBuffer *buffer
+	GtkTextIter *start_iter
+	GtkTextIter *end_iter
+	gboolean default_editable
+
+###void gtk_text_buffer_set_text (GtkTextBuffer *buffer, const gchar *text, length(text))
+void
+gtk_text_buffer_set_text (buffer, text)
+	GtkTextBuffer *buffer
+	const gchar *text
+    CODE:
+	gtk_text_buffer_set_text (buffer, text, strlen (text));
+
+gchar* gtk_text_buffer_get_text (GtkTextBuffer *buffer, GtkTextIter * start, GtkTextIter* end, gboolean include_hidden_chars)
+
+gchar* gtk_text_buffer_get_slice (GtkTextBuffer *buffer, GtkTextIter *start, GtkTextIter *end, gboolean include_hidden_chars);
+
+## void gtk_text_buffer_insert_pixbuf (GtkTextBuffer *buffer, GtkTextIter *iter, GdkPixbuf *pixbuf)
+void
+gtk_text_buffer_insert_pixbuf (buffer, iter, pixbuf)
+	GtkTextBuffer *buffer
+	GtkTextIter *iter
+	GdkPixbuf *pixbuf
+
+## void gtk_text_buffer_insert_child_anchor (GtkTextBuffer *buffer, GtkTextIter *iter, GtkTextChildAnchor *anchor)
+void
+gtk_text_buffer_insert_child_anchor (buffer, iter, anchor)
+	GtkTextBuffer *buffer
+	GtkTextIter *iter
+	GtkTextChildAnchor *anchor
+
+GtkTextMark* gtk_text_buffer_create_mark (GtkTextBuffer *buffer, const gchar *mark_name, GtkTextIter *where, gboolean left_gravity);
+
+## void gtk_text_buffer_move_mark (GtkTextBuffer *buffer, GtkTextMark *mark, const GtkTextIter *where)
+void
+gtk_text_buffer_move_mark (buffer, mark, where)
+	GtkTextBuffer *buffer
+	GtkTextMark *mark
+	GtkTextIter *where
+
+## void gtk_text_buffer_delete_mark (GtkTextBuffer *buffer, GtkTextMark *mark)
+void
+gtk_text_buffer_delete_mark (buffer, mark)
+	GtkTextBuffer *buffer
+	GtkTextMark *mark
+
+## GtkTextMark* gtk_text_buffer_get_mark (GtkTextBuffer *buffer, const gchar *name)
+GtkTextMark_ornull*
+gtk_text_buffer_get_mark (buffer, name)
+	GtkTextBuffer *buffer
+	const gchar *name
+
+## void gtk_text_buffer_move_mark_by_name (GtkTextBuffer *buffer, const gchar *name, const GtkTextIter *where)
+void
+gtk_text_buffer_move_mark_by_name (buffer, name, where)
+	GtkTextBuffer *buffer
+	const gchar *name
+	GtkTextIter *where
+
+## void gtk_text_buffer_delete_mark_by_name (GtkTextBuffer *buffer, const gchar *name)
+void
+gtk_text_buffer_delete_mark_by_name (buffer, name)
+	GtkTextBuffer *buffer
+	const gchar *name
+
+## GtkTextMark* gtk_text_buffer_get_insert (GtkTextBuffer *buffer)
+GtkTextMark*
+gtk_text_buffer_get_insert (buffer)
+	GtkTextBuffer *buffer
+
+## GtkTextMark* gtk_text_buffer_get_selection_bound (GtkTextBuffer *buffer)
+GtkTextMark*
+gtk_text_buffer_get_selection_bound (buffer)
+	GtkTextBuffer *buffer
+
+## void gtk_text_buffer_place_cursor (GtkTextBuffer *buffer, const GtkTextIter *where)
+void
+gtk_text_buffer_place_cursor (buffer, where)
+	GtkTextBuffer *buffer
+	GtkTextIter *where
+
+## void gtk_text_buffer_apply_tag (GtkTextBuffer *buffer, GtkTextTag *tag, const GtkTextIter *start, const GtkTextIter *end)
+void
+gtk_text_buffer_apply_tag (buffer, tag, start, end)
+	GtkTextBuffer *buffer
+	GtkTextTag *tag
+	GtkTextIter *start
+	GtkTextIter *end
+
+## void gtk_text_buffer_remove_tag (GtkTextBuffer *buffer, GtkTextTag *tag, const GtkTextIter *start, const GtkTextIter *end)
+void
+gtk_text_buffer_remove_tag (buffer, tag, start, end)
+	GtkTextBuffer *buffer
+	GtkTextTag *tag
+	GtkTextIter *start
+	GtkTextIter *end
+
+## void gtk_text_buffer_apply_tag_by_name (GtkTextBuffer *buffer, const gchar *name, const GtkTextIter *start, const GtkTextIter *end)
+void
+gtk_text_buffer_apply_tag_by_name (buffer, name, start, end)
+	GtkTextBuffer *buffer
+	const gchar *name
+	GtkTextIter *start
+	GtkTextIter *end
+
+## void gtk_text_buffer_remove_tag_by_name (GtkTextBuffer *buffer, const gchar *name, const GtkTextIter *start, const GtkTextIter *end)
+void
+gtk_text_buffer_remove_tag_by_name (buffer, name, start, end)
+	GtkTextBuffer *buffer
+	const gchar *name
+	GtkTextIter *start
+	GtkTextIter *end
+
+## void gtk_text_buffer_remove_all_tags (GtkTextBuffer *buffer, const GtkTextIter *start, const GtkTextIter *end)
+void
+gtk_text_buffer_remove_all_tags (buffer, start, end)
+	GtkTextBuffer *buffer
+	GtkTextIter *start
+	GtkTextIter *end
+
+
+##GtkTextTag* gtk_text_buffer_create_tag      (GtkTextBuffer *buffer,
+##                                             const gchar *tag_name,
+##                                             const gchar *first_property_name,
+##                                             ...);
+## FIXME tag_name may be NULL, how do we tell perl that?:
+## The returned tag is owned by the buffer's tag table!  do not use _noinc!
+GtkTextTag *
+gtk_text_buffer_create_tag (buffer, tag_name, ...)
+	GtkTextBuffer * buffer
+	const gchar * tag_name
+    PREINIT:
+	GtkTextTagTable * tag_table;
+	int i;
+    CODE:
+	/* FIXME test the number of stack items! */
+	/*
+	 * since we can't really pass on the varargs call from perl to C,
+	 * we'll have to reimplement this convenience function ourselves.
+	 */
+	RETVAL = gtk_text_tag_new (tag_name);
+	tag_table = gtk_text_buffer_get_tag_table (buffer);
+	gtk_text_tag_table_add (tag_table, RETVAL);
+	g_object_unref (RETVAL); /* the tag table owns the object now */
+	for (i = 2 ; i < items ; i+= 2) {
+		GValue gvalue = {0, };
+		GParamSpec * pspec;
+		const gchar * propname = SvPV_nolen (ST (i));
+		pspec = g_object_class_find_property (G_OBJECT_GET_CLASS (RETVAL),
+		                                      propname);
+		if (!pspec)
+			warn ("   unknown property %s for class %s",
+				propname, G_OBJECT_TYPE_NAME (RETVAL));
+		else {
+			g_value_init (&gvalue, pspec->value_type);
+			gperl_value_from_sv (&gvalue, ST (i+1));
+			g_object_set_property (G_OBJECT (RETVAL), propname,
+			                       &gvalue);
+			g_value_unset (&gvalue);
+		}
+	}
+    OUTPUT:
+	RETVAL
+
+#### void gtk_text_buffer_get_iter_at_line_offset (GtkTextBuffer *buffer, GtkTextIter *iter, gint line_number, gint char_offset)
+GtkTextIter_copy *
+gtk_text_buffer_get_iter_at_line_offset (buffer, line_number, char_offset)
+	GtkTextBuffer *buffer
+	gint line_number
+	gint char_offset
+    PREINIT:
+	GtkTextIter iter;
+    CODE:
+	gtk_text_buffer_get_iter_at_line_offset (buffer, &iter,
+	                                         line_number, char_offset);
+	RETVAL = &iter;
+    OUTPUT:
+	RETVAL
+
+
+#### void gtk_text_buffer_get_iter_at_line_index (GtkTextBuffer *buffer, GtkTextIter *iter, gint line_number, gint byte_index)
+GtkTextIter_copy *
+gtk_text_buffer_get_iter_at_line_index (buffer, line_number, byte_index)
+	GtkTextBuffer *buffer
+	gint line_number
+	gint byte_index
+    PREINIT:
+	GtkTextIter iter;
+    CODE:
+	gtk_text_buffer_get_iter_at_line_index (buffer, &iter,
+	                                        line_number, byte_index);
+	RETVAL = &iter;
+    OUTPUT:
+	RETVAL
+
+#### void gtk_text_buffer_get_iter_at_offset (GtkTextBuffer *buffer, GtkTextIter *iter, gint char_offset)
+GtkTextIter_copy *
+gtk_text_buffer_get_iter_at_offset (buffer, char_offset)
+	GtkTextBuffer *buffer
+	gint char_offset
+    PREINIT:
+	GtkTextIter iter;
+    CODE:
+	gtk_text_buffer_get_iter_at_offset (buffer, &iter, char_offset);
+	RETVAL = &iter;
+    OUTPUT:
+	RETVAL
+
+#### void gtk_text_buffer_get_iter_at_line (GtkTextBuffer *buffer, GtkTextIter *iter, gint line_number)
+GtkTextIter_copy *
+gtk_text_buffer_get_iter_at_line (buffer, line_number)
+	GtkTextBuffer *buffer
+	gint line_number
+    PREINIT:
+	GtkTextIter iter;
+    CODE:
+	gtk_text_buffer_get_iter_at_line (buffer, &iter, line_number);
+	RETVAL = &iter;
+    OUTPUT:
+	RETVAL
+
+#### void gtk_text_buffer_get_start_iter (GtkTextBuffer *buffer, GtkTextIter *iter)
+#### void gtk_text_buffer_get_end_iter (GtkTextBuffer *buffer, GtkTextIter *iter)
+GtkTextIter_copy *
+gtk_text_buffer_get_start_iter (buffer)
+	GtkTextBuffer *buffer
+    ALIAS:
+	Gtk2::TextBuffer::get_start_iter = 0
+	Gtk2::TextBuffer::get_end_iter = 1
+    PREINIT:
+	GtkTextIter iter;
+    CODE:
+	if (ix == 1)
+		gtk_text_buffer_get_end_iter (buffer, &iter);
+	else
+		gtk_text_buffer_get_start_iter (buffer, &iter);
+	RETVAL = &iter;
+    OUTPUT:
+	RETVAL
+
+
+#### void gtk_text_buffer_get_bounds (GtkTextBuffer *buffer, GtkTextIter *start, GtkTextIter *end)
+void
+gtk_text_buffer_get_bounds (buffer)
+	GtkTextBuffer *buffer
+    PREINIT:
+	GtkTextIter start;
+	GtkTextIter end;
+    PPCODE:
+	gtk_text_buffer_get_bounds (buffer, &start, &end);
+	EXTEND (SP, 2);
+	PUSHs (sv_2mortal (newSVGtkTextIter_copy (&start)));
+	PUSHs (sv_2mortal (newSVGtkTextIter_copy (&end)));
+
+#### void gtk_text_buffer_get_iter_at_mark (GtkTextBuffer *buffer, GtkTextIter *iter, GtkTextMark *mark)
+GtkTextIter_copy *
+gtk_text_buffer_get_iter_at_mark (buffer, mark)
+	GtkTextBuffer * buffer
+	GtkTextMark * mark
+    PREINIT:
+	GtkTextIter iter;
+    CODE:
+	gtk_text_buffer_get_iter_at_mark (buffer, &iter, mark);
+	RETVAL = &iter;
+    OUTPUT:
+	RETVAL
+
+#### void gtk_text_buffer_get_iter_at_child_anchor (GtkTextBuffer *buffer, GtkTextIter *iter, GtkTextChildAnchor *anchor)
+GtkTextIter_copy *
+gtk_text_buffer_get_iter_at_child_anchor (buffer, anchor)
+	GtkTextBuffer * buffer
+	GtkTextChildAnchor * anchor
+    PREINIT:
+	GtkTextIter iter;
+    CODE:
+	gtk_text_buffer_get_iter_at_child_anchor (buffer, &iter, anchor);
+	RETVAL = &iter;
+    OUTPUT:
+	RETVAL
+
+## gboolean gtk_text_buffer_get_modified (GtkTextBuffer *buffer)
+gboolean
+gtk_text_buffer_get_modified (buffer)
+	GtkTextBuffer *buffer
+
+## void gtk_text_buffer_set_modified (GtkTextBuffer *buffer, gboolean setting)
+void
+gtk_text_buffer_set_modified (buffer, setting)
+	GtkTextBuffer *buffer
+	gboolean setting
+
+#### FIXME need typemap for GtkClipboard for these.  GtkClipboard needs
+####       GtkAtom, and i need to learn what all that means before
+####       i can start implementing it.
+##### void gtk_text_buffer_add_selection_clipboard (GtkTextBuffer *buffer, GtkClipboard *clipboard)
+###void
+###gtk_text_buffer_add_selection_clipboard (buffer, clipboard)
+###	GtkTextBuffer *buffer
+###	GtkClipboard *clipboard
+###
+##### void gtk_text_buffer_remove_selection_clipboard (GtkTextBuffer *buffer, GtkClipboard *clipboard)
+###void
+###gtk_text_buffer_remove_selection_clipboard (buffer, clipboard)
+###	GtkTextBuffer *buffer
+###	GtkClipboard *clipboard
+###
+##### void gtk_text_buffer_cut_clipboard (GtkTextBuffer *buffer, GtkClipboard *clipboard, gboolean default_editable)
+###void
+###gtk_text_buffer_cut_clipboard (buffer, clipboard, default_editable)
+###	GtkTextBuffer *buffer
+###	GtkClipboard *clipboard
+###	gboolean default_editable
+###
+##### void gtk_text_buffer_copy_clipboard (GtkTextBuffer *buffer, GtkClipboard *clipboard)
+###void
+###gtk_text_buffer_copy_clipboard (buffer, clipboard)
+###	GtkTextBuffer *buffer
+###	GtkClipboard *clipboard
+###
+##### void gtk_text_buffer_paste_clipboard (GtkTextBuffer *buffer, GtkClipboard *clipboard, GtkTextIter *override_location, gboolean default_editable)
+###void
+###gtk_text_buffer_paste_clipboard (buffer, clipboard, override_location, default_editable)
+###	GtkTextBuffer *buffer
+###	GtkClipboard *clipboard
+###	GtkTextIter_ornull *override_location
+###	gboolean default_editable
+
+## gboolean gtk_text_buffer_get_selection_bounds (GtkTextBuffer *buffer, GtkTextIter *start, GtkTextIter *end)
+## returns empty list if there is no selection
+void
+gtk_text_buffer_get_selection_bounds (buffer)
+	GtkTextBuffer *buffer
+    PREINIT:
+	GtkTextIter start;
+	GtkTextIter end;
+    PPCODE:
+	if (!gtk_text_buffer_get_selection_bounds (buffer, &start, &end))
+		XSRETURN_EMPTY;
+	EXTEND (SP, 2);
+	PUSHs (sv_2mortal (newSVGtkTextIter_copy (&start)));
+	PUSHs (sv_2mortal (newSVGtkTextIter_copy (&end)));
+
+## gboolean gtk_text_buffer_delete_selection (GtkTextBuffer *buffer, gboolean interactive, gboolean default_editable)
+gboolean
+gtk_text_buffer_delete_selection (buffer, interactive, default_editable)
+	GtkTextBuffer *buffer
+	gboolean interactive
+	gboolean default_editable
+
+## void gtk_text_buffer_begin_user_action (GtkTextBuffer *buffer)
+void
+gtk_text_buffer_begin_user_action (buffer)
+	GtkTextBuffer *buffer
+
+## void gtk_text_buffer_end_user_action (GtkTextBuffer *buffer)
+void
+gtk_text_buffer_end_user_action (buffer)
+	GtkTextBuffer *buffer
+
+##GtkTextChildAnchor * gtk_text_buffer_create_child_anchor (GtkTextBuffer *buffer, GtkTextIter *iter)
+GtkTextChildAnchor *
+gtk_text_buffer_create_child_anchor (buffer, iter)
+	GtkTextBuffer * buffer
+	GtkTextIter   * iter
+

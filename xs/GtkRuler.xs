@@ -1,0 +1,38 @@
+#include "gtk2perl.h"
+
+MODULE = Gtk2::Ruler	PACKAGE = Gtk2::Ruler	PREFIX = gtk_ruler_
+
+## void gtk_ruler_set_metric (GtkRuler *ruler, GtkMetricType metric)
+void
+gtk_ruler_set_metric (ruler, metric)
+	GtkRuler      * ruler
+	GtkMetricType   metric
+
+## void gtk_ruler_set_range (GtkRuler *ruler, gdouble lower, gdouble upper, gdouble position, gdouble max_size)
+void
+gtk_ruler_set_range (ruler, lower, upper, position, max_size)
+	GtkRuler * ruler
+	gdouble    lower
+	gdouble    upper
+	gdouble    position
+	gdouble    max_size
+
+## void gtk_ruler_draw_ticks (GtkRuler *ruler)
+void
+gtk_ruler_draw_ticks (ruler)
+	GtkRuler * ruler
+
+## void gtk_ruler_draw_pos (GtkRuler *ruler)
+void
+gtk_ruler_draw_pos (ruler)
+	GtkRuler * ruler
+
+## GtkMetricType gtk_ruler_get_metric (GtkRuler *ruler)
+GtkMetricType
+gtk_ruler_get_metric (ruler)
+	GtkRuler * ruler
+
+## void gtk_ruler_get_range (GtkRuler *ruler, gdouble *lower, gdouble *upper, gdouble *position, gdouble *max_size)
+void
+gtk_ruler_get_range (GtkRuler * ruler, OUTLIST gdouble lower, OUTLIST gdouble upper, OUTLIST gdouble position, OUTLIST gdouble max_size)
+
