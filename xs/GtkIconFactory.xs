@@ -126,7 +126,7 @@ gtk_icon_size_lookup (class, size)
 =for signature (width, height) = Gtk2::IconSize->lookup_for_settings ($settings, $size)
 =cut
 void
-gtk_icon_size_lookup_for_settings (class, settings, size, width, height)
+gtk_icon_size_lookup_for_settings (class, settings, size)
 	GtkSettings *settings
 	GtkIconSize size
     PREINIT:
