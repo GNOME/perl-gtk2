@@ -1,5 +1,11 @@
 2004/01/08 18:55 (-0500) rwmcfa1
 
+	* xs/GdkWindow.xs: fixed bug found in test branch where attribute_mask
+	was filled with random garbage, should of been initialized in
+	SvGdkWindowAttrReal.
+
+2004/01/08 18:55 (-0500) rwmcfa1
+
 	* pm/TestHelper.pm: added at_least_version paramter, very useful.
 
 	* t/27.GtkClipboard.t: use ^, to skip unless clipboard will be around.
