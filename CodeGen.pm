@@ -357,7 +357,7 @@ sub gen_enum_stuff {
 	my ($typemacro, $classname, $package) = @_;
 	push @header, "#ifdef $typemacro
   /* GEnum $classname */
-# define Sv$classname(sv)	(gperl_convert_enum ($typemacro, sv))
+# define Sv$classname(sv)	(($classname)gperl_convert_enum ($typemacro, sv))
 # define newSV$classname(val)	(gperl_convert_back_enum ($typemacro, val))
 #endif /* $typemacro */
 ";
@@ -372,7 +372,7 @@ sub gen_flags_stuff {
 	my ($typemacro, $classname, $package) = @_;
 	push @header, "#ifdef $typemacro
   /* GFlags $classname */
-# define Sv$classname(sv)	(gperl_convert_flags ($typemacro, sv))
+# define Sv$classname(sv)	(($classname)gperl_convert_flags ($typemacro, sv))
 # define newSV$classname(val)	(gperl_convert_back_flags ($typemacro, val))
 #endif /* $typemacro */
 ";

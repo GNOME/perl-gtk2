@@ -1,3 +1,11 @@
+2005/03/25	kaffeetisch
+
+	Port from HEAD:
+
+	* CodeGen.pm: Make the GEnum and GFlags converters cast their
+	return values to the correct type to fix compilation when using a
+	C++ compiler.
+
 2005/03/07	kaffeetisch
 
 	* Gtk2.pm, META.yml, Makefile.PL, NEWS, README: Stable release
