@@ -12,7 +12,7 @@
 use strict;
 use warnings;
 
-use Gtk2::TestHelper tests => 25,
+use Gtk2::TestHelper tests => 30,
     at_least_version => [2, 6, 0, "GtkIconView is new in 2.6"],
     ;
 
@@ -95,6 +95,21 @@ run_main {
 	$iview->unselect_all;
 	@sels = $iview->get_selected_items;
 	is (scalar (@sels), 0, '$iview->get_selected_items, count 0');
+
+	$iview->select_path ($path);
+	$iview->selected_foreach (sub {
+		my ($view, $path, $data) = @_;
+		isa_ok ($view, 'Gtk2::IconView');
+		isa_ok ($path, 'Gtk2::TreePath');
+		isa_ok ($data, 'HASH');
+		is ($data->{foo}, 'bar', 'callback data intact');
+	}, { foo => 'bar' });
+	$iview->select_all;
+	my $ncalls = 0;
+	$iview->selected_foreach (sub { $ncalls++ });
+	my @selected_items = $iview->get_selected_items;
+	is ($ncalls, scalar(@selected_items),
+	    'called once for each selected child');
 };
 
 sub create_store
