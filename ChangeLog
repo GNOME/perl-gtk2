@@ -1,3 +1,9 @@
+2003/06/27 17:01 pcg
+
+	* xs/GdkWindow.xs: gdk_window_set_back_pixmap allows null pixmap.
+
+        * pm/Pango.pm: fix typo.
+
 2003/06/27 17:00 muppetman
 
 	* Makefile.PL: require bleeding edge Glib.

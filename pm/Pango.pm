@@ -88,7 +88,7 @@ except here:
 	PANGO_SCALE_XX_LARGE
 
 PANGO_SCALE is needed to convert between Pango units and pixels.
-It is also available as Gtk2::Pango->SCALE.
+It is also available as Gtk2::Pango->scale.
 
 	PANGO_SCALE
 

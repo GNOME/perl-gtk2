@@ -292,7 +292,7 @@ gdk_window_set_background (window, color)
 void
 gdk_window_set_back_pixmap (window, pixmap, parent_relative = 0)
 	GdkWindow *window
-	GdkPixmap *pixmap
+	GdkPixmap_ornull *pixmap
 	gboolean parent_relative
 
  ## void gdk_window_set_cursor (GdkWindow *window, GdkCursor *cursor)
