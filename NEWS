@@ -1,3 +1,15 @@
+Overview of Changes in Gtk2 1.053
+=================================
+
+* Require Glib 1.053.
+* Add important utility functions (with docs) for use by custom tree model
+  implementations: Gtk2::TreeIter::to_arrayref and
+  Gtk2::TreeIter::new_from_arrayref.  [Zach Bean, muppet]
+* Bind and test late additions to gtk+ and pango:  [Torsten]
+  - Gtk2::Pango::Layout::get_ellipsize
+  - Gtk2::Pango::Layout::set_ellipsize
+  - Gtk2::parse_args
+
 Overview of Changes in Gtk2 1.052
 =================================
 
