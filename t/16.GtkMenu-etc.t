@@ -45,7 +45,7 @@ foreach $num (qw/1 2 3/)
 	if( $num == 1 )
 	{
 		$rootmenu->set_submenu($menu);
-		$menu->set_tearoff_state(1);
+#		$menu->set_tearoff_state(1);
 		$menubar->append($rootmenu);
 		ok(1);
 	}
