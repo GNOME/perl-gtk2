@@ -16,16 +16,26 @@ BOOT:
 #include "boot.xsh"
 	}
 
-
- ##GTKMAIN_C_VAR const guint gtk_major_version;
- ##GTKMAIN_C_VAR const guint gtk_minor_version;
- ##GTKMAIN_C_VAR const guint gtk_micro_version;
  ##GTKMAIN_C_VAR const guint gtk_binary_age;
  ##GTKMAIN_C_VAR const guint gtk_interface_age;
- ##gchar* gtk_check_version (guint	required_major,
- ##			  guint	required_minor,
- ##			  guint	required_micro);
 
+void
+gtk_get_version_info (class)
+	SV * class
+    PPCODE:
+	EXTEND(SP,3);
+	PUSHs(sv_2mortal(newSViv(gtk_major_version)));
+	PUSHs(sv_2mortal(newSViv(gtk_minor_version)));
+	PUSHs(sv_2mortal(newSViv(gtk_micro_version)));
+
+gchar * 
+gtk_check_version (class, required_major, required_minor, required_micro)
+	SV    * class
+	guint   required_major
+	guint   required_minor
+	guint   required_micro
+    C_ARGS:
+	required_major, required_minor, required_micro
 
 gboolean
 gtk_init (class)
