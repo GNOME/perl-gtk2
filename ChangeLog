@@ -1,3 +1,17 @@
+2003/11/03 12:45 muppetman
+
+	D xs/GtkHScrollBar.xs
+	A xs/GtkHScrollbar.xs
+	D xs/GtkVScrollBar.xs
+	A xs/GtkVScrollbar.xs
+	long ago, in the early days of gtk2-perl-xs, these files were
+	created with the wrong capitalization of the file and package
+	names; register.xsh registers Gtk2::[VH]Scrollbar, but the
+	files implement Gtk2::[VH]ScrollBar.  since this is wrong, i have
+	corrected it by changing the package names and renaming the files,
+	but in order to retain compatibility with Gtk2-1.00, the old
+	Gtk2::[VH]ScrollBar::new()s are aliased to the new ones. 
+
 2003/11/02 23:26 pcg
 
         * xs/GdkPixbuf.xs, api.pod: Implement and document

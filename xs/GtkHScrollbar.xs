@@ -21,12 +21,24 @@
 
 #include "gtk2perl.h"
 
-MODULE = Gtk2::VScrollBar	PACKAGE = Gtk2::VScrollBar	PREFIX = gtk_vscrollbar_
+MODULE = Gtk2::HScrollbar	PACKAGE = Gtk2::HScrollbar	PREFIX = gtk_hscrollbar_
 
-## GtkWidget* gtk_vscrollbar_new (GtkAdjustment *adjustment)
+## GtkWidget* gtk_hscrollbar_new (GtkAdjustment *adjustment)
 GtkWidget *
-gtk_vscrollbar_new (class, adjustment=NULL)
+gtk_hscrollbar_new (class, adjustment=NULL)
 	GtkAdjustment_ornull * adjustment
+    ALIAS:
+	Gtk2::HScrollBar::new = 1
     C_ARGS:
 	adjustment
 
+
+=for apidoc Gtk2::HScrollBar::new
+
+A typo in days long past resulted in the package names for Gtk2::HScrollbar
+and Gtk2::VScrollbar being misspelled with a capital C<B>, despite the fact
+that only the proper name (with the small C<b>) was actually registered
+with the Glib type system.  For backward compatibility with Gtk2-1.00,
+Gtk2::HScrollBar->new calls Gtk2::HScrollbar->new without complaint.
+
+=cut
