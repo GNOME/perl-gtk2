@@ -1,3 +1,8 @@
+2004/02/29 01:39 (+0100) kaffeetisch
+
+	* t/GtkRc.t: Don't assume the return value of get_style_by_paths
+	is undef -- also allow a Gtk2::Style object.
+
 2004/02/28 18:18 (+0100) kaffeetisch
 
 	* t/GtkIconFactory.t: Test lookup_for_settings.
