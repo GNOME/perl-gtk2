@@ -76,7 +76,8 @@ gtk_button_news (class, label=NULL)
 # TODO: find and/or create Gtk2::StockItems info/page
 =for apidoc
 
-=arg stock_id (string) creates a new button using the icon and text from the specified stock item, see L<Gtk2::StockItems>
+=arg stock_id (string) creates a new button using the icon and text from the
+specified stock item, see L<Gtk2::Stock>
 
 =cut
 GtkWidget *

@@ -1,3 +1,18 @@
+2003/11/25 11:46 (-0500) rwmcfa1
+
+	* podifystockitems.pl: initial import
+
+	* Gtk2.pm, xs/GtkButton.xs, xs/GtkWidget.xs, xs/GtkWindow.xs: link 
+	corrections
+
+	* Makefile.PL: use new DOC_PL_DEPENDS var, added rule for building 
+	stock_items.podi
+
+	* xs/Gtk2.xs: cause Gtk2::Separator and Gtk2::Scrollbar to have pages
+
+	* xs/GtkStock.xs: use new include system to put list of stock items in 
+	pod
+
 2003/11/24 11:27 (-0500) rwmcfa1
 
 	* xs/GtkCombo.xs, xs/GtkTextBuffer.xs, xs/GtkTextIter.xs,

@@ -515,7 +515,7 @@ gtk_widget_set_size_request (widget, width=-1, height=-1)
 This function is typically used when implementing a GtkContainer subclass.
 Obtains the preferred size of a widget. The container uses this information to
 arrange its child widgets and decide what size allocations to give them with
-L<"$widget-E<gt>size_allocate">.
+size_allocate ().
 
 You can also call this function from an application, with some caveats. Most
 notably, getting a size request requires the widget to be associated with a
@@ -525,7 +525,7 @@ should keep this in mind.
 Also remember that the size request is not necessarily the size a widget will
 actually be allocated.
 
-See also L<"$widget-E<gt>get_child_requisition">
+See also L<get_child_requisition ()|requisistion = $widget-E<gt>get_child_requisition>
 =cut
 void
 gtk_widget_get_size_request (widget)

@@ -224,7 +224,7 @@ is minimized (also known as iconified). Some window managers or desktop
 environments may also place it in the window frame, or display it in other
 contexts.
 
-L<"$window-E<gt>set_icon_list"> allows you to pass in the same icon in several
+L<set_icon_list ()|$window-E<gt>set_icon_list> allows you to pass in the same icon in several
 hand-drawn sizes. The list should contain the natural sizes your icon is
 available in; that is, don't scale the image before passing it to GTK+.
 Scaling is postponed until the last minute, when the desired final size is
@@ -241,7 +241,7 @@ gtk_window_set_icon_list (window, ...)
 	GtkWindow * window
     PREINIT:
 	GList * list = NULL;
-    PPCODE:
+    CODE:
 	for( items--; items > 0; items-- )
 		list = g_list_prepend(list, SvGdkPixbuf(ST(items)));
 	if( list )
@@ -252,7 +252,7 @@ gtk_window_set_icon_list (window, ...)
 
 # GList* gtk_window_get_icon_list (GtkWindow *window)
 =for apidoc
-Retrieves the list of icons set by L<$window-E<gt>set_icon_list>.
+Retrieves the list of icons set by L<set_icon_list ()|$window-E<gt>set_icon_list>.
 =cut
 void
 gtk_window_get_icon_list (window)

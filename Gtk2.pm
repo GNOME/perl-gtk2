@@ -228,7 +228,7 @@ for Gtk2.
 
 Gtk2 also provides code to make it relatively painless to create perl
 wrappers for other GLib/Gtk-based libraries.  See L<Gtk2::CodeGen>,
-L<Glib::PkgConfig>, and L<ExtUtils::Depends>.  If you're writing bindings,
+L<ExtUtils::PkgConfig>, and L<ExtUtils::Depends>.  If you're writing bindings,
 you'll probably also be interested in L<Gtk2::devel>, which is a supplement
 to L<Glib::devel> and L<Glib::xsapi>.  The Binding Howto, at
 http://gtk2-perl.sourceforge.net/doc/binding_howto.pod.html, ties it all

@@ -85,6 +85,9 @@ SvGtkStockItem (SV * sv)
 
 MODULE = Gtk2::Stock	PACKAGE = Gtk2::Stock	PREFIX = gtk_stock_
 
+=for include build/stock_items.podi
+=cut
+
 ###  void gtk_stock_add (const GtkStockItem *items, guint n_items) 
 void
 gtk_stock_add (class, ...)

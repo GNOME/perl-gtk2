@@ -188,7 +188,8 @@ WriteMakefile(
 
 sub MY::postamble
 {
-	my $text = Glib::MakeHelper->postamble_clean ()
+	my $text = "DOC_PL_DEPENDS=build/stock_items.podi\n\n"
+		 . Glib::MakeHelper->postamble_clean ()
 	         . Glib::MakeHelper->postamble_docs (@xs_files)
 	         . Glib::MakeHelper->postamble_rpms (
 			'GTK_RUN' => $runtime_reqs{'Gtk+'},
@@ -203,6 +204,10 @@ sub MY::postamble
 	$text .= " 
 # rebuild the makefile if the file lists change
 Makefile : ".join(" ", @lists)."
+
+build/stock_items.podi: podifystockitems.pl
+	\$(PERL) \$< > \$@
+
 ";
 
 	# this installation stuff doesn't make sense on windows, where

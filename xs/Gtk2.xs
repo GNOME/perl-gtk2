@@ -412,3 +412,13 @@ gtk_get_event_widget (class, GdkEvent_ornull * event)
 
  ## the docs say you shouldn't need this outside implementing gtk itself.
  ##void gtk_propagate_event (GtkWidget * widget, GdkEvent * event);
+
+# this stuff is only here to generate pod pages for abstract and functionless
+# object, that is the objects exist only as parents and have no functions of
+# their own
+
+=for object Gtk2::Separator
+=cut
+
+=for object Gtk2::Scrollbar
+=cut
