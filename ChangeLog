@@ -1,3 +1,7 @@
+2003/06/26 01:11 pcg
+
+	* META.yml: Add module meta-data in YAML for CPAN.
+
 2003/06/24 08:58 rwmcfa1
 
 	* maps: added GTK_TYPE_LIST and GTK_TYPE_LIST_ITEM
