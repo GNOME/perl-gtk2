@@ -20,6 +20,51 @@
  */
 
 #include "gtk2perl.h"
+#include <gperl_marshal.h>
+
+static GPerlCallback *
+create_text_char_predicate_callback (SV * func, SV * data)
+{
+	return gperl_callback_new (func, data, 0, NULL, G_TYPE_BOOLEAN);
+}
+
+static gboolean
+gtk2perl_text_char_predicate (gunichar ch,
+                              gpointer user_data)
+{
+	GPerlCallback * callback = (GPerlCallback *) user_data;
+	gboolean ret;
+	SV * svch;
+	gchar temp[6];
+	gint length;
+	dGPERL_CALLBACK_MARSHAL_SP;
+
+	GPERL_CALLBACK_MARSHAL_INIT (callback);
+
+	ENTER;
+	SAVETMPS;
+	PUSHMARK (SP);
+
+	length = g_unichar_to_utf8 (ch, temp);
+	svch = newSVpv (temp, length);
+	SvUTF8_on (svch);
+	XPUSHs (sv_2mortal (svch));
+
+	if (callback->data)
+		XPUSHs (callback->data);
+
+	PUTBACK;
+	call_sv (callback->func, G_SCALAR);
+	SPAGAIN;
+
+	ret = POPi;
+
+	PUTBACK;
+	FREETMPS;
+	LEAVE;
+ 
+	return ret;
+}
 
 MODULE = Gtk2::TextIter	PACKAGE = Gtk2::TextIter	PREFIX = gtk_text_iter_
 
@@ -64,11 +109,10 @@ gint
 gtk_text_iter_get_visible_line_index (iter)
 	 GtkTextIter *iter
 
-## FIXME need gunichar typemap
-### gunichar gtk_text_iter_get_char (const GtkTextIter *iter)
-#gunichar
-#gtk_text_iter_get_char (iter)
-#	GtkTextIter *iter
+## gunichar gtk_text_iter_get_char (const GtkTextIter *iter)
+gunichar
+gtk_text_iter_get_char (iter)
+	GtkTextIter *iter
 
 gchar_own *
 gtk_text_iter_get_slice (start, end)
@@ -433,44 +477,58 @@ gtk_text_iter_backward_to_tag_toggle (iter, tag)
 	GtkTextIter *iter
 	GtkTextTag *tag
 
-## FIXME needs callback and gunichar typemap
-#### typedef gboolean (* GtkTextCharPredicate) (gunichar ch, gpointer user_data)
-##
-#### gboolean gtk_text_iter_forward_find_char (GtkTextIter *iter, GtkTextCharPredicate pred, gpointer user_data, const GtkTextIter *limit)
-##gboolean
-##gtk_text_iter_forward_find_char (iter, pred, user_data, limit)
-##	GtkTextIter *iter
-##	GtkTextCharPredicate pred
-##	gpointer user_data
-##	const GtkTextIter *limit
-##
-#### gboolean gtk_text_iter_backward_find_char (GtkTextIter *iter, GtkTextCharPredicate pred, gpointer user_data, const GtkTextIter *limit)
-##gboolean
-##gtk_text_iter_backward_find_char (iter, pred, user_data, limit)
-##	GtkTextIter *iter
-##	GtkTextCharPredicate pred
-##	gpointer user_data
-##	const GtkTextIter *limit
-##
-#### gboolean gtk_text_iter_forward_search (const GtkTextIter *iter, const gchar *str, GtkTextSearchFlags flags, GtkTextIter *match_start, GtkTextIter *match_end, const GtkTextIter *limit)
-##gboolean
-##gtk_text_iter_forward_search (iter, str, flags, match_start, match_end, limit)
-##	const GtkTextIter *iter
-##	const gchar *str
-##	GtkTextSearchFlags flags
-##	GtkTextIter *match_start
-##	GtkTextIter *match_end
-##	const GtkTextIter *limit
-##
+## gboolean gtk_text_iter_forward_find_char (GtkTextIter *iter, GtkTextCharPredicate pred, gpointer user_data, const GtkTextIter *limit)
+## gboolean gtk_text_iter_backward_find_char (GtkTextIter *iter, GtkTextCharPredicate pred, gpointer user_data, const GtkTextIter *limit)
+gboolean
+gtk_text_iter_forward_find_char (iter, pred, user_data=NULL, limit=NULL)
+	GtkTextIter *iter
+	SV * pred
+	SV * user_data
+	GtkTextIter_ornull *limit
+    ALIAS:
+	backward_find_char = 1
+    PREINIT:
+	GPerlCallback * callback;
+    CODE:
+	callback = create_text_char_predicate_callback (pred, user_data);
+	if (ix == 1)
+		RETVAL = gtk_text_iter_backward_find_char
+				(iter, gtk2perl_text_char_predicate,
+				 callback, limit);
+	else
+		RETVAL = gtk_text_iter_forward_find_char
+				(iter, gtk2perl_text_char_predicate,
+				 callback, limit);
+	gperl_callback_destroy (callback);
+    OUTPUT:
+	RETVAL
+
+## gboolean gtk_text_iter_forward_search (const GtkTextIter *iter, const gchar *str, GtkTextSearchFlags flags, GtkTextIter *match_start, GtkTextIter *match_end, const GtkTextIter *limit)
 #### gboolean gtk_text_iter_backward_search (const GtkTextIter *iter, const gchar *str, GtkTextSearchFlags flags, GtkTextIter *match_start, GtkTextIter *match_end, const GtkTextIter *limit)
-##gboolean
-##gtk_text_iter_backward_search (iter, str, flags, match_start, match_end, limit)
-##	const GtkTextIter *iter
-##	const gchar *str
-##	GtkTextSearchFlags flags
-##	GtkTextIter *match_start
-##	GtkTextIter *match_end
-##	const GtkTextIter *limit
+void
+gtk_text_iter_forward_search (iter, str, flags, limit=NULL)
+	const GtkTextIter *iter
+	const gchar *str
+	GtkTextSearchFlags flags
+	GtkTextIter_ornull *limit
+    ALIAS:
+	backward_search = 1
+    PREINIT:
+	GtkTextIter match_start;
+	GtkTextIter match_end;
+	gboolean (*searchfunc) (const GtkTextIter*, const gchar*,
+	                        GtkTextSearchFlags, GtkTextIter*, GtkTextIter*,
+	                        const GtkTextIter*);
+    PPCODE:
+	searchfunc = ix == 1
+	           ? gtk_text_iter_backward_search
+	           : gtk_text_iter_forward_search;
+	if (! searchfunc (iter, str, flags, &match_start, &match_end, limit))
+		XSRETURN_EMPTY;
+	EXTEND (SP, 2);
+	PUSHs (sv_2mortal (newSVGtkTextIter_copy (&match_start)));
+	PUSHs (sv_2mortal (newSVGtkTextIter_copy (&match_end)));
+
 
 ## gboolean gtk_text_iter_equal (const GtkTextIter *lhs, const GtkTextIter *rhs)
 gboolean

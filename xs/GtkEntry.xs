@@ -48,18 +48,16 @@ gboolean
 gtk_entry_get_visibility (entry)
 	GtkEntry *entry
 
-# FIXME  need typemap for gunichar
  ## void gtk_entry_set_invisible_char (GtkEntry *entry, gunichar ch)
- ##void
- ##gtk_entry_set_invisible_char (entry, ch)
- ##	GtkEntry *entry
- ##	gunichar ch
- #
-# FIXME need typemap for gunichar
+void
+gtk_entry_set_invisible_char (entry, ch)
+	GtkEntry *entry
+	gunichar ch
+
  ## gunichar gtk_entry_get_invisible_char (GtkEntry *entry)
- ##gunichar
- ##gtk_entry_get_invisible_char (entry)
- ##	GtkEntry *entry
+gunichar
+gtk_entry_get_invisible_char (entry)
+	GtkEntry *entry
 
 void
 gtk_entry_set_has_frame (entry, setting)

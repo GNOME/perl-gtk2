@@ -72,11 +72,7 @@ pango_layout_get_attributes (layout)
 
 ##  void pango_layout_set_text (PangoLayout *layout, const char *text, int length) 
 void
-pango_layout_set_text (layout, text)
-	PangoLayout *layout
-	const gchar *text
-    C_ARGS:
-	layout, text, -1
+pango_layout_set_text (PangoLayout *layout, const gchar_length *text, int length(text))
 
 ##  const char * pango_layout_get_text (PangoLayout *layout);
 const gchar *
@@ -85,23 +81,11 @@ pango_layout_get_text (layout)
 
 ##  void pango_layout_set_markup (PangoLayout *layout, const char *markup, int length) 
 void
-pango_layout_set_markup (layout, markup)
-	PangoLayout *layout
-	const gchar *markup
-    C_ARGS:
-	layout, markup, -1
+pango_layout_set_markup (PangoLayout * layout, const gchar_length * markup, int length(markup))
 
-# FIXME
-###  void pango_layout_set_markup_with_accel (PangoLayout *layout, const char *markup, int length, gunichar accel_marker, gunichar *accel_char) 
-#void
-#pango_layout_set_markup_with_accel (layout, markup, length, accel_marker, accel_char)
-#	PangoLayout *layout
-#	const gchar *markup
-#	int length
-#	gunichar accel_marker
-#	gunichar *accel_char
-#    C_ARGS:
-#	layout, markup, -1, accel_marker, accel_char
+##  void pango_layout_set_markup_with_accel (PangoLayout *layout, const char *markup, int length, gunichar accel_marker, gunichar *accel_char) 
+void
+pango_layout_set_markup_with_accel (PangoLayout * layout, const char * markup, int length(markup), gunichar accel_marker, OUTLIST gunichar accel_char)
 
 ##  void pango_layout_set_font_description (PangoLayout *layout, const PangoFontDescription *desc) 
 void
