@@ -124,6 +124,13 @@ SKIP: {
 $buffer -> begin_user_action();
 $buffer -> end_user_action();
 
+SKIP: {
+  skip "backspace is new in 2.6", 0
+    unless Gtk2->CHECK_VERSION (2, 6, 0);
+
+  $buffer -> backspace($buffer -> get_end_iter(), TRUE, TRUE);
+}
+
 __END__
 
 Copyright (C) 2003 by the gtk2-perl team (see the file AUTHORS for the

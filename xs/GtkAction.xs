@@ -53,3 +53,10 @@ void gtk_action_set_accel_path (GtkAction *action, const gchar *accel_path);
 
 void gtk_action_set_accel_group (GtkAction *action, GtkAccelGroup_ornull *accel_group);
 
+#if GTK_CHECK_VERSION (2, 6, 0)
+
+void gtk_action_set_sensitive (GtkAction *action, gboolean sensitive);
+
+void gtk_action_set_visible (GtkAction *action, gboolean visible);
+
+#endif

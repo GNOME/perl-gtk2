@@ -35,33 +35,33 @@ GtkWidget * gtk_about_dialog_new (class)
 ## TODO/FIXME: 
 ##void gtk_show_about_dialog (GtkWindow * parent, const gchar * first_property_name, ...);
 
-const gchar * gtk_about_dialog_get_name (GtkAboutDialog * about);
+const gchar_ornull * gtk_about_dialog_get_name (GtkAboutDialog * about);
 
-void gtk_about_dialog_set_name (GtkAboutDialog * about, const gchar * name);
+void gtk_about_dialog_set_name (GtkAboutDialog * about, const gchar_ornull * name);
 
-const gchar * gtk_about_dialog_get_version (GtkAboutDialog * about);
+const gchar_ornull * gtk_about_dialog_get_version (GtkAboutDialog * about);
 
-void gtk_about_dialog_set_version (GtkAboutDialog * about, const gchar * version);
+void gtk_about_dialog_set_version (GtkAboutDialog * about, const gchar_ornull * version);
 
-const gchar * gtk_about_dialog_get_copyright (GtkAboutDialog * about);
+const gchar_ornull * gtk_about_dialog_get_copyright (GtkAboutDialog * about);
 
-void gtk_about_dialog_set_copyright (GtkAboutDialog * about, const gchar * copyright);
+void gtk_about_dialog_set_copyright (GtkAboutDialog * about, const gchar_ornull * copyright);
 
-const gchar * gtk_about_dialog_get_comments (GtkAboutDialog * about);
+const gchar_ornull * gtk_about_dialog_get_comments (GtkAboutDialog * about);
 
-void gtk_about_dialog_set_comments (GtkAboutDialog * about, const gchar * comments);
+void gtk_about_dialog_set_comments (GtkAboutDialog * about, const gchar_ornull * comments);
 
-const gchar * gtk_about_dialog_get_license (GtkAboutDialog * about);
+const gchar_ornull * gtk_about_dialog_get_license (GtkAboutDialog * about);
 
-void gtk_about_dialog_set_license (GtkAboutDialog * about, const gchar * license);
+void gtk_about_dialog_set_license (GtkAboutDialog * about, const gchar_ornull * license);
 
-const gchar * gtk_about_dialog_get_website (GtkAboutDialog * about);
+const gchar_ornull * gtk_about_dialog_get_website (GtkAboutDialog * about);
 
-void gtk_about_dialog_set_website (GtkAboutDialog * about, const gchar * website);
+void gtk_about_dialog_set_website (GtkAboutDialog * about, const gchar_ornull * website);
 
-const gchar * gtk_about_dialog_get_website_label (GtkAboutDialog * about);
+const gchar_ornull * gtk_about_dialog_get_website_label (GtkAboutDialog * about);
 
-void gtk_about_dialog_set_website_label (GtkAboutDialog * about, const gchar * website_label);
+void gtk_about_dialog_set_website_label (GtkAboutDialog * about, const gchar_ornull * website_label);
 
 #define GETTER(into)							\
 	{								\
@@ -154,17 +154,17 @@ gtk_about_dialog_set_artists (about, artist1, ...);
 	gtk_about_dialog_set_artists (about, (const gchar **) artists);
 	g_free (artists);
 
-const gchar * gtk_about_dialog_get_translator_credits (GtkAboutDialog * about);
+const gchar_ornull * gtk_about_dialog_get_translator_credits (GtkAboutDialog * about);
 
-void gtk_about_dialog_set_translator_credits (GtkAboutDialog * about, const gchar *translator_credits);
+void gtk_about_dialog_set_translator_credits (GtkAboutDialog * about, const gchar_ornull *translator_credits);
 
 GdkPixbuf_ornull * gtk_about_dialog_get_logo (GtkAboutDialog * about);
 
-void gtk_about_dialog_set_logo (GtkAboutDialog * about, GdkPixbuf * logo);
+void gtk_about_dialog_set_logo (GtkAboutDialog * about, GdkPixbuf_ornull * logo);
 
-const gchar * gtk_about_dialog_get_logo_icon_name (GtkAboutDialog * about);
+const gchar_ornull * gtk_about_dialog_get_logo_icon_name (GtkAboutDialog * about);
 
-void gtk_about_dialog_set_logo_icon_name (GtkAboutDialog * about, const gchar * icon_name);
+void gtk_about_dialog_set_logo_icon_name (GtkAboutDialog * about, const gchar_ornull * icon_name);
 
 ##GtkAboutDialogActivateLinkFunc gtk_about_dialog_set_email_hook (GtkAboutDialogActivateLinkFunc func, gpointer data, GDestroyNotify destroy);
 void

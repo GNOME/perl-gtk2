@@ -8,26 +8,6 @@
 
 #include "gtk2perl.h"
 
-/* Copied from GObject.xs. */
-static void
-init_property_value (GObject * object,
-		     const char * name,
-		     GValue * value)
-{
-	GParamSpec * pspec;
-	pspec = g_object_class_find_property (G_OBJECT_GET_CLASS (object),
-	                                      name);
-	if (!pspec) {
-		const char * classname =
-			gperl_object_package_from_type (G_OBJECT_TYPE (object));
-		if (!classname)
-			classname = G_OBJECT_TYPE_NAME (object);
-		croak ("type %s does not support property '%s'",
-		       classname, name);
-	}
-	g_value_init (value, G_PARAM_SPEC_VALUE_TYPE (pspec));
-}
-
 MODULE = Gtk2::CellView PACKAGE = Gtk2::CellView PREFIX = gtk_cell_view_
 
 GtkWidget * gtk_cell_view_new (class)
@@ -78,10 +58,10 @@ gtk_cell_view_get_cell_renderers (GtkCellView * cellview);
 	if (list)
 	{
 		GList * curr;
-		
+
 		for (curr = list; curr; curr = g_list_next (curr))
 			XPUSHs (sv_2mortal (newSVGtkCellRenderer (curr->data)));
-		
+
 		g_list_free (list);
 	}
 	else

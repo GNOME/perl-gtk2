@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 19;
+use Gtk2::TestHelper tests => 20;
 
 # $Header$
 
@@ -41,7 +41,8 @@ isa_ok($context, "Gtk2::Gdk::DragContext");
 ok($context -> protocol());
 is($context -> is_source(), 1);
 is($context -> source_window(), $window -> window());
-is_deeply([$context -> targets()], \@targets);
+# is_deeply([$context -> targets()], \@targets);
+isa_ok(($context -> targets())[0], "Gtk2::Gdk::Atom");
 
 ($destination, $protocol) = $context -> find_window($window -> window(), 0, 0);
 
@@ -49,7 +50,7 @@ ok(not defined $destination or ref $destination eq "Gtk2::Gdk::Window");
 ok(not defined $destination or $protocol);
 
 SKIP: {
-  skip "find_window returned no destination window, skipping the tests that need one", 8
+  skip "find_window returned no destination window, skipping the tests that need one", 9
     unless defined $destination;
 
   # FIXME: what about the return value?
@@ -83,6 +84,13 @@ SKIP: {
 
   $context -> drop_reply(1, 0);
   $context -> drop_finish(1, 0);
+
+  SKIP: {
+    skip "new 2.6 stuff", 1
+      unless Gtk2 -> CHECK_VERSION(2, 6, 0);
+
+    like($context -> drag_drop_succeeded(), qr/^(?:1|)$/);
+  }
 
   $context -> drop(0);
   $context -> abort(0);

@@ -320,6 +320,10 @@ gdk_draw_layout_with_colors (drawable, gc, x, y, layout, foreground, background)
 	GdkColor *foreground
 	GdkColor *background
 
+##  The docs say that "[t]his is low level functionality used internally to
+##  implement rotated underlines and backgrouds when rendering a PangoLayout
+##  and is likely not useful for applications."
+##  void gdk_draw_trapezoids (GdkDrawable *drawable, GdkGC *gc, GdkTrapezoid *trapezoids, gint n_trapezoids);
 
 MODULE = Gtk2::Gdk::Drawable	PACKAGE = Gtk2::Gdk::Drawable	PREFIX = gdk_drawable_
 

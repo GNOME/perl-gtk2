@@ -24,6 +24,13 @@ SKIP: {
     $display -> grab();
     $display -> ungrab();
   }
+
+  SKIP: {
+    skip("2.6 stuff", 0)
+      unless Gtk2->CHECK_VERSION (2, 6, 0);
+
+    $window -> window() -> set_user_time(time());
+  }
 }
 
 __END__

@@ -232,3 +232,9 @@ gdk_drop_finish (context, success, time_=GDK_CURRENT_TIME)
 	GdkDragContext *context
 	gboolean success
 	guint32 time_
+
+#if GTK_CHECK_VERSION (2, 6, 0)
+
+gboolean gdk_drag_drop_succeeded (GdkDragContext *context);
+
+#endif

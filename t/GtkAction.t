@@ -4,7 +4,7 @@
 
 use Gtk2::TestHelper
 	at_least_version => [2, 4, 0, "Action-based menus are new in 2.4"],
-	tests => 13, noinit => 0;
+	tests => 15, noinit => 0;
 
 my $action = Gtk2::Action->new (name => 'Open',
                                 label => '_Open',
@@ -57,6 +57,17 @@ $action->unblock_activate_from ($proxy);
 $action->set_accel_path ('<Action>/');
 $action->set_accel_group (undef);
 $action->set_accel_group (Gtk2::AccelGroup->new);
+
+SKIP: {
+	skip "set_sensitive and set_visible are new in 2.6", 2
+		unless Gtk2->CHECK_VERSION (2, 6, 0);
+
+	$action->set_sensitive(FALSE);
+	is ($action->is_sensitive, FALSE);
+
+	$action->set_visible(FALSE);
+	is ($action->is_visible, FALSE);
+}
 
 __END__
 

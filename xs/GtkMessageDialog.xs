@@ -22,6 +22,22 @@
 #include "gtk2perl.h"
 #include "ppport.h"
 
+static char *
+format_message (SV * format, SV ** start, int count)
+{
+	/* text passed to GTK+ must be UTF-8.  force it. */
+	STRLEN patlen;
+	gchar * pat;
+	SV * message = sv_newmortal ();
+
+	SvUTF8_on (message);
+	sv_utf8_upgrade (format);
+	pat = SvPV (format, patlen);
+	sv_vsetpvfn (message, pat, patlen, NULL, start, count, Null(bool*));
+
+	return SvPV_nolen (message);
+}
+
 MODULE = Gtk2::MessageDialog	PACKAGE = Gtk2::MessageDialog	PREFIX = gtk_message_dialog_
 
 =for apidoc
@@ -39,21 +55,14 @@ gtk_message_dialog_new (class, parent, flags, type, buttons, format, ...)
 	GtkButtonsType buttons
 	SV * format
     CODE:
-	if (format && SvOK (format)) {
-		/* text passed to GTK+ must be UTF-8.  force it. */
-		STRLEN patlen;
-		gchar * pat;
-		SV * message = newSV (0);
-		SvUTF8_on (message);
-		sv_utf8_upgrade (format);
-		pat = SvPV (format, patlen);
-		sv_vsetpvfn (message, pat, patlen,
-		             NULL, &(ST (6)), items - 6, Null(bool*));
+	if (format && SvOK (format))
 		/* the double-indirection is necessary to avoid % chars in the
 		 * message string being misinterpreted. */
-		RETVAL = gtk_message_dialog_new (parent, flags, type, buttons,
-	                                         "%s", SvPV_nolen (message));
-	} else
+		RETVAL = gtk_message_dialog_new (
+		           parent, flags, type, buttons,
+	                   "%s",
+		           format_message (format, &(ST (6)), items - 6));
+	else
 		RETVAL = gtk_message_dialog_new (parent, flags, type,
 		                                 buttons, NULL);
 		/* -Wall warns about the NULL format string here, but
@@ -74,7 +83,7 @@ gtk_message_dialog_new_with_markup (class, parent, flags, type, buttons, message
 	GtkDialogFlags flags
 	GtkMessageType type
 	GtkButtonsType buttons
-	gchar * message
+	gchar_ornull * message
     CODE:
 	/* -Wall warns about the NULL format string here, but
 	 * gtk_message_dialog_new() explicitly allows it. */
@@ -85,5 +94,29 @@ gtk_message_dialog_new_with_markup (class, parent, flags, type, buttons, message
 
 void
 gtk_message_dialog_set_markup (GtkMessageDialog *message_dialog, const gchar *str)
+
+#endif
+
+#if GTK_CHECK_VERSION(2,6,0)
+
+void
+gtk_message_dialog_format_secondary_text (message_dialog, message_format, ...)
+	GtkMessageDialog *message_dialog
+	SV * message_format
+    CODE:
+	if (message_format && SvOK (message_format))
+		gtk_message_dialog_format_secondary_text (
+		  message_dialog,
+		  "%s",
+		  format_message (message_format, &(ST (2)), items - 2));
+	else
+		gtk_message_dialog_format_secondary_text (message_dialog, NULL);
+
+void
+gtk_message_dialog_format_secondary_markup (message_dialog, message)
+	GtkMessageDialog *message_dialog
+	const gchar_ornull *message
+    C_ARGS:
+	message_dialog, message
 
 #endif

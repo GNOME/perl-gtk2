@@ -242,6 +242,22 @@ gtk_drag_check_threshold (widget, start_x, start_y, current_x, current_y)
 	gint current_x
 	gint current_y
 
+#if GTK_CHECK_VERSION(2,6,0)
+
+void gtk_drag_dest_add_text_targets (GtkWidget *widget);
+
+void gtk_drag_dest_add_image_targets (GtkWidget *widget);
+
+void gtk_drag_dest_add_uri_targets (GtkWidget *widget);
+
+void gtk_drag_source_add_text_targets (GtkWidget *widget);
+
+void gtk_drag_source_add_image_targets (GtkWidget *widget);
+
+void gtk_drag_source_add_uri_targets (GtkWidget *widget);
+
+#endif
+
  ## private
 ##  void _gtk_drag_source_handle_event (GtkWidget *widget, GdkEvent *event) 
 ##  void _gtk_drag_dest_handle_event (GtkWidget *toplevel, GdkEvent *event) 

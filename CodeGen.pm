@@ -438,12 +438,15 @@ gperl_register_object ($typemacro, \"$package\");
 #endif /* $typemacro */";
 
 	if ($root eq 'GObject') {
-		# for GObjects, add a _noinc variant for returning GObjects
-		# from constructors.
+		# for GObjects, add a _noinc and a noinc_ornull variant for
+		# returning GObjects from constructors.
 		$header[$#header] .= "typedef $classname $classname\_noinc;
 #define newSV$classname\_noinc(val)	(gperl_new_object (G_OBJECT (val), TRUE))
+typedef $classname $classname\_noinc_ornull;
+#define newSV$classname\_noinc_ornull(val)	((val) ? newSV$classname\_noinc(val) : &PL_sv_undef)
 ";
 		push @typemap, "$classname\_noinc *	T_GPERL_GENERIC_WRAPPER";
+		push @typemap, "$classname\_noinc_ornull *	T_GPERL_GENERIC_WRAPPER";
 	}
 
 	# close the header ifdef

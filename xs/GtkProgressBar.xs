@@ -85,3 +85,10 @@ const gchar_ornull *
 gtk_progress_bar_get_text (pbar)
 	GtkProgressBar * pbar
 
+#if GTK_CHECK_VERSION (2, 6, 0)
+
+void gtk_progress_bar_set_ellipsize (GtkProgressBar *pbar, PangoEllipsizeMode mode);
+
+PangoEllipsizeMode gtk_progress_bar_get_ellipsize (GtkProgressBar *pbar);
+
+#endif

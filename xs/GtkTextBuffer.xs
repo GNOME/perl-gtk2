@@ -519,3 +519,8 @@ gtk_text_buffer_create_child_anchor (buffer, iter)
 	GtkTextBuffer * buffer
 	GtkTextIter   * iter
 
+#if GTK_CHECK_VERSION (2, 6, 0)
+
+gboolean gtk_text_buffer_backspace (GtkTextBuffer *buffer, GtkTextIter *iter, gboolean interactive, gboolean default_editable);
+
+#endif

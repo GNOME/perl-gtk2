@@ -266,6 +266,15 @@ isa_ok(Gtk2::Gdk -> get_default_root_window(), "Gtk2::Gdk::Window");
 $window -> set_user_data(123);
 is($window -> get_user_data(), 123);
 
+SKIP: {
+  skip("new 2.6 stuff", 0)
+    unless Gtk2 -> CHECK_VERSION(2, 6, 0);
+
+  $window -> enable_synchronized_configure();
+  $window -> configure_finished();
+  $window -> set_focus_on_map(TRUE);
+}
+
 $window -> hide();
 
 __END__

@@ -12,7 +12,7 @@
 
 #########################
 
-use Gtk2::TestHelper tests => 25;
+use Gtk2::TestHelper tests => 26;
 
 my $win = Gtk2::Window->new;
 
@@ -75,19 +75,17 @@ ok ($label->get_mnemonic_widget, '$label->get_mnemonic_widget, entry');
 $label->set_text_with_mnemonic ('_Urgs');
 
 SKIP: {
-	skip 'new 2.6 stuff', 1
-		unless Gtk2->CHECK_VERSION (2, 5, 2); # FIXME: 2.6
+	skip 'new 2.6 stuff', 3
+		unless Gtk2->CHECK_VERSION (2, 6, 0);
 
 	$label->set_ellipsize ('middle');
 	is ($label->get_ellipsize, 'middle');
-}
-
-SKIP: {
-	skip 'new 2.6 stuff', 1
-		unless Gtk2->CHECK_VERSION (2, 5, 4); # FIXME: 2.6
 
 	$label->set_width_chars (23);
 	is ($label->get_width_chars, 23);
+
+	$label->set_angle (90);
+	is ($label->get_angle, 90);
 }
 
 1;

@@ -1,3 +1,66 @@
+2005/01/02 16:35 (+0100) kaffeetisch
+
+	* CodeGen.pm: Add a _noinc_ornull variant to the typemaps for
+	GObject's.
+
+	* t/GdkDisplay.t, xs/GdkDisplay.xs: Bind and test
+	gdk_display_supports_selection_notification,
+	gdk_display_request_selection_notification,
+	gdk_display_supports_clipboard_persistence, and
+	gdk_display_store_clipboard.
+
+	* t/GdkDnd.t, xs/GdkDnd.xs: Bind and test gdk_drag_drop_succeeded.
+
+	* xs/GdkDrawable.xs: Add a comment about gdk_draw_trapezoids and
+	why we don't bind it.
+
+	* t/GdkWindow.t, xs/GdkWindow.xs: Bind and test
+	gdk_window_enable_synchronized_configure,
+	gdk_window_configure_finished, and gdk_window_set_focus_on_map.
+
+	* t/GdkX11.t, xs/GdkX11.xs: Bind and test
+	gdk_x11_window_set_user_time.
+
+	* t/GtkAboutDialog.t, xs/GtkAboutDialog.xs: Add and test _ornull's
+	where appropriate.
+
+	* t/GtkAction.t, xs/GtkAction.xs: Bind and test
+	gtk_action_set_sensitive and gtk_action_set_visible.
+
+	* xs/GtkCellView.xs: Remove the now unused init_property_value().
+
+	* t/GtkDnd.t, xs/GtkDnd.xs: Bind and test
+	gtk_drag_dest_add_text_targets, gtk_drag_dest_add_image_targets,
+	gtk_drag_dest_add_uri_targets, gtk_drag_source_add_text_targets,
+	gtk_drag_source_add_image_targets, and
+	gtk_drag_source_add_uri_targets.
+
+	* t/GtkLabel.t, xs/GtkLabel.xs: Bind and test gtk_label_set_angle
+	and gtk_label_get_angle.
+
+	* t/GtkMessageDialog.t, xs/GtkMessageDialog.xs: Bind and test
+	gtk_message_dialog_format_secondary_text and
+	gtk_message_dialog_format_secondary_markup.
+
+	* t/GtkProgressBar.t, xs/GtkProgressBar.xs: Bind and test
+	gtk_progress_bar_set_ellipsize and gtk_progress_bar_get_ellipsize.
+
+	* t/GtkTextBuffer.t, xs/GtkTextBuffer.xs: Bind and test
+	gtk_text_buffer_backspace.
+
+	* t/01.GtkWindow.t, xs/GtkWindow.xs: Bind and test
+	gtk_window_set_focus_on_map, gtk_window_get_focus_on_map,
+	gtk_window_set_icon_name, gtk_window_get_icon_name, and
+	gtk_window_set_default_icon_name.
+
+	* maps-2.6, xs_files-2.6, t/GtkCellRendererCombo.t,
+	t/GtkCellRendererProgress.t, t/GtkFileChooserButton.t,
+	t/GtkMenuToolButton.t, xs/GtkCellRendererCombo.xs,
+	xs/GtkCellRendererProgress.xs, xs/GtkFileChooserButton.xs,
+	xs/GtkMenuToolButton.xs: Bind and test GtkCellRendererCombo,
+	GtkCellRendererProgress, GtkFileChooserButton, and
+	GtkMenuToolButton.
+
 2004/12/16 15:27 (-0400) rwmcfa1
 
 	* t/GtkCellView.t, xs/GtkCellView.xs: set_cell_data, set_value, and 

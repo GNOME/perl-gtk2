@@ -11,6 +11,8 @@ $window -> add($button);
 $window -> realize();
 $button -> realize();
 
+# Dest ########################################################################
+
 $button -> drag_dest_set("all", "copy",
   { target => "BITMAP", info => 23 },
   { target => "STRING", flags => ["same-app", "same-widget"], info => 42 }
@@ -52,7 +54,19 @@ $button -> drag_highlight();
 $button -> drag_unhighlight();
 
 $button -> drag_dest_set_proxy($window -> window(), "xdnd", 0);
+
+SKIP: {
+  skip("2.6 stuff", 0)
+    unless Gtk2 -> CHECK_VERSION(2, 6, 0);
+
+  $button -> drag_dest_add_text_targets();
+  $button -> drag_dest_add_image_targets();
+  $button -> drag_dest_add_uri_targets();
+}
+
 $button -> drag_dest_unset();
+
+# Source ######################################################################
 
 $button -> drag_source_set("shift-mask", "copy",
   { target => "BITMAP", info => 23 },
@@ -70,6 +84,15 @@ SKIP: {
   $list = $button -> drag_source_get_target_list();
   $button -> drag_source_set_target_list(undef);
   $button -> drag_source_set_target_list($list);
+}
+
+SKIP: {
+  skip("2.6 stuff", 0)
+    unless Gtk2 -> CHECK_VERSION(2, 6, 0);
+
+  $button -> drag_source_add_text_targets();
+  $button -> drag_source_add_image_targets();
+  $button -> drag_source_add_uri_targets();
 }
 
 $button -> drag_source_unset();

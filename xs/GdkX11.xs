@@ -160,3 +160,11 @@ void gdk_x11_display_grab (GdkDisplay *display);
 void gdk_x11_display_ungrab (GdkDisplay *display);
 
 #endif
+
+MODULE = Gtk2::Gdk::X11	PACKAGE = Gtk2::Gdk::Window	PREFIX = gdk_x11_window_
+
+#if defined(GDK_WINDOWING_X11) && GTK_CHECK_VERSION (2, 6, 0)
+
+void gdk_x11_window_set_user_time (GdkWindow *window, guint32 timestamp);
+
+#endif

@@ -629,6 +629,25 @@ gtk_window_propagate_key_event (window, event)
 
 #endif
 
+#if GTK_CHECK_VERSION (2, 6, 0)
+
+void gtk_window_set_focus_on_map (GtkWindow *window, gboolean setting);
+
+gboolean gtk_window_get_focus_on_map (GtkWindow *window);
+
+void gtk_window_set_icon_name (GtkWindow *window, const gchar *name);
+
+const gchar_ornull * gtk_window_get_icon_name (GtkWindow  *window);
+
+##  void gtk_window_set_default_icon_name (const gchar *name);
+void
+gtk_window_set_default_icon_name (class, name)
+	const gchar *name
+    C_ARGS:
+	name
+
+#endif
+
 MODULE = Gtk2::Window	PACKAGE = Gtk2::WindowGroup	PREFIX = gtk_window_group_
 
 ## GtkWindowGroup * gtk_window_group_new (void)

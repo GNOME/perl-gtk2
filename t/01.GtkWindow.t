@@ -9,7 +9,7 @@
 
 #########################
 
-use Gtk2::TestHelper tests => 106;
+use Gtk2::TestHelper tests => 108;
 
 ok( my $win = Gtk2::Window->new );
 ok( $win = Gtk2::Window->new('popup') );
@@ -328,6 +328,18 @@ isa_ok( $group, "Gtk2::WindowGroup" );
 $group->add_window ($win);
 $group->remove_window ($win);
 
+SKIP: {
+	skip "new 2.6 stuff", 2
+		unless Gtk2->CHECK_VERSION (2, 6, 0);
+
+	$win->set_focus_on_map (TRUE);
+	is ($win->get_focus_on_map, TRUE);
+
+	$win->set_icon_name ("gtk-ok");
+	is ($win->get_icon_name, "gtk-ok");
+
+	Gtk2::Window->set_default_icon_name ("gtk-cancel");
+}
 
 __END__
 
