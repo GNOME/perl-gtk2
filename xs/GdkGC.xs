@@ -274,12 +274,11 @@ gdk_gc_set_clip_rectangle (gc, rectangle)
 	GdkGC *gc
 	GdkRectangle *rectangle
 
-# FIXME needs GdkRegion
-# ## void gdk_gc_set_clip_region (GdkGC *gc, GdkRegion *region)
-#void
-#gdk_gc_set_clip_region (gc, region)
-#	GdkGC *gc
-#	GdkRegion *region
+ ## void gdk_gc_set_clip_region (GdkGC *gc, GdkRegion *region)
+void
+gdk_gc_set_clip_region (gc, region)
+	GdkGC *gc
+	GdkRegion *region
 
  ## void gdk_gc_set_subwindow (GdkGC *gc, GdkSubwindowMode mode)
 void

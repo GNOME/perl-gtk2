@@ -1,3 +1,36 @@
+2003/12/28 06:32 (+0100) kaffeetisch
+
+	* xs/GdkEvent.xs: Implement Gtk2::Gdk::Event::Expose::region.
+
+	* xs/GdkGC.xs: Implement set_clip_region.
+
+	* gtk2perl.h
+	* maps
+	* xs/GdkRegion.xs: Initial implementation.  Register a custom
+	GBoxed GType for GdkRegion.
+
+	* gdk.typemap
+	* gtk2perl.h
+	* xs/GdkTypes.xs: Extend the GdkGeometry handling.  In addition to
+	the accessor based approach, geometries can now also be
+	created/changed/accessed as hash references.  Change
+	constrain_size to make the flags argument optional.
+
+	* gdk.typemap
+	* xs/GdkWindow.xs: Implement new, which required implementing
+	GdkWindowAttr handling.  Implement set_user_data; one should still
+	use object though.  Implement shape_combine_region,
+	set_child_shapes, merge_child_shapes, set_static_gravities,
+	is_visible, begin_paint_region, get_frame_extents, get_parent,
+	get_children, peek_children, set_icon_list, set_icon,
+	get_decorations, get_toplevels, invalidate_region,
+	invalidate_maybe_recurse, get_update_area, and
+	get_internal_paint_info.
+
+	* xs/GdkWindow.xs
+	* xs/GtkWindow.xs: Change set_geometry_hints so that the mask
+	argument is optional.
+
 2003/12/28 00:58 (+0100) kaffeetisch
 
 	* xs/GtkContainer.xs: Implement propagate_expose.

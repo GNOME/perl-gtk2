@@ -474,13 +474,12 @@ area (GdkEvent * eventexpose)
     OUTPUT:
 	RETVAL
 
- # FIXME need GdkRegion
-#GdkRegion_copy*
-#region (GdkEvent * eventexpose)
-#    CODE:
-#	RETVAL = eventexpose->expose.region;
-#    OUTPUT:
-#	RETVAL
+GdkRegion_copy*
+region (GdkEvent * eventexpose)
+    CODE:
+	RETVAL = eventexpose->expose.region;
+    OUTPUT:
+	RETVAL
 
 gint
 count (GdkEvent * eventexpose)

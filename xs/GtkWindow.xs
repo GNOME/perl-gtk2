@@ -179,13 +179,37 @@ GdkGravity
 gtk_window_get_gravity (window)
 	GtkWindow * window
 
+=for apidoc
+
+=for signature $window->set_geometry_hints ($geometry_widget, $geometry)
+=for signature $window->set_geometry_hints ($geometry_widget, $geometry, $geom_mask)
+
+=for arg geometry (Gtk2::Gdk::Geometry)
+=for arg geom_mask (Gtk2::Gdk::WindowHints) optional, usually inferred from I<$geometry>
+
+The geom_mask argument, describing which fields in the geometry are valid, is
+optional.  If omitted it will be inferred from the geometry itself.
+
+=cut
 ## void gtk_window_set_geometry_hints (GtkWindow *window, GtkWidget *geometry_widget, GdkGeometry *geometry, GdkWindowHints geom_mask)
 void
-gtk_window_set_geometry_hints (window, geometry_widget, geometry, geom_mask)
-	GtkWindow      * window
-	GtkWidget      * geometry_widget
-	GdkGeometry    * geometry
-	GdkWindowHints   geom_mask
+gtk_window_set_geometry_hints (window, geometry_widget, geometry_ref, geom_mask_sv)
+	GtkWindow * window
+	GtkWidget * geometry_widget
+	SV        * geometry_ref
+	SV        * geom_mask_sv
+    PREINIT:
+	GdkGeometry *geometry;
+	GdkWindowHints geom_mask;
+    CODE:
+	if (! (geom_mask_sv && SvOK (geom_mask_sv))) {
+		geometry = SvGdkGeometryReal (geometry_ref, &geom_mask);
+	} else {
+		geometry = SvGdkGeometry (geometry_ref);
+		geom_mask = SvGdkWindowHints (geom_mask_sv);
+	}
+
+	gtk_window_set_geometry_hints (window, geometry_widget, geometry, geom_mask);
 
 ## gboolean gtk_window_get_has_frame (GtkWindow *window)
 gboolean

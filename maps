@@ -346,3 +346,5 @@ PANGO_TYPE_GLYPH_STRING	PangoGlyphString	GBoxed	Gtk2::Pango::GlyphString
 PANGO_TYPE_LAYOUT	PangoLayout	GObject	Gtk2::Pango::Layout
 PANGO_TYPE_TAB_ARRAY	PangoTabArray	GBoxed	Gtk2::Pango::TabArray
 PANGO_TYPE_LANGUAGE	PangoLanguage	GBoxed	Gtk2::Pango::Language
+
+GDK_TYPE_REGION	GdkRegion	GBoxed	Gtk2::Gdk::Region
