@@ -121,31 +121,62 @@ gdk_pixbuf_render_pixmap_and_mask (pixbuf, alpha_threshold)
           XPUSHs (newSVGdkBitmap (bm));
 }
 
- ## GdkPixbuf *gdk_pixbuf_get_from_drawable (GdkPixbuf *dest, GdkDrawable *src, GdkColormap *cmap, int src_x, int src_y, int dest_x, int dest_y, int width, int height);
-GdkPixbuf_noinc *
-gdk_pixbuf_get_from_drawable (dest, src, cmap, src_x, src_y, dest_x, dest_y, width, height)
-	GdkPixbuf   *dest
-	GdkDrawable *src
-	GdkColormap *cmap
-	int          src_x
-	int          src_y
-	int          dest_x
-	int          dest_y
-	int          width
-	int          height
+=for apidoc get_from_image
+=for signature pixbuf = Gtk2::Gdk::Pixbuf->get_from_image ($src, $cmap, $src_x, $src_y, $dest_x, $dest_y, $width, $height)
+=for signature pixbuf = $pixbuf->get_from_image ($src, $cmap, $src_x, $src_y, $dest_x, $dest_y, $width, $height)
+=for arg src (GdkImage)
+Fetch pixels from a Gtk2::Gdk::Image as a Gtk2::Gdk::Pixbuf.
+Returns a new Gtk2::Gdk::Pixbuf if you use the class form, or I<$pixbuf> if
+you call it on an existing pixbuf.
+=cut
 
- ## GdkPixbuf *gdk_pixbuf_get_from_image (GdkPixbuf *dest, GdkImage *src, GdkColormap *cmap, int src_x, int src_y, int dest_x, int dest_y, int width, int height);
-GdkPixbuf_noinc *
-gdk_pixbuf_get_from_image (dest, src, cmap, src_x, src_y, dest_x, dest_y, width, height)
-	GdkPixbuf   *dest
-	GdkImage    *src
-	GdkColormap *cmap
-	int          src_x
-	int          src_y
-	int          dest_x
-	int          dest_y
-	int          width
-	int          height
+=for apidoc
+=for signature pixbuf = Gtk2::Gdk::Pixbuf->get_from_drawable ($src, $cmap, $src_x, $src_y, $dest_x, $dest_y, $width, $height)
+=for signature pixbuf = $pixbuf->get_from_drawable ($src, $cmap, $src_x, $src_y, $dest_x, $dest_y, $width, $height)
+=for arg src (GdkDrawable)
+Fetch pixels from a Gtk2::Gdk::Drawable as a Gtk2::Gdk::Pixbuf.
+Returns a new Gtk2::Gdk::Pixbuf if you use the class form, or I<$pixbuf> if
+you call it on an existing pixbuf.
+=cut
+ ## GdkPixbuf *gdk_pixbuf_get_from_drawable (GdkPixbuf *dest, GdkDrawable *src, GdkColormap *cmap, int src_x, int src_y, int dest_x, int dest_y, int width, int height);
+SV *
+gdk_pixbuf_get_from_drawable (dest_or_class, src, cmap, src_x, src_y, dest_x, dest_y, width, height)
+	SV * dest_or_class
+	SV * src
+	GdkColormap_ornull *cmap
+	int src_x
+	int src_y
+	int dest_x
+	int dest_y
+	int width
+	int height
+    ALIAS:
+	get_from_image = 1
+    PREINIT:
+	GdkPixbuf * pixbuf, * dest;
+    CODE:
+	dest = SvROK (dest_or_class)
+	     ? SvGdkPixbuf (dest_or_class)
+	     : NULL;
+	if (ix == 1)
+		pixbuf = gdk_pixbuf_get_from_image (dest,
+		                                    SvGdkImage (src),
+		                                    cmap, src_x, src_y,
+		                                    dest_x, dest_y,
+		                                    width, height);
+	else
+		pixbuf = gdk_pixbuf_get_from_drawable (dest,
+		                                       SvGdkDrawable (src),
+		                                       cmap, src_x, src_y,
+		                                       dest_x, dest_y,
+		                                       width, height);
+	if (!pixbuf)
+		XSRETURN_UNDEF;
+	/* we own the output pixbuf if there was no destination supplied. */
+	RETVAL = gperl_new_object (G_OBJECT (pixbuf), dest != pixbuf);
+    OUTPUT:
+	RETVAL
+
 
 
 ##  GQuark gdk_pixbuf_error_quark (void) G_GNUC_CONST 

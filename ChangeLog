@@ -1,3 +1,8 @@
+2003/11/17 16:27 (-0500) muppetman
+
+	* xs/GdkPixbuf.xs: i borked the get_from_(drawable|image) xsubs...
+	this fixes them, and adds docs.
+
 2003/11/17 22:04 (+0100) kaffeetisch
 
 	* CodeGen.pm: Create INPUT typemaps for the 'const' equivalents of
