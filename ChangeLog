@@ -1,3 +1,9 @@
+2003/11/03 16:24 pcg
+
+	* xs/GtkWidget.xs: Implement a bunch of minor methods, some of them
+        even tested.
+
+
 2003/11/03 12:45 muppetman
 
 	A xs_files-2.0: new file listing source files for gtk+-2.0.x

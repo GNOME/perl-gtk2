@@ -638,25 +638,30 @@ gtk_widget_render_icon (widget, stock_id, size, detail=NULL)
 	GtkIconSize   size
 	const gchar * detail
 
-# bunch of FIXMEs FIXME FIXME FIXME
  #/* handle composite names for GTK_COMPOSITE_CHILD widgets,
  # * the returned name is newly allocated.
  # */
- #void   gtk_widget_set_composite_name	(GtkWidget	*widget,
- #					 const gchar   	*name);
- #gchar* gtk_widget_get_composite_name	(GtkWidget	*widget);
- #
- #/* Descend recursively and set rc-style on all widgets without user styles */
- #void       gtk_widget_reset_rc_styles   (GtkWidget      *widget);
- #
- #/* Push/pop pairs, to change default values upon a widget's creation.
- # * This will override the values that got set by the
- # * gtk_widget_set_default_* () functions.
- # */
- #void	     gtk_widget_push_colormap	     (GdkColormap *cmap);
- #void	     gtk_widget_push_composite_child (void);
- #void	     gtk_widget_pop_composite_child  (void);
- #void	     gtk_widget_pop_colormap	     (void);
+
+void gtk_widget_set_composite_name (GtkWidget *widget, const gchar *name)
+
+gchar* gtk_widget_get_composite_name (GtkWidget *widget)
+ 
+#/* Descend recursively and set rc-style on all widgets without user styles */
+void gtk_widget_reset_rc_styles (GtkWidget *widget)
+ 
+void gtk_widget_push_colormap (SV *class_or_widget, GdkColormap *cmap)
+    C_ARGS: cmap
+
+void gtk_widget_pop_colormap (SV *class_or_widget)
+    C_ARGS: /* void */
+
+void gtk_widget_push_composite_child (SV *class_or_widget)
+    C_ARGS: /* void */
+
+void gtk_widget_pop_composite_child (SV *class_or_widget)
+    C_ARGS: /* void */
+
+# bunch of FIXMEs FIXME FIXME FIXME
  #
  #/* widget style properties
  # */
@@ -678,15 +683,20 @@ gtk_widget_render_icon (widget, stock_id, size, detail=NULL)
  #
  #/* Set certain default values to be used at widget creation time.
  # */
- #void	     gtk_widget_set_default_colormap (GdkColormap *colormap);
+
+void gtk_widget_set_default_colormap (SV *class_or_widget, GdkColormap *colormap);
+    C_ARGS: colormap
 
 GtkStyle*
-gtk_widget_get_default_style (class)
-    C_ARGS:
-	/*void*/
+gtk_widget_get_default_style (SV *class_or_widget)
+    C_ARGS: /* void */
 
- #GdkColormap* gtk_widget_get_default_colormap (void);
- #GdkVisual*   gtk_widget_get_default_visual   (void);
+GdkColormap* gtk_widget_get_default_colormap (SV *class_or_widget)
+    C_ARGS: /* void */
+
+GdkVisual* gtk_widget_get_default_visual (SV *class_or_widget)
+    C_ARGS: /* void */
+
  #
  #/* Functions for setting directionality for widgets
  # */
