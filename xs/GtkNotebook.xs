@@ -33,6 +33,21 @@ ensure_label_widget (SV * sv)
 	return gtk_label_new (SvPV_nolen (sv));
 }
 
+#if !GTK_CHECK_VERSION(2,4,0)
+static int
+notebook_return_value_spoof_helper (GtkNotebook * notebook,
+				    int position)
+{
+	/* Adapted from gtk+ 2.6.2's gtk_notebook_insert_page_menu().
+	 * They calculate the new position before doing the actual
+	 * insertion, so call this *before* calling the function whose
+	 * return value it spoofs.  Dirty, dirty, dirty. */
+	int nchildren = g_list_length (notebook->children);
+	if ((position < 0) || (position > nchildren))
+		position = nchildren;
+	return position;
+}
+#endif
 
 MODULE = Gtk2::Notebook	PACKAGE = Gtk2::Notebook	PREFIX = gtk_notebook_
 
@@ -42,7 +57,17 @@ gtk_notebook_new (class)
     C_ARGS:
 	/*void*/
 
-#if GTK_CHECK_VERSION(2,4,0)
+
+ ##
+ ## In gtk+ 2.4.0, several of these functions were changed to return the
+ ## index of the inserted item, where they had void return before.  If you
+ ## just do a big #if around them, the docgen picks up two copies of each
+ ## xsub, so we have to move the #if into the xsub and have only one of
+ ## each.  Since we're doing that, and it's not too hard, we'll spoof the
+ ## return value for older versions of gtk+ to avoid exposing the version
+ ## difference to perl.  What's that, you say?  Why, yes, it does suck. :-/
+ ## I apologize for all the #ifs.
+ ##
 
 ## gint gtk_notebook_append_page (GtkNotebook *notebook, GtkWidget *child, GtkWidget *tab_label)
 gint
@@ -50,8 +75,15 @@ gtk_notebook_append_page (notebook, child, tab_label=NULL)
 	GtkNotebook * notebook
 	GtkWidget   * child
 	SV          * tab_label
-    C_ARGS:
-	notebook, child, ensure_label_widget (tab_label)
+    CODE:
+	RETVAL =
+#if !GTK_CHECK_VERSION(2,4,0)
+		notebook_return_value_spoof_helper (notebook, -1);
+#endif
+		gtk_notebook_append_page (notebook, child,
+					  ensure_label_widget (tab_label));
+    OUTPUT:
+	RETVAL
 
 ## gint gtk_notebook_append_page_menu (GtkNotebook *notebook, GtkWidget *child, GtkWidget *tab_label, GtkWidget *menu_label)
 gint
@@ -60,6 +92,15 @@ gtk_notebook_append_page_menu (notebook, child, tab_label, menu_label)
 	GtkWidget        * child
 	GtkWidget_ornull * tab_label
 	GtkWidget_ornull * menu_label
+    CODE:
+	RETVAL =
+#if !GTK_CHECK_VERSION(2,4,0)
+		notebook_return_value_spoof_helper (notebook, -1);
+#endif
+		gtk_notebook_append_page_menu (notebook, child,
+					       tab_label, menu_label);
+    OUTPUT:
+	RETVAL
 
 ## gint gtk_notebook_prepend_page (GtkNotebook *notebook, GtkWidget *child, GtkWidget *tab_label)
 gint
@@ -67,8 +108,15 @@ gtk_notebook_prepend_page (notebook, child, tab_label=NULL)
 	GtkNotebook * notebook
 	GtkWidget   * child
 	SV          * tab_label
-    C_ARGS:
-	notebook, child, ensure_label_widget (tab_label)
+    CODE:
+	RETVAL =
+#if !GTK_CHECK_VERSION(2,4,0)
+		notebook_return_value_spoof_helper (notebook, 0);
+#endif
+		gtk_notebook_prepend_page (notebook, child,
+					   ensure_label_widget (tab_label));
+    OUTPUT:
+	RETVAL
 
 ## gint gtk_notebook_prepend_page_menu (GtkNotebook *notebook, GtkWidget *child, GtkWidget *tab_label, GtkWidget *menu_label)
 gint
@@ -77,6 +125,15 @@ gtk_notebook_prepend_page_menu (notebook, child, tab_label, menu_label)
 	GtkWidget        * child
 	GtkWidget_ornull * tab_label
 	GtkWidget_ornull * menu_label
+    CODE:
+	RETVAL =
+#if !GTK_CHECK_VERSION(2,4,0)
+		notebook_return_value_spoof_helper (notebook, 0);
+#endif
+		gtk_notebook_prepend_page_menu (notebook, child,
+						tab_label, menu_label);
+    OUTPUT:
+	RETVAL
 
 ## gint gtk_notebook_insert_page (GtkNotebook *notebook, GtkWidget *child, GtkWidget *tab_label, gint position)
 gint
@@ -85,8 +142,16 @@ gtk_notebook_insert_page (notebook, child, tab_label, position)
 	GtkWidget   * child
 	SV          * tab_label
 	gint          position
-    C_ARGS:
-	notebook, child, ensure_label_widget (tab_label), position
+    CODE:
+	RETVAL =
+#if !GTK_CHECK_VERSION(2,4,0)
+		notebook_return_value_spoof_helper (notebook, position);
+#endif
+		gtk_notebook_insert_page (notebook, child,
+					  ensure_label_widget (tab_label),
+					  position);
+    OUTPUT:
+	RETVAL
 
 ## gint gtk_notebook_insert_page_menu (GtkNotebook *notebook, GtkWidget *child, GtkWidget *tab_label, GtkWidget *menu_label, gint position)
 gint
@@ -96,59 +161,16 @@ gtk_notebook_insert_page_menu (notebook, child, tab_label, menu_label, position)
 	GtkWidget_ornull * tab_label
 	GtkWidget_ornull * menu_label
 	gint               position
-
-#else
-
-# compatibility cruft for 2.2, remove when 2.2 is obsoleted
-
-void
-gtk_notebook_append_page (notebook, child, tab_label=NULL)
-	GtkNotebook * notebook
-	GtkWidget   * child
-	SV          * tab_label
-    C_ARGS:
-	notebook, child, ensure_label_widget (tab_label)
-
-void
-gtk_notebook_append_page_menu (notebook, child, tab_label, menu_label)
-	GtkNotebook      * notebook
-	GtkWidget        * child
-	GtkWidget_ornull * tab_label
-	GtkWidget_ornull * menu_label
-
-void
-gtk_notebook_prepend_page (notebook, child, tab_label=NULL)
-	GtkNotebook * notebook
-	GtkWidget   * child
-	SV          * tab_label
-    C_ARGS:
-	notebook, child, ensure_label_widget (tab_label)
-
-void
-gtk_notebook_prepend_page_menu (notebook, child, tab_label, menu_label)
-	GtkNotebook      * notebook
-	GtkWidget        * child
-	GtkWidget_ornull * tab_label
-	GtkWidget_ornull * menu_label
-
-void
-gtk_notebook_insert_page (notebook, child, tab_label, position)
-	GtkNotebook * notebook
-	GtkWidget   * child
-	SV          * tab_label
-	gint          position
-    C_ARGS:
-	notebook, child, ensure_label_widget (tab_label), position
-
-void
-gtk_notebook_insert_page_menu (notebook, child, tab_label, menu_label, position)
-	GtkNotebook      * notebook
-	GtkWidget        * child
-	GtkWidget_ornull * tab_label
-	GtkWidget_ornull * menu_label
-	gint               position
-
+    CODE:
+	RETVAL =
+#if !GTK_CHECK_VERSION(2,4,0)
+		notebook_return_value_spoof_helper (notebook, position);
 #endif
+		gtk_notebook_insert_page_menu (notebook, child, tab_label,
+					       menu_label, position);
+    OUTPUT:
+	RETVAL
+
 
 ## void gtk_notebook_remove_page (GtkNotebook *notebook, gint page_num)
 void

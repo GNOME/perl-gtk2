@@ -1,5 +1,11 @@
 2005/02/26	muppetman
 
+	* xs/GtkNotebook.xs, t/GtkNotebook.t: The multiple definitions of
+	some functions (in #if branches) confused the doc generation tools
+	into creating multiple entries.  Folded the #if into the individual
+	xsubs.  To make life easier for the caller, simply implement for
+	ourselves the missing return values on older gtk+s.  Tests included.
+
 	* xs/GdkPixmap.xs, t/GdkPixmap.t:  gdk_pixmap_create_from_xpm()
 	returns NULL if the file is not found; catch this and return undef
 	instead of crashing.  With a test.  Also allow undef and improve
