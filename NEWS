@@ -1,3 +1,10 @@
+Overview of Changes in Gtk2 1.042
+=================================
+
+* Documentation fixes and improvements.  [muppet, Torsten, Jason Stirling]
+* Fix silly bugs in examples.  [Thierry Vignaud]
+* Hush nastygrams from test suite.  [muppet]
+
 Overview of Changes in 1.041
 ============================
 
