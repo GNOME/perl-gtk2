@@ -118,14 +118,8 @@ gtk_list_store_set (list_store, iter, col1, val1, ...)
 			              gtk_tree_model_get_column_type
 			                        (GTK_TREE_MODEL (list_store),
 			                         column));
-			if (!gperl_value_from_sv (&gvalue, ST (i+1))) {
-				/* FIXME need a more useful error message here,
-				 *   as this could be triggered by somebody who
-				 *   doesn't know how the function works, and i
-				 *   doubt this message would clue him in */
-				croak ("failed to convert parameter %d from SV to GValue",
-				       i);
-			}
+			/* gperl_value_from_sv either succeeds or croaks. */
+			gperl_value_from_sv (&gvalue, ST (i+1));
 			gtk_list_store_set_value (GTK_LIST_STORE (list_store),
 			                          iter, column, &gvalue);
 			g_value_unset (&gvalue);

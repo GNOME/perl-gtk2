@@ -150,11 +150,8 @@ new (class, object_class, ...)
 				       object_class, key);
 			g_value_init (&params[i].value,
 			              G_PARAM_SPEC_VALUE_TYPE (pspec));
-			if (!gperl_value_from_sv (&params[i].value, 
-			                          ST (2+i*2+1)))
-				/* FIXME and neither does this */
-				croak ("could not convert value for property %s",
-				       key);
+			/* gperl_value_from_sv either succeeds or croaks. */
+			gperl_value_from_sv (&params[i].value, ST (2+i*2+1));
 			params[i].name = key; /* will be valid until this
 			                       * xsub is finished */
 		}
