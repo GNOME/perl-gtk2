@@ -116,7 +116,7 @@ gdk_draw_arc (drawable, gc, filled, x, y, width, height, angle1, angle2)
 =for apidoc
 =for arg x1 (integer) the x coordinate of the first point
 =for arg y1 (integer) the y coordinate of the first point
-=for arg ... (__hide__)
+=for arg ... pairs of x and y coordinates
 =cut
 void
 gdk_draw_polygon (drawable, gc, filled, x1, y1, ...)
@@ -169,7 +169,7 @@ gdk_draw_image (drawable, gc, image, xsrc, ysrc, xdest, ydest, width, height)
 =for apidoc Gtk2::Gdk::Drawable::draw_lines
 =for arg x1 (integer) the x coordinate of the first point
 =for arg y1 (integer) the y coordinate of the first point
-=for arg ... (__hide__)
+=for arg ... pairs of x and y coordinates
 =cut
 
 =for apidoc
@@ -206,7 +206,7 @@ gdk_draw_points (drawable, gc, x1, y1, ...)
 =for arg y1 (integer) the y coordinate of the first point
 =for arg x2 (integer) the x coordinate of the second point
 =for arg y2 (integer) the y coordinate of the second point
-=for arg ... (__hide__)
+=for arg ... quads of x and y coordinates
 =cut
 void
 gdk_draw_segments (drawable, gc, x1, y1, x2, y2, ...)

@@ -131,7 +131,7 @@ gtk_image_get_pixbuf (image)
 	GtkImage *image
 
 =for apidoc
-=signature (stock_id, icon_size) = $image->get_stock
+=for signature (stock_id, icon_size) = $image->get_stock
 =cut
 void
 gtk_image_get_stock (image)

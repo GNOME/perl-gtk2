@@ -69,7 +69,7 @@ gdk_colormap_get_system (class)
 ## color, telling whether each one was successfully allocated.  the return
 ## value is the number that were NOT allocated.
 =for apidoc
-=for arg ... list of Gtk2::Gdk::Colors to allocate
+=for arg ... of Gtk2::Gdk::Color's to be allocated
 Returns a list of boolean values, telling whether the color at the
 corresponding spot in I<...> could be allocated.
 =cut
@@ -118,11 +118,10 @@ gdk_colormap_alloc_color (colormap, color, writeable, best_match)
  # above; it has nothing to do with memory management.  we do need this.
  ## void gdk_colormap_free_colors (GdkColormap *colormap, GdkColor *colors, gint ncolors)
 =for apidoc
-=for arg color1 (Gtk2::Gdk::Color) first color to free
-=for arg ... (__hide__)
+=for arg ... of Gtk2::Gdk::Color's to be freed
 =cut
 void
-gdk_colormap_free_colors (colormap, color1, ...)
+gdk_colormap_free_colors (colormap, ...)
 	GdkColormap *colormap
     PREINIT:
 	GdkColor *colors;

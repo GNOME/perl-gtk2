@@ -154,7 +154,7 @@ gtk_label_select_region (label, start_offset=-1, end_offset=-1)
 ## done by hand because we don't want to return the boolean...  either there's
 ## a list or not.
 =for apidoc
-=signature (start, end) = $label->get_selection_bounds
+=for signature (start, end) = $label->get_selection_bounds
 Returns integers, start and end.
 =cut
 void

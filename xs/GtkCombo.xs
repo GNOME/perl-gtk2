@@ -68,12 +68,10 @@ gtk_combo_set_item_string (combo, item, item_value)
 
 ##void gtk_combo_set_popdown_strings (GtkCombo* combo, GList *strings)
 =for apidoc
-=signature $combo->set_popdown_strings (str1, ...)
-=arg str1 (string)
-=arg ... (__hide__)
+=for arg ... of strings
 =cut
 void
-gtk_combo_set_popdown_strings (combo, str1, ...)
+gtk_combo_set_popdown_strings (combo, ...)
 	GtkCombo * combo
     PREINIT:
 	GList * strings = NULL;

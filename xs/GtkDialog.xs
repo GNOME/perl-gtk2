@@ -204,7 +204,7 @@ gtk_dialog_widgets (dialog)
 
 =for apidoc Gtk2::Dialog::new_with_buttons
 =for signature $widget = Gtk2::Dialog->new_with_buttons ($title, $parent, $flags, ...)
-=for arg ... (__hide__)
+=for arg ... of button-text => response-id pairs.
 
 Alias for the multi-argument version of C<< Gtk2::Dialog->new >>.
 
@@ -216,7 +216,7 @@ Alias for the multi-argument version of C<< Gtk2::Dialog->new >>.
 =for arg title (string) window title
 =for arg parent (GtkWindow_ornull) make the new dialog transient for this window
 =for arg flags (GtkDialogFlags) interesting properties
-=for arg ... list of button-text => response-id pairs.
+=for arg ... of button-text => response-id pairs.
 
 The multi-argument form takes the same list of text => response-id pairs as
 C<< $dialog->add_buttons >>.  Do not pack widgets directly into the window;
@@ -357,7 +357,7 @@ gtk_dialog_add_button (dialog, button_text, response_id)
 	RETVAL
 
 =for apidoc
-=for arg ... (list) button-text => response-id pairs
+=for arg ... of button-text => response-id pairs
 Like calling C<< $dialog->add_button >> repeatedly, except you don't get the
 created widgets back.  The buttons go from left to right, so the first button
 added will be the left-most one.

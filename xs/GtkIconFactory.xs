@@ -105,7 +105,7 @@ MODULE = Gtk2::IconFactory	PACKAGE = Gtk2::IconSize	PREFIX = gtk_icon_size_
 
 ##  gboolean gtk_icon_size_lookup (GtkIconSize size, gint *width, gint *height) 
 =for apidoc
-=signature (width, height) = Gtk2::IconSize->lookup ($size)
+=for signature (width, height) = Gtk2::IconSize->lookup ($size)
 =cut
 void
 gtk_icon_size_lookup (class, size)
@@ -124,7 +124,7 @@ gtk_icon_size_lookup (class, size)
 
 ##  gboolean gtk_icon_size_lookup_for_settings (GtkSettings *settings, GtkIconSize size, gint *width, gint *height) 
 =for apidoc
-=signature (width, height) = Gtk2::IconSize->lookup_for_settings ($settings, $size)
+=for signature (width, height) = Gtk2::IconSize->lookup_for_settings ($settings, $size)
 =cut
 void
 gtk_icon_size_lookup_for_settings (class, settings, size, width, height)

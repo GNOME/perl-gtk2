@@ -91,7 +91,7 @@ gdk_pixmap_create_from_data (class, drawable, data, width, height, depth, fg, bg
 
  ## GdkPixmap* gdk_pixmap_create_from_xpm (GdkDrawable *drawable, GdkBitmap **mask, GdkColor *transparent_color, const gchar *filename)
 =for apidoc
-=signature (pixmap, mask) = Gtk2::Gdk::Pixmap->create_from_xpm ($drawable, $transparent_color, $filename)
+=for signature (pixmap, mask) = Gtk2::Gdk::Pixmap->create_from_xpm ($drawable, $transparent_color, $filename)
 =cut
 void
 gdk_pixmap_create_from_xpm (class, drawable, transparent_color, filename)
@@ -110,7 +110,7 @@ gdk_pixmap_create_from_xpm (class, drawable, transparent_color, filename)
 
  ## GdkPixmap* gdk_pixmap_colormap_create_from_xpm (GdkDrawable *drawable, GdkColormap *colormap, GdkBitmap **mask, GdkColor *transparent_color, const gchar *filename)
 =for apidoc
-=signature (pixmap, mask) = Gtk2::Gdk::Pixmap->colormap_create_from_xpm ($drawable, $colormap, $transparent_color, $filename)
+=for signature (pixmap, mask) = Gtk2::Gdk::Pixmap->colormap_create_from_xpm ($drawable, $colormap, $transparent_color, $filename)
 =cut
 void
 gdk_pixmap_colormap_create_from_xpm (class, drawable, colormap, transparent_color, filename)
@@ -134,7 +134,7 @@ gdk_pixmap_colormap_create_from_xpm (class, drawable, colormap, transparent_colo
 =for arg drawable used to determine the colormap and visual of the image.
 =for arg transparent_color color of pixels that are transparent in the input file.  if undef, a default is used.
 =for arg data (__hide__)
-=for arg ... (list of strings) xpm data
+=for arg ... of strings, xpm data
 
 Create a pixmap from the provided xpm data, usually included in the program as
 an inline image.  See C<new_from_xpm_data> in L<Gtk2::Gdk::Pixbuf> for a 
@@ -168,7 +168,7 @@ gdk_pixmap_create_from_xpm_d (class, drawable, transparent_color, data, ...)
 =for arg colormap GdkColormap to use for the new image; may be undef if I<$drawable> is given.
 =for arg transparent_color color of pixels that are transparent in the input file.  if undef, a default is used.
 =for arg data (__hide__)
-=for arg ... (list of strings) xpm data
+=for arg ... of strings, xpm data
 
 Create a pixmap from the provided xpm data, using a specific colormap.
 See C<create_from_xpm_d>.

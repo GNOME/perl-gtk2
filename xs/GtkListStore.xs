@@ -37,11 +37,10 @@ BOOT:
 
 ## GtkListStore* gtk_list_store_new (gint n_columns, ...);
 =for apidoc
-=for arg pkg_name1 (string)
-=for arg ... (__hide__)
+=for arg ... of strings
 =cut
 GtkListStore_noinc*
-gtk_list_store_new (class, pkg_name1, ...)
+gtk_list_store_new (class, ...)
     PREINIT:
 	GArray * typearray;
     CODE:
@@ -55,11 +54,10 @@ gtk_list_store_new (class, pkg_name1, ...)
 # for initializing GListStores derived in perl
 ## void gtk_list_store_set_column_types (GtkListStore *list_store, gint n_columns, GType *types)
 =for apidoc
-=for arg pkg_name1 (string)
-=for arg ... (__hide__)
+=for arg ... of strings
 =cut
 void
-gtk_list_store_set_column_types (list_store, pkg_name1, ...)
+gtk_list_store_set_column_types (list_store, ...)
 	GtkListStore *list_store
     PREINIT:
 	GArray * typearray;
@@ -74,7 +72,7 @@ gtk_list_store_set_column_types (list_store, pkg_name1, ...)
 =for apidoc
 =for arg col1 (integer) the first column number
 =for arg val1 (scalar) the first value
-=for arg ... (__hide__)
+=for arg ... pairs of column numbers and values
 =cut
 void
 gtk_list_store_set (list_store, iter, col1, val1, ...)
@@ -220,15 +218,14 @@ gtk_list_store_iter_is_valid (list_store, iter)
 
 ## void gtk_list_store_reorder (GtkListStore *store, gint *new_order)
 =for apidoc
-=for arg pos1 (integer) the first position elements reordered posistion
-=for arg ... (__hide__)
+=for arg ... of integers the reordered posistions
 Reorders store to follow the order indicated by new_order. Note that this
 function only works with unsorted stores.
 
 A list of position should be passed, one for each item in the list.
 =cut
 void
-gtk_list_store_reorder (store, pos1, ...)
+gtk_list_store_reorder (store, ...)
 	GtkListStore * store
     PREINIT:
 	gint * new_order;

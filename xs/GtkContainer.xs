@@ -109,8 +109,7 @@ gtk_container_get_children (container)
 
  ## void gtk_container_set_focus_chain (GtkContainer *container, GList *focusable_widgets)
 =for apidoc
-=for arg widget1 (Gtk2::Widget) the first widget in the focus chain
-=for arg ... (__hide__)
+=for arg ... of Gtk2::Widget's, the focus chain
 Sets a focus chain, overriding the one computed automatically by GTK+.
 
 In principle each widget in the chain should be a descendant of the container,
@@ -120,7 +119,7 @@ always packed. The necessary checks are done when the focus chain is actually
 traversed.
 =cut
 void
-gtk_container_set_focus_chain (container, widget1, ...)
+gtk_container_set_focus_chain (container, ...)
 	GtkContainer *container
     PREINIT:
 	GList *focusable_widgets = NULL;

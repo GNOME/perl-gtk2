@@ -217,7 +217,7 @@ void pango_layout_move_cursor_visually (PangoLayout *layout, gboolean strong, in
 
 ##  gboolean pango_layout_xy_to_index (PangoLayout *layout, int x, int y, int *index_, int *trailing) 
 =for apidoc
-=signature (index, trailing) = $layout->xy_to_index ($x, $y)
+=for signature (index, trailing) = $layout->xy_to_index ($x, $y)
 =cut
 void
 pango_layout_xy_to_index (layout, x, y)

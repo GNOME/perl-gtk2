@@ -36,12 +36,8 @@ gtk_tree_drag_source_drag_data_delete (drag_source, path)
 	GtkTreePath *path
 
 ### gboolean gtk_tree_drag_source_drag_data_get (GtkTreeDragSource *drag_source, GtkTreePath *path, GtkSelectionData *selection_data)
-=for apidoc
-=for arg selection_data (Gtk2::SelectionData) the first selection data
-=for arg ... (__hide__)
-=cut
 GtkSelectionData_copy *
-gtk_tree_drag_source_drag_data_get (drag_source, path, selection_data)
+gtk_tree_drag_source_drag_data_get (drag_source, path)
 	GtkTreeDragSource *drag_source
 	GtkTreePath *path
     PREINIT:
@@ -81,7 +77,7 @@ gtk_tree_set_row_drag_data (selection_data, tree_model, path)
 
 ## gboolean gtk_tree_get_row_drag_data (GtkSelectionData *selection_data, GtkTreeModel **tree_model, GtkTreePath **path)
 =for apidoc
-=signature (tree_model, path) = $selection_data->get_row_drag_data
+=for signature (tree_model, path) = $selection_data->get_row_drag_data
 =cut
 void
 gtk_tree_get_row_drag_data (selection_data)

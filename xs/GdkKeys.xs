@@ -46,7 +46,7 @@ gdk_keymap_get_for_display (class, display)
 
 ##  gboolean gdk_keymap_translate_keyboard_state (GdkKeymap *keymap, guint hardware_keycode, GdkModifierType state, gint group, guint *keyval, gint *effective_group, gint *level, GdkModifierType *consumed_modifiers) 
 =for apidoc
-=signature (keyval, effective_group,level, consumed_modifiers) = $keymap->translate_keyboard_state (hardware_keycode, state, group)
+=for signature (keyval, effective_group,level, consumed_modifiers) = $keymap->translate_keyboard_state (hardware_keycode, state, group)
 =cut
 void
 gdk_keymap_translate_keyboard_state (keymap, hardware_keycode, state, group)
@@ -73,7 +73,7 @@ gdk_keymap_translate_keyboard_state (keymap, hardware_keycode, state, group)
 
 ##  gboolean gdk_keymap_get_entries_for_keyval (GdkKeymap *keymap, guint keyval, GdkKeymapKey **keys, gint *n_keys) 
 ##=for apidoc
-##=signature keys = $keymap->get_entries_for_keyval (keyval)
+##=for signature keys = $keymap->get_entries_for_keyval (keyval)
 ##Returns keys, a list of Gtk2::GdkKeymapkey's.
 ##
 ##Obtains a list of keycode/group/level combinations that will generate keyval. Groups and levels are two kinds of keyboard mode; in general, the level determines whether the top or bottom symbol on a key is used, and the group determines whether the left or right symbol is used. On US keyboards, the shift key changes the keyboard level, and there are no groups. A group switch key might convert a keyboard between Hebrew to English modes, for example. GdkEventKey contains a group field that indicates the active keyboard group. The level is computed from the modifier mask.
@@ -96,7 +96,7 @@ gdk_keymap_translate_keyboard_state (keymap, hardware_keycode, state, group)
 
 ##  gboolean gdk_keymap_get_entries_for_keycode (GdkKeymap *keymap, guint hardware_keycode, GdkKeymapKey **keys, guint **keyvals, gint *n_entries) 
 ##=for apidoc
-##=signature ({key1, keyval1 }, {...}) = $keymap->get_entires_for_keycode ($hardware_keycode)
+##=for signature ({key1, keyval1 }, {...}) = $keymap->get_entires_for_keycode ($hardware_keycode)
 ##=cut
 ##void
 ##gdk_keymap_get_entries_for_keycode (keymap, hardware_keycode)
@@ -143,7 +143,7 @@ gdk_keyval_from_name (class, keyval_name)
 
 ##  void gdk_keyval_convert_case (guint symbol, guint *lower, guint *upper) 
 =for apidoc
-=signature (lower, upper) = Gtk2::Gdk::Keyval->convert_case ($symbol)
+=for signature (lower, upper) = Gtk2::Gdk::Keyval->convert_case ($symbol)
 =cut
 void
 gdk_keyval_convert_case (class, symbol)

@@ -168,7 +168,7 @@ MODULE = Gtk2::AccelGroup	PACKAGE = Gtk2::Accelerator	PREFIX = gtk_accelerator_
 
 ## void gtk_accelerator_parse (const gchar *accelerator, guint *accelerator_key, GdkModifierType *accelerator_mods)
 =for apidoc
-=signature (accelerator_key, accelerator_mods) = Gtk2::Accelerator->parse ($accelerator)
+=for signature (accelerator_key, accelerator_mods) = Gtk2::Accelerator->parse ($accelerator)
 Returns accelerator_key, an unsigned interger and accelerator_mods, a 
 Gtk2::Gdk::ModifierType.
 =cut

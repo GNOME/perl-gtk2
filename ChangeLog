@@ -1,3 +1,14 @@
+2003/12/04 00:51 (-0500) rwmcfa1
+
+	* : Merge of rel-1-02 doc and fixes back. (following 3 apply)
+
+	* xs/(bunch).xs: ... (list) comments corrected
+
+	* xs/GtkTreeDnd.xs: ^ and fixed bug in api of 
+	gtk_tree_drag_source_drag_data_get, selection_data is an out param.
+
+	* xs/(bunch).xs: s/=(arg|signature)/=for $1/
+
 2003/12/02 13:58 (-0500) rwmcfa1
 
 	* : Merge of rel-1-02 doc and fixes back. (following 2 apply)
@@ -8,6 +19,12 @@
 	xs/GtkListStore.xs, xs/GtkSelection.xs, xs/GtkTextBuffer.xs,
 	xs/GtkTreeDnd.xs, xs/GtkTreeStore.xs, xs/GtkTreeView.xs,
 	xs/GtkTreeViewColumn.xs: api doc additions.
+
+2003/11/29 16:51 (-0500) muppetman
+
+	* t/ignore_keyboard.pl: merge test helper script from head
+	* Gtk2.pm, README: bump to 1.013
+	* Makefile.PL: require Glib 1.013
 
 2003/11/29 12:21 (-0500) muppetman
 

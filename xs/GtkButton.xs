@@ -38,21 +38,21 @@ non-mnemonic version explicitly (e.g. C<Gtk2::Button::new_with_label>).
 =cut
 
 =for apidoc Gtk2::Button::new 
-=signature widget = Gtk2::Button->new
-=signature widget = Gtk2::Button->new ($mnemonic)
-=arg label (__hide__)
-=arg mnemonic (string) used to label the widget, see L</MNEMONICS>
+=for signature widget = Gtk2::Button->new
+=for signature widget = Gtk2::Button->new ($mnemonic)
+=for arg label (__hide__)
+=for arg mnemonic (string) used to label the widget, see L</MNEMONICS>
 =cut
 
 =for apidoc Gtk2::Button::new_with_mnemonic
-=signature widget = Gtk2::Button->new_with_mnemonic ($mnemonic)
-=arg label (__hide__)
-=arg mnemonic (string) used to label the widget, see L</MNEMONICS>
+=for signature widget = Gtk2::Button->new_with_mnemonic ($mnemonic)
+=for arg label (__hide__)
+=for arg mnemonic (string) used to label the widget, see L</MNEMONICS>
 =cut
 
 =for apidoc Gtk2::Button::new_with_label
-=signature widget = Gtk2::Button->new_with_label ($label)
-=arg label (string) used to label the widget
+=for signature widget = Gtk2::Button->new_with_label ($label)
+=for arg label (string) used to label the widget
 =cut
 
 GtkWidget *
@@ -76,7 +76,7 @@ gtk_button_news (class, label=NULL)
 # TODO: find and/or create Gtk2::StockItems info/page
 =for apidoc
 
-=arg stock_id (string) creates a new button using the icon and text from the
+=for arg stock_id (string) creates a new button using the icon and text from the
 specified stock item, see L<Gtk2::Stock>
 
 =cut

@@ -60,7 +60,7 @@ gtk_tree_sortable_sort_column_changed (sortable)
 
 #### gboolean gtk_tree_sortable_get_sort_column_id (GtkTreeSortable *sortable, gint *sort_column_id, GtkSortType *order)
 =for apidoc
-=signature (sort_column_id, order) = $sortable->get_sort_column_id
+=for signature (sort_column_id, order) = $sortable->get_sort_column_id
 Returns sort_column_id, an integer and order, a Gtk2::SortType.
 =cut
 void

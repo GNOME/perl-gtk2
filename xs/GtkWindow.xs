@@ -218,7 +218,7 @@ gtk_window_get_decorated (window)
 
 ## void gtk_window_set_icon_list (GtkWindow *window, GList *list)
 =for apidoc
-=arg ... (list) a list of Gtk2::Gdk::Pixbufs
+=for arg ... of Gtk2::Gdk::Pixbuf's
 Sets up the icon representing a Gtk2::Window. The icon is used when the window
 is minimized (also known as iconified). Some window managers or desktop
 environments may also place it in the window frame, or display it in other
@@ -310,7 +310,7 @@ gtk_window_get_icon (window)
 
 ## void gtk_window_set_default_icon_list (GList *list)
 =for apidoc
-=signature $window->set_default_icon_list ($pixbuf1, ...)
+=for signature $window->set_default_icon_list ($pixbuf1, ...)
 =cut
 void
 gtk_window_set_default_icon_list (class, pixbuf, ...)

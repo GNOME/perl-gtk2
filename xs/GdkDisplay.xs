@@ -108,7 +108,7 @@ void gdk_display_get_pointer (GdkDisplay *display, OUTLIST GdkScreen *screen, OU
 ##  GdkWindow * gdk_display_get_window_at_pointer (GdkDisplay *display, gint *win_x, gint *win_y) 
 ###GdkWindow * gdk_display_get_window_at_pointer (GdkDisplay *display, OUTLIST gint win_x, OUTLIST gint win_y) 
 =for apidoc
-=signature (window, win_x, win_y) = $display->get_window_at_pointer ($display)
+=for signature (window, win_x, win_y) = $display->get_window_at_pointer ($display)
 =cut
 void
 gdk_display_get_window_at_pointer (GdkDisplay *display) 

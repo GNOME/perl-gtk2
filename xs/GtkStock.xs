@@ -90,11 +90,10 @@ MODULE = Gtk2::Stock	PACKAGE = Gtk2::Stock	PREFIX = gtk_stock_
 
 ###  void gtk_stock_add (const GtkStockItem *items, guint n_items) 
 =for apidoc
-=for arg item1 (Gtk2::StockItem) the first stock item to add
-=for arg ... (__hide__)
+=for arg ... of Gtk2::StockItem's to be added
 =cut
 void
-gtk_stock_add (class, item1, ...)
+gtk_stock_add (class, ...)
     PREINIT:
 	int i;
     CODE:

@@ -34,11 +34,10 @@ BOOT:
 
 ## GtkTreeStore* gtk_tree_store_new (gint n_columns, ...);
 =for apidoc
-=for arg pkg_name1 (string)
-=for arg ... (__hide__)
+=for arg ... of strings, package names 
 =cut
 GtkTreeStore_noinc*
-gtk_tree_store_new (class, pkg_name1, ...)
+gtk_tree_store_new (class, ...)
     PREINIT:
 	GArray * typearray;
     CODE:
@@ -52,11 +51,10 @@ gtk_tree_store_new (class, pkg_name1, ...)
 # for initializing GtkTreeStores derived in perl.
 ## void gtk_tree_store_set_column_types (GtkTreeStore *tree_store, gint n_columns, GType *types)
 =for apidoc
-=for arg pkg_name1 (string)
-=for arg ... (__hide__)
+=for arg ... of strings, package names
 =cut
 void
-gtk_tree_store_set_column_types (tree_store, pkg_name1, ...)
+gtk_tree_store_set_column_types (tree_store, ...)
 GtkTreeStore *tree_store
     PREINIT:
 	GArray * types;
@@ -69,7 +67,7 @@ GtkTreeStore *tree_store
 =for apidoc
 =for arg col1 (integer) the first column number
 =for arg val1 (scalar) the first value
-=for arg ... (__hide__)
+=for arg ... pairs of columns and values
 =cut
 void
 gtk_tree_store_set (tree_store, iter, col1, val1, ...)
@@ -229,8 +227,7 @@ gtk_tree_store_iter_is_valid (tree_store, iter)
 # TODO: definitely needs testing
 #### void gtk_tree_store_reorder (GtkTreeStore *tree_store, GtkTreeIter *parent, gint *new_order)
 =for apidoc
-=for arg new_order1 (integer) the first position in new_order
-=for arg ... (__hide__)
+=for arg ... of integer's, the new_order
 =cut
 void
 gtk_tree_store_reorder (tree_store, parent, new_order1, ...)

@@ -103,11 +103,10 @@ gdk_drag_get_selection (context)
 
 ##  GdkDragContext * gdk_drag_begin (GdkWindow *window, GList *targets) 
 =for apidoc
-=for arg target1 (Gtk2::Gdk::Atom) the first atom
-=for arg ... (__hide__)
+=for arg ... of Gtk2::Gdk::Atom's
 =cut
 GdkDragContext_noinc *
-gdk_drag_begin (class, window, target1, ...)
+gdk_drag_begin (class, window, ...)
 	GdkWindow *window
     PREINIT:
 	GList *targets = NULL;
@@ -126,7 +125,7 @@ gdk_drag_begin (class, window, target1, ...)
 
 ##  guint32 gdk_drag_get_protocol_for_display (GdkDisplay *display, guint32 xid, GdkDragProtocol *protocol) 
 =for apidoc
-=signature (ret, protocol) = Gtk2::Gdk::DragContext->get_protocol_for_display ($display, $xid)
+=for signature (ret, protocol) = Gtk2::Gdk::DragContext->get_protocol_for_display ($display, $xid)
 =cut
 void
 gdk_drag_get_protocol_for_display (class, display, xid)
@@ -142,7 +141,7 @@ gdk_drag_get_protocol_for_display (class, display, xid)
 
 ##  void gdk_drag_find_window_for_screen (GdkDragContext *context, GdkWindow *drag_window, GdkScreen *screen, gint x_root, gint y_root, GdkWindow **dest_window, GdkDragProtocol *protocol) 
 =for apidoc
-=signature (dest_window, protocol) = $context->find_window_for_screen ($drag_window, $screen, $x_root, $y_root)
+=for signature (dest_window, protocol) = $context->find_window_for_screen ($drag_window, $screen, $x_root, $y_root)
 =cut
 void
 gdk_drag_find_window_for_screen (context, drag_window, screen, x_root, y_root)
@@ -165,7 +164,7 @@ gdk_drag_find_window_for_screen (context, drag_window, screen, x_root, y_root)
 
 ##  guint32 gdk_drag_get_protocol (guint32 xid, GdkDragProtocol *protocol) 
 =for apidoc
-=signature (ret, protocol) = Gtk2::Gdk::DragContext->get_protocol ($xid)
+=for signature (ret, protocol) = Gtk2::Gdk::DragContext->get_protocol ($xid)
 =cut
 void
 gdk_drag_get_protocol (class, xid)
@@ -181,7 +180,7 @@ gdk_drag_get_protocol (class, xid)
 
 ##  void gdk_drag_find_window (GdkDragContext *context, GdkWindow *drag_window, gint x_root, gint y_root, GdkWindow **dest_window, GdkDragProtocol *protocol) 
 =for apidoc
-=signature (dest_window, protocol) = $context->find_window ($drag_window, $x_root, $y_root)
+=for signature (dest_window, protocol) = $context->find_window ($drag_window, $x_root, $y_root)
 =cut
 void
 gdk_drag_find_window (context, drag_window, x_root, y_root)

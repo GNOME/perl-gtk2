@@ -304,15 +304,14 @@ gdk_gc_set_line_attributes (gc, line_width, line_style, cap_style, join_style)
 
  ## void gdk_gc_set_dashes (GdkGC *gc, gint dash_offset, gint8 dash_list[], gint n)
 =for apidoc
-=for arg dash1 (integer) the length of the first dash segment
-=for arg ... (__hide__)
+=for arg ... of integers, the length of the dash segments
 Sets the way dashed-lines are drawn. Lines will be drawn with alternating on
 and off segments of the lengths specified in list of dashes. The manner in
 which the on and off segments are drawn is determined by the line_style value
 of the GC.
 =cut
 void
-gdk_gc_set_dashes (gc, dash_offset, dash1, ...)
+gdk_gc_set_dashes (gc, dash_offset, ...)
 	GdkGC * gc
 	gint    dash_offset
     PREINIT:
