@@ -1,3 +1,7 @@
+2003/06/08 16:40 muppetman
+
+	* api.pod: merged in stuff from the braindump
+
 2003/06/07 18:51 muppetman
 
 	* xs/GtkTreeModel.xs: implemented treemodel->foreach, and some others.

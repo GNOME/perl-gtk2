@@ -2,7 +2,7 @@
 
 =head1 NAME
 
-Gtk2::api - Notes about differences between the perl and C APIs for Gtk+
+Gtk2::api - Mapping the Gtk+ C API to perl
 
 =head1 ABSTRACT
 
@@ -10,22 +10,168 @@ The Gtk2 module attempts to stick as close as is reasonable to the C API,
 to minimize the need to maintain documentation which is nearly a copy of
 the C API reference documentation.  However, the world is not perfect, and
 the mappings between C and perl are not as clean and predictable as you 
-might wish.  Thus, this page documents the spots that are different between
-the C and perl APIs for Gtk.
+might wish.  Thus, this page described the basics of how to map the C API to
+the perl API, and lists various points in the API which follow neither the
+C API documentation nor the mapping principles.
 
 =head1 DESCRIPTION
 
-FIXME This list isn't complete.
+FIXME The list of specific differences is not complete.
 
 The canonical documentation is the C API reference at
 http://developer.gnome.org/doc/API/gtk/ and
 http://developer.gnome.org/doc/API/gdk/
+
+There are two main sections: 'BINDING BASICS' describes the principles on which
+the bindings work; understanding these can lead you to guess the proper syntax
+to use for any given function described in the C API reference.  The second
+section lists various specific points of difference which don't necessarily
+correspond with what you expect; this section is in three main parts: missing
+methods, renamed methods, and different call signatures.
 
 =head1 BINDING BASICS
 
 Anything listed as "deprecated" in the C API reference does not appear in the
 bindings.  Many functions refer to C concepts which are alien to the bindings.
 many things have replacements.
+
+=head2 Namespaces and Objects
+
+The namespaces of the C libraries are mapped to perl packages according to
+scope, although in some cases the distinction may seem rather arbitrary:
+
+ g_ => Glib  (the Glib module - distributed separately)
+ gtk_ => Gtk2
+ gdk_ => Gtk2::Gdk
+ gdk_pixbuf_ => Gtk2::Gdk::Pixbuf
+ pango_ => Gtk2::Pango
+
+Objects get their own namespaces, in a way, as the concept of the GType is
+completely replaced in the perl bindings by the perl package name.  This goes
+for GBoxed, GObject, and even things like Glib::String and Glib::Int (which are
+needed for specifying column types in the Gtk2::TreeModel).  (Flags and
+enums are special -- see below.)
+
+ GtkButton => Gtk2::Button
+ GdkPixbuf => Gtk2::Gdk::Pixbuf
+ GtkScrolledWindow => Gtk2::ScrolledWindow
+ PangoFontDescription => Gtk2::Pango::FontDescription
+
+With this package mapping and perl's built-in method lookup, the bindings can
+do object casting for you.  This gives us a rather comfortably object-oriented
+syntax, using normal perl syntax semantics:
+
+  in C:
+    GtkWidget * b;
+    b = gtk_check_button_new_with_mnemonic ("_Something");
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (b), TRUE);
+    gtk_widget_show (b);
+
+  in perl:
+    my $b = Gtk2::CheckButton->new ('_Something');
+    $b->set_active (1);
+    $b->show;
+
+You see from this that constructors for most widgets which allow mnemonics
+will use mnemonics by default in their "new" methods.  For those who don't
+guess this right off, Gtk2::Button->new_with_mnemonic is also available.
+Cast macros are not necessary, and your code is a lot shorter.
+
+=head2 Flags and Enums
+
+Constants are handled as strings, because it's much more readable than numbers,
+and because it's automagical thanks to the GType system.  Constants are
+referred to by their nicknames; basically, strip the common prefix, lower-case
+it, and optionally convert '_' to '-':
+
+  GTK_WINDOW_TOPLEVEL => 'toplevel'
+  GTK_BUTTONS_OK_CANCEL => 'ok-cancel' (or 'ok_cancel')
+
+Flags are a special case.  You can't bitwise-or strings, so you provide a
+reference to an array of them instead.  Anonymous arrays are useful htere, and
+an empty anonymous array is a simple way to say 'no flags'.
+
+  FOO_BAR_BAZ | FOO_BAR_QUU | FOO_BAR_QUUX => [qw/baz quu qux/]
+  0 => []
+
+In some cases you need to see if a bit is set in a bitfield; the best thing i
+can think of for that is
+
+ in C:
+  /* event->state is a bitfield */
+  if (event->state & GDK_CONTROL_MASK)
+          g_printerr ("control was down\n");
+
+ in perl:
+  # $event->state is a reference to an array of flag constants
+  warn "control was down\n"
+      if grep {'control-mask'} @{ $event->state };
+
+FIXME if anyone can think of a better way to check this, i'm all ears.
+
+The gtk stock item stuff is a little different -- the GTK_STOCK_* constants
+are actually macros which evaluate to strings, so they aren't handled by the
+mechanism described above; you just specify the string, e.g., 
+GTK_STOCK_OK => 'gtk-ok'.   I don't know where the docs are for those strings,
+but it's been my first guess every time.
+
+=head2 Memory Handling
+
+The functions for ref'ing and unref'ing objects and free'ing boxed structures
+are not even mapped to perl, because it's all handled automagically by the
+bindings.  I could write a treatise on how we're handling reference counts and
+object lifetimes, but all you need to know as perl developer is that it's
+handled for you, and the object will be alive so long as you have a perl scalar
+pointing to it.
+
+=head2 Miscellaneous
+
+In C you can only return one value from a function, and it is a common practice
+to modify pointers passed in to simulate returning multiple values.  In perl,
+you can return lists; any functions which modify arguments have been changed
+to return them instead.  A common idiom in gtk is returning gboolean, and 
+modifying several arguments if the function returns TRUE; for such functions,
+the perl wrapper just returns an empty list on failure.
+
+  in C:  foo_get_baz_and_quux (foo, &baz, &quux);
+  in perl:  ($baz, $quux) = $foo->get_baz_and_quux;
+
+Most things that take or return a GList, GSList, or array of values will use
+native perl arrays (or the argument stack) instead.
+
+You don't need to specify string lengths, although string length parameters
+should still be available for functions dealing with binary strings.
+
+Anything that uses GError in C will croak on failure, setting $@ to the
+returned error message.  The ideology here is that GError is to be used for
+runtime exceptions, and croak is how you do that in perl.  You can catch a
+croak very easily by wrapping the function in an eval:
+
+   eval { $pixbuf = Gtk2::Gdk::Pixbuf->new_from_file ($filename); };
+   if ($@) {
+        # couldn't open the file, $@ has the message
+   } else {
+        # do something with $pixbuf
+   }
+
+This has the added advantage of letting you bunch things together as you would
+with a try/throw/catch block in C++ -- you get cleaner code.
+
+Use normal perl callback/closure tricks with callbacks.  The most common use
+you'll have for callbacks is with the Glib signal_connect method:
+
+  $widget->signal_connect (event => \&event_handler, $user_data);
+  $button->signal_connect (clicked => sub { warn "hi!\n" });
+
+Note that the $user_data is optional, and with perl closures, you don't often
+need it.
+
+A major change from gtk-perl (the bindings for Gtk+-1.x) is that callbacks
+take their arguments in the order proscribed by the C documentation, and only
+one value is available for user data.  gtk-perl allowed you to pass multiple
+values for user_data, and always brought in the user_data immediately after
+the instance reference; this proved to be rather confusing, and did not follow
+the C API reference, so we decided not to do that for gtk2-perl.
 
 =head1 MISSING METHODS
 
