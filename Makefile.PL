@@ -10,7 +10,7 @@ use Config;
 use Cwd;
 
 # minimum required version of Glib with which we can work.
-my $req_glib_ver = 0.92;
+my $req_glib_ver = 0.97;
 
 # Writing a fake Makefile ensures that CPAN will pick up the correct
 # dependencies and install them.
@@ -102,7 +102,10 @@ $gtk2->set_libs ($pkgcfg{libs} . find_extra_libs());
 $gtk2->add_pm (%pm_files);
 $gtk2->add_xs (<xs/*.xs>);
 my $cwd = cwd();
-$gtk2->add_typemaps (map {File::Spec->catfile($cwd,$_)} 'gdk.typemap', 'build/gtk2perl.typemap');
+$gtk2->add_typemaps (map {File::Spec->catfile($cwd,$_)}
+		     'build/gtk2perl.typemap',
+                     'gdk.typemap', 'gtk.typemap',
+		     );
 $gtk2->add_headers ('gtk2perl.h');
 
 $gtk2->install (qw(gtk2perl.h build/gtk2perl-autogen.h));
