@@ -1,3 +1,8 @@
+2003/08/22 01:38 muppetman
+
+	* Gtk2.pm, README, MANIFEST, META.yml, debian/changelog:
+	updated for 0.95 release
+
 2003/08/21 14:22 muppetman
 
 	* xs/GtkTreeModel.xs: even yet still another patch from torsten,

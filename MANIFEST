@@ -17,6 +17,7 @@ debian/control
 debian/copyright
 debian/rules
 devel.pod
+examples/accel_groups.pl
 examples/buttonbox.pl
 examples/calendar.pl
 examples/colorselectiontest.pl
@@ -26,6 +27,7 @@ examples/layout.pl
 examples/plug.pl
 examples/scribble.pl
 examples/simplelist.pl
+examples/simple_menu.pl
 examples/socket.pl
 examples/testdnd.pl
 examples/timeouttest.pl
@@ -67,6 +69,7 @@ maps
 pm/Helper.pm
 pm/Pango.pm
 pm/SimpleList.pm
+pm/SimpleMenu.pm
 ppport.h
 t/00.Gtk2.t
 t/01.GtkWindow.t
@@ -88,6 +91,9 @@ t/16.GtkMenu-etc.t
 t/17.GtkItemFactory.t
 t/18.GtkNotebook.t
 t/19.GtkSimpleList.t
+t/20.GdkColor.t
+t/21.GtkContainer.t
+t/22.GtkTreeSelection.t
 testgtk.pl
 xs/Gdk.xs
 xs/GdkColor.xs
