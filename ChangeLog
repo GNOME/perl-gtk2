@@ -1,5 +1,11 @@
 2004/01/19 15:40 (-0500) muppetman
 
+	* Makefile.PL: refactor some of the code that handles picking up
+	files by version.  use only the maps files that contain stuff for
+	the gtk+ version against which we're compiling for enums.pod.
+
+2004/01/19 15:40 (-0500) muppetman
+
 	* xs/GtkIconTheme.xs, xs/GtkToggleToolButton.xs: add missing
 	class parameter
 

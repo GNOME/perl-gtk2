@@ -76,10 +76,8 @@ $runtime_reqs{'Gtk+'} = $pkgcfg{modversion};
 #
 my @gtk_version = split /\./, $pkgcfg{modversion};
 our @xs_files = ();
-our @lists = ('xs_files-2.0');
-push @lists, 'xs_files-2.2' if $gtk_version[1] >= 2;
-push @lists, 'xs_files-2.3' if $gtk_version[1] >= 3;
-foreach my $filename (@lists) {
+our @xs_lists = select_files_by_version ("xs_files", @gtk_version);
+foreach my $filename (@xs_lists) {
 	my @names = read_source_list_file ($filename);
 	print "$filename lists ".scalar(@names)." xs files\n";
 	push @xs_files, @names;
@@ -153,17 +151,17 @@ if (grep /enable[-_]faq/i, @ARGV)
 #
 # we have a whole lot of types which need cast macros, typemap entries,
 # and package mapping registration; instead of writing this by hand, we
-# use a map file which defines how things are laid out, and then use
-# some boilerplate code to convert that map into a header, typemap, and
-# xsh file.  see the docs for Gtk2::CodeGen for more info.
-#
-# we'll use all the default filenames.
+# use a set of map files which define how things are laid out, and then use
+# some boilerplate code to convert those mappings into a header, typemap,
+# and xsh file.  see the docs for Gtk2::CodeGen for more info.
 #
 # all possible maps must be available at xsubpp time, as xsubpp processes
-# all code, even inside #ifdefs.  we have the broken out for maintenance
-# purposes.
-my @maps = qw(maps-2.0 maps-2.2 maps-2.3);
+# all code, even inside #ifdefs.
+my @maps = <maps-[0-9]\.[0-9]>;
 Gtk2::CodeGen->parse_maps ('gtk2perl', input => \@maps);
+# but for enums.pod, we only want to document the stuff we can actually
+# query from this target library.
+our @used_maps = select_files_by_version ("maps", @gtk_version);
 
 # one more command generates code to boot all the various extra XS modules.
 # we need this because we have lots of XS files without corresponding PMs to
@@ -246,10 +244,10 @@ sub MY::postamble
 	           )
 	         . " 
 # rebuild the makefile if the file lists change
-Makefile : ".join(" ", @lists)."
+Makefile : ".join(" ", @xs_lists)."
 
-\$(INST_LIB)/\$(FULLEXT)/enums.pod : \$(BLIB_DONE) @maps tools/podifyenums.pl
-	\$(PERLRUNINST) -M\$(NAME) tools/podifyenums.pl \$(NAME) @maps > \$@
+\$(INST_LIB)/\$(FULLEXT)/enums.pod : \$(BLIB_DONE) @used_maps tools/podifyenums.pl
+	\$(PERLRUNINST) -M\$(NAME) tools/podifyenums.pl \$(NAME) @used_maps > \$@
 
 build/stock_items.podi: \$(BLIB_DONE) tools/podifystockitems.pl
 	\$(PERLRUNINST) -M\$(NAME) tools/podifystockitems.pl > \$@
@@ -311,4 +309,22 @@ sub read_source_list_file {
 	}
 	close IN;
 	return @list;
+}
+
+sub select_files_by_version {
+	my ($stem, $major, $minor) = @_;
+
+	my $pattern = $stem."-[0-9]\.[0-9]";
+	my @files = ();
+	foreach (glob $pattern) {
+		if (/$stem-(\d)\.(\d)/) {
+			my $fmaj = $1;
+			my $fmin = $2;
+			push @files, $_
+				if  $fmaj <= $major
+				and $fmin <= $minor;
+		}
+	}
+
+	return @files;
 }
