@@ -255,7 +255,7 @@ gtk_tree_model_get_column_type (tree_model, index_)
 	RETVAL
 
 ## gboolean gtk_tree_model_get_iter (GtkTreeModel *tree_model, GtkTreeIter *iter, GtkTreePath *path)
-GtkTreeIter_own_ornull *
+GtkTreeIter_copy *
 gtk_tree_model_get_iter (tree_model, path)
 	GtkTreeModel *tree_model
 	GtkTreePath *path
@@ -263,9 +263,8 @@ gtk_tree_model_get_iter (tree_model, path)
 	GtkTreeIter iter = {0, };
     CODE:
 	if (!gtk_tree_model_get_iter (tree_model, &iter, path))
-		RETVAL = NULL;
-	else
-		RETVAL = gtk_tree_iter_copy (&iter);
+		XSRETURN_UNDEF;
+	RETVAL = &iter;
     OUTPUT:
 	RETVAL
 
@@ -274,7 +273,7 @@ gtk_tree_model_get_iter (tree_model, path)
 #####       plain old string?
 
 ## gboolean gtk_tree_model_get_iter_from_string (GtkTreeModel *tree_model, GtkTreeIter *iter, const gchar *path_string)
-GtkTreeIter_own_ornull *
+GtkTreeIter_copy *
 gtk_tree_model_get_iter_from_string (tree_model, path_string)
 	GtkTreeModel *tree_model
 	const gchar *path_string
@@ -282,9 +281,8 @@ gtk_tree_model_get_iter_from_string (tree_model, path_string)
 	GtkTreeIter iter = {0, };
     CODE:
 	if (!gtk_tree_model_get_iter_from_string (tree_model, &iter, path_string))
-		RETVAL = NULL;
-	else
-		RETVAL = gtk_tree_iter_copy (&iter);
+		XSRETURN_UNDEF;
+	RETVAL = &iter;
     OUTPUT:
 	RETVAL
 
@@ -299,16 +297,15 @@ gtk_tree_model_get_string_from_iter (tree_model, iter)
 #endif /* 2.2.0 */
 
 ## gboolean gtk_tree_model_get_iter_first (GtkTreeModel *tree_model, GtkTreeIter *iter)
-GtkTreeIter_own_ornull *
+GtkTreeIter_copy *
 gtk_tree_model_get_iter_first (tree_model)
 	GtkTreeModel *tree_model
     PREINIT:
 	GtkTreeIter iter = {0, };
     CODE:
 	if (!gtk_tree_model_get_iter_first (tree_model, &iter))
-		RETVAL = NULL;
-	else
-		RETVAL = gtk_tree_iter_copy (&iter);
+		XSRETURN_UNDEF;
+	RETVAL = &iter;
     OUTPUT:
 	RETVAL
 
@@ -378,7 +375,7 @@ gtk_tree_model_iter_n_children (tree_model, iter)
 	GtkTreeIter_ornull *iter
 
 ## gboolean gtk_tree_model_iter_nth_child (GtkTreeModel *tree_model, GtkTreeIter *iter, GtkTreeIter *parent, gint n)
-GtkTreeIter_own*
+GtkTreeIter_copy *
 gtk_tree_model_iter_nth_child (tree_model, parent, n)
 	GtkTreeModel *tree_model
 	GtkTreeIter *parent
@@ -393,7 +390,7 @@ gtk_tree_model_iter_nth_child (tree_model, parent, n)
 	RETVAL
 
 ## gboolean gtk_tree_model_iter_parent (GtkTreeModel *tree_model, GtkTreeIter *iter, GtkTreeIter *child)
-GtkTreeIter_own *
+GtkTreeIter_copy *
 gtk_tree_model_iter_parent (tree_model, child)
 	GtkTreeModel *tree_model
 	GtkTreeIter *child
