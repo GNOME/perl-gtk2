@@ -194,7 +194,9 @@ and an XSH file containing the proper code to register each of those types
 The I<PREFIX> is mandatory, and is used in some of the resulting filenames,
 You can also override the defaults by providing key=>val pairs:
 
-  input    input file name.  default is 'maps'
+  input    input file name.  default is 'maps'.  if this
+           key's value is an array reference, all the
+           filenames in the array will be scanned.
   header   name of the header file to create, default is
            build/$prefix-autogen.h
   typemap  name of the typemap file to create, default is
@@ -236,9 +238,6 @@ sub parse_maps {
 	local *IN;
 	local *OUT;
 
-	open IN, "< $props{input}"
-		or die "can't open $props{input} for reading: $!\n";
-
 	my %seen = ();
 
 	@header = ();
@@ -247,7 +246,17 @@ sub parse_maps {
 	@output = ();
 	@boot = ();
 
-	while (<IN>) {
+	my @files = 'ARRAY' eq ref $props{input}
+	          ? @{ $props{input} }
+	          : $props{input};
+
+	foreach my $file (@files) {
+	    open IN, "< $file"
+		or die "can't open $file for reading: $!\n";
+
+	    my $n = 0;
+
+	    while (<IN>) {
 		chomp;
 		s/#.*//;
 		my ($typemacro, $classname, $base, $package) = split;
@@ -280,9 +289,13 @@ sub parse_maps {
 			warn "unhandled type $typemacro $classname $base $package\n";
 			$seen{unhandled}++;
 		}
-	}
+		$n++;
+	    }
 
-	close IN;
+	    close IN;
+
+	    print "loaded $n type definitions from $file\n";
+	}
 
 	# create output
 
