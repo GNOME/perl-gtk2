@@ -118,7 +118,7 @@ sub selection_changed {
   my $treeview = $selection->get_tree_view;
   my $display = $treeview->{stock_display};
 
-  my ($iter, $model) = $selection->get_selected;
+  my ($model, $iter) = $selection->get_selected;
   if ($iter) {
       my ($info) = $model->get ($iter, 0);
 

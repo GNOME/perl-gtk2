@@ -81,7 +81,7 @@ sub remove_item {
   my $model = $treeview->get_model;
   my $selection = $treeview->get_selection;
 
-  my ($iter, undef) = $selection->get_selected;
+  my $iter = $selection->get_selected;
   if ($iter) {
       my $path = $model->get_path ($iter);
       my $i = ($path->get_indices)[0];

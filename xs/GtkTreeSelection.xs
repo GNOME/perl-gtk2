@@ -91,9 +91,9 @@ gtk_tree_selection_get_selected (selection)
     PPCODE:
 	if (!gtk_tree_selection_get_selected (selection, &model, &iter))
 		XSRETURN_EMPTY;
-	XPUSHs (sv_2mortal (newSVGtkTreeIter_copy (&iter)));
 	if (GIMME_V == G_ARRAY)
 		XPUSHs (sv_2mortal (newSVGtkTreeModel (model)));
+	XPUSHs (sv_2mortal (newSVGtkTreeIter_copy (&iter)));
 
 #if GTK_CHECK_VERSION(2,2,0)
 

@@ -241,7 +241,7 @@ you should not utilize them unless absolutly necessary.)
 
 =item Gtk2::TreeSelection::get_selected
 
-In scalar context, returns $iter; in list context, returns ($iter, $model).
+In scalar context, returns $iter; in list context, returns ($model, $iter).
 
 =item Gtk2::TreeSelection::get_selected_rows
 
