@@ -133,6 +133,7 @@ sub scribble_motion_notify_event {
   return TRUE;
 }
 
+my $color;
 
 sub checkerboard_expose {
   my ($da, $event, $data) = @_;
@@ -154,10 +155,12 @@ use constant SPACING => 2;
   #
   my $gc1 = Gtk2::Gdk::GC->new ($da->window);
   my $color = Gtk2::Gdk::Color->new (30000, 0, 30000);
+#  my $color = Gtk2::Gdk::Color->parse ('purple');
   $gc1->set_rgb_fg_color ($color);
 
   my $gc2 = Gtk2::Gdk::GC->new ($da->window);
-  $color = Gtk2::Gdk::Color->new (65535, 65535, 65535);
+#  $color = Gtk2::Gdk::Color->new (65535, 65535, 65535);
+  $color = Gtk2::Gdk::Color->parse ('white');
   $gc2->set_rgb_fg_color ($color);
   
   my $xcount = 0;
