@@ -1,3 +1,9 @@
+2003/08/28 23:17 muppetman
+
+	* Gtk2.pm, README, debian/changelog: updated for 0.96 release
+
+	* xs/GtkCalendar.xs: celendar members patch from chas, mangled by me
+
 2003/08/28 10:09 rwmcfa1
 
 	* xs/GtkWidget.xs: slight modifications of a patch by thierry vignaud 
