@@ -85,11 +85,10 @@ gtk_combo_set_popdown_strings (combo, ...)
 	}
 
 GtkWidget *
-members (combo)
+entry (combo)
 	GtkCombo * combo
     ALIAS:
-	Gtk2::Combo::entry = 0
-	Gtk2::Combo::list  = 1
+	Gtk2::Combo::list = 1
     CODE:
 	RETVAL = NULL;
 	switch (ix) {

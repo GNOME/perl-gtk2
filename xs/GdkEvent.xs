@@ -178,7 +178,6 @@ gdk_events_pending (class)
 GdkEvent_own_ornull*
 gdk_event_get (class)
     ALIAS:
-	get = 0
 	peek = 1
     C_ARGS:
 	/*void*/
@@ -223,17 +222,15 @@ guint
 gdk_event_get_time (event)
 	GdkEvent *event
     ALIAS:
-	Gtk2::Gdk::Event::get_time = 0
 	Gtk2::Gdk::Event::time = 1
     CLEANUP:
 	PERL_UNUSED_VAR (ix);
 
  ## gboolean gdk_event_get_state (GdkEvent *event, GdkModifierType *state)
 GdkModifierType
-state (event)
+gdk_event_get_state (event)
 	GdkEvent *event
     ALIAS:
-	Gtk2::Gdk::Event::get_state = 0
 	Gtk2::Gdk::Event::state = 1
     CODE:
 	PERL_UNUSED_VAR (ix);
@@ -263,13 +260,11 @@ void
 gdk_event_get_coords (event)
 	GdkEvent *event
     ALIAS:
-	Gtk2::Gdk::Event::get_coords = 0
 	Gtk2::Gdk::Event::coords = 1
 	Gtk2::Gdk::Event::x = 2
 	Gtk2::Gdk::Event::y = 3
     PREINIT:
-	gdouble x;
-	gdouble y;
+	gdouble x;	gdouble y;
     PPCODE:
 	if (!gdk_event_get_coords (event, &x, &y))
 		XSRETURN_EMPTY;
@@ -307,7 +302,6 @@ void
 gdk_event_get_root_coords (event)
 	GdkEvent *event
     ALIAS:
-	Gtk2::Gdk::Event::get_root_coords = 0
 	Gtk2::Gdk::Event::root_coords = 1
 	Gtk2::Gdk::Event::x_root = 2
 	Gtk2::Gdk::Event::y_root = 3
@@ -371,7 +365,6 @@ void
 DESTROY (sv)
 	SV * sv
     ALIAS:
-	Gtk2::Gdk::Event::DESTROY              =  0
 	Gtk2::Gdk::Event::Expose::DESTROY      =  1
 	Gtk2::Gdk::Event::NoExpose::DESTROY    =  2
 	Gtk2::Gdk::Event::Visibility::DESTROY  =  3
@@ -769,14 +762,15 @@ BOOT:
  #};
 
 gint
-dim (GdkEvent * eventconfigure)
+width (GdkEvent * eventconfigure)
     ALIAS:
-	Gtk2::Gdk::Event::Configure::width  = 0
 	Gtk2::Gdk::Event::Configure::height = 1
     CODE:
-	RETVAL = ix
-	       ? eventconfigure->configure.height
-	       : eventconfigure->configure.width;
+	switch (ix) {
+		case 0: RETVAL = eventconfigure->configure.width; break;
+		case 1: RETVAL = eventconfigure->configure.height; break;
+		default: RETVAL = 0;
+	}
     OUTPUT:
 	RETVAL
 

@@ -100,10 +100,9 @@ pango_layout_set_font_description (layout, desc)
 ##  gboolean pango_layout_get_justify (PangoLayout *layout) 
 ##  gboolean pango_layout_get_single_paragraph_mode (PangoLayout *layout) 
 int
-int_getters (layout)
+pango_layout_get_width (layout)
 	PangoLayout * layout
     ALIAS:
-	Gtk2::Pango::Layout::get_width = 0
 	Gtk2::Pango::Layout::get_indent = 1
 	Gtk2::Pango::Layout::get_spacing = 2
 	Gtk2::Pango::Layout::get_justify = 3
@@ -126,11 +125,10 @@ int_getters (layout)
 ##  void pango_layout_set_justify (PangoLayout *layout, gboolean justify) 
 ##  void pango_layout_set_single_paragraph_mode (PangoLayout *layout, gboolean setting) 
 void
-int_setters (layout, newval)
+pango_layout_set_width (layout, newval)
 	PangoLayout * layout
 	int newval
     ALIAS:
-	Gtk2::Pango::Layout::set_width = 0
 	Gtk2::Pango::Layout::set_indent = 1
 	Gtk2::Pango::Layout::set_spacing = 2
 	Gtk2::Pango::Layout::set_justify = 3

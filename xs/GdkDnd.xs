@@ -24,10 +24,9 @@
 MODULE = Gtk2::Gdk::Dnd	PACKAGE = Gtk2::Gdk::DragContext	PREFIX = gdk_drag_context_
 
 SV *
-members (dc)
+protocol (dc)
 	GdkDragContext * dc
     ALIAS:
-	Gtk2::Gdk::DragContext::protocol = 0
 	Gtk2::Gdk::DragContext::is_source = 1
 	Gtk2::Gdk::DragContext::source_window = 2
 	Gtk2::Gdk::DragContext::dest_window = 3

@@ -24,10 +24,9 @@
 MODULE = Gtk2::MenuItem	PACKAGE = Gtk2::MenuItem	PREFIX = gtk_menu_item_
 
 GtkWidget*
-gtk_menu_item_news (class, label=NULL)
+gtk_menu_item_new (class, label=NULL)
 	const gchar * label
     ALIAS:
-	Gtk2::MenuItem::new = 0
 	Gtk2::MenuItem::new_with_mnemonic = 1
 	Gtk2::MenuItem::new_with_label = 2
     CODE:

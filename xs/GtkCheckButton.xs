@@ -27,10 +27,9 @@ MODULE = Gtk2::CheckButton	PACKAGE = Gtk2::CheckButton	PREFIX = gtk_check_button
 ## GtkWidget* gtk_check_button_new_with_mnemonic (const gchar *label)
 ## GtkWidget* gtk_check_button_new_with_label (const gchar *label)
 GtkWidget*
-gtk_check_button_news (class, label=NULL)
+gtk_check_button_new (class, label=NULL)
 	const gchar * label
     ALIAS:
-	Gtk2::CheckButton::new = 0
 	Gtk2::CheckButton::new_with_mnemonic = 1
 	Gtk2::CheckButton::new_with_label = 2
     CODE:

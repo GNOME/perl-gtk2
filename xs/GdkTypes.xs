@@ -219,9 +219,8 @@ new (class)
 	RETVAL
 
 SV *
-accessors (SV *object, SV *newvalue=NULL)
+min_width (SV *object, SV *newvalue=NULL)
     ALIAS:
-	min_width = 0
         min_height = 1
         max_width = 2
         max_height = 3

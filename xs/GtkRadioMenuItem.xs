@@ -24,19 +24,18 @@
 MODULE = Gtk2::RadioMenuItem	PACKAGE = Gtk2::RadioMenuItem	PREFIX = gtk_radio_menu_item_
 
 GtkWidget *
-gtk_radio_menu_item_news (class, member_or_listref=NULL, label=NULL)
+gtk_radio_menu_item_new (class, member_or_listref=NULL, label=NULL)
 	SV          * member_or_listref
 	const gchar * label
     ALIAS:
-	Gtk2::RadioMenuItem::new = 0
 	Gtk2::RadioMenuItem::new_with_mnemonic = 1
 	Gtk2::RadioMenuItem::new_with_label = 2
     PREINIT:
 	GSList           * group = NULL;
 	GtkRadioMenuItem * member = NULL;
     CODE:
-	if( member_or_listref && member_or_listref != &PL_sv_undef
-	    && SvROK (member_or_listref) 
+	if( member_or_listref && SvOK (member_or_listref)
+	    && SvROK (member_or_listref)
 	    && SvRV (member_or_listref) != &PL_sv_undef )
 	{
 		if( SvTYPE(SvRV(member_or_listref)) == SVt_PVAV )
@@ -91,7 +90,7 @@ gtk_radio_menu_item_set_group (radio_menu_item, member_or_listref)
 	GSList         * group = NULL;
 	GtkRadioMenuItem * member = NULL;
     CODE:
-	if( member_or_listref && member_or_listref != &PL_sv_undef )
+	if( member_or_listref && SvOK (member_or_listref) )
 	{
 		if( SvTYPE(SvRV(member_or_listref)) == SVt_PVAV )
 		{

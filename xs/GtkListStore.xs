@@ -181,8 +181,7 @@ gtk_list_store_insert_before (list_store, sibling)
 	GtkListStore       * list_store
 	GtkTreeIter_ornull * sibling
     ALIAS:
-	Gtk2::ListStore::insert_before = 0
-	Gtk2::ListStore::insert_after  = 1
+	Gtk2::ListStore::insert_after = 1
     PREINIT:
 	GtkTreeIter iter;
     CODE:
@@ -201,8 +200,7 @@ GtkTreeIter_copy *
 gtk_list_store_prepend (list_store)
 	GtkListStore *list_store
     ALIAS:
-	Gtk2::ListStore::prepend = 0
-	Gtk2::ListStore::append  = 1
+	Gtk2::ListStore::append = 1
     PREINIT:
 	GtkTreeIter iter;
     CODE:

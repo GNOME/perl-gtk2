@@ -35,7 +35,7 @@ gtk_radio_button_new (class, member_or_listref=NULL, label=NULL)
 	GSList         * group = NULL;
 	GtkRadioButton * member = NULL;
     CODE:
-	if( member_or_listref && member_or_listref != &PL_sv_undef
+	if( member_or_listref && SvOK (member_or_listref)
 	    && SvROK (member_or_listref)
 	    && SvRV (member_or_listref) != &PL_sv_undef )
 	{
@@ -89,7 +89,7 @@ gtk_radio_button_set_group (radio_button, member_or_listref)
 	GSList         * group = NULL;
 	GtkRadioButton * member = NULL;
     CODE:
-	if( member_or_listref && member_or_listref != &PL_sv_undef )
+	if( member_or_listref && SvOK (member_or_listref) )
 	{
 		if( SvTYPE(SvRV(member_or_listref)) == SVt_PVAV )
 		{

@@ -47,7 +47,6 @@ width (requisition, newval=NULL)
 	GtkRequisition * requisition
 	SV * newval
     ALIAS:
-	width = 0
 	height = 1
     CODE:
 	RETVAL = 0;
@@ -111,7 +110,6 @@ GtkStyle*
 style (widget)
 	GtkWidget * widget
     ALIAS:
-	Gtk2::Widget::style = 0
 	Gtk2::Widget::get_style = 1
     CODE:
 	PERL_UNUSED_VAR (ix);
@@ -251,10 +249,9 @@ state (widget)
 =cut
 
 gboolean
-flags_handler (widget, ...)
+toplevel (widget, ...)
 	GtkWidget * widget
     ALIAS:
-	Gtk2::Widget::toplevel         =  0
 	Gtk2::Widget::no_window        =  1
 	Gtk2::Widget::realized         =  2
 	Gtk2::Widget::mapped           =  3
@@ -408,9 +405,8 @@ unset_flags (widget, flags)
 ## resultant stripped i686 object file.
 ##
 void
-void_methods (GtkWidget * widget)
+destroy (GtkWidget * widget)
     ALIAS:
-	destroy   = 0
 	unparent  = 1
 	show      = 2
 	show_now  = 3
@@ -612,7 +608,6 @@ GtkWidget_ornull *
 gtk_widget_get_parent (widget)
 	GtkWidget * widget
     ALIAS:
-	Gtk2::Widget::get_parent = 0
 	Gtk2::Widget::parent = 1
     CLEANUP:
 	PERL_UNUSED_VAR (ix);
@@ -859,7 +854,7 @@ void gtk_widget_pop_composite_child (class_or_widget)
 An alias for style_get.
 =cut
 =for apidoc
-Returns a list of style properties.
+Returns the values of the requested style properties.
 =cut
 void
 style_get (GtkWidget * widget, first_property_name, ...)

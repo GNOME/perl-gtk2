@@ -178,10 +178,9 @@ BOOT:
 	                                 gtk2perl_dialog_response_marshal);
 
 GtkWidget *
-gtk_dialog_widgets (dialog)
+vbox (dialog)
 	GtkDialog * dialog
     ALIAS:
-	Gtk2::Dialog::vbox = 0
 	Gtk2::Dialog::action_area = 1
     CODE:
 	RETVAL = NULL;

@@ -103,9 +103,8 @@ than its requisition.
 =cut
 
 gboolean
-bool_member (GtkPaned * paned, SV * newval=NULL)
+child1_resize (GtkPaned * paned, SV * newval=NULL)
     ALIAS:
-	Gtk2::Paned::child1_resize = 0
 	Gtk2::Paned::child1_shrink = 1
 	Gtk2::Paned::child2_resize = 2
 	Gtk2::Paned::child2_shrink = 3

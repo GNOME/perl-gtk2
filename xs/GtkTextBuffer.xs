@@ -362,7 +362,6 @@ GtkTextIter_copy *
 gtk_text_buffer_get_start_iter (buffer)
 	GtkTextBuffer *buffer
     ALIAS:
-	Gtk2::TextBuffer::get_start_iter = 0
 	Gtk2::TextBuffer::get_end_iter = 1
     PREINIT:
 	GtkTextIter iter;

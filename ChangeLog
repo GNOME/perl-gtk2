@@ -1,3 +1,44 @@
+2004/01/10 05:17 (+0100) kaffeetisch
+
+	* xs/GtkMenu.xs
+	* xs/GtkRadioButton.xs
+	* xs/GtkRadioMenuItem.xs
+	* xs/GtkToolbar.xs: Instead of checking for != &PL_sv_undef, use
+	SvOK.
+
+	* xs/GtkWidget.xs: Adjust the apidoc of style_get to make it clear
+	that property values are returned.
+
+	* xs/Gdk.xs
+	* xs/GdkDnd.xs
+	* xs/GdkEvent.xs
+	* xs/GdkProperty.xs
+	* xs/GdkRgb.xs
+	* xs/GdkSelection.xs
+	* xs/GdkTypes.xs
+	* xs/GtkButton.xs
+	* xs/GtkCalendar.xs
+	* xs/GtkCellRenderer.xs
+	* xs/GtkCheckButton.xs
+	* xs/GtkCheckMenuItem.xs
+	* xs/GtkCombo.xs
+	* xs/GtkDialog.xs
+	* xs/GtkFontSelection.xs
+	* xs/GtkImageMenuItem.xs
+	* xs/GtkListStore.xs
+	* xs/GtkMenuItem.xs
+	* xs/GtkPaned.xs
+	* xs/GtkRadioMenuItem.xs
+	* xs/GtkStyle.xs
+	* xs/GtkTextBuffer.xs
+	* xs/GtkToggleButton.xs
+	* xs/GtkTreeStore.xs
+	* xs/GtkWidget.xs
+	* xs/PangoFont.xs
+	* xs/PangoLayout.xs
+	* xs/PangoTabs.xs: Rearrange ALIAS handling so that no unneeded
+	xsubs are generated.
+
 2004/01/10 02:54 (+0100) kaffeetisch
 
 	* xs/Gtk2.xs: Implement get_default_language, main_iteration_do

@@ -48,7 +48,6 @@ MODULE = Gtk2::Gdk::Rgb	PACKAGE = Gtk2::Gdk::GC	PREFIX = gdk_
 ##  void gdk_rgb_gc_set_foreground (GdkGC *gc, guint32 rgb) 
 void gdk_rgb_gc_set_foreground (GdkGC * gc, guint32 rgb)
     ALIAS:
-	Gtk2::Gdk::GC::rgb_gc_set_foreground = 0
 	Gtk2::Gdk::GC::set_rgb_foreground = 1
     CLEANUP:
 	PERL_UNUSED_VAR (ix);
@@ -56,7 +55,6 @@ void gdk_rgb_gc_set_foreground (GdkGC * gc, guint32 rgb)
 ##  void gdk_rgb_gc_set_background (GdkGC *gc, guint32 rgb) 
 void gdk_rgb_gc_set_background (GdkGC * gc, guint32 rgb)
     ALIAS:
-	Gtk2::Gdk::GC::rgb_gc_set_background = 0
 	Gtk2::Gdk::GC::set_rgb_background = 1
     CLEANUP:
 	PERL_UNUSED_VAR (ix);
@@ -83,7 +81,6 @@ gdk_draw_rgb_image (drawable, gc, x, y, width, height, dith, buf, rowstride)
 	SV * buf
 	gint rowstride
     ALIAS:
-	draw_rgb_image = 0
 	draw_rgb_32_image = 1
 	draw_gray_image = 2
     CODE:
@@ -121,7 +118,6 @@ gdk_draw_rgb_image_dithalign (drawable, gc, x, y, width, height, dith, rgb_buf, 
 	gint xdith
 	gint ydith
     ALIAS:
-	draw_rgb_image_dithalign = 0
 	draw_rgb_32_image_dithalign = 1
     CODE:
 	if (ix == 1)

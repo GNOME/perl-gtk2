@@ -26,7 +26,6 @@ pango_tab_array_new (class, initial_size, positions_in_pixels, ...)
 	gint initial_size
 	gboolean positions_in_pixels
     ALIAS:
-	new = 0
 	new_with_positions = 1
     CODE:
 	PERL_UNUSED_VAR (ix);

@@ -516,9 +516,8 @@ overrides for C<on_start_editing>.
 =cut
 
 void
-call_parent (GtkCellRenderer * cell, ...)
+parent_get_size (GtkCellRenderer * cell, ...)
     ALIAS:
-	parent_get_size      = 0
 	parent_render        = 1
 	parent_activate      = 2
 	parent_start_editing = 3
