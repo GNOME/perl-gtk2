@@ -1,3 +1,7 @@
+2004/02/04 19:09 (-0500) rwmcfa1
+
+	* t/00.Gtk2.t: skip count was incorrect, failed with no DISPLAY
+
 2004/02/05 02:40 (-0500) muppetman
 
 	A t/GtkFileChooser.t
