@@ -313,8 +313,8 @@ gdk_window_set_cursor (window, cursor)
 	GdkWindow * window
 	GdkCursor_ornull * cursor
 
-  ## use gobject data instead
  ## void gdk_window_get_user_data (GdkWindow *window, gpointer *data)
+void gdk_window_get_user_data (GdkWindow * window, OUTLIST gulong data);
 
  ## void gdk_window_get_geometry (GdkWindow *window, gint *x, gint *y, gint *width, gint *height, gint *depth)
 void gdk_window_get_geometry (GdkWindow *window, OUTLIST gint x, OUTLIST gint y, OUTLIST gint width, OUTLIST gint height, OUTLIST gint depth)
