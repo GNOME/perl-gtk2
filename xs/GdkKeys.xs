@@ -20,6 +20,12 @@
  */
 #include "gtk2perl.h"
 
+/* the _orclass type effectively allows a class name and silently maps it to
+   NULL.  used as the first argument this allows a method to be invoked in two
+   ways: as an object method and as a class static method. */
+typedef GdkKeymap GdkKeymap_orclass;
+#define SvGdkKeymap_orclass(sv) ((sv && SvOK (sv) && SvROK (sv)) ? SvGdkKeymap (sv) : NULL);
+
 static GdkKeymapKey *
 SvGdkKeymapKey (SV *sv)
 {
@@ -83,7 +89,7 @@ gdk_keymap_get_for_display (class, display)
 ##  guint gdk_keymap_lookup_key (GdkKeymap * keymap, const GdkKeymapKey * key)
 guint
 gdk_keymap_lookup_key (keymap, key)
-	GdkKeymap * keymap
+	GdkKeymap_orclass * keymap
 	SV * key
     PREINIT:
 	GdkKeymapKey * real_key = NULL;
@@ -99,14 +105,14 @@ gdk_keymap_lookup_key (keymap, key)
 =cut
 void
 gdk_keymap_translate_keyboard_state (keymap, hardware_keycode, state, group)
-	GdkKeymap       * keymap
-	guint             hardware_keycode
-	GdkModifierType   state
-	gint              group
+	GdkKeymap_orclass * keymap
+	guint hardware_keycode
+	GdkModifierType state
+	gint group
     PREINIT:
-	guint           keyval;
-	gint            effective_group;
-	gint            level;
+	guint keyval;
+	gint effective_group;
+	gint level;
 	GdkModifierType consumed_modifiers;
     PPCODE:
 	if (!gdk_keymap_translate_keyboard_state (keymap, hardware_keycode, 
@@ -127,7 +133,7 @@ Returns a list of I<GdkKeymapKey>s.
 ##  gboolean gdk_keymap_get_entries_for_keyval (GdkKeymap *keymap, guint keyval, GdkKeymapKey **keys, gint *n_keys) 
 void
 gdk_keymap_get_entries_for_keyval (keymap, keyval)
-	GdkKeymap * keymap
+	GdkKeymap_orclass * keymap
 	guint keyval
     PREINIT:
 	GdkKeymapKey * keys = NULL;
@@ -149,7 +155,7 @@ I<GdkKeymapKey> and "keyval" pointing to the corresponding key value.
 ##  gboolean gdk_keymap_get_entries_for_keycode (GdkKeymap *keymap, guint hardware_keycode, GdkKeymapKey **keys, guint **keyvals, gint *n_entries) 
 void
 gdk_keymap_get_entries_for_keycode (keymap, hardware_keycode)
-	GdkKeymap * keymap
+	GdkKeymap_orclass * keymap
 	guint hardware_keycode
     PREINIT:
 	GdkKeymapKey * keys = NULL;
@@ -171,7 +177,7 @@ gdk_keymap_get_entries_for_keycode (keymap, hardware_keycode)
 	
 PangoDirection
 gdk_keymap_get_direction (keymap)
-	GdkKeymap *keymap
+	GdkKeymap_orclass *keymap
 
 
 MODULE = Gtk2::Gdk::Keys PACKAGE = Gtk2::Gdk PREFIX = gdk_

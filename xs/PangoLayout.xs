@@ -21,6 +21,68 @@
 
 #include "gtk2perl.h"
 
+/* ------------------------------------------------------------------------- */
+
+GType
+gtk2perl_pango_layout_iter_get_type (void)
+{
+	static GType t = 0;
+	if (!t)
+		t = g_boxed_type_register_static ("PangoLayoutIter",
+		      (GBoxedCopyFunc) g_boxed_copy,
+		      (GBoxedFreeFunc) pango_layout_iter_free);
+	return t;
+}
+
+/* ------------------------------------------------------------------------- */
+
+SV *
+newSVPangoRectangle (PangoRectangle * rectangle)
+{
+	HV * hv = newHV ();
+
+	hv_store (hv, "x", 1, newSViv (rectangle->x), 0);
+	hv_store (hv, "y", 1, newSViv (rectangle->y), 0);
+	hv_store (hv, "width", 5, newSViv (rectangle->width), 0);
+	hv_store (hv, "height", 6, newSViv (rectangle->height), 0);
+
+	return newRV_noinc ((SV *) hv);
+}
+
+PangoRectangle *
+SvPangoRectangle (SV * sv)
+{
+	PangoRectangle *rectangle;
+	HV * hv;
+	SV ** v;
+
+	if (!sv || !SvOK (sv) || !SvRV (sv) || SvTYPE (SvRV (sv)) != SVt_PVHV)
+		croak ("a PangoRectangle must be a hash reference");
+
+	rectangle = gperl_alloc_temp (sizeof (PangoRectangle));
+	hv = (HV *) SvRV (sv);
+
+	v = hv_fetch (hv, "x", 1, 0);
+	if (v && SvOK (*v))
+		rectangle->x = SvIV (*v);
+
+	v = hv_fetch (hv, "y", 1, 0);
+	if (v && SvOK (*v))
+		rectangle->y = SvIV (*v);
+
+	v = hv_fetch (hv, "width", 5, 0);
+	if (v && SvOK (*v))
+		rectangle->width = SvIV (*v);
+
+	v = hv_fetch (hv, "height", 6, 0);
+	if (v && SvOK (*v))
+		rectangle->height = SvIV (*v);
+
+	return rectangle;
+}
+
+/* ------------------------------------------------------------------------- */
+
 SV *
 newSVPangoLogAttr (PangoLogAttr * logattr)
 {
@@ -224,12 +286,35 @@ pango_layout_get_log_attrs (layout)
 		g_free (attrs);
 	}
 
-# FIXME no typemaps for PangoRectangle
-###  void pango_layout_index_to_pos (PangoLayout *layout, int index_, PangoRectangle *pos) 
-#void pango_layout_index_to_pos (PangoLayout *layout, int index_, OUTLIST PangoRectangle *pos) 
-#
-###  void pango_layout_get_cursor_pos (PangoLayout *layout, int index_, PangoRectangle *strong_pos, PangoRectangle *weak_pos) 
-#void pango_layout_get_cursor_pos (PangoLayout *layout, int index_, OUTLIST PangoRectangle *strong_pos, OUTLIST PangoRectangle *weak_pos) 
+##  void pango_layout_index_to_pos (PangoLayout *layout, int index_, PangoRectangle *pos) 
+PangoRectangle *
+pango_layout_index_to_pos (layout, index_) 
+	PangoLayout *layout
+	int index_
+    PREINIT:
+	PangoRectangle pos;
+    CODE:
+	pango_layout_index_to_pos (layout, index_, &pos);
+	RETVAL = &pos;
+    OUTPUT:
+	RETVAL
+
+##  void pango_layout_get_cursor_pos (PangoLayout *layout, int index_, PangoRectangle *strong_pos, PangoRectangle *weak_pos) 
+=for apidoc
+=for signature (strong_pos, weak_pos) = $layout->get_cursor_pos ($index)
+=cut
+void
+pango_layout_get_cursor_pos (layout, index_) 
+	PangoLayout *layout
+	int index_
+    PREINIT:
+	PangoRectangle strong_pos;
+	PangoRectangle weak_pos;
+    PPCODE:
+	pango_layout_get_cursor_pos (layout, index_, &strong_pos, &weak_pos);
+	EXTEND (sp, 2);
+	PUSHs (sv_2mortal (newSVPangoRectangle (&strong_pos)));
+	PUSHs (sv_2mortal (newSVPangoRectangle (&weak_pos)));
 
 ##  void pango_layout_move_cursor_visually (PangoLayout *layout, gboolean strong, int old_index, int old_trailing, int direction, int *new_index, int *new_trailing) 
 void pango_layout_move_cursor_visually (PangoLayout *layout, gboolean strong, int old_index, int old_trailing, int direction, OUTLIST int new_index, OUTLIST int new_trailing) 
@@ -253,12 +338,33 @@ pango_layout_xy_to_index (layout, x, y)
 		PUSHs (sv_2mortal (newSViv (trailing)));
 	}
 
-# FIXME no typemaps for PangoRectangle
-###  void pango_layout_get_extents (PangoLayout *layout, PangoRectangle *ink_rect, PangoRectangle *logical_rect) 
-#void pango_layout_get_extents (PangoLayout *layout, OUTLIST PangoRectangle *ink_rect, OUTLIST PangoRectangle *logical_rect) 
-#
-###  void pango_layout_get_pixel_extents (PangoLayout *layout, PangoRectangle *ink_rect, PangoRectangle *logical_rect) 
-#void pango_layout_get_pixel_extents (PangoLayout *layout, OUTLIST PangoRectangle *ink_rect, OUTLIST PangoRectangle *logical_rect) 
+##  void pango_layout_get_extents (PangoLayout *layout, PangoRectangle *ink_rect, PangoRectangle *logical_rect) 
+=for apidoc
+=for signature (ink_rect, logical_rect) = $layout->get_extents
+=for signature (ink_rect, logical_rect) = $layout->get_pixel_extents
+=cut
+void
+pango_layout_get_extents (layout) 
+	PangoLayout *layout
+    ALIAS:
+	Gtk2::Pango::Layout::get_pixel_extents = 1
+    PREINIT:
+	PangoRectangle ink_rect;
+	PangoRectangle logical_rect;
+    PPCODE:
+	switch (ix) {
+		case 0:
+			pango_layout_get_extents (layout, &ink_rect, &logical_rect);
+			break;
+		case 1:
+			pango_layout_get_pixel_extents (layout, &ink_rect, &logical_rect);
+			break;
+		default:
+			g_assert_not_reached ();
+	}
+	EXTEND (sp, 2);
+	PUSHs (sv_2mortal (newSVPangoRectangle (&ink_rect)));
+	PUSHs (sv_2mortal (newSVPangoRectangle (&logical_rect)));
 
 ##  void pango_layout_get_size (PangoLayout *layout, int *width, int *height) 
 void pango_layout_get_size (PangoLayout *layout, OUTLIST int width, OUTLIST int height) 
@@ -340,100 +446,106 @@ pango_layout_get_line_count (layout)
 ##	PangoLayoutLine *layout_line
 ##	PangoRectangle *ink_rect
 ##	PangoRectangle *logical_rect
-##
-####  PangoLayoutIter *pango_layout_get_iter (PangoLayout *layout) 
-##PangoLayoutIter *
-##pango_layout_get_iter (layout)
-##	PangoLayout *layout
-##
-## no typemaps for PangoLayoutIter
-##MODULE = Gtk2::Pango::Layout	PACKAGE = Gtk2::Pango::LayoutIter	PREFIX = pango_layout_iter_
-##
-####  void pango_layout_iter_free (PangoLayoutIter *iter) 
-##
-####  int pango_layout_iter_get_index (PangoLayoutIter *iter) 
-##int
-##pango_layout_iter_get_index (iter)
-##	PangoLayoutIter *iter
-##
-####  PangoLayoutRun *pango_layout_iter_get_run (PangoLayoutIter *iter) 
-##PangoLayoutRun *
-##pango_layout_iter_get_run (iter)
-##	PangoLayoutIter *iter
-##
-####  PangoLayoutLine *pango_layout_iter_get_line (PangoLayoutIter *iter) 
-##PangoLayoutLine *
-##pango_layout_iter_get_line (iter)
-##	PangoLayoutIter *iter
-##
-####  gboolean pango_layout_iter_at_last_line (PangoLayoutIter *iter) 
-##gboolean
-##pango_layout_iter_at_last_line (iter)
-##	PangoLayoutIter *iter
-##
-####  gboolean pango_layout_iter_next_char (PangoLayoutIter *iter) 
-##gboolean
-##pango_layout_iter_next_char (iter)
-##	PangoLayoutIter *iter
-##
-####  gboolean pango_layout_iter_next_cluster (PangoLayoutIter *iter) 
-##gboolean
-##pango_layout_iter_next_cluster (iter)
-##	PangoLayoutIter *iter
-##
-####  gboolean pango_layout_iter_next_run (PangoLayoutIter *iter) 
-##gboolean
-##pango_layout_iter_next_run (iter)
-##	PangoLayoutIter *iter
-##
-####  gboolean pango_layout_iter_next_line (PangoLayoutIter *iter) 
-##gboolean
-##pango_layout_iter_next_line (iter)
-##	PangoLayoutIter *iter
-##
-####  void pango_layout_iter_get_char_extents (PangoLayoutIter *iter, PangoRectangle *logical_rect) 
-##void
-##pango_layout_iter_get_char_extents (iter, logical_rect)
-##	PangoLayoutIter *iter
-##	PangoRectangle *logical_rect
-##
-####  void pango_layout_iter_get_cluster_extents (PangoLayoutIter *iter, PangoRectangle *ink_rect, PangoRectangle *logical_rect) 
-##void
-##pango_layout_iter_get_cluster_extents (iter, ink_rect, logical_rect)
-##	PangoLayoutIter *iter
-##	PangoRectangle *ink_rect
-##	PangoRectangle *logical_rect
-##
-####  void pango_layout_iter_get_run_extents (PangoLayoutIter *iter, PangoRectangle *ink_rect, PangoRectangle *logical_rect) 
-##void
-##pango_layout_iter_get_run_extents (iter, ink_rect, logical_rect)
-##	PangoLayoutIter *iter
-##	PangoRectangle *ink_rect
-##	PangoRectangle *logical_rect
-##
-####  void pango_layout_iter_get_line_extents (PangoLayoutIter *iter, PangoRectangle *ink_rect, PangoRectangle *logical_rect) 
-##void
-##pango_layout_iter_get_line_extents (iter, ink_rect, logical_rect)
-##	PangoLayoutIter *iter
-##	PangoRectangle *ink_rect
-##	PangoRectangle *logical_rect
-##
-####  void pango_layout_iter_get_line_yrange (PangoLayoutIter *iter, int *y0_, int *y1_) 
-##void
-##pango_layout_iter_get_line_yrange (iter, y0_, y1_)
-##	PangoLayoutIter *iter
-##	int *y0_
-##	int *y1_
-##
-####  void pango_layout_iter_get_layout_extents (PangoLayoutIter *iter, PangoRectangle *ink_rect, PangoRectangle *logical_rect) 
-##void
-##pango_layout_iter_get_layout_extents (iter, ink_rect, logical_rect)
-##	PangoLayoutIter *iter
-##	PangoRectangle *ink_rect
-##	PangoRectangle *logical_rect
-##
-####  int pango_layout_iter_get_baseline (PangoLayoutIter *iter) 
-##int
-##pango_layout_iter_get_baseline (iter)
-##	PangoLayoutIter *iter
-#
+
+##  PangoLayoutIter *pango_layout_get_iter (PangoLayout *layout) 
+PangoLayoutIter *
+pango_layout_get_iter (layout)
+	PangoLayout *layout
+
+MODULE = Gtk2::Pango::Layout	PACKAGE = Gtk2::Pango::LayoutIter	PREFIX = pango_layout_iter_
+
+##  void pango_layout_iter_free (PangoLayoutIter *iter) 
+
+##  int pango_layout_iter_get_index (PangoLayoutIter *iter) 
+int
+pango_layout_iter_get_index (iter)
+	PangoLayoutIter *iter
+
+# FIXME: no typemap for PangoLayoutRun / PangoGlyphItem.
+# ##  PangoLayoutRun *pango_layout_iter_get_run (PangoLayoutIter *iter) 
+# PangoLayoutRun *
+# pango_layout_iter_get_run (iter)
+# 	PangoLayoutIter *iter
+
+# FIXME: no typemap for PangoLayoutLine.
+# ##  PangoLayoutLine *pango_layout_iter_get_line (PangoLayoutIter *iter) 
+# PangoLayoutLine *
+# pango_layout_iter_get_line (iter)
+# 	PangoLayoutIter *iter
+
+##  gboolean pango_layout_iter_at_last_line (PangoLayoutIter *iter) 
+gboolean
+pango_layout_iter_at_last_line (iter)
+	PangoLayoutIter *iter
+
+##  gboolean pango_layout_iter_next_char (PangoLayoutIter *iter) 
+gboolean
+pango_layout_iter_next_char (iter)
+	PangoLayoutIter *iter
+
+##  gboolean pango_layout_iter_next_cluster (PangoLayoutIter *iter) 
+gboolean
+pango_layout_iter_next_cluster (iter)
+	PangoLayoutIter *iter
+
+##  gboolean pango_layout_iter_next_run (PangoLayoutIter *iter) 
+gboolean
+pango_layout_iter_next_run (iter)
+	PangoLayoutIter *iter
+
+##  gboolean pango_layout_iter_next_line (PangoLayoutIter *iter) 
+gboolean
+pango_layout_iter_next_line (iter)
+	PangoLayoutIter *iter
+
+##  void pango_layout_iter_get_char_extents (PangoLayoutIter *iter, PangoRectangle *logical_rect) 
+PangoRectangle *
+pango_layout_iter_get_char_extents (iter)
+	PangoLayoutIter *iter
+    PREINIT:
+	PangoRectangle logical_rect;
+    CODE:
+	pango_layout_iter_get_char_extents (iter, &logical_rect);
+	RETVAL = &logical_rect;
+    OUTPUT:
+	RETVAL
+
+##  void pango_layout_iter_get_cluster_extents (PangoLayoutIter *iter, PangoRectangle *ink_rect, PangoRectangle *logical_rect) 
+void
+pango_layout_iter_get_cluster_extents (iter)
+	PangoLayoutIter *iter
+    ALIAS:
+	Gtk2::Pango::LayoutIter::get_run_extents = 1
+	Gtk2::Pango::LayoutIter::get_line_extents = 2
+	Gtk2::Pango::LayoutIter::get_layout_extents = 3
+    PREINIT:
+	PangoRectangle ink_rect;
+	PangoRectangle logical_rect;
+    PPCODE:
+	switch (ix) {
+		case 0:
+			pango_layout_iter_get_cluster_extents (iter, &ink_rect, &logical_rect);
+			break;
+		case 1:
+			pango_layout_iter_get_run_extents (iter, &ink_rect, &logical_rect);
+			break;
+		case 2:
+			pango_layout_iter_get_line_extents (iter, &ink_rect, &logical_rect);
+			break;
+		case 3:
+			pango_layout_iter_get_layout_extents (iter, &ink_rect, &logical_rect);
+			break;
+		default:
+			g_assert_not_reached ();
+	}
+	EXTEND (sp, 2);
+	PUSHs (sv_2mortal (newSVPangoRectangle (&ink_rect)));
+	PUSHs (sv_2mortal (newSVPangoRectangle (&logical_rect)));
+
+##  void pango_layout_iter_get_line_yrange (PangoLayoutIter *iter, int *y0_, int *y1_) 
+void pango_layout_iter_get_line_yrange (PangoLayoutIter *iter, OUTLIST int y0_, OUTLIST int y1_)
+
+##  int pango_layout_iter_get_baseline (PangoLayoutIter *iter) 
+int
+pango_layout_iter_get_baseline (iter)
+	PangoLayoutIter *iter

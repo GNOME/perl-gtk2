@@ -32,7 +32,7 @@ use Cwd;
 our %build_reqs = (
 	'perl-ExtUtils-Depends'   => '0.2',
 	'perl-ExtUtils-PkgConfig' => '1.03',
-	'perl-Glib'               => '1.038',
+	'perl-Glib'               => '1.050',
 	'Gtk+'                    => '2.0.0',
 );
 
@@ -195,7 +195,7 @@ $gtk2->add_xs (@xs_files);
 my $cwd = cwd();
 $gtk2->add_typemaps (map {File::Spec->catfile($cwd,$_)}
 		     'build/gtk2perl.typemap',
-                     'gdk.typemap', 'gtk.typemap',
+                     'gdk.typemap', 'gtk.typemap', 'pango.typemap'
 		     );
 
 $gtk2->install (qw(gtk2perl.h

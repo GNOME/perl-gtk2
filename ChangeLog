@@ -1,3 +1,66 @@
+2004/04/19 20:30 (+0200) kaffeetisch
+
+	* Makefile.PL: Require Glib 1.050.
+
+	* gtk2perl.h
+	* xs/GdkGC.xs: Rename read_gcvalues_from_sv to SvGdkGCValues and
+	export it for GtkGC.
+
+	A t/GtkGC.t
+	A xs/GtkGC.xs
+	* xs_files-2.0
+	* MANIFEST: Implement and test GtkGC.
+
+	* gdk.typemap
+	* maps-2.0
+	* t/GdkKeys.t
+	* xs/GdkKeys.xs: Reimplement and test the ability to call all
+	GdkKeymap methods as class static methods to use the default
+	keymap.
+
+	* t/GdkProperty.t
+	* xs/GdkProperty.xs: Implement and test
+	Gtk2::Gdk::text_property_to_text_list, text_property_to_utf8_list,
+	string_to_compound_text, utf8_to_compound_text,
+	text_property_to_text_list_for_display,
+	text_property_to_utf8_list_for_display,
+	string_to_compound_text_for_display,
+	utf8_to_compound_text_for_display, and utf8_to_string_target.
+
+	A t/GdkRgb.t
+	* MANIFEST
+	* xs/GdkRgb.xs: Implement and test Gtk2::Gdk::draw_indexed_image.
+
+	A pango.typemap
+	* Makefile.pl
+	* MANIFEST: Add and install a new typemaps file for Pango.
+	
+	* t/PangoFont.t
+	* xs/PangoFont.xs: Implement and test get_glyph_extents.
+
+	* gtk2perl.h
+	* t/PangoLayout.t
+	* xs/PangoLayout.xs: Implement custom PangoRectangle typemaps.
+	Implement and test Gtk2::Pango::Layout::index_to_pos,
+	get_cursor_pos, get_extents, and get_pixel_extents.
+
+	* gtk2perl.h
+	* maps-2.0
+	* t/PangoLayout.t
+	* xs/PangoLayout.xs: Register a custom GBoxed type for
+	PangoLayoutIter.  Implement and test
+	Gtk2::Pango::Layout::get_iter, Gtk2::Pango::LayoutIter::get_index,
+	at_last_line, next_char, next_cluster, next_run, next_line,
+	get_char_extents, get_cluster_extents, get_run_extents,
+	get_line_extents, get_layout_extents, get_line_yrange, and
+	get_baseline.
+
+	A t/PangoFontset.t
+	A xs/PangoFontset.xs
+	* xs_files-2.0
+	* MANIFEST
+	* xs/PangoContext: Implement and test PangoFontset.
+
 2004/04/19 20:13 (+0200) kaffeetisch
 
 	* xs/Gdk.xs: Remove a needless MODULE line.

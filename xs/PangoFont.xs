@@ -328,8 +328,21 @@ PangoFontDescription *
 pango_font_describe (font)
 	PangoFont *font
 
+## void pango_font_get_glyph_extents (PangoFont *font, PangoGlyph glyph, PangoRectangle *ink_rect, PangoRectangle *logical_rect)
+void
+pango_font_get_glyph_extents (font, glyph)
+	PangoFont *font
+	PangoGlyph glyph
+    PREINIT:
+	PangoRectangle ink_rect;
+	PangoRectangle logical_rect;
+    PPCODE:
+	pango_font_get_glyph_extents (font, glyph, &ink_rect, &logical_rect);
+	EXTEND (sp, 2);
+	PUSHs (sv_2mortal (newSVPangoRectangle (&ink_rect)));
+	PUSHs (sv_2mortal (newSVPangoRectangle (&logical_rect)));
+
 ### no typemaps for this stuff.
 ### it looks like it would only be useful from C, though.
 ### PangoCoverage * pango_font_get_coverage (PangoFont *font, PangoLanguage *language)
 ### PangoEngineShape * pango_font_find_shaper (PangoFont *font, PangoLanguage *language, guint32 ch)
-### void pango_font_get_glyph_extents (PangoFont *font, PangoGlyph glyph, PangoRectangle *ink_rect, PangoRectangle *logical_rect)

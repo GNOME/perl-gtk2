@@ -61,6 +61,7 @@ xs/GtkFileSelection.xs
 xs/GtkFixed.xs
 xs/GtkFontSelection.xs
 xs/GtkFrame.xs
+xs/GtkGC.xs
 xs/GtkGammaCurve.xs
 xs/GtkHBox.xs
 xs/GtkHButtonBox.xs
@@ -143,5 +144,6 @@ xs/GtkWindow.xs
 # Pango stuff
 xs/PangoContext.xs
 xs/PangoFont.xs
+xs/PangoFontset.xs
 xs/PangoLayout.xs
 xs/PangoTabs.xs

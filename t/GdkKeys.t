@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 27;
+use Gtk2::TestHelper tests => 42;
 
 # $Header$
 
@@ -23,11 +23,29 @@ like($keys[0] -> { keycode }, qr/^\d+$/);
 like($keys[0] -> { group }, qr/^\d+$/);
 like($keys[0] -> { level }, qr/^\d+$/);
 
+@keys = Gtk2::Gdk::Keymap -> get_entries_for_keyval($Gtk2::Gdk::Keysyms{ Escape });
+isa_ok($keys[0], "HASH");
+like($keys[0] -> { keycode }, qr/^\d+$/);
+like($keys[0] -> { group }, qr/^\d+$/);
+like($keys[0] -> { level }, qr/^\d+$/);
+
 my ($keyval, $group, $level, $mods) = $map -> translate_keyboard_state($keys[0] -> { keycode }, [qw(shift-mask)], 0);
 like($keyval, qr/^\d+$/);
 like($group, qr/^\d+$/);
 like($level, qr/^\d+$/);
 isa_ok($mods, "Gtk2::Gdk::ModifierType");
+
+SKIP: {
+  skip("translate_keyboard_state is broken", 4)
+    unless (0); # FIXME: use a version check once the fix made it into a release.
+                # see #139715.
+
+  ($keyval, $group, $level, $mods) = Gtk2::Gdk::Keymap -> translate_keyboard_state($keys[0] -> { keycode }, [qw(shift-mask)], 0);
+  like($keyval, qr/^\d+$/);
+  like($group, qr/^\d+$/);
+  like($level, qr/^\d+$/);
+  isa_ok($mods, "Gtk2::Gdk::ModifierType");
+}
 
 my $key = {
   keycode => $keys[0] -> { keycode },
@@ -46,7 +64,16 @@ like($entries[0] -> { key } -> { keycode }, qr/^\d+$/);
 like($entries[0] -> { key } -> { group }, qr/^\d+$/);
 like($entries[0] -> { key } -> { level }, qr/^\d+$/);
 
+@entries = Gtk2::Gdk::Keymap -> get_entries_for_keycode($keys[0] -> { keycode });
+isa_ok($entries[0], "HASH");
+like($entries[0] -> { keyval }, qr/^\d+$/);
+isa_ok($entries[0] -> { key }, "HASH");
+like($entries[0] -> { key } -> { keycode }, qr/^\d+$/);
+like($entries[0] -> { key } -> { group }, qr/^\d+$/);
+like($entries[0] -> { key } -> { level }, qr/^\d+$/);
+
 ok(defined($map -> get_direction()));
+ok(defined(Gtk2::Gdk::Keymap -> get_direction()));
 
 my $a = $Gtk2::Gdk::Keysyms{ a };
 my $A = $Gtk2::Gdk::Keysyms{ A };

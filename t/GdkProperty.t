@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 25;
+use Gtk2::TestHelper tests => 46;
 
 # $Header$
 
@@ -58,6 +58,49 @@ is_deeply([@data], [0, 0, 26, 0, 0, 0, 0, 0, 0, 1279, 0, 0]);
 $window -> window() -> property_delete($name);
 $window -> window() -> property_delete($strut);
 $window -> window() -> property_delete($strut_partial);
+
+is_deeply([Gtk2::Gdk -> text_property_to_text_list($string, Gtk2::Gdk::CHARS, "Bla\0Bla\0Bla")],
+          [qw(Bla Bla Bla)]);
+is_deeply([Gtk2::Gdk -> text_property_to_utf8_list($string, Gtk2::Gdk::CHARS, "Bla\0Bla\0Bla")],
+          [qw(Bla Bla Bla)]);
+
+($atom, $format, @data) = Gtk2::Gdk -> string_to_compound_text("Bla");
+is($atom -> name(), "COMPOUND_TEXT");
+is($format, Gtk2::Gdk::CHARS);
+is(@data, 1);
+is($data[0], "Bla");
+
+($atom, $format, @data) = Gtk2::Gdk -> utf8_to_compound_text("Bla");
+is($atom -> name(), "COMPOUND_TEXT");
+is($format, Gtk2::Gdk::CHARS);
+is(@data, 1);
+is($data[0], "Bla");
+
+SKIP: {
+  skip("GdkDisplay is new 2.2", 1)
+    unless (Gtk2 -> CHECK_VERSION(2, 2, 0));
+
+  my $display = Gtk2::Gdk::Display -> get_default();
+
+  is_deeply([Gtk2::Gdk -> text_property_to_text_list_for_display($display, $string, Gtk2::Gdk::CHARS, "Bla\0Bla\0Bla")],
+          [qw(Bla Bla Bla)]);
+  is_deeply([Gtk2::Gdk -> text_property_to_utf8_list_for_display($display, $string, Gtk2::Gdk::CHARS, "Bla\0Bla\0Bla")],
+          [qw(Bla Bla Bla)]);
+
+  ($atom, $format, @data) = Gtk2::Gdk -> string_to_compound_text_for_display($display, "Bla");
+  is($atom -> name(), "COMPOUND_TEXT");
+  is($format, Gtk2::Gdk::CHARS);
+  is(@data, 1);
+  is($data[0], "Bla");
+
+  ($atom, $format, @data) = Gtk2::Gdk -> utf8_to_compound_text_for_display($display, "Bla");
+  is($atom -> name(), "COMPOUND_TEXT");
+  is($format, Gtk2::Gdk::CHARS);
+  is(@data, 1);
+  is($data[0], "Bla");
+}
+
+is(Gtk2::Gdk -> utf8_to_string_target("Bla"), "Bla");
 
 __END__
 

@@ -61,7 +61,7 @@ newSVGdkGCValues (GdkGCValues * v)
 }
 
 void
-read_gcvalues_from_sv (SV * data, GdkGCValues * v, GdkGCValuesMask * m)
+SvGdkGCValues (SV * data, GdkGCValues * v, GdkGCValuesMask * m)
 {
 	HV * h;
 	SV ** s;
@@ -176,7 +176,7 @@ gdk_gc_new (class, GdkDrawable * drawable, SV * values=NULL)
 	if (values && SvOK (values)) {
 		GdkGCValuesMask m;
 		GdkGCValues v;
-		read_gcvalues_from_sv (values, &v, &m);
+		SvGdkGCValues (values, &v, &m);
 		RETVAL = gdk_gc_new_with_values (drawable, &v, m);
 	} else {
 		if (ix == 1)
@@ -208,7 +208,7 @@ gdk_gc_set_values (gc, values)
 	GdkGCValues v;
 	GdkGCValuesMask m;
     CODE:
-	read_gcvalues_from_sv (values, &v, &m);
+	SvGdkGCValues (values, &v, &m);
 	gdk_gc_set_values (gc, &v, m);
 
  ## void gdk_gc_set_foreground (GdkGC *gc, GdkColor *color)

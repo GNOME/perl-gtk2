@@ -86,6 +86,7 @@ GDK_TYPE_INPUT_MODE	GdkInputMode	GEnum	Gtk2::Gdk::InputMode
 GDK_TYPE_INPUT_SOURCE	GdkInputSource	GEnum	Gtk2::Gdk::InputSource
 GDK_TYPE_INTERP_TYPE	GdkInterpType	GEnum	Gtk2::Gdk::InterpType
 GDK_TYPE_JOIN_STYLE	GdkJoinStyle	GEnum	Gtk2::Gdk::JoinStyle
+GDK_TYPE_KEYMAP	GdkKeymap	GObject	Gtk2::Gdk::Keymap
 GDK_TYPE_LINE_STYLE	GdkLineStyle	GEnum	Gtk2::Gdk::LineStyle
 GDK_TYPE_MODIFIER_TYPE	GdkModifierType	GFlags	Gtk2::Gdk::ModifierType
 GDK_TYPE_NOTIFY_TYPE	GdkNotifyType	GEnum	Gtk2::Gdk::NotifyType
@@ -355,3 +356,4 @@ PANGO_TYPE_WRAP_MODE	PangoWrapMode	GEnum	Gtk2::Pango::WrapMode
 
 # not really defined by GTK+, but we'll use it for ourselves.
 GDK_TYPE_REGION	GdkRegion	GBoxed	Gtk2::Gdk::Region
+PANGO_TYPE_LAYOUT_ITER	PangoLayoutIter	GBoxed	Gtk2::Pango::LayoutIter

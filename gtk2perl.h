@@ -31,6 +31,10 @@
 #define GDK_TYPE_REGION (gtk2perl_gdk_region_get_type ())
 GType gtk2perl_gdk_region_get_type (void) G_GNUC_CONST;
 
+/* custom GType for PangoLayoutIter */
+#define PANGO_TYPE_LAYOUT_ITER (gtk2perl_pango_layout_iter_get_type ())
+GType gtk2perl_pango_layout_iter_get_type (void) G_GNUC_CONST;
+
 #include "gtk2perl-autogen.h"
 #include "gtk2perl-versions.h"
 
@@ -70,6 +74,13 @@ SV * newSVGdkBitmap (GdkBitmap * bitmap);
 SV * newSVGdkBitmap_noinc (GdkBitmap * bitmap);
 #define newSVGdkBitmap_ornull(b) (b ? newSVGdkBitmap (b) : Nullsv)
 
+/* exported for GtkGC */
+SV * newSVGdkGCValues (GdkGCValues * v);
+void SvGdkGCValues (SV * data, GdkGCValues * v, GdkGCValuesMask * m);
+
+/* exported for various other parts of pango */
+SV * newSVPangoRectangle (PangoRectangle * rectangle);
+PangoRectangle * SvPangoRectangle (SV * sv);
 
 /*
  * GdkAtom, an opaque pointer

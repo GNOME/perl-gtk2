@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 40;
+use Gtk2::TestHelper tests => 48;
 
 # $Header$
 
@@ -51,12 +51,18 @@ my $context = $label -> create_pango_context();
 my $font = $context -> load_font($description);
 my $language = Gtk2 -> get_default_language();
 
+my $number = qr/^-?\d+$/;
+
 isa_ok($font -> describe(), "Gtk2::Pango::FontDescription");
+
+foreach my $rectangle ($font -> get_glyph_extents(23)) {
+  foreach my $key (qw(x y width height)) {
+    like($rectangle -> { $key }, $number);
+  }
+}
 
 my $metrics = $font -> get_metrics($language);
 isa_ok($metrics, "Gtk2::Pango::FontMetrics");
-
-my $number = qr/^\d+$/;
 
 like($metrics -> get_ascent(), $number);
 like($metrics -> get_descent(), $number);

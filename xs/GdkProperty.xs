@@ -20,6 +20,43 @@
  */
 #include "gtk2perl.h"
 
+/* ------------------------------------------------------------------------- */
+
+#define GDK2PERL_TEXT_LIST_DECLARE	\
+	guchar *real_text = NULL;	\
+	gint length;			\
+	gchar **list = NULL;		\
+	int i, elements = 0;
+
+#define GDK2PERL_TEXT_LIST_FETCH	\
+	length = sv_len (text);		\
+	real_text = (guchar *) SvPV (text, length);
+
+#define GDK2PERL_TEXT_LIST_STORE	\
+	if (elements == 0)		\
+		XSRETURN_EMPTY;		\
+					\
+	EXTEND (sp, elements);		\
+					\
+	for (i = 0; i < elements; i++)	\
+		PUSHs (sv_2mortal (newSVpv (list[i], PL_na)));
+
+/* ------------------------------------------------------------------------- */
+
+#define GDK2PERL_TEXT_CONVERSION_DECALRE	\
+	GdkAtom encoding;			\
+	gint format;				\
+	guchar *ctext = NULL;			\
+	gint length;
+
+#define GDK2PERL_TEXT_CONVERSION_STORE			\
+	EXTEND (sp, 3);					\
+	PUSHs (sv_2mortal (newSVGdkAtom (encoding)));	\
+	PUSHs (sv_2mortal (newSViv (format)));		\
+	PUSHs (sv_2mortal (newSVpv (ctext, length)));
+
+/* ------------------------------------------------------------------------- */
+
 MODULE = Gtk2::Gdk::Property	PACKAGE = Gtk2::Gdk::Atom	PREFIX = gdk_atom_
 
 ## for easy comparisons of atoms
@@ -51,6 +88,8 @@ gdk_atom_intern (class, atom_name, only_if_exists=FALSE)
 gchar_own *
 gdk_atom_name (atom)
 	GdkAtom atom
+
+# --------------------------------------------------------------------------- #
 
 MODULE = Gtk2::Gdk::Property	PACKAGE = Gtk2::Gdk::Window	PREFIX = gdk_
 
@@ -186,98 +225,160 @@ gdk_property_delete (window, property)
 	GdkWindow *window
 	GdkAtom property
 
+# --------------------------------------------------------------------------- #
 
+MODULE = Gtk2::Gdk::Property	PACKAGE = Gtk2::Gdk	PREFIX = gdk_
 
-## FIXME dunno how to handle these....
-#
-###  gint gdk_text_property_to_text_list (GdkAtom encoding, gint format, const guchar *text, gint length, gchar ***list) 
-#gint
-#gdk_text_property_to_text_list (encoding, format, text, length, list)
-#	GdkAtom encoding
-#	gint format
-#	const guchar *text
-#	gint length
-#	gchar ***list
-#
-###  gint gdk_text_property_to_utf8_list (GdkAtom encoding, gint format, const guchar *text, gint length, gchar ***list) 
-#gint
-#gdk_text_property_to_utf8_list (encoding, format, text, length, list)
-#	GdkAtom encoding
-#	gint format
-#	const guchar *text
-#	gint length
-#	gchar ***list
-#
-###  gboolean gdk_utf8_to_compound_text (const gchar *str, GdkAtom *encoding, gint *format, guchar **ctext, gint *length) 
-#gboolean
-#gdk_utf8_to_compound_text (str, encoding, format, ctext, length)
-#	const gchar *str
-#	GdkAtom *encoding
-#	gint *format
-#	guchar **ctext
-#	gint *length
-#
-###  gint gdk_string_to_compound_text (const gchar *str, GdkAtom *encoding, gint *format, guchar **ctext, gint *length) 
-#gint
-#gdk_string_to_compound_text (str, encoding, format, ctext, length)
-#	const gchar *str
-#	GdkAtom *encoding
-#	gint *format
-#	guchar **ctext
-#	gint *length
-#
-###  gint gdk_text_property_to_text_list_for_display (GdkDisplay *display, GdkAtom encoding, gint format, const guchar *text, gint length, gchar ***list) 
-#gint
-#gdk_text_property_to_text_list_for_display (display, encoding, format, text, length, list)
-#	GdkDisplay *display
-#	GdkAtom encoding
-#	gint format
-#	const guchar *text
-#	gint length
-#	gchar ***list
-#
-###  gint gdk_text_property_to_utf8_list_for_display (GdkDisplay *display, GdkAtom encoding, gint format, const guchar *text, gint length, gchar ***list) 
-#gint
-#gdk_text_property_to_utf8_list_for_display (display, encoding, format, text, length, list)
-#	GdkDisplay *display
-#	GdkAtom encoding
-#	gint format
-#	const guchar *text
-#	gint length
-#	gchar ***list
-#
-###  gchar *gdk_utf8_to_string_target (const gchar *str) 
-#gchar *
-#gdk_utf8_to_string_target (str)
-#	const gchar *str
-#
-###  gint gdk_string_to_compound_text_for_display (GdkDisplay *display, const gchar *str, GdkAtom *encoding, gint *format, guchar **ctext, gint *length) 
-#gint
-#gdk_string_to_compound_text_for_display (display, str, encoding, format, ctext, length)
-#	GdkDisplay *display
-#	const gchar *str
-#	GdkAtom *encoding
-#	gint *format
-#	guchar **ctext
-#	gint *length
-#
-###  gboolean gdk_utf8_to_compound_text_for_display (GdkDisplay *display, const gchar *str, GdkAtom *encoding, gint *format, guchar **ctext, gint *length) 
-#gboolean
-#gdk_utf8_to_compound_text_for_display (display, str, encoding, format, ctext, length)
-#	GdkDisplay *display
-#	const gchar *str
-#	GdkAtom *encoding
-#	gint *format
-#	guchar **ctext
-#	gint *length
-#
-###  void gdk_free_text_list (gchar **list) 
-#void
-#gdk_free_text_list (list)
-#	gchar **list
-#
-###  void gdk_free_compound_text (guchar *ctext) 
-#void
-#gdk_free_compound_text (ctext)
-#	guchar *ctext
-#
+=for apidoc
+Returns a list of strings.
+=cut
+##  gint gdk_text_property_to_text_list (GdkAtom encoding, gint format, const guchar *text, gint length, gchar ***list) 
+void
+gdk_text_property_to_text_list (class, encoding, format, text)
+	GdkAtom encoding
+	gint format
+	SV *text
+    PREINIT:
+	GDK2PERL_TEXT_LIST_DECLARE;
+    PPCODE:
+	GDK2PERL_TEXT_LIST_FETCH;
+	elements = gdk_text_property_to_text_list (encoding, format, real_text, length, &list);
+	GDK2PERL_TEXT_LIST_STORE;
+	gdk_free_text_list (list);
+
+=for apidoc
+Returns a list of strings.
+=cut
+##  gint gdk_text_property_to_utf8_list (GdkAtom encoding, gint format, const guchar *text, gint length, gchar ***list) 
+void
+gdk_text_property_to_utf8_list (class, encoding, format, text)
+	GdkAtom encoding
+	gint format
+	SV *text
+    PREINIT:
+	GDK2PERL_TEXT_LIST_DECLARE;
+    PPCODE:
+	GDK2PERL_TEXT_LIST_FETCH;
+	elements = gdk_text_property_to_utf8_list (encoding, format, real_text, length, &list);
+	GDK2PERL_TEXT_LIST_STORE;
+	g_strfreev (list);
+
+=for apidoc
+Returns a list of strings.
+=cut
+##  gint gdk_string_to_compound_text (const gchar *str, GdkAtom *encoding, gint *format, guchar **ctext, gint *length) 
+void
+gdk_string_to_compound_text (class, str)
+	const gchar *str
+    PREINIT:
+	GDK2PERL_TEXT_CONVERSION_DECALRE;
+    PPCODE:
+	if (0 != gdk_string_to_compound_text (str, &encoding, &format, &ctext, &length))
+		XSRETURN_EMPTY;
+
+	GDK2PERL_TEXT_CONVERSION_STORE;
+
+	gdk_free_compound_text (ctext);
+
+=for apidoc
+Returns a list of strings.
+=cut
+##  gboolean gdk_utf8_to_compound_text (const gchar *str, GdkAtom *encoding, gint *format, guchar **ctext, gint *length) 
+void
+gdk_utf8_to_compound_text (class, str)
+	const gchar *str
+    PREINIT:
+	GDK2PERL_TEXT_CONVERSION_DECALRE;
+    PPCODE:
+	if (! gdk_utf8_to_compound_text (str, &encoding, &format, &ctext, &length))
+		XSRETURN_EMPTY;
+
+	GDK2PERL_TEXT_CONVERSION_STORE;
+
+	gdk_free_compound_text (ctext);
+
+#if GTK_CHECK_VERSION (2, 2, 0)
+
+=for apidoc
+Returns a list of strings.
+=cut
+##  gint gdk_text_property_to_text_list_for_display (GdkDisplay *display, GdkAtom encoding, gint format, const guchar *text, gint length, gchar ***list) 
+void
+gdk_text_property_to_text_list_for_display (class, display, encoding, format, text)
+	GdkDisplay *display
+	GdkAtom encoding
+	gint format
+	SV *text
+    PREINIT:
+	GDK2PERL_TEXT_LIST_DECLARE;
+    PPCODE:
+	GDK2PERL_TEXT_LIST_FETCH;
+	elements = gdk_text_property_to_text_list_for_display (display, encoding, format, real_text, length, &list);
+	GDK2PERL_TEXT_LIST_STORE;
+	gdk_free_text_list (list);
+
+=for apidoc
+Returns a list of strings.
+=cut
+##  gint gdk_text_property_to_utf8_list_for_display (GdkDisplay *display, GdkAtom encoding, gint format, const guchar *text, gint length, gchar ***list) 
+void
+gdk_text_property_to_utf8_list_for_display (class, display, encoding, format, text)
+	GdkDisplay *display
+	GdkAtom encoding
+	gint format
+	SV *text
+    PREINIT:
+	GDK2PERL_TEXT_LIST_DECLARE;
+    PPCODE:
+	GDK2PERL_TEXT_LIST_FETCH;
+	elements = gdk_text_property_to_utf8_list_for_display (display, encoding, format, real_text, length, &list);
+	GDK2PERL_TEXT_LIST_STORE;
+	g_strfreev (list);
+
+=for apidoc
+Returns a list of strings.
+=cut
+##  gint gdk_string_to_compound_text_for_display (GdkDisplay *display, const gchar *str, GdkAtom *encoding, gint *format, guchar **ctext, gint *length) 
+void
+gdk_string_to_compound_text_for_display (class, display, str)
+	GdkDisplay *display
+	const gchar *str
+    PREINIT:
+	GDK2PERL_TEXT_CONVERSION_DECALRE;
+    PPCODE:
+	if (0 != gdk_string_to_compound_text_for_display (display, str, &encoding, &format, &ctext, &length))
+		XSRETURN_EMPTY;
+
+	GDK2PERL_TEXT_CONVERSION_STORE;
+
+	gdk_free_compound_text (ctext);
+
+=for apidoc
+Returns a list of strings.
+=cut
+##  gboolean gdk_utf8_to_compound_text_for_display (GdkDisplay *display, const gchar *str, GdkAtom *encoding, gint *format, guchar **ctext, gint *length) 
+void
+gdk_utf8_to_compound_text_for_display (class, display, str)
+	GdkDisplay *display
+	const gchar *str
+    PREINIT:
+	GDK2PERL_TEXT_CONVERSION_DECALRE;
+    PPCODE:
+	if (! gdk_utf8_to_compound_text_for_display (display, str, &encoding, &format, &ctext, &length))
+		XSRETURN_EMPTY;
+
+	GDK2PERL_TEXT_CONVERSION_STORE;
+
+	gdk_free_compound_text (ctext);
+
+#endif /* 2.2.0 */
+
+=for apidoc
+Returns a list of strings.
+=cut
+##  gchar *gdk_utf8_to_string_target (const gchar *str) 
+gchar_ornull *
+gdk_utf8_to_string_target (class, str)
+	const gchar *str
+    C_ARGS:
+	str
