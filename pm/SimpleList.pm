@@ -9,8 +9,7 @@ use strict;
 use Carp;
 use Gtk2;
 
-our @ISA;
-push @ISA, 'Gtk2::TreeView';
+our @ISA = 'Gtk2::TreeView';
 
 our $VERSION = '0.14';
 
