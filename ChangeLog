@@ -1,3 +1,19 @@
+2003/11/08 02:12 (-0500) muppetman [unstable-2-3-x-branch]
+
+	can't compile without all the type mappings.  i didn't do this
+	import very well, did i?
+
+	A maps-2.0
+	A maps-2.2
+	A maps-2.3
+	D maps
+	M MANIFEST
+	add new versioned maps files, remove the old all-in-one file.
+	
+	* CodeGen.pm: add ability to read multiple input files for parse_maps
+
+	* Makefile.PL: can't compile without the proper type mappings.
+
 2003/11/08 01:56 (-0500) muppetman [unstable-2-3-x-branch]
 
 	* Makefile.PL: oooops, looks like the addition of xs_files-2.3
