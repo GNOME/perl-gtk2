@@ -1,3 +1,7 @@
+2003/06/18 10:48 muppetman
+
+	* Gtk2.pm: catch undefined values to hush warnings
+
 2003/06/17 18:21 muppetman
 
 	* gtk2perl.h, xs/GtkObject.xs: push sink functions into Glib, 

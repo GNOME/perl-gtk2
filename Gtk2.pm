@@ -69,7 +69,7 @@ sub create_item {
 
 	# the rest of the work happens in XS
 	$factory->_create_item ($path, $accelerator || '',
-				$action, $type || '', $extra,
+				$action || 0, $type || '', $extra,
 	                        $cleanpath,
 	                        $callback||undef, $callback_data||undef);
 }
