@@ -1,3 +1,9 @@
+2003/07/04 16:31 muppetman
+
+	* xs/GdkWindow.xs: added gdk_get_default_root_window
+
+	* xs/PangoFont.xs: added PANGO_PIXELS
+
 2003/06/27 17:01 pcg
 
 	* xs/GdkWindow.xs: gdk_window_set_back_pixmap allows null pixmap.
