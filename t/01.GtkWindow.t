@@ -9,7 +9,7 @@
 
 #########################
 
-use Test::More tests => 95;
+use Test::More tests => 80;
 BEGIN { use_ok('Gtk2') };
 
 #########################
@@ -93,7 +93,7 @@ ok(1);
 
 ok( $win2->get_role eq 'tool' );
 
-foreach (qw/normal dialog menu toolbar splashscreen utility dock desktop/)
+foreach (qw/normal dialog menu toolbar/)
 {
 	$win2->set_type_hint($_);
 	ok(1);
@@ -101,15 +101,23 @@ foreach (qw/normal dialog menu toolbar splashscreen utility dock desktop/)
 	ok( $win2->get_type_hint eq $_ );
 }
 
-$win2->set_skip_taskbar_hint('true');
-ok(1);
+if( (Gtk2->get_version_info)[1] >= 2 )
+{
+	foreach (qw/splashscreen utility dock desktop/)
+	{
+		$win2->set_type_hint($_);
+	
+		ok(0) unless ( $win2->get_type_hint eq $_ );
+	}
 
-ok( $win2->get_skip_taskbar_hint );
+	$win2->set_skip_taskbar_hint('true');
+	
+	ok(0) unless( $win2->get_skip_taskbar_hint );
 
-$win2->set_skip_pager_hint('true');
-ok(1);
+	$win2->set_skip_pager_hint('true');
 
-ok( $win2->get_skip_pager_hint );
+	ok(0) unless( $win2->get_skip_pager_hint );
+}
 
 ok( ! $win->get_default_icon_list );
 
@@ -136,9 +144,6 @@ Glib::Idle->add(sub {
 
 		# there are no widgets, so this should fail
 		ok( ! $win->activate_default );
-
-		# $win->set_screen(...)
-		ok( $win->get_screen ) if( (Gtk2->get_version_info)[1] >= 2 );
 
 		# there are no widgets, so this should fail
 		ok( ! $win->get_focus );
@@ -170,10 +175,11 @@ Glib::Idle->add(sub {
 		# gtk2.2 req
 		if( (Gtk2->get_version_info)[1] >= 2 )
 		{
+			# $win->set_screen(...)
+			ok(0) unless( $win->get_screen );
+
 			$win->fullscreen;
-			ok(1);
 			$win->unfullscreen;
-			ok(1);
 		}
 
 		$win->move(100, 100);
