@@ -1,3 +1,8 @@
+2005/02/18 15:53 (+0100) kaffeetisch
+
+	* xs/GtkMessageDialog.xs, xs/GtkObject.xs, xs/GtkWidget.xs: Don't
+	include ppport.h, it's not necessary.
+
 2005/02/16 23:30 (-0400) muppetman
 
 	* pm/SimpleList.pm: Catch undef iters gotten from requests for

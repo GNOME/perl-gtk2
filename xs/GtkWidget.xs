@@ -1,12 +1,11 @@
 /*
- * Copyright (c) 2003 by the gtk2-perl team (see the file AUTHORS)
+ * Copyright (c) 2003-2005 by the gtk2-perl team (see the file AUTHORS)
  *
  * Licensed under the LGPL, see LICENSE file for more information.
  *
  * $Header$
  */
 #include "gtk2perl.h"
-#include "ppport.h"
 
 MODULE = Gtk2::Widget	PACKAGE = Gtk2::Requisition
 
