@@ -79,10 +79,9 @@ gtk2perl_menu_position_func (GtkMenu * menu,
 static GPerlCallback *
 gtk2perl_menu_detach_func_create (SV *func, SV *data)
 {
-	GType param_types [] = {
-		GTK_TYPE_WIDGET,
-		GTK_TYPE_MENU
-	};
+	GType param_types [2];
+	param_types[0] = GTK_TYPE_WIDGET;
+	param_types[1] = GTK_TYPE_MENU;
 	return gperl_callback_new (func, data, G_N_ELEMENTS (param_types),
 				   param_types, 0);
 }

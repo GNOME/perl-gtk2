@@ -55,13 +55,13 @@ GtkTreeModel *gtk_entry_completion_get_model (GtkEntryCompletion *completion);
 void
 gtk_entry_completion_set_match_func (GtkEntryCompletion *completion, SV * func, SV * func_data=NULL)
     PREINIT:
-	GType param_types[] = {
-		GTK_TYPE_ENTRY_COMPLETION,
-		G_TYPE_STRING,
-		GTK_TYPE_TREE_ITER
-	};
+	GType param_types[3];
 	GPerlCallback * callback;
     CODE:
+	param_types[0] = GTK_TYPE_ENTRY_COMPLETION;
+	param_types[1] = G_TYPE_STRING;
+	param_types[2] = GTK_TYPE_TREE_ITER;
+
 	callback = gperl_callback_new (func, func_data, 3, param_types,
 	                               G_TYPE_BOOLEAN);
 	gtk_entry_completion_set_match_func

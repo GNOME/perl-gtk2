@@ -112,9 +112,8 @@ SvGdkWindowAttr (SV *object)
 static GPerlCallback *
 gtk2perl_gdk_window_invalidate_maybe_recurse_func_create (SV * func, SV * data)
 {
-	GType param_types [] = {
-		GDK_TYPE_WINDOW,
-	};
+	GType param_types [1];
+	param_types[0] = GDK_TYPE_WINDOW;
 	return gperl_callback_new (func, data, G_N_ELEMENTS (param_types),
 				   param_types, G_TYPE_BOOLEAN);
 }

@@ -32,12 +32,11 @@ void  gtk2perl_tree_cell_data_func (GtkTreeViewColumn * tree_column,
 static GPerlCallback *
 gtk2perl_tree_view_column_drop_func_create (SV * func, SV *data)
 {
-	GType param_types [] = {
-		GTK_TYPE_TREE_VIEW,
-		GTK_TYPE_TREE_VIEW_COLUMN,
-		GTK_TYPE_TREE_VIEW_COLUMN,
-		GTK_TYPE_TREE_VIEW_COLUMN
-	};
+	GType param_types [4];
+	param_types[0] = GTK_TYPE_TREE_VIEW;
+	param_types[1] = GTK_TYPE_TREE_VIEW_COLUMN;
+	param_types[2] = GTK_TYPE_TREE_VIEW_COLUMN;
+	param_types[3] = GTK_TYPE_TREE_VIEW_COLUMN;
 	return gperl_callback_new (func, data, G_N_ELEMENTS (param_types),
 	                           param_types, G_TYPE_BOOLEAN);
 }
@@ -65,10 +64,9 @@ gtk2perl_tree_view_column_drop_func (GtkTreeView * tree_view,
 static GPerlCallback *
 gtk2perl_tree_view_mapping_func_create (SV * func, SV *data)
 {
-	GType param_types [] = {
-		GTK_TYPE_TREE_VIEW,
-		GTK_TYPE_TREE_PATH
-	};
+	GType param_types [2];
+	param_types[0] = GTK_TYPE_TREE_VIEW;
+	param_types[1] = GTK_TYPE_TREE_PATH;
 	return gperl_callback_new (func, data, G_N_ELEMENTS (param_types),
 	                           param_types, 0);
 }
@@ -85,12 +83,11 @@ gtk2perl_tree_view_mapping_func (GtkTreeView * tree_view,
 static GPerlCallback *
 gtk2perl_tree_view_search_equal_func_create (SV * func, SV *data)
 {
-	GType param_types [] = {
-		GTK_TYPE_TREE_MODEL,
-		GTK_TYPE_INT,
-		G_TYPE_STRING,
-		GTK_TYPE_TREE_ITER
-	};
+	GType param_types [4];
+	param_types[0] = GTK_TYPE_TREE_MODEL;
+	param_types[1] = GTK_TYPE_INT;
+	param_types[2] = G_TYPE_STRING;
+	param_types[3] = GTK_TYPE_TREE_ITER;
 	return gperl_callback_new (func, data, G_N_ELEMENTS (param_types),
 	                           param_types, G_TYPE_BOOLEAN);
 }
@@ -120,11 +117,10 @@ gtk2perl_tree_view_search_equal_func (GtkTreeModel * model,
 static GPerlCallback *
 gtk2perl_tree_view_destroy_count_func_create (SV * func, SV *data)
 {
-	GType param_types [] = {
-		GTK_TYPE_TREE_VIEW,
-		GTK_TYPE_TREE_PATH,
-		GTK_TYPE_INT
-	};
+	GType param_types[3];
+	param_types[0] = GTK_TYPE_TREE_VIEW;
+	param_types[1] = GTK_TYPE_TREE_PATH;
+	param_types[2] = GTK_TYPE_INT;
 	return gperl_callback_new (func, data, G_N_ELEMENTS(param_types), param_types, 0);
 }
 

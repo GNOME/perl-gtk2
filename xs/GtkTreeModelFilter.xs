@@ -71,12 +71,11 @@ GtkTreeModel *gtk_tree_model_filter_new (class, GtkTreeModel *child_model, GtkTr
 void
 gtk_tree_model_filter_set_visible_func (GtkTreeModelFilter *filter, SV * func, SV * data=NULL)
     PREINIT:
-	GType param_types[] = {
-		GTK_TYPE_TREE_MODEL,
-		GTK_TYPE_TREE_ITER
-	};
+	GType param_types[2];
 	GPerlCallback * callback;
     CODE:
+	param_types[0] = GTK_TYPE_TREE_MODEL;
+	param_types[1] = GTK_TYPE_TREE_ITER;
 	callback = gperl_callback_new (func, data, 2, param_types,
 	                               G_TYPE_BOOLEAN);
 	gtk_tree_model_filter_set_visible_func
@@ -112,13 +111,12 @@ void gtk_tree_model_filter_set_modify_func (GtkTreeModelFilter *filter, SV * typ
 		real_types = &it;
 	}
 	if (func && SvOK (func)) {
-		GType param_types[] = {
-			GTK_TYPE_TREE_MODEL,
-			GTK_TYPE_TREE_ITER,
-			GPERL_TYPE_SV,
-			G_TYPE_INT
-		};
 		GPerlCallback * callback;
+		GType param_types[4];
+		param_types[0] = GTK_TYPE_TREE_MODEL;
+		param_types[1] = GTK_TYPE_TREE_ITER;
+		param_types[2] = GPERL_TYPE_SV;
+		param_types[3] = G_TYPE_INT;
 		callback = gperl_callback_new (func, data, 4, param_types,
 		                               G_TYPE_NONE);
 		gtk_tree_model_filter_set_modify_func

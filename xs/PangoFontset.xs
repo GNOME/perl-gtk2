@@ -13,10 +13,9 @@
 static GPerlCallback *
 gtk2perl_pango_fontset_foreach_func_create (SV *func, SV *data)
 {
-	GType param_types [] = {
-		PANGO_TYPE_FONTSET,
-		PANGO_TYPE_FONT
-	};
+	GType param_types[2];
+	param_types[0] = PANGO_TYPE_FONTSET;
+	param_types[1] = PANGO_TYPE_FONT;
 	return gperl_callback_new (func, data, G_N_ELEMENTS (param_types),
 	                           param_types, G_TYPE_BOOLEAN);
 }

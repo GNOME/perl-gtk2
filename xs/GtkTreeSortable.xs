@@ -24,11 +24,10 @@
 static GPerlCallback *
 new_sort_func (SV * sort_func, SV * user_data)
 {
-	GType param_types[] = {
-		GTK_TYPE_TREE_MODEL,
-		GTK_TYPE_TREE_ITER,
-		GTK_TYPE_TREE_ITER
-	};
+	GType param_types[3];
+	param_types[0] = GTK_TYPE_TREE_MODEL;
+	param_types[1] = GTK_TYPE_TREE_ITER;
+	param_types[2] = GTK_TYPE_TREE_ITER;
 	return gperl_callback_new (sort_func, user_data,
 	                           3, param_types, G_TYPE_INT);
 }

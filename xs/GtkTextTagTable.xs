@@ -57,8 +57,9 @@ gtk_text_tag_table_foreach (table, callback, callback_data=NULL)
         SV * callback_data
     PREINIT:
 	GPerlCallback * real_callback;
-	GType param_types [] = { GTK_TYPE_TEXT_TAG };
+	GType param_types [1];
     CODE:
+    	param_types[0] = GTK_TYPE_TEXT_TAG;
 	real_callback = gperl_callback_new (callback, callback_data,
 	                                    1, param_types, G_TYPE_NONE);
 	gtk_text_tag_table_foreach (table, 

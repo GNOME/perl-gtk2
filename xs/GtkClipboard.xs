@@ -166,19 +166,21 @@ gtk_clipboard_set_with_data (clipboard, get_func, clear_func, user_data, ...)
 	GtkTargetEntry *targets = NULL;
 	guint n_targets;
 	GPerlCallback * get_callback;
-	GType get_param_types[] = {
-		GTK_TYPE_CLIPBOARD,
-		GTK_TYPE_SELECTION_DATA,
-		G_TYPE_UINT,
-		GPERL_TYPE_SV   /* since we're on the _data one */
-	};
+	GType get_param_types[4];
 	GPerlCallback * clear_callback;
-	GType clear_param_types[] = {
-		GTK_TYPE_CLIPBOARD,
-		GPERL_TYPE_SV   /* since we're on the _data one */
-	};
+	GType clear_param_types[2];
 	SV * real_user_data;
     CODE:
+    	get_param_types[0] = GTK_TYPE_CLIPBOARD;
+    	get_param_types[1] = GTK_TYPE_SELECTION_DATA;
+    	get_param_types[2] = G_TYPE_UINT;
+	/* since we're on the _data one */
+    	get_param_types[3] = GPERL_TYPE_SV;
+
+    	clear_param_types[0] = GTK_TYPE_CLIPBOARD;
+	/* since we're on the _data one */
+    	clear_param_types[1] = GPERL_TYPE_SV;
+
 	GTK2PERL_STACK_ITEMS_TO_TARGET_ENTRY_ARRAY (4, targets, n_targets);
 	/* WARNING: since we're piggybacking on the same callback for
 	 *    the _with_data and _with_owner forms, the user_data arg
@@ -233,18 +235,20 @@ gtk_clipboard_set_with_owner (clipboard, get_func, clear_func, owner, ...)
 	GtkTargetEntry *targets = NULL;
 	guint n_targets = 0;
 	GPerlCallback * get_callback;
-	GType get_param_types[] = {
-		GTK_TYPE_CLIPBOARD,
-		GTK_TYPE_SELECTION_DATA,
-		G_TYPE_UINT,
-		G_TYPE_OBJECT   /* since we're on the _owner one */
-	};
+	GType get_param_types[4];
 	GPerlCallback * clear_callback;
-	GType clear_param_types[] = {
-		GTK_TYPE_CLIPBOARD,
-		G_TYPE_OBJECT   /* since we're on the _owner one */
-	};
+	GType clear_param_types[2];
     CODE:
+    	get_param_types[0] = GTK_TYPE_CLIPBOARD;
+    	get_param_types[1] = GTK_TYPE_SELECTION_DATA;
+    	get_param_types[2] = G_TYPE_UINT;
+	/* since we're on the _owner one */
+    	get_param_types[3] = G_TYPE_OBJECT;
+
+    	clear_param_types[0] = GTK_TYPE_CLIPBOARD;
+	/* since we're on the _owner one */
+    	clear_param_types[1] = G_TYPE_OBJECT;
+
 	GTK2PERL_STACK_ITEMS_TO_TARGET_ENTRY_ARRAY (4, targets, n_targets);
 	/* WARNING: since we're piggybacking on the same callback for
 	 *    the _with_data and _with_owner forms, the owner arg
@@ -307,8 +311,10 @@ gtk_clipboard_request_contents (clipboard, target, callback, user_data=NULL)
 	SV * user_data
     PREINIT:
 	GPerlCallback * real_callback;
-	GType param_types[] = { GTK_TYPE_CLIPBOARD, GTK_TYPE_SELECTION_DATA };
+	GType param_types[2];
     CODE:
+    	param_types[0] = GTK_TYPE_CLIPBOARD;
+	param_types[1] = GTK_TYPE_SELECTION_DATA;
 	real_callback = gperl_callback_new (callback, user_data,
 	                                    2, param_types, G_TYPE_NONE);
 	g_object_set_qdata_full (G_OBJECT (clipboard),
@@ -327,11 +333,10 @@ gtk_clipboard_request_text (clipboard, callback, user_data=NULL)
 	SV * user_data
     PREINIT:
 	GPerlCallback * real_callback;
-	GType param_types[] = {
-		GTK_TYPE_CLIPBOARD,
-		G_TYPE_STRING
-	};
+	GType param_types[2];
     CODE:
+    	param_types[0] = GTK_TYPE_CLIPBOARD;
+    	param_types[1] = G_TYPE_STRING;
 	real_callback = gperl_callback_new (callback, user_data,
 	                                    2, param_types, G_TYPE_NONE);
 	g_object_set_qdata_full (G_OBJECT (clipboard),
@@ -365,12 +370,12 @@ gtk_clipboard_wait_is_text_available (clipboard)
  ## void gtk_clipboard_request_targets (GtkClipboard *clipboard, GtkClipboardTargetsReceivedFunc  callback, gpointer user_data);
 void gtk_clipboard_request_targets (GtkClipboard *clipboard, SV * callback, SV * user_data=NULL)
     PREINIT:
-	GType param_types[] = {
-		GTK_TYPE_CLIPBOARD,
-		GPERL_TYPE_SV
-	};
+	GType param_types[2];
 	GPerlCallback * real_callback;
     CODE:
+	param_types[0] = GTK_TYPE_CLIPBOARD;
+	param_types[1] = GPERL_TYPE_SV;
+
 	real_callback = gperl_callback_new (callback, user_data,
 	                                    2, param_types, G_TYPE_NONE);
 	g_object_set_qdata_full (G_OBJECT (clipboard),
