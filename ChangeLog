@@ -1,3 +1,9 @@
+2004/03/17 17:13 (+0100) kaffeetisch
+
+	* t/GdkProperty.t
+	* xs/GdkProperty.xs: Use sv_len instead of strlen in
+	Gtk2::Gdk::Property::change because \0's are allowed.  Test it.
+
 2004/03/16 22:08 (-0500) rwmcfa1
 
 	* examples/item_factory.pl: so the usage of accel_groups (based on
