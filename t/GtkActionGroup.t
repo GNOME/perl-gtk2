@@ -113,7 +113,7 @@ SKIP: {
 	$action_group->set_translate_func (sub { ok(1, 'xlate'); reverse $_[0]; });
 	$action_group->add_actions (\@action_entries);
 	$action_group->add_toggle_actions (\@toggle_entries, 42);
-	$action_group->add_radio_actions (\@color_entries, GOLOR_GREEN, \&on_change);
+	$action_group->add_radio_actions (\@color_entries, COLOR_GREEN, \&on_change);
 }
 
 __END__
