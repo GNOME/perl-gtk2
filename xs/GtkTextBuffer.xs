@@ -71,16 +71,25 @@ gtk_text_buffer_insert_range_interactive (buffer, iter, start, end, default_edit
 	GtkTextIter *end
 	gboolean default_editable
 
-## FIXME
 #### void gtk_text_buffer_insert_with_tags (GtkTextBuffer *buffer, GtkTextIter *iter, const gchar *text, gint len, GtkTextTag *first_tag, ...)
-##void
-##gtk_text_buffer_insert_with_tags (buffer, iter, text, len, first_tag, first_tag)
-##	GtkTextBuffer *buffer
-##	GtkTextIter *iter
-##	const gchar *text
-##	gint len
-##	GtkTextTag *first_tag
-##	...
+void
+gtk_text_buffer_insert_with_tags (buffer, iter, text, ...)
+	GtkTextBuffer *buffer
+	GtkTextIter *iter
+	const gchar *text
+    PREINIT:
+	int i;
+	gint start_offset;
+	GtkTextIter start;
+    CODE:
+	start_offset = gtk_text_iter_get_offset (iter);
+	gtk_text_buffer_insert (buffer, iter, text, -1);
+	gtk_text_buffer_get_iter_at_offset (buffer, &start, start_offset);
+	for (i = 3 ; i < items ; i++) {
+		gtk_text_buffer_apply_tag (buffer, SvGtkTextTag (ST (i)),
+					   &start, iter);
+	}
+ 
 
 ## void gtk_text_buffer_insert_with_tags_by_name (GtkTextBuffer *buffer, GtkTextIter *iter, const gchar *text, gint len, const gchar *first_tag_name, ...)
 void
