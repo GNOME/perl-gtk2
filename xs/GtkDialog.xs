@@ -52,6 +52,9 @@ gtk_dialog_widgets (dialog)
 GtkWidget *
 gtk_dialog_new (class, ...)
 	SV * class
+    ALIAS:
+	Gtk2::Dialog::new = 0
+	Gtk2::Dialog::new_with_buttons = 1
     PREINIT:
 	int i;
 	char * title;
