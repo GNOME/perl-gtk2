@@ -158,12 +158,12 @@ gtk_list_store_insert_before (list_store, sibling)
 	GtkListStore       * list_store
 	GtkTreeIter_ornull * sibling
     ALIAS:
-	Gtk2::ListStore::insert_before = 1
-	Gtk2::ListStore::insert_after  = 2
+	Gtk2::ListStore::insert_before = 0
+	Gtk2::ListStore::insert_after  = 1
     PREINIT:
 	GtkTreeIter iter;
     CODE:
-	if (ix == 1)
+	if (ix == 0)
 		gtk_list_store_insert_before (list_store, &iter, sibling);
 	else
 		gtk_list_store_insert_after (list_store, &iter, sibling);
@@ -178,12 +178,12 @@ GtkTreeIter_copy *
 gtk_list_store_prepend (list_store)
 	GtkListStore *list_store
     ALIAS:
-	Gtk2::ListStore::prepend = 1
-	Gtk2::ListStore::append  = 2
+	Gtk2::ListStore::prepend = 0
+	Gtk2::ListStore::append  = 1
     PREINIT:
 	GtkTreeIter iter;
     CODE:
-	if (ix == 1)
+	if (ix == 0)
 		gtk_list_store_prepend (list_store, &iter);
 	else
 		gtk_list_store_append (list_store, &iter);
@@ -206,8 +206,16 @@ gtk_list_store_iter_is_valid (list_store, iter)
 	GtkTreeIter *iter
 
 ## void gtk_list_store_reorder (GtkListStore *store, gint *new_order)
+=for apidoc
+=for arg pos1 (integer) the first position elements reordered posistion
+=for arg ... (__hide__)
+Reorders store to follow the order indicated by new_order. Note that this
+function only works with unsorted stores.
+
+A list of position should be passed, one for each item in the list.
+=cut
 void
-gtk_list_store_reorder (store, ...)
+gtk_list_store_reorder (store, pos1, ...)
 	GtkListStore * store
     PREINIT:
 	gint * new_order;

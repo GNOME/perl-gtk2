@@ -206,7 +206,7 @@ sub MY::postamble
 Makefile : ".join(" ", @lists)."
 
 build/stock_items.podi: podifystockitems.pl
-	\$(PERL) \$< > \$@
+	\$(PERL) -I \$(INST_LIB) -I \$(INST_ARCHLIB) \$< > \$@
 
 ";
 

@@ -108,6 +108,17 @@ gtk_container_get_children (container)
  ##	GdkEventExpose *event
 
  ## void gtk_container_set_focus_chain (GtkContainer *container, GList *focusable_widgets)
+=for apidoc
+=for arg widget1 (Gtk2::Widget) the first widget in the focus chain
+=for arg ... (__hide__)
+Sets a focus chain, overriding the one computed automatically by GTK+.
+
+In principle each widget in the chain should be a descendant of the container,
+but this is not enforced by this method, since it's allowed to set the focus
+chain before you pack the widgets, or have a widget in the chain that isn't
+always packed. The necessary checks are done when the focus chain is actually
+traversed.
+=cut
 void
 gtk_container_set_focus_chain (container, widget1, ...)
 	GtkContainer *container

@@ -27,26 +27,26 @@ SV *
 members (dc)
 	GdkDragContext * dc
     ALIAS:
-	Gtk2::Gdk::DragContext::protocol = 1
-	Gtk2::Gdk::DragContext::is_source = 2
-	Gtk2::Gdk::DragContext::source_window = 3
-	Gtk2::Gdk::DragContext::dest_window = 4
-	Gtk2::Gdk::DragContext::actions = 6
-	Gtk2::Gdk::DragContext::suggested_action = 7
-	Gtk2::Gdk::DragContext::action = 8
-	Gtk2::Gdk::DragContext::start_time = 9
+	Gtk2::Gdk::DragContext::protocol = 0
+	Gtk2::Gdk::DragContext::is_source = 1
+	Gtk2::Gdk::DragContext::source_window = 2
+	Gtk2::Gdk::DragContext::dest_window = 3
+	Gtk2::Gdk::DragContext::actions = 5
+	Gtk2::Gdk::DragContext::suggested_action = 6
+	Gtk2::Gdk::DragContext::action = 7
+	Gtk2::Gdk::DragContext::start_time = 8
     CODE:
 	RETVAL = NULL;
 	switch (ix) {
-	    case 1: RETVAL = newSVGdkDragProtocol (dc->protocol); break;
-	    case 2: RETVAL = newSViv (dc->is_source); break;
-	    case 3: RETVAL = newSVGdkWindow (dc->source_window); break;
-	    case 4: RETVAL = newSVGdkWindow (dc->dest_window); break;
+	    case 0: RETVAL = newSVGdkDragProtocol (dc->protocol); break;
+	    case 1: RETVAL = newSViv (dc->is_source); break;
+	    case 2: RETVAL = newSVGdkWindow (dc->source_window); break;
+	    case 3: RETVAL = newSVGdkWindow (dc->dest_window); break;
 	    /* must use get_targets to access targets */
-	    case 6: RETVAL = newSVGdkDragAction (dc->actions); break;
-	    case 7: RETVAL = newSVGdkDragAction (dc->suggested_action); break;
-	    case 8: RETVAL = newSVGdkDragAction (dc->action); break;
-	    case 9: RETVAL = newSVuv (dc->start_time); break;
+	    case 5: RETVAL = newSVGdkDragAction (dc->actions); break;
+	    case 6: RETVAL = newSVGdkDragAction (dc->suggested_action); break;
+	    case 7: RETVAL = newSVGdkDragAction (dc->action); break;
+	    case 8: RETVAL = newSVuv (dc->start_time); break;
 	}
     OUTPUT:
 	RETVAL

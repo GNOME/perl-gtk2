@@ -117,8 +117,12 @@ gdk_colormap_alloc_color (colormap, color, writeable, best_match)
  # this deallocates colors in the colormap, as allocated by alloc_color(s)
  # above; it has nothing to do with memory management.  we do need this.
  ## void gdk_colormap_free_colors (GdkColormap *colormap, GdkColor *colors, gint ncolors)
+=for apidoc
+=for arg color1 (Gtk2::Gdk::Color) first color to free
+=for arg ... (__hide__)
+=cut
 void
-gdk_colormap_free_colors (colormap, ...)
+gdk_colormap_free_colors (colormap, color1, ...)
 	GdkColormap *colormap
     PREINIT:
 	GdkColor *colors;

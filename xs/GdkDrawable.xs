@@ -113,6 +113,11 @@ gdk_draw_arc (drawable, gc, filled, x, y, width, height, angle1, angle2)
 	gint angle2
 
  ## void gdk_draw_polygon (GdkDrawable *drawable, GdkGC *gc, gboolean filled, GdkPoint *points, gint npoints)
+=for apidoc
+=for arg x1 (integer) the x coordinate of the first point
+=for arg y1 (integer) the y coordinate of the first point
+=for arg ... (__hide__)
+=cut
 void
 gdk_draw_polygon (drawable, gc, filled, x1, y1, ...)
 	GdkDrawable *drawable
@@ -160,13 +165,24 @@ gdk_draw_image (drawable, gc, image, xsrc, ysrc, xdest, ydest, width, height)
 
  ## void gdk_draw_points (GdkDrawable *drawable, GdkGC *gc, GdkPoint *points, gint npoints)
  ## void gdk_draw_lines (GdkDrawable *drawable, GdkGC *gc, GdkPoint *points, gint npoints)
+
+=for apidoc Gtk2::Gdk::Drawable::draw_lines
+=for arg x1 (integer) the x coordinate of the first point
+=for arg y1 (integer) the y coordinate of the first point
+=for arg ... (__hide__)
+=cut
+
+=for apidoc
+=for arg x1 (integer) the x coordinate of the first point
+=for arg y1 (integer) the y coordinate of the first point
+=for arg ... (__hide__)
+=cut
 void
 gdk_draw_points (drawable, gc, x1, y1, ...)
 	GdkDrawable *drawable
 	GdkGC *gc
     ALIAS:
-	Gtk2::Gdk::Drawable::draw_points = 1
-	Gtk2::Gdk::Drawable::draw_lines  = 2
+	Gtk2::Gdk::Drawable::draw_lines = 1
     PREINIT:
 	GdkPoint * points;
 	gint npoints;
@@ -179,12 +195,19 @@ gdk_draw_points (drawable, gc, x1, y1, ...)
 		points[i].y = SvIV (ST (j+1));
 	}
 	if (ix == 1)
-		gdk_draw_points (drawable, gc, points, npoints);
-	else
 		gdk_draw_lines (drawable, gc, points, npoints);
+	else
+		gdk_draw_points (drawable, gc, points, npoints);
 	g_free (points);
 
  #### void gdk_draw_segments (GdkDrawable *drawable, GdkGC *gc, GdkSegment *segs, gint nsegs)
+=for apidoc
+=for arg x1 (integer) the x coordinate of the first point
+=for arg y1 (integer) the y coordinate of the first point
+=for arg x2 (integer) the x coordinate of the second point
+=for arg y2 (integer) the y coordinate of the second point
+=for arg ... (__hide__)
+=cut
 void
 gdk_draw_segments (drawable, gc, x1, y1, x2, y2, ...)
 	GdkDrawable *drawable

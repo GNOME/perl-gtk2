@@ -38,8 +38,8 @@ gdk_atom_intern (class, atom_name, only_if_exists=FALSE)
 	const gchar *atom_name
 	gboolean only_if_exists
     ALIAS:
-	Gtk2::Gdk::Atom::intern = 1
-	Gtk2::Gdk::Atom::new = 2
+	Gtk2::Gdk::Atom::intern = 0
+	Gtk2::Gdk::Atom::new = 1
     C_ARGS:
 	atom_name, only_if_exists
     CLEANUP:

@@ -132,7 +132,7 @@ sub create_item {
 	# unicode path, for use with gtk_item_factory_get_widget.
 	$cleanpath = $path;
 	$cleanpath =~ s/_(?!_+)//g;
-	$cleanpath =~ s/_+/_/;
+	$cleanpath =~ s/_+/_/g;
 
 	# the rest of the work happens in XS
 	$factory->_create_item ($path, $accelerator || '',

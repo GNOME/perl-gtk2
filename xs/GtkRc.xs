@@ -35,6 +35,12 @@ gtk_rc_add_default_file (class, filename)
 	filename
 
 ## void gtk_rc_set_default_files (gchar **filenames)
+=for apidoc
+=signature Gtk2::Rc->set_default_files (file1, ...)
+=arg file1 (string) The first rc file to be read
+=arg ... (__hide__)
+Sets the list of files that GTK+ will read at the end of Gtk2->init.
+=cut
 void
 gtk_rc_set_default_files (class, ...)
     PREINIT:

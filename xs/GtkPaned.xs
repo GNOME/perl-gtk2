@@ -26,21 +26,21 @@ MODULE = Gtk2::Paned	PACKAGE = Gtk2::Paned	PREFIX = gtk_paned_
 SV *
 member (GtkPaned * paned)
     ALIAS:
-	Gtk2::Paned::child1 = 1
-	Gtk2::Paned::child1_resize = 2
-	Gtk2::Paned::child1_shrink = 3
-	Gtk2::Paned::child2 = 4
-	Gtk2::Paned::child2_resize = 5
-	Gtk2::Paned::child2_shrink = 6
+	Gtk2::Paned::child1 = 0
+	Gtk2::Paned::child1_resize = 1
+	Gtk2::Paned::child1_shrink = 2
+	Gtk2::Paned::child2 = 3
+	Gtk2::Paned::child2_resize = 4
+	Gtk2::Paned::child2_shrink = 5
     CODE:
 	RETVAL = NULL;
 	switch (ix) {
-		case 1: RETVAL = newSVGtkWidget (paned->child1); break;
-		case 2: RETVAL = newSViv (paned->child1_resize); break;
-		case 3: RETVAL = newSViv (paned->child1_shrink); break;
-		case 4: RETVAL = newSVGtkWidget (paned->child2); break;
-		case 5: RETVAL = newSViv (paned->child2_resize); break;
-		case 6: RETVAL = newSViv (paned->child2_shrink); break;
+		case 0: RETVAL = newSVGtkWidget (paned->child1); break;
+		case 1: RETVAL = newSViv (paned->child1_resize); break;
+		case 2: RETVAL = newSViv (paned->child1_shrink); break;
+		case 3: RETVAL = newSVGtkWidget (paned->child2); break;
+		case 4: RETVAL = newSViv (paned->child2_resize); break;
+		case 5: RETVAL = newSViv (paned->child2_shrink); break;
 	}
     OUTPUT:
 	RETVAL

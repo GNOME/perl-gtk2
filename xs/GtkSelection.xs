@@ -233,24 +233,24 @@ SV *
 members (d)
 	GtkSelectionData * d
     ALIAS:
-	Gtk2::SelectionData::selection = 1
-	Gtk2::SelectionData::target    = 2
-	Gtk2::SelectionData::type      = 3
-	Gtk2::SelectionData::format    = 4
-	Gtk2::SelectionData::data      = 5
-	Gtk2::SelectionData::length    = 6
-	Gtk2::SelectionData::display   = 7
+	Gtk2::SelectionData::selection = 0
+	Gtk2::SelectionData::target    = 1
+	Gtk2::SelectionData::type      = 2
+	Gtk2::SelectionData::format    = 3
+	Gtk2::SelectionData::data      = 4
+	Gtk2::SelectionData::length    = 5
+	Gtk2::SelectionData::display   = 6
     CODE:
 	RETVAL = NULL;
 	switch (ix) {
-	    case 1: RETVAL = newSVGdkAtom (d->selection); break;
-	    case 2: RETVAL = newSVGdkAtom (d->target); break;
-	    case 3: RETVAL = newSVGdkAtom (d->type); break;
-	    case 4: RETVAL = newSViv (d->format); break;
-	    case 5: RETVAL = newSVpv (d->data, d->length); break;
-	    case 6: RETVAL = newSViv (d->length); break;
+	    case 0: RETVAL = newSVGdkAtom (d->selection); break;
+	    case 1: RETVAL = newSVGdkAtom (d->target); break;
+	    case 2: RETVAL = newSVGdkAtom (d->type); break;
+	    case 3: RETVAL = newSViv (d->format); break;
+	    case 4: RETVAL = newSVpv (d->data, d->length); break;
+	    case 5: RETVAL = newSViv (d->length); break;
 #if GTK_CHECK_VERSION(2,2,0)
-	    case 7: RETVAL = newSVGdkDisplay (d->display); break;
+	    case 6: RETVAL = newSVGdkDisplay (d->display); break;
 #endif
 	}
     OUTPUT:

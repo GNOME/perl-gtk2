@@ -25,41 +25,41 @@ MODULE = Gtk2::Gdk::Selection	PACKAGE = Gtk2::Gdk
 GdkAtom
 predefs (class)
     ALIAS:
-	Gtk2::Gdk::SELECTION_PRIMARY       =  1
-	Gtk2::Gdk::SELECTION_SECONDARY     =  2
-	Gtk2::Gdk::SELECTION_CLIPBOARD     =  3
-	Gtk2::Gdk::TARGET_BITMAP           =  4
-	Gtk2::Gdk::TARGET_COLORMAP         =  5
-	Gtk2::Gdk::TARGET_DRAWABLE         =  6
-	Gtk2::Gdk::TARGET_PIXMAP           =  7
-	Gtk2::Gdk::TARGET_STRING           =  8
-	Gtk2::Gdk::SELECTION_TYPE_ATOM     =  9
-	Gtk2::Gdk::SELECTION_TYPE_BITMAP   = 10
-	Gtk2::Gdk::SELECTION_TYPE_COLORMAP = 11
-	Gtk2::Gdk::SELECTION_TYPE_DRAWABLE = 12
-	Gtk2::Gdk::SELECTION_TYPE_INTEGER  = 13
-	Gtk2::Gdk::SELECTION_TYPE_PIXMAP   = 14
-	Gtk2::Gdk::SELECTION_TYPE_WINDOW   = 15
-	Gtk2::Gdk::SELECTION_TYPE_STRING   = 16
+	Gtk2::Gdk::SELECTION_PRIMARY       =  0
+	Gtk2::Gdk::SELECTION_SECONDARY     =  1
+	Gtk2::Gdk::SELECTION_CLIPBOARD     =  2
+	Gtk2::Gdk::TARGET_BITMAP           =  3
+	Gtk2::Gdk::TARGET_COLORMAP         =  4
+	Gtk2::Gdk::TARGET_DRAWABLE         =  5
+	Gtk2::Gdk::TARGET_PIXMAP           =  6
+	Gtk2::Gdk::TARGET_STRING           =  7
+	Gtk2::Gdk::SELECTION_TYPE_ATOM     =  8
+	Gtk2::Gdk::SELECTION_TYPE_BITMAP   =  9
+	Gtk2::Gdk::SELECTION_TYPE_COLORMAP = 10
+	Gtk2::Gdk::SELECTION_TYPE_DRAWABLE = 11
+	Gtk2::Gdk::SELECTION_TYPE_INTEGER  = 12
+	Gtk2::Gdk::SELECTION_TYPE_PIXMAP   = 13
+	Gtk2::Gdk::SELECTION_TYPE_WINDOW   = 14
+	Gtk2::Gdk::SELECTION_TYPE_STRING   = 15
     CODE:
 	RETVAL = 0;
 	switch (ix) {
-	    case  1: RETVAL = GDK_SELECTION_PRIMARY; break;
-	    case  2: RETVAL = GDK_SELECTION_SECONDARY; break;
-	    case  3: RETVAL = GDK_SELECTION_CLIPBOARD; break;
-	    case  4: RETVAL = GDK_TARGET_BITMAP; break;
-	    case  5: RETVAL = GDK_TARGET_COLORMAP; break;
-	    case  6: RETVAL = GDK_TARGET_DRAWABLE; break;
-	    case  7: RETVAL = GDK_TARGET_PIXMAP; break;
-	    case  8: RETVAL = GDK_TARGET_STRING; break;
-	    case  9: RETVAL = GDK_SELECTION_TYPE_ATOM; break;
-	    case 10: RETVAL = GDK_SELECTION_TYPE_BITMAP; break;
-	    case 11: RETVAL = GDK_SELECTION_TYPE_COLORMAP; break;
-	    case 12: RETVAL = GDK_SELECTION_TYPE_DRAWABLE; break;
-	    case 13: RETVAL = GDK_SELECTION_TYPE_INTEGER; break;
-	    case 14: RETVAL = GDK_SELECTION_TYPE_PIXMAP; break;
-	    case 15: RETVAL = GDK_SELECTION_TYPE_WINDOW; break;
-	    case 16: RETVAL = GDK_SELECTION_TYPE_STRING; break;
+	    case  0: RETVAL = GDK_SELECTION_PRIMARY; break;
+	    case  1: RETVAL = GDK_SELECTION_SECONDARY; break;
+	    case  2: RETVAL = GDK_SELECTION_CLIPBOARD; break;
+	    case  3: RETVAL = GDK_TARGET_BITMAP; break;
+	    case  4: RETVAL = GDK_TARGET_COLORMAP; break;
+	    case  5: RETVAL = GDK_TARGET_DRAWABLE; break;
+	    case  6: RETVAL = GDK_TARGET_PIXMAP; break;
+	    case  7: RETVAL = GDK_TARGET_STRING; break;
+	    case  8: RETVAL = GDK_SELECTION_TYPE_ATOM; break;
+	    case  9: RETVAL = GDK_SELECTION_TYPE_BITMAP; break;
+	    case 10: RETVAL = GDK_SELECTION_TYPE_COLORMAP; break;
+	    case 11: RETVAL = GDK_SELECTION_TYPE_DRAWABLE; break;
+	    case 12: RETVAL = GDK_SELECTION_TYPE_INTEGER; break;
+	    case 13: RETVAL = GDK_SELECTION_TYPE_PIXMAP; break;
+	    case 14: RETVAL = GDK_SELECTION_TYPE_WINDOW; break;
+	    case 15: RETVAL = GDK_SELECTION_TYPE_STRING; break;
 	}
     OUTPUT:
 	RETVAL

@@ -1,3 +1,21 @@
+2003/11/28 12:44 (-0500) rwmcfa1
+
+	* Gtk2.pm: fixed bug in cleanpath code, spotty by kaffee
+ 
+	* Makefile.PL: when running podifystockitems.pl include blib path for 
+	Gtk2, it may not be installed yet.
+	
+	* xs/Gdk.xs: doc ^ and gdk_threads -> gdk_threads_init
+
+	* xs/GdkColor.xs, xs/GdkDnd.xs, xs/GdkDrawable.xs, xs/GdkGC.xs,
+	xs/GdkProperty.xs, xs/GdkSelection.xs, xs/GtkColorSelection.xs,
+	xs/GtkCombo.xs, xs/GtkContainer.xs, xs/GtkCurve.xs,
+	xs/GtkFontSelection.xs, xs/GtkList.xs, xs/GtkListStore.xs,
+	xs/GtkPaned.xs, xs/GtkRc.xs, xs/GtkSelection.xs, xs/GtkStock.xs,
+	xs/GtkStyle.xs, xs/GtkTreeStore.xs, xs/GtkWidget.xs, xs/PangoFont.xs,
+	xs/PangoLayout.xs, xs/PangoTabs.xs: doc updates, including ALIAS'es 
+	starting at 0 where appropriate.
+
 2003/11/25 11:46 (-0500) rwmcfa1
 
 	* podifystockitems.pl: initial import

@@ -151,12 +151,12 @@ gtk_tree_store_insert_before (tree_store, parent, sibling)
 	GtkTreeIter_ornull * parent
 	GtkTreeIter_ornull * sibling
     ALIAS:
-	Gtk2::TreeStore::insert_before = 1
-	Gtk2::TreeStore::insert_after  = 2
+	Gtk2::TreeStore::insert_before = 0
+	Gtk2::TreeStore::insert_after  = 1
     PREINIT:
 	GtkTreeIter iter;
     CODE:
-	if (ix == 1)
+	if (ix == 0)
 		gtk_tree_store_insert_before (tree_store, &iter,
 		                              parent, sibling);
 	else
@@ -173,12 +173,12 @@ gtk_tree_store_prepend (tree_store, parent)
 	GtkTreeStore *tree_store
 	GtkTreeIter_ornull *parent
     ALIAS:
-	Gtk2::TreeStore::prepend = 1
-	Gtk2::TreeStore::append  = 2
+	Gtk2::TreeStore::prepend = 0
+	Gtk2::TreeStore::append  = 1
     PREINIT:
 	GtkTreeIter iter;
     CODE:
-	if (ix == 1)
+	if (ix == 0)
 		gtk_tree_store_prepend (tree_store, &iter, parent);
 	else
 		gtk_tree_store_append (tree_store, &iter, parent);

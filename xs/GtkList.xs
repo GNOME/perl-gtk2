@@ -39,6 +39,10 @@ gtk_list_new (class)
 ## parameter order flipped on this function so the item
 ## list soaks up the rest of the arg stack
 ##  void gtk_list_insert_items (GtkList *list, GList *items, gint position) 
+=for apidoc
+=for arg list_item (Gtk2::ListItem) the first list item to insert
+=for arg ... (__hide__)
+=cut
 void
 gtk_list_insert_items (list, position, list_item, ...)
 	GtkList       * list
@@ -56,6 +60,10 @@ gtk_list_insert_items (list, position, list_item, ...)
 	}
 
 ##  void gtk_list_append_items (GtkList *list, GList *items) 
+=for apidoc
+=for arg list_item (Gtk2::ListItem) the first list item to append
+=for arg ... (__hide__)
+=cut
 void
 gtk_list_append_items (list, list_item, ...)
 	GtkList       * list
@@ -72,6 +80,10 @@ gtk_list_append_items (list, list_item, ...)
 	}
 
 ##  void gtk_list_prepend_items (GtkList *list, GList *items) 
+=for apidoc
+=for arg list_item (Gtk2::ListItem) the first list item to prepend
+=for arg ... (__hide__)
+=cut
 void
 gtk_list_prepend_items (list, list_item, ...)
 	GtkList       * list
@@ -88,6 +100,10 @@ gtk_list_prepend_items (list, list_item, ...)
 	}
 
 ##  void gtk_list_remove_items (GtkList *list, GList *items) 
+=for apidoc
+=for arg list_item (Gtk2::ListItem) the first list item to remove
+=for arg ... (__hide__)
+=cut
 void
 gtk_list_remove_items (list, list_item, ...)
 	GtkList       * list

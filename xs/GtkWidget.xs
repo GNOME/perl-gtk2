@@ -124,8 +124,8 @@ GtkStyle*
 style (widget)
 	GtkWidget * widget
     ALIAS:
-	Gtk2::Widget::style = 1
-	Gtk2::Widget::get_style = 2
+	Gtk2::Widget::style = 0
+	Gtk2::Widget::get_style = 1
     CODE:
 	PERL_UNUSED_VAR (ix);
 	RETVAL = gtk_widget_get_style(widget);
@@ -149,9 +149,6 @@ state (widget)
 
  ##define GTK_WIDGET_FLAGS(wid)		  (GTK_OBJECT_FLAGS (wid))
 
-=for apidoc
-=arg ... (__hide__)
-=cut
 gboolean
 get_flags (widget, ...)
 	GtkWidget * widget
