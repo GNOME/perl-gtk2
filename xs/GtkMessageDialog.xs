@@ -76,6 +76,8 @@ gtk_message_dialog_new_with_markup (class, parent, flags, type, buttons, message
 	GtkButtonsType buttons
 	gchar * message
     CODE:
+	/* -Wall warns about the NULL format string here, but
+	 * gtk_message_dialog_new() explicitly allows it. */
 	RETVAL = gtk_message_dialog_new (parent, flags, type, buttons, NULL);
 	gtk_message_dialog_set_markup (GTK_MESSAGE_DIALOG (RETVAL), message);
     OUTPUT:
