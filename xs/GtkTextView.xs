@@ -35,6 +35,7 @@ gtk_text_view_new (class)
 ## GtkWidget * gtk_text_view_new_with_buffer (GtkTextBuffer *buffer)
 GtkWidget *
 gtk_text_view_new_with_buffer (class, buffer)
+	SV            * class
 	GtkTextBuffer * buffer
     C_ARGS:
 	buffer

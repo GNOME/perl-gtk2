@@ -1,3 +1,9 @@
+2003/09/26 26:25 rwmcfa1
+
+	* xs/GtkTextView.xs: new_with_buffer had class param but no spec for it
+	this was not a bug, but now it's like everything else thoughout the 
+	whole of Gtk2.
+
 2003/09/26 03:45 muppetman
 
 	* Gtk2.pm, README, META.yml, debian/changelog: prep for 1.00rc3 release
