@@ -64,6 +64,7 @@ my %pm_files = (
 	'CodeGen.pm'       => '$(INST_LIBDIR)/Gtk2/CodeGen.pm',
 	'pm/Helper.pm'     => '$(INST_LIBDIR)/Gtk2/Helper.pm',
 	'pm/Pango.pm'      => '$(INST_LIBDIR)/Gtk2/Pango.pm',
+	'pm/SimpleList.pm' => '$(INST_LIBDIR)/Gtk2/SimpleList.pm',
 );
 my %pod_files = (
 	'Gtk2.pm'          => '$(INST_MAN3DIR)/Gtk2.3pm',
@@ -71,6 +72,7 @@ my %pod_files = (
 	'CodeGen.pm'       => '$(INST_MAN3DIR)/Gtk2::CodeGen.3pm',
 	'pm/Helper.pm'     => '$(INST_MAN3DIR)/Gtk2::Helper.3pm',
 	'pm/Pango.pm'      => '$(INST_MAN3DIR)/Gtk2::Pango.3pm',
+	'pm/SimpleList.pm' => '$(INST_MAN3DIR)/Gtk2::SimpleList.pm',
 	'api.pod'          => '$(INST_MAN3DIR)/Gtk2::api.3pm',
 );
 
