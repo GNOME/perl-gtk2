@@ -89,9 +89,9 @@ gtk_file_selection_get_selections (filesel)
 	gchar *  curr;
     PPCODE:
 	rets = gtk_file_selection_get_selections(filesel);
-	curr = rets[0];
-	for( i = 0, curr = rets[0]; curr != NULL; i++, curr = rets[i] )
+	for( i = 0, curr = rets[0]; curr != NULL; i++ )
 	{
+		curr = rets[i];
 		XPUSHs(sv_2mortal(newSVpv(
 			g_filename_to_utf8(curr, -1, NULL, NULL, NULL), 
 			PL_na)));
