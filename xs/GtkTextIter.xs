@@ -64,20 +64,17 @@ gint
 gtk_text_iter_get_visible_line_index (iter)
 	 GtkTextIter *iter
 
+## FIXME need gunichar typemap
 ### gunichar gtk_text_iter_get_char (const GtkTextIter *iter)
 #gunichar
 #gtk_text_iter_get_char (iter)
 #	GtkTextIter *iter
 
-## FIXME should this be a static method?
-# pcg: no!
 gchar_own *
 gtk_text_iter_get_slice (start, end)
 	GtkTextIter * start
 	GtkTextIter * end
 
-## FIXME should this be a static method?
-# pcg: no!
 gchar_own *
 gtk_text_iter_get_text (start, end)
 	GtkTextIter * start
@@ -92,11 +89,13 @@ GdkPixbuf_ornull*
 gtk_text_iter_get_pixbuf (iter)
 	GtkTextIter *iter
 
+# FIXME needs list handling
 ### GSList * gtk_text_iter_get_marks (const GtkTextIter *iter)
 #GSList *
 #gtk_text_iter_get_marks (iter)
 #	const GtkTextIter *iter
 
+# FIXME needs list handling
 ## GSList* gtk_text_iter_get_toggled_tags  (const GtkTextIter *iter, gboolean toggled_on)
 
 ## GtkTextChildAnchor* gtk_text_iter_get_child_anchor (const GtkTextIter *iter)
@@ -128,6 +127,7 @@ gtk_text_iter_has_tag (iter, tag)
 	GtkTextIter *iter
 	GtkTextTag *tag
 
+# FIXME needs list handling
 ### GSList* gtk_text_iter_get_tags (const GtkTextIter *iter)
 
 ## gboolean gtk_text_iter_editable (const GtkTextIter *iter, gboolean default_setting)
@@ -197,12 +197,14 @@ gint
 gtk_text_iter_get_bytes_in_line (iter)
 	GtkTextIter *iter
 
+# FIXME need to pass a stack struct and return a copy
 ### gboolean gtk_text_iter_get_attributes (const GtkTextIter *iter, GtkTextAttributes *values)
 #gboolean
 #gtk_text_iter_get_attributes (iter, values)
 #	const GtkTextIter *iter
 #	GtkTextAttributes *values
 
+# FIXME i think the returned value should NOT be owned
 ### PangoLanguage* gtk_text_iter_get_language (const GtkTextIter *iter)
 #PangoLanguage*
 #gtk_text_iter_get_language (iter)
@@ -386,6 +388,7 @@ gtk_text_iter_backward_to_tag_toggle (iter, tag)
 	GtkTextIter *iter
 	GtkTextTag *tag
 
+## FIXME needs callback and gunichar typemap
 #### typedef gboolean (* GtkTextCharPredicate) (gunichar ch, gpointer user_data)
 ##
 #### gboolean gtk_text_iter_forward_find_char (GtkTextIter *iter, GtkTextCharPredicate pred, gpointer user_data, const GtkTextIter *limit)

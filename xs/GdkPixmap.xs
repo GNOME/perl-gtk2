@@ -176,20 +176,8 @@ gdk_pixmap_colormap_create_from_xpm_d (class, drawable, colormap, transparent_co
 	if (pixmap) XPUSHs (sv_2mortal (newSVGdkPixmap_noinc (pixmap)));
 	if (mask)   XPUSHs (sv_2mortal (newSVGdkBitmap_noinc (mask)));
 
+
+# FIXME shouldn't we be able just to do lookup and foreign new in GdkDrawable?
 ## ## GdkPixmap* gdk_pixmap_lookup (GdkNativeWindow anid)
-##GdkPixmap*
-##gdk_pixmap_lookup (anid)
-##	GdkNativeWindow anid
-##
 ## ## GdkPixmap* gdk_pixmap_foreign_new_for_display (GdkDisplay *display, GdkNativeWindow anid)
-##GdkPixmap*
-##gdk_pixmap_foreign_new_for_display (display, anid)
-##	GdkDisplay *display
-##	GdkNativeWindow anid
-##
 ## ## GdkPixmap* gdk_pixmap_lookup_for_display (GdkDisplay *display, GdkNativeWindow anid)
-##GdkPixmap*
-##gdk_pixmap_lookup_for_display (display, anid)
-##	GdkDisplay *display
-##	GdkNativeWindow anid
-##

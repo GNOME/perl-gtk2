@@ -142,10 +142,11 @@ gtk_menu_set_accel_path (menu, accel_path)
 	GtkMenu *menu
 	const gchar *accel_path
 
+# FIXME nbeeds a callback
  ##void	   gtk_menu_attach_to_widget	  (GtkMenu	       *menu,
  ##					   GtkWidget	       *attach_widget,
  ##					   GtkMenuDetachFunc	detacher);
- ##
+
 void
 gtk_menu_detach (menu)
 	GtkMenu *menu

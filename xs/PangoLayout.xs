@@ -92,6 +92,7 @@ pango_layout_set_markup (layout, markup)
     C_ARGS:
 	layout, markup, -1
 
+# FIXME
 ###  void pango_layout_set_markup_with_accel (PangoLayout *layout, const char *markup, int length, gunichar accel_marker, gunichar *accel_char) 
 #void
 #pango_layout_set_markup_with_accel (layout, markup, length, accel_marker, accel_char)
@@ -217,6 +218,7 @@ pango_layout_get_log_attrs (layout)
 		g_free (attrs);
 	}
 
+# FIXME no typemaps for PangoRectangle
 ###  void pango_layout_index_to_pos (PangoLayout *layout, int index_, PangoRectangle *pos) 
 #void pango_layout_index_to_pos (PangoLayout *layout, int index_, OUTLIST PangoRectangle *pos) 
 #
@@ -242,6 +244,7 @@ pango_layout_xy_to_index (layout, x, y)
 		PUSHs (sv_2mortal (newSViv (trailing)));
 	}
 
+# FIXME no typemaps for PangoRectangle
 ###  void pango_layout_get_extents (PangoLayout *layout, PangoRectangle *ink_rect, PangoRectangle *logical_rect) 
 #void pango_layout_get_extents (PangoLayout *layout, OUTLIST PangoRectangle *ink_rect, OUTLIST PangoRectangle *logical_rect) 
 #
@@ -259,6 +262,7 @@ int
 pango_layout_get_line_count (layout)
 	PangoLayout *layout
 
+# FIXME no typemaps for PangoLayoutLine
 ####  PangoLayoutLine *pango_layout_get_line (PangoLayout *layout, int line) 
 ##PangoLayoutLine_ornull *
 ##pango_layout_get_line (layout, line)
@@ -333,6 +337,7 @@ pango_layout_get_line_count (layout)
 ##pango_layout_get_iter (layout)
 ##	PangoLayout *layout
 ##
+## no typemaps for PangoLayoutIter
 ##MODULE = Gtk2::Pango::Layout	PACKAGE = Gtk2::Pango::LayoutIter	PREFIX = pango_layout_iter_
 ##
 ####  void pango_layout_iter_free (PangoLayoutIter *iter) 

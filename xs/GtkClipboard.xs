@@ -121,6 +121,7 @@ gtk_clipboard_get_display (clipboard)
 
 #endif /* >=2.2.0 */
 
+# FIXME needs validation
 ######  gboolean gtk_clipboard_set_with_data (GtkClipboard *clipboard, const GtkTargetEntry *targets, guint n_targets, GtkClipboardGetFunc get_func, GtkClipboardClearFunc clear_func, gpointer user_data) 
 ##gboolean
 ##gtk_clipboard_set_with_data (clipboard, targets, n_targets, get_func, clear_func, user_data)
@@ -184,6 +185,7 @@ gtk_clipboard_get_display (clipboard)
 ##    OUTPUT:
 ##	RETVAL
 ##
+# FIXME needs validation
 ####  gboolean gtk_clipboard_set_with_owner (GtkClipboard *clipboard, const GtkTargetEntry *targets, guint n_targets, GtkClipboardGetFunc get_func, GtkClipboardClearFunc clear_func, GObject *owner) 
 ##gboolean
 ##gtk_clipboard_set_with_owner (clipboard, targets, n_targets, get_func, clear_func, owner)

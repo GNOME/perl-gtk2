@@ -36,6 +36,7 @@ GtkWidget *
 gtk_drag_get_source_widget (context)
 	GdkDragContext *context
 
+# FIXME need typemap for GtkTargetList
 ####  GdkDragContext *gtk_drag_begin (GtkWidget *widget, GtkTargetList *targets, GdkDragAction actions, gint button, GdkEvent *event) 
 ##GdkDragContext *
 ##gtk_drag_begin (widget, targets, actions, button, event)
@@ -138,18 +139,21 @@ void
 gtk_drag_dest_unset (widget)
 	GtkWidget *widget
 
+# FIXME need typemap for GtkTargetList
 ####  GdkAtom gtk_drag_dest_find_target (GtkWidget *widget, GdkDragContext *context, GtkTargetList *target_list) 
 ##GdkAtom
 ##gtk_drag_dest_find_target (widget, context, target_list)
 ##	GtkWidget *widget
 ##	GdkDragContext *context
 ##	GtkTargetList *target_list
-##
+#
+# FIXME need typemap for GtkTargetList
 ####  GtkTargetList* gtk_drag_dest_get_target_list (GtkWidget *widget) 
 ##GtkTargetList*
 ##gtk_drag_dest_get_target_list (widget)
 ##	GtkWidget *widget
-##
+#
+# FIXME need typemap for GtkTargetList
 ####  void gtk_drag_dest_set_target_list (GtkWidget *widget, GtkTargetList *target_list) 
 ##void
 ##gtk_drag_dest_set_target_list (widget, target_list)

@@ -252,26 +252,10 @@ pango_font_family_list_faces (family)
 	}
 	g_free(faces);
 
-#MODULE = Gtk2::Pango::Font	PACKAGE = Gtk2::Pango::Font	PREFIX = pango_font_
-#
+###MODULE = Gtk2::Pango::Font	PACKAGE = Gtk2::Pango::Font	PREFIX = pango_font_
+###
+### no typemaps for this stuff.
+### it looks like it would only be useful from C, though.
 ### PangoCoverage * pango_font_get_coverage (PangoFont *font, PangoLanguage *language)
-#PangoCoverage *
-#pango_font_get_coverage (font, language)
-#	PangoFont *font
-#	PangoLanguage *language
-#
 ### PangoEngineShape * pango_font_find_shaper (PangoFont *font, PangoLanguage *language, guint32 ch)
-#PangoEngineShape *
-#pango_font_find_shaper (font, language, ch)
-#	PangoFont *font
-#	PangoLanguage *language
-#	guint32 ch
-#
 ### void pango_font_get_glyph_extents (PangoFont *font, PangoGlyph glyph, PangoRectangle *ink_rect, PangoRectangle *logical_rect)
-#void
-#pango_font_get_glyph_extents (font, glyph, ink_rect, logical_rect)
-#	PangoFont *font
-#	PangoGlyph glyph
-#	PangoRectangle *ink_rect
-#	PangoRectangle *logical_rect
-#

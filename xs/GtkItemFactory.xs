@@ -251,7 +251,8 @@ gtk_item_factory_popup (ifactory, x, y, mouse_button, time_, popup_data=NULL)
 	                                   : NULL, 
 	                                  x, y, mouse_button, time_);
 
-
+### FIXME these will need special handling to fetch the data set
+###       by $item_factory->popup
 ###  gpointer gtk_item_factory_popup_data (GtkItemFactory *ifactory) 
 #gpointer
 #gtk_item_factory_popup_data (ifactory)
@@ -262,6 +263,7 @@ gtk_item_factory_popup (ifactory, x, y, mouse_button, time_, popup_data=NULL)
 #gtk_item_factory_popup_data_from_widget (widget)
 #	GtkWidget *widget
 
+# FIXME
 ###  void gtk_item_factory_set_translate_func (GtkItemFactory *ifactory, GtkTranslateFunc func, gpointer data, GtkDestroyNotify notify) 
 #void
 #gtk_item_factory_set_translate_func (ifactory, func, data, notify)

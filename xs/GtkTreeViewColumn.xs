@@ -85,7 +85,7 @@ GtkTreeViewColumn *
 gtk_tree_view_column_new (class)
 	SV * class
     C_ARGS:
-
+	/*void*/
 
 GtkTreeViewColumn *
 gtk_tree_view_column_new_with_attributes (class, title, cell, ...)
@@ -315,6 +315,7 @@ GtkSortType
 gtk_tree_view_column_get_sort_order (tree_column)
 	GtkTreeViewColumn *tree_column
 
+# FIXME 
 #### void gtk_tree_view_column_cell_set_cell_data (GtkTreeViewColumn *tree_column, GtkTreeModel *tree_model, GtkTreeIter *iter, gboolean is_expander, gboolean is_expanded)
 ##void
 ##gtk_tree_view_column_cell_set_cell_data (tree_column, tree_model, iter, is_expander, is_expanded)
@@ -324,6 +325,7 @@ gtk_tree_view_column_get_sort_order (tree_column)
 ##	gboolean is_expander
 ##	gboolean is_expanded
 ##
+# FIXME need to return a rectangle from the stack, OUTLIST won't work
 #### void gtk_tree_view_column_cell_get_size (GtkTreeViewColumn *tree_column, GdkRectangle *cell_area, gint *x_offset, gint *y_offset, gint *width, gint *height)
 ##void
 ##gtk_tree_view_column_cell_get_size (tree_column, cell_area, x_offset, y_offset, width, height)
@@ -334,11 +336,13 @@ gtk_tree_view_column_get_sort_order (tree_column)
 ##	gint *width
 ##	gint *height
 ##
+# FIXME
 #### gboolean gtk_tree_view_column_cell_is_visible (GtkTreeViewColumn *tree_column)
 ##gboolean
 ##gtk_tree_view_column_cell_is_visible (tree_column)
 ##	GtkTreeViewColumn *tree_column
 ##
+# FIXME don't want to return the boolean
 #### gboolean gtk_tree_view_column_cell_get_position (GtkTreeViewColumn *tree_column, GtkCellRenderer *cell_renderer, gint *start_pos, gint *width)
 ##gboolean
 ##gtk_tree_view_column_cell_get_position (tree_column, cell_renderer, start_pos, width)
