@@ -40,9 +40,9 @@ INPUT
 
 T_GDK_GEOMETRY
 	if (!sv_derived_from ($arg, \"Gtk2::Gdk::Geometry\"))
-        	croak (aTHX_ \"$var is not of type Gtk2::Gdk::Geometry\");
+        	croak (\"$var is not of type Gtk2::Gdk::Geometry\");
 	if (SvCUR (SvRV ($arg)) != sizeof (GdkGeometry))
-        	croak (aTHX_ \"$var is a corrupted Gtk2::Gdk::Geometry object\");
+        	croak (\"$var is a corrupted Gtk2::Gdk::Geometry object\");
         $var = (GdkGeometry *)SvPVX (SvRV ($arg));
 
 OUTPUT
