@@ -33,7 +33,7 @@ ok( $store = Gtk2::ListStore->new( map {$_->{type}} @cols ) );
 	{ Author => 'John Doe', Work => 'Who am I', Sold => '44', Print => 1 },
 );
 
-foreach (@datam)
+foreach (@data)
 {
 	my $iter = $store->append;
 	$store->set($iter, 
@@ -75,8 +75,8 @@ foreach (@cols)
 
 $win->show_all;
 
-G::Idle->add( sub {
-		Gtk2->main_quit;
-	} );
+#G::Idle->add( sub {
+#		Gtk2->main_quit;
+#	} );
 
 Gtk2->main;
