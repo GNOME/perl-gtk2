@@ -42,7 +42,7 @@ foreach (qw(bla blee bliii bloooo)) {
 ###############################################################################
 
 SKIP: {
-	skip("swap, move_before, move_after and reorder are new in 2.2.x", 12)
+	skip("swap, move_before, move_after and reorder are new in 2.2.x", 15)
 		unless Gtk2->CHECK_VERSION (2, 2, 0);
 
 	is($model->get($model->get_iter_from_string("1:1"), 0), "bleeblee");
