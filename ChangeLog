@@ -1,3 +1,8 @@
+2003/07/14 22:30 muppetman
+
+	* xs/GtkTreeModel.xs: bugfix, can't _own_ornull something that wasn't
+	dynamically allocated.
+
 2003/07/14 20:44 rwmcfa1
 
 	* t/00.Gtk2.t: more thorough testing, init_add, quit_add, 
