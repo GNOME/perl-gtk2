@@ -107,4 +107,18 @@ void gtk2perl_read_gtk_target_entry (SV * sv, GtkTargetEntry * entry);
 	}								\
 	}
 
+
+/*
+ * some custom opaque object handling for private gtk structures needed 
+ * for doing drag and drop.
+ */
+typedef GtkTargetList GtkTargetList_ornull;
+SV * newSVGtkTargetList (GtkTargetList * list);
+#define newSVGtkTargetList_ornull(list)	((list) ? newSVGtkTargetList (list) : &PL_sv_undef)
+GtkTargetList * SvGtkTargetList (SV * sv);
+#define SvGtkTargetList_ornull(sv)	(SvTRUE (sv) ? SvGtkTargetList (sv) : NULL)
+
+SV * newSVGtkTargetEntry (GtkTargetEntry * entry);
+GtkTargetEntry * SvGtkTargetEntry (SV * sv);
+
 #endif /* _GTK2PERL_H_ */

@@ -36,6 +36,8 @@ newSVGtkTargetEntry (GtkTargetEntry * e)
 	hv_store (h, "target", 6, e->target ? newSVpv (e->target, 0) : newSVsv (&PL_sv_undef), 0);
 	hv_store (h, "flags", 5, newSVGtkTargetFlags (e->flags), 0);
 	hv_store (h, "info", 4, newSViv (e->info), 0);
+
+	return r;
 }
 
 GtkTargetEntry *
@@ -81,58 +83,96 @@ gtk2perl_read_gtk_target_entry (SV * sv,
 	}
 }
 
-/*
- * FIXME no typemap for GtkTargetList
-##MODULE = Gtk2::Selection	PACKAGE = Gtk2::TargetList	PREFIX = gtk_target_list_
-##
-####  GtkTargetList *gtk_target_list_new (const GtkTargetEntry *targets, guint ntargets) 
-##GtkTargetList *
-##gtk_target_list_new (targets, ntargets)
-##	const GtkTargetEntry *targets
-##	guint ntargets
-##
-####  void gtk_target_list_ref (GtkTargetList *list) 
-##void
-##gtk_target_list_ref (list)
-##	GtkTargetList *list
-##
-####  void gtk_target_list_unref (GtkTargetList *list) 
-##void
-##gtk_target_list_unref (list)
-##	GtkTargetList *list
-##
-####  void gtk_target_list_add (GtkTargetList *list, GdkAtom target, guint flags, guint info) 
-##void
-##gtk_target_list_add (list, target, flags, info)
-##	GtkTargetList *list
-##	GdkAtom target
-##	guint flags
-##	guint info
-##
-####  void gtk_target_list_add_table (GtkTargetList *list, const GtkTargetEntry *targets, guint ntargets) 
-##void
-##gtk_target_list_add_table (list, targets, ntargets)
-##	GtkTargetList *list
-##	const GtkTargetEntry *targets
-##	guint ntargets
-##
-####  void gtk_target_list_remove (GtkTargetList *list, GdkAtom target) 
-##void
-##gtk_target_list_remove (list, target)
-##	GtkTargetList *list
-##	GdkAtom target
-##
-####  gboolean gtk_target_list_find (GtkTargetList *list, GdkAtom target, guint *info) 
-##gint
-##gtk_target_list_find (list, target)
-##	GtkTargetList *list
-##	GdkAtom target
-##    CODE:
-##	if (!gtk_target_list_find (list, target, &RETVAL))
-##		XSRETURN_UNDEF;
-##    OUTPUT:
-##	RETVAL
-*/
+SV *
+newSVGtkTargetList (GtkTargetList * list)
+{
+	gtk_target_list_ref (list);
+	return sv_setref_pv (newSV (0), "Gtk2::TargetList", list);
+	
+}
+
+GtkTargetList *
+SvGtkTargetList (SV * sv)
+{
+	if (!SvTRUE (sv) || !SvROK (sv) ||
+	    !sv_derived_from (sv, "Gtk2::TargetList"))
+		croak ("variable is not of type Gtk2::TargetList");
+	return (GtkTargetList*) SvUV (SvRV (sv));
+}
+
+#define STACK_ITEMS_TO_TARGET_ENTRY_ARRAY(first, targets, ntargets) \
+	{							\
+	guint i;						\
+	ntargets = items - first;				\
+	targets = g_new (GtkTargetEntry, ntargets);		\
+	for (i = 0 ; i < ntargets ; i++)			\
+		gtk2perl_read_gtk_target_entry (ST (i + first),	\
+		                                targets + i);	\
+	}
+
+MODULE = Gtk2::Selection	PACKAGE = Gtk2::TargetList	PREFIX = gtk_target_list_
+
+void
+DESTROY (SV * list)
+    CODE:
+	gtk_target_list_unref (SvGtkTargetList (list));
+
+##  GtkTargetList *gtk_target_list_new (const GtkTargetEntry *targets, guint ntargets) 
+GtkTargetList *
+gtk_target_list_new (SV * class, ...)
+    PREINIT:
+	GtkTargetEntry *targets;
+	guint ntargets;
+    CODE:
+	STACK_ITEMS_TO_TARGET_ENTRY_ARRAY (1, targets, ntargets);
+	RETVAL = gtk_target_list_new (targets, ntargets);
+    OUTPUT:
+	RETVAL
+    CLEANUP:
+	g_free (targets);
+	gtk_target_list_unref (RETVAL);
+
+ ## unmapped, automagical
+##  void gtk_target_list_ref (GtkTargetList *list) 
+##  void gtk_target_list_unref (GtkTargetList *list) 
+
+##  void gtk_target_list_add (GtkTargetList *list, GdkAtom target, guint flags, guint info) 
+void
+gtk_target_list_add (list, target, flags, info)
+	GtkTargetList *list
+	GdkAtom target
+	guint flags
+	guint info
+
+##  void gtk_target_list_add_table (GtkTargetList *list, const GtkTargetEntry *targets, guint ntargets) 
+void
+gtk_target_list_add_table (GtkTargetList * list, GtkTargetEntry * target, ...)
+    PREINIT:
+	GtkTargetEntry *targets;
+	guint ntargets;
+    CODE:
+	STACK_ITEMS_TO_TARGET_ENTRY_ARRAY (1, targets, ntargets);
+	gtk_target_list_add_table (list, targets, ntargets);
+    CLEANUP:
+	g_free (targets);
+
+##  void gtk_target_list_remove (GtkTargetList *list, GdkAtom target) 
+void
+gtk_target_list_remove (list, target)
+	GtkTargetList *list
+	GdkAtom target
+
+##  gboolean gtk_target_list_find (GtkTargetList *list, GdkAtom target, guint *info) 
+gint
+gtk_target_list_find (list, target)
+	GtkTargetList *list
+	GdkAtom target
+    CODE:
+	if (!gtk_target_list_find (list, target, &RETVAL))
+		XSRETURN_UNDEF;
+    OUTPUT:
+	RETVAL
+
 
 MODULE = Gtk2::Selection	PACKAGE = Gtk2::Selection	PREFIX = gtk_selection_
 
@@ -161,6 +201,8 @@ gtk_selection_owner_set_for_display (class, display, widget, selection, time_)
 
 #endif /* >= 2.2.0 */
 
+MODULE = Gtk2::Selection	PACKAGE = Gtk2::Widget	PREFIX = gtk_
+
 ##  void gtk_selection_add_target (GtkWidget *widget, GdkAtom selection, GdkAtom target, guint info) 
 void
 gtk_selection_add_target (widget, selection, target, info)
@@ -169,14 +211,19 @@ gtk_selection_add_target (widget, selection, target, info)
 	GdkAtom target
 	guint info
 
-# FIXME
-####  void gtk_selection_add_targets (GtkWidget *widget, GdkAtom selection, const GtkTargetEntry *targets, guint ntargets) 
-##void
-##gtk_selection_add_targets (widget, selection, targets, ntargets)
-##	GtkWidget *widget
-##	GdkAtom selection
-##	const GtkTargetEntry *targets
-##	guint ntargets
+##  void gtk_selection_add_targets (GtkWidget *widget, GdkAtom selection, const GtkTargetEntry *targets, guint ntargets) 
+void
+gtk_selection_add_targets (widget, selection, target, ...)
+	GtkWidget *widget
+	GdkAtom selection
+	GtkTargetEntry *target
+    PREINIT:
+	GtkTargetEntry *targets;
+	guint ntargets;
+    CODE:
+	STACK_ITEMS_TO_TARGET_ENTRY_ARRAY (2, targets, ntargets);
+	gtk_selection_add_targets (widget, selection, targets, ntargets);
+	g_free (targets);
 
 ##  void gtk_selection_clear_targets (GtkWidget *widget, GdkAtom selection) 
 void
