@@ -1,3 +1,8 @@
+2003/12/14 17:16 (-0500) muppetman
+
+	* t/paned.t: wait for size-allocate instead of using timeouts... still
+	trying to get this test to be robust.
+
 2003/12/14 20:12 (+0100) kaffeetisch
 
 	* xs/GtkTreeModel.xs: Fix a slight glitch in the API doc of

@@ -86,8 +86,7 @@ use Data::Dumper;
 
 my $i = 0;
 
-Glib::Timeout->add (250, sub {
-#Glib::Timeout->add (1000, sub {
+$window->signal_connect (size_allocate => sub {
 	my ($w, $h);
 	my $this;
 
