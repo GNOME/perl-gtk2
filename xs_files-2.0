@@ -109,6 +109,7 @@ xs/GtkStock.xs
 xs/GtkStyle.xs
 xs/GtkTable.xs
 xs/GtkTearoffMenuItem.xs
+xs/GtkTextChildAnchor.xs
 xs/GtkTextBuffer.xs
 xs/GtkTextIter.xs
 xs/GtkTextMark.xs

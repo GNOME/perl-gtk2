@@ -79,6 +79,7 @@ t/00.Gtk2.t
 t/01.GtkWindow.t
 t/02.GtkContainer.t
 t/GdkColor.t
+t/GdkDnd.t
 t/GdkRegion.t
 t/GdkWindow.t
 t/GtkAccelGroup.t
@@ -100,6 +101,7 @@ t/GtkClipboard.t
 t/GtkColorSelection.t
 t/GtkColorSelectionDialog.t
 t/GtkCombo.t
+t/GtkCurve.t
 t/GtkDialog.t
 t/GtkDnd.t
 t/GtkDrawingArea.t
@@ -119,6 +121,7 @@ t/GtkHScale.t
 t/GtkHScrollbar.t
 t/GtkHSeparator.t
 t/GtkIconFactory.t
+t/GtkImage.t
 t/GtkImageMenuItem.t
 t/GtkInputDialog.t
 t/GtkInvisible.t
@@ -133,6 +136,7 @@ t/GtkMenuShell.t
 t/GtkMessageDialog.t
 t/GtkMisc.t
 t/GtkNotebook.t
+t/GtkObject.t
 t/GtkOptionMenu.t
 t/GtkPaned.t
 t/GtkProgressBar.t
@@ -154,7 +158,9 @@ t/GtkStatusBar.t
 t/GtkStock.t
 t/GtkTable.t
 t/GtkTearoffMenuItem.t
+t/GtkTextChildAnchor.t
 t/GtkTextIter.t
+t/GtkTextView.t
 t/GtkToggleButton.t
 t/GtkToolbar.t
 t/GtkTooltips.t
@@ -284,6 +290,7 @@ xs/GtkStyle.xs
 xs/GtkTable.xs
 xs/GtkTearoffMenuItem.xs
 xs/GtkTextBuffer.xs
+xs/GtkTextChildAnchor.xs
 xs/GtkTextIter.xs
 xs/GtkTextMark.xs
 xs/GtkTextTag.xs

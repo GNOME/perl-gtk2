@@ -81,20 +81,6 @@ gdk_drag_status (context, action, time_=GDK_CURRENT_TIME)
 	GdkDragAction action
 	guint32 time_
 
-##  void gdk_drop_reply (GdkDragContext *context, gboolean ok, guint32 time_) 
-void
-gdk_drop_reply (context, ok, time_=GDK_CURRENT_TIME)
-	GdkDragContext *context
-	gboolean ok
-	guint32 time_
-
-##  void gdk_drop_finish (GdkDragContext *context, gboolean success, guint32 time_) 
-void
-gdk_drop_finish (context, success, time_=GDK_CURRENT_TIME)
-	GdkDragContext *context
-	gboolean success
-	guint32 time_
-
 ##  GdkAtom gdk_drag_get_selection (GdkDragContext *context) 
 GdkAtom
 gdk_drag_get_selection (context)
@@ -221,3 +207,18 @@ gdk_drag_abort (context, time_)
 	GdkDragContext *context
 	guint32 time_
 
+MODULE = Gtk2::Gdk::Dnd	PACKAGE = Gtk2::Gdk::DragContext	PREFIX = gdk_
+
+##  void gdk_drop_reply (GdkDragContext *context, gboolean ok, guint32 time_) 
+void
+gdk_drop_reply (context, ok, time_=GDK_CURRENT_TIME)
+	GdkDragContext *context
+	gboolean ok
+	guint32 time_
+
+##  void gdk_drop_finish (GdkDragContext *context, gboolean success, guint32 time_) 
+void
+gdk_drop_finish (context, success, time_=GDK_CURRENT_TIME)
+	GdkDragContext *context
+	gboolean success
+	guint32 time_
