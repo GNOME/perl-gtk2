@@ -100,6 +100,7 @@ t/GdkKeys.t
 t/GdkProperty.t
 t/GdkRegion.t
 t/GdkScreen.t
+t/GdkSelection.t
 t/GdkWindow.t
 t/GtkAccelGroup.t
 t/GtkAccelLabel.t

@@ -1,3 +1,10 @@
+2004/01/28 00:27 (+0100) kaffeetisch
+
+	A t/GdkSelection.t
+	* MANIFEST: New test.
+
+	* t/Gdk.t: Test Gtk2::Gdk::Threads::init, enter and leave.
+
 2004/01/27 23:10 (+0100) kaffeetisch
 
 	A t/GdkCursor.t

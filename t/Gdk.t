@@ -1,6 +1,12 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 11;
+use Gtk2::TestHelper tests => 11, noinit => 1;
+
+Gtk2::Gdk::Threads -> init();
+Gtk2 -> init();
+
+Gtk2::Gdk::Threads -> enter();
+Gtk2::Gdk::Threads -> leave();
 
 SKIP: {
   skip("get_display_arg_name and notify_startup_complete are new in 2.2", 0)
