@@ -79,8 +79,22 @@ const gchar *
 gtk_file_selection_get_filename (filesel)
 	GtkFileSelection * filesel
 
-# TODO: needs custom xs
-#gchar **
-#gtk_file_selection_get_selections
-#	GtkFileSelction * filesel
+## TODO: what about the utf8'ieness of all of this
+void
+gtk_file_selection_get_selections (filesel)
+	GtkFileSelection * filesel
+    PREINIT:
+	int      i;
+	gchar ** rets;
+	gchar *  curr;
+    PPCODE:
+	rets = gtk_file_selection_get_selections(filesel);
+	curr = rets[0];
+	for( i = 0, curr = rets[0]; curr != NULL; i++, curr = rets[i] )
+	{
+		XPUSHs(sv_2mortal(newSVpv(
+			g_filename_to_utf8(curr, -1, NULL, NULL, NULL), 
+			PL_na)));
+	}
+	g_strfreev(rets);
 
