@@ -36,9 +36,23 @@ our $VERSION = '1.01';
 our @ISA = qw(DynaLoader);
 
 sub import {
-	my $self = shift;
-	foreach (@_) {
-		$self->init,	next if /^-init$/;
+	my $class = shift;
+	for (my $i = 0 ; $i < @_ ; $i++) {
+		if ($_[$i] =~ /^-?init$/) {
+			$class->init;
+		} elsif ($_[$i] =~ /^-?(minversion|atleast)$/) {
+			$i++;
+			die "$class import arg $1 requires a version argument"
+				unless $i < @_;
+			my $minversion = $_[$i];
+			die "This $class is too old; $minversion requested,"
+			  . " but this is $VERSION\n"
+				if $VERSION < $minversion;
+		} else {
+			use Carp;
+			carp "$class\->import: unrecognized parameter"
+			   . " $_[$i] ignored";
+		}
 	}
 }
 
