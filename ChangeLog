@@ -1,8 +1,6 @@
 2003/07/05 06:06 pcg
 
-        * xs/GtkTextBuffer.xs, xs/GtkClipboard.xs: use length()
-        syntax. Beat me if it doesn't work, I tested in with 5.8.0 and
-        5.8.1-devel with no problems.
+        * xs/GtkTextBuffer.xs, xs/GtkClipboard.xs: use length() syntax.
 
         * xs/GtkTextBuffer.xs, xs/GtkRc.xs, xs/Gdk.xs, xs/GdkProperty.xs,
         xs/GdkScreen.xs, xs/GtkAccelGroup.xs, xs/GtkEditable.xs,
