@@ -57,7 +57,11 @@ MODULE = Gtk2::Gdk::Property	PACKAGE = Gtk2::Gdk::Window	PREFIX = gdk_
 ### the docs warn us not to use this one, but don't say it's deprecated.
 ##  gboolean gdk_property_get (GdkWindow *window, GdkAtom property, GdkAtom type, gulong offset, gulong length, gint pdelete, GdkAtom *actual_property_type, gint *actual_format, gint *actual_length, guchar **data) 
 =for apidoc
+
 =for signature (property_type, format, length) = $window->property_get ($property, $type, $offset, $length, $pdelete)
+
+See I<property_change> for an explanation of the meaning of I<format>.
+
 =cut
 void
 gdk_property_get (window, property, type, offset, length, pdelete)
@@ -112,9 +116,19 @@ gdk_property_get (window, property, type, offset, length, pdelete)
 ### nelements is the number of elements in the data, not the number of bytes.
 ##  void gdk_property_change (GdkWindow *window, GdkAtom property, GdkAtom type, gint format, GdkPropMode mode, const guchar *data, gint nelements) 
 =for apidoc
+
 =for arg ... property value(s)
-Depending on the value of format, the property value(s) is either a string, one
-or more unsigned short numbers or one or more unsigned long numbers.
+
+Depending on the value of I<format>, the property value(s) can be:
+
+  +--------------------+------------------------------------+
+  |      format        |                value               |
+  +--------------------+------------------------------------+
+  | Gtk2::Gdk::CHARS   | a string                           |
+  | Gtk2::Gdk::USHORTS | one or more unsigned short numbers |
+  | Gtk2::Gdk::ULONGS  | one or more unsigned long numbers  |
+  +--------------------+------------------------------------+
+
 =cut
 void
 gdk_property_change (window, property, type, format, mode, ...)

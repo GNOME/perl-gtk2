@@ -9,7 +9,7 @@ Gtk2::Gdk::Threads -> init();
 
 if (Gtk2->init_check )
 {
-	plan tests => 11;
+	plan tests => 13;
 }
 else
 {
@@ -55,10 +55,27 @@ Gtk2::Gdk -> pointer_ungrab(0);
 is(Gtk2::Gdk -> keyboard_grab($window -> window(), 1, 0), "success");
 Gtk2::Gdk -> keyboard_ungrab(0);
 
-Gtk2::Gdk -> beep();
-
 Gtk2::Gdk -> error_trap_push();
 is(Gtk2::Gdk -> error_trap_pop(), 0);
+
+my $event = Gtk2::Gdk::Event -> new("client-event");
+
+$event -> window($window -> window());
+$event -> message_type(Gtk2::Gdk::Atom -> new("string"));
+$event -> data_format(Gtk2::Gdk::CHARS);
+$event -> data("01234567890123456789");
+
+is(Gtk2::Gdk::Event -> send_client_message($event, $window -> window() -> get_xid()), 1);
+Gtk2::Gdk::Event -> send_clientmessage_toall($event);
+
+SKIP: {
+  skip("GdkDisplay is new in 2.2", 1)
+    if (Gtk2 -> check_version(2, 2, 0));
+
+  is(Gtk2::Gdk::Event -> send_client_message_for_display(Gtk2::Gdk::Display -> get_default(), $event, $window -> window() -> get_xid()), 1);
+}
+
+Gtk2::Gdk -> beep();
 
 __END__
 

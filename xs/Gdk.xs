@@ -231,26 +231,35 @@ MODULE = Gtk2::Gdk	PACKAGE = Gtk2::Gdk	PREFIX = gdk_
 ##  gchar *gdk_wcstombs (const GdkWChar *src) 
 ##  gint gdk_mbstowcs (GdkWChar *dest, const gchar *src, gint dest_max) 
 
-# FIXME
-###  gboolean gdk_event_send_client_message (GdkEvent *event, GdkNativeWindow winid) 
-#gboolean
-#gdk_event_send_client_message (event, winid)
-#	GdkEvent *event
-#	GdkNativeWindow winid
-#
-# FIXME
-###  void gdk_event_send_clientmessage_toall (GdkEvent *event) 
-#void
-#gdk_event_send_clientmessage_toall (event)
-#	GdkEvent *event
-#
-# FIXME
-###  gboolean gdk_event_send_client_message_for_display (GdkDisplay *display, GdkEvent *event, GdkNativeWindow winid) 
-#gboolean
-#gdk_event_send_client_message_for_display (display, event, winid)
-#	GdkDisplay *display
-#	GdkEvent *event
-#	GdkNativeWindow winid
+MODULE = Gtk2::Gdk	PACKAGE = Gtk2::Gdk::Event	PREFIX = gdk_event_
+
+##  gboolean gdk_event_send_client_message (GdkEvent *event, GdkNativeWindow winid) 
+gboolean
+gdk_event_send_client_message (class, event, winid)
+	GdkEvent *event
+	GdkNativeWindow winid
+    C_ARGS:
+	event, winid
+
+##  void gdk_event_send_clientmessage_toall (GdkEvent *event) 
+void
+gdk_event_send_clientmessage_toall (class, event)
+	GdkEvent *event
+    C_ARGS:
+	event
+
+#if GTK_CHECK_VERSION (2, 2, 0)
+
+##  gboolean gdk_event_send_client_message_for_display (GdkDisplay *display, GdkEvent *event, GdkNativeWindow winid) 
+gboolean
+gdk_event_send_client_message_for_display (class, display, event, winid)
+	GdkDisplay *display
+	GdkEvent *event
+	GdkNativeWindow winid
+    C_ARGS:
+	display, event, winid
+
+#endif
 
 MODULE = Gtk2::Gdk	PACKAGE = Gtk2::Gdk::Threads	PREFIX = gdk_threads_
 

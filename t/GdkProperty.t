@@ -24,26 +24,26 @@ is($strut_partial -> name(), "_NET_WM_STRUT_PARTIAL");
 is($string -> name(), "STRING");
 is($cardinal -> name(), "CARDINAL");
 
-$window -> window() -> property_change($name, $string, 8, "replace", "Bla Bla Bla");
-$window -> window() -> property_change($strut, $cardinal, 16, "replace", 0, 0, 26, 0);
-$window -> window() -> property_change($strut_partial, $cardinal, 32, "replace", 0, 0, 26, 0, 0, 0, 0, 0, 0, 1279, 0, 0);
+$window -> window() -> property_change($name, $string, Gtk2::Gdk::CHARS, "replace", "Bla Bla Bla");
+$window -> window() -> property_change($strut, $cardinal, Gtk2::Gdk::USHORTS, "replace", 0, 0, 26, 0);
+$window -> window() -> property_change($strut_partial, $cardinal, Gtk2::Gdk::ULONGS, "replace", 0, 0, 26, 0, 0, 0, 0, 0, 0, 1279, 0, 0);
 
 my ($atom, $format, @data);
 
 ($atom, $format, @data) = $window -> window() -> property_get($name, $string, 0, 1024, 0);
 is($atom -> name(), "STRING");
-is($format, 8);
+is($format, Gtk2::Gdk::CHARS);
 is(@data, 1);
 is($data[0], "Bla Bla Bla");
 
 ($atom, $format, @data) = $window -> window() -> property_get($strut, $cardinal, 0, 1024, 0);
 is($atom -> name(), "CARDINAL");
-is($format, 16);
+is($format, Gtk2::Gdk::USHORTS);
 is_deeply([@data], [0, 0, 26, 0]);
 
 ($atom, $format, @data) = $window -> window() -> property_get($strut_partial, $cardinal, 0, 1024, 0);
 is($atom -> name(), "CARDINAL");
-is($format, 32);
+is($format, Gtk2::Gdk::ULONGS);
 is_deeply([@data], [0, 0, 26, 0, 0, 0, 0, 0, 0, 1279, 0, 0]);
 
 $window -> window() -> property_delete($name);

@@ -64,6 +64,15 @@ Gtk2->bootstrap ($VERSION);
 
 # Preloaded methods go here.
 
+package Gtk2::Gdk;
+
+sub CHARS { 8 };
+sub SHORTS { 16 };
+sub LONGS { 32 };
+
+sub USHORTS { 16 };
+sub ULONGS { 32 };
+
 package Gtk2::Gdk::Atom;
 
 use overload

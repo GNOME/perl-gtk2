@@ -1209,6 +1209,21 @@ BOOT:
  #  } data;
  #};
 
+GdkAtom
+message_type (GdkEvent * eventclient, GdkAtom newvalue=0)
+    CODE:
+	RETVAL = eventclient->client.message_type;
+	if (items == 2)
+		eventclient->client.message_type = newvalue;
+    OUTPUT:
+	RETVAL
+
+=for apidoc
+
+This should be set to either $Gtk2::Gdk::CHARS, $Gtk2::Gdk::SHORTS, or
+$Gtk2::Gdk::LONGS.  See I<data> for a full explanation.
+
+=cut
 gushort
 data_format (GdkEvent * eventclient, gushort newvalue=0)
     CODE:
@@ -1218,7 +1233,88 @@ data_format (GdkEvent * eventclient, gushort newvalue=0)
     OUTPUT:
 	RETVAL
 
-## TODO/FIXME: implement accessors for data
+=for apidoc
+
+=for signature old_string = $eventclient->data (string)
+=for signature old_list = $eventclient->data (list of ten shorts)
+=for signature old_list = $eventclient->data (list of five longs)
+
+Depending on the value of I<data_format>, I<data> takes one of three different
+kinds of values:
+
+  +-------------------+-----------------------+
+  |    data_format    |         data          |
+  +-------------------+-----------------------+
+  | Gtk2::Gdk::CHARS  | a string of length 20 |
+  | Gtk2::Gdk::SHORTS | a list of ten shorts  |
+  | Gtk2::Gdk::LONGS  | a list of five longs  |
+  +-------------------+-----------------------+
+
+=cut
+void
+data (GdkEvent * eventclient, ...)
+    PREINIT:
+	int i, first_index = 1;
+    PPCODE:
+	switch (eventclient->client.data_format) {
+		case 8: {
+			if (items == first_index + 1) {
+				char *data = SvPV_nolen (ST (first_index));
+				char old[20];
+
+				for (i = 0; i < 20; i++) {
+					old[i] = eventclient->client.data.b[i];
+					eventclient->client.data.b[i] = data[i];
+				}
+
+				XPUSHs (sv_2mortal (newSVpv (old, 20)));
+			} else {
+				XPUSHs (sv_2mortal (newSVpv (eventclient->client.data.b, 20)));
+			}
+
+			break;
+		}
+		case 16: {
+			if (items == first_index + 10) {
+				short old[10];
+
+				for (i = first_index; i < items; i++) {
+					old[i - first_index] = eventclient->client.data.s[i - first_index];
+					eventclient->client.data.s[i - first_index] = SvIV (ST (i));
+				}
+
+				for (i = 0; i < 10; i++)
+					XPUSHs (sv_2mortal (newSViv (old[i])));
+					
+			} else {
+				for (i = 0; i < 10; i++)
+					XPUSHs (sv_2mortal (newSViv (eventclient->client.data.s[i])));
+			}
+
+			break;
+		}
+		case 32: {
+			if (items == first_index + 5) {
+				long old[5];
+
+				for (i = first_index; i < items; i++) {
+					old[i - first_index] = eventclient->client.data.l[i - first_index];
+					eventclient->client.data.l[i - first_index] = SvIV (ST (i));
+				}
+
+				for (i = 0; i < 5; i++)
+					XPUSHs (sv_2mortal (newSViv (old[i])));
+					
+			} else {
+				for (i = 0; i < 5; i++)
+					XPUSHs (sv_2mortal (newSViv (eventclient->client.data.l[i])));
+			}
+
+			break;
+		}
+		default:
+			croak ("Illegal format value %d used; should be either 8, 16 or 32", eventclient->client.data_format);
+	}
 
 MODULE = Gtk2::Gdk::Event	PACKAGE = Gtk2::Gdk::Event::Setting
 

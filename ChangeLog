@@ -1,3 +1,21 @@
+2004/02/17 21:14 (+0100) kaffeetisch
+
+	* Makefile.PL: Use COPYRIGHT_FROM instead of COPYRIGHT.
+
+	* t/Gdk.t
+	* xs/Gdk.xs: Bind and test Gtk2::Gdk::Event::send_client_message,
+	::send_clientmessage_toall, and ::send_client_message_for_display.
+
+	* t/GdkEvent.t
+	* xs/GdkEvent.xs: Implement and test
+	Gtk2::Gdk::Event::Client::message_type and ::data.  Document
+	::data_format.
+
+	* Gtk2.pm
+	* t/GdkProperty.t
+	* xs/GdkProperty.xs: Use Gtk2::Gdk::CHARS, ::USHORTS, and ::ULONGS
+	instead of the magic numbers 8, 16, and 32.
+
 2004/02/14 21:54 (+0100) kaffeetisch
 
 	* t/GtkCellRenderer.t

@@ -7,7 +7,7 @@
 # 	- rm
 #########################
 
-use Gtk2::TestHelper tests => 79;
+use Gtk2::TestHelper tests => 85;
 use Data::Dumper;
 
 # Expose #######################################################################
@@ -226,8 +226,26 @@ isa_ok ($event = Gtk2::Gdk::Event->new ('proximity-in'),
 isa_ok ($event = Gtk2::Gdk::Event->new ('client-event'),
 	'Gtk2::Gdk::Event::Client', 'Gtk2::Gdk::Event->new client');
 
-$event->data_format (8);
-is ($event->data_format, 8, '$client_event->data_format');
+$event->message_type (Gtk2::Gdk::Atom->new ('string'));
+isa_ok ($event->message_type, 'Gtk2::Gdk::Atom', '$event->message_type');
+
+$event->data_format (Gtk2::Gdk::CHARS);
+is ($event->data_format, Gtk2::Gdk::CHARS, '$client_event->data_format');
+
+$event->data ('01234567890123456789');
+is ($event->data, '01234567890123456789', '$client_event->data');
+
+$event->data_format (Gtk2::Gdk::SHORTS);
+is ($event->data_format, Gtk2::Gdk::SHORTS, '$client_event->data_format');
+
+$event->data (0, 1, 2, 3, 4, 5, 6, 7, 8, 9);
+is_deeply ([$event->data], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], '$client_event->data');
+
+$event->data_format (Gtk2::Gdk::LONGS);
+is ($event->data_format, Gtk2::Gdk::LONGS, '$client_event->data_format');
+
+$event->data (0, 1, 2, 3, 4);
+is_deeply ([$event->data], [0, 1, 2, 3, 4], '$client_event->data');
 
 # Setting ######################################################################
 
