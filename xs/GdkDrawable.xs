@@ -76,6 +76,16 @@ gdk_drawable_get_display (drawable)
 
 #endif
 
+## GdkRegion* gdk_drawable_get_clip_region (GdkDrawable *drawable)
+GdkRegion_own*
+gdk_drawable_get_clip_region (drawable)
+	GdkDrawable *drawable
+
+## GdkRegion* gdk_drawable_get_visible_region (GdkDrawable *drawable)
+GdkRegion_own*
+gdk_drawable_get_visible_region (drawable)
+	GdkDrawable *drawable
+
 MODULE = Gtk2::Gdk::Drawable	PACKAGE = Gtk2::Gdk::Drawable	PREFIX = gdk_
 
  ## void gdk_draw_line (GdkDrawable *drawable, GdkGC *gc, gint x1_, gint y1_, gint x2_, gint y2_)
@@ -162,6 +172,14 @@ gdk_draw_image (drawable, gc, image, xsrc, ysrc, xdest, ydest, width, height)
 	gint ydest
 	gint width
 	gint height
+
+ ## void gdk_draw_point (GdkDrawable *drawable, GdkGC *gc, gint x, gint y)
+void
+gdk_draw_point (drawable, gc, x, y)
+	GdkDrawable *drawable
+	GdkGC *gc
+	gint x
+	gint y
 
  ## void gdk_draw_points (GdkDrawable *drawable, GdkGC *gc, GdkPoint *points, gint npoints)
  ## void gdk_draw_lines (GdkDrawable *drawable, GdkGC *gc, GdkPoint *points, gint npoints)

@@ -1,0 +1,90 @@
+#!/usr/bin/perl -w
+use strict;
+use Gtk2::TestHelper tests => 11;
+
+my $window = Gtk2::Window -> new();
+$window -> show();
+
+my $win = $window -> window();
+
+SKIP: {
+  skip("GdkDisplay and GdkScreen are new in 2.2", 2)
+    if (Gtk2 -> check_version(2, 2, 0));
+
+  isa_ok($win -> get_display(), "Gtk2::Gdk::Display");
+  isa_ok($win -> get_screen(), "Gtk2::Gdk::Screen");
+}
+
+isa_ok($win -> get_visual(), "Gtk2::Gdk::Visual");
+
+my $colormap = Gtk2::Gdk::Colormap -> get_system();
+
+$win -> set_colormap($colormap);
+is($win -> get_colormap(), $colormap);
+
+like($win -> get_depth(), qr/^\d+$/);
+
+my ($w, $h) = $win -> get_size();
+like($w, qr/^\d+$/);
+like($h, qr/^\d+$/);
+
+isa_ok($win -> get_clip_region(), "Gtk2::Gdk::Region");
+isa_ok($win -> get_visible_region(), "Gtk2::Gdk::Region");
+
+my $black = Gtk2::Gdk::Color -> new(0, 0, 0);
+
+my $values = {
+  foreground => $black,
+  background => $black,
+  function => "copy",
+  fill => "tiled",
+  subwindow_mode => "clip-by-children",
+  ts_x_origin => 0,
+  ts_y_origin => 0,
+  clip_x_origin => 0,
+  clip_y_origin => 0,
+  graphics_exposures => 1,
+  line_width => 5,
+  line_style => "solid",
+  cap_style => "butt",
+  join_style => "round"
+};
+
+my $gc = Gtk2::Gdk::GC -> new_with_values($window -> window(), $values);
+my $layout = $window -> create_pango_layout("Bla!");
+
+$win -> draw_point($gc, 10, 10);
+$win -> draw_points($gc, 10, 10, 11, 11, 12, 12, 13, 13);
+$win -> draw_line($gc, 5, 5, 10, 10);
+$win -> draw_lines($gc, 5, 5, 10, 10, 15, 15, 20, 20);
+$win -> draw_segments($gc, 1, 2, 3, 4, 10, 11, 12, 13);
+$win -> draw_rectangle($gc, 1, 0, 0, 10, 10);
+$win -> draw_arc($gc, 1, 5, 5, 10, 10, 23, 42);
+$win -> draw_polygon($gc, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6);
+$win -> draw_layout($gc, 10, 10, $layout);
+$win -> draw_layout_with_colors($gc, 10, 10, $layout, $black, $black);
+$win -> draw_drawable($gc, $win, 5, 5, 5, 5, 10, 10);
+
+my $image = $win -> get_image(5, 5, 10, 10);
+isa_ok($image, "Gtk2::Gdk::Image");
+
+$win -> draw_image($gc, $image, 0, 0, 0, 0, 50, 50);
+
+SKIP: {
+  skip("draw_pixbuf is new in 2.2", 0)
+    if (Gtk2 -> check_version(2, 2, 0));
+
+  $win -> draw_pixbuf($gc, Gtk2::Gdk::Pixbuf -> new("rgb", 0, 8, 10, 10), 0, 0, 0, 0, -1, -1, "none", 5, 5);
+}
+
+SKIP: {
+  skip("copy_to_image is new in 2.3", 1)
+    if (Gtk2 -> check_version(2, 3, 0));
+
+  isa_ok($win -> copy_to_image($image, 0, 0, 0, 0, 50, 50), "Gtk2::Gdk::Image");
+}
+
+__END__
+
+Copyright (C) 2003 by the gtk2-perl team (see the file AUTHORS for the
+full list).  See LICENSE for more information.

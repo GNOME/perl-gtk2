@@ -92,9 +92,12 @@ t/GdkColor.t
 t/GdkDisplay.t
 t/GdkDisplayManager.t
 t/GdkDnd.t
+t/GdkDrawable.t
 t/GdkEvent.t
+t/GdkGC.t
 t/GdkProperty.t
 t/GdkRegion.t
+t/GdkScreen.t
 t/GdkWindow.t
 t/GtkAccelGroup.t
 t/GtkAccelLabel.t

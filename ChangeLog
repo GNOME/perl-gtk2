@@ -1,3 +1,17 @@
+2004/01/25 13:13 (+0100) kaffeetisch
+
+	* MANIFEST
+	A t/GdkDrawable.t
+	A t/GdkGC.t
+	A t/GdkScreen.t: New tests.
+
+	* xs/GdkDrawable.xs: Implement get_clip_region, get_visible_region
+	and draw_point.
+
+	* xs/GdkGC.xs: Fix various typos.  Initialize the mask in
+	read_gcvalues_from_sv.  Implement set_values and get_colormap.
+	Remove a g_printerr.
+
 2004/01/25 04:10 (-0500) muppetman
 
 	* Gtk2.pm, README, NEWS: unstable release 1.031

@@ -50,7 +50,7 @@ newSVGdkGCValues (GdkGCValues * v)
 	hv_store (h, "ts_x_origin", 11, newSViv (v->ts_x_origin), 0);
 	hv_store (h, "ts_y_origin", 11, newSViv (v->ts_y_origin), 0);
 	hv_store (h, "clip_x_origin", 13, newSViv (v->clip_x_origin), 0);
-	hv_store (h, "clip_x_origin", 13, newSViv (v->clip_y_origin), 0);
+	hv_store (h, "clip_y_origin", 13, newSViv (v->clip_y_origin), 0);
 	hv_store (h, "graphics_exposures", 18, newSViv (v->graphics_exposures), 0);
 	hv_store (h, "line_width", 10, newSViv (v->line_width), 0);
 	hv_store (h, "line_style", 10, newSVGdkLineStyle (v->line_style), 0);
@@ -60,15 +60,16 @@ newSVGdkGCValues (GdkGCValues * v)
 	return r;
 }
 
-static GdkGCValues *
+void
 read_gcvalues_from_sv (SV * data, GdkGCValues * v, GdkGCValuesMask * m)
 {
 	HV * h;
 	SV ** s;
+	GdkGCValuesMask mask = 0;
 
 	if ((!data) || (!SvOK (data)) || (!SvRV (data)) ||
 	     (SvTYPE (SvRV (data)) != SVt_PVHV))
-		return NULL;
+		return;
 		
 	h = (HV*) SvRV (data);
 
@@ -77,77 +78,79 @@ read_gcvalues_from_sv (SV * data, GdkGCValues * v, GdkGCValuesMask * m)
 
 	if ((s=hv_fetch (h, "foreground", 10, 0)) && SvOK (*s)) {
 		v->foreground = *((GdkColor*) SvGdkColor (*s));
-		*m |= GDK_GC_FOREGROUND;
+		mask |= GDK_GC_FOREGROUND;
 	}
 	if ((s=hv_fetch (h, "background", 10, 0)) && SvOK (*s)) {
 		v->background = *((GdkColor*) SvGdkColor (*s));
-		*m |= GDK_GC_BACKGROUND;
+		mask |= GDK_GC_BACKGROUND;
 	}
 	if ((s=hv_fetch (h, "font", 4, 0)) && SvOK (*s)) {
 		v->font = SvGdkFont (*s);
-		*m |= GDK_GC_FONT;
+		mask |= GDK_GC_FONT;
 	}
 	if ((s=hv_fetch (h, "function", 8, 0)) && SvOK (*s)) {
 		v->function = SvGdkFunction (*s);
-		*m |= GDK_GC_FUNCTION;
+		mask |= GDK_GC_FUNCTION;
 	}
 	if ((s=hv_fetch (h, "fill", 4, 0)) && SvOK (*s)) {
-		v->function = SvGdkFill (*s);
-		*m |= GDK_GC_FILL;
+		v->fill = SvGdkFill (*s);
+		mask |= GDK_GC_FILL;
 	}
 	if ((s=hv_fetch (h, "tile", 4, 0)) && SvOK (*s)) {
 		v->tile = SvGdkPixmap (*s);
-		*m |= GDK_GC_TILE;
+		mask |= GDK_GC_TILE;
 	}
 	if ((s=hv_fetch (h, "stipple", 7, 0)) && SvOK (*s)) {
 		v->stipple = SvGdkPixmap (*s);
-		*m |= GDK_GC_STIPPLE;
+		mask |= GDK_GC_STIPPLE;
 	}
 	if ((s=hv_fetch (h, "clip_mask", 9, 0)) && SvOK (*s)) {
 		v->clip_mask = SvGdkPixmap (*s);
-		*m |= GDK_GC_CLIP_MASK;
+		mask |= GDK_GC_CLIP_MASK;
 	}
 	if ((s=hv_fetch (h, "subwindow_mode", 14, 0)) && SvOK (*s)) {
 		v->subwindow_mode = SvGdkSubwindowMode (*s);
-		*m |= GDK_GC_SUBWINDOW;
+		mask |= GDK_GC_SUBWINDOW;
 	}
 	if ((s=hv_fetch (h, "ts_x_origin", 11, 0)) && SvOK (*s)) {
 		v->ts_x_origin = SvIV (*s);
-		*m |= GDK_GC_TS_X_ORIGIN;
+		mask |= GDK_GC_TS_X_ORIGIN;
 	}
 	if ((s=hv_fetch (h, "ts_y_origin", 11, 0)) && SvOK (*s)) {
 		v->ts_y_origin = SvIV (*s);
-		*m |= GDK_GC_TS_Y_ORIGIN;
+		mask |= GDK_GC_TS_Y_ORIGIN;
 	}
 	if ((s=hv_fetch (h, "clip_x_origin", 13, 0)) && SvOK (*s)) {
 		v->clip_x_origin = SvIV (*s);
-		*m |= GDK_GC_CLIP_X_ORIGIN;
+		mask |= GDK_GC_CLIP_X_ORIGIN;
 	}
 	if ((s=hv_fetch (h, "clip_y_origin", 13, 0)) && SvOK (*s)) {
 		v->clip_y_origin = SvIV (*s);
-		*m |= GDK_GC_CLIP_Y_ORIGIN;
+		mask |= GDK_GC_CLIP_Y_ORIGIN;
 	}
 	if ((s=hv_fetch (h, "graphics_exposures", 18, 0)) && SvOK (*s)) {
 		v->graphics_exposures = SvIV (*s);
-		*m |= GDK_GC_EXPOSURES;
+		mask |= GDK_GC_EXPOSURES;
 	}
 	if ((s=hv_fetch (h, "line_width", 10, 0)) && SvOK (*s)) {
 		v->line_width= SvIV (*s);
-		*m |= GDK_GC_LINE_WIDTH;
+		mask |= GDK_GC_LINE_WIDTH;
 	}
 	if ((s=hv_fetch (h, "line_style", 10, 0)) && SvOK (*s)) {
 		v->line_style= SvGdkLineStyle (*s);
-		*m |= GDK_GC_LINE_STYLE;
+		mask |= GDK_GC_LINE_STYLE;
 	}
 	if ((s=hv_fetch (h, "cap_style", 9, 0)) && SvOK (*s)) {
 		v->cap_style = SvGdkCapStyle (*s);
-		*m |= GDK_GC_CAP_STYLE;
+		mask |= GDK_GC_CAP_STYLE;
 	}
 	if ((s=hv_fetch (h, "join_style", 10, 0)) && SvOK (*s)) {
 		v->join_style = SvGdkJoinStyle (*s);
-		*m |= GDK_GC_JOIN_STYLE;
+		mask |= GDK_GC_JOIN_STYLE;
 	}
-	return v;
+
+	if (m)
+		*m = mask;
 }
 
 MODULE = Gtk2::Gdk::GC	PACKAGE = Gtk2::Gdk::GC	PREFIX = gdk_gc_
@@ -196,13 +199,17 @@ gdk_gc_get_values (gc)
     OUTPUT:
 	RETVAL
 
-# FIXME need GdkGCValues
-# ## void gdk_gc_set_values (GdkGC *gc, GdkGCValues *values, GdkGCValuesMask values_mask)
-#void
-#gdk_gc_set_values (gc, values, values_mask)
-#	GdkGC *gc
-#	GdkGCValues *values
-#	GdkGCValuesMask values_mask
+ ## void gdk_gc_set_values (GdkGC *gc, GdkGCValues *values, GdkGCValuesMask values_mask)
+void
+gdk_gc_set_values (gc, values)
+	GdkGC *gc
+	SV *values
+    PREINIT:
+	GdkGCValues v;
+	GdkGCValuesMask m;
+    CODE:
+	read_gcvalues_from_sv (values, &v, &m);
+	gdk_gc_set_values (gc, &v, m);
 
  ## void gdk_gc_set_foreground (GdkGC *gc, GdkColor *color)
 void
@@ -319,7 +326,6 @@ gdk_gc_set_dashes (gc, dash_offset, ...)
     CODE:
 	n = --items-1;
 	dash_list = g_new(gint8, n);
-	g_printerr("n: %d\n", n);
 	for( ; items > 1; items-- )
 		dash_list[items-2] = (gint8) SvIV(ST(items));
 	gdk_gc_set_dashes(gc, dash_offset, dash_list, n);
@@ -343,6 +349,11 @@ void
 gdk_gc_set_colormap (gc, colormap)
 	GdkGC *gc
 	GdkColormap *colormap
+
+ ##  GdkColormap *colormap gdk_gc_get_colormap (GdkGC *gc)
+GdkColormap *
+gdk_gc_get_colormap (gc)
+	GdkGC *gc
 
  ## void gdk_gc_set_rgb_fg_color (GdkGC *gc, GdkColor *color)
 void
