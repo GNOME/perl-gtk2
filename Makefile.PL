@@ -3,7 +3,6 @@
 #
 
 use 5.008;
-use strict;
 use ExtUtils::MakeMaker;
 use File::Spec;
 use Config;
@@ -111,6 +110,9 @@ $gtk2->add_headers ('gtk2perl.h');
 $gtk2->install (qw(gtk2perl.h build/gtk2perl-autogen.h));
 $gtk2->save_config ('build/IFiles.pm');
 
+# exports list needed for win32, unused on others
+require 'Gtk2.exports';
+
 WriteMakefile(
     NAME          => 'Gtk2',
     VERSION_FROM  => 'Gtk2.pm', # finds $VERSION
@@ -118,6 +120,8 @@ WriteMakefile(
     XSPROTOARG    => '-noprototypes',
     MAN3PODS      => \%pod_files,
     # PREREQ see beginning of file
+    FUNCLIST      => \@exports,
+    DL_FUNCS      => { Gtk2 => [] },
     $gtk2->get_makefile_vars,
 );
 

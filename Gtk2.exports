@@ -1,0 +1,22 @@
+@exports = qw(
+gtk2perl_menu_position_func
+gtk2perl_new_gtkobject
+gtk2perl_read_gtk_target_entry
+gtk2perl_tree_cell_data_func
+gtk2perl_tree_cell_data_func_create
+newSVGdkAtom
+newSVGdkBitmap
+newSVGdkBitmap_noinc
+newSVGdkModifierType
+newSVGtkAllocation
+newSVGtkIconSize
+newSVGtkTargetEntry
+newSVGtkTargetList
+newSVPangoLogAttr
+SvGdkAtom
+SvGtkIconSize
+SvGtkStockItem
+SvGtkTargetEntry
+SvGtkTargetList
+);
+1;
