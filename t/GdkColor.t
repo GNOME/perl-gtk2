@@ -7,7 +7,7 @@
 # 	- muppet
 #########################
 
-use Gtk2::TestHelper tests => 16;
+use Gtk2::TestHelper tests => 17;
 
 my $cmap = Gtk2::Gdk::Colormap->get_system;
 ok ($cmap, 'system colormap');
@@ -30,6 +30,7 @@ my @colors = map {
 	Gtk2::Gdk::Color->new (rand (65535), rand (65535), rand (65535))
 } 0..9;
 
+is ($colors[0]->pixel, 0, 'before alloc_color, pixel is 0');
 $cmap->alloc_color ($colors[0], 0, 1);
 ok ($colors[0]->pixel > 0, 'alloc_color allocated a color');
 my @success = $cmap->alloc_colors (0, 1, @colors);
