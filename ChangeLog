@@ -1,3 +1,10 @@
+2004/04/08 19:44 (-0500) rwmcfa1
+
+	* pm/SimpleList.pm: STORE apparently returns the stored value, we were
+	returning 1. this makes it work like normal arrays. and the splce 
+	return algorithm was broken, it put undefs into the ret where as the 
+	perl array splice doesn't
+
 2004/04/06 18:48 (+0200) kaffeetisch
 
 	* t/GtkTreeView.t
