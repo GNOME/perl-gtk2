@@ -318,9 +318,8 @@ sub create_calendar
 			Gtk2->main_quit;
 		} );
 	$bbox->add($button);
-# TODO:	 GTK_WIDGET_SET_FLAGS (button, GTK_CAN_DEFAULT);
-#	$button->set_flags('can_default');
-#	$button->grab_default;
+	$button->set_flags('can-default');
+	$button->grab_default;
 
 	$window->show_all;
 }
