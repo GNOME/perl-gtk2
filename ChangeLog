@@ -1,3 +1,10 @@
+2003/06/16 22:25 muppetman
+
+	* xs/GdkColor.xs, gtk-demo/drawingarea.pl: not sure how the GBoxed
+	change could excite this, but suddenly gdk_color_free is very unhappy
+	with the GdkColors created by Gtk2::Gdk::Color->new and ->parse.
+	fixed by using gdk_color_copy instead of g_new.  freaky.
+
 2003/06/16 22:21 pcg
 
         * xs/GtkAdjustment.xs: two minor typoes, found while porting
