@@ -77,19 +77,32 @@ gtk_accel_groups_activate (object, accel_key, accel_mods)
 #gtk_accel_group_from_accel_closure (closure)
 #	GClosure * closure
 
-# TODO: guint not in typemap
+MODULE = Gtk2::AccelGroup	PACKAGE = Gtk2::Accelerator	PREFIX = gtk_accelerator_
+
 ## void gtk_accelerator_parse (const gchar *accelerator, guint *accelerator_key, GdkModifierType *accelerator_mods)
-#void
-#gtk_accelerator_parse (accelerator, accelerator_key, accelerator_mods)
-#	const gchar     * accelerator
-#	guint           * accelerator_key
-#	GdkModifierType * accelerator_mods
+void
+gtk_accelerator_parse (class, accelerator)
+	SV              * class
+	const gchar     * accelerator
+    PREINIT:
+	guint           accelerator_key;
+	GdkModifierType accelerator_mods;
+    PPCODE:
+	gtk_accelerator_parse (accelerator, &accelerator_key, 
+	                       &accelerator_mods);
+	XPUSHs (sv_2mortal (newSVuv (accelerator_key)));
+	XPUSHs (sv_2mortal (newSVGdkModifierType (accelerator_mods)));
 
 ## gchar* gtk_accelerator_name (guint accelerator_key, GdkModifierType accelerator_mods)
 gchar *
-gtk_accelerator_name (accelerator_key, accelerator_mods)
-	guint           accelerator_key
-	GdkModifierType accelerator_mods
+gtk_accelerator_name (class, accelerator_key, accelerator_mods)
+	SV              * class
+	guint             accelerator_key
+	GdkModifierType   accelerator_mods
+    C_ARGS:
+	accelerator_key, accelerator_mods
+    CLEANUP:
+	g_free (RETVAL);
 
 ## void gtk_accelerator_set_default_mod_mask (GdkModifierType default_mod_mask)
 void
