@@ -76,6 +76,10 @@ foreach (@cols)
 $win->show_all;
 
 G::Idle->add( sub {
+		if( (Gtk2->get_version_info)[1] >= 2 )
+		{
+			$store->reorder(1, 0);
+		}
 		Gtk2->main_quit;
 	} );
 
