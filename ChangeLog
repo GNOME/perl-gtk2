@@ -1,3 +1,9 @@
+2004/01/10 12:26 (-0500) muppetman
+
+	* t/GdkWindow.t: one more fix -- GdkScreen didn't exist on 2.0.x
+
+	* maps: commentary.
+
 2004/01/10 17:04 (+0100) kaffeetisch
 
 	* t/GdkWindow.t
@@ -227,6 +233,7 @@
 	* xs/GtkWindow.xs: Move the window group methods into the proper
 	namespace.
 
+>>>>>>> 1.312
 2004/01/08 18:55 (-0500) rwmcfa1
 
 	* xs/GdkWindow.xs: fixed bug found in test branch where attribute_mask
