@@ -1,3 +1,15 @@
+2003/07/29 14:52 rwmcfa1
+
+	* pm/SimpleList.pm: added code to allow users (well programmers anyway) 
+	to define their own column types, scalar impelements this in a simple
+	example. this is very powerful and very cool, check it out.
+
+	* t/19.GtkSimpleList.t, examples/simplelist.pl: make use of and
+	exemplify the cool new custom column types interface. also get pixbuf's
+	from a more relable source. both scalars and pixbuf's are more fully
+	demonstraighted/tested.
+
+
 2003/07/25 10:21 rwmcfa1
 
 	* pm/SimpleList.pm, t/19.GtkSimpleList.t: initial versions, lots of 
