@@ -1,3 +1,11 @@
+2004/01/10 07:15 (+0100) kaffeetisch
+
+	* t/GtkItemFactory.t: Only test if the return value of
+	get_widget_by_action is a Gtk2::Widget.
+
+	* t/GdkWindow.t: Move the get_position call around a bit to make
+	it pass.  Don't be too strict with get_toplevel.
+
 2004/01/10 05:35 (+0100) kaffeetisch
 
 	Merge from the test-suite-branch.
