@@ -272,6 +272,19 @@ to get the model, try C<< $selection->get_tree_view->get_model >>.
 In scalar context, this returns only the path; in list context, it returns
 the path, column, cell_x, and cell_y.
 
+=item Gtk2::Notebook::append_page
+
+=item Gtk2::Notebook::prepend_page
+
+=item Gtk2::Notebook::insert_page
+
+The C API for these functions requires a GtkWidget for the tab_label, since you
+can set any widget you like to be the tab label.  However, the most common use
+is a plain Gtk2::Label; so these three functions will stringify anything passed
+to tab_label that's not a GtkWidget and wrap a Gtk2::Label around it for you.
+
+Note that the _menu versions of these functions do I<not> do this.
+
 =item Gtk2::Widget::path
 
 =item Gtk2::Widget::class_path
