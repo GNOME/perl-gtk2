@@ -48,7 +48,7 @@ stateless_member (style)
 	    /* FIXME: is it correct to _copy these */
 	    case 1: RETVAL = newSVGdkColor_copy (&(style->black)); break;
 	    case 2: RETVAL = newSVGdkColor_copy (&(style->white)); break;
-	    case 3: RETVAL = newSVPangoFontDescription_copy (&(style->font_desc)); break;
+	    case 3: RETVAL = newSVPangoFontDescription_copy (style->font_desc); break;
 	    case 4: RETVAL = newSViv (style->xthickness); break;
 	    case 5: RETVAL = newSViv (style->ythickness); break;
 	    case 6: RETVAL = newSVGdkGC (style->black_gc); break;
