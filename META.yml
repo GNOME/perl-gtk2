@@ -1,12 +1,12 @@
 #XXXXXXX This is a prototype!!!  It will change in the future!!! XXXXX#
 name:         Gtk2
-version:      1.00rc4
+version:      1.00
 version_from: Gtk2.pm
 installdirs:  site
 requires:
      ExtUtils::Depends:         0.1
      ExtUtils::PkgConfig:       1.00
-     Glib:                      1.00rc2
+     Glib:                      1.00
 
 distribution_type: module
 generated_by: ExtUtils::MakeMaker version 6.10_07

@@ -1,13 +1,13 @@
 Source: libgtk2-perl
 Section: perl
 Priority: optional
-Build-Depends: debhelper (>= 3.0.16), perl (>= 5.8.0-7), libglib-perl (>= 1.00rc2), libgtk2.0-dev, libextutils-depends-perl (>= 0.1), libextutils-pkgconfig-perl
+Build-Depends: debhelper (>= 3.0.16), perl (>= 5.8.0-7), libglib-perl (>= 1.00), libgtk2.0-dev, libextutils-depends-perl (>= 0.1), libextutils-pkgconfig-perl
 Maintainer: James Curbo <hannibal@adtrw.org>
 Standards-Version: 3.6.0
 
 Package: libgtk2-perl
 Architecture: any
-Depends: ${perl:Depends}, ${shlibs:Depends}, ${misc:Depends}, libglib-perl (>= 0.92)
+Depends: ${perl:Depends}, ${shlibs:Depends}, ${misc:Depends}, libglib-perl (>= 1.00)
 Description:  Perl interface to the 2.x series of the Gimp Toolkit library
  The Gtk2 module allows a perl developer to use the Gtk+ graphical user
  interface library. The perl bindings follow the C API very closely, and 
