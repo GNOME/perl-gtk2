@@ -324,7 +324,7 @@ gdk_drawable_copy_to_image (drawable, image, src_x, src_y, dest_x, dest_y, width
 	gint              src_y
 	gint              dest_x
 	gint              dest_y
-	gint              widt
+	gint              width
 	gint              height
     CLEANUP:
 	/* if the return value has been allocated anew,

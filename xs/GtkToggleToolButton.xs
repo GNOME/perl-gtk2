@@ -4,7 +4,7 @@ MODULE = Gtk2::ToggleToolButton PACKAGE = Gtk2::ToggleToolButton PREFIX = gtk_to
 
 
 GtkToolItem *gtk_toggle_tool_button_new (class);
- C_ARGS:
+    C_ARGS:
 	/*void*/
 
 GtkToolItem *gtk_toggle_tool_button_new_from_stock (const gchar *stock_id);
