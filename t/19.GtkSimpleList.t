@@ -11,14 +11,24 @@
 
 #########################
 
-use Gtk2;;
+use Gtk2 '-init';
 
-use Test::More tests => 28;
+use Test::More tests => 27;
 BEGIN { use_ok('Gtk2::SimpleList') };
 
 #########################
 
-ok( Gtk2->init );
+Gtk2::SimpleList->add_column_type(
+	'ralacs', 	# think about it for a second...
+		type     => 'Glib::Scalar',      
+		renderer => 'Text',   
+		attr     => sub {
+			my ($tree_column, $cell, $model, $iter, $i) = @_;
+			my ($info) = $model->get ($iter, $i);
+			$info = join('',reverse(split('', $info || '' )));
+			$cell->set (text => $info );
+		} 
+	);
 
 my $win = Gtk2::Window->new;
 $win->set_title('19.GtkSimpleList.t test');
@@ -36,7 +46,9 @@ ok( my $list = Gtk2::SimpleList->new(
 			'Int Field'     => 'int',
 			'Double Field'  => 'double',
 			'Bool Field'    => 'bool',
+			'Scalar Field'  => 'scalar',
 			'Pixbuf Field'  => 'pixbuf',
+			'Ralacs Field'  => 'ralacs',
 		) );
 $sw->add($list);
 
@@ -47,19 +59,20 @@ $vb->pack_start($quitbtn, 0, 0, 0);
 # begin exercise of SimpleList
 
 # this could easily fail, so we'll catch and work around it
-my $filename = "./gtk-demo/gtk-logo-rgb.gif";
 my $pixbuf;
-eval { $pixbuf = Gtk2::Gdk::Pixbuf->new_from_file ($filename); };
+eval { $pixbuf = $win->render_icon ('gtk-ok', 'menu') };
 if( $@ )
 {
 	$pixbuf = undef;
 }
+my $undef;
+my $scalar = 'scalar';
 
 @{$list->{data}} = (
-	[ 'one', 1, 1.1, 1, $pixbuf ],
-	[ 'two', 2, 2.2, 0, undef ],
-	[ 'three', 3, 3.3, 1, undef ],
-	[ 'four', 4, 4.4, 0, undef ],
+	[ 'one', 1, 1.1, 1, undef, $pixbuf, undef ],
+	[ 'two', 2, 2.2, 0, undef, undef, $scalar ],
+	[ 'three', 3, 3.3, 1, $scalar, $pixbuf, undef ],
+	[ 'four', 4, 4.4, 0, $scalar, $undef, $scalar ],
 );
 ok( scalar(@{$list->{data}}) == 4 );
 
@@ -94,7 +107,14 @@ Glib::Idle->add( sub
 			$ldata->[1][3] == 0 and
 			$ldata->[2][3] == 1 and
 			$ldata->[3][3] == 0 and
-			$ldata->[0][4] == $pixbuf
+			$ldata->[0][4] == undef and
+			$ldata->[1][4] == undef and
+			$ldata->[2][4] == $scalar and
+			$ldata->[3][4] == $scalar and
+			$ldata->[0][5] == $pixbuf and
+			$ldata->[1][5] == undef and
+			$ldata->[2][5] == $pixbuf and
+			$ldata->[3][5] == $undef
 		);
 		
 		push @$ldata, [ 'pushed', 1, 0.1, undef ];
