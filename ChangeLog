@@ -1,3 +1,10 @@
+2003/08/19 22:52 rwmcfa1
+
+	* xs/GtkTextBuffer.xs: implemented gtk_text_buffer_insert_with_tags,
+	torsten schoenfeld
+
+	* xs/GtkTreeViewColumn.xs: corrected error message, torsten schoenfeld
+
 2003/08/19 21:11 rwmcfa1
 
 	* Makefile.PL: added realclean removal of build dir to postamble 
