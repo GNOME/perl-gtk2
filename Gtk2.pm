@@ -69,6 +69,58 @@ sub timeout_remove { G::Source->remove ($_[1]); }
 sub idle_remove { G::Source->remove ($_[1]); }
 sub input_remove { G::Source->remove ($_[1]); }
 
+package Gtk2::ItemFactory;
+
+sub create_item {
+	my ($factory, $entry, $callback_data) = @_;
+	my ($path, $accelerator, $callback, $action, $type, $extra, $cleanpath);
+
+	if ('ARRAY' eq ref $entry) {
+		($path, $accelerator, $callback, $action, $type, $extra) 
+			= @$entry;
+	} elsif ('HASH' eq ref $entry) {
+		($path, $accelerator, $callback, $action, $type, $extra)
+			= @$entry{qw(path accelerator callback action
+			             type extra)};
+	} else {
+		use Carp;
+		croak "badly formed Gtk Item Factory Entry; use either list for for hash form:\n"
+		    . "    list form:\n"
+		    . "        [ path, accel, callback, action, type ]\n"
+		    . "    hash form:\n"
+		    . "        {\n"
+		    . "           path => \$path,\n"
+		    . "           accel => \$accel,  # optional\n"
+		    . "           callback => \$callback,\n"
+		    . "           action => \$action,\n"
+		    . "           type => \$type,    # optional\n"
+		    . "         }\n"
+		    . "  ";
+	}
+
+	# we have this funky perl wrapper for the XS function entirely for
+	# this line right here --- strip underscores from the possibly unicode
+	# path, for use with gtk_item_factory_get_widget.
+	($cleanpath = $path) =~ s/_//g;
+
+	# the rest of the work happens in XS
+	$factory->_create_item ($path, $accelerator || '',
+				$action, $type || '', $extra,
+	                        $cleanpath,
+	                        $callback||undef, $callback_data||undef);
+}
+
+sub create_items {
+	my $self = shift;
+	my $data = shift;
+	foreach my $entry (@_) {
+		$self->create_item ($entry, $data);
+	}
+}
+
+package Gtk2;
+
+
 1;
 __END__
 # Below is stub documentation for your module. You'd better edit it!
