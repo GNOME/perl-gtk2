@@ -319,8 +319,12 @@ $widget->set_scroll_adjustments ($adjustment, $adjustment);
 
 $widget->mnemonic_activate (1);
 
-my @style = $widget->style_get ("focus-line-width", "focus-padding");
-is (@style, 2);
+SKIP: {
+  skip "can't implement style_get without gtk_widget_class_find_style_property, which wasn't available till gtk+ 2.2.0", 1
+    unless Gtk2->CHECK_VERSION (2, 2, 0);
+  my @style = $widget->style_get ("focus-line-width", "focus-padding");
+  is (@style, 2);
+}
 
 isa_ok ($widget->get_accessible, "Gtk2::Atk::Object");
 
