@@ -191,6 +191,9 @@ gtk_grab_remove	(class, widget)
  ##				    GtkDestroyNotify   destroy);
  ##void	   gtk_quit_remove	   (guint	       quit_handler_id);
  ##void	   gtk_quit_remove_by_data (gpointer	       data);
+
+# these (timeout, idle, and input) are all deprecated in favor of the 
+# corresponding glib functions.
  ##guint   gtk_timeout_add	   (guint32	       interval,
  ##				    GtkFunction	       function,
  ##				    gpointer	       data);
@@ -220,8 +223,8 @@ gtk_grab_remove	(class, widget)
  ##				    gpointer	       data,
  ##				    GtkDestroyNotify   destroy);
  ##void	   gtk_input_remove	   (guint	       input_handler_id);
- ##
- ##
+
+
  ##guint   gtk_key_snooper_install (GtkKeySnoopFunc snooper,
  ##				    gpointer	    func_data);
  ##void	   gtk_key_snooper_remove  (guint	    snooper_handler_id);
