@@ -347,4 +347,5 @@ PANGO_TYPE_LAYOUT	PangoLayout	GObject	Gtk2::Pango::Layout
 PANGO_TYPE_TAB_ARRAY	PangoTabArray	GBoxed	Gtk2::Pango::TabArray
 PANGO_TYPE_LANGUAGE	PangoLanguage	GBoxed	Gtk2::Pango::Language
 
+# not actually defined by GTK+, but we'll use it for ourselves.
 GDK_TYPE_REGION	GdkRegion	GBoxed	Gtk2::Gdk::Region
