@@ -28,6 +28,7 @@ examples/color_snooper.pl
 examples/combo_box.pl
 examples/customlist.pl
 examples/customrenderer.pl
+examples/dialog.pl
 examples/file_chooser.pl
 examples/filesel_multisel.pl
 examples/histogramplot.pl

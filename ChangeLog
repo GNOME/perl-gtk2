@@ -1,4 +1,10 @@
-2004/03/10 22:48 (-0500) muppetman
+2004/03/20 22:52 (-0500) muppetman
+
+	A examples/dialog.pl
+	M MANIFEST
+	  add dialog examples from stable
+
+2004/03/20 22:48 (-0500) muppetman
 
 	* gtk-demo/main.pl, t/GdkCursor.t, t/GdkDrawable.t, t/GdkPixbuf.t,
 	t/GtkAccelGroup.t, t/GtkAlignment.t, t/GtkButton.t, t/GtkButtonBox.t,
