@@ -270,9 +270,27 @@ gtk2perl_cell_renderer_start_editing (GtkCellRenderer      * cell,
 		SPAGAIN;
 
 		sv = POPs;
-		editable = SvOK (sv)
-		         ? GTK_CELL_EDITABLE (SvGObject (sv))
-		         : NULL;
+		if (SvOK (sv)) {
+			editable = SvGtkCellEditable (sv);
+			/* if the object returned here was newly created by
+			 * the called code, then the wrapper (pointed to by
+			 * sv) is the owner of the object.  if there are no
+			 * other references to the wrapper, the call to
+			 * FREETMPS below will actually result in finalization
+			 * of the GObject, which means we'll return a bad
+			 * pointer to our caller.  to prevent this situation,
+			 * we need to add a ref to the wrapper (that is, the
+			 * blessed sv stored in the GObject, not the reference
+			 * sv) to keep it alive across FREETMPS and thus
+			 * prevent premature destruction.
+			 */
+			if (G_OBJECT (editable)->ref_count == 1 &&
+			    SvREFCNT (SvRV (sv)) == 1) {
+				SvREFCNT_inc (SvRV (sv));
+			}
+		} else {
+			editable = NULL;
+		}
 
 		PUTBACK;
 		FREETMPS;

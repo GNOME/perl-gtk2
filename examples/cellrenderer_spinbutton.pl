@@ -152,7 +152,7 @@ sub START_EDITING {
   $spin_button -> grab_focus();
 
   $spin_button -> signal_connect(key_press_event => sub {
-    my (undef, $event) = @_;
+    my ($spin_button, $event) = @_;
 
     if ($event -> keyval == $Gtk2::Gdk::Keysyms{ Return } ||
         $event -> keyval == $Gtk2::Gdk::Keysyms{ KP_Enter }) {
@@ -175,7 +175,7 @@ sub START_EDITING {
 
   $spin_button -> {_focus_out_id} = 
       $spin_button -> signal_connect(focus_out_event => sub {
-        my (undef, $event) = @_;
+        my ($spin_button, undef) = @_;
         $cell -> _cell_editing_done($path, $spin_button -> get_value());
         # the spinbutton needs the focus-out event, don't eat it.
         return FALSE;

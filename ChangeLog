@@ -1,3 +1,12 @@
+2004/09/04 12:39 (-0400) muppetman
+
+	* xs/GtkCellRendererSpinButton.xs: fix a refcounting bug that made it
+	impossible to write a START_EDITING vfunc in perl without either
+	crashing or leaking the CellEditable it returns.
+
+	* examples/cellrenderer_spinbutton.pl: take advantage of the above
+	fix to plug the CellEditable leak in the custom cell renderer.
+
 2004/09/01 21:14 (-0400) muppetman
 
 	* xs/GtkItemFactory.xs: fix bug in handling of the callback data
