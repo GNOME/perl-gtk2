@@ -426,9 +426,9 @@ MODULE = Gtk2::TreeModel	PACKAGE = Gtk2::TreeModel
  $iter = $model->get_iter ($path);
 
  # walk the tree to find the iterator
- $iter = $model->get_nth_child (undef, 3);
- $iter = $model->get_nth_child ($iter, 2);
- $iter = $model->get_nth_child ($iter, 5);
+ $iter = $model->iter_nth_child (undef, 3);
+ $iter = $model->iter_nth_child ($iter, 2);
+ $iter = $model->iter_nth_child ($iter, 5);
 
  
  # getting and setting values
