@@ -13,28 +13,10 @@ our @ISA = 'Gtk2::TreeView';
 
 our $VERSION = '0.14';
 
-=cut
-
-this version of simplelist is a simple list widget, which has a list-of-lists
-data structure (under the key I<data>) which corresponds directly to the
-items in the list.  as it is tied, it is always synchronized.
-
-this is a very simple interface, giving you six column types:
-
-  text
-  int
-  double
-  bool
-  scalar
-  pixbuf
-
-only bool is editable, and that's set up for you.
-
-=cut
-
 our %column_types = (
   'hidden' => {type=>'Glib::String',                                        attr=>'hidden'},
   'text'   => {type=>'Glib::String',  renderer=>'Gtk2::CellRendererText',   attr=>'text'},
+  'markup' => {type=>'Glib::String',  renderer=>'Gtk2::CellRendererText',   attr=>'markup'},
   'int'    => {type=>'Glib::Int',     renderer=>'Gtk2::CellRendererText',   attr=>'text'},
   'double' => {type=>'Glib::Double',  renderer=>'Gtk2::CellRendererText',   attr=>'text'},
   'bool'   => {type=>'Glib::Boolean', renderer=>'Gtk2::CellRendererToggle', attr=>'active'},
@@ -473,6 +455,7 @@ Gtk2::SimpleList - A simple interface to Gtk2's complex MVC list widget
 
   my $slist = Gtk2::SimpleList->new (
                 'Text Field'    => 'text',
+                'Markup Field'  => 'markup',
                 'Int Field'     => 'int',
                 'Double Field'  => 'double',
                 'Bool Field'    => 'bool',
@@ -554,6 +537,7 @@ C<cname> is the name of the column, what will be displayed in the list headers i
 they are turned on. The parameter ctype is the type of the column, one of:
 
  text    normal text strings
+ markup  pango markup strings
  int     integer values
  double  double-precision floating point values
  bool    boolean values, displayed as toggle-able checkboxes

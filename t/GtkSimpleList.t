@@ -60,6 +60,7 @@ ok( my $list = Gtk2::SimpleList->new(
 			'Pixbuf Field'  => 'pixbuf',
 			'Ralacs Field'  => 'ralacs',
 			'Sum of Array'  => 'sum_of_array',
+			'Markup Field'  => 'markup',
 		) );
 # $sw->add($list);
 
@@ -80,10 +81,10 @@ my $undef;
 my $scalar = 'scalar';
 
 @{$list->{data}} = (
-	[ 'one', 1, 1.1, 1, undef, $pixbuf, undef, [0, 1, 2] ],
-	[ 'two', 2, 2.2, 0, undef, undef, $scalar, [1, 2, 3] ],
-	[ 'three', 3, 3.3, 1, $scalar, $pixbuf, undef, [2, 3, 4] ],
-	[ 'four', 4, 4.4, 0, $scalar, $undef, $scalar, [3, 4, 5] ],
+	[ 'one', 1, 1.1, 1, undef, $pixbuf, undef, [0, 1, 2], '<big>one</big>' ],
+	[ 'two', 2, 2.2, 0, undef, undef, $scalar, [1, 2, 3], '<big>two</big>' ],
+	[ 'three', 3, 3.3, 1, $scalar, $pixbuf, undef, [2, 3, 4], '<big>three</big>' ],
+	[ 'four', 4, 4.4, 0, $scalar, $undef, $scalar, [3, 4, 5], '<big>four</big>' ],
 );
 ok( scalar(@{$list->{data}}) == 4 );
 
@@ -129,7 +130,11 @@ Glib::Idle->add( sub
 			eq_array($ldata->[0][7], [0, 1, 2]) and
 			eq_array($ldata->[1][7], [1, 2, 3]) and
 			eq_array($ldata->[2][7], [2, 3, 4]) and
-			eq_array($ldata->[3][7], [3, 4, 5])
+			eq_array($ldata->[3][7], [3, 4, 5]) and
+			$ldata->[0][8] eq '<big>one</big>' and
+			$ldata->[1][8] eq '<big>two</big>' and
+			$ldata->[2][8] eq '<big>three</big>' and
+			$ldata->[3][8] eq '<big>four</big>'
 		);
 
 		push @$ldata, [ 'pushed', 1, 0.1, undef ];
@@ -189,7 +194,11 @@ Glib::Idle->add( sub
 			eq_array($ldata->[0][7], [0, 1, 2]) and
 			eq_array($ldata->[1][7], [1, 2, 3]) and
 			eq_array($ldata->[2][7], [2, 3, 4]) and
-			eq_array($ldata->[3][7], [3, 4, 5])
+			eq_array($ldata->[3][7], [3, 4, 5]) and
+			$ldata->[0][8] eq '<big>one</big>' and
+			$ldata->[1][8] eq '<big>two</big>' and
+			$ldata->[2][8] eq '<big>three</big>' and
+			$ldata->[3][8] eq '<big>four</big>'
 		);
 
 		$ldata->[1][0] = 'getting deleted';
@@ -237,9 +246,9 @@ Glib::Idle->add( sub
 				[ 'spliced', 2, 0.1, undef ];
 		ok (eq_array (\@ret, 
 			[ [ 'unshifted', 2, '0.1', 0, 
-			    undef, undef, undef, undef ],
+			    undef, undef, undef, undef, undef ],
 			  [ 'unshifted', 1, '0.1', 0, 
-			    undef, undef, undef, undef ] ]), 'splice @, 2, 2 @');
+			    undef, undef, undef, undef, undef ] ]), 'splice @, 2, 2 @');
 		
 		@ret = splice @{$list->{data}}, -2, 1,
 			[ 'negspliced', 1, 0.1, undef ],
@@ -247,21 +256,21 @@ Glib::Idle->add( sub
 			[ 'negspliced', 3, 0.1, undef ];
 		ok (eq_array (\@ret, 
 			[ [ 'pushed', 3, '0.1', 0, 
-			    undef, undef, undef, undef ] ]), 'splice @, -2, 1 @');
+			    undef, undef, undef, undef, undef ] ]), 'splice @, -2, 1 @');
 
 		@ret = splice @{$list->{data}}, 8;
 		ok (eq_array (\@ret, 
 			[ [ 'negspliced', 3, '0.1', 0, 
-			    undef, undef, undef, undef ],
+			    undef, undef, undef, undef, undef ],
 			  [ 'pushed', 4, '0.1', 0, 
-			    undef, undef, undef, undef ] ]), 'splice @, 8');
+			    undef, undef, undef, undef, undef ] ]), 'splice @, 8');
 
 		@ret = splice @{$list->{data}}, -2;
 		ok (eq_array (\@ret, 
 			[ [ 'negspliced', 1, '0.1', 0, 
-			    undef, undef, undef, undef ],
+			    undef, undef, undef, undef, undef ],
 			  [ 'negspliced', 2, '0.1', 0, 
-			    undef, undef, undef, undef ] ]), 'splice @, -2');
+			    undef, undef, undef, undef, undef ] ]), 'splice @, -2');
 		
 		@ret = splice @{$list->{data}}, -2, 0, 
 			[ 'norem', 1, 0.1, undef ],
@@ -271,21 +280,21 @@ Glib::Idle->add( sub
 		@ret = splice @{$list->{data}};
 		ok (eq_array (\@ret, 
 			[ [ 'unshifted', 4, 0.1, 0,
-			    undef, undef, undef, undef ],
+			    undef, undef, undef, undef, undef ],
 			  [ 'unshifted', 3, 0.1, 0,
-			    undef, undef, undef, undef ],
+			    undef, undef, undef, undef, undef ],
 			  [ 'spliced', 1, 0.1, 0,
-			    undef, undef, undef, undef ],
+			    undef, undef, undef, undef, undef ],
 			  [ 'spliced', 2, 0.1, 0,
-			    undef, undef, undef, undef ],
+			    undef, undef, undef, undef, undef ],
 			  [ 'norem', 1, 0.1, 0,
-			    undef, undef, undef, undef ],
+			    undef, undef, undef, undef, undef ],
 			  [ 'norem', 2, 0.1, 0,
-			    undef, undef, undef, undef ],
+			    undef, undef, undef, undef, undef ],
 			  [ 'pushed', 1, 0.1, 0,
-			    undef, undef, undef, undef ],
+			    undef, undef, undef, undef, undef ],
 			  [ 'pushed', 2, 0.1, 0,
-			    undef, undef, undef, undef ] ]), 'splice @');
+			    undef, undef, undef, undef, undef ] ]), 'splice @');
 
 		Gtk2->main_quit;
 		return 0;

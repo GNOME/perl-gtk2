@@ -80,6 +80,7 @@ my $slist = Gtk2::SimpleList->new (
 			'Pixbuf Field'  => 'pixbuf',
 			'Ralacs Field'  => 'ralacs',
 			'Sum of Array'  => 'sum_of_array',
+			'Markup Field'  => 'markup',
 	);
 $scwin->add ($slist);
 
@@ -176,9 +177,9 @@ sub btn_clicked
 
 	if( $op eq 'Push' )
 	{
-		push @$dslist, [ 'pushed', 5, 5.5, 0, 'scalar pushed', 
+		push @$dslist, [ 'pushed',5, 5.5, 0, 'scalar pushed', 
 			$pixbufs[rand($#pixbufs+1)], 'scalar pushed', 
-			[5, 6, 7] ];
+			[5, 6, 7], '<span color="green">pushed</span>' ];
 	}
 	elsif( $op eq 'Pop' )
 	{
@@ -188,7 +189,7 @@ sub btn_clicked
 	{
 		unshift @$dslist, [ 'unshifted', 6, 6.6, 1, 'scalar unshifted', 
 			$pixbufs[rand($#pixbufs+1)], 'scalar unshifted',
-			[6, 7, 8] ];
+			[6, 7, 8], '<span color="green">unshift</span>' ];
 	}
 	elsif( $op eq 'Shift' )
 	{
@@ -198,7 +199,7 @@ sub btn_clicked
 	{
 		$dslist->[0] = [ 'changed1', 7, 7.7, 0, 'scalar changed1', 
 			$pixbufs[rand($#pixbufs+1)], 'scalar changed1',
-			[7, 8, 9] ];
+			[7, 8, 9], '<span color="green">changed1</span>' ];
 	}
 	elsif( $op eq 'Change 2' )
 	{
@@ -210,6 +211,7 @@ sub btn_clicked
 		$dslist->[0][5] = $pixbufs[rand($#pixbufs+1)];
 		$dslist->[0][6] = 'scalar changed2';
 		$dslist->[0][7] = [8, 9, 10];
+		$dslist->[0][8] = '<span color="green">changed2</span>';
 	}
 	elsif( $op eq 'Change 3' )
 	{
@@ -250,13 +252,17 @@ sub btn_clicked
 
 		@{$slist->{data}} = (
 			[ 'one', 1, 1.1, 1, 'uno', undef, 'uno', 
-				[1, 2, 3] ],
+				[1, 2, 3],
+				'<span color="green">one</span>' ],
 			[ 'two', 2, 2.2, 0, 'dos', undef, 'dos', 
-				[2, 3, 4] ],
+				[2, 3, 4],
+				'<span color="green">two</span>' ],
 			[ 'three', 3, 3.3, 1, 'tres', undef, 'tres', 
-				[3, 4, 5] ],
+				[3, 4, 5],
+				'<span color="green">three</span>' ],
 			[ 'four', 4, 4.4, 0, 'quatro', undef,  'quatro', 
-				[4, 5, 6] ],
+				[4, 5, 6],
+				'<span color="green">four</span>' ],
 		);
 	}
 	elsif( $op eq 'Many' )
@@ -265,23 +271,31 @@ sub btn_clicked
 		# in the simple list's data.
 		push @{$slist->{data}}, (
 			[ 'one', 1, 1.1, 1, 'uno', undef, 'uno', 
-				[1, 2, 3] ],
+				[1, 2, 3],
+				'<span color="green">one</span>' ],
 			[ 'two', 2, 2.2, 0, 'dos', undef, 'dos', 
-				[2, 3, 4] ],
+				[2, 3, 4],
+				'<span color="green">two</span>' ],
 			[ 'three', 3, 3.3, 1, 'tres', undef, 'tres', 
-				[3, 4, 5] ],
+				[3, 4, 5],
+				'<span color="green">three</span>' ],
 			[ 'four', 4, 4.4, 0, 'quatro', undef,  'quatro', 
-				[4, 5, 6] ],
+				[4, 5, 6],
+				'<span color="green">four</span>' ],
 		);
 		unshift @{$slist->{data}}, (
 			[ 'one', 1, 1.1, 1, 'uno', undef, 'uno', 
-				[1, 2, 3] ],
+				[1, 2, 3],
+				'<span color="green">one</span>' ],
 			[ 'two', 2, 2.2, 0, 'dos', undef, 'dos', 
-				[2, 3, 4] ],
+				[2, 3, 4],
+				'<span color="green">two</span>' ],
 			[ 'three', 3, 3.3, 1, 'tres', undef, 'tres', 
-				[3, 4, 5] ],
+				[3, 4, 5],
+				'<span color="green">three</span>' ],
 			[ 'four', 4, 4.4, 0, 'quatro', undef,  'quatro', 
-				[4, 5, 6] ],
+				[4, 5, 6],
+				'<span color="green">four</span>' ],
 		);
 	}
 	elsif( $op eq 'Dump Sel' )

@@ -1,3 +1,14 @@
+2004/01/25 23:37 (+0100) kaffeetisch
+
+	* examples/simplelist.pl
+	* pm/SimpleList.pm
+	* t/GtkSimpleList.t: Implement, document, test and demonstrate a
+	'markup' column type that can be used to put pango markup into
+	cells.
+
+	* xs/Gtk2.xs: Remove all references to the apparently unused
+	'shadow' variable in the gtk_init xsub.
+
 2004/01/25 10:51 (-0500) rwmcfa1
 
 	* xs/GdkEvent.xs: moved ->x/y out of base class (they didn't belong 

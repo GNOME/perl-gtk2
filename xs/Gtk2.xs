@@ -170,7 +170,7 @@ gtk_init (class)
 	AV * ARGV;
 	SV * ARGV0;
 	int argc, len, i;
-	char ** argv, ** shadow;
+	char ** argv;
     CODE:
 	/*
 	 * heavily borrowed from gtk-perl.
@@ -189,14 +189,13 @@ gtk_init (class)
 	 * to make it look real. */
 	len = av_len (ARGV) + 1;
 	argc = len + 1;
-	shadow = g_new0 (char*, len + 1);
 	argv = g_new0 (char*, argc);
 	argv[0] = SvPV_nolen (ARGV0);
 	/*warn ("argc = %d\n", argc);*/
 	/*warn ("argv[0] = %s\n", argv[0]);*/
 	for (i = 0 ; i < len ; i++) {
 		SV * sv = av_shift (ARGV);
-		shadow[i] = argv[i+1] = g_strdup (SvPV_nolen (sv));
+		argv[i+1] = g_strdup (SvPV_nolen (sv));
 		/*warn ("argv[%d] = %s\n", i+1, argv[i+1]);*/
 	}
 	/* note that we've emptied @ARGV. */
@@ -215,7 +214,6 @@ gtk_init (class)
 		/*warn ("pushing back %s\n", argv[i]);*/
 	}
 	g_free (argv);
-	g_strfreev (shadow);
     OUTPUT:
 	RETVAL
 
