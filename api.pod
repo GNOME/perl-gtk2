@@ -272,13 +272,6 @@ list could be used. C<< $list->insert_items($position, $item1, $item2, ...) >>
 GtkCombo still makes use of them, they are subject to removal at any point so
 you should not utilize them unless absolutely necessary.)
 
-=item Gtk2::TreeModel::get
-
-If no column idexes are passed all columns are returned as an array. This is a
-slight deviation from the C api that can be easily implemented in the wrappers
-and may be useful. If you don't know it's there it should in no way effect the
-behavior of the function.
-
 =item Gtk2::TreeSelection::get_selected
 
 Since most of the time you are interested only in the iter, this function
@@ -293,11 +286,6 @@ behaves differently in scalar context than in list context:
 
 Returns @paths; model is not returned as documented in the C API.
 to get the model, try C<< $selection->get_tree_view->get_model >>.
-
-=item Gtk2::TreeView::get_path_at_pos
-
-In scalar context, this returns only the path; in list context, it returns
-the path, column, cell_x, and cell_y.
 
 =item Gtk2::Notebook::append_page
 

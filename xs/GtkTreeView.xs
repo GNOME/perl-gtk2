@@ -140,6 +140,9 @@ gtk2perl_tree_view_destroy_count_func (GtkTreeView * tree_view,
 
 MODULE = Gtk2::TreeView	PACKAGE = Gtk2::TreeView	PREFIX = gtk_tree_view_
 
+=for enum Gtk2::TreeViewDropPosition
+=cut
+
 BOOT:
 	/* gperl_set_isa ("Gtk2::TreeView", "Gtk2::Atk::ImplementorIface"); */
 
@@ -240,15 +243,14 @@ gtk_tree_view_insert_column (tree_view, column, position)
 ### a static helper function used to parse the stack for attributes.
 
 #### gint gtk_tree_view_insert_column_with_data_func (GtkTreeView *tree_view, gint position, const gchar *title, GtkCellRenderer *cell, GtkTreeCellDataFunc func, gpointer data, GDestroyNotify dnotify)
-##gint
-##gtk_tree_view_insert_column_with_data_func (tree_view, position, title, cell, func, data, dnotify)
-##	GtkTreeView *tree_view
-##	gint position
-##	const gchar *title
-##	GtkCellRenderer *cell
-##	GtkTreeCellDataFunc func
-##	gpointer data
-##	GDestroyNotify dnotify
+=for apidoc
+=for arg func (subroutine) 
+
+Insert a column that calls I<$func> every time it needs to fetch the data for
+a cell.  I<$func> will get a cell renderer, the tree model, and the iter of
+the row in question, and should set the proper value into the cell renderer.
+
+=cut
 gint
 gtk_tree_view_insert_column_with_data_func (tree_view, position, title, cell, func, data=NULL)
 	GtkTreeView *tree_view
@@ -429,6 +431,11 @@ gtk_tree_view_set_cursor_on_cell (tree_view, path, focus_column, focus_cell, sta
 #endif /* >= 2.2.0 */
 
 ## void gtk_tree_view_get_cursor (GtkTreeView *tree_view, GtkTreePath **path, GtkTreeViewColumn **focus_column)
+=for apidoc
+=for signature (path, focus_column) = $tree_view->get_cursor
+Returns the Gtk2::TreePath and Gtk2::TreeViewColumn of the cell with the
+keyboard focus cursor.  Either may be undef.
+=cut
 void
 gtk_tree_view_get_cursor (tree_view)
 	GtkTreeView *tree_view
@@ -447,6 +454,13 @@ gtk_tree_view_get_cursor (tree_view)
 
 
 #### gboolean gtk_tree_view_get_path_at_pos (GtkTreeView *tree_view, gint x, gint y, GtkTreePath **path, GtkTreeViewColumn **column, gint *cell_x, gint *cell_y)
+=for apidoc
+=for signature path = $tree_view->get_path_at_pos ($x, $y)
+=for signature (path, column, cell_x, cell_y) = $tree_view->get_path_at_pos ($x, $y)
+In scalar context, returns the Gtk2::TreePath, in array context, adds the
+Gtk2::TreeViewColumn, and I<$x> and I<$y> translated to be relative to the
+cell.
+=cut
 void
 gtk_tree_view_get_path_at_pos (tree_view, x, y)
 	GtkTreeView *tree_view
@@ -514,34 +528,10 @@ gtk_tree_view_get_bin_window (tree_view)
 	GtkTreeView *tree_view
 
 #### void gtk_tree_view_widget_to_tree_coords (GtkTreeView *tree_view, gint wx, gint wy, gint *tx, gint *ty)
-void
-gtk_tree_view_widget_to_tree_coords (tree_view, wx, wy)
-	GtkTreeView *tree_view
-	gint wx
-	gint wy
-    PREINIT:
-	gint tx;
-	gint ty;
-    PPCODE:
-	gtk_tree_view_widget_to_tree_coords (tree_view, wx, wy, &tx, &ty);
-	EXTEND (SP, 2);
-	PUSHs (sv_2mortal (newSViv (tx)));
-	PUSHs (sv_2mortal (newSViv (ty)));
+void gtk_tree_view_widget_to_tree_coords (GtkTreeView *tree_view, gint wx, gint wy, OUTLIST gint tx, OUTLIST gint ty)
 
 #### void gtk_tree_view_tree_to_widget_coords (GtkTreeView *tree_view, gint tx, gint ty, gint *wx, gint *wy)
-void
-gtk_tree_view_tree_to_widget_coords (tree_view, tx, ty)
-	GtkTreeView *tree_view
-	gint tx
-	gint ty
-    PREINIT:
-	gint wx;
-	gint wy;
-    PPCODE:
-	gtk_tree_view_tree_to_widget_coords (tree_view, tx, ty, &wx, &wy);
-	EXTEND (SP, 2);
-	PUSHs (sv_2mortal (newSViv (wx)));
-	PUSHs (sv_2mortal (newSViv (wy)));
+void gtk_tree_view_tree_to_widget_coords (GtkTreeView *tree_view, gint tx, gint ty, OUTLIST gint wx, OUTLIST gint wy)
 
 #### void gtk_tree_view_enable_model_drag_source (GtkTreeView *tree_view, GdkModifierType start_button_mask, const GtkTargetEntry *targets, gint n_targets, GdkDragAction actions)
 void
@@ -600,6 +590,9 @@ gtk_tree_view_set_drag_dest_row (tree_view, path, pos)
 	GtkTreeViewDropPosition pos
 
 #### void gtk_tree_view_get_drag_dest_row (GtkTreeView *tree_view, GtkTreePath **path, GtkTreeViewDropPosition *pos)
+=for apidoc
+=for signature (path, dropposition) = $tree_view->get_drag_dest_row
+=cut
 void
 gtk_tree_view_get_drag_dest_row (tree_view)
 	GtkTreeView *tree_view
@@ -613,6 +606,9 @@ gtk_tree_view_get_drag_dest_row (tree_view)
 	PUSHs (sv_2mortal (newSVGtkTreeViewDropPosition (pos)));
 
 #### gboolean gtk_tree_view_get_dest_row_at_pos (GtkTreeView *tree_view, gint drag_x, gint drag_y, GtkTreePath **path, GtkTreeViewDropPosition *pos)
+=for apidoc
+=for signature (path, dropposition) = $tree_view->get_dest_row_at_pos ($drag_x, $drag_y)
+=cut
 void
 gtk_tree_view_get_dest_row_at_pos (tree_view, drag_x, drag_y)
 	GtkTreeView *tree_view
@@ -658,6 +654,9 @@ gtk_tree_view_set_search_column (tree_view, column)
 ##	GtkTreeView *tree_view
 
 #### void gtk_tree_view_set_search_equal_func (GtkTreeView *tree_view, GtkTreeViewSearchEqualFunc search_equal_func, gpointer search_user_data, GtkDestroyNotify search_destroy)
+=for apidoc
+=for arg func (subroutine) 
+=cut
 void
 gtk_tree_view_set_search_equal_func (tree_view, func, data=NULL)
 	GtkTreeView *tree_view
