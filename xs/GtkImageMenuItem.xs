@@ -46,9 +46,9 @@ gtk_image_menu_item_news (class, label=NULL)
 
 ## GtkWidget* gtk_image_menu_item_new_from_stock (const gchar *stock_id, GtkAccelGroup *accel_group)
 GtkWidget *
-gtk_image_menu_item_new_from_stock (class, stock_id, accel_group)
-	const gchar   * stock_id
-	GtkAccelGroup * accel_group
+gtk_image_menu_item_new_from_stock (class, stock_id, accel_group=NULL)
+	const gchar          * stock_id
+	GtkAccelGroup_ornull * accel_group
     C_ARGS:
 	stock_id, accel_group
 

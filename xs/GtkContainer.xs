@@ -99,13 +99,15 @@ gtk_container_get_children (container)
 		XPUSHs (sv_2mortal (newSVGtkWidget (GTK_WIDGET (i->data))));
 	g_list_free (children);
 
-# FIXME
+# FIXME: is that okay?
  ## void gtk_container_propagate_expose (GtkContainer *container, GtkWidget *child, GdkEventExpose *event)
- ##void
- ##gtk_container_propagate_expose (container, child, event)
- ##	GtkContainer *container
- ##	GtkWidget *child
- ##	GdkEventExpose *event
+void
+gtk_container_propagate_expose (container, child, event)
+	GtkContainer *container
+	GtkWidget *child
+	GdkEvent *event
+    C_ARGS:
+	container, child, (GdkEventExpose *) event
 
  ## void gtk_container_set_focus_chain (GtkContainer *container, GList *focusable_widgets)
 =for apidoc

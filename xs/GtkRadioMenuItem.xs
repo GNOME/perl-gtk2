@@ -97,7 +97,7 @@ gtk_radio_menu_item_set_group (radio_menu_item, member_or_listref)
 		{
 			AV * av = (AV*)SvRV(member_or_listref);
 			SV ** svp = av_fetch(av, 0, 0);
-			if( SvOK(*svp) )
+			if( svp && SvOK(*svp) )
 			{
 				member = SvGtkRadioMenuItem(*svp);
 			}

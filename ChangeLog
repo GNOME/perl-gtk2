@@ -1,3 +1,20 @@
+2003/12/28 00:58 (+0100) kaffeetisch
+
+	* xs/GtkContainer.xs: Implement propagate_expose.
+
+	* xs/GtkFrame.xs: Use gchar_ornull instead of custom code to check
+	for undef in new and set_label.
+
+	* xs/GtkImageMenuItem.xs: In new_from_stock, provide a default for
+	the accel_group argument so it can be omitted.
+
+	* xs/GtkMenuItem.xs: Add two FIXME's.  Enable
+	gtk_menu_item_set_accel_path -- it's a convenience wrapper around
+	gtk_widget_set_accel_path.
+
+	* xs/GtkRadioButton.xs
+	* xs/GtkRadioMenuItem.xs: Check for NULL-ness before using SvOK.
+
 2003/12/23 11:10 (-0500) rwmcfa1
 
 	* examples/adding_stock_icons.pl: an example of adding your own stock
