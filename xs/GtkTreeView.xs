@@ -24,6 +24,12 @@ gtk_tree_view_new (class, model=NULL)
     OUTPUT:
 	RETVAL
 
+GtkWidget *
+gtk_tree_view_new_with_model (class, model)
+	SV * class
+	GtkTreeModel * model
+    C_ARGS:
+	model
 
 GtkTreeModel_ornull *
 gtk_tree_view_get_model (tree_view)
