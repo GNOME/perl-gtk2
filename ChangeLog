@@ -1,3 +1,11 @@
+2004/01/31 23:59 (+0100) kaffeetisch
+
+	A t/GdkX11.t
+	A t/PangoContext.t
+	A t/PangoFont.t
+	A t/PangoTabs.t
+	* MANIFEST: New tests.
+
 2004/01/31 16:19 (+0100) kaffeetisch
 
 	* t/GtkFileChooserDialog.t
