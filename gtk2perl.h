@@ -57,5 +57,26 @@ SV * newSVGdkBitmap_noinc (GdkBitmap * bitmap);
 #undef newSVGdkModifierType
 SV * newSVGdkModifierType (GdkModifierType mods);
 
+/*
+ * override the handling of GdkRectangle, to make it more perlish.
+ * these functions import and export the GdkRectangle as a 4-item perl
+ * list instead of a cumbersome opaque object.
+ *
+ * note: this means we no longer handle GDK_TYPE_RECTANGLE as a boxed
+ * type, so the variants are largely useless.  this is okay, because
+ * the override functions handle NULL themselves and there is no need
+ * to worry about copy or own because the objects are always temporary.
+ * then again, the C objects are always temporary, so watch yourself.
+ */
+#undef newSVGdkRectangle
+SV * newSVGdkRectangle (GdkRectangle * rect);
+#undef SvGdkRectangle
+GdkRectangle * SvGdkRectangle (SV * sv);
+
+#undef newSVGdkRectangle_ornull
+#undef newSVGdkRectangle_copy
+#undef newSVGdkRectangle_own
+#undef SvGdkRectangle_ornull
+
 
 #endif /* _GTK2PERL_H_ */

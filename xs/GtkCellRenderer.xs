@@ -22,7 +22,7 @@ gtk_cell_renderer_get_size (cell, widget)
 	gtk_cell_renderer_get_size(cell, widget, &cell_area,
 		&x_offset, &y_offset, &width, &height);
 	EXTEND(SP,5);
-	PUSHs(sv_2mortal(newSVGdkRectangle_copy (&cell_area)));
+	PUSHs(sv_2mortal(newSVGdkRectangle (&cell_area)));
 	PUSHs(sv_2mortal(newSViv(x_offset)));
 	PUSHs(sv_2mortal(newSViv(y_offset)));
 	PUSHs(sv_2mortal(newSViv(width)));

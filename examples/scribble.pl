@@ -83,9 +83,12 @@ sub expose_event {
   $widget->window->draw_drawable (
 		     $widget->style->fg_gc($widget->state),
 		     $pixmap,
-		     $event->area->x, $event->area->y,
-		     $event->area->x, $event->area->y,
-		     $event->area->width, $event->area->height);
+#		     $event->area->x, $event->area->y,
+#		     $event->area->x, $event->area->y,
+#		     $event->area->width, $event->area->height);
+		     $event->area->[0], $event->area->[1],
+		     $event->area->[0], $event->area->[1],
+		     $event->area->[2], $event->area->[3]);
 
   return FALSE;
 }
@@ -102,18 +105,27 @@ sub draw_brush {
 #  update_rect.y = y - 5;
 #  update_rect.width = 10;
 #  update_rect.height = 10;
-  my %update_rect;
-  $update_rect{x} = $x - 5;
-  $update_rect{y} = $y - 5;
-  $update_rect{width} = 10;
-  $update_rect{height} = 10;
+#  my %update_rect;
+#  $update_rect{x} = $x - 5;
+#  $update_rect{y} = $y - 5;
+#  $update_rect{width} = 10;
+#  $update_rect{height} = 10;
+#  $pixmap->draw_rectangle ($widget->style->black_gc,
+#                           TRUE,
+#                           $update_rect{x}, $update_rect{y},
+#                           $update_rect{width}, $update_rect{height});
+#  
+#  $widget->queue_draw_area ($update_rect{x}, $update_rect{y},
+#                            $update_rect{width}, $update_rect{height});
+  my @update_rect;
+  $update_rect[0] = $x - 5;
+  $update_rect[1] = $y - 5;
+  $update_rect[2] = 10;
+  $update_rect[3] = 10;
   $pixmap->draw_rectangle ($widget->style->black_gc,
-                           TRUE,
-                           $update_rect{x}, $update_rect{y},
-                           $update_rect{width}, $update_rect{height});
+                           TRUE, @update_rect);
   
-  $widget->queue_draw_area ($update_rect{x}, $update_rect{y},
-                            $update_rect{width}, $update_rect{height});
+  $widget->queue_draw_area (@update_rect);
 }
 
 sub button_press_event {

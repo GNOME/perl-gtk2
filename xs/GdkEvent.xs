@@ -377,7 +377,7 @@ BOOT:
  #  gint count; /* If non-zero, how many more events follow. */
  #};
 
-GdkRectangle_copy*
+GdkRectangle*
 area (event)
 	GdkEvent * event
     CODE:

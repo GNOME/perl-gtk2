@@ -22,6 +22,52 @@ newSVGdkModifierType (GdkModifierType val)
 
 
 
+SV *
+newSVGdkRectangle (GdkRectangle * rect)
+{
+	AV * av;
+	SV * r;
+	
+	if (!rect)
+		return newSVsv (&PL_sv_undef);
+		
+	av = newAV ();
+	r = newRV_noinc ((SV*) av);
+	
+	av_push (av, newSViv (rect->x));
+	av_push (av, newSViv (rect->y));
+	av_push (av, newSViv (rect->width));
+	av_push (av, newSViv (rect->height));
+	
+	return r;
+}
+
+GdkRectangle *
+SvGdkRectangle (SV * sv)
+{
+	AV * av;
+	GdkRectangle * rect;
+
+	if ((!sv) || (!SvOK(sv)) ||
+	    (!SvRV(sv)) || (SvTYPE(SvRV(sv)) != SVt_PVAV))
+		return NULL;
+		
+	av = (AV*) SvRV (sv);
+
+	if (av_len (av) != 3)
+		croak ("rectangle must have four elements");
+
+	rect = gperl_alloc_temp (sizeof (GdkRectangle));
+	
+	rect->x      = SvIV (*av_fetch (av, 0, 0));
+	rect->y      = SvIV (*av_fetch (av, 1, 0));
+	rect->width  = SvIV (*av_fetch (av, 2, 0));
+	rect->height = SvIV (*av_fetch (av, 3, 0));
+	
+	return rect;
+}
+
+
 
 #if 0
 
@@ -81,11 +127,14 @@ newSVGdkModifierType (GdkModifierType val)
 
 #endif
 
-MODULE = Gtk2::Gdk::Types	PACKAGE = Gtk2::Gdk::Rectangle
+#if 0
+
+///MODULE = Gtk2::Gdk::Types	PACKAGE = Gtk2::Gdk::Rectangle
 
 gint
-x (rectangle)
+members (rectangle)
 	GdkRectangle * rectangle
+	SV * newval
     ALIAS:
 	Gtk2::Gdk::Rectangle::x = 0
 	Gtk2::Gdk::Rectangle::y = 1
@@ -101,3 +150,5 @@ x (rectangle)
 	}
     OUTPUT:
 	RETVAL
+
+#endif
