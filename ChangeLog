@@ -1,3 +1,8 @@
+2003/12/29 16:32 (-0500) rwmcfa1
+
+	* perl-Gtk2.spec.in: use the new DATE replacement in conjunction with
+	VERSION to create the changlog on the fly, which is better.
+
 2003/12/29 06:19 (+0100) kaffeetisch
 
 	* t/01.GtkWindow.t: Disable the begin_resize_drag and
