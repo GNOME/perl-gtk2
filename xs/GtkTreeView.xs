@@ -275,8 +275,9 @@ gtk_tree_view_get_column (tree_view, n)
 	GtkTreeView * tree_view
 	gint n
 
-### return the columns on the stack.
-### GList*      gtk_tree_view_get_columns       (GtkTreeView *tree_view);
+=for apidoc
+Retuns an array of columns.
+=cut
 void
 gtk_tree_view_get_columns (tree_view)
 	GtkTreeView * tree_view

@@ -1,3 +1,10 @@
+2003/11/16 21:36 (-0500) rwmcfa1
+
+	* ChangeLog, xs/GdkDisplay.xs, xs/GdkPixbuf.xs, xs/GtkImage.xs,
+	xs/GtkRadioButton.xs, xs/GtkTextIter.xs, xs/GtkTooltips.xs,
+	xs/GtkTreeView.xs, xs/GtkWidget.xs, xs/GtkWindow.xs, xs/PangoFont.xs:
+	apidoc updates
+
 2003/11/16 20:32 (-0500) muppetman
 
 	* xs/GtkMenu.xs: use the new GPerlCallback helper macros in

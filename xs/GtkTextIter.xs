@@ -90,6 +90,12 @@ gtk_text_iter_get_pixbuf (iter)
 	GtkTextIter *iter
 
 ## GSList * gtk_text_iter_get_marks (const GtkTextIter *iter)
+=for apidoc
+Returns a list of all Gtk2::TextMark at this location. Because marks are not
+iterable (they don't take up any "space" in the buffer, they are just marks in
+between iterable locations), multiple marks can exist in the same place. The
+returned list is not in any meaningful order.
+=cut
 void
 gtk_text_iter_get_marks (GtkTextIter *iter)
     PREINIT:
@@ -101,6 +107,13 @@ gtk_text_iter_get_marks (GtkTextIter *iter)
 	g_slist_free (marks);
 
 ## GSList* gtk_text_iter_get_toggled_tags  (const GtkTextIter *iter, gboolean toggled_on)
+=for apidoc
+Returns a list of Gtk2::TextTag that are toggled on or off at this point. (If
+toggled_on is TRUE, the list contains tags that are toggled on.) If a tag is
+toggled on at iter, then some non-empty range of characters following iter has
+that tag applied to it. If a tag is toggled off, then some non-empty range
+following iter does not have the tag applied to it.
+=cut
 void
 gtk_text_iter_get_toggled_tags (GtkTextIter * iter, gboolean toggled_on)
     PREINIT:
@@ -141,6 +154,11 @@ gtk_text_iter_has_tag (iter, tag)
 	GtkTextTag *tag
 
 ### GSList* gtk_text_iter_get_tags (const GtkTextIter *iter)
+=for apidoc
+Returns a list of tags that apply to iter, in ascending order of priority
+(highest-priority tags are last). The GtkTextTag in the list don't have a
+reference added, but you have to free the list itself.
+=cut
 void
 gtk_text_iter_get_tags (GtkTextIter *iter)
     PREINIT:

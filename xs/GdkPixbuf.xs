@@ -527,6 +527,10 @@ MODULE = Gtk2::Gdk::Pixbuf	PACKAGE = Gtk2::Gdk::Pixbuf	PREFIX = gdk_pixbuf_
 
 ###  GSList *gdk_pixbuf_get_formats (void) 
 ## list should be freed, but not formats
+=for apidoc
+Returns a list of hashes with information about the formats supported by
+Gtk2::Gdk::Pixbuf.
+=cut
 void
 gdk_pixbuf_get_formats (class=NULL)
     PREINIT:

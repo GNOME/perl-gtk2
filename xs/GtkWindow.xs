@@ -211,6 +211,25 @@ gtk_window_get_decorated (window)
 	GtkWindow * window
 
 ## void gtk_window_set_icon_list (GtkWindow *window, GList *list)
+=for apidoc
+=arg ... (list) a list of Gtk2::Gdk::Pixbufs
+Sets up the icon representing a Gtk2::Window. The icon is used when the window
+is minimized (also known as iconified). Some window managers or desktop
+environments may also place it in the window frame, or display it in other
+contexts.
+
+L<"$window-E<gt>set_icon_list"> allows you to pass in the same icon in several
+hand-drawn sizes. The list should contain the natural sizes your icon is
+available in; that is, don't scale the image before passing it to GTK+.
+Scaling is postponed until the last minute, when the desired final size is
+known, to allow best quality.
+
+By passing several sizes, you may improve the final image quality of the icon,
+by reducing or eliminating automatic image scaling.
+
+Recommended sizes to provide: 16x16, 32x32, 48x48 at minimum, and larger
+images (64x64, 128x128) if you have them. 
+=cut
 void
 gtk_window_set_icon_list (window, ...)
 	GtkWindow * window
@@ -226,6 +245,9 @@ gtk_window_set_icon_list (window, ...)
 	}
 
 # GList* gtk_window_get_icon_list (GtkWindow *window)
+=for apidoc
+Retrieves the list of icons set by L<$window-E<gt>set_icon_list>.
+=cut
 void
 gtk_window_get_icon_list (window)
 	GtkWindow * window
@@ -293,6 +315,9 @@ gtk_window_set_default_icon_list (class, pixbuf, ...)
 	g_list_free (list);
 
 ## GList* gtk_window_get_default_icon_list (void)
+=for apidoc
+Gets the value set by L<$window-E<gt>set_default_icon_list>.
+=cut
 void
 gtk_window_get_default_icon_list (class)
     PREINIT:
@@ -309,6 +334,9 @@ gtk_window_get_modal (window)
 	GtkWindow * window
 
 ## GList* gtk_window_list_toplevels (void)
+=for apidoc
+Returns a list of all existing toplevel windows. 
+=cut
 void
 gtk_window_list_toplevels (class)
     PREINIT:
