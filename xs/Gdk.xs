@@ -90,10 +90,15 @@ gdk_set_program_class (class, program_class)
 	program_class
 
 ##  gchar* gdk_get_display (void) 
-gchar_own *
+gchar *
 gdk_get_display (class)
     C_ARGS:
 	/* void */
+    CLEANUP:
+	/* FIXME should this be a runtime rather than compile-time check? */
+#if GTK_CHECK_VERSION (2, 2, 0)
+	g_free (RETVAL);
+#endif
 
 ##  void gdk_flush (void) 
 void

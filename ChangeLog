@@ -1,3 +1,8 @@
+2004/01/22 17:16 (-0500) muppetman
+
+	* xs/Gdk.xs: before 2.2.0, gdk_get_display() returned a static string.
+	don't free it if we're on old gtk+.
+
 2004/01/22 00:32 (-0500) muppetman
 
 	* xs/GdkColor.xs: use initializers to keep valgrind happy.
