@@ -56,6 +56,8 @@ GTK_TYPE_ITEM_FACTORY	GtkItemFactory	GtkObject	Gtk2::ItemFactory
 GTK_TYPE_ITEM	GtkItem	GtkObject	Gtk2::Item
 GTK_TYPE_LABEL	GtkLabel	GtkObject	Gtk2::Label
 GTK_TYPE_LAYOUT	GtkLayout	GtkObject	Gtk2::Layout
+GTK_TYPE_LIST	GtkList	GtkObject	Gtk2::List
+GTK_TYPE_LIST_ITEM	GtkListItem	GtkObject	Gtk2::ListItem
 GTK_TYPE_LIST_STORE	GtkListStore	GObject	Gtk2::ListStore
 GTK_TYPE_MENU_BAR	GtkMenuBar	GtkObject	Gtk2::MenuBar
 GTK_TYPE_MENU	GtkMenu	GtkObject	Gtk2::Menu
