@@ -50,7 +50,7 @@ scale (class)
 		case 5: RETVAL = PANGO_SCALE_LARGE; break;
 		case 6: RETVAL = PANGO_SCALE_X_LARGE; break;
 		case 7: RETVAL = PANGO_SCALE_XX_LARGE; break;
-		defualt:
+		default:
 			RETVAL = 0.0;
 			g_assert_not_reached ();
 	}

@@ -1,3 +1,11 @@
+2004/02/16 18:21 (+0100) kaffeetisch
+
+	* t/GtkIconTheme.t: Skip some tests if we can't find an icon.
+
+	* xs/PangoFont.xs
+	* xs/PangoLayout.xs: Use "default" instead of "defualt" in the
+	switch statement.
+
 2004/02/25 19:38 (-0500) rwmcfa1
 
 	* xs/Gdk.xs, xs/GdkDnd.xs, xs/GdkEvent.xs, xs/GdkProperty.xs,

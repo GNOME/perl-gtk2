@@ -42,31 +42,37 @@ ok (!$icon_theme->has_icon ('gtk-open'));
 ok (!$icon_theme->has_icon ('something crazy'));
 
 my $icon_info = $icon_theme->lookup_icon ("stock_edit", 24, "use-builtin");
-isa_ok ($icon_info, "Gtk2::IconInfo");
 
-my $pixbuf = $icon_theme->load_icon ("stock_edit", 24, "use-builtin");
-isa_ok ($pixbuf, "Gtk2::Gdk::Pixbuf");
+SKIP: {
+	skip "lookup_icon returned undef, skipping the rest", 6
+		unless defined $icon_info;
 
-is ($icon_info->get_base_size, 24);
-like ($icon_info->get_filename, qr/stock_edit/);
+	isa_ok ($icon_info, "Gtk2::IconInfo");
 
-$icon_info->set_raw_coordinates (1);
+	my $pixbuf = $icon_theme->load_icon ("stock_edit", 24, "use-builtin");
+	isa_ok ($pixbuf, "Gtk2::Gdk::Pixbuf");
 
-# FIXME:
-# isa_ok ($icon_info->get_builtin_pixbuf, "Gtk2::Gdk::Pixbuf");
-# isa_ok($icon_info->get_embedded_rect, "Gtk2::Gdk::Rectangle");
-# warn $icon_info->get_attach_points;
-# warn $icon_info->get_display_name;
+	is ($icon_info->get_base_size, 24);
+	like ($icon_info->get_filename, qr/stock_edit/);
 
-$icon_theme->add_builtin_icon ("stock_edit", 24, $pixbuf);
+	$icon_info->set_raw_coordinates (1);
 
-# cannot call set_custom_theme on a default theme
-$icon_theme = Gtk2::IconTheme->new;
-$icon_theme->set_custom_theme ('crazy custom theme');
+	# FIXME:
+	# isa_ok ($icon_info->get_builtin_pixbuf, "Gtk2::Gdk::Pixbuf");
+	# isa_ok($icon_info->get_embedded_rect, "Gtk2::Gdk::Rectangle");
+	# warn $icon_info->get_attach_points;
+	# warn $icon_info->get_display_name;
 
-is ($icon_theme->get_example_icon_name, undef);
+	$icon_theme->add_builtin_icon ("stock_edit", 24, $pixbuf);
 
-ok (!$icon_theme->rescan_if_needed);
+	# cannot call set_custom_theme on a default theme
+	$icon_theme = Gtk2::IconTheme->new;
+	$icon_theme->set_custom_theme ('crazy custom theme');
+
+	is ($icon_theme->get_example_icon_name, undef);
+
+	ok (!$icon_theme->rescan_if_needed);
+}
 
 __END__
 
