@@ -4,11 +4,12 @@
 
 #
 # TODO:
-#	- the scalar columns don't really work, add to test when do
 #	- when we fetch an empty column, one we set to undef, 
 #	gperl_new_object complains about converting (NULL) => undef, which 
 #	seems like it's what should be happening
 #	- look at editable text cells?
+#	- simplifed get selected stuff
+#	- documentation
 #
 
 #########################
@@ -47,15 +48,27 @@ only bool is editable, and that's set up for you.
 
 =cut
 
-my %column_types = (
+our %column_types = (
   'text'   => {type=>'Glib::String',      renderer=>'Text',   attr=>'text'},
   'int'    => {type=>'Glib::Int',         renderer=>'Text',   attr=>'text'},
   'double' => {type=>'Glib::Double',      renderer=>'Text',   attr=>'text'},
   'bool'   => {type=>'Glib::Boolean',     renderer=>'Toggle', attr=>'active'},
-  'scalar' => {type=>'Glib::Scalar',      renderer=>'Text',   attr=>'text'},
+  'scalar' => {type=>'Glib::Scalar',      renderer=>'Text',   
+	  attr=> sub { 
+  		my ($tree_column, $cell, $model, $iter, $i) = @_;
+  		my ($info) = $model->get ($iter, $i);
+  		$cell->set (text => $info || '' );
+	  } },
   'pixbuf' => {type=>'Gtk2::Gdk::Pixbuf', renderer=>'Pixbuf', attr=>'pixbuf'},
 );
 
+# this is some cool shit
+sub add_column_type
+{
+	shift;	# don't want/need classname
+	my $name = shift;
+	$column_types{$name} = { @_ };
+}
 
 sub new {
 	my $class = shift;
@@ -77,22 +90,33 @@ sub new {
 	my $model = Gtk2::ListStore->new (map { $_->{type} } @column_info);
 	my $view = Gtk2::TreeView->new ($model);
 	for (my $i = 0; $i < @column_info ; $i++) {
-		my $column = Gtk2::TreeViewColumn->new_with_attributes (
+		use Data::Dumper;
+		if( 'CODE' eq ref $column_info[$i]{attr} )
+		{
+			$view->insert_column_with_data_func (-1,
+				$column_info[$i]{title},
+				$column_info[$i]{rtype}->new,
+				$column_info[$i]{attr}, $i);
+		}
+		else
+		{
+			my $column = Gtk2::TreeViewColumn->new_with_attributes (
 				$column_info[$i]{title},
 				$column_info[$i]{rtype}->new,
 				$column_info[$i]{attr} => $i,
 			);
-		$view->append_column ($column);
-
-		if ($column_info[$i]{attr} eq 'active') {
-			my $r = $column->get_cell_renderers;
-			$r->set (activatable => 1);
-			$r->signal_connect (toggled => sub {
-				my ($renderer, $row, $col) = @_;
-				my $iter = $model->iter_nth_child (undef, $row);
-				my $val = $model->get ($iter, $col);
-				$model->set ($iter, $col, !$val);
-				}, $i);
+			$view->append_column ($column);
+	
+			if ($column_info[$i]{attr} eq 'active') {
+				my $r = $column->get_cell_renderers;
+				$r->set (activatable => 1);
+				$r->signal_connect (toggled => sub {
+					my ($renderer, $row, $col) = @_;
+					my $iter = $model->iter_nth_child (undef, $row);
+					my $val = $model->get ($iter, $col);
+					$model->set ($iter, $col, !$val);
+					}, $i);
+			}
 		}
 	}
 
