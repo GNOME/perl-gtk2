@@ -1,3 +1,7 @@
+2004/01/18 13:17 (-0500) rwmcfa1
+
+	* xs/GtkWidget.xs: valgrind found a mem leak, fix by muppet.
+
 2004/01/18 02:30 (+0100) kaffeetisch
 
 	* t/GtkEntry.t: Test [sg]et_completion.

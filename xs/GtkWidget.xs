@@ -35,10 +35,16 @@ BOOT:
 void
 DESTROY (sv)
 	SV * sv
+    PREINIT:
+	static GPerlBoxedWrapperClass * wrapper_class = NULL;
     CODE:
+	/* warning -- this is fragile and will break if the wrapper for
+	 * GdkRectangle is ever changed */
 	/* warn ("Gtk2::Allocation::DESTROY"); */
-	g_boxed_free (GDK_TYPE_RECTANGLE, GUINT_TO_POINTER (SvIV (SvRV (sv))));
-
+	if (!wrapper_class)
+		wrapper_class = gperl_default_boxed_wrapper_class ();
+	if (sv && SvOK (sv))
+		wrapper_class->destroy (sv);
 
 MODULE = Gtk2::Widget	PACKAGE = Gtk2::Requisition
 
