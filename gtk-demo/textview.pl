@@ -48,16 +48,16 @@ sub create_tags {
 
   $buffer->create_tag ("heading",
 			weight => PANGO_WEIGHT_BOLD,
-			size => 15 * Gtk2::Pango->scale, #PANGO_SCALE,
+			size => 15 * PANGO_SCALE,
 			);
   
   $buffer->create_tag ("italic", style => 'italic');
   $buffer->create_tag ("bold", weight => PANGO_WEIGHT_BOLD); 
-  $buffer->create_tag ("big", size => 20 * Gtk2::Pango->scale); #PANGO_SCALE);
+  $buffer->create_tag ("big", size => 20 * PANGO_SCALE);
 			      # points times the PANGO_SCALE factor
 
-  $buffer->create_tag ("xx-small", scale => Gtk2::Pango->scale_xx_small); #PANGO_SCALE_XX_SMALL); 
-  $buffer->create_tag ("x-large", scale => Gtk2::Pango->scale_x_large); #PANGO_SCALE_X_LARGE); 
+  $buffer->create_tag ("xx-small", scale => PANGO_SCALE_XX_SMALL); 
+  $buffer->create_tag ("x-large", scale => PANGO_SCALE_X_LARGE); 
   $buffer->create_tag ("monospace", family => "monospace"); 
   $buffer->create_tag ("blue_foreground", foreground => "blue");  
   $buffer->create_tag ("red_background", background => "red");
@@ -84,13 +84,13 @@ sub create_tags {
   $buffer->create_tag ("double_underline", underline => 'double');
 
   $buffer->create_tag ("superscript",
-			rise => 10 * Gtk2::Pango->scale, #PANGO_SCALE,	  # 10 pixels
-			size => 8 * Gtk2::Pango->scale, #PANGO_SCALE,	  # 8 points
+			rise => 10 * PANGO_SCALE,	  # 10 pixels
+			size => 8 * PANGO_SCALE,	  # 8 points
 			);
   
   $buffer->create_tag ("subscript",
-			rise => -10 * Gtk2::Pango->scale, #PANGO_SCALE,   # 10 pixels
-			size => 8 * Gtk2::Pango->scale, #PANGO_SCALE,	   # 8 points
+			rise => -10 * PANGO_SCALE,   # 10 pixels
+			size => 8 * PANGO_SCALE,	   # 8 points
 			);
 
   $buffer->create_tag ("rtl_quote",

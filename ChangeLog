@@ -1,3 +1,8 @@
+2004/01/13 23:17 (-0500) muppetman
+
+	* gtk-demo/textview.pl: use the PANGO_* constants from Gtk2::Pango
+	instead of the rather obtuse Gtk2::Pango->* constants.
+
 2004/01/13 23:14 (-0500) muppetman
 
 	* gtk2perl.h: add newSVGdkBitmap_ornull.
