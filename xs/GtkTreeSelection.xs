@@ -167,6 +167,7 @@ gtk_tree_selection_get_selected (selection)
 
 ## GList * gtk_tree_selection_get_selected_rows (GtkTreeSelection *selection, GtkTreeModel **model)
 =for apidoc
+=for signature @paths = $selection->get_selected_rows
 Returns the Gtk2::TreePath of each selected row, or an empty list if no
 rows are selected.  The model is I<not> returned, as documented in the C
 API reference.  To get the model, try
