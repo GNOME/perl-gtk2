@@ -82,7 +82,7 @@ gtk_container_foreach (container, callback, callback_data=NULL)
 	gperl_callback_destroy (real_callback);
 
  ## deprecated
- ## void gtk_container_foreach_full (GtkContainer *container, GtkCallback callback, GtkCallbackMarshal marshal, gpointer callback_data, GtkDestroyNotify notify)
+ ## gtk_container_foreach_full
 
  ## GList* gtk_container_get_children (GtkContainer *container)
 void
@@ -96,65 +96,98 @@ gtk_container_get_children (container)
 		XPUSHs (sv_2mortal (newSVGtkWidget (GTK_WIDGET (i->data))));
 	g_list_free (children);
 
+# FIXME
  ## void gtk_container_propagate_expose (GtkContainer *container, GtkWidget *child, GdkEventExpose *event)
  ##void
  ##gtk_container_propagate_expose (container, child, event)
  ##	GtkContainer *container
  ##	GtkWidget *child
  ##	GdkEventExpose *event
- ##
+
  ## void gtk_container_set_focus_chain (GtkContainer *container, GList *focusable_widgets)
- ##void
- ##gtk_container_set_focus_chain (container, focusable_widgets)
- ##	GtkContainer *container
- ##	GList *focusable_widgets
- ##
+void
+gtk_container_set_focus_chain (container, widget1, ...)
+	GtkContainer *container
+	SV * widget1
+    PREINIT:
+	GList *focusable_widgets = NULL;
+	int i;
+    PPCODE:
+	for (i = items - 1 ; i > 0 ; i--)
+		focusable_widgets = g_list_prepend (focusable_widgets,
+		                                    SvGtkWidget (ST (i)));
+	gtk_container_set_focus_chain (container, focusable_widgets);
+	g_list_free (focusable_widgets);
+ 
  ## gboolean gtk_container_get_focus_chain (GtkContainer *container, GList **focusable_widgets)
- ##gboolean
- ##gtk_container_get_focus_chain (container, focusable_widgets)
- ##	GtkContainer *container
- ##	GList **focusable_widgets
- ##
- ## void gtk_container_unset_focus_chain (GtkContainer *container)
- ##void
- ##gtk_container_unset_focus_chain (container)
- ##	GtkContainer *container
+void
+gtk_container_get_focus_chain (container)
+	GtkContainer *container
+    PREINIT:
+	GList * i, * focusable_widgets = NULL;
+    PPCODE:
+	if (!gtk_container_get_focus_chain (container, &focusable_widgets))
+		XSRETURN_EMPTY;
+	for (i = focusable_widgets; i != NULL ; i = i->next)
+		XPUSHs (sv_2mortal (newSVGtkWidget (i->data)));
+	g_list_free (focusable_widgets);
+
+void
+gtk_container_unset_focus_chain (container)
+	GtkContainer *container
 
 void
 gtk_container_set_focus_child (container, child)
 	GtkContainer *container
 	GtkWidget *child
 
- ##GtkAdjustment *
- ##gtk_get_focus_hadjustment (container)
- ##	GtkContainer * container
- ##
- ##GtkAdjustment *
- ##gtk_get_focus_vadjustment (container)
- ##	GtkContainer * container
- ##
- ## void gtk_container_set_focus_vadjustment (GtkContainer *container, GtkAdjustment *adjustment)
- ##void
- ##gtk_container_set_focus_vadjustment (container, adjustment)
- ##	GtkContainer *container
- ##	GtkAdjustment *adjustment
- ##
- ## void gtk_container_set_focus_hadjustment (GtkContainer *container, GtkAdjustment *adjustment)
- ##void
- ##gtk_container_set_focus_hadjustment (container, adjustment)
- ##	GtkContainer *container
- ##	GtkAdjustment *adjustment
- ##
- ## void gtk_container_resize_children (GtkContainer *container)
- ##void
- ##gtk_container_resize_children (container)
- ##	GtkContainer *container
- ##
+GtkAdjustment_ornull *
+gtk_container_get_focus_hadjustment (container)
+	GtkContainer * container
+
+GtkAdjustment_ornull *
+gtk_container_get_focus_vadjustment (container)
+	GtkContainer * container
+
+void
+gtk_container_set_focus_vadjustment (container, adjustment)
+	GtkContainer *container
+	GtkAdjustment_ornull *adjustment
+
+void
+gtk_container_set_focus_hadjustment (container, adjustment)
+	GtkContainer *container
+	GtkAdjustment_ornull *adjustment
+
+void
+gtk_container_resize_children (container)
+	GtkContainer *container
+
  ## GtkType gtk_container_child_type (GtkContainer *container)
- ##GtkType
- ##gtk_container_child_type (container)
- ##	GtkContainer *container
- ##
+const char *
+gtk_container_child_type (container)
+	GtkContainer *container
+    PREINIT:
+	GType gtype;
+    CODE:
+	gtype = gtk_container_child_type (container);
+	if (!gtype)
+		/* this means that the container is full. */
+		XSRETURN_UNDEF;
+	/* GtkWidgets are GObjects, so we should only be getting object
+	 * types back from this function.  however, we might get a GType
+	 * that isn't registered with the bindings, so we have to look 
+	 * for one that we know about.  since Glib::Object is always
+	 * registered, this loop cannot be infinite. */
+	while (gtype &&
+	       (NULL == (RETVAL = gperl_object_package_from_type (gtype))))
+		gtype = g_type_parent (gtype);
+    OUTPUT:
+	RETVAL
+
+# FIXME
+#  next we have a whole slew of functions you'd use for child properties
+#  and such.  any suggestions on how to use them?
  ## void gtk_container_class_install_child_property (GtkContainerClass *cclass, guint property_id, GParamSpec *pspec)
  ##void
  ##gtk_container_class_install_child_property (cclass, property_id, pspec)
@@ -219,6 +252,7 @@ gtk_container_set_focus_child (container, child)
  ##	const gchar *first_property_name,
  ##	va_list var_args);
  ##
+# works on all children, including the internal ones.
  ##void gtk_container_forall (GtkContainer *container,
  ##	GtkCallback callback,
  ##	gpointer callback_data);
@@ -234,8 +268,5 @@ gtk_container_set_reallocate_redraws (container, needs_redraws)
 	GtkContainer * container
 	gboolean       needs_redraws
 
+# __PRIVATE__
 ##void _gtk_container_queue_resize (GtkContainer *container)
-#void
-#_gtk_container_queue_resize (container)
-#	GtkContainer * container
-
