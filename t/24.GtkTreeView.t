@@ -2,6 +2,8 @@
 use strict;
 use Gtk2;
 use Test::More;
+		
+my @version_info = Gtk2 -> get_version_info();
 
 ###############################################################################
 
@@ -105,7 +107,7 @@ is($view_column -> get_sort_order(), "descending");
 
 SKIP: {
 	skip("cell_is_visible is new in 2.2.x", 1)
-		unless ((Gtk2 -> get_version_info())[1] >= 2);
+		unless ($version_info[1] >= 2);
 
 	is($view_column -> cell_is_visible(), ""); # xxx
 }
@@ -190,7 +192,7 @@ $view -> set_expander_column($view_column_one);
 
 SKIP: {
 	skip("get_expander_column is new in 2.2.x", 1)
-		unless ((Gtk2 -> get_version_info())[1] >= 2);
+		unless ($version_info[1] >= 2);
 
 	is($view -> get_expander_column(), $view_column_one);
 }
@@ -261,7 +263,7 @@ is($view -> row_expanded($path), 1);
 
 SKIP: {
 	skip("expand_to_path is new in 2.2.x", 1)
-		unless ((Gtk2 -> get_version_info())[1] >= 2);
+		unless ($version_info[1] >= 2);
 
 	$view -> expand_to_path($path);
 	is($view -> row_expanded($path), 1);
@@ -294,19 +296,6 @@ $view -> set_column_drag_function(sub { return 1; });
 
 $cell_renderer = Gtk2::CellRendererToggle -> new();
 
-SKIP: {
-	skip("set_cursor_on_cell is new in 2.2.x", 2)
-		unless ((Gtk2 -> get_version_info())[1] >= 2);
-
-	$view -> set_cursor_on_cell(Gtk2::TreePath -> new("1:1"),
-				    $view_column,
-				    $cell_renderer,
-				    0);
-
-	is(($view -> get_cursor())[0] -> to_string(), "1:1");
-	is(($view -> get_cursor())[1], $view_column);
-}
-
 $view_column = Gtk2::TreeViewColumn -> new_with_attributes("Blab", $cell_renderer);
 $view_column -> set_cell_data_func($cell_renderer, sub {
 	my ($view_column, $cell, $model, $iter) = @_;
@@ -318,7 +307,7 @@ $view_column -> set_cell_data_func($cell_renderer, sub {
 
 	SKIP: {
 		skip("focus_cell is new in 2.2.x", 2)
-			unless ((Gtk2 -> get_version_info())[1] >= 2);
+			unless ($version_info[1] >= 2);
 
 		$view_column -> focus_cell($cell);
 
@@ -333,6 +322,19 @@ $view_column -> set_cell_data_func($cell_renderer, sub {
 });
 
 $view -> append_column($view_column);
+
+SKIP: {
+	skip("set_cursor_on_cell is new in 2.2.x", 2)
+		unless ($version_info[1] >= 2);
+
+	$view -> set_cursor_on_cell(Gtk2::TreePath -> new("1:1"),
+				    $view_column,
+				    $cell_renderer,
+				    0);
+
+	is(($view -> get_cursor())[0] -> to_string(), "1:1");
+	is(($view -> get_cursor())[1], $view_column);
+}
 
 ###############################################################################
 

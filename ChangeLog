@@ -1,3 +1,10 @@
+2003/08/28 08:44 rwmcfa1
+
+	* t/24.GtkTreeView.t: torsten's patch applied to fix "assertion
+	`column_in_tree' failed" problem on various systems/versions. cached
+	version info into an array and then use rather than getting it over and
+	over.
+
 2003/08/27 18:43 muppetman
 
 	another round of treeview-related patched from torsten:
