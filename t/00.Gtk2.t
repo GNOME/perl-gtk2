@@ -12,7 +12,7 @@ use warnings;
 
 #########################
 
-use Test::More tests => 19;
+use Test::More tests => 20;
 BEGIN { use_ok('Gtk2') };
 
 #########################
@@ -26,11 +26,15 @@ SKIP:
 {
 	Gtk2->disable_setlocale;
 
+	@ARGV = qw(--help --g-fatal-warnings --name gtk2perl --urgs tree);
+
 	skip 'Gtk2->init_check failed, probably unable to open DISPLAY', 
 		15, unless( Gtk2->init_check );
 
 	ok( Gtk2->init );
 	ok( Gtk2->set_locale );
+
+	is_deeply(\@ARGV, [qw(--help --urgs tree)]);
 
 	isa_ok( Gtk2->get_default_language, "Gtk2::Pango::Language" );
 

@@ -167,56 +167,20 @@ gtk_init (class)
     ALIAS:
 	Gtk2::init_check = 2
     PREINIT:
-	AV * ARGV;
-	SV * ARGV0;
-	int argc, len, i;
-	char ** argv, ** shadow;
+	GPerlArgv *pargv;
     CODE:
-	/*
-	 * heavily borrowed from gtk-perl.
-	 *
-	 * given the way perl handles the refcounts on SVs and the strings
-	 * to which they point, i'm not certain that the g_strdup'ing of
-	 * the string values is entirely necessary; however, this compiles
-	 * and runs and doesn't appear either to leak or segfault, so i'll
-	 * leave it.
-	 */
-	argv = NULL;
-	ARGV = get_av ("ARGV", FALSE);
-	ARGV0 = get_sv ("0", FALSE);
+	pargv = gperl_argv_new ();
 
-	/* 
-	 * construct the argv argument... we'll have to prepend @ARGV with $0
-	 * to make it look real.  an important wrinkle: gtk_init() and
-	 * gtk_init_check() strip arguments that it processes, but it does
-	 * not free them (argv is statically allocated in conventional
-	 * usage).  thus, we need keep a shadow copy of argv so we can keep
-	 * from leaking the stripped strings.
-	 */
-	len = av_len (ARGV) + 1;
-	argc = len + 1;
-	shadow = g_new0 (char*, len + 1);
-	argv = g_new0 (char*, argc);
-	argv[0] = SvPV_nolen (ARGV0);
-	for (i = 0 ; i < len ; i++) {
-		SV * sv = av_shift (ARGV);
-		shadow[i] = argv[i+1] = g_strdup (SvPV_nolen (sv));
-	}
-	/* note that we've emptied @ARGV. */
-	/* use it... */
 	if (ix == 2) {
-		RETVAL = gtk_init_check (&argc, &argv);
+		RETVAL = gtk_init_check (&pargv->argc, &pargv->argv);
 	} else {
-		gtk_init (&argc, &argv);
+		gtk_init (&pargv->argc, &pargv->argv);
 		/* gtk_init() either succeeds or does not return. */
 		RETVAL = TRUE;
 	}
 
-	/* refill @ARGV with whatever gtk_init didn't steal. */
-	for (i = 1 ; i < argc ; i++)
-		av_push (ARGV, newSVpv (argv[i], 0));
-	g_free (argv);
-	g_strfreev (shadow);
+	gperl_argv_update (pargv);
+	gperl_argv_free (pargv);
     OUTPUT:
 	RETVAL
 
