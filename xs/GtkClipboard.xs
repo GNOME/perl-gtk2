@@ -300,7 +300,7 @@ void gtk_clipboard_set_text (GtkClipboard *clipboard, const gchar_length *text, 
 
 ##  void gtk_clipboard_request_contents (GtkClipboard *clipboard, GdkAtom target, GtkClipboardReceivedFunc callback, gpointer user_data) 
 void
-gtk_clipboard_request_contents (clipboard, target, callback, user_data)
+gtk_clipboard_request_contents (clipboard, target, callback, user_data=NULL)
 	GtkClipboard *clipboard
 	GdkAtom target
 	SV * callback
@@ -321,7 +321,7 @@ gtk_clipboard_request_contents (clipboard, target, callback, user_data)
 
 ##  void gtk_clipboard_request_text (GtkClipboard *clipboard, GtkClipboardTextReceivedFunc callback, gpointer user_data) 
 void
-gtk_clipboard_request_text (clipboard, callback, user_data)
+gtk_clipboard_request_text (clipboard, callback, user_data=NULL)
 	GtkClipboard *clipboard
 	SV * callback
 	SV * user_data

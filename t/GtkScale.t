@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 4, noinit => 1;
+use Gtk2::TestHelper tests => 6;
 
 # $Header$
 
@@ -17,6 +17,14 @@ is($scale -> get_draw_value(), 1);
 
 $scale -> set_value_pos("right");
 is($scale -> get_value_pos(), "right");
+
+SKIP: {
+  skip("get_layout and get_layout_offsets are new in 2.3", 2)
+    if (Gtk2 -> check_version(2, 3, 3));
+
+  isa_ok($scale -> get_layout(), "Gtk2::Pango::Layout");
+  is(@{[$scale -> get_layout_offsets()]}, 2);
+}
 
 __END__
 

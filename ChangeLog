@@ -1,3 +1,14 @@
+2004/02/14 21:54 (+0100) kaffeetisch
+
+	* t/GtkCellRenderer.t
+	* xs/GtkCellRenderer.xs: Bind and test editing_canceled.
+
+	* xs/GtkClipboard.xs: Provide a default for the user_data
+	arguments of request_contents and request_text.
+
+	* t/GtkScale.t
+	* xs/GtkScale.t: Bind and test get_layout and get_layout_offsets.
+
 2004/02/14 00:29 (+0100) kaffeetisch
 
 	* t/GtkComboBox.t: Use a proper skip.  The bug's fixed in cvs now.

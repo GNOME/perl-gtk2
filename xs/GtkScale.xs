@@ -57,3 +57,15 @@ gtk_scale_get_value_pos (scale)
 	GtkScale * scale
 
 ## void _gtk_scale_get_value_size (GtkScale *scale, gint *width, gint *height)
+
+# FIXME 2.4
+#if GTK_CHECK_VERSION (2, 3, 3)
+
+## PangoLayout* gtk_scale_get_layout (GtkScale *scale)
+PangoLayout *
+gtk_scale_get_layout (scale)
+	GtkScale *scale
+
+void gtk_scale_get_layout_offsets (GtkScale *scale, OUTLIST gint x, OUTLIST gint y)
+
+#endif
