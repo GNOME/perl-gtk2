@@ -140,7 +140,17 @@ gdk_event_unwrap (GType gtype, const char * package, SV * sv)
 	return event;
 }
 
-
+#if !GTK_CHECK_VERSION (2, 2, 0)
+# define gdk_event_new	gtk2perl_gdk_event_new
+static GdkEvent *
+gtk2perl_gdk_event_new (GdkEventType type)
+{
+	GdkEvent ev;
+	memset (&ev, 0, sizeof (GdkEvent));
+	ev.any.type = type;
+	return gdk_event_copy (&ev);
+}
+#endif
 
 MODULE = Gtk2::Gdk::Event	PACKAGE = Gtk2::Gdk::Event	PREFIX = gdk_event_
 
@@ -197,8 +207,9 @@ gdk_event_put (class, event)
     C_ARGS:
 	event
 
-#if GTK_CHECK_VERSION(2,2,0)
-
+ # this didn't actually exist until 2.2.0, when there were some private
+ # things added in Gdk; we provide a custom one on 2.0.x, because we're
+ # nice guys.
  ## GdkEvent* gdk_event_new (GdkEventType type)
 ## caller must free
 GdkEvent_own*
@@ -206,8 +217,6 @@ gdk_event_new (class, type)
 	GdkEventType type
     C_ARGS:
 	type
-
-#endif
 
  ## GdkEvent* gdk_event_copy (GdkEvent *event)
 GdkEvent_own*
