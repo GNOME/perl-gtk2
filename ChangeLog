@@ -1,3 +1,13 @@
+2004/04/04 01:09 (-0500) muppetman
+
+	* t/PangoContext.t, t/PangoFont.t, xs/PangoContext.xs,
+	xs/PangoFont.xs: bind and test Gtk2::Pango::Context::list_families,
+	Gtk2::Pango::FontFamily::get_name,
+	Gtk2::Pango::FontFamily::is_monospace,
+	Gtk2::Pango::FontFamily::list_faces, Gtk2::Pango::FontFace::describe,
+	Gtk2::Pango::FontFace::get_face_name, and
+	Gtk2::Pango::FontFace::list_sizes.
+
 2004/04/03 22:27 (+0100) kaffeetisch
 
 	* t/01.GtkWindow.t: Fix the TODO by allowing both, TRUE and FALSE,

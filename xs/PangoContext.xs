@@ -40,13 +40,25 @@ MODULE = Gtk2::Pango::Context	PACKAGE = Gtk2::Pango::Context	PREFIX = pango_cont
  ## same thing goes for pango_context_set_font_map.
 ##  void pango_context_set_font_map (PangoContext *context, PangoFontMap *font_map) 
 
-## FIXME
 ###  void pango_context_list_families (PangoContext *context, PangoFontFamily ***families, int *n_families) 
-#void
-#pango_context_list_families (context, families, n_families)
-#	PangoContext *context
-#	PangoFontFamily ***families
-#	int *n_families
+=for apidoc
+=for signature @families = $context->list_families
+=cut
+void
+pango_context_list_families (context)
+	PangoContext *context
+    PREINIT:
+	PangoFontFamily **families = NULL;
+	int n_families;
+    PPCODE:
+	pango_context_list_families (context, &families, &n_families);
+	if (n_families > 0) {
+		int i;
+		EXTEND (SP, n_families);
+		for (i = 0 ; i < n_families ; i++)
+			PUSHs (sv_2mortal (newSVPangoFontFamily (families[i])));
+		g_free (families);
+	}
 
 ##  PangoFont * pango_context_load_font (PangoContext *context, const PangoFontDescription *desc) 
 ### may return NULL....

@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 7;
+use Gtk2::TestHelper tests => 9;
 
 # $Header$
 
@@ -8,6 +8,10 @@ my $label = Gtk2::Label -> new("Bla");
 
 my $context = $label -> create_pango_context();
 isa_ok($context, "Gtk2::Pango::Context");
+
+my @families = $context->list_families;
+ok (@families > 0, 'got a list of somethings');
+isa_ok ($families[0], 'Gtk2::Pango::FontFamily');
 
 my $font = Gtk2::Pango::FontDescription -> from_string("Sans 12");
 my $language = Gtk2 -> get_default_language();

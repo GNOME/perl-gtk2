@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 31;
+use Gtk2::TestHelper tests => 40;
 
 # $Header$
 
@@ -75,6 +75,39 @@ like(int(Gtk2::Pango -> scale_x_large()), $number);
 like(int(Gtk2::Pango -> scale_xx_large()), $number);
 like(int(Gtk2::Pango -> PANGO_PIXELS(23)), $number);
 like(int(Gtk2::Pango -> pixels(23)), $number);
+
+###############################################################################
+
+my @families = $context->list_families;
+ok (@families > 0, 'got a list of families');
+isa_ok ($families[0], 'Gtk2::Pango::FontFamily');
+ok ($families[0]->get_name, 'get_name works');
+SKIP: {
+  skip "is_monospace is new in 1.4.0", 1
+    unless Gtk2::Pango->CHECK_VERSION (1, 4, 0);
+  # we don't really have a way of knowing if this font should actually
+  # be monospaced, so just check that the function doesn't die.
+  $families[0]->is_monospace;
+  ok (1, 'is_monospace works');
+}
+
+my @faces = $families[0]->list_faces;
+#print "faces @faces\n";
+ok (@faces > 0, 'got a list of faces');
+isa_ok ($faces[0], 'Gtk2::Pango::FontFace');
+my $desc = $faces[0]->describe;
+isa_ok ($desc, 'Gtk2::Pango::FontDescription');
+ok ($faces[0]->get_face_name);
+SKIP: {
+  skip "list_sizes is new in 1.4.0", 1
+    unless Gtk2::Pango->CHECK_VERSION (1, 4, 0);
+  # again, whether we'll get sizes depends on whether this first font and
+  # face is a bitmapped font.  we can't know that, so just test that the
+  # call does not result in a crash.
+  my @sizes = $faces[0]->list_sizes;
+  #print "sizes @sizes\n";
+  ok (1, 'list_sizes did not crash');
+}
 
 __END__
 

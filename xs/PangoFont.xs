@@ -243,8 +243,12 @@ pango_font_metrics_get_approximate_digit_width (metrics)
 
 MODULE = Gtk2::Pango::Font	PACKAGE = Gtk2::Pango::FontFamily	PREFIX = pango_font_family_
 
+BOOT:
+	gperl_object_set_no_warn_unreg_subclass (PANGO_TYPE_FONT_FAMILY, TRUE);
+
 ## void pango_font_family_list_faces (PangoFontFamily *family, PangoFontFace ***faces, int *n_faces)
 =for apidoc
+=for apidoc @faces = $family->list_faces
 Lists the different font faces that make up family. The faces in a family
 share a common design, but differ in slant, weight, width and other aspects.
 =cut
@@ -252,19 +256,65 @@ void
 pango_font_family_list_faces (family)
 	PangoFontFamily *family
     PREINIT:
-	PangoFontFace ** faces;
-	int 	         n_faces;
+	PangoFontFace ** faces = NULL;
+	int n_faces;
     PPCODE:
 	pango_font_family_list_faces(family, &faces, &n_faces);
-	if( n_faces < 1 || faces == NULL )
-		XSRETURN_EMPTY;
-	else
-	{
+	if (n_faces > 0) {
+		int i;
 		EXTEND(SP,n_faces);
-		for( ; n_faces >= 0; n_faces-- )
-			PUSHs(sv_2mortal(newSVPangoFontFace(faces[n_faces])));
+		for (i = 0 ; i < n_faces ; i++)
+			PUSHs(sv_2mortal(newSVPangoFontFace(faces[i])));
+		g_free (faces);
 	}
-	g_free(faces);
+
+
+const char * pango_font_family_get_name (PangoFontFamily * family)
+
+#if PANGO_CHECK_VERSION(1, 4, 0)
+
+gboolean pango_font_family_is_monospace (PangoFontFamily * family)
+
+#endif
+
+MODULE = Gtk2::Pango::Font	PACKAGE = Gtk2::Pango::FontFace	PREFIX = pango_font_face_
+
+#
+# PangoFontFace
+#
+
+BOOT:
+	gperl_object_set_no_warn_unreg_subclass (PANGO_TYPE_FONT_FACE, TRUE);
+
+ ## PangoFontDescription *pango_font_face_describe (PangoFontFace *face);
+PangoFontDescription_own * pango_font_face_describe (PangoFontFace *face);
+
+ ## G_CONST_RETURN char *pango_font_face_get_face_name (PangoFontFace *face);
+const char *pango_font_face_get_face_name (PangoFontFace *face);
+
+#if PANGO_CHECK_VERSION(1, 4, 0)
+
+ ## void pango_font_face_list_sizes (PangoFontFace  *face, int **sizes, int *n_sizes);
+=for apidoc
+=for signature @sizes = $face->list_sizes
+List the sizes available for a bitmapped font.  For scalable fonts, this will
+return an empty list.
+=cut
+void
+pango_font_face_list_sizes (PangoFontFace *face)
+    PREINIT:
+	int *sizes=NULL, n_sizes, i;
+    PPCODE:
+	pango_font_face_list_sizes (face, &sizes, &n_sizes);
+	if (n_sizes > 0) {
+		int i;
+		EXTEND (SP, n_sizes);
+		for (i = 0 ; i < n_sizes ; i++)
+			PUSHs (sv_2mortal (newSViv (sizes[i])));
+		g_free (sizes);
+	}
+
+#endif
 
 MODULE = Gtk2::Pango::Font	PACKAGE = Gtk2::Pango::Font	PREFIX = pango_font_
 
