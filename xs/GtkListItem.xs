@@ -54,4 +54,5 @@ void
 gtk_list_item_deselect (list_item)
 	GtkListItem * list_item
 
-#endif GTK_TYPE_LIST_ITEM
+#endif
+

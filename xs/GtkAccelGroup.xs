@@ -115,15 +115,13 @@ gtk_accelerator_parse (class, accelerator)
 	XPUSHs (sv_2mortal (newSVGdkModifierType (accelerator_mods)));
 
 ## gchar* gtk_accelerator_name (guint accelerator_key, GdkModifierType accelerator_mods)
-gchar *
+gchar_own *
 gtk_accelerator_name (class, accelerator_key, accelerator_mods)
 	SV              * class
 	guint             accelerator_key
 	GdkModifierType   accelerator_mods
     C_ARGS:
 	accelerator_key, accelerator_mods
-    CLEANUP:
-	g_free (RETVAL);
 
 ## void gtk_accelerator_set_default_mod_mask (GdkModifierType default_mod_mask)
 void

@@ -77,7 +77,7 @@ gtk_tree_path_new_from_string (class, path)
 #endif /* 2.2.0 */
 
 
-gchar*
+gchar_own *
 gtk_tree_path_to_string (path)
 	GtkTreePath * path
 
@@ -291,7 +291,7 @@ gtk_tree_model_get_iter_from_string (tree_model, path_string)
 #if GTK_CHECK_VERSION(2,2,0)
 
 ## gchar * gtk_tree_model_get_string_from_iter (GtkTreeModel *tree_model, GtkTreeIter *iter)
-gchar *
+gchar_own *
 gtk_tree_model_get_string_from_iter (tree_model, iter)
 	GtkTreeModel *tree_model
 	GtkTreeIter *iter

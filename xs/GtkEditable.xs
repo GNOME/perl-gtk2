@@ -65,7 +65,7 @@ gtk_editable_delete_text (editable, start_pos, end_pos)
 	gint start_pos
 	gint end_pos
 
-gchar*
+gchar_own *
 gtk_editable_get_chars (editable, start_pos, end_pos)
 	GtkEditable *editable
 	gint start_pos

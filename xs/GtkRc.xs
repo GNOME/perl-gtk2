@@ -118,7 +118,7 @@ gtk_rc_add_class_style (rc_style, pattern)
 	const gchar *pattern
 
 ## gchar* gtk_rc_find_module_in_path (const gchar *module_file)
-gchar*
+gchar_own *
 gtk_rc_find_module_in_path (class, module_file)
 	SV          * class
 	const gchar * module_file
@@ -126,25 +126,25 @@ gtk_rc_find_module_in_path (class, module_file)
 	module_file
 
 ## gchar* gtk_rc_get_theme_dir (void)
-gchar*
+gchar_own *
 gtk_rc_get_theme_dir (class)
 	SV * class
     C_ARGS:
 
 ## gchar* gtk_rc_get_module_dir (void)
-gchar*
+gchar_own *
 gtk_rc_get_module_dir (class)
 	SV * class
     C_ARGS:
 
 ## gchar* gtk_rc_get_im_module_path (void)
-gchar*
+gchar_own *
 gtk_rc_get_im_module_path (class)
 	SV * class
     C_ARGS:
 
 ## gchar* gtk_rc_get_im_module_file (void)
-gchar*
+gchar_own *
 gtk_rc_get_im_module_file (class)
 	SV * class
     C_ARGS:

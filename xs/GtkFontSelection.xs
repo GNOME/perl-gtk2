@@ -30,7 +30,7 @@ gtk_font_selection_new (class)
     C_ARGS:
 
 ## gchar* gtk_font_selection_get_font_name (GtkFontSelection *fontsel)
-gchar *
+gchar_own *
 gtk_font_selection_get_font_name (fontsel)
 	GtkFontSelection * fontsel
 
@@ -85,7 +85,7 @@ members_get (fsd)
 	RETVAL
 
 ##gchar* gtk_font_selection_dialog_get_font_name (GtkFontSelectionDialog *fsd)
-gchar *
+gchar_own *
 gtk_font_selection_dialog_get_font_name (fsd)
 	GtkFontSelectionDialog * fsd
 

@@ -123,11 +123,9 @@ gdk_screen_get_toplevel_windows (screen)
 	g_list_free (list);
 
 ##  gchar * gdk_screen_make_display_name (GdkScreen *screen) 
-gchar *
+gchar_own *
 gdk_screen_make_display_name (screen)
 	GdkScreen *screen
-    CLEANUP:
-	g_free (RETVAL);
 
 ##  gint gdk_screen_get_n_monitors (GdkScreen *screen) 
 gint

@@ -127,9 +127,9 @@ gtk_text_buffer_delete_interactive (buffer, start_iter, end_iter, default_editab
 
 void gtk_text_buffer_set_text (GtkTextBuffer *buffer, const gchar *text, int length(text))
 
-gchar* gtk_text_buffer_get_text (GtkTextBuffer *buffer, GtkTextIter * start, GtkTextIter* end, gboolean include_hidden_chars)
+gchar_own * gtk_text_buffer_get_text (GtkTextBuffer *buffer, GtkTextIter * start, GtkTextIter* end, gboolean include_hidden_chars)
 
-gchar* gtk_text_buffer_get_slice (GtkTextBuffer *buffer, GtkTextIter *start, GtkTextIter *end, gboolean include_hidden_chars);
+gchar_own * gtk_text_buffer_get_slice (GtkTextBuffer *buffer, GtkTextIter *start, GtkTextIter *end, gboolean include_hidden_chars);
 
 ## void gtk_text_buffer_insert_pixbuf (GtkTextBuffer *buffer, GtkTextIter *iter, GdkPixbuf *pixbuf)
 void

@@ -70,19 +70,22 @@ gtk_text_iter_get_visible_line_index (iter)
 #	GtkTextIter *iter
 
 ## FIXME should this be a static method?
-gchar*
+# pcg: no!
+gchar_own *
 gtk_text_iter_get_slice (start, end)
 	GtkTextIter * start
 	GtkTextIter * end
 
 ## FIXME should this be a static method?
-gchar*
+# pcg: no!
+gchar_own *
 gtk_text_iter_get_text (start, end)
 	GtkTextIter * start
 	GtkTextIter * end
 
-##gchar* gtk_text_iter_get_visible_slice (const GtkTextIter *start, const GtkTextIter *end)
-##gchar* gtk_text_iter_get_visible_text  (const GtkTextIter *start, const GtkTextIter *end)
+gchar_own * gtk_text_iter_get_visible_slice (GtkTextIter *start, GtkTextIter *end)
+
+gchar_own * gtk_text_iter_get_visible_text (GtkTextIter *start, GtkTextIter *end)
 
 ## GdkPixbuf* gtk_text_iter_get_pixbuf (const GtkTextIter *iter)
 GdkPixbuf_ornull*

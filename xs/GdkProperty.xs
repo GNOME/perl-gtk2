@@ -45,11 +45,9 @@ gdk_atom_intern (class, atom_name, only_if_exists=FALSE)
 	atom_name, only_if_exists
 
 ##  gchar* gdk_atom_name (GdkAtom atom) 
-gchar*
+gchar_own *
 gdk_atom_name (atom)
 	GdkAtom atom
-    CLEANUP:
-	g_free (RETVAL);
 
 MODULE = Gtk2::Gdk::Property	PACKAGE = Gtk2::Gdk::Window	PREFIX = gdk_
 

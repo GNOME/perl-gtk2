@@ -93,7 +93,7 @@ gdk_set_program_class (class, program_class)
 	program_class
 
 ##  gchar* gdk_get_display (void) 
-gchar*
+gchar_own *
 gdk_get_display (class)
 	SV * class
     C_ARGS:
