@@ -1,0 +1,46 @@
+Overview of Changes in Gtk2 1.031
+=================================
+
+* Added binding support for objects and functions new in gtk+-2.3.x.  Not
+  all tests are complete.  Updated gtk-demo and examples to use the new stuff
+  if available.  This code will be protected by 2.4.0 version guards when
+  gtk+-2.4.0 is finally released.  Note: The unstable-2-3-x-branch in CVS
+  is now dead.  [muppet]
+* New example in gtk-demo (ported from C) shows how to make hyperlinks in
+  a TextView. [muppet, from gtk+]
+* Converted all of the Gtk2::Gdk::Event accessors into combination accessors
+  and mutators. [Ross]
+* Provide a fallback implementation of Gtk2::Gdk::Event::new when linking
+  against gtk+-2.0.x, so we can always create events (needed for synthesizing
+  events in tests). [muppet]
+* Even yet still more tests. [Torsten]
+* Don't copy colors when accessing Style members; this makes it possible to
+  change the colors in a style. [Torsten]
+* Various little bugfixes, memory leak plugs, ornulls, doc updates, etc.
+
+Overview of Changes from Gtk2 1.02x to 1.030
+============================================
+
+* All of the fixes on the 1.02x branch have been made here as well, including
+  the 64-bit cleanliness stuff, the MessageDialog utf8 fix, and the SimpleList
+  base issue that broke upgrades from really old gtk2-perl.
+* Torsten has competely redone the test suite, more than doubling its size.
+  Exhaustive is a good word.  Added Gtk2::TestHelper, which automates
+  several tedious jobs for testing things based on Gtk2.
+* Lots of general clean up.  Many small bugfixes (add ornull here, fix a broken
+  call signature there, fix uninitialized variables all over the place, etc).
+  Adjust ALIASed xsubs to remove invalid methods from the perl namespace.
+  Never allow NULL to be passed to SvOK().
+* New examples: how to use Perl threads and Gtk2 together safely; how to
+  colorize rows in a SimpleList; how to add your own stock items; how to use
+  inline XPM images.
+* Add support for GdkRegions.  Improved support for GtkRcStyles.
+* Added lots of other esoteric functions.  Our api coverage is creeping up.
+* Move the implementation of the ItemFactory stuff from Perl to XS, and in
+  the process fixed the bug that kept accelerators from showing up properly.
+* Extended handling of GdkGeometry.  In addition to the method accessors,
+  you can create the geom as a hash; the bindings will calculate the valid
+  mask for you.
+* Implement custom marshaller for the rows-reordered signal, making it
+  usable.  (Patch from Roderich Schupp)
+* Completed the implementation of SPLICE on SimpleList's TiedList class.
