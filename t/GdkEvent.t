@@ -182,7 +182,14 @@ Gtk2->main_iteration while Gtk2->events_pending;
 Gtk2::Gdk -> set_show_events (1);
 is (Gtk2::Gdk -> get_show_events, 1);
 
-like (Gtk2::Gdk->setting_get ("gtk-double-click-time"), qr/^\d+$/);
+SKIP: {
+  # this will return undef if the setting is not set on your window manager,
+  # which is pretty much the case when you are not running under gnome.
+  my $dct = Gtk2::Gdk->setting_get ("gtk-double-click-time");
+  skip "setting gtk-double-click-time not set?", 1
+    unless defined $dct;
+  like (Gtk2::Gdk->setting_get ("gtk-double-click-time"), qr/^\d+$/);
+}
 
 # Focus ########################################################################
 
