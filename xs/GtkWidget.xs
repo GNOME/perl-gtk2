@@ -651,14 +651,26 @@ gtk_widget_get_default_style (class)
  #
  #/* Functions for setting directionality for widgets
  # */
- #
- #void             gtk_widget_set_direction         (GtkWidget        *widget,
- #			'GtkWindow.GtkVBox.hbox 0.GtkLabel			   GtkTextDirection  dir);
- #GtkTextDirection gtk_widget_get_direction         (GtkWidget        *widget);
- #
- #void             gtk_widget_set_default_direction (GtkTextDirection  dir);
- #GtkTextDirection gtk_widget_get_default_direction (void);
- #
+
+void
+gtk_widget_set_direction (GtkWidget *widget, GtkTextDirection  dir);
+
+GtkTextDirection
+gtk_widget_get_direction (GtkWidget *widget);
+
+void
+gtk_widget_set_default_direction (class, dir);
+	SV               * class
+	GtkTextDirection   dir
+    C_ARGS:
+    	dir
+
+GtkTextDirection
+gtk_widget_get_default_direction (class);
+	SV * class
+    C_ARGS:
+	/* void */
+
  #/* Counterpart to gdk_window_shape_combine_mask.
  # */
  #void	     gtk_widget_shape_combine_mask (GtkWidget *widget,

@@ -1,3 +1,8 @@
+2003/08/28 10:09 rwmcfa1
+
+	* xs/GtkWidget.xs: slight modifications of a patch by thierry vignaud 
+	applied. impelements text direction functions.
+
 2003/08/28 08:44 rwmcfa1
 
 	* t/24.GtkTreeView.t: torsten's patch applied to fix "assertion
