@@ -17,4 +17,37 @@ gdk_pixbuf_render_pixmap_and_mask
 gdk_pixbuf_new_from_data <- how would we do that?
 
 g_signal_handlers_disconnect_by_func
-g_signal_handlers_disconnect_by_data
+
+gtk_key_snooper_install/remove
+
+no typemap (and therefore no bindings) for
+	GdkRegion
+	GdkPixbufFormat
+	GdkRgbCmap
+	GdkGeometry
+	gunichar
+	GScanner
+	GtkTargetList (GtkSelection.xs)
+	PangoGlyph
+	PangoEngineShape
+	PangoCoverage
+	PangoRectangle
+	PangoLayoutLine
+	PangoLayoutIter
+
+a bunch of functions are missing from GtkAccelGroup because they want 
+GClosures; these would have to be mapped to CVs, of course.
+
+GtkImage lacks support for GdkImages and GdkPixbufAnimations
+
+many functions missing from GtkRc; no methods bound for GtkRcStyle
+
+gdk_thread_init is supposed to be called before gtk_init.
+probably should have another import option, -thread-init,
+to avoid *always* enabling thread safety, since it will
+be rare to have a multi-threaded perl gtk program until
+perl threading is more mainstream.
+
+need a gchar_ornull typemap
+
+what about decorated window stuff?
