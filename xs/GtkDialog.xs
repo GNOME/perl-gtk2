@@ -456,6 +456,10 @@ MODULE = Gtk2::Dialog	PACKAGE = Gtk2	PREFIX = gtk_
 
 #if GTK_CHECK_VERSION (2, 6, 0)
 
+# don't override the pod from Gtk2.pm...
+=for object Gtk2::main
+=cut
+
 ##  gboolean gtk_alternative_dialog_button_order (GdkScreen *screen);
 gboolean
 gtk_alternative_dialog_button_order (class, screen=NULL)
