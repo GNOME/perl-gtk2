@@ -144,11 +144,8 @@ gdk_window_focus (window, timestamp)
 	GdkWindow *window
 	guint32 timestamp
 
+  ## use object data instead
  ## void gdk_window_set_user_data (GdkWindow *window, gpointer user_data)
- ##void
- ##gdk_window_set_user_data (window, user_data)
- ##	GdkWindow *window
- ##	gpointer user_data
 
  ## void gdk_window_set_override_redirect (GdkWindow *window, gboolean override_redirect)
 void
@@ -177,6 +174,7 @@ gdk_window_scroll (window, dx, dy)
 	gint dx
 	gint dy
 
+  ## needs typemap for GdkRegion
  ## void gdk_window_shape_combine_region (GdkWindow *window, GdkRegion *shape_region, gint offset_x, gint offset_y)
  ##void
  ##gdk_window_shape_combine_region (window, shape_region, offset_x, offset_y)
@@ -262,6 +260,7 @@ gdk_window_begin_paint_rect (window, rectangle)
 	GdkWindow *window
 	GdkRectangle *rectangle
 
+  ## needs typemap for GdkRegion
  ## void gdk_window_begin_paint_region (GdkWindow *window, GdkRegion *region)
  ##void
  ##gdk_window_begin_paint_region (window, region)
@@ -310,69 +309,21 @@ gdk_window_set_cursor (window, cursor)
 	GdkWindow * window
 	GdkCursor_ornull * cursor
 
+  ## use gobject data instead
  ## void gdk_window_get_user_data (GdkWindow *window, gpointer *data)
- ##void
- ##gdk_window_get_user_data (window, data)
- ##	GdkWindow *window
- ##	gpointer *data
 
  ## void gdk_window_get_geometry (GdkWindow *window, gint *x, gint *y, gint *width, gint *height, gint *depth)
-void
-gdk_window_get_geometry (window)
-	GdkWindow *window
-    PREINIT:
-	gint x;
-	gint y;
-	gint width;
-	gint height;
-	gint depth;
-    PPCODE:
-	gdk_window_get_geometry (window, &x, &y, &width, &height, &depth);
-	EXTEND (SP, 5);
-	PUSHs (sv_2mortal (newSViv (x)));
-	PUSHs (sv_2mortal (newSViv (y)));
-	PUSHs (sv_2mortal (newSViv (width)));
-	PUSHs (sv_2mortal (newSViv (height)));
-	PUSHs (sv_2mortal (newSViv (depth)));
+void gdk_window_get_geometry (GdkWindow *window, OUTLIST gint x, OUTLIST gint y, OUTLIST gint width, OUTLIST gint height, OUTLIST gint depth)
 
  ## void gdk_window_get_position (GdkWindow *window, gint *x, gint *y)
-void
-gdk_window_get_position (window)
-	GdkWindow *window
-    PREINIT:
-	gint x;
-	gint y;
-    PPCODE:
-	gdk_window_get_position (window, &x, &y);
-	EXTEND (SP, 2);
-	PUSHs (sv_2mortal (newSViv (x)));
-	PUSHs (sv_2mortal (newSViv (y)));
+void gdk_window_get_position (GdkWindow *window, OUTLIST gint x, OUTLIST gint y)
 
+  ## docs say return type is not meaningful, ignore
  ## gint gdk_window_get_origin (GdkWindow *window, gint *x, gint *y)
-void
-gdk_window_get_origin (window)
-	GdkWindow *window
-    PREINIT:
-	gint x;
-	gint y;
-    PPCODE:
-	gdk_window_get_origin (window, &x, &y);
-	EXTEND (SP, 2);
-	PUSHs (sv_2mortal (newSViv (x)));
-	PUSHs (sv_2mortal (newSViv (y)));
+void gdk_window_get_origin (GdkWindow *window, OUTLIST gint x, OUTLIST gint y)
 
  ## void gdk_window_get_root_origin (GdkWindow *window, gint *x, gint *y)
-void
-gdk_window_get_root_origin (window)
-	GdkWindow *window
-    PREINIT:
-	gint x;
-	gint y;
-    PPCODE:
-	gdk_window_get_root_origin (window, &x, &y);
-	EXTEND (SP, 2);
-	PUSHs (sv_2mortal (newSViv (x)));
-	PUSHs (sv_2mortal (newSViv (y)));
+void gdk_window_get_root_origin (GdkWindow *window, OUTLIST gint x, OUTLIST gint y)
 
  ## void gdk_window_get_frame_extents (GdkWindow *window, GdkRectangle *rect)
  ##void
@@ -383,22 +334,7 @@ gdk_window_get_root_origin (window)
  ## GdkWindow* gdk_window_get_pointer (GdkWindow *window, gint *x, gint *y, GdkModifierType *mask)
  ## perl call signature:
  ## (window_ornull, x, y, mask) = $GdkWindow->get_pointer
-void
-gdk_window_get_pointer (window)
-	GdkWindow *window
-    PREINIT:
-	GdkWindow *window_containing_pointer;
-	gint x;
-	gint y;
-	GdkModifierType mask;
-    PPCODE:
- 	window_containing_pointer =
-		gdk_window_get_pointer (window, &x, &y, &mask);
-	EXTEND (SP, 4);
-	PUSHs (sv_2mortal (newSVGdkWindow_ornull (window_containing_pointer)));
-	PUSHs (sv_2mortal (newSViv (x)));
-	PUSHs (sv_2mortal (newSViv (y)));
-	PUSHs (sv_2mortal (newSVGdkModifierType (mask)));
+GdkWindow_ornull* gdk_window_get_pointer (GdkWindow *window, OUTLIST gint x, OUTLIST gint y, OUTLIST GdkModifierType mask)
 
  ## GdkWindow * gdk_window_get_parent (GdkWindow *window)
  ##GdkWindow *
@@ -554,6 +490,7 @@ gdk_window_invalidate_rect (window, rectangle, invalidate_children)
 	GdkRectangle * rectangle
 	gboolean invalidate_children
 
+  ## needs typemap for GdkRegion
  ## void gdk_window_invalidate_region (GdkWindow *window, GdkRegion *region, gboolean invalidate_children)
  ##void
  ##gdk_window_invalidate_region (window, region, invalidate_children)
@@ -581,16 +518,15 @@ gdk_window_thaw_updates (window)
 	GdkWindow * window
 
  ## void gdk_window_process_all_updates (void)
- ##void
- ##gdk_window_process_all_updates (void)
- ##	void
- ##
+void
+gdk_window_process_all_updates (SV * class)
+    C_ARGS:
+	/*void*/
+
  ## void gdk_window_process_updates (GdkWindow *window, gboolean update_children)
- ##void
- ##gdk_window_process_updates (window, update_children)
- ##	GdkWindow *window
- ##	gboolean update_children
- ##
+void
+gdk_window_process_updates (GdkWindow * window, gboolean update_children)
+
  ## ## void gdk_window_constrain_size (GdkGeometry *geometry, guint flags, gint width, gint height, gint *new_width, gint *new_height)
  ##void
  ##gdk_window_constrain_size (geometry, flags, width, height)
