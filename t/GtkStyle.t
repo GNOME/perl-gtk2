@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 97;
+use Gtk2::TestHelper tests => 112;
 
 # $Header$
 
@@ -38,7 +38,14 @@ foreach my $state (qw(normal active prelight selected insensitive)) {
     isa_ok($_, "Gtk2::Gdk::GC");
   }
 
-  # isa_ok($style -> bg_pixmap($state), "Gtk2::Gdk::Pixmap");
+  # initially, the bg_pixmap is undef.
+  ok (! $style->bg_pixmap ($state), 'initially, there is no pixmap');
+
+  # set one.
+  my $pixmap = Gtk2::Gdk::Pixmap->new ($window->window, 16, 16, -1);
+  isa_ok ($pixmap, 'Gtk2::Gdk::Pixmap');
+  $style->bg_pixmap ($state, $pixmap);
+  is ($style -> bg_pixmap($state), $pixmap, 'pixmap is now set');
 }
 
 isa_ok($style -> black(), "Gtk2::Gdk::Color");
@@ -118,5 +125,5 @@ SKIP: {
 
 __END__
 
-Copyright (C) 2003 by the gtk2-perl team (see the file AUTHORS for the
+Copyright (C) 2003-2005 by the gtk2-perl team (see the file AUTHORS for the
 full list).  See LICENSE for more information.

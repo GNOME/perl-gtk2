@@ -120,11 +120,19 @@ fg_gc (style, state)
 
 # legitimate reference, not a copy
 GdkPixmap *
-bg_pixmap (style, state)
+bg_pixmap (style, state, pixmap=NULL)
 	GtkStyle * style
 	GtkStateType state
+	GdkPixmap_ornull * pixmap
     CODE:
 	RETVAL = style->bg_pixmap[state];
+	if (items > 2 && style->bg_pixmap[state] != pixmap) {
+		if (style->bg_pixmap[state])
+			g_object_unref (style->bg_pixmap[state]);
+		style->bg_pixmap[state] = pixmap;
+		if (pixmap)
+			g_object_ref (pixmap);
+	}
     OUTPUT:
 	RETVAL
 

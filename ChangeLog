@@ -1,5 +1,8 @@
 2005/04/04	muppetman
 
+	* xs/GtkStyle.xs, t/GtkStyle.t: turn Gtk2::Style::bg_pixmap
+	into a mutator.
+
 	* xs/GtkDnd.xs, t/GtkDnd.t: allow undef for the mask parameter
 	to gtk_drag_set_icon_pixmap(), with tests.
 
