@@ -1,3 +1,9 @@
+2003/08/19 23:04 muppetman
+
+	* xs/GtkTreeSelection.xs: patche from Torsten Schoenfeld implements
+	gtk_tree_selection_set_select_function and
+	gtk_tree_selection_selected_foreach
+
 2003/08/19 22:52 rwmcfa1
 
 	* xs/GtkTextBuffer.xs: implemented gtk_text_buffer_insert_with_tags,
