@@ -1,5 +1,15 @@
 2004/08/14 23:26 (-0400) muppetman
 
+	* t/GtkToolbar.t: strict and warnings don't carry across file
+	boundaries, so TestHelper doesn't bring them in.  add warnings and
+	strict and discover that i missed some barewords.  bad muppet,
+	no biscuit.
+
+	* xs/GtkToolbar.xs: allow NULL for text in a couple of places.
+	torsten had sent me a patch that did this, so i'll give him credit.
+
+2004/08/14 23:26 (-0400) muppetman
+
 	* t/GtkToolbar.t: rewrite test as a brute-force complete API exerciser
 
 	* xs/GtkToolbar.xs: enhance docs for toolbar functions so they
