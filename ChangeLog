@@ -1,3 +1,10 @@
+2005/02/26	muppetman
+
+	* xs/GdkPixmap.xs, t/GdkPixmap.t:  gdk_pixmap_create_from_xpm()
+	returns NULL if the file is not found; catch this and return undef
+	instead of crashing.  With a test.  Also allow undef and improve
+	docs for a few parameters.
+
 2005/02/26	kaffeetisch
 
 	* t/GtkAccelGroup.t, t/GtkAccelMap.t, t/GtkStock.t: Mark tests as

@@ -104,6 +104,11 @@ gdk_pixmap_create_from_xpm (class, drawable, transparent_color, filename)
     PPCODE:
 	pixmap = gdk_pixmap_create_from_xpm (drawable, &mask,
 					     transparent_color, filename);
+	if (!pixmap)
+		/* this keeps us from segfaulting, but there's no error
+		 * reporting for the caller or user.  the docs don't
+		 * mention the failure mode.  we choose to fail in kind. */
+		XSRETURN_EMPTY;
 	EXTEND (SP, 2);
 	PUSHs (sv_2mortal (newSVGdkPixmap_noinc (pixmap)));
 	PUSHs (sv_2mortal (newSVGdkBitmap_noinc (mask)));
@@ -111,11 +116,14 @@ gdk_pixmap_create_from_xpm (class, drawable, transparent_color, filename)
  ## GdkPixmap* gdk_pixmap_colormap_create_from_xpm (GdkDrawable *drawable, GdkColormap *colormap, GdkBitmap **mask, GdkColor *transparent_color, const gchar *filename)
 =for apidoc
 =for signature (pixmap, mask) = Gtk2::Gdk::Pixmap->colormap_create_from_xpm ($drawable, $colormap, $transparent_color, $filename)
+=for arg drawable may be undef if I<$colormap> is given
+=for arg colormap GdkColormap to use for the new image; may be undef if I<$drawable> is given.
+=for arg transparent_color color of pixels that are transparent in the input file.  if undef, a default is used.
 =cut
 void
 gdk_pixmap_colormap_create_from_xpm (class, drawable, colormap, transparent_color, filename)
-	GdkDrawable *drawable
-	GdkColormap *colormap
+	GdkDrawable_ornull *drawable
+	GdkColormap_ornull *colormap
 	GdkColor_ornull *transparent_color
 	GPerlFilename filename
     PREINIT:
