@@ -239,6 +239,13 @@ list could be used. C<< $list->insert_items($position, $item1, $item2, ...) >>
 GtkCombo still makes use of them, they are subject to removal at any point so
 you should not utilize them unless absolutly necessary.)
 
+=item Gtk2::TreeModel->get
+
+If no column idexes are passed all columns are returned as an array. This is a
+slight deviation from the C api that can be easily impelemented in the wrappers
+and may be useful. If you don't know it's there it should in no way effect the
+behavior of the function.
+
 =item Gtk2::TreeSelection::get_selected
 
 In scalar context, returns $iter; in list context, returns ($model, $iter).
