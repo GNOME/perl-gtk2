@@ -26,14 +26,70 @@ gtk2perl_about_dialog_activate_link_func (GtkAboutDialog *about,
 	gperl_callback_invoke ((GPerlCallback*)data, NULL, about, link);
 }
 
+MODULE = Gtk2::AboutDialog PACKAGE = Gtk2 PREFIX = gtk_
+
+=for object Gtk2::AboutDialog
+=cut
+
+=for apidoc
+=for arg first_property_name (string)
+=for arg ... the rest of a list of name=>property value pairs.
+This is a convenience function for showing an application's about box. The
+constructed dialog is associated with the parent window and reused for
+future invocations of this function.
+=cut
+void gtk_show_about_dialog (class, GtkWindow_ornull * parent, first_property_name, ...);
+    PREINIT:
+	static GtkWidget * global_about_dialog = NULL;
+	GtkWidget * dialog = NULL;
+    CODE:
+	if (parent)
+		dialog = g_object_get_data (G_OBJECT (parent), "gtk-about-dialog");
+	else
+		dialog = global_about_dialog;
+	if (!dialog) {
+		int i;
+
+		dialog = gtk_about_dialog_new ();
+
+		g_object_ref (dialog);
+		gtk_object_sink (GTK_OBJECT (dialog));
+
+		g_signal_connect (dialog, "delete_event",
+				  G_CALLBACK (gtk_widget_hide_on_delete), NULL);
+
+		for (i = 2; i < items ; i+=2) {
+			GParamSpec * pspec;
+			char * name = SvPV_nolen (ST (i));
+			SV * sv = ST (i + 1);
+
+			pspec = g_object_class_find_property
+					(G_OBJECT_GET_CLASS (dialog), name);
+			if (! pspec) {
+				const char * classname =
+					gperl_object_package_from_type
+						(G_OBJECT_TYPE (dialog));
+				croak ("type %s does not support property '%s'",
+				       classname, name);
+			} else {
+				GValue value = {0, };
+				g_value_init (&value,
+					      G_PARAM_SPEC_VALUE_TYPE (pspec));
+				gperl_value_from_sv (&value, sv);
+				g_object_set_property (G_OBJECT (dialog),
+						       name, &value);
+				g_value_unset (&value);
+			}
+		}
+	}
+	gtk_window_present (GTK_WINDOW (dialog));
+
+
 MODULE = Gtk2::AboutDialog PACKAGE = Gtk2::AboutDialog PREFIX = gtk_about_dialog_
 
 GtkWidget * gtk_about_dialog_new (class)
     C_ARGS:
 	/* void */
-
-## TODO/FIXME: 
-##void gtk_show_about_dialog (GtkWindow * parent, const gchar * first_property_name, ...);
 
 const gchar_ornull * gtk_about_dialog_get_name (GtkAboutDialog * about);
 

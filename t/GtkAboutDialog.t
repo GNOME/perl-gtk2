@@ -126,3 +126,10 @@ ok (!$dialog->get ('documenters'), 'documenters property (empty array)');
 my @artists = qw/Leonardo Donatello Raphael Michelangelo/;
 $dialog->set (artists => \@artists);
 ok (eq_array ($dialog->get ('artists'), \@artists), 'artists property');
+
+
+Gtk2->show_about_dialog (undef,
+			 name => 'Foo',
+			 version => '42',
+			 authors => [qw/me myself i/],
+			);
