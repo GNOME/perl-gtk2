@@ -1,3 +1,8 @@
+2003/09/21 20:19 rwmcfa1
+
+	* xs/GdkWindow.xs: bugs found in _for_display functions, not accepting 
+	class arguments.
+
 2003/09/26 16:42 muppetman
 
 	* pm/SimpleList.pm: be defensive and use exists() to check whether
