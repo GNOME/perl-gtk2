@@ -138,9 +138,9 @@ void gtk_image_get_pixmap (GtkImage *image, OUTLIST GdkPixmap * pixmap, OUTLIST 
  ##	GdkBitmap **mask
 
  ## GdkPixbuf* gtk_image_get_pixbuf (GtkImage *image)
- ##GdkPixbuf*
- ##gtk_image_get_pixbuf (image)
- ##	GtkImage *image
+GdkPixbuf*
+gtk_image_get_pixbuf (image)
+	GtkImage *image
 
 void
 gtk_image_get_stock (image)
