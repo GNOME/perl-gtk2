@@ -1,3 +1,8 @@
+2003/07/24 08:31 muppetman
+
+	* xs/GtkFileSelection.xs: get_selections was broken; simplified the
+	loop and used newSVGChar instead of newSVpv.
+
 2003/07/24 00:56 pcg
 
 	* gtk2perl.h, xs/GtkPlug.xs, xs/GtkSocket.xs: don't build these
