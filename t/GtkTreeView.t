@@ -329,7 +329,7 @@ SKIP: {
 $view->scroll_to_point (0, 0);
 
 $view->set_cursor_on_cell (Gtk2::TreePath->new ("1:1"), undef, undef, 0)
-	unless ($version_info[1] >= 2);
+	unless ($version_info[1] < 2);
 
 SKIP: {
 	skip("Gtk2::Gdk::Event::new is new in 2.2", 6)
