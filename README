@@ -1,6 +1,6 @@
 # $Header$
 
-Gtk2 version 1.054 (unstable)
+Gtk2 version 1.055 (unstable)
 =============================
 
 Perl bindings to the 2.x series of the Gtk+ graphical user interface library.
@@ -61,7 +61,7 @@ DEPENDENCIES
 This module requires these other modules and libraries:
 
   perl >= 5.8.0
-  Glib >= 1.053 (perl module)
+  Glib >= 1.055 (perl module)
   GTK+ > 2.x (C library)
 
 In order to build it from source, you'll also need
