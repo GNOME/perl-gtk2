@@ -244,13 +244,13 @@ gtk_window_set_icon_from_file (window, filename)
 
 #gboolean gtk_window_set_default_icon_from_file (GtkWindow *window, const gchar *filename, GError **err)
 void
-gtk_window_set_default_icon_from_file (window, filename)
-	GtkWindow     * window
+gtk_window_set_default_icon_from_file (class, filename)
+	SV            * class
 	const gchar   * filename
     PREINIT:
 	GError * err = NULL;
     CODE:
-	if (!gtk_window_set_default_icon_from_file(window, filename, &err))
+	if (!gtk_window_set_default_icon_from_file(filename, &err))
 		gperl_croak_gerror (filename, err);
 
 #endif
@@ -274,8 +274,6 @@ gtk_window_set_default_icon_list (class, pixbuf, ...)
 		list = g_list_append (list, SvGdkPixbuf (ST (i)));
 	gtk_window_set_default_icon_list (list);
 	g_list_free (list);
-	
-
 
 ## GList* gtk_window_get_default_icon_list (void)
 void
@@ -506,21 +504,21 @@ gtk_window_reshow_with_initial_size (window)
 #if GTK_CHECK_VERSION(2,2,0)
 
 ##void gtk_window_set_screen (GtkWindow *window, GdkScreen *screen)
-void 
+void
 gtk_window_set_screen (window, screen)
 	GtkWindow * window
 	GdkScreen * screen
 
 ##GdkScreen * gtk_window_get_screen (GtkWindow *window)
-GdkScreen * 
+GdkScreen *
 gtk_window_get_screen (window)
 	GtkWindow * window
 
-void 
+void
 gtk_window_fullscreen (window)
 	GtkWindow * window
 
-void 
+void
 gtk_window_unfullscreen (window)
 	GtkWindow * window
 
@@ -546,7 +544,7 @@ void gtk_window_set_auto_startup_notification (setting)
 	gboolean setting
 
 #endif
- 
+
  ## er... dunno about these.
  ##
  ##void
