@@ -1,3 +1,12 @@
+2004/01/10 04:09 (-0500) muppetman
+
+	* t/01.GtkWindow.t: correct the skip count for 2.0.x
+
+	* t/GtkListStore.t: on RH8 with gtk+-2.0.6, i get a crash from pango
+	xft when attempting to create the TreeView, complaining that there's
+	no display.  later versions don't seem to require this; so, skip the
+	remaining tests on 2.0.6 if gtk_init_check fails.
+
 2004/01/10 07:15 (+0100) kaffeetisch
 
 	* t/GtkItemFactory.t: Only test if the return value of
