@@ -16,20 +16,20 @@ gtk_invisible_new (class)
 	SV * class
     C_ARGS:
 
-##if GTK_CHECK_VERSION(2,2,0)
-#
+#if GTK_CHECK_VERSION(2,2,0)
+
 ##GtkWidget * gtk_invisible_new_for_screen (GdkScreen *screen)
-#GtkWidget *
-#gtk_invisible_new_for_screen (screen)
-#	GdkScreen *screen
-#
+GtkWidget *
+gtk_invisible_new_for_screen (screen)
+	GdkScreen *screen
+
 ##void gtk_invisible_set_screen (GtkInvisible *invisible, GdkScreen *screen)
-#void gtk_invisible_set_screen (invisible, screen)
-#	GtkInvisible *invisible
-#	GdkScreen *screen
-#
+void gtk_invisible_set_screen (invisible, screen)
+	GtkInvisible *invisible
+	GdkScreen *screen
+
 ##GdkScreen * gtk_invisible_get_screen (GtkInvisible *invisible)
-#GdkScreen * gtk_invisible_get_screen (invisible)
-#	GtkInvisible *invisible
-#
-##endif
+GdkScreen * gtk_invisible_get_screen (invisible)
+	GtkInvisible *invisible
+
+#endif

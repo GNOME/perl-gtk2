@@ -22,22 +22,22 @@ gtk_plug_new (class, socket_id)
     C_ARGS:
 	socket_id
 
-##if GTK_CHECK_VERSION(2,2,0)
-#
+#if GTK_CHECK_VERSION(2,2,0)
+
 ##GtkWidget * gtk_plug_new_for_display (GdkDisplay *display, GdkNativeWindow socket_id)
-#GtkWidget *
-#gtk_plug_new_for_display (display, socket_id)
-#	GdkDisplay *display
-#	GdkNativeWindow socket_id
-#
-### void gtk_plug_construct (GtkPlug *plug, GdkNativeWindow socket_id)
-#void
-#gtk_plug_construct_for_display (plug, socket_id)
-#	GtkPlug         * plug
-#	GdkDisplay      * display
-#	GdkNativeWindow   socket_id
-#
-##endif
+GtkWidget *
+gtk_plug_new_for_display (display, socket_id)
+	GdkDisplay *display
+	GdkNativeWindow socket_id
+
+## void gtk_plug_construct_for_disaplay (GtkPlug *plug, GdkDisplay * display, GdkNativeWindow socket_id)
+void
+gtk_plug_construct_for_display (plug, display, socket_id)
+	GtkPlug         * plug
+	GdkDisplay      * display
+	GdkNativeWindow   socket_id
+
+#endif
 
 ## GdkNativeWindow gtk_plug_get_id (GtkPlug *plug)
 GdkNativeWindow

@@ -161,12 +161,12 @@ gtk_menu_get_title (menu)
 	GtkMenu * menu
 
 
-##if GTK_CHECK_VERSION(2,2,0)
-#
+#if GTK_CHECK_VERSION(2,2,0)
+
 ##void gtk_menu_set_screen (GtkMenu *menu, GdkScreen *screen)
-#void
-#gtk_menu_set_screen (menu, screen)
-#	GtkMenu   * menu
-#	GdkScreen * screen
-#
-##endif
+void
+gtk_menu_set_screen (menu, screen)
+	GtkMenu   * menu
+	GdkScreen * screen
+
+#endif

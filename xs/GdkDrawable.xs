@@ -47,15 +47,15 @@ gdk_drawable_get_depth (drawable)
 
 #if GTK_CHECK_VERSION(2,2,0)
 
-# ## GdkScreen* gdk_drawable_get_screen (GdkDrawable *drawable)
-#GdkScreen*
-#gdk_drawable_get_screen (drawable)
-#	GdkDrawable *drawable
-#
-# ## GdkDisplay* gdk_drawable_get_display (GdkDrawable *drawable)
-#GdkDisplay*
-#gdk_drawable_get_display (drawable)
-#	GdkDrawable *drawable
+## GdkScreen* gdk_drawable_get_screen (GdkDrawable *drawable)
+GdkScreen*
+gdk_drawable_get_screen (drawable)
+	GdkDrawable *drawable
+
+## GdkDisplay* gdk_drawable_get_display (GdkDrawable *drawable)
+GdkDisplay*
+gdk_drawable_get_display (drawable)
+	GdkDrawable *drawable
 
 #endif
 

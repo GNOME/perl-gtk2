@@ -484,20 +484,18 @@ gtk_window_reshow_with_initial_size (window)
 
 ##gboolean _gtk_window_query_nonaccels (GtkWindow *window, guint accel_key, GdkModifierType accel_mods)
 
-##if GTK_CHECK_VERSION(2,2,0)
-#
-##void gtk_window_set_screen (GtkWindow *window, GdkScreen *screen)
-#void 
-#gtk_window_set_screen (window, screen)
-#	GtkWindow * window
-#	GdkScreen * screen
-#
-##GdkScreen * gtk_window_get_screen (GtkWindow *window)
-#GdkScreen * 
-#gtk_window_get_screen (window)
-#	GtkWindow * window
-
 #if GTK_CHECK_VERSION(2,2,0)
+
+##void gtk_window_set_screen (GtkWindow *window, GdkScreen *screen)
+void 
+gtk_window_set_screen (window, screen)
+	GtkWindow * window
+	GdkScreen * screen
+
+##GdkScreen * gtk_window_get_screen (GtkWindow *window)
+GdkScreen * 
+gtk_window_get_screen (window)
+	GtkWindow * window
 
 void 
 gtk_window_fullscreen (window)
