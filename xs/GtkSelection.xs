@@ -100,15 +100,6 @@ SvGtkTargetList (SV * sv)
 	return (GtkTargetList*) SvUV (SvRV (sv));
 }
 
-#define STACK_ITEMS_TO_TARGET_ENTRY_ARRAY(first, targets, ntargets) \
-	{							\
-	guint i;						\
-	ntargets = items - first;				\
-	targets = g_new (GtkTargetEntry, ntargets);		\
-	for (i = 0 ; i < ntargets ; i++)			\
-		gtk2perl_read_gtk_target_entry (ST (i + first),	\
-		                                targets + i);	\
-	}
 
 MODULE = Gtk2::Selection	PACKAGE = Gtk2::TargetList	PREFIX = gtk_target_list_
 
@@ -125,7 +116,7 @@ gtk_target_list_new (SV * class, ...)
 	guint ntargets;
     CODE:
 	UNUSED(class);
-	STACK_ITEMS_TO_TARGET_ENTRY_ARRAY (1, targets, ntargets);
+	GTK2PERL_STACK_ITEMS_TO_TARGET_ENTRY_ARRAY (1, targets, ntargets);
 	RETVAL = gtk_target_list_new (targets, ntargets);
     OUTPUT:
 	RETVAL
@@ -153,7 +144,7 @@ gtk_target_list_add_table (GtkTargetList * list, GtkTargetEntry * target, ...)
 	guint ntargets;
     CODE:
 	UNUSED(target);
-	STACK_ITEMS_TO_TARGET_ENTRY_ARRAY (1, targets, ntargets);
+	GTK2PERL_STACK_ITEMS_TO_TARGET_ENTRY_ARRAY (1, targets, ntargets);
 	gtk_target_list_add_table (list, targets, ntargets);
     CLEANUP:
 	g_free (targets);
@@ -228,7 +219,7 @@ gtk_selection_add_targets (widget, selection, target, ...)
 	guint ntargets;
     CODE:
 	UNUSED(target);
-	STACK_ITEMS_TO_TARGET_ENTRY_ARRAY (2, targets, ntargets);
+	GTK2PERL_STACK_ITEMS_TO_TARGET_ENTRY_ARRAY (2, targets, ntargets);
 	gtk_selection_add_targets (widget, selection, targets, ntargets);
 	g_free (targets);
 

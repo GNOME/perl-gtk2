@@ -84,6 +84,15 @@ SV * newSVGtkTargetEntry (GtkTargetEntry * target_entry);
 GtkTargetEntry * SvGtkTargetEntry (SV * sv);
 void gtk2perl_read_gtk_target_entry (SV * sv, GtkTargetEntry * entry);
 
+#define GTK2PERL_STACK_ITEMS_TO_TARGET_ENTRY_ARRAY(first, targets, ntargets) \
+	{							\
+	guint i;						\
+	ntargets = items - first;				\
+	targets = g_new0 (GtkTargetEntry, ntargets);		\
+	for (i = 0 ; i < ntargets ; i++)			\
+		gtk2perl_read_gtk_target_entry (ST (i + first),	\
+		                                targets + i);	\
+	}
 
 /* 
  * get a list of GTypes from the xsub argument stack
