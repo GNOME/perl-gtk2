@@ -1,3 +1,11 @@
+2004/03/25 21:45 (-0500) muppetman
+
+	* NEWS: merged from stable, so we'll have it in future versions.
+
+	* README, xs/GdkRgb.xs, xs/GdkTypes.xs, xs/Gtk2.xs,
+	xs/GtkSelection.xs, xs/GtkTreeSelection.xs: various fixes merged
+	from stable
+
 2004/03/25 21:24 (-0500) muppetman
 
 	* examples/cellrenderer_popup.pl: update version check now that

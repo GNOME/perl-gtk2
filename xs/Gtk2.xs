@@ -580,7 +580,7 @@ MODULE = Gtk2		PACKAGE = Gtk2::Pango		PREFIX = PANGO_
 =for object Gtk2::Pango::version
 =cut
 
-=for see_also Gtk2::version 
+=for see_also Gtk2::version
 =cut
 
 =for see_also Glib::version

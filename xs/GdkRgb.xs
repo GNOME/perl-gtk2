@@ -34,7 +34,7 @@ static guchar *
 SvImageDataPointer (SV * sv)
 {
 	if (SvIOK (sv))
-		return (guchar*) SvUV (sv);
+		return INT2PTR (guchar*, SvUV (sv));
 	else if (SvPOK (sv))
 		return SvPV_nolen (sv);
 	else
