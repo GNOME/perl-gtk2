@@ -60,6 +60,30 @@ new (class, x, y, width, height)
     OUTPUT:
 	RETVAL
 
+=for apidoc Gtk2::Gdk::Rectangle::x
+=for signature integer = $rectangle->x
+=for signature oldvalue = $rectangle->x ($newvalue)
+=for arg newvalue (integer)
+=cut
+
+=for apidoc y
+=for signature integer = $rectangle->y
+=for signature oldvalue = $rectangle->y ($newvalue)
+=for arg newvalue (integer)
+=cut
+
+=for apidoc width
+=for signature integer = $rectangle->width
+=for signature oldvalue = $rectangle->width ($newvalue)
+=for arg newvalue (integer)
+=cut
+
+=for apidoc height
+=for signature integer = $rectangle->height
+=for signature oldvalue = $rectangle->height ($newvalue)
+=for arg newvalue (integer)
+=cut
+
 gint
 x (GdkRectangle *rectangle, SV *newvalue = 0)
     ALIAS:
@@ -85,6 +109,9 @@ x (GdkRectangle *rectangle, SV *newvalue = 0)
     OUTPUT:
 	RETVAL
 
+=for apidoc
+=for signature (x, y, width, height) = $rectangle->values
+=cut
 void
 values (rectangle)
 	GdkRectangle * rectangle
@@ -186,6 +213,6 @@ gdk_window_constrain_size (geometry, flags, width, height)
     PPCODE:
 	gdk_window_constrain_size (geometry, flags, width, height, &new_width, &new_height);
 	EXTEND (SP, 2);
-	PUSHs (sv_2mortal (mewSViv (new_width)));
-	PUSHs (sv_2mortal (mewSViv (new_height)));
+	PUSHs (sv_2mortal (newSViv (new_width)));
+	PUSHs (sv_2mortal (newSViv (new_height)));
 
