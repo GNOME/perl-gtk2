@@ -65,10 +65,9 @@ SKIP: {
 	$button_stock->set_alignment(0.7, 0.3);
 	ok(1);
 
-	TODO: {
-		local $TODO = "get_alignment appears to have precision issues";
-		is_deeply([$button_stock->get_alignment()], [0.7, 0.3]);
-	}
+	# avoid precision issues, only compare one decimal place.
+	is_deeply([map {sprintf '%.1f', $_} $button_stock->get_alignment()],
+	          ['0.7', '0.3']);
 }
 
 ok( my $button3 = Gtk2::Button->new('gtk-quit') );
