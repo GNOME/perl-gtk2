@@ -106,7 +106,7 @@ This stuff is hardcoded directly from the headers of pango 1.2.1.
 
 =head1 SEE ALSO
 
-perl(1), Gtk2(3pm)
+L<perl>(1), L<Gtk2>(3pm)
 
 =head1 AUTHOR
 
