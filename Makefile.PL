@@ -45,6 +45,7 @@ our %runtime_reqs = (
 # dependencies and install them.
 unless (eval "use ExtUtils::Depends;"
            . "use ExtUtils::PkgConfig;"
+	   . "use Glib atleast => $build_reqs{'perl-Glib'};"
            . "use Glib::MakeHelper;" # for do_pod_files()
            . "1") {
    warn "$@\n";
@@ -185,7 +186,6 @@ package MY;
 
 sub postamble
 {
-#	eval "use Glib::MakeHelper; 1" or return '';
 	return Glib::MakeHelper->postamble_clean ()
 	     . Glib::MakeHelper->postamble_docs (@main::xs_files)
 	     . Glib::MakeHelper->postamble_rpms (
