@@ -78,7 +78,6 @@ my @gtk_version = split /\./, $pkgcfg{modversion};
 our @xs_files = ();
 our @lists = ('xs_files-2.0');
 push @lists, 'xs_files-2.2' if $gtk_version[1] >= 2;
-push @lists, 'xs_files-2.3' if $gtk_version[1] >= 3;
 foreach my $filename (@lists) {
 	my @names = read_source_list_file ($filename);
 	print "$filename lists ".scalar(@names)." xs files\n";
