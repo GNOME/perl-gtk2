@@ -24,6 +24,7 @@ examples/cellrenderer_popup.pl
 examples/cellrenderer_progress.pl
 examples/cellrenderer_spinbutton.pl
 examples/color_list.pl
+examples/color_snooper.pl
 examples/colorselectiontest.pl
 examples/combo_box.pl
 examples/customlist.pl
@@ -104,6 +105,7 @@ t/GdkDrawable.t
 t/GdkEvent.t
 t/GdkGC.t
 t/GdkKeys.t
+t/GdkPixbuf.t
 t/GdkProperty.t
 t/GdkRegion.t
 t/GdkScreen.t
@@ -224,6 +226,7 @@ t/GtkToolItem.t
 t/GtkToolbar.t
 t/GtkTooltips.t
 t/GtkTreeModel.t
+t/GtkTreeModelIface.t
 t/GtkTreeModelFilter.t
 t/GtkTreeModelSort.t
 t/GtkTreeSelection.t
