@@ -21,27 +21,6 @@
 
 #include "gtk2perl.h"
 
-/* ------------------------------------------------------------------------- */
-
-#if PANGO_CHECK_VERSION (1, 5, 0) /* FIXME: it looks like 1.6 will ship with a
-				     GType for PangoMatrix, so this can
-				     probably be removed. */
-
-GType
-gtk2perl_pango_matrix_get_type (void)
-{
-	static GType t = 0;
-	if (!t)
-		t = g_boxed_type_register_static ("PangoMatrix",
-		      (GBoxedCopyFunc) pango_matrix_copy,
-		      (GBoxedFreeFunc) pango_matrix_free);
-	return t;
-}
-
-#endif
-
-/* ------------------------------------------------------------------------- */
-
 MODULE = Gtk2::Pango::Types	PACKAGE = Gtk2::Pango::Language	PREFIX = pango_language_
 
 ##  PangoLanguage * pango_language_from_string (const char *language)

@@ -41,16 +41,6 @@
   GType gtk2perl_pango_layout_iter_get_type (void) G_GNUC_CONST;
 #endif
 
-/* custom GType for PangoMatrix */
-#if PANGO_CHECK_VERSION (1, 5, 0) /* FIXME: it looks like 1.6 will ship with a
-				     GType for PangoMatrix, so this can
-				     probably be removed. */
-# ifndef PANGO_TYPE_MATRIX
-#   define PANGO_TYPE_MATRIX (gtk2perl_pango_matrix_get_type ())
-    GType gtk2perl_pango_matrix_get_type (void) G_GNUC_CONST;
-# endif
-#endif
-
 #include "gtk2perl-autogen.h"
 
 #ifdef GDK_WINDOWING_WIN32 /* no plug/socket on win32 despite patches exist for years. */
