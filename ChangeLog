@@ -1,3 +1,10 @@
+2004/03/02 23:35 (-0500) muppetman
+ 
+	* t/GdkEvent.t, xs/GdkEvent.xs: implement and test setters for
+	event.state and event.time
+
+	* xs/Gtk2.xs, t/GdkEvent.t: bind and test Gtk2::main_do_event
+
 2004/03/03 05:32 (+0100) kaffeetisch
 
 	* xs/GtkCellEditable.xs: Make implementing the GtkCellEditable
