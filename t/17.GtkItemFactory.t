@@ -33,21 +33,17 @@ my @items = (
 		'<StockItem>',
 		'gtk-execute'
 	],
-	[
-		'/_Menu/Test _2',
-		undef,
-		\&callback,
-		2,
-		'<StockItem>',
-		'gtk-execute'
-	],
-	[
-		'/_Menu/Sub _Menu',
-		undef,
-		undef,
-		undef,
-		'<Branch>',
-	],
+	{
+		path => '/_Menu/Test _2',
+		callback => \&callback,
+		callback_action => 2,
+		item_type => '<StockItem>',
+		extra_data => 'gtk-execute'
+	},
+	{
+		path => '/_Menu/Sub _Menu',
+		item_type => '<Branch>',
+	},
 	[
 		'/_Menu/Sub Menu/Test _1',
 		undef,
