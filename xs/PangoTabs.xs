@@ -12,7 +12,7 @@ MODULE = Gtk2::Pango::TabArray	PACKAGE = Gtk2::Pango::TabArray	PREFIX = pango_ta
 ##  PangoTabArray *pango_tab_array_new (gint initial_size, gboolean positions_in_pixels) 
 ###  PangoTabArray *pango_tab_array_new_with_positions (gint size, gboolean positions_in_pixels, PangoTabAlign first_alignment, gint first_position, ...) 
 
-=for apidoc new
+=for apidoc Gtk2::Pango::TabArray::new
 =for arg ... pairs of Gtk2::PangoTabAlign's and integers, the alignments and positions of the tab stops.
 =cut
 
