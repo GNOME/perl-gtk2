@@ -56,6 +56,9 @@ GTK_TYPE_ITEM_FACTORY	GtkItemFactory	GtkObject	Gtk2::ItemFactory
 GTK_TYPE_ITEM	GtkItem	GtkObject	Gtk2::Item
 GTK_TYPE_LABEL	GtkLabel	GtkObject	Gtk2::Label
 GTK_TYPE_LAYOUT	GtkLayout	GtkObject	Gtk2::Layout
+# NOTE: GtkList and GtkListItem are deprecated and only included b/c GtkCombo
+# still makes use of them, they are subject to removal at any point so you
+# should not utilize them unless absolutly necessary.)
 GTK_TYPE_LIST	GtkList	GtkObject	Gtk2::List
 GTK_TYPE_LIST_ITEM	GtkListItem	GtkObject	Gtk2::ListItem
 GTK_TYPE_LIST_STORE	GtkListStore	GObject	Gtk2::ListStore
