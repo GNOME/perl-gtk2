@@ -62,8 +62,6 @@ gtk2perl_dialog_response_marshal (GClosure * closure,
                                   gpointer invocation_hint,
                                   gpointer marshal_data)
 {
-	int flags;
-	guint i;
 	GPerlClosure *pc = (GPerlClosure *)closure;
 	SV * data;
 	SV * instance;
