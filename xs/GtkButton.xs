@@ -7,12 +7,15 @@
 MODULE = Gtk2::Button	PACKAGE = Gtk2::Button	PREFIX = gtk_button_
 
 GtkWidget *
-gtk_button_new (class, label=NULL)
+gtk_button_news (class, label=NULL)
 	SV * class
-	char * label
+	const gchar * label
+    ALIAS:
+	Gtk2::Button::new = 0
+	Gtk2::Button::new_with_mnemonic = 1
     CODE:
 	if (label)
-		RETVAL = gtk_button_new_with_label (label);
+		RETVAL = gtk_button_new_with_mnemonic (label);
 	else
 		RETVAL = gtk_button_new ();
     OUTPUT:
@@ -31,13 +34,6 @@ gtk_button_new_from_stock (class, stock_id)
 	const gchar * stock_id
     C_ARGS:
 	stock_id
-
-GtkWidget *
-gtk_button_new_with_mnemonic (class, label)
-	SV * class
-	const gchar * label
-    C_ARGS:
-	label
 
 void
 gtk_button_pressed (button)

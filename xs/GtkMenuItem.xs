@@ -7,12 +7,15 @@
 MODULE = Gtk2::MenuItem	PACKAGE = Gtk2::MenuItem	PREFIX = gtk_menu_item_
 
 GtkWidget*
-gtk_menu_item_new (class, label=NULL)
+gtk_menu_item_news (class, label=NULL)
 	SV * class
 	const gchar * label
+    ALIAS:
+	Gtk2::MenuItem::new = 0
+	Gtk2::MenuItem::new_with_mnemonic = 1
     CODE:
 	if (label)
-		RETVAL = gtk_menu_item_new_with_label (label);
+		RETVAL = gtk_menu_item_new_with_mnemonic (label);
 	else
 		RETVAL = gtk_menu_item_new ();
     OUTPUT:
@@ -20,13 +23,6 @@ gtk_menu_item_new (class, label=NULL)
 
 GtkWidget*
 gtk_menu_item_new_with_label (class, label)
-	SV * class
-	const gchar *label
-    C_ARGS:
-	label
-
-GtkWidget*
-gtk_menu_item_new_with_mnemonic (class, label)
 	SV * class
 	const gchar *label
     C_ARGS:

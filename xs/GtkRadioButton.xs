@@ -12,6 +12,9 @@ gtk_radio_button_new (class, member_or_listref=NULL, label=NULL)
 	SV          * class
 	SV          * member_or_listref
 	const gchar * label
+    ALIAS:
+	Gtk2::RadioButton::new = 0
+	Gtk2::RadioButton::new_with_mnemonic = 0
     PREINIT:
 	GSList         * group = NULL;
 	GtkRadioButton * member = NULL;
@@ -32,7 +35,7 @@ gtk_radio_button_new (class, member_or_listref=NULL, label=NULL)
 	}
 
 	if (label)
-		RETVAL = gtk_radio_button_new_with_label (group, label);
+		RETVAL = gtk_radio_button_new_with_mnemonic (group, label);
 	else
 		RETVAL = gtk_radio_button_new (group);
     OUTPUT:
@@ -69,43 +72,16 @@ gtk_radio_button_new_with_label (class, member_or_listref=NULL, label)
 	RETVAL
 
 GtkWidget *
-gtk_radio_button_new_with_mnemonic (class, member_or_listref=NULL, label)
-	SV          * class
-	SV          * member_or_listref
-	const gchar * label
-    PREINIT:
-	GSList         * group = NULL;
-	GtkRadioButton * member = NULL;
-    CODE:
-	if( member_or_listref && member_or_listref != &PL_sv_undef )
-	{
-		if( SvTYPE(SvRV(member_or_listref)) == SVt_PVAV )
-		{
-			AV * av = (AV*)SvRV(member_or_listref);
-			SV ** svp = av_fetch(av, 0, 0);
-			if( SvOK(*svp) )
-			{
-				member = SvGtkRadioButton(*svp);
-			}
-		}
-		else
-			member = SvGtkRadioButton_ornull(member_or_listref);
-		if( member )
-			group = member->group;
-	}
-
-	RETVAL = gtk_radio_button_new_with_label (group, label);
-    OUTPUT:
-	RETVAL
-
-GtkWidget *
-gtk_radio_button_new_from_widget (class, group, label=NULL)
-	SV * class
-	GtkRadioButton_ornull *group
-	const gchar * label
+gtk_radio_button_news_from_widget (class, group, label=NULL)
+	SV                    * class
+	GtkRadioButton_ornull * group
+	const gchar           * label
+    ALIAS:
+	Gtk2::RadioButton::new_from_widget = 0
+	Gtk2::RadioButton::new_with_mnemonic_from_widget = 1
     CODE:
 	if (label)
-		RETVAL = gtk_radio_button_new_with_label_from_widget (group, label);
+		RETVAL = gtk_radio_button_new_with_mnemonic_from_widget (group, label);
 	else
 		RETVAL = gtk_radio_button_new_from_widget (group);
     OUTPUT:
@@ -113,14 +89,6 @@ gtk_radio_button_new_from_widget (class, group, label=NULL)
 
 GtkWidget *
 gtk_radio_button_new_with_label_from_widget (class, group, label)
-	SV                    * class
-	GtkRadioButton_ornull * group
-	const gchar           * label
-    C_ARGS:
-	group, label
-
-GtkWidget *
-gtk_radio_button_new_with_mnemonic_from_widget (class, group, label)
 	SV                    * class
 	GtkRadioButton_ornull * group
 	const gchar           * label
