@@ -21,7 +21,7 @@ is ($img->get_pixbuf, undef, 'get_pixbuf empty');
 is ($img->get_pixmap, undef, 'get_pixmap empty');
 is ($img->get_animation, undef, 'get_animation empty');
 is ($img->get_storage_type, 'empty', 'get_storage_type empty');
-ok (eq_array ([$img->get_stock ()], ['', 'button']), 'get_stock empty');
+ok (eq_array ([$img->get_stock ()], [undef, 'button']), 'get_stock empty');
 
 ok ($img = Gtk2::Image->new_from_stock ('gtk-cancel', 'menu'), 
     'Gtk2::Image->new_from_stock');

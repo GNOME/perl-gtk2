@@ -135,14 +135,15 @@ gtk_image_get_pixbuf (image)
 =cut
 void
 gtk_image_get_stock (image)
-	GtkImage *image
+	GtkImage * image
     PREINIT:
-	gchar *stock_id;
-	GtkIconSize size;
+	gchar        * stock_id;
+	GtkIconSize    size;
     PPCODE:
 	gtk_image_get_stock (image, &stock_id, &size);
 	EXTEND (SP, 2);
-	PUSHs (sv_2mortal (newSVpv (stock_id, 0)));
+	PUSHs (sv_2mortal (stock_id ? newSVpv (stock_id, 0) : 
+				       newSVsv(&PL_sv_undef)));
 	PUSHs (sv_2mortal (newSVGtkIconSize (size)));
 
  ## void gtk_image_get_icon_set (GtkImage *image, GtkIconSet **icon_set, GtkIconSize *size)

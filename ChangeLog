@@ -1,3 +1,8 @@
+2004/01/14 12:06 (-0500) rwmcfa1
+
+	* xs/GtkImage.xs: fixed bug in gtk_image_stock_get xsub found when 
+	writing test below.
+
 2004/01/14 10:24 (-0500) rwmcfa1
 
 	* t/GtkImage.t: initial import, very very incomplete
