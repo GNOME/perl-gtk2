@@ -1,3 +1,9 @@
+2003/11/18 09:42 (-0500) rwmcfa1
+
+	* xs/GtkTreeModel.xs: $model->iter_next fixed, we needed to make a copy
+	of the iter, otherwise we were modifying the passed one (which isn't 
+	very perly) and then returning it.
+
 2003/11/18 01:16 (-0500) muppetman
 
 	* xs/GtkEntry.xs, xs/GtkTextIter.xs, xs/PangoLayout.xs: now that we

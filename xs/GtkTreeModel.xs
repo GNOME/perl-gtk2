@@ -407,10 +407,13 @@ GtkTreeIter_copy *
 gtk_tree_model_iter_next (tree_model, iter)
 	GtkTreeModel *tree_model
 	GtkTreeIter *iter
+    PREINIT:
+	GtkTreeIter niter = {0, };
     CODE:
-	if (!gtk_tree_model_iter_next (tree_model, iter))
+	niter = *gtk_tree_iter_copy (iter);
+	if (!gtk_tree_model_iter_next (tree_model, &niter))
 		XSRETURN_UNDEF;
-	RETVAL = iter;
+	RETVAL = &niter;
     OUTPUT:
 	RETVAL
 
