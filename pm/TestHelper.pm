@@ -6,7 +6,7 @@ package Gtk2::TestHelper;
 use Test::More;
 use Carp;
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 sub import
 {
@@ -14,8 +14,6 @@ sub import
 	my %opts = (@_);
 
 	plan skip_all => $opts{skip_all} if ($opts{skip_all});
-
-	my ($major, $minor, $micro) = Gtk2->get_version_info;
 
 	croak "tests must be provided at import" unless (exists ($opts{tests}));
 
@@ -28,16 +26,15 @@ sub import
 	{
 		my ($rmajor, $rminor, $rmicro, $text) = 
 						@{$opts{at_least_version}};
-		unless ($major >= $rmajor &&
-			$minor >= $rminor &&
-			$micro >= $rmicro)
+		unless (Gtk2->CHECK_VERSION ($rmajor, $rminor, $rmicro))
 		{
 			plan skip_all => $text;
 		}
 	}
-		
-	delete $opts{noinit}
-		unless ($major >= 2 && $minor >= 2 && $micro >= 0 );
+
+	# gtk+ 2.0.x can use X fonts, and requires a connection to the
+	# display at all times; so, ignore noinit for those versions.
+	delete $opts{noinit} unless Gtk2->CHECK_VERSION (2, 2, 0);
 
 	if( $opts{noinit} || Gtk2->init_check )
 	{
@@ -64,8 +61,7 @@ use Gtk2;
 use Test::More;
 
 # encourage use of these constants in tests
-use constant TRUE => 1;
-use constant FALSE => 0;
+use Glib qw(TRUE FALSE);
 
 1;
 __END__

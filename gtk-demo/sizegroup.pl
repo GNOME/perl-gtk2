@@ -29,7 +29,7 @@ my $window = undef;
 sub create_option_menu {
   my @strings = @_;
 
-  if ((Gtk2->get_version_info)[1] > 2) {
+  if ((Gtk2->CHECK_VERSION (2, 4, 0)) {
     my $combo_box = Gtk2::ComboBox->new_text;
 
     foreach my $str (@strings) {
