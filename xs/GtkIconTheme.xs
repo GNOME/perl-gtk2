@@ -22,6 +22,17 @@
 
 MODULE = Gtk2::IconTheme	PACKAGE = Gtk2::IconTheme	PREFIX = gtk_icon_theme_
 
+=for flags GtkIconLookupFlags
+=cut
+
+=for enum GtkIconThemeError
+=cut
+
+BOOT:
+	gperl_register_error_domain (GTK_ICON_THEME_ERROR,
+	                             GTK_TYPE_ICON_THEME_ERROR,
+	                             "Gtk2::IconTheme::Error");
+
 GtkIconTheme_noinc * gtk_icon_theme_new (class)
     C_ARGS:
 	/*void*/

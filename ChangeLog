@@ -1,3 +1,8 @@
+2004/02/19 01:50 (-0500) muppetman
+
+	* xs/GdkPixbuf.xs, xs/GtkFileChooser.xs, xs/GtkIconTheme.xs:
+	register error domains.
+
 2004/02/18 15:20 (-0500) rwmcfa1
 
 	* xs/PangoTabs.xs: apidoc fix, new needed fully qualified name
