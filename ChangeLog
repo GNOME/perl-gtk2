@@ -1,3 +1,10 @@
+2004/01/16 00:53 (-0500) muppetman
+
+	* AUTHORS, TODO: updated
+
+	* Makefile.PL, README: update requirements to Glib-1.030 and
+	emphasize that this is an unstable series.
+
 2004/01/15 14:37 (-0500) muppetman
 
 	* t/GtkTextView.t: allow negative numbers when testing returns from
