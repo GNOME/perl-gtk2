@@ -1,3 +1,8 @@
+2003/07/15 20:28 rwmcfa1
+
+	* t/18.GtkNotebook.t: almost, if not, complete testing of 
+	Gtk2::Notebook.
+
 2003/07/15 08:29 rwmcfa1
 
 	* xs/GtkNotebook.xs: allowed NULL's, and defaulted to them, as 
