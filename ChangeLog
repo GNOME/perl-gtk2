@@ -1,3 +1,7 @@
+2005/02/28	kaffeetisch
+
+	* t/GdkPixmap.t: Fix skip count for gtk+ versions older than 2.2.
+
 2005/02/26	muppetman
 
 	* xs/GtkNotebook.xs, t/GtkNotebook.t: The multiple definitions of

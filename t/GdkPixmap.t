@@ -17,7 +17,7 @@ SKIP: {
   isa_ok(Gtk2::Gdk::Pixmap -> lookup($xid), "Gtk2::Gdk::Pixmap");
 
   SKIP: {
-    skip("GdkDisplay is new in 2.2", 2)
+    skip("GdkDisplay is new in 2.2", 3)
       unless Gtk2 -> CHECK_VERSION(2, 2, 0);
 
     my $display = Gtk2::Gdk::Display -> get_default();
