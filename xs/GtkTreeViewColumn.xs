@@ -53,7 +53,7 @@ gtk2perl_tree_cell_data_func (GtkTreeViewColumn * tree_column,
 	int i;								\
 	for (i = first ; i < items ; i+=2) {				\
 		gtk_tree_view_column_add_attribute (column, cell_renderer,	\
-		                                    SvPV_nolen (ST (i)),	\
+		                                    SvGChar (ST (i)),	\
 		                                    SvIV (ST (i+1)));	\
 	}								\
 }

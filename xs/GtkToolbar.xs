@@ -45,14 +45,14 @@ gtk2perl_toolbar_insert_internal (GtkToolbar * toolbar,
 	const char * real_tooltip_private_text = NULL;
 
 	if (tooltip_text && tooltip_text != &PL_sv_undef)
-		real_tooltip_text = SvPV_nolen (tooltip_text);
+		real_tooltip_text = SvGChar (tooltip_text);
 
 	if (tooltip_private_text && tooltip_private_text != &PL_sv_undef)
-		real_tooltip_private_text = SvPV_nolen (tooltip_private_text);
+		real_tooltip_private_text = SvGChar (tooltip_private_text);
 
 	switch (which) {
 	    case STOCK:
-		w = gtk_toolbar_insert_stock (toolbar, SvPV_nolen (text),
+		w = gtk_toolbar_insert_stock (toolbar, SvGChar (text),
 		                              real_tooltip_text,
 		                              real_tooltip_private_text,
 		                              NULL, NULL, 
@@ -60,7 +60,7 @@ gtk2perl_toolbar_insert_internal (GtkToolbar * toolbar,
 		break;
 	    case ITEM:
 		{
-		const gchar * real_text = SvPV_nolen (text);
+		const gchar * real_text = SvGChar (text);
 		GtkWidget * real_icon = SvGtkWidget_ornull (icon);
 		switch (op) {
 		    case PREPEND:
@@ -88,7 +88,7 @@ gtk2perl_toolbar_insert_internal (GtkToolbar * toolbar,
 	    case ELEMENT:
 		{
 		GtkToolbarChildType real_type = SvGtkToolbarChildType(type);
-		const gchar * real_text = SvPV_nolen (text);
+		const gchar * real_text = SvGChar (text);
 		GtkWidget * real_widget = SvGtkWidget_ornull (widget);
 		GtkWidget * real_icon = SvGtkWidget_ornull (icon);
 		switch (op) {

@@ -57,7 +57,7 @@ gtk_dialog_new (class, ...)
 	Gtk2::Dialog::new_with_buttons = 1
     PREINIT:
 	int i;
-	char * title;
+	gchar * title;
 	GtkWidget * dialog;
 	GtkWindow * parent;
 	int flags;
@@ -71,7 +71,7 @@ gtk_dialog_new (class, ...)
 		       "  or Gtk2::Dialog->new (TITLE, PARENT, FLAGS, ...)\n"
 		       "  where ... is a series of button text and response id pairs");
 	} else {
-		title = SvPV_nolen (ST (1));
+		title = SvGChar (ST (1));
 		parent = SvGtkWindow_ornull (ST (2));
 		flags = SvGtkDialogFlags (ST (3));
 
@@ -94,7 +94,7 @@ gtk_dialog_new (class, ...)
 
 		/* skip the first 4 stack items --- we've already seen them! */
 		for (i = 4; i < items; i += 2) {
-			gchar * text = SvPV_nolen (ST (i));
+			gchar * text = SvGChar (ST (i));
 			int response_id = sv_to_response_id (ST (i+1));
 			gtk_dialog_add_button (GTK_DIALOG (dialog), text,
 			                       response_id);
@@ -135,7 +135,7 @@ gtk_dialog_add_buttons (dialog, ...)
 		croak("gtk_dialog_add_buttons: odd number of parameters");
 	/* we can't make var args, so we'll call add_button for each */
 	for( i = 1; i < items; i += 2 )
-		gtk_dialog_add_button(dialog, SvPV_nolen(ST(i)), 
+		gtk_dialog_add_button(dialog, SvGChar(ST(i)), 
 			sv_to_response_id(ST(i+1)));
 
 void

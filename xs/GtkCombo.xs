@@ -57,7 +57,7 @@ gtk_combo_set_popdown_strings (combo, ...)
 	GList * strings = NULL;
     CODE:
 	for( items--; items > 0; items-- )
-		strings = g_list_prepend(strings, SvPV_nolen(ST(items)));
+		strings = g_list_prepend(strings, SvGChar(ST(items)));
 	if( strings )
 	{
 		gtk_combo_set_popdown_strings(combo, strings);

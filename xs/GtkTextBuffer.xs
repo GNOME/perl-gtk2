@@ -121,7 +121,7 @@ gtk_text_buffer_insert_with_tags_by_name (buffer, iter, text, ...)
 		char * tag_name;
 		GtkTextTag * tag;
 
-		tag_name = SvPV_nolen (ST (i));
+		tag_name = SvGChar (ST (i));
 		tag = gtk_text_tag_table_lookup (tag_table, tag_name);
 		if (!tag)
 			warn ("no tag with name %s", tag_name);
@@ -287,7 +287,7 @@ gtk_text_buffer_create_tag (buffer, tag_name, ...)
 	for (i = 2 ; i < items ; i+= 2) {
 		GValue gvalue = {0, };
 		GParamSpec * pspec;
-		const gchar * propname = SvPV_nolen (ST (i));
+		const gchar * propname = SvGChar (ST (i));
 		pspec = g_object_class_find_property (G_OBJECT_GET_CLASS (RETVAL),
 		                                      propname);
 		if (!pspec)

@@ -11,7 +11,6 @@ gtk2perl_item_factory_item_activate (GtkWidget * widget,
                                      GPerlCallback * callback)
 {
 	guint callback_action;
-	SV * data;
 	dSP; 
 
 	if (callback->func == NULL || callback->func == &PL_sv_undef)
@@ -113,7 +112,7 @@ _create_item (ifactory, path, accel, action, type, extra, clean_path, callback_s
 	entry.callback = NULL;
 	entry.callback_action = action;
 	entry.item_type = type;
-	entry.extra_data = SvPOK (extra) ? SvPV_nolen (extra) : NULL; 
+	entry.extra_data = SvPOK (extra) ? SvGChar (extra) : NULL; 
 
 	gtk_item_factory_create_item (ifactory, &entry, NULL, 1);
 	if (callback_sv && callback_sv != &PL_sv_undef) {

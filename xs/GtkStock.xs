@@ -47,10 +47,10 @@ SvGtkStockItem (SV * sv)
 	item = gperl_alloc_temp (sizeof (GtkStockItem));
 
 	svp = hv_fetch (hv, "stock_id", 8, FALSE);
-	if (svp) item->stock_id = SvPV_nolen (*svp);
+	if (svp) item->stock_id = SvGChar (*svp);
 	
 	svp = hv_fetch (hv, "label", 5, FALSE);
-	if (svp) item->label = SvPV_nolen (*svp);
+	if (svp) item->label = SvGChar (*svp);
 
 	svp = hv_fetch (hv, "modifier", 8, FALSE);
 	if (svp) item->modifier = SvGdkModifierType (*svp);
@@ -59,7 +59,7 @@ SvGtkStockItem (SV * sv)
 	if (svp) item->keyval = SvUV (*svp);
 
 	svp = hv_fetch (hv, "translation_domain", 18, FALSE);
-	if (svp) item->translation_domain = SvPV_nolen (*svp);
+	if (svp) item->translation_domain = SvGChar (*svp);
 
 	return item;
 }

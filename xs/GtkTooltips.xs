@@ -33,7 +33,7 @@ gtk_tooltips_set_tip (tooltips, widget, tip_text, tip_private=NULL)
 	const gchar * real_tip_private = NULL;
     CODE:
 	if (tip_private && SvTRUE (tip_private))
-		real_tip_private = SvPV_nolen (tip_private);
+		real_tip_private = SvGChar (tip_private);
 	gtk_tooltips_set_tip (tooltips, widget, tip_text, real_tip_private);
 	/* work around a (bug|questionable behavior) in Gtk+, wherein the
 	 * widget on which you set a tooltip does not hold a reference on

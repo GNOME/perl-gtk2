@@ -12,7 +12,7 @@ gtk_frame_new (class, label=NULL)
 	SV * label
     CODE:
 	RETVAL = gtk_frame_new ((!label || label == &PL_sv_undef)
-	                         ? NULL : SvPV_nolen (label));
+	                         ? NULL : SvGChar (label));
     OUTPUT:
 	RETVAL
 
@@ -23,7 +23,7 @@ gtk_frame_set_label (frame, label)
     CODE:
 	/* label may be undef */
 	gtk_frame_set_label (frame, ((!label || label == &PL_sv_undef)
-	                             ? NULL : SvPV_nolen (label)));
+	                             ? NULL : SvGChar (label)));
 
 void
 gtk_frame_set_label_widget (frame, label_widget)
