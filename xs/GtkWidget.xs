@@ -337,7 +337,7 @@ toplevel (widget, ...)
 		case 17: flag = GTK_CAN_DEFAULT      ; break;
 		case 18: flag = GTK_HAS_DEFAULT      ; break;
 		default:
-			RETVAL = FALSE;
+			flag = FALSE;
 			g_assert_not_reached ();
 	    }
 	    if ( value ) {
