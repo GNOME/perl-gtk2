@@ -1,5 +1,3 @@
-=pod
-
 =head1 NAME
 
 Gtk2::api - Mapping the Gtk+ C API to perl
@@ -87,9 +85,10 @@ it, and optionally convert '_' to '-':
   GTK_WINDOW_TOPLEVEL => 'toplevel'
   GTK_BUTTONS_OK_CANCEL => 'ok-cancel' (or 'ok_cancel')
 
-Flags are a special case.  You can't bitwise-or strings, so you provide a
-reference to an array of them instead.  Anonymous arrays are useful htere, and
-an empty anonymous array is a simple way to say 'no flags'.
+Flags are a special case.  You can't (sensibly) bitwise-or these
+string-constants, so you provide a reference to an array of them instead.
+Anonymous arrays are useful here, and an empty anonymous array is a simple
+way to say 'no flags'.
 
   FOO_BAR_BAZ | FOO_BAR_QUU | FOO_BAR_QUUX => [qw/baz quu qux/]
   0 => []
@@ -122,7 +121,7 @@ are not even mapped to perl, because it's all handled automagically by the
 bindings.  I could write a treatise on how we're handling reference counts and
 object lifetimes, but all you need to know as perl developer is that it's
 handled for you, and the object will be alive so long as you have a perl scalar
-pointing to it.
+pointing to it or the object is referenced in another way, e.g. from a container.
 
 =head2 Miscellaneous
 
@@ -139,13 +138,14 @@ the perl wrapper just returns an empty list on failure.
 Most things that take or return a GList, GSList, or array of values will use
 native perl arrays (or the argument stack) instead.
 
-You don't need to specify string lengths, although string length parameters
-should still be available for functions dealing with binary strings.
+You don't need to specify string lengths, although string length
+parameters should still be available for functions dealing with binary
+strings. You can always use C<substr> to pass different parts of a string.
 
-Anything that uses GError in C will croak on failure, setting $@ to the
-returned error message.  The ideology here is that GError is to be used for
-runtime exceptions, and croak is how you do that in perl.  You can catch a
-croak very easily by wrapping the function in an eval:
+Anything that uses GError in C will C<croak> on failure, setting $@ to the
+returned error message.  The ideology here is that GError is to be used
+for runtime exceptions, and C<croak> is how you do that in perl.  You can
+catch a croak very easily by wrapping the function in an eval:
 
    eval { $pixbuf = Gtk2::Gdk::Pixbuf->new_from_file ($filename); };
    if ($@) {
@@ -183,7 +183,7 @@ the C API reference, so we decided not to do that for gtk2-perl.
 
 =item g_boxed_free	=> no replacement
 
-the bindings do automatic memory management.  you never need to use these.
+The bindings do automatic memory management. You should never need to use these.
 
 =item gtk_timeout_add    => Glib::Timeout->add
 
@@ -197,9 +197,9 @@ the bindings do automatic memory management.  you never need to use these.
 
 =item gtk_input_remove   => Glib::Source->remove
 
-the gtk_* functions are deprecated in favor of the g_* ones.
-Gtk2::Helper has a wrapper for Glib::IOChannel->add_watch which
-makes it behave more like gtk_input_add.
+The gtk_* functions are deprecated in favor of the g_* ones.  Gtk2::Helper
+has a wrapper for Glib::IOChannel->add_watch which makes it behave more
+like gtk_input_add.
 
 =back
 
@@ -210,42 +210,43 @@ makes it behave more like gtk_input_add.
 
 =item gtk_aspect_frame_set	=> $aspect_frame->set_params
 
-avoid a clash with $gobject->set
+Avoid a clash with $gobject->set.
 
 =back
 
 
 =head1 DIFFERENT CALL SIGNATURES OR SEMANTICS
 
-as a general rule function that take a pair of parameters, a list and the
-number of elements in that list, will normally omit the number of elements and
-just accept a variable number of arguments that will be converted into the list
-and number of elements. In many instances parameters have been reordered so
-that this will work. See below for exceptions and specific cases.
+As a general rule function that take a pair of parameters, a list and the
+number of elements in that list, will normally omit the number of elements
+and just accept a variable number of arguments that will be converted into
+the list and number of elements. In many instances parameters have been
+reordered so that this will work. See below for exceptions and specific
+cases.
 
 =over
 
 =item Gtk2::ItemFactory::create_items
 
-the n_entries parameter has been ommited and callback_data is accepted as the
+The n_entries parameter has been ommited and callback_data is accepted as the
 first parameter. All parameters after that are considered to be entries.
 
 =item Gtk2::List::insert_items
 
-position and items parameters flipped order so that an open ended parameter
-list could be used.  $list->insert_items($position, $item1, $item2, ...) 
+Position and items parameters flipped order so that an open ended parameter
+list could be used. C<< $list->insert_items($position, $item1, $item2, ...) >>
 (Note that GtkList and GtkListItem are deprecated and only included b/c
 GtkCombo still makes use of them, they are subject to removal at any point so
 you should not utilize them unless absolutly necessary.)
 
 =item Gtk2::TreeSelection::get_selected
 
-in scalar context, returns $iter; in list context, returns ($iter, $model)
+In scalar context, returns $iter; in list context, returns ($iter, $model).
 
 =item Gtk2::TreeSelection::get_selected_rows
 
-returns @paths; model is not returned as documented in the C API.
-to get the model, try $selection->get_tree_view->get_model.
+Returns @paths; model is not returned as documented in the C API.
+to get the model, try C<< $selection->get_tree_view->get_model >>.
 
 =back
 
@@ -262,3 +263,4 @@ There should be a similar document for Glib --- link to it here when it exists.
 muppet E<lt>scott at asofyet dot orgE<gt>
 
 =cut
+

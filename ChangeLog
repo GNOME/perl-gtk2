@@ -4,6 +4,9 @@
 
         * pm/Pango.pm: fix typo.
 
+        * api.pod: small doc changes (basically proofreading for the new
+        wrappers model).
+
 2003/06/27 17:00 muppetman
 
 	* Makefile.PL: require bleeding edge Glib.
