@@ -12,8 +12,8 @@
  * Library General Public License for more details.
  *
  * You should have received a copy of the GNU Library General Public
- * License along with this library; if not, write to the 
- * Free Software Foundation, Inc., 59 Temple Place - Suite 330, 
+ * License along with this library; if not, write to the
+ * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
  * Boston, MA  02111-1307  USA.
  *
  * $Header$
@@ -352,8 +352,11 @@ gtk_widget_size_request (widget)
     OUTPUT:
 	RETVAL
 
- #void gtk_widget_size_allocate (GtkWidget *widget, GtkAllocation *allocation);
- #void gtk_widget_get_child_requisition (GtkWidget *widget, GtkRequisition *requisition);
+## GtkAllocation is not in typemap
+##void gtk_widget_size_allocate (GtkWidget * widget, GtkAllocation * allocation);
+
+## function is only useful for widget implementations
+##void gtk_widget_get_child_requisition (GtkWidget *widget, GtkRequisition *requisition);
 
 void
 gtk_widget_add_accelerator (widget, accel_signal, accel_group, accel_key, accel_mods, flags)
@@ -371,13 +374,20 @@ gtk_widget_remove_accelerator (widget, accel_group, accel_key, accel_mods)
 	guint             accel_key
 	GdkModifierType   accel_mods
 
- #void       gtk_widget_set_accel_path      (GtkWidget           *widget,
- #					   const gchar         *accel_path,
- #					   GtkAccelGroup       *accel_group);
+void
+gtk_widget_set_accel_path (widget, accel_path, accel_group)
+	GtkWidget     * widget
+	const gchar   * accel_path
+	GtkAccelGroup * accel_group
 
  #GList*     gtk_widget_list_accel_closures (GtkWidget	       *widget);
- #gboolean   gtk_widget_mnemonic_activate   (GtkWidget           *widget,
- #					   gboolean             group_cycling);
+
+gboolean
+gtk_widget_mnemonic_activate   (widget, group_cycling)
+	GtkWidget * widget
+	gboolean    group_cycling
+
+ # gtk docs say rarely used, suggest other ways
  #gboolean   gtk_widget_event		  (GtkWidget	       *widget,
  #					   GdkEvent	       *event);
  #gint       gtk_widget_send_expose         (GtkWidget           *widget,
@@ -387,18 +397,30 @@ gboolean
 gtk_widget_activate (widget)
 	GtkWidget * widget
 
- #gboolean   gtk_widget_set_scroll_adjustments (GtkWidget        *widget,
- #					      GtkAdjustment    *hadjustment,
- #					      GtkAdjustment    *vadjustment);
+gboolean
+gtk_widget_set_scroll_adjustments (widget, hadjustment, vadjustment)
+	GtkWidget     * widget
+	GtkAdjustment * hadjustment
+	GtkAdjustment * vadjustment
 
 void
 gtk_widget_reparent (widget, new_parent)
 	GtkWidget * widget
 	GtkWidget * new_parent
 
- #gboolean   gtk_widget_intersect		  (GtkWidget	       *widget,
- #					   GdkRectangle	       *area,
- #					   GdkRectangle	       *intersection);
+void
+gtk_widget_intersect (widget, area)
+	GtkWidget    * widget
+	GdkRectangle * area
+    PREINIT:
+	gboolean       ret;
+	GdkRectangle * intersection;
+    PPCODE:
+	intersection = g_new (GdkRectangle, 1);
+	ret = gtk_widget_intersect (widget, area, intersection);
+	XPUSHs (sv_2mortal (newSViv (ret)));
+	if( GIMME_V == G_ARRAY && ret )
+		XPUSHs (sv_2mortal (newSVGdkRectangle_own (intersection)));
 
 # FIXME needs typemap for GdkRegion
  #GdkRegion *gtk_widget_region_intersect (GtkWidget *widget, GdkRegion *region);
@@ -416,6 +438,7 @@ const gchar*
 gtk_widget_get_name (widget)
 	GtkWidget    *widget
 
+ # gtk doc says only used for widget implementations
  #void                  gtk_widget_set_state              (GtkWidget    *widget,
  #							 GtkStateType  state);
 
@@ -424,9 +447,14 @@ gtk_widget_set_sensitive (widget, sensitive)
 	GtkWidget * widget
 	gboolean sensitive
 
- #void gtk_widget_set_app_paintable (GtkWidget *widget, gboolean app_paintable);
- #void gtk_widget_set_double_buffered (GtkWidget *widget, gboolean double_buffered);
- #void gtk_widget_set_redraw_on_allocate (GtkWidget *widget, gboolean redraw_on_allocate);
+void gtk_widget_set_app_paintable (GtkWidget *widget, gboolean app_paintable);
+
+void gtk_widget_set_double_buffered (GtkWidget *widget, gboolean double_buffered);
+
+void gtk_widget_set_redraw_on_allocate (GtkWidget *widget, gboolean redraw_on_allocate);
+
+ # gtk doc says useful only for impelemnting container sub classes, never to be
+ # called by apps
  #void gtk_widget_set_parent (GtkWidget *widget, GtkWidget *parent);
  #void gtk_widget_set_parent_window (GtkWidget *widget, GdkWindow *parent_window);
  #void gtk_widget_set_child_visible (GtkWidget *widget, gboolean is_visible);
@@ -445,7 +473,9 @@ gtk_widget_get_parent (widget)
     CLEANUP:
 	UNUSED(ix);
 
- #GdkWindow *gtk_widget_get_parent_window	  (GtkWidget	       *widget);
+GdkWindow *gtk_widget_get_parent_window	  (GtkWidget	       *widget);
+
+ # gtk doc says this is only useful for widget impelementations, never for apps
  #gboolean   gtk_widget_child_focus         (GtkWidget           *widget,
  #                                           GtkDirectionType     direction);
 
@@ -512,21 +542,20 @@ GdkColormap*
 gtk_widget_get_colormap	(widget)
 	GtkWidget * widget
 
- #GdkVisual*   gtk_widget_get_visual	(GtkWidget	*widget);
- #
- #GtkSettings* gtk_widget_get_settings    (GtkWidget      *widget);
- #
- #/* Accessibility support */
- #AtkObject*       gtk_widget_get_accessible               (GtkWidget          *widget);
- #
+GdkVisual * gtk_widget_get_visual (GtkWidget * widget);
+
+GtkSettings * gtk_widget_get_settings (GtkWidget * widget);
+
+#/* Accessibility support */
+AtkObject * gtk_widget_get_accessible (GtkWidget * widget);
+
  #/* The following functions must not be called on an already
  # * realized widget. Because it is possible that somebody
  # * can call get_colormap() or get_visual() and save the
  # * result, these functions are probably only safe to
  # * call in a widget's init() function.
  # */
- #void         gtk_widget_set_colormap    (GtkWidget      *widget,
- #					 GdkColormap    *colormap);
+void gtk_widget_set_colormap (GtkWidget * widget, GdkColormap * colormap);
 
  #gint	     gtk_widget_get_events	(GtkWidget	*widget);
 GdkEventMask
@@ -537,7 +566,7 @@ gtk_widget_get_events (widget)
 void
 gtk_widget_get_pointer (GtkWidget *widget, OUTLIST gint x, OUTLIST gint y);
 
-gboolean gtk_widget_is_ancestor (GtkWidget *widget, GtkWidget *ancestor); 
+gboolean gtk_widget_is_ancestor (GtkWidget *widget, GtkWidget *ancestor);
 
  #gboolean gtk_widget_translate_coordinates (GtkWidget *src_widget, GtkWidget *dest_widget, gint src_x, gint src_y, gint *dest_x, gint *dest_y);
 void
@@ -645,7 +674,7 @@ gtk_widget_render_icon (widget, stock_id, size, detail=NULL)
  # */
  #void	     gtk_widget_set_default_colormap (GdkColormap *colormap);
 
-GtkStyle* 
+GtkStyle*
 gtk_widget_get_default_style (class)
 	SV* class
     C_ARGS:
@@ -712,13 +741,13 @@ gtk_widget_path (GtkWidget *widget)
 	PUSHs (sv_2mortal (newSVGChar (path_reversed)));
 	g_free (path);
 	g_free (path_reversed);
-	
+
 
  # boxed support, bindings not needed
  #GtkRequisition *gtk_requisition_copy     (const GtkRequisition *requisition);
  #void            gtk_requisition_free     (GtkRequisition       *requisition);
 
- # private, will not be bound 
+ # private, will not be bound
  #GdkColormap* _gtk_widget_peek_colormap (void);
 
 

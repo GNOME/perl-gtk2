@@ -17,7 +17,7 @@ use Test::More;
 
 if( Gtk2->init_check )
 {
-	plan tests => 85;
+	plan tests => 89;
 }
 else
 {
@@ -219,6 +219,18 @@ Glib::Idle->add(sub {
 
 		$win->move(100, 100);
 
+		# these are widget methods and not window, but they need 
+		# testing and this seemed like a good place to do it
+		my $tmp = $win->intersect(Gtk2::Gdk::Rectangle->new(0, 0, 10, 10));
+		my @tmp = $win->intersect(Gtk2::Gdk::Rectangle->new(0, 0, 10, 10));
+		ok( $tmp );
+		ok( scalar(@tmp) == 2 and $tmp[0] and
+		    (ref $tmp[1] eq 'Gtk2::Gdk::Rectangle') );
+		$tmp = $win->intersect(Gtk2::Gdk::Rectangle->new(-10, -10, 1, 1));
+		@tmp = $win->intersect(Gtk2::Gdk::Rectangle->new(-10, -10, 1, 1));
+		ok( !$tmp );
+		ok( scalar(@tmp) == 1 and !$tmp[0] );
+		
 		$win->resize(480,600);
 
 		# window managers don't horor our size request exactly,
