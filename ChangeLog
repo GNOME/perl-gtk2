@@ -1,3 +1,10 @@
+2003/11/19 11:14 (-0500) muppetman
+
+	* xs/GtkRc.xs: finally committing stuff i did for GtkRcStyle a looong
+	time ago.  accessors and mutators for various members of GtkRcStyle,
+	and some methods that were commented out in GtkRc.xs.  not commonly
+	needed, but handy in rare situations.
+
 2003/11/19 09:10 (-0500) rwmcfa1
 	
 	* t/22.GtkListStore.t: there was a skip unless 2.2.x in which the iter 

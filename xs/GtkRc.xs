@@ -171,33 +171,92 @@ gtk_rc_get_im_module_file (class)
 #	GScanner *scanner
 #	GtkPathPriorityType *priority
 
-#MODULE = Gtk2::Rc	PACKAGE = Gtk2::RcStyle	PREFIX = gtk_rc_style_
-#
-### void _gtk_rc_reset_styles (GtkSettings *settings)
-#
-### GtkRcStyle* gtk_rc_style_new (void)
-#GtkRcStyle_noinc *
-#gtk_rc_style_new (class)
-#    C_ARGS:
-#
-### GtkRcStyle* gtk_rc_style_copy (GtkRcStyle *orig)
-#GtkRcStyle_noinc *
-#gtk_rc_style_copy (orig)
-#	GtkRcStyle * orig
-#
-#PangoFontDescription *
-#get_font_desc (rcstyle)
-#	GtkRcStyle * rcstyle
-#    CODE:
-#	RETVAL = rcstyle->font_desc;
-#
-#void
-#set_font_desc(rcstyle, fd)
-#	GtkRcStyle * rcstyle
-#	PangoFontDescription * fd
-#    CODE:
-#	rcstyle->font_desc = fd;
-#
+MODULE = Gtk2::Rc	PACKAGE = Gtk2::RcStyle	PREFIX = gtk_rc_style_
+
+## void _gtk_rc_reset_styles (GtkSettings *settings)
+
+SV *
+members (GtkRcStyle * style)
+    ALIAS:
+	name           = 0
+	xthickness     = 1
+	ythickness     = 2
+    CODE:
+	switch (ix) {
+		case 0: RETVAL = newSVGChar (style->name); break;
+		case 1: RETVAL = newSViv (style->xthickness); break;
+		case 2: RETVAL = newSViv (style->ythickness); break;
+		default: RETVAL = NULL;
+	}
+    OUTPUT:
+	RETVAL
+
+const gchar *
+bg_pixmap_name (GtkRcStyle * style, GtkStateType state)
+    CODE:
+	RETVAL = style->bg_pixmap_name[state];
+    OUTPUT:
+	RETVAL
+
+GtkRcFlags
+color_flags (GtkRcStyle * style, GtkStateType state, SV * newval=NULL)
+    CODE:
+	RETVAL = style->color_flags[state];
+	if (newval)
+		style->color_flags[state] = SvGtkRcFlags (newval);
+    OUTPUT:
+	RETVAL
+
+GdkColor_copy *
+colors (GtkRcStyle * style, GtkStateType state, GdkColor_ornull * newcolor=NULL)
+    ALIAS:
+	fg          = 0
+	bg          = 1
+	text        = 2
+	base        = 3
+    CODE:
+	switch (ix) {
+	    case 0: RETVAL = &(style->fg[state]); break;
+	    case 1: RETVAL = &(style->bg[state]); break;
+	    case 2: RETVAL = &(style->text[state]); break;
+	    case 3: RETVAL = &(style->base[state]); break;
+	}
+	if (newcolor) {
+		switch (ix) {
+		    case 0: style->fg[state]   = *newcolor; break;
+		    case 1: style->bg[state]   = *newcolor; break;
+		    case 2: style->text[state] = *newcolor; break;
+		    case 3: style->base[state] = *newcolor; break;
+		}
+	}
+    OUTPUT:
+	RETVAL
+
+## GtkRcStyle* gtk_rc_style_new (void)
+GtkRcStyle_noinc *
+gtk_rc_style_new (class)
+	SV * class
+    C_ARGS:
+	/*void*/
+
+# GtkRcStyle* gtk_rc_style_copy (GtkRcStyle *orig)
+GtkRcStyle_noinc *
+gtk_rc_style_copy (orig)
+	GtkRcStyle * orig
+
+PangoFontDescription *
+get_font_desc (rcstyle)
+	GtkRcStyle * rcstyle
+    CODE:
+	RETVAL = rcstyle->font_desc;
+
+void
+set_font_desc(rcstyle, fd)
+	GtkRcStyle * rcstyle
+	PangoFontDescription * fd
+    CODE:
+	rcstyle->font_desc = fd;
+
 # should happen automagically
 ## void gtk_rc_style_ref (GtkRcStyle *rc_style)
 ## void gtk_rc_style_unref (GtkRcStyle *rc_style)
