@@ -170,7 +170,7 @@ gtk_init (class)
 	AV * ARGV;
 	SV * ARGV0;
 	int argc, len, i;
-	char ** argv;
+	char ** argv, ** shadow;
     CODE:
 	/*
 	 * heavily borrowed from gtk-perl.
@@ -185,18 +185,22 @@ gtk_init (class)
 	ARGV = get_av ("ARGV", FALSE);
 	ARGV0 = get_sv ("0", FALSE);
 
-	/* construct the argv argument... we'll have to prepend @ARGV with $0
-	 * to make it look real. */
+	/* 
+	 * construct the argv argument... we'll have to prepend @ARGV with $0
+	 * to make it look real.  an important wrinkle: gtk_init() and
+	 * gtk_init_check() strip arguments that it processes, but it does
+	 * not free them (argv is statically allocated in conventional
+	 * usage).  thus, we need keep a shadow copy of argv so we can keep
+	 * from leaking the stripped strings.
+	 */
 	len = av_len (ARGV) + 1;
 	argc = len + 1;
+	shadow = g_new0 (char*, len + 1);
 	argv = g_new0 (char*, argc);
 	argv[0] = SvPV_nolen (ARGV0);
-	/*warn ("argc = %d\n", argc);*/
-	/*warn ("argv[0] = %s\n", argv[0]);*/
 	for (i = 0 ; i < len ; i++) {
 		SV * sv = av_shift (ARGV);
-		argv[i+1] = g_strdup (SvPV_nolen (sv));
-		/*warn ("argv[%d] = %s\n", i+1, argv[i+1]);*/
+		shadow[i] = argv[i+1] = g_strdup (SvPV_nolen (sv));
 	}
 	/* note that we've emptied @ARGV. */
 	/* use it... */
@@ -204,16 +208,15 @@ gtk_init (class)
 		RETVAL = gtk_init_check (&argc, &argv);
 	} else {
 		gtk_init (&argc, &argv);
-		/* if this fails, it does not return. */
+		/* gtk_init() either succeeds or does not return. */
 		RETVAL = TRUE;
 	}
 
 	/* refill @ARGV with whatever gtk_init didn't steal. */
-	for (i = 1 ; i < argc ; i++) {
+	for (i = 1 ; i < argc ; i++)
 		av_push (ARGV, newSVpv (argv[i], 0));
-		/*warn ("pushing back %s\n", argv[i]);*/
-	}
 	g_free (argv);
+	g_strfreev (shadow);
     OUTPUT:
 	RETVAL
 

@@ -1,3 +1,9 @@
+2004/01/25 19:53 (-0500) muppetman
+
+	* xs/Gtk2.xs: revert the removal of shadow, and add some commentary
+	explaining why it is important.  it allows us to keep from leaking
+	strings removed from argv by gtk_init().
+
 2004/01/25 19:43 (-0500) rwmcfa1
 
 	* t/GdkDisplay.t: use DISPLAY env var instead of assuming :0.0 will 
