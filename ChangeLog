@@ -1,3 +1,13 @@
+2004/02/08 22:28 (+0100) kaffeetisch
+
+	* MANIFEST
+	A t/GtkCellRendererPixbuf.t
+	A t/GtkCellRendererText.t
+	A t/GtkCellRendererToggle.t: New tests.
+
+	* t/GtkCellRenderer.t: Test get_size, render, activate,
+	start_editing, and [sg]et_fixed_size.
+
 2004/02/09 01:24 (-0500) muppetman
 
 	* xs/GtkSelection.xs: make the parsing code for the array and hash

@@ -2,7 +2,7 @@
 
 # $Header$
 
-use Gtk2::TestHelper tests => 4;
+use Gtk2::TestHelper tests => 9;
 use strict;
 
 package Mup::CellRendererPopup;
@@ -43,8 +43,6 @@ sub on_get_size { $hits_compat{size}++;  shift->parent_get_size (@_) }
 sub on_render { $hits_compat{render}++;  shift->parent_render (@_) }
 sub on_activate { $hits_compat{activate}++;  shift->parent_activate (@_) }
 sub on_start_editing { $hits_compat{edit}++;  shift->parent_start_editing (@_) }
-
-
 
 ##########################################################################
 # driver code
@@ -95,6 +93,7 @@ $treeview->append_column ($column);
 #
 ok ($renderer = Mup::CellRendererPopupCompat->new, 'Mup::CellRendererPopupCompat->new');
 $renderer->set (mode => 'editable');
+$renderer->set (editable => 1);
 my $column_compat = Gtk2::TreeViewColumn->new_with_attributes ('selector', $renderer,
                                                      text => 0,);
 # this handler commits the user's selection to the model.  compare with
@@ -107,10 +106,30 @@ $renderer->signal_connect (edited => sub {
 	}, $model);
 $treeview->append_column ($column_compat);
 
+##########################################################################
 
 $vbox->pack_start ($treeview, 1, 1, 0);
 
 $window->show_all;
+
+##########################################################################
+
+isa_ok ($renderer, "Gtk2::CellRenderer");
+
+my $rect = Gtk2::Gdk::Rectangle->new (5, 5, 10, 10);
+my @size = $renderer->get_size ($treeview, $rect);
+is (@size, 4);
+
+my $event = Gtk2::Gdk::Event->new ("button-press");
+
+$renderer->render ($window->window, $treeview, $rect, $rect, $rect, [qw(sorted focused)]);
+ok(!$renderer->activate ($event, $treeview, "0", $rect, $rect, qw(selected)));
+isa_ok ($renderer->start_editing ($event, $treeview, "0", $rect, $rect, qw(selected)), "Gtk2::Entry");
+
+$renderer->set_fixed_size (23, 42);
+is_deeply([$renderer->get_fixed_size], [23, 42]);
+
+##########################################################################
 
 Glib::Idle->add (sub {
 	$treeview->set_cursor (Gtk2::TreePath->new_from_string ('0'),
@@ -122,8 +141,8 @@ Glib::Idle->add (sub {
 
 Gtk2->main;
 
-ok (eq_array ([ sort keys %hits ], [ qw/edit init render size/ ]), 'callbacks encountered');
-ok (eq_array ([ sort keys %hits_compat ], [ qw/edit init render size/ ]), 'callbacks encountered');
+is_deeply ([ sort keys %hits ], [ qw/edit init render size/ ], 'callbacks encountered');
+is_deeply ([ sort keys %hits_compat ], [ qw/edit init render size/ ], 'callbacks encountered');
 
 __END__
 
