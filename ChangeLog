@@ -1,3 +1,7 @@
+2004/01/16 01:20 (-0500) muppetman
+
+	* README, Gtk2.pm: release 1.023 (stable)
+
 2004/01/08 23:10 (-0500) muppetman
 
 	* xs/GdkPixbuf.xs, xs/Gtk2.xs, xs/GtkEditable.xs: portability fixes
