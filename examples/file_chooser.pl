@@ -2,6 +2,12 @@
 
 use Gtk2 -init;
 
+my $msg = Gtk2->check_version (2,3,0); # FIXME 2.4
+die "This example requires gtk+ 2.4.0, but we're linked against "
+  . join (".", Gtk2->get_version_info)."\n"
+  . "$msg\n"
+	if $msg;
+
 my $preview_widget = Gtk2::Label->new ('wheeeee');
 $preview_widget->set_line_wrap (1);
 $preview_widget->set_size_request (150, -1);

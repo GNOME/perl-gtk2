@@ -2,6 +2,12 @@
 
 use Gtk2 -init;
 
+my $msg = Gtk2->check_version (2,3,0); # FIXME 2.4
+die "This example requires gtk+ 2.4.0, but we're linked against "
+  . join (".", Gtk2->get_version_info)."\n"
+  . "$msg\n"
+	if $msg;
+
 $window = Gtk2::Window->new;
 $window->signal_connect (delete_event => sub { Gtk2->main_quit; 1 });
 
