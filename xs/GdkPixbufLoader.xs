@@ -91,6 +91,7 @@ gdk_pixbuf_loader_close (loader)
 
 #if GTK_CHECK_VERSION(2,2,0)
 
+ ## no typemap for GdkPixbufFormat
 ###  GdkPixbufFormat *gdk_pixbuf_loader_get_format (GdkPixbufLoader *loader) 
 #GdkPixbufFormat *
 #gdk_pixbuf_loader_get_format (loader)

@@ -330,7 +330,7 @@ gdk_pixbuf_composite_color (src, dest, dest_x, dest_y, dest_width, dest_height, 
 	guint32 color1
 	guint32 color2
 
-### FIXME returns NULL if there's not enough memory
+### returns NULL if there's not enough memory
 ##  GdkPixbuf *gdk_pixbuf_scale_simple (const GdkPixbuf *src, int dest_width, int dest_height, GdkInterpType interp_type) 
 GdkPixbuf_noinc *
 gdk_pixbuf_scale_simple (src, dest_width, dest_height, interp_type)

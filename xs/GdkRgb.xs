@@ -131,6 +131,7 @@ gdk_draw_rgb_image_dithalign (drawable, gc, x, y, width, height, dith, rgb_buf, 
 		                              SvImageDataPointer(rgb_buf),
 		                              rowstride, xdith, ydith);
 
+# FIXME no typemap for GdkRgbCmap
 ####  void gdk_draw_indexed_image (GdkDrawable *drawable, GdkGC *gc, gint x, gint y, gint width, gint height, GdkRgbDither dith, guchar *buf, gint rowstride, GdkRgbCmap *cmap) 
 ##void
 ##gdk_draw_indexed_image (drawable, gc, x, y, width, height, dith, buf, rowstride, cmap)
@@ -147,6 +148,7 @@ gdk_draw_rgb_image_dithalign (drawable, gc, x, y, width, height, dith, rgb_buf, 
 
 ##MODULE = Gtk2::Gdk::Rgb	PACKAGE = Gtk2::Gdk::Cmap	PREFIX = gdk_rgb_cmap_
 ##
+# FIXME no typemap for GdkRgbCmap
 ####  GdkRgbCmap *gdk_rgb_cmap_new (guint32 *colors, gint n_colors) 
 ##GdkRgbCmap *
 ##gdk_rgb_cmap_new (class, color, ...)
@@ -167,9 +169,6 @@ gdk_draw_rgb_image_dithalign (drawable, gc, x, y, width, height, dith, rgb_buf, 
 ##	RETVAL
 ##
 ####  void gdk_rgb_cmap_free (GdkRgbCmap *cmap) 
-##void
-##gdk_rgb_cmap_free (cmap)
-##	GdkRgbCmap *cmap
 
 MODULE = Gtk2::Gdk::Rgb	PACKAGE = Gtk2::Gdk::Rgb	PREFIX = gdk_rgb_
 

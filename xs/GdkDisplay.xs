@@ -77,6 +77,7 @@ GdkEvent* gdk_display_peek_event (GdkDisplay *display)
 
 void gdk_display_put_event (GdkDisplay *display, GdkEvent *event) 
 
+ # FIXME
 ###  void gdk_display_add_client_message_filter (GdkDisplay *display, GdkAtom message_type, GdkFilterFunc func, gpointer data) 
 #void
 #gdk_display_add_client_message_filter (display, message_type, func, data)
