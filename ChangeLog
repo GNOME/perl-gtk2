@@ -1,3 +1,8 @@
+2004/03/15 20:23 (-0500) rwmcfa1
+
+	* t/00.Gtk2.t: bad kaffee, added some tests, but apparently didn't up 
+	the skip count, as muppet says, no biscut.
+
 2004/03/14 21:11 (+0100) kaffeetisch
 
 	* t/00.Gtk2.t: Test Gtk2::Widget::propagate_event, make the tests

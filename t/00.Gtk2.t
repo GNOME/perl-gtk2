@@ -40,7 +40,7 @@ SKIP:
 	@ARGV = qw(--help --g-fatal-warnings --name gtk2perl --urgs tree);
 
 	skip 'Gtk2->init_check failed, probably unable to open DISPLAY', 
-		16, unless( Gtk2->init_check );
+		18, unless( Gtk2->init_check );
 
 	ok( Gtk2->init );
 	ok( Gtk2->set_locale );
