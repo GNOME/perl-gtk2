@@ -157,6 +157,7 @@ my $menu = Gtk2::SimpleMenu->new(
 $menu->get_widget('/Tools/Radios/Radio 2')->set_active(1);
 
 my $win = Gtk2::Window->new;
+$win->signal_connect(delete_event => sub { exit });
 $win->add($menu->{widget});
 $win->add_accel_group($menu->{accel_group});
 $win->show_all;

@@ -18,9 +18,16 @@ ok(defined(Gtk2::Gdk::Visual -> get_best_type()));
 
 isa_ok(my $visual = Gtk2::Gdk::Visual -> get_system(), "Gtk2::Gdk::Visual");
 isa_ok(Gtk2::Gdk::Visual -> get_best(), "Gtk2::Gdk::Visual");
-isa_ok(Gtk2::Gdk::Visual -> get_best_with_depth($depths[0]), "Gtk2::Gdk::Visual");
 isa_ok(Gtk2::Gdk::Visual -> get_best_with_type($types[0]), "Gtk2::Gdk::Visual");
 isa_ok(Gtk2::Gdk::Visual -> get_best_with_both($depths[0], $types[0]), "Gtk2::Gdk::Visual");
+
+SKIP: {
+  skip("get_best_with_depth seems to be broken in 2.2", 1)
+    if ((Gtk2 -> GET_VERSION_INFO())[0] == 2 &&
+        (Gtk2 -> GET_VERSION_INFO())[1] == 2);
+
+  isa_ok(Gtk2::Gdk::Visual -> get_best_with_depth($depths[0]), "Gtk2::Gdk::Visual");
+}
 
 SKIP: {
   skip("GdkScreen is new in 2.2", 1)

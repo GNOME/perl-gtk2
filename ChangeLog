@@ -1,3 +1,9 @@
+2004/05/31 23:13 (+0200) kaffeetisch
+
+	* examples/simple_menu.t: Add a delete_event handler.
+
+	* t/GdkVisual.t: Skip the get_best_with_depth test on 2.2.x.
+
 2004/05/28 22:36 pcg
 
 	* xs/GdkColor.xs: scaling by 257 is better than scaling by 8.
