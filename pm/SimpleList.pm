@@ -4,12 +4,8 @@
 
 #
 # TODO:
-#	- when we fetch an empty column, one we set to undef, 
-#	gperl_new_object complains about converting (NULL) => undef, which 
-#	seems like it's what should be happening
 #	- look at editable text cells?
-#	- simplifed get selected stuff
-#	- documentation
+#	- simplified get selected stuff
 #
 
 #########################
@@ -19,15 +15,7 @@ use Carp;
 use Gtk2;
 use base 'Gtk2::TreeView';
 
-our $VERSION = '0.10';
-
-BEGIN
-{
-	print STDERR "WARNING: Gtk2::SimpleList is alpha quality software and "
-		."is subject to change in fundamental ways or disappear "
-		."altogether. Send bugs/questions/suggestions, they'll only "
-		."help, to gtk-perl-list\@gnome.org.\n"
-}
+our $VERSION = '0.12';
 
 =cut
 
@@ -90,7 +78,6 @@ sub new {
 	my $model = Gtk2::ListStore->new (map { $_->{type} } @column_info);
 	my $view = Gtk2::TreeView->new ($model);
 	for (my $i = 0; $i < @column_info ; $i++) {
-		use Data::Dumper;
 		if( 'CODE' eq ref $column_info[$i]{attr} )
 		{
 			$view->insert_column_with_data_func (-1,
@@ -127,7 +114,7 @@ sub new {
 	return bless $view, $class;
 }
 
-sub set_with_array
+sub set_data_array
 {
 	@{$_[0]->{data}} = @{$_[1]};
 }
@@ -315,30 +302,177 @@ __END__
 
 =head1 NAME
 
-Gtk2::SimpleList - 
+Gtk2::SimpleList - A simple interface to the complex MVC list interface of Gtk2
 
 =head1 SYNOPSIS
 
   use Gtk2 -init;
+  use Gtk2::SimpleList.pm;
+
+  use constant TRUE  => 1;
+  use constant FALSE => 0;
+
+  my $slist = Gtk2::SimpleList->new (
+                'Text Field'    => 'text',
+                'Int Field'     => 'int',
+                'Double Field'  => 'double',
+                'Bool Field'    => 'bool',
+                'Scalar Field'  => 'scalar',
+                'Pixbuf Field'  => 'pixbuf',
+              );
+
+  @{$slist->{data}} = (
+          [ 'text', 1, 1.1,  TRUE, $var, $pixbuf ],
+          [ 'text', 2, 2.2, FALSE, $var, $pixbuf ],
+  );
+
+  # (almost) anything you can do to an array you can do to 
+  # $slist->{data} which is an array reference tied to the list model
+  push @{$slist->{data}}, [ 'text', 3, 3.3, TRUE, $var, $pixbuf ];
 
 =head1 ABSTRACT
 
-  TODO
+Gtk2 has a powerful, but complex MVC (Model, View, Cell) system used to
+implement the graphical user interface element known as a list.
+Gtk2::SimpleList does all of the complex setup work for you and allows you to
+treat the list widget as an array of arrays. It is implemented with tied arrays
+so the data to Perl is always synchronized with what is displayed in the
+widget.
 
 =head1 DESCRIPTION
 
-TODO
+Gtk2 has a powerful, but complex MVC (Model, View, Cell) system used to
+implement user interface element known as a list. Gtk2::SimpleList does all of
+the complex setup work for you and allows you to treat the list widget as an
+array of arrays.
+
+After creating a new Gtk2::SimpleList object with the desired columns you may
+set the list of data as simple as a Perl array assignment. Rows may be added or
+deleted with the all of the normal array operations. Data may be accessed by
+treating the data member of the list object as an array reference. Data can be
+modified by doing the same. 
+
+A mechanism has also been put into place allowing columns to be Perl scalars.
+The scalar is converted to text through Perl's normal mechanisms and then
+displayed in the list. This same mechanism can be expanded by defining
+arbitrary new column types before calling the new function. 
+
+=head1 FUNCTIONS
+
+=over
+
+=item $slist = Gtk2::SimpleList->new (cname, ctype, [cname, ctype, ...])
+
+Creates a new Gtk2::SimpleList object with the specified columns. The parameter
+cname is the name of the column, what will be displayed in the list headers if
+they are turned on. The parameter ctype is the type of the column, one of:
+text, int, double, bool, scalar, pixbuf, or the name of a custom type you add
+with C<add_column_type>. These should be provided in pairs according to the
+desired columns for you list.
+
+=item $slist->set_data_array (arrayref)
+
+Set the data in the list to the array reference arrayref. This is completely
+equivalent to @{$list->{data}} = @{$arrayref} and is only here for convenience
+and for those programmers who don't like to type-cast and have static, set once
+data.
+
+=item Gtk2::SimpleList->add_column_type (type_name, ...)
+
+Add a new column type to the list of possible types. Initially six column types
+are defined, text, int, double, bool, scalar, and pixbuf. The bool column type
+uses a toggle cell renderer, the pixbuf uses a pixbuf cell renderer, and the
+rest use text cell renderers. In the process of adding a new column type you
+may use any cell renderer you wish. 
+
+The first parameter is the column type name, the list of six are examples.
+There are no restrictions on the names and you may even overwrite the existing
+ones should you choose to do so. The remaining parameters are the type
+definition consisting of key value pairs. There are three required: type,
+renderer, and attr. The type key should be always be set to 'Glib::Scalar'. The
+renderer key may be any of Text, Toggle, or Pixbuf depending on which
+CellRenderer type you wish your results to be displayed in. The attr key is
+where the magic lies. For custom column types attr must be a code reference
+implementing a function that sets the value of the renderer. 
+
+This function will accept 5 parameters: $treecol, $cell, $model, $iter,
+$col_num.  It should make use of these parameters to retrieve the data
+associated with the row given by $iter in the column $col_num. To do this $data
+= $model->get($iter, $col_num) should be used. You then should set the
+appropriate attributes of the $cell to whatever you wish based off of what is
+contained in $data. $data may be anything that you can put into a Perl scalar,
+even references to arrays or hashes. Two examples follow:
+
+  # just displays the value in a scalar as 
+  # Perl would convert it to a string
+  Gtk2::SimpleList->add_column_type( 'a_scalar', 
+          type     => 'Glib::Scalar',
+	  renderer => 'Text',
+          attr     => sub {
+               my ($treecol, $cell, $model, $iter, $col_num) = @_;
+               my $info = $model->get ($iter, $i);
+               $cell->set (text => $info);
+	  }
+     );
+
+  # sums up the values in an array ref and displays 
+  # that in a text renderer
+  Gtk2::SimpleList->add_column_type( 'sum_of_array', 
+          type     => 'Glib::Scalar',
+	  renderer => 'Text',
+          attr     => sub {
+               my ($treecol, $cell, $model, $iter, $col_num) = @_;
+               my $sum = 0;
+               my $info = $model->get ($iter, $i);
+               foreach (@$info)
+               {
+                   $sum += $_;
+               }
+               $cell->set (text => $sum);
+          } 
+     );
+
+=back
+
+=head1 MODIFYING LIST DATA
+
+After creating a new Gtk2::SimpleList object there will be a member called data
+which is a tied array. That means data may be treated as an array, but in
+reality the data resides in something else. There is no need to understand the
+details of this it just means that you put data into, take data out of, and
+modify it just like any other array. This includes using array operations like
+push, pop, unshift, and shift. For those of you very familiar with perl this
+section will prove redundant, but just in case:
+
+  Adding and removing rows:
+  
+    # push a row onto the end of the list
+    push @{$slist->{data}}, [col1_data, col2_data, ..., coln_data];
+    # pop a row off of the end of the list
+    $rowref = pop @{$slist->{data}};
+    # unshift a row onto the beginning of the list
+    unshift @{$slist->{data}}, [col1_data, col2_data, ..., coln_data];
+    # shift a row off of the beginning of the list
+    $rowref = shift @{$slist->{data}};
+    # delete the row at index n, 0 indexed
+    delete $slist->{data}[n]
+    # set the entire list to be the data in a array
+    @{$slist->{data}} = ( [row1, ...], [row2, ...], [row3, ...] );
+
+  Getting at the data in the list:
+  
+    # get an array reference to the entire nth row
+    $rowref = $slist->{data}[n] 
+    # get the scalar in the mth column of the nth row, 0 indexed
+    $val = $slist->{data}{n}{m}
+    # set an array reference to the entire nth row
+    $slist->{data}[n] = [col1_data, col2_data, ..., coln_data];
+    # get the scalar in the mth column of the nth row, 0 indexed
+    $slist->{data}{n}{m} = $rowm_coln_value;
 
 =head1 SEE ALSO
 
-perl(1), Glib(3pm), Gtk2(3pm).
-
-The Gtk2::Helper module contains stuff that makes writing Gtk2 programs
-a little easier.
-
-Gtk2 also provides code to make it relatively painless to create perl
-wrappers for other GLib/Gtk-based libraries.  See Gtk2::CodeGen, 
-Glib::PkgConfig, and ExtUtils::Depends.
+Perl(1), Glib(3pm), Gtk2(3pm).
 
 =head1 AUTHORS
 
@@ -348,21 +482,20 @@ Glib::PkgConfig, and ExtUtils::Depends.
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2003 by the gtk2-perl team.
+Copyright 2003 by the Gtk2-Perl team.
 
-This library is free software; you can redistribute it and/or
-modify it under the terms of the GNU Library General Public
-License as published by the Free Software Foundation; either
-version 2 of the License, or (at your option) any later version.
+This library is free software; you can redistribute it and/or modify it under
+the terms of the GNU Library General Public License as published by the Free
+Software Foundation; either version 2 of the License, or (at your option) any
+later version.
 
-This library is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-Library General Public License for more details.
+This library is distributed in the hope that it will be useful, but WITHOUT ANY
+WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+PARTICULAR PURPOSE.  See the GNU Library General Public License for more
+details.
 
-You should have received a copy of the GNU Library General Public
-License along with this library; if not, write to the 
-Free Software Foundation, Inc., 59 Temple Place - Suite 330, 
-Boston, MA  02111-1307  USA.
+You should have received a copy of the GNU Library General Public License along
+with this library; if not, write to the Free Software Foundation, Inc., 59
+Temple Place - Suite 330, Boston, MA  02111-1307  USA.
 
 =cut
