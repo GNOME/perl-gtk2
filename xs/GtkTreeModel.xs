@@ -352,7 +352,7 @@ gtk_tree_model_iter_next (tree_model, iter)
 	RETVAL
 
 #### gboolean gtk_tree_model_iter_children (GtkTreeModel *tree_model, GtkTreeIter *iter, GtkTreeIter *parent)
-GtkTreeIter_own_ornull *
+GtkTreeIter_copy *
 gtk_tree_model_iter_children (tree_model, parent)
 	GtkTreeModel *tree_model
 	GtkTreeIter *parent
