@@ -24,7 +24,22 @@
 /* this is just an interface */
 
 
-// typedef gboolean (* GtkTreeModelForeachFunc) (GtkTreeModel *model, GtkTreePath *path, GtkTreeIter *iter, gpointer data)
+static gboolean
+gtk2perl_tree_model_foreach_func (GtkTreeModel *model,
+                                  GtkTreePath *path,
+                                  GtkTreeIter *iter,
+                                  gpointer data)
+{
+	GPerlCallback * callback = (GPerlCallback*)data;
+	GValue value = {0,};
+	gboolean retval;
+	g_value_init (&value, callback->return_type);
+	gperl_callback_invoke (callback, &value, model, path, iter);
+	retval = g_value_get_boolean (&value);
+	g_value_unset (&value);
+	return retval;
+}
+
 
 MODULE = Gtk2::TreeModel	PACKAGE = Gtk2::TreePath	PREFIX = gtk_tree_path_
 
@@ -141,29 +156,41 @@ gtk_tree_path_is_descendant (path, ancestor)
 	GtkTreePath *path
 	GtkTreePath *ancestor
 
-##
-##CRAP! GtkRowReference isn't in the maps file!
-##
-##MODULE = Gtk2::TreeModel	PACKAGE = Gtk2::TreeRowReference	PREFIX = gtk_tree_row_reference_
-##
-##
+
+
+MODULE = Gtk2::TreeModel	PACKAGE = Gtk2::TreeRowReference	PREFIX = gtk_tree_row_reference_
+
+ ##
+ ## there doesn't seem to be a GType for GtkTreeRowReference in 2.0.x...
+ ##
+
+#ifdef GTK_TYPE_TREE_ROW_REFERENCE
+
 ##GtkTreeRowReference* gtk_tree_row_reference_new (GtkTreeModel *model, GtkTreePath *path);
+GtkTreeRowReference_own_ornull* gtk_tree_row_reference_new (GtkTreeModel *model, GtkTreePath *path);
+
+  ## mmmm, the docs say "you do not need to use this function"
 ##GtkTreeRowReference* gtk_tree_row_reference_new_proxy (GObject *proxy, GtkTreeModel *model, GtkTreePath *path);
-##GtkTreePath* gtk_tree_row_reference_get_path (GtkTreeRowReference *reference);
-##
-#### gboolean gtk_tree_row_reference_valid (GtkTreeRowReference *reference)
-##gboolean
-##gtk_tree_row_reference_valid (reference)
-##	GtkTreeRowReference *reference
-##
+
+GtkTreePath_own_ornull * gtk_tree_row_reference_get_path (GtkTreeRowReference *reference);
+
+## gboolean gtk_tree_row_reference_valid (GtkTreeRowReference *reference)
+gboolean
+gtk_tree_row_reference_valid (reference)
+	GtkTreeRowReference *reference
+
 #### a perl developer need never know this exists
 #### void gtk_tree_row_reference_free (GtkTreeRowReference *reference)
-##
-###if GTK_CHECK_VERSION(2,2,0)
-##GtkTreeRowReference* gtk_tree_row_reference_copy (GtkTreeRowReference *reference);
-###endif /* 2.2.0 */
-##
-##
+
+#if GTK_CHECK_VERSION(2,2,0)
+
+GtkTreeRowReference* gtk_tree_row_reference_copy (GtkTreeRowReference *reference);
+
+#endif /* 2.2.0 */
+
+ ## i gather that you only need these if you created the row reference with
+ ## gtk_tree_row_reference_new_proxy...  but they recommend you don't use
+ ## the proxy stuff.  i'll hold off until somebody asks for it.
 #### void gtk_tree_row_reference_inserted (GObject *proxy, GtkTreePath *path)
 ##void
 ##gtk_tree_row_reference_inserted (proxy, path)
@@ -184,6 +211,8 @@ gtk_tree_path_is_descendant (path, ancestor)
 ##	GtkTreeIter *iter
 ##	gint *new_order
 ##
+
+#endif /* defined GTK_TYPE_TREE_ROW_REFERENCE */
 
 ####MODULE = Gtk2::TreeModel	PACKAGE = Gtk2::TreeIter	PREFIX = gtk_tree_iter_
 
@@ -308,7 +337,6 @@ gtk_tree_model_get_value (tree_model, iter, column)
     OUTPUT:
 	RETVAL
 
-##### FIXME this is where i stopped and went home
 
 ##
 ## gboolean gtk_tree_model_iter_next (GtkTreeModel *tree_model, GtkTreeIter *iter)
@@ -349,21 +377,35 @@ gtk_tree_model_iter_n_children (tree_model, iter)
 	GtkTreeModel *tree_model
 	GtkTreeIter_ornull *iter
 
-#### gboolean gtk_tree_model_iter_nth_child (GtkTreeModel *tree_model, GtkTreeIter *iter, GtkTreeIter *parent, gint n)
-##gboolean
-##gtk_tree_model_iter_nth_child (tree_model, iter, parent, n)
-##	GtkTreeModel *tree_model
-##	GtkTreeIter *iter
-##	GtkTreeIter *parent
-##	gint n
-##
-#### gboolean gtk_tree_model_iter_parent (GtkTreeModel *tree_model, GtkTreeIter *iter, GtkTreeIter *child)
-##gboolean
-##gtk_tree_model_iter_parent (tree_model, iter, child)
-##	GtkTreeModel *tree_model
-##	GtkTreeIter *iter
-##	GtkTreeIter *child
-##
+## gboolean gtk_tree_model_iter_nth_child (GtkTreeModel *tree_model, GtkTreeIter *iter, GtkTreeIter *parent, gint n)
+GtkTreeIter_own*
+gtk_tree_model_iter_nth_child (tree_model, parent, n)
+	GtkTreeModel *tree_model
+	GtkTreeIter *parent
+	gint n
+    PREINIT:
+	GtkTreeIter iter;
+    CODE:
+	if (!gtk_tree_model_iter_nth_child (tree_model, &iter, parent, n))
+		XSRETURN_UNDEF;
+	RETVAL = &iter;
+    OUTPUT:
+	RETVAL
+
+## gboolean gtk_tree_model_iter_parent (GtkTreeModel *tree_model, GtkTreeIter *iter, GtkTreeIter *child)
+GtkTreeIter_own *
+gtk_tree_model_iter_parent (tree_model, child)
+	GtkTreeModel *tree_model
+	GtkTreeIter *child
+    PREINIT:
+	GtkTreeIter iter;
+    CODE:
+	if (! gtk_tree_model_iter_parent (tree_model, &iter, child))
+		XSRETURN_UNDEF;
+	RETVAL = &iter;
+    OUTPUT:
+	RETVAL
+
 #### void gtk_tree_model_ref_node (GtkTreeModel *tree_model, GtkTreeIter *iter)
 ##void
 ##gtk_tree_model_ref_node (tree_model, iter)
@@ -393,47 +435,55 @@ gtk_tree_model_get (tree_model, iter, ...)
 		g_value_unset (&gvalue);
 	}
 
+ ## va_list means nothing to a perl developer, it's a c-specific thing.
 #### void gtk_tree_model_get_valist (GtkTreeModel *tree_model, GtkTreeIter *iter, va_list var_args)
-##void
-##gtk_tree_model_get_valist (tree_model, iter, var_args)
-##	GtkTreeModel *tree_model
-##	GtkTreeIter *iter
-##	va_list var_args
-##
-#### void gtk_tree_model_foreach (GtkTreeModel *model, GtkTreeModelForeachFunc func, gpointer user_data)
-##void
-##gtk_tree_model_foreach (model, func, user_data)
-##	GtkTreeModel *model
-##	GtkTreeModelForeachFunc func
-##	gpointer user_data
-##
-#### void gtk_tree_model_row_changed (GtkTreeModel *tree_model, GtkTreePath *path, GtkTreeIter *iter)
-##void
-##gtk_tree_model_row_changed (tree_model, path, iter)
-##	GtkTreeModel *tree_model
-##	GtkTreePath *path
-##	GtkTreeIter *iter
-##
-#### void gtk_tree_model_row_inserted (GtkTreeModel *tree_model, GtkTreePath *path, GtkTreeIter *iter)
-##void
-##gtk_tree_model_row_inserted (tree_model, path, iter)
-##	GtkTreeModel *tree_model
-##	GtkTreePath *path
-##	GtkTreeIter *iter
-##
-#### void gtk_tree_model_row_has_child_toggled (GtkTreeModel *tree_model, GtkTreePath *path, GtkTreeIter *iter)
-##void
-##gtk_tree_model_row_has_child_toggled (tree_model, path, iter)
-##	GtkTreeModel *tree_model
-##	GtkTreePath *path
-##	GtkTreeIter *iter
-##
-#### void gtk_tree_model_row_deleted (GtkTreeModel *tree_model, GtkTreePath *path)
-##void
-##gtk_tree_model_row_deleted (tree_model, path)
-##	GtkTreeModel *tree_model
-##	GtkTreePath *path
-##
+
+## void gtk_tree_model_foreach (GtkTreeModel *model, GtkTreeModelForeachFunc func, gpointer user_data)
+void
+gtk_tree_model_foreach (model, func, user_data)
+	GtkTreeModel *model
+	SV * func
+	SV * user_data
+    PREINIT:
+	GPerlCallback * callback;
+	GType types[] = {
+		GTK_TYPE_TREE_MODEL,
+		GTK_TYPE_TREE_PATH,
+		GTK_TYPE_TREE_ITER
+	};
+    CODE:
+	callback = gperl_callback_new (func, user_data, G_N_ELEMENTS (types), types,
+	                               G_TYPE_BOOLEAN);
+	gtk_tree_model_foreach (model, gtk2perl_tree_model_foreach_func, callback);
+	gperl_callback_destroy (callback);
+
+## void gtk_tree_model_row_changed (GtkTreeModel *tree_model, GtkTreePath *path, GtkTreeIter *iter)
+void
+gtk_tree_model_row_changed (tree_model, path, iter)
+	GtkTreeModel *tree_model
+	GtkTreePath *path
+	GtkTreeIter *iter
+
+## void gtk_tree_model_row_inserted (GtkTreeModel *tree_model, GtkTreePath *path, GtkTreeIter *iter)
+void
+gtk_tree_model_row_inserted (tree_model, path, iter)
+	GtkTreeModel *tree_model
+	GtkTreePath *path
+	GtkTreeIter *iter
+
+## void gtk_tree_model_row_has_child_toggled (GtkTreeModel *tree_model, GtkTreePath *path, GtkTreeIter *iter)
+void
+gtk_tree_model_row_has_child_toggled (tree_model, path, iter)
+	GtkTreeModel *tree_model
+	GtkTreePath *path
+	GtkTreeIter *iter
+
+## void gtk_tree_model_row_deleted (GtkTreeModel *tree_model, GtkTreePath *path)
+void
+gtk_tree_model_row_deleted (tree_model, path)
+	GtkTreeModel *tree_model
+	GtkTreePath *path
+
 #### void gtk_tree_model_rows_reordered (GtkTreeModel *tree_model, GtkTreePath *path, GtkTreeIter *iter, gint *new_order)
 ##void
 ##gtk_tree_model_rows_reordered (tree_model, path, iter, new_order)
