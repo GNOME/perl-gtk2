@@ -72,7 +72,7 @@ gtk_text_iter_get_pixbuf (iter)
 ## GSList* gtk_text_iter_get_toggled_tags  (const GtkTextIter *iter, gboolean toggled_on)
 
 ## GtkTextChildAnchor* gtk_text_iter_get_child_anchor (const GtkTextIter *iter)
-GtkTextChildAnchor*
+GtkTextChildAnchor_ornull*
 gtk_text_iter_get_child_anchor (iter)
 	GtkTextIter *iter
 
