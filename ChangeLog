@@ -1,4 +1,9 @@
-2004/01/12 09:49 (-0500) rwmcfa1
+2004/01/13 23:03 (-0500) rwmcfa1
+
+	* xs/GtkTextIter.xs: _ornull's added to tag params for tag_toggle funcs
+	found by Dan Lyke
+
+2004/01/13 20:30 (-0500) rwmcfa1
 
 	* t/GtkTreeView.xs: added tests for set_cursor_on_cell, scroll_to_point,
 	get_path_at_pos, tree_to_widget_coords, and widget_to_tree_coords.

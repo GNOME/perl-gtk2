@@ -451,14 +451,14 @@ gtk_text_iter_set_visible_line_index (iter, byte_on_line)
 ## gboolean gtk_text_iter_forward_to_tag_toggle (GtkTextIter *iter, GtkTextTag *tag)
 gboolean
 gtk_text_iter_forward_to_tag_toggle (iter, tag)
-	GtkTextIter *iter
-	GtkTextTag *tag
+	GtkTextIter       * iter
+	GtkTextTag_ornull * tag
 
 ## gboolean gtk_text_iter_backward_to_tag_toggle (GtkTextIter *iter, GtkTextTag *tag)
 gboolean
 gtk_text_iter_backward_to_tag_toggle (iter, tag)
-	GtkTextIter *iter
-	GtkTextTag *tag
+	GtkTextIter       * iter
+	GtkTextTag_ornull * tag
 
 ## gboolean gtk_text_iter_forward_find_char (GtkTextIter *iter, GtkTextCharPredicate pred, gpointer user_data, const GtkTextIter *limit)
 ## gboolean gtk_text_iter_backward_find_char (GtkTextIter *iter, GtkTextCharPredicate pred, gpointer user_data, const GtkTextIter *limit)
