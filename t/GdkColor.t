@@ -7,10 +7,18 @@
 # 	- muppet
 #########################
 
-use Gtk2::TestHelper tests => 6;
+use Gtk2::TestHelper tests => 16;
 
 my $cmap = Gtk2::Gdk::Colormap->get_system;
 ok ($cmap, 'system colormap');
+
+my $visual = $cmap->get_visual;
+ok ($visual, 'got a visual');
+
+my $tmp_cmap = Gtk2::Gdk::Colormap->new ($visual, 1);
+ok ($tmp_cmap, 'new colormap');
+
+ok ($cmap->get_screen, 'got a screen');
 
 # ten random colors
 my @colors = map {
@@ -29,7 +37,16 @@ ok($c, 'query_color does something');
 $cmap->free_colors (@colors);
 ok (1, 'free_colors didn\'t coredump');
 
+my $black = Gtk2::Gdk::Color->parse("Black");
+ok ($black, 'Black parsed ok');
 
+ok ($black->equal($black), 'Black == Black');
+is ($black->hash, 0, 'Black\'s hash == 0');
+
+like($black->pixel, qr/^\d+$/);
+is($black->red, 0);
+is($black->green, 0);
+is($black->blue, 0);
 
 __END__
 

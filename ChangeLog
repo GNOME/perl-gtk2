@@ -1,5 +1,16 @@
+2004/01/05 22:40 (+0100) kaffeetisch [test-suite-branch]
+
+	* MANIFEST
+	R t/20.GdkColor.t
+	A t/GdkColor.t: Renamed.  Some new tests.
+
+	* MANIFEST
+	R t/30.GtkCellRenderer.t
+	A t/GtkCellRenderer.t: Renamed.
+
 2004/01/05 21:48 (+0100) kaffeetisch [test-suite-branch]
 
+	* MANIFEST
 	R t/07.GtkBoxes.t
 	* t/GtkBox.t
 	R t/05.GtkListStore-etc.t

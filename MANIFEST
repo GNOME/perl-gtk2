@@ -1,16 +1,7 @@
+api.pod
 AUTHORS
 ChangeLog
 CodeGen.pm
-Gtk2.exports
-Gtk2.pm
-LICENSE
-MANIFEST			This list of files
-MANIFEST.SKIP
-META.yml
-Makefile.PL
-README
-TODO
-api.pod
 devel.pod
 examples/accel_groups.pl
 examples/adding_stock_icons.pl
@@ -65,8 +56,15 @@ gtk-demo/stock_browser.pl
 gtk-demo/textview.pl
 gtk-demo/tree_store.pl
 gtk.typemap
+Gtk2.exports
+Gtk2.pm
 gtk2perl.h
+LICENSE
+Makefile.PL
+MANIFEST			This list of files
+MANIFEST.SKIP
 maps
+META.yml
 perl-Gtk2.spec.in
 pm/Helper.pm
 pm/Pango.pm
@@ -74,13 +72,11 @@ pm/SimpleList.pm
 pm/SimpleMenu.pm
 pm/TestHelper.pm
 ppport.h
+README
 t/00.Gtk2.t
 t/01.GtkWindow.t
 t/02.GtkContainer.t
-t/05.GtkListStore-etc.t
-t/07.GtkBoxes.t
-t/20.GdkColor.t
-t/30.GtkCellRenderer.t
+t/GdkColor.t
 t/GdkRegion.t
 t/GdkWindow.t
 t/GtkAccelGroup.t
@@ -94,6 +90,7 @@ t/GtkBox.t
 t/GtkButton.t
 t/GtkButtonBox.t
 t/GtkCalendar.t
+t/GtkCellRenderer.t
 t/GtkCheckButton.t
 t/GtkCheckMenuItem.t
 t/GtkClipboard.t
@@ -109,6 +106,7 @@ t/GtkFixed.t
 t/GtkFontSelection.t
 t/GtkFrame.t
 t/GtkGammaCurve.t
+t/GtkHandleBox.t
 t/GtkHBox.t
 t/GtkHButtonBox.t
 t/GtkHPaned.t
@@ -116,7 +114,7 @@ t/GtkHRuler.t
 t/GtkHScale.t
 t/GtkHScrollbar.t
 t/GtkHSeparator.t
-t/GtkHandleBox.t
+t/GtkIconFactory.t
 t/GtkImageMenuItem.t
 t/GtkInputDialog.t
 t/GtkInvisible.t
@@ -156,14 +154,15 @@ t/GtkTreeStore.t
 t/GtkTreeView.t
 t/GtkVBox.t
 t/GtkVButtonBox.t
+t/GtkViewport.t
 t/GtkVPaned.t
 t/GtkVRuler.t
 t/GtkVScale.t
 t/GtkVScrollbar.t
 t/GtkVSeparator.t
-t/GtkViewport.t
 t/GtkWidget.t
 t/text-iter-searches.t
+TODO
 tools/fetch_faq.pl
 tools/genkeysyms.pl
 tools/genmaps.pl
@@ -227,6 +226,7 @@ xs/GtkFixed.xs
 xs/GtkFontSelection.xs
 xs/GtkFrame.xs
 xs/GtkGammaCurve.xs
+xs/GtkHandleBox.xs
 xs/GtkHBox.xs
 xs/GtkHButtonBox.xs
 xs/GtkHPaned.xs
@@ -234,7 +234,6 @@ xs/GtkHRuler.xs
 xs/GtkHScale.xs
 xs/GtkHScrollbar.xs
 xs/GtkHSeparator.xs
-xs/GtkHandleBox.xs
 xs/GtkIconFactory.xs
 xs/GtkImage.xs
 xs/GtkImageMenuItem.xs
@@ -295,12 +294,12 @@ xs/GtkTreeView.xs
 xs/GtkTreeViewColumn.xs
 xs/GtkVBox.xs
 xs/GtkVButtonBox.xs
+xs/GtkViewport.xs
 xs/GtkVPaned.xs
 xs/GtkVRuler.xs
 xs/GtkVScale.xs
 xs/GtkVScrollbar.xs
 xs/GtkVSeparator.xs
-xs/GtkViewport.xs
 xs/GtkWidget.xs
 xs/GtkWindow.xs
 xs/PangoContext.xs
