@@ -46,3 +46,8 @@ is_deeply([$fs -> get_selections()], [$this]);
 
 $fs -> set_select_multiple(1);
 is($fs -> get_select_multiple(), 1);
+
+__END__
+
+Copyright (C) 2003 by the gtk2-perl team (see the file AUTHORS for the
+full list).  See LICENSE for more information.

@@ -17,3 +17,8 @@ is($scale -> get_draw_value(), 1);
 
 $scale -> set_value_pos("right");
 is($scale -> get_value_pos(), "right");
+
+__END__
+
+Copyright (C) 2003 by the gtk2-perl team (see the file AUTHORS for the
+full list).  See LICENSE for more information.

@@ -1,3 +1,13 @@
+2004/01/08 18:46 (+0100) kaffeetisch [test-suite-branch]
+
+	* t/GtkClipboard.t: New tests for various methods.
+
+	* MANIFEST
+	A t/GtkSelection.t
+	A t/GtkStock.t: New tests.
+
+	* t/*.t: Add/Change license boiler plate.
+
 2004/01/07 21:48 (+0100) kaffeetisch [test-suite-branch]
 
 	* MANIFEST

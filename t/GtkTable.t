@@ -28,3 +28,8 @@ is($table -> get_default_col_spacing(), 5);
 
 $table -> set_homogeneous(0);
 ok(! $table -> get_homogeneous());
+
+__END__
+
+Copyright (C) 2003 by the gtk2-perl team (see the file AUTHORS for the
+full list).  See LICENSE for more information.

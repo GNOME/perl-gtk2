@@ -246,3 +246,8 @@ $window -> set_user_data(123);
 is($window -> get_user_data(), 123);
 
 $window -> hide();
+
+__END__
+
+Copyright (C) 2003 by the gtk2-perl team (see the file AUTHORS for the
+full list).  See LICENSE for more information.

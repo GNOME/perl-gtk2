@@ -140,6 +140,7 @@ t/GtkRc.t
 t/GtkRuler.t
 t/GtkScale.t
 t/GtkScrolledWindow.t
+t/GtkSelection.t
 t/GtkSeparatorMenuItem.t
 t/GtkSimpleList.t
 t/GtkSimpleMenu.t
@@ -147,6 +148,7 @@ t/GtkSizeGroup.t
 t/GtkSocket-GtkPlug.t
 t/GtkSpinButton.t
 t/GtkStatusBar.t
+t/GtkStock.t
 t/GtkTable.t
 t/GtkTearoffMenuItem.t
 t/GtkTextIter.t

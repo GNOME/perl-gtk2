@@ -33,3 +33,8 @@ isa_ok($entry -> get_layout(), "Gtk2::Pango::Layout");
 my ($x, $y) = $entry -> get_layout_offsets();
 like($x, qr/^-?\d+$/);
 like($y, qr/^-?\d+$/);
+
+__END__
+
+Copyright (C) 2003 by the gtk2-perl team (see the file AUTHORS for the
+full list).  See LICENSE for more information.

@@ -26,3 +26,8 @@ is($dialog -> get_font_name(), "Sans 12");
 
 $dialog -> set_preview_text("Quick brown gtk2-perl.");
 is($dialog -> get_preview_text(), "Quick brown gtk2-perl.");
+
+__END__
+
+Copyright (C) 2003 by the gtk2-perl team (see the file AUTHORS for the
+full list).  See LICENSE for more information.

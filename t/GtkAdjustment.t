@@ -32,3 +32,8 @@ $adjustment -> clamp_page(0, 100);
 
 $adjustment -> changed();
 $adjustment -> value_changed();
+
+__END__
+
+Copyright (C) 2003 by the gtk2-perl team (see the file AUTHORS for the
+full list).  See LICENSE for more information.

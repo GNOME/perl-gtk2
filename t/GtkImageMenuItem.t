@@ -26,3 +26,8 @@ my $image = Gtk2::Image -> new_from_stock("gtk-quit", "menu");
 
 $item -> set_image($image);
 is($item -> get_image(), $image);
+
+__END__
+
+Copyright (C) 2003 by the gtk2-perl team (see the file AUTHORS for the
+full list).  See LICENSE for more information.

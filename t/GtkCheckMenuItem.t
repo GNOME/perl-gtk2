@@ -31,3 +31,8 @@ SKIP: {
   $item -> set_draw_as_radio(1);
   is($item -> get_draw_as_radio(), 1);
 }
+
+__END__
+
+Copyright (C) 2003 by the gtk2-perl team (see the file AUTHORS for the
+full list).  See LICENSE for more information.

@@ -23,3 +23,8 @@ is($range -> get_value(), 23.42);
 
 $range -> set_increments(1, 5);
 $range -> set_range(0, 100);
+
+__END__
+
+Copyright (C) 2003 by the gtk2-perl team (see the file AUTHORS for the
+full list).  See LICENSE for more information.

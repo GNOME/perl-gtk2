@@ -21,3 +21,8 @@ $item_three -> set_group($item_one);
 $item_four -> set_group($item_one);
 
 is_deeply($item_one -> get_group(), [$item_one, $item_two, $item_three, $item_four]);
+
+__END__
+
+Copyright (C) 2003 by the gtk2-perl team (see the file AUTHORS for the
+full list).  See LICENSE for more information.

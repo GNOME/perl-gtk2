@@ -40,3 +40,8 @@ Gtk2::AccelMap -> foreach_unfiltered("bla", sub {
   is(shift(), 1);
   is(shift(), "bla");
 });
+
+__END__
+
+Copyright (C) 2003 by the gtk2-perl team (see the file AUTHORS for the
+full list).  See LICENSE for more information.

@@ -18,3 +18,8 @@ $option_menu -> set_history(1);
 is($option_menu -> get_history(), 1);
 
 $option_menu -> remove_menu();
+
+__END__
+
+Copyright (C) 2003 by the gtk2-perl team (see the file AUTHORS for the
+full list).  See LICENSE for more information.

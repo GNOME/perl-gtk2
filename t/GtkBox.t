@@ -68,3 +68,8 @@ for( $r = 0; $r < 3; $r++ )
 		##print "class path $path\n";
 	}
 }
+
+__END__
+
+Copyright (C) 2003 by the gtk2-perl team (see the file AUTHORS for the
+full list).  See LICENSE for more information.

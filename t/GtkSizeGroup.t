@@ -14,3 +14,8 @@ my $label = Gtk2::Label -> new("Bla");
 
 $group -> add_widget($label);
 $group -> remove_widget($label);
+
+__END__
+
+Copyright (C) 2003 by the gtk2-perl team (see the file AUTHORS for the
+full list).  See LICENSE for more information.

@@ -45,3 +45,8 @@ $text = $match_start
 is ($text, 'Lore', 'found string match backward');
 is ($match_start->get_offset, 3634, 'match start offset');
 is ($match_end->get_offset, 3638, 'match end offset');
+
+__END__
+
+Copyright (C) 2003 by the gtk2-perl team (see the file AUTHORS for the
+full list).  See LICENSE for more information.

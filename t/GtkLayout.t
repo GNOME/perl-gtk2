@@ -28,3 +28,8 @@ $layout -> move($label, 5, 5);
 
 $layout -> set_size(10, 10);
 is_deeply([$layout -> get_size()], [10, 10]);
+
+__END__
+
+Copyright (C) 2003 by the gtk2-perl team (see the file AUTHORS for the
+full list).  See LICENSE for more information.

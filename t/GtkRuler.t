@@ -12,3 +12,8 @@ is($ruler -> get_metric(), "pixels");
 
 $ruler -> set_range(0, 100, 10, 100);
 is_deeply([$ruler -> get_range], [0, 100, 10, 100]);
+
+__END__
+
+Copyright (C) 2003 by the gtk2-perl team (see the file AUTHORS for the
+full list).  See LICENSE for more information.

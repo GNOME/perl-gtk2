@@ -218,3 +218,8 @@ $requisition = Gtk2::Requisition->new (5, 5);
 isa_ok( $requisition, "Gtk2::Requisition" );
 is( $requisition->width, 5 );
 is( $requisition->height, 5 );
+
+__END__
+
+Copyright (C) 2003 by the gtk2-perl team (see the file AUTHORS for the
+full list).  See LICENSE for more information.

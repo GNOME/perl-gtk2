@@ -19,3 +19,8 @@ is($button -> get("label"), "_Bla");
 $button = Gtk2::CheckButton -> new_with_label("Bla");
 isa_ok($button, "Gtk2::CheckButton");
 is($button -> get("label"), "Bla");
+
+__END__
+
+Copyright (C) 2003 by the gtk2-perl team (see the file AUTHORS for the
+full list).  See LICENSE for more information.

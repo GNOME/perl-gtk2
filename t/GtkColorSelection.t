@@ -33,3 +33,8 @@ my @palette = $selection -> palette_from_string("DarkSlateGray:LightBlue:Black")
 isa_ok($_, "Gtk2::Gdk::Color") foreach (@palette);
 
 is($selection -> palette_to_string(@palette), "#2F4F4F:#ADD8E6:#000000");
+
+__END__
+
+Copyright (C) 2003 by the gtk2-perl team (see the file AUTHORS for the
+full list).  See LICENSE for more information.

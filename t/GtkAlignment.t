@@ -16,3 +16,8 @@ SKIP: {
   $alignment -> set_padding(1, 2, 3, 4);
   is_deeply([$alignment -> get_padding()], [1, 2, 3, 4]);
 }
+
+__END__
+
+Copyright (C) 2003 by the gtk2-perl team (see the file AUTHORS for the
+full list).  See LICENSE for more information.

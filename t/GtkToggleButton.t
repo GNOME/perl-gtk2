@@ -24,3 +24,8 @@ is($button -> get_active(), 1);
 
 $button -> set_inconsistent(1);
 is($button -> get_inconsistent(), 1);
+
+__END__
+
+Copyright (C) 2003 by the gtk2-perl team (see the file AUTHORS for the
+full list).  See LICENSE for more information.

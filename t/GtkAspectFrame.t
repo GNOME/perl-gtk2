@@ -14,3 +14,8 @@ is_deeply([$frame -> get(qw/xalign yalign ratio obey-child/)],
 $frame -> set_params(1, 1, 6, 1);
 is_deeply([$frame -> get(qw/xalign yalign ratio obey-child/)],
           [1, 1, 6, 1], '$aspect->set_params, verify');
+
+__END__
+
+Copyright (C) 2003 by the gtk2-perl team (see the file AUTHORS for the
+full list).  See LICENSE for more information.
