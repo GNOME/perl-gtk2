@@ -106,7 +106,7 @@ sub on_render {
   my ($cell, $window, $widget, $background_area, $cell_area, $expose_area, $flags) = @_;
   my $state;
 
-  if (grep {/selected/} @$flags) {
+  if ($flags & 'selected') {
     $state = $widget -> has_focus()
       ? 'selected'
       : 'active';

@@ -109,7 +109,7 @@ sub on_render {
 					 $cell_area->width,
 					 $cell_area->height);
 	} else {
-		if (grep {/selected/} @$flags) {
+		if ($flags & 'selected') {
 			$state = $widget->has_focus
 			       ? 'selected'
 			       : 'active';

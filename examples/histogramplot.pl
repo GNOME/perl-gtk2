@@ -390,8 +390,8 @@ sub motion_notify_event {
 	}
 	if ($plot->{dragging}) {
 		return FALSE
-			if (!(grep /button1-mask/, @$state) ||
-			    not defined $plot->{pixmap});
+			unless $state >= 'button1-mask'
+			    and defined $plot->{pixmap};
 		
 		$plot->draw_th_marker ($plot->window, FALSE);
 		
