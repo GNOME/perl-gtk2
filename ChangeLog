@@ -13,6 +13,12 @@
 	gtk_tree_(get|set)_row_drag_data to Gtk2::SelectionData so they
 	will be called properly as methods.
 
+	* xs/GtkImage.xs: implemented the functions to do with GdkImages
+	and GdkPixbufAnimations
+
+	* xs/GtkStyle.xs api.pod: implement $style->render_icon and
+	$style->paint_polygon
+
 2003/08/19 22:52 rwmcfa1
 
 	* xs/GtkTextBuffer.xs: implemented gtk_text_buffer_insert_with_tags,
