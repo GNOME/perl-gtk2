@@ -5,7 +5,7 @@
 use Gtk2::TestHelper
 	# FIXME 2.4
 	at_least_version => [2, 3, 0, "GtkFileChooser is new in 2.4"],
-	tests => 30;
+	tests => 31;
 use File::Spec;
 use Cwd;
 
@@ -119,6 +119,9 @@ ok (!$file_chooser->get_preview_widget_active);
 
 $file_chooser->set_preview_widget_active (TRUE);
 ok ($file_chooser->get_preview_widget_active);
+
+$file_chooser->set_use_preview_label (1);
+is ($file_chooser->get_use_preview_label, 1);
 
 
 # FIXME

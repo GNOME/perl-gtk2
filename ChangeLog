@@ -1,3 +1,8 @@
+2004/03/01 01:54 (+0100) kaffeetisch
+
+	* t/GtkFileChooser.t
+	* xs/GtkFileChooser.xs: Bind and test [sg]et_use_preview_label.
+
 2004/02/29 05:09 (-0500) muppetman
 
 	* t/GtkWidget.t: skip style_get on 2.0.x; we can't implement style_get

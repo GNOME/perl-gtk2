@@ -123,6 +123,10 @@ gchar_own *gtk_file_chooser_get_preview_uri (GtkFileChooser *file_chooser);
     OUTPUT:
 	RETVAL
 
+void gtk_file_chooser_set_use_preview_label (GtkFileChooser *chooser, gboolean use_label);
+
+gboolean gtk_file_chooser_get_use_preview_label (GtkFileChooser *chooser);
+
 
 ## Extra widget
 ##
