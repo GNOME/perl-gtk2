@@ -222,7 +222,7 @@ separated by whitespace.  the fields should be:
   base type     one of GObject, GBoxed, GEnum, GFlags.
                 GtkObject is also supported, but the
                 distinction is no longer necessary as
-                of Glib 0.24.
+                of Glib 0.26.
   package       name of the perl package to which this
                 class name should be mapped, e.g.
                 Gtk2::Widget
