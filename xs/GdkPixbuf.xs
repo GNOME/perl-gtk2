@@ -35,6 +35,9 @@ MODULE = Gtk2::Gdk::Pixbuf	PACKAGE = Gtk2::Gdk::Pixbuf	PREFIX = gdk_pixbuf_
 =for enum GdkPixbufAlphaMode
 =cut
 
+=for enum GdkColorspace
+=cut
+
  ## void gdk_pixbuf_render_threshold_alpha (GdkPixbuf * pixbuf, GdkBitmap * bitmap, int src_x, int src_y, int dest_x, int dest_y, int width, int height, int alpha_threshold);
 void
 gdk_pixbuf_render_threshold_alpha (pixbuf, bitmap, src_x, src_y, dest_x, dest_y, width, height, alpha_threshold)
@@ -265,6 +268,14 @@ gdk_pixbuf_new_from_file (class, filename)
 
 ###  GdkPixbuf *gdk_pixbuf_new_from_data (const guchar *data, GdkColorspace colorspace, gboolean has_alpha, int bits_per_sample, int width, int height, int rowstride, GdkPixbufDestroyNotify destroy_fn, gpointer destroy_fn_data) 
 =for apidoc
+=for arg data (string of packed binary data) pixel data, usually made with pack()
+=for arg has_alpha true if the image data includes an alpha channel (opacity information).
+=for arg width in pixels.
+=for arg height in pixels.
+=for arg rowstride distance in bytes between row starts; usually 3*width for rgb data, 4*width if I<$has_alpha> is true.
+
+Creates a new Gtk2::Gdk::Pixbuf out of in-memory image data.  Currently only
+RGB images with 8 bits per sample are supported.
 
 In C this function allows you to wrap a GdkPixbuf structure around existing
 pixel data.  In Perl, we have to use C<pack> to generate a scalar containing
@@ -304,8 +315,49 @@ gdk_pixbuf_new_from_data (class, data, colorspace, has_alpha, bits_per_sample, w
 	RETVAL
 
 ##  GdkPixbuf *gdk_pixbuf_new_from_xpm_data (const char **data) 
+=for apidoc
+=for arg ... xpm data as a list of strings (see discussion)
+X Pixel Map (XPM) files are designed to be easy to edit and easy to include
+directly into C programs.  The file format is the C syntax of the declaration
+and initialization of a variable containing an array of strings.
+C<new_from_xpm_data> allows you to create an image from such data included
+directly in your program source.
+
+Since XPM files are C syntax, you must mangle that source a bit to work in a
+Perl program.  For example, this is a valid xpm, but it is not valid Perl code:
+
+ /* XPM */
+ static char * test_xpm[] = {
+ "4 4 3 1",
+ " 	c None",
+ ".	c red",
+ "+	c blue",
+ ".. +",
+ ". ++",
+ " ++.",
+ "++.."};
+
+You'll need to change the array declaration format, and change the
+double-quoted strings to single-quoted to avoid Perl interpreting
+any chars in the strings as special.
+
+ my @test_xpm = (
+ '4 4 3 1',
+ ' 	c None',
+ '.	c red',
+ '+	c blue',
+ '.. +',
+ '. ++',
+ ' ++.',
+ '++..');
+
+ $pixbuf = Gtk2::Gdk::Pixbuf->new_from_xpm_data (@test_xpm);
+
+[It's only two or three regexes... Perhaps we should distribute a script
+to convert XPM files to the proper format?]
+=cut
 GdkPixbuf_noinc *
-gdk_pixbuf_new_from_xpm_data (class, data, ...)
+gdk_pixbuf_new_from_xpm_data (class, ...)
     PREINIT:
 	char ** lines;
 	int i;
@@ -320,30 +372,69 @@ gdk_pixbuf_new_from_xpm_data (class, data, ...)
 
 ## croaks on error
 ##  GdkPixbuf* gdk_pixbuf_new_from_inline (gint data_length, const guint8 *data, gboolean copy_pixels, GError **error) 
+=for apidoc
+=for arg data (packed binary data) the format is special, see discussion
+=for arg copy_pixels whether I<$data> should be copied, defaults to true
+
+Gtk+ ships with a tool called C<gdk-pixbuf-csource>, which turns any image
+understood by gdk-pixbuf into the C syntax of the declaration of a static
+data structure containing that image data, to be #included directly into
+your source code.  C<gdk_pixbuf_new_from_inline> creates a new GdkPixbuf
+from that data structure.
+
+Currently, this is not very easy to do from Perl.  The output of
+C<gdk-pixbuf-csource> must be mangled rather ruthlessly to create valid
+Perl code using pack and translation from C string escapes to valid Perl
+string escapes (for encoding and interpretation isses).  Because Perl
+scalars are garbage collected, it's rather rare to have the ability to use
+static data, so I<$copy_pixels> defaults to true; if you can guarantee the
+image data will outlive the pixbuf you can pass false here and save some
+memory. 
+
+For more information, see the description of C<gdk_pixbuf_new_from_inline>
+in the C API reference at http://gtk.org/api/ .
+=cut
 GdkPixbuf_noinc *
-gdk_pixbuf_new_from_inline (class, data_length, data, copy_pixels)
-	gint data_length
-	const guchar *data
+gdk_pixbuf_new_from_inline (class, data, copy_pixels=TRUE)
+	SV *data
 	gboolean copy_pixels
     PREINIT:
 	GError * error = NULL;
+	gint data_length;
+	const guchar * raw_data;
     CODE:
-	RETVAL = gdk_pixbuf_new_from_inline (data_length, data, 
+	raw_data = SvPV (data, data_length);
+	RETVAL = gdk_pixbuf_new_from_inline (data_length, raw_data, 
 	                                     copy_pixels, &error);
 	if (!RETVAL)
 		gperl_croak_gerror (NULL, error);
     OUTPUT:
 	RETVAL
 
-##  void gdk_pixbuf_fill (GdkPixbuf *pixbuf, guint32 pixel) 
-void
-gdk_pixbuf_fill (pixbuf, pixel)
-	GdkPixbuf *pixbuf
-	guint32 pixel
-
 
 ### croaks on error
 ##  gboolean gdk_pixbuf_save (GdkPixbuf *pixbuf, const char *filename, const char *type, GError **error, ...) 
+=for apidoc
+=for arg type name of file format (e.g. "jpeg", "png")
+=for arg ... list of key-value save options
+
+Save I<$pixbuf> to a file named I<$filename>, in the format I<$type>, which
+is currently "jpeg" or "png".  The function will croak if there is an error,
+which may arise from file- or image format-related issues.
+
+Any values in I<...> should be key/value string pairs that modify the saving
+parameters.  For example:
+
+ $pixbuf->save ($filename, 'jpeg', quality => '100');
+
+Currently only a few parameters exist.  JPEG images can be saved with a
+"quality" parameter; its value should be in the range [0,100].  Text chunks can
+be attached to PNG images by specifying parameters of the form "tEXt::key",
+where key is an ASCII string of length 1-79.  The values are UTF-8 encoded
+strings.  (This is a quote from the C API reference; note that the C API
+reference is the canonical source for this information.)
+
+=cut
 void
 gdk_pixbuf_save (pixbuf, filename, type, ...)
 	GdkPixbuf *pixbuf
@@ -409,6 +500,16 @@ gdk_pixbuf_saturate_and_pixelate (src, dest, saturation, pixelate)
 	GdkPixbuf *dest
 	gfloat saturation
 	gboolean pixelate
+
+##  void gdk_pixbuf_fill (GdkPixbuf *pixbuf, guint32 pixel) 
+=for apidoc
+=for arg pixel a packed RGBA value.
+Clear I<$pixbuf> to contain only the value given in I<$pixel>.
+=cut
+void
+gdk_pixbuf_fill (pixbuf, pixel)
+	GdkPixbuf *pixbuf
+	guint32 pixel
 
 ##  void gdk_pixbuf_scale (const GdkPixbuf *src, GdkPixbuf *dest, int dest_x, int dest_y, int dest_width, int dest_height, double offset_x, double offset_y, double scale_x, double scale_y, GdkInterpType interp_type) 
 void

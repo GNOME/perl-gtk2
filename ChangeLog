@@ -1,3 +1,14 @@
+2003/11/29 11:23 (-0500) muppetman
+
+	* MANIFEST
+	A examples/inline-images.pl: new example
+
+	* xs/GdkPixbuf.xs: lots of pod for various hard-to-use functions.
+	removed unnecessary length() parameter from new_from_inline(), which
+	will break any code that was using it, but it's really hard to use
+	as it is so i can't imagine anyone's using it.  if you are, i
+	apologize.
+
 2003/11/28 21:57 (-0500) muppetman
 
 	* xs/GtkRc.xs: SV * class isn't needed

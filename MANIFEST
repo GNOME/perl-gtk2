@@ -21,6 +21,7 @@ examples/cellrenderer_popup.pl
 examples/cellrenderer_spinbutton.pl
 examples/colorselectiontest.pl
 examples/histogramplot.pl
+examples/inline-images.pl
 examples/insert-text-test.pl
 examples/item_factory_demo.pl
 examples/layout.pl
