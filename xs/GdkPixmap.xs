@@ -46,7 +46,12 @@ newSVGdkBitmap_noinc (GdkBitmap * bitmap)
 MODULE = Gtk2::Gdk::Pixmap	PACKAGE = Gtk2::Gdk::Bitmap	PREFIX = gdk_bitmap_
 
 BOOT:
-	gperl_set_isa ("Gtk2::Gdk::Bitmap", "Gtk2::Gdk::Drawable");
+	/* a GdkBitmap is a GdkPixmap with depth one.  they are all
+	 * typedef'd to GdkDrawable, but GdkBitmap doesn't get a type
+	 * wrapper.  since it's a GdkPixmap, i'll put Gtk2::Gdk::Pixmap
+	 * in its isa so that bitmaps can be used wherever pixmaps are
+	 * wanted.  otherwise, apps need to bless by hand. */
+	gperl_set_isa ("Gtk2::Gdk::Bitmap", "Gtk2::Gdk::Pixmap");
 
  ## GdkBitmap* gdk_bitmap_create_from_data (class, GdkDrawable *drawable, const gchar *data, gint width, gint height)
 ### intentionally switched to char instead of gchar

@@ -27,7 +27,6 @@ my $gray50_bits = pack 'CC', 0x02, 0x01;
 
 sub create_tags {
   my $buffer = shift;
-  #GdkBitmap *stipple;
 
   # Create a bunch of tags. Note that it's also possible to
   # create tags with gtk_text_tag_new() then add them to the
@@ -52,7 +51,7 @@ sub create_tags {
 			size => 15 * Gtk2::Pango->scale, #PANGO_SCALE,
 			);
   
-  $buffer->create_tag ("italic", style => 'italic'); #PANGO_STYLE_ITALIC); 
+  $buffer->create_tag ("italic", style => 'italic');
   $buffer->create_tag ("bold", weight => PANGO_WEIGHT_BOLD); 
   $buffer->create_tag ("big", size => 20 * Gtk2::Pango->scale); #PANGO_SCALE);
 			      # points times the PANGO_SCALE factor
@@ -66,12 +65,9 @@ sub create_tags {
   my $stipple = Gtk2::Gdk::Bitmap->create_from_data (undef,
 					 $gray50_bits, gray50_width,
 					 gray50_height);
-### FIXME evil!!!
-  $stipple = bless $stipple, 'Gtk2::Gdk::Pixmap';
   
   $buffer->create_tag ("background_stipple", background_stipple => $stipple); 
   $buffer->create_tag ("foreground_stipple", foreground_stipple => $stipple); 
-##  g_object_unref (stipple);
 
   $buffer->create_tag ("big_gap_before_line", pixels_above_lines => 30); 
   $buffer->create_tag ("big_gap_after_line", pixels_below_lines => 30); 
@@ -98,8 +94,8 @@ sub create_tags {
 			);
 
   $buffer->create_tag ("rtl_quote",
-			wrap_mode => 'word', #GTK_WRAP_WORD,
-			direction => 'rtl', #GTK_TEXT_DIR_RTL,
+			wrap_mode => 'word',
+			direction => 'rtl',
 			indent => 30,
 			left_margin => 20,
 			right_margin => 20,
