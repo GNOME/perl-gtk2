@@ -318,7 +318,12 @@ package, in order to determine the parent package on which to call the
 proper method.  That means that these functions can only be used within
 your cell renderer implementation!
 
+=cut
 
+=for flags GtkCellRendererState
+=cut
+
+=for enum GtkCellRendererMode
 =cut
 
 ## void gtk_cell_renderer_get_size (GtkCellRenderer *cell, GtkWidget *widget, GdkRectangle *cell_area, gint *x_offset, gint *y_offset, gint *width, gint *height)
