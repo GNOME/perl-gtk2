@@ -45,9 +45,11 @@ allocated by C<alloc_color> and C<alloc_colors>.
 
  ## GdkColormap* gdk_colormap_new (GdkVisual *visual, gboolean allocate)
 GdkColormap_noinc*
-gdk_colormap_new (visual, allocate)
+gdk_colormap_new (class, visual, allocate)
 	GdkVisual *visual
 	gboolean allocate
+    C_ARGS:
+	visual, allocate
 
  ## deprecated
  ## GdkColormap* gdk_colormap_ref (GdkColormap *cmap)
@@ -152,6 +154,20 @@ gdk_colormap_query_color (colormap, pixel)
 	RETVAL = &result;
     OUTPUT:
 	RETVAL
+
+ ## GdkVisual* gdk_colormap_get_visual (GdkColormap *colormap)
+GdkVisual *
+gdk_colormap_get_visual (colormap)
+	GdkColormap *colormap
+
+#ifdef GDK_TYPE_SCREEN
+
+ ## GdkScreen* gdk_colormap_get_screen (GdkColormap *cmap)
+GdkScreen *
+gdk_colormap_get_screen (cmap)
+	GdkColormap *cmap
+
+#endif
 
 MODULE = Gtk2::Gdk::Color	PACKAGE = Gtk2::Gdk::Color	PREFIX = gdk_color_
 

@@ -1,3 +1,29 @@
+2004/01/09 00:47 (+0100) kaffeetisch
+
+	* xs/GdkColor.xs: Add a class argument to Gtk2::Gdk::Colormap::new
+	and implement ::get_visual and ::get_screen.
+
+	* xs/GdkWindow.xs: Hush a compiler warning.
+
+	* xs/GtkIconFactory.xs: Bind remove_default.  Provide a default
+	value for the detail argument of set_render_icon.
+
+	* Gtk2.pm
+	* xs/GtkItemFactory.xs: Implement create_item and create_items in
+	XS.  Implement delete_entry, delete_entries, popup_data,
+	popup_data_from_widget, and set_translate_func.
+
+	* xs/GtkRc.xs: Implement get_default_files.  Fix
+	set_default_files.  Add a class argument to get_style and
+	reparse_all_for_settings.  Remove add_widget_name_style,
+	add_widget_class_style, and add_class_style since they're
+	deprecated.  Comment out find_module_in_path.  Rearrange member
+	handling of Gtk2::RcStyle's.  Turn [gs]et_font_desc into
+	font_desc.
+
+	* xs/GtkTooltips.xs: In data_get, check for NULL before converting
+	struct members to SVs.  Slightly modify apidoc.
+
 2004/01/07 16:01 (-0500) muppetman
 
 	* xs/GdkTypes.xs: xsubpp doesn't like aliases with the same ix.

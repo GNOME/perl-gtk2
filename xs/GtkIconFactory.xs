@@ -83,11 +83,10 @@ void
 gtk_icon_factory_add_default (factory)
 	GtkIconFactory *factory
 
-## not normally used, according to API ref
-###  void gtk_icon_factory_remove_default (GtkIconFactory *factory) 
-#void
-#gtk_icon_factory_remove_default (factory)
-#	GtkIconFactory *factory
+##  void gtk_icon_factory_remove_default (GtkIconFactory *factory) 
+void
+gtk_icon_factory_remove_default (factory)
+	GtkIconFactory *factory
 
 # apps should generally use themes for this, but the stock browser needs it
 ##  GtkIconSet* gtk_icon_factory_lookup_default (const gchar *stock_id) 
@@ -166,6 +165,8 @@ gtk_icon_size_from_name (class, name)
     C_ARGS:
 	name
 
+##  const gchar * gtk_icon_size_get_name (GtkIconSize size) 
+
 MODULE = Gtk2::IconFactory	PACKAGE = Gtk2::IconSet	PREFIX = gtk_icon_set_
 
 ##  GtkIconSet* gtk_icon_set_new (void) 
@@ -189,7 +190,7 @@ gtk_icon_set_new_from_pixbuf (class, pixbuf)
 #### apps should almost always use gtk_widget_render_icon
 ##  GdkPixbuf* gtk_icon_set_render_icon (GtkIconSet *icon_set, GtkStyle *style, GtkTextDirection direction, GtkStateType state, GtkIconSize size, GtkWidget *widget, const char *detail) 
 GdkPixbuf*
-gtk_icon_set_render_icon (icon_set, style, direction, state, size, widget, detail)
+gtk_icon_set_render_icon (icon_set, style, direction, state, size, widget, detail=NULL)
 	GtkIconSet *icon_set
 	GtkStyle_ornull *style
 	GtkTextDirection direction
