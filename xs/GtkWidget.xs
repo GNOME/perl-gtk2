@@ -121,7 +121,7 @@ state (widget)
  ##define GTK_WIDGET_FLAGS(wid)		  (GTK_OBJECT_FLAGS (wid))
 
 gboolean
-get_flags (widget)
+get_flags (widget, ...)
 	GtkWidget * widget
     ALIAS:
 	Gtk2::Widget::toplevel         =  1
@@ -141,8 +141,19 @@ get_flags (widget)
 	Gtk2::Widget::app_paintable    = 15
 	Gtk2::Widget::receives_default = 16
 	Gtk2::Widget::double_buffered  = 17
+	Gtk2::Widget::can_default      = 18
+	Gtk2::Widget::has_default      = 19
+    PREINIT:
+	gboolean value;
+	GtkWidgetFlags flag;
     CODE:
-	switch (ix) {
+	if ( items > 2 ) {
+	    croak ("Usage: flag(widget[, value])");
+	    return;
+	}
+
+        if ( items == 1 ) {
+	    switch (ix) {
 		case  1: RETVAL = GTK_WIDGET_TOPLEVEL         (widget); break;
 		case  2: RETVAL = GTK_WIDGET_NO_WINDOW        (widget); break;
 		case  3: RETVAL = GTK_WIDGET_REALIZED         (widget); break;
@@ -160,8 +171,42 @@ get_flags (widget)
 		case 15: RETVAL = GTK_WIDGET_APP_PAINTABLE    (widget); break;
 		case 16: RETVAL = GTK_WIDGET_RECEIVES_DEFAULT (widget); break;
 		case 17: RETVAL = GTK_WIDGET_DOUBLE_BUFFERED  (widget); break;
+		case 18: RETVAL = GTK_WIDGET_CAN_DEFAULT      (widget); break;
+		case 19: RETVAL = GTK_WIDGET_HAS_DEFAULT      (widget); break;
+		default: croak ("inhandled case in flag_get - shouldn't happen");
+	    }
+	} else {
+	    value = (gboolean) SvIV(ST(1));
+	    switch (ix) {
+		case  1: flag = GTK_TOPLEVEL	     ; break;
+		case  2: flag = GTK_NO_WINDOW	     ; break;
+		case  3: flag = GTK_REALIZED	     ; break;
+		case  4: flag = GTK_MAPPED	     ; break;
+		case  5: flag = GTK_VISIBLE	     ; break;
+/* read only -	case  6: flag = GTK_DRAWABLE	     ; break; */
+		case  7: flag = GTK_SENSITIVE	     ; break;
+		case  8: flag = GTK_PARENT_SENSITIVE ; break;
+/* read only -	case  9: flag = GTK_IS_SENSITIVE     ; break; */
+		case 10: flag = GTK_CAN_FOCUS	     ; break;
+		case 11: flag = GTK_HAS_FOCUS	     ; break;
+		case 12: flag = GTK_HAS_GRAB	     ; break;
+		case 13: flag = GTK_RC_STYLE	     ; break;
+		case 14: flag = GTK_COMPOSITE_CHILD  ; break;
+		case 15: flag = GTK_APP_PAINTABLE    ; break;
+		case 16: flag = GTK_RECEIVES_DEFAULT ; break;
+		case 17: flag = GTK_DOUBLE_BUFFERED  ; break;
+		case 18: flag = GTK_CAN_DEFAULT      ; break;
+		case 19: flag = GTK_HAS_DEFAULT      ; break;
 		default: croak ("inhandled case in flag_set - shouldn't happen");
+	    }
+	    if ( value ) {
+	    	GTK_WIDGET_SET_FLAGS(widget, flag);
+	    } else {
+	    	GTK_WIDGET_UNSET_FLAGS(widget, flag);
+	    }
+	    RETVAL=value;
 	}
+
     OUTPUT:
 	RETVAL
 
