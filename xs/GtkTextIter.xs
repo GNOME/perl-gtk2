@@ -127,8 +127,17 @@ gtk_text_iter_has_tag (iter, tag)
 	GtkTextIter *iter
 	GtkTextTag *tag
 
-# FIXME needs list handling
 ### GSList* gtk_text_iter_get_tags (const GtkTextIter *iter)
+void
+gtk_text_iter_get_tags (GtkTextIter *iter)
+    PREINIT:
+	GSList* slist, *i;
+    PPCODE:
+	slist = gtk_text_iter_get_tags (iter);
+	for (i = slist ; i != NULL ; i = i->next)
+		XPUSHs (sv_2mortal (newSVGtkTextTag (i->data)));
+	g_slist_free (slist);
+	
 
 ## gboolean gtk_text_iter_editable (const GtkTextIter *iter, gboolean default_setting)
 gboolean

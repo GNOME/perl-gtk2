@@ -1,3 +1,7 @@
+2003/09/14 01:09 muppetman
+
+	* xs/GtkTextIter.xs: implement gtk_text_iter_get_tags()
+
 2003/09/11 23:51 muppetman
 
 	* ChangeLog, Gtk2.pm, MANIFEST, META.yml, README, debian/changelog,
