@@ -5,7 +5,7 @@
 use Gtk2::TestHelper
 	# FIXME 2.4
 	at_least_version => [2, 3, 0, "GtkFileChooser is new in 2.4"],
-	tests => 31;
+	tests => 30;
 use File::Spec;
 use Cwd;
 
@@ -15,19 +15,12 @@ isa_ok ($file_chooser, 'Gtk2::FileChooser');
 
 is ($file_chooser->get_action, 'save', 'mode option from construction');
 
-$file_chooser->set_action ('open');
-is ($file_chooser->get_action, 'open', 'change action to open');
-
 
 $file_chooser->set_local_only (TRUE);
 ok ($file_chooser->get_local_only, 'local files only');
 
 $file_chooser->set_local_only (FALSE);
 ok (!$file_chooser->get_local_only, 'not only local files');
-
-
-$file_chooser->set_select_multiple (TRUE);
-ok ($file_chooser->get_select_multiple, 'select multiple');
 
 # apparently it likes to complain about setting this back.
 $file_chooser->set_select_multiple (FALSE);
@@ -38,13 +31,13 @@ ok (!$file_chooser->get_select_multiple, 'not select multiple');
 my $filename = 'something that may not exist';
 my $cwd = cwd ();
 
-TODO: {
-	local $TODO = "set_current_name seems to be broken";
+$file_chooser->set_current_name ('something that may not exist');
+is ($file_chooser->get_filename,
+    $cwd . "/" . 'something that may not exist',
+    'set current name');
 
-	$file_chooser->set_current_name ('something that may not exist');
-	is ($file_chooser->get_filename, undef,
-	    'set current name to something that may not exist');
-}
+$file_chooser->set_action ('open');
+is ($file_chooser->get_action, 'open', 'change action to open');
 
 $filename = File::Spec->catfile ($cwd, 'gtk2perl.h');
 $file_chooser->set_filename ($filename);

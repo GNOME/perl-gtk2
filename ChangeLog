@@ -1,3 +1,9 @@
+2004/03/01 04:51 (+0100) kaffeetisch
+
+	* t/GtkFileChooser.t: Rearrange some function calls to avoid
+	warnings.  Expect that set_current_name doesn't care about the
+	existance of the file and adjust the test accordingly.
+
 2004/03/01 03:50 (+0100) kaffeetisch
 
 	A t/GtkTreeModelIface.t: New test for the custom tree model stuff.
