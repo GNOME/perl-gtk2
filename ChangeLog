@@ -1,3 +1,8 @@
+2003/10/19 18:55 rwmcfa1
+
+	* xs/GdkPixbuf.xs: two missing semicolons added, in 2.2 section so 
+	wasn't caught compling on < 2.2.
+
 2003/10/19 00:41 muppetman
 
 	* examples/simplelist.pl, examples/scribble.pl,

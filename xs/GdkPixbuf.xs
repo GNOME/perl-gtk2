@@ -509,14 +509,14 @@ gdk_pixbuf_get_formats (class=NULL)
 		av = newAV ();
 		for (j = 0 ; strv && strv[j] ; j++)
 			av_store (av, j, newSVGChar (strv[j]));
-		hv_store (hv, "mime_types", 10, newRV_noinc ((SV*) av), 0)
+		hv_store (hv, "mime_types", 10, newRV_noinc ((SV*) av), 0);
 		g_strfreev (strv);
 
 		strv = gdk_pixbuf_format_get_extensions (format);
 		av = newAV ();
 		for (j = 0 ; strv && strv[j] ; j++)
 			av_store (av, j, newSVGChar (strv[j]));
-		hv_store (hv, "extensions", 10, newRV_noinc ((SV*) av), 0)
+		hv_store (hv, "extensions", 10, newRV_noinc ((SV*) av), 0);
 		g_strfreev (strv);
 
 		XPUSHs (sv_2mortal (newRV_noinc ((SV*) hv)));
