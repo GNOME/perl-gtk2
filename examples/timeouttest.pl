@@ -3,11 +3,6 @@
 # $Header$
 #
 
-
-use blib '../../G';
-use blib '..';
-use lib '..';
-
 use Gtk2;
 use Data::Dumper;
 
@@ -43,7 +38,7 @@ $button->signal_connect (toggled => sub {
 # $button is toggled on.
 #
 # the real way...
-#my $id = G::Timeout->add (100, sub {
+#my $id = Glib::Timeout->add (100, sub {
 # the Gtk2 wrapper
 my $id = Gtk2->timeout_add (100, sub {
 #			warn Dumper(\@_);
@@ -75,11 +70,11 @@ $button2->signal_connect (toggled => sub {
 			# user turned us off before the callback ran
 			warn "uninstalling $id2";
 			###Gtk2->timeout_remove ($id2);
-			G::Source->remove ($id2);
+			Glib::Source->remove ($id2);
 			$id2 = undef;
 		} else {
 			###$id2 = Gtk2->timeout_add (1000, sub {
-			$id2 = G::Timeout->add (1000, sub {
+			$id2 = Glib::Timeout->add (1000, sub {
 				warn "callback, $_[0]";
 				#$_[0]->toggle;
 				$_[0]->set_active (0);

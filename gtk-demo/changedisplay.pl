@@ -30,10 +30,6 @@
 
 package changedisplay;
 
-use blib '..';
-use blib '../..';
-use blib '../../G';
-
 use constant FALSE => 0;
 use constant TRUE => 1;
 
@@ -150,8 +146,8 @@ sub query_for_toplevel {
       #
       while (!$clicked) {
 	#g_main_context_iteration (NULL, TRUE);
-	#G::MainContext->iteration (TRUE);
-	#G::MainContext::iteration (undef, TRUE);
+	#Glib::MainContext->iteration (TRUE);
+	#Glib::MainContext::iteration (undef, TRUE);
 	Gtk2->main_iteration; ## FIXME doesn't block!!!
       }
 ## FIXME could redo the above with another Gtk2->main, and have the
@@ -390,7 +386,7 @@ sub create_display_frame {
   $button_vbox->pack_start ($button, FALSE, FALSE, 0);
 
   $info->{display_model} =
-              Gtk2::ListStore->new ("G::String", "Gtk2::Gdk::Display");
+              Gtk2::ListStore->new ("Glib::String", "Gtk2::Gdk::Display");
 
   $tree_view->set_model ($info->{display_model});
 
@@ -413,7 +409,7 @@ sub create_screen_frame {
 
   my ($frame, $tree_view, $button_vbox) = create_frame ($info, "Screen");
 
-  $info->{screen_model} = Gtk2::ListStore->new ("G::Int", "Gtk2::Gdk::Screen");
+  $info->{screen_model} = Gtk2::ListStore->new ("Glib::Int", "Gtk2::Gdk::Screen");
 
   $tree_view->set_model ($info->{screen_model});
 

@@ -9,10 +9,6 @@
 
 package list_store;
 
-use blib '../../G';
-use blib '..';
-use lib '..';
-
 use Gtk2;
 
 #static GtkWidget *window = NULL;
@@ -54,10 +50,10 @@ my @data = (
 
 sub create_model {
   # create list store
-  my $store = Gtk2::ListStore->new ('G::Boolean', # => G_TYPE_BOOLEAN
-                                    'G::Uint',    # => G_TYPE_UINT
-                                    'G::String',  # => G_TYPE_STRING
-                                    'G::String'); # you get the idea
+  my $store = Gtk2::ListStore->new ('Glib::Boolean', # => G_TYPE_BOOLEAN
+                                    'Glib::Uint',    # => G_TYPE_UINT
+                                    'Glib::String',  # => G_TYPE_STRING
+                                    'Glib::String'); # you get the idea
 
   # add data to the list store
   foreach my $d (@data) {

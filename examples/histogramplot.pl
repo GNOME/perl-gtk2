@@ -1,9 +1,5 @@
 #!/usr/bin/perl -w
 
-use blib '../../G';
-use blib '../..';
-use blib '../';
-
 # $Header$
 
 package Histogram::Plot;
@@ -35,9 +31,9 @@ sub threshold_to_screen {
 ####static GtkDrawingAreaClass * parent_class = NULL;
 my $threshold_changed_signal = 0;
 
-#G::Type->register ("Gtk2::DrawingArea", __PACKAGE__);
+#Glib::Type->register ("Gtk2::DrawingArea", __PACKAGE__);
 
-G::Type->register ("Gtk2::DrawingArea", __PACKAGE__,
+Glib::Type->register ("Gtk2::DrawingArea", __PACKAGE__,
 	signals => {
 		threshold_changed => {
 			flags       => [qw/run-first/],
@@ -415,7 +411,7 @@ sub histogram_draw {
 ###
 sub new {
 	my $class = shift;
-	#my $plot = G::Object->_new ('Histogram::Plot');
+	#my $plot = Glib::Object->_new ('Histogram::Plot');
 	my $plot = Gtk2::Widget->new ('Histogram::Plot');
 	#print "$plot\n";
 

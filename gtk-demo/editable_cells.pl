@@ -8,10 +8,6 @@
 
 package editable_cells;
 
-use blib '..';
-use blib '../..';
-use blib '../../G';
-
 use constant FALSE => 0;
 use constant TRUE => 1;
 
@@ -49,7 +45,7 @@ sub create_model {
   add_items ();
 
   # create list store
-  my $model = Gtk2::ListStore->new (qw/G::Int G::String G::Boolean/);
+  my $model = Gtk2::ListStore->new (qw/Glib::Int Glib::String Glib::Boolean/);
 
   # add items
   foreach my $a (@articles) {

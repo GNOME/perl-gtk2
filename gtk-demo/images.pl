@@ -16,9 +16,6 @@
 
 package images;
 
-use blib '..';
-use blib '../..';
-use blib '../../G';
 use constant FALSE => 0;
 use constant TRUE => 1;
 use Gtk2;
@@ -187,14 +184,14 @@ sub start_progressive_loading {
   # The timeout simply simulates a slow data source by inserting
   # pauses in the reading process.
   #
-  $load_timeout = G::Timeout->add (150, \&progressive_timeout, $image);
+  $load_timeout = Glib::Timeout->add (150, \&progressive_timeout, $image);
 }
 
 sub cleanup_callback {
   my ($object, $data) = @_;
 
   if ($load_timeout) {
-      G::Source->remove ($load_timeout);
+      Glib::Source->remove ($load_timeout);
       $load_timeout = 0;
   }
   

@@ -9,10 +9,6 @@
 
 package tree_store;
 
-use blib '../../G';
-use blib '..';
-use lib '..';
-
 use Gtk2;
 
 use constant FALSE => 0;
@@ -144,14 +140,14 @@ sub create_model {
 #			      G_TYPE_BOOLEAN,
 #			      G_TYPE_BOOLEAN,
 #			      G_TYPE_BOOLEAN);
-   my $model = Gtk2::TreeStore->new (qw/ G::String 
-                                         G::Boolean 
-                                         G::Boolean 
-                                         G::Boolean 
-                                         G::Boolean 
-                                         G::Boolean 
-                                         G::Boolean 
-                                         G::Boolean /);
+   my $model = Gtk2::TreeStore->new (qw/ Glib::String 
+                                         Glib::Boolean 
+                                         Glib::Boolean 
+                                         Glib::Boolean 
+                                         Glib::Boolean 
+                                         Glib::Boolean 
+                                         Glib::Boolean 
+                                         Glib::Boolean /);
 
    # add data to the tree store/
    foreach my $month (@toplevel) {

@@ -7,10 +7,6 @@
 use strict;
 use Carp;
 
-use blib '../../G';
-use blib '../';
-use lib '../';
-
 use constant FALSE => 0;
 use constant TRUE => 1;
 
@@ -576,8 +572,8 @@ sub create_text {
 sub create_tree {
 
 #  model = gtk_tree_store_new (NUM_COLUMNS, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_POINTER, G_TYPE_BOOLEAN);
-####   my $model = Gtk2::TreeStore->new ('G::String', 'G::String', 'G::Pointer', 'G::Boolean');
-   my $model = Gtk2::TreeStore->new ('G::String', 'G::String', 'G::Scalar', 'G::Boolean');
+####   my $model = Gtk2::TreeStore->new ('Glib::String', 'Glib::String', 'Glib::Pointer', 'Glib::Boolean');
+   my $model = Gtk2::TreeStore->new ('Glib::String', 'Glib::String', 'Glib::Scalar', 'Glib::Boolean');
    my $tree_view = Gtk2::TreeView->new;
    $tree_view->set_model ($model);
    my $selection = $tree_view->get_selection;
