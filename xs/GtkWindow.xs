@@ -4,7 +4,7 @@ MODULE = Gtk2::Window	PACKAGE = Gtk2::Window	PREFIX = gtk_window_
 
 ## GtkWidget* gtk_window_new (GtkWindowType type)
 GtkWidget *
-gtk_window_new (class, type)
+gtk_window_new (class, type=GTK_WINDOW_TOPLEVEL)
 	SV            * class
 	GtkWindowType   type
     C_ARGS:
@@ -29,6 +29,11 @@ gtk_window_set_role (window, role)
 	GtkWindow   * window
 	const gchar * role
 
+##G_CONST_RETURN gchar* gtk_window_get_role   (GtkWindow *window)
+const gchar *
+gtk_window_get_role (window)
+	GtkWindow *window
+
 ## void gtk_window_add_accel_group (GtkWindow *window, GtkAccelGroup *accel_group)
 void
 gtk_window_add_accel_group (window, accel_group)
@@ -52,17 +57,22 @@ gboolean
 gtk_window_activate_focus (window)
 	GtkWindow * window
 
+## GtkWidget * gtk_window_get_focus (GtkWindow *window)
+GtkWidget_ornull *
+gtk_window_get_focus (window)
+	GtkWindow * window
+
 ## void gtk_window_set_focus (GtkWindow *window, GtkWidget *focus)
 void
 gtk_window_set_focus (window, focus)
-	GtkWindow * window
-	GtkWidget * focus
+	GtkWindow        * window
+	GtkWidget_ornull * focus
 
 ## void gtk_window_set_default (GtkWindow *window, GtkWidget *default_widget)
 void
 gtk_window_set_default (window, default_widget)
-	GtkWindow * window
-	GtkWidget * default_widget
+	GtkWindow        * window
+	GtkWidget_ornull * default_widget
 
 ## gboolean gtk_window_activate_default (GtkWindow *window)
 gboolean
@@ -85,8 +95,8 @@ gtk_window_set_modal (window, modal)
 ## void gtk_window_set_transient_for (GtkWindow *window, GtkWindow *parent)
 void
 gtk_window_set_transient_for (window, parent)
-	GtkWindow * window
-	GtkWindow * parent
+	GtkWindow        * window
+	GtkWindow_ornull * parent
 
 ## void gtk_window_set_type_hint (GtkWindow *window, GdkWindowTypeHint hint)
 void
@@ -100,7 +110,7 @@ gtk_window_get_title (window)
 	GtkWindow * window
 
 ## GtkWindow* gtk_window_get_transient_for (GtkWindow *window)
-GtkWindow *
+GtkWindow_ornull *
 gtk_window_get_transient_for (window)
 	GtkWindow * window
 
@@ -196,8 +206,27 @@ gtk_window_get_decorated (window)
 ## void gtk_window_set_icon (GtkWindow *window, GdkPixbuf *icon)
 void
 gtk_window_set_icon (window, icon)
-	GtkWindow * window
-	GdkPixbuf * icon
+	GtkWindow        * window
+	GdkPixbuf_ornull * icon
+
+#if GTK_CHECK_VERSION(2,2,0)
+
+##gboolean gtk_window_set_icon_from_file (GtkWindow *window, const gchar *filename, GError **err)
+#void
+#gtk_window_set_icon_from_file (window, filename)
+#	GtkWindow     * window
+#	const gchar   * filename
+#    PREINIT:
+#	GError * err = NULL;
+#    CODE:
+##	if( !gtk_window_set_icon_from_file(window, filename, &err) )
+#	{
+#		SV * errmsg = newSVpv(err->message, &PL_na);
+#		g_error_free(err);
+#		croak("%s: %s", filename, SvPV_nolen(errmsg));
+#	}
+
+#endif
 
 ## GdkPixbuf* gtk_window_get_icon (GtkWindow *window)
 GdkPixbuf *
