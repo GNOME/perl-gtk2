@@ -9,7 +9,7 @@
 
 #########################
 
-use Gtk2::TestHelper tests => 11;
+use Gtk2::TestHelper tests => 14;
 
 my $win = Gtk2::Window->new;
 $win->set_border_width (10);
@@ -36,8 +36,25 @@ ok (Gtk2::AccelMap->change_entry ('<accel-map>/File/Save As',
 				  45, 'control-mask', 1), 'map change_entry');
 unlink ($file);
 
+Gtk2::AccelMap->add_filter ('<accel-map>/File/Save As');
+
+my $count = 0;
+Gtk2::AccelMap->foreach ('data', sub { 
+	$count++ if (scalar (@_) ==  5); 
+});
+is ($count, 2, 'foreach count');
+
+$count = 0;
+Gtk2::AccelMap->foreach_unfiltered ('data', sub { 
+	$count++ if (scalar (@_) == 5); 
+});
+is ($count, 3, 'foreach_unfiltered count');
+
 $accel->connect_by_path ('<accel-map>/File/Save It', 
 	                 sub { ok (1, 'connect_by_path') });
+
+ok (eq_array ([Gtk2::AccelMap->lookup_entry ('<accel-map>/File/Save It')],
+	      [44, ['control-mask'], 0]), 'Gtk2::AccelMap->lookup_entry');
 
 $win->add_accel_group ($accel);
 $accel->lock;

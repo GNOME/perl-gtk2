@@ -3,14 +3,34 @@
  *
  * Licensed under the LGPL, see LICENSE file for more information.
  *
- * TODO/FIXME: this whole thing needs fleshed out.
- *
  * $Header$
  */
 
 #include "gtk2perl.h"
 
+void
+gtk2perl_gtk_accel_map_foreach (GPerlCallback *callback, 
+				const gchar *accel_path, guint accel_key, 
+				GdkModifierType accel_mods, gboolean changed)
+{
+	gperl_callback_invoke (callback, NULL, accel_path, accel_key, 
+			       accel_mods, changed);
+}
+
 MODULE = Gtk2::AccelMap PACKAGE = Gtk2::AccelMap PREFIX = gtk_accel_map_
+
+=head1 FOREACH CALLBACK
+
+The foreach callbacks ignore any returned values and the following parameters
+are passed to the callback any modifications are ignored.
+
+  accel_path (string)
+  accel_key (integer)
+  GdkModifierType accel_mods (Gtk2::Gdk::ModifierType)
+  changed (boolean)
+  user_date (scalar)
+
+=cut
 
 ##  void gtk_accel_map_add_entry (const gchar *accel_path, guint accel_key, GdkModifierType accel_mods)
 void
@@ -22,10 +42,27 @@ gtk_accel_map_add_entry (class, accel_path, accel_key, accel_mods)
 	accel_path, accel_key, accel_mods
 
 ##  gboolean gtk_accel_map_lookup_entry (const gchar *accel_path, GtkAccelKey *key)
-##gboolean
-##gtk_accel_map_lookup_entry (accel_path, key)
-##	const gchar * accel_path
-##	GtkAccelKey * key
+=for apidoc
+=for signature (accel_key, accel_mods, accel_flags) = Gtk2::AccelMap->lookup_entry ($accel_path)
+Returns empty if no accelerator is found for the given path, accel_key
+(integer), accel_mods (Gtk2::Gdk::ModifierType), and accel_flags (integer)
+otherwise.
+=cut
+void
+gtk_accel_map_lookup_entry (class, accel_path)
+	const gchar * accel_path
+    PREINIT:
+	GtkAccelKey key;
+    PPCODE:
+	if (gtk_accel_map_lookup_entry (accel_path, &key))
+	{
+		EXTEND (SP, 3);
+		PUSHs (sv_2mortal (newSViv (key.accel_key)));
+		PUSHs (sv_2mortal (newSVGdkModifierType (key.accel_mods)));
+		PUSHs (sv_2mortal (newSViv (key.accel_flags)));
+	}
+	else
+		XSRETURN_EMPTY;
 
 ##  gboolean gtk_accel_map_change_entry (const gchar *accel_path, guint accel_key, GdkModifierType accel_mods, gboolean replace)
 gboolean
@@ -59,6 +96,7 @@ gtk_accel_map_load_fd (class, fd)
     C_ARGS:
 	fd
 
+## TODO: GScanner ...
 ##  void gtk_accel_map_load_scanner (GScanner *scanner)
 ##void
 ##gtk_accel_map_load_scanner (scanner)
@@ -72,21 +110,44 @@ gtk_accel_map_save_fd (class, fd)
 	fd
 
 ##  void gtk_accel_map_add_filter (const gchar *filter_pattern)
-## TODO: until foreach's are impelemented this is useless
-##void
-##gtk_accel_map_add_filter (class, filter_pattern)
-##	const gchar * filter_pattern
-##    C_ARGS:
-##	filter_pattern
+void
+gtk_accel_map_add_filter (class, filter_pattern)
+	const gchar * filter_pattern
+    C_ARGS:
+	filter_pattern
+
+##void        (*GtkAccelMapForeach)           (gpointer data,
+##                                             const gchar *accel_path,
+##                                             guint accel_key,
+##                                             GdkModifierType accel_mods,
+##                                             gboolean changed);
 
 ##  void gtk_accel_map_foreach (gpointer data, GtkAccelMapForeach foreach_func)
-##void
-##gtk_accel_map_foreach (data, foreach_func)
-##	gpointer data
-##	GtkAccelMapForeach foreach_func
+void
+gtk_accel_map_foreach (class, data, foreach_func)
+	SV * data
+	SV * foreach_func
+    PREINIT:
+	GPerlCallback * callback = NULL;
+	GType types[] = { G_TYPE_STRING, G_TYPE_UINT, 
+			  GDK_TYPE_MODIFIER_TYPE, G_TYPE_BOOLEAN };
+    CODE:
+	callback = gperl_callback_new (foreach_func, data, 4, types, 
+				       G_TYPE_NONE);
+	gtk_accel_map_foreach 
+		(callback, (GtkAccelMapForeach)gtk2perl_gtk_accel_map_foreach);
 
 ##  void gtk_accel_map_foreach_unfiltered (gpointer data, GtkAccelMapForeach foreach_func)
-##void
-##gtk_accel_map_foreach_unfiltered (data, foreach_func)
-##	gpointer data
-##	GtkAccelMapForeach foreach_func
+void
+gtk_accel_map_foreach_unfiltered (class, data, foreach_func)
+	SV * data
+	SV * foreach_func
+    PREINIT:
+	GPerlCallback * callback = NULL;
+	GType types[] = { G_TYPE_STRING, G_TYPE_UINT, 
+			  GDK_TYPE_MODIFIER_TYPE, G_TYPE_BOOLEAN };
+    CODE:
+	callback = gperl_callback_new (foreach_func, data, 4, types, 
+				       G_TYPE_NONE);
+	gtk_accel_map_foreach_unfiltered
+		(callback, (GtkAccelMapForeach)gtk2perl_gtk_accel_map_foreach);

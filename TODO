@@ -31,3 +31,6 @@ be rare to have a multi-threaded perl gtk program until
 perl threading is more mainstream.
 
 what about decorated window stuff?
+
+foreach callbacks (and possibly other types) need some doc on the callback
+api/params.

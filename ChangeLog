@@ -1,3 +1,12 @@
+2004/01/04 21:41 (-0500) rwmcfa1
+
+	* t/accel-group-map.t: test out newly implemented xsubs
+
+	* xs/GtkAccelMap.xs: implemented some missing xsubs, foreach's and
+	lookup_entry
+
+	* xs/GtkRc.xs: implemented gtk_rc_get_style_by_paths
+
 2004/01/04 19:11 (-0500) rwmcfa1
 
 	* pm/SimpleList.pm, pm/SimpleMenu.pm: quit using base and just add the 
