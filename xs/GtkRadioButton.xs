@@ -22,10 +22,8 @@ gtk_radio_button_new (class, member_or_listref=NULL, label=NULL)
 		{
 			AV * av = (AV*)SvRV(member_or_listref);
 			SV ** svp = av_fetch(av, 0, 0);
-			if( SvOK(*svp) )
-			{
+			if( svp && SvOK(*svp) )
 				member = SvGtkRadioButton(*svp);
-			}
 		}
 		else
 			member = SvGtkRadioButton_ornull(member_or_listref);
