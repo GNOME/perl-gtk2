@@ -201,6 +201,12 @@ The gtk_* functions are deprecated in favor of the g_* ones.  Gtk2::Helper
 has a wrapper for Glib::IOChannel->add_watch which makes it behave more
 like gtk_input_add.
 
+=item gtk_accel_group_from_accel_closure => no replacement
+
+Because of the use of Perl subroutine references in place of GClosures, there
+is no way to preserve at the Perl level the one-to-one mapping between
+GtkAccelGroups and GClosures.  Without that mapping, this function is useless.
+
 =back
 
 
@@ -295,6 +301,27 @@ argument stack.
  $style->paint_polygon ($gdkwindow, $state_type, $shadow_type,
                         $area, $widget, $detail, $fill,
                         $x1, $y1, $x2, $y2, ...);
+
+=item Gtk2::AccelGroup::connect
+
+=item Gtk2::AccelGroup::disconnect
+
+Where a GClosure is wanted by the C stuff, a perl subroutine reference
+suffices.  However, because of this, there are a few subtle differences in
+sematics.  a GClosure may be connected to only one GtkAccelGroup; however, a
+perl subroutine may be connected to many GtkAccelGroups (because at the binding
+level, a new GClosure is created on each call to ->connect).  Thus,
+$accel_group->disconnect will disconnect the first group it finds to be
+connected to the given perl subroutine.  To disconnect all groups attached to a
+subroutine, you can call disconnect with the same subroutine reference (or
+name) until it stops returning true.
+
+=item Gtk2::TreePath->new_from_indices
+
+Unlike its C counterpart, this function does not need a -1 to terminate the
+list of index values; in fact, it will croak on negative numbers with a 
+friendly reminder.  Although this function was introduced into gtk+ in
+2.2.0, it is available in gtk2-perl with gtk+ 2.0.x.
 
 =back
 

@@ -8,6 +8,10 @@
 	removed the separate binding of new_from_string and aliased it into
 	new, since new already calls new_from_string if you supply a string.
 
+	* api.pod: mention how new_from_indices differs from the C func,
+	and actually commit the accel group stuff i thought i commited
+	yesterday.
+
 2003/08/20 14:27 muppetman
 
 	* t/22.GtkTreeSelection.t: new test, another patch from torsten
