@@ -1,3 +1,15 @@
+2003/11/19 14:14 (-0500) muppetman
+
+	* Makefile.PL: don't do the install stuff on win32, it b0rks things.
+
+	* Gtk2.exports: newSVGdkModifierType isn't a function anymore.
+
+	* xs/GtkEditable.xs, xs/GtkMenu.xs: apparently cl.exe (MSVC's compiler)
+	doesn't like the version of dSP used in PERL_IMPLICIT_CONTEXT to occur
+	after code has started; move dGPERL_CLOSURE_MARSHAL_ARGS to the end of
+	the variable declarations block to make it happy.  (the last statement
+	in that macro is dSP.)  continue to loathe msvc.
+
 2003/11/19 11:14 (-0500) muppetman
 
 	* xs/GtkRc.xs: finally committing stuff i did for GtkRcStyle a looong
