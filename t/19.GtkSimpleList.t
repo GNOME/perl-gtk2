@@ -15,7 +15,7 @@ use Test::More;
 
 if( Gtk2->init_check )
 {
-	plan tests => 28;
+	plan tests => 36;
 	require_ok( 'Gtk2::SimpleList' );
 }
 else
@@ -256,6 +256,34 @@ $win->show_all;
 
 Gtk2->main;
 ok(1);
+
+# each of these should result in exceptions.
+eval { Gtk2::SimpleList->new; };
+ok( $@ =~ m/no columns/i, 'no args' );
+
+eval { Gtk2::SimpleList->new ('foo'); };
+ok( $@ =~ m/no columns/i, 'odd number of params' );
+
+eval { Gtk2::SimpleList->new ('foo' => 'bar'); };
+ok( $@ =~ m/unknown column type/i, 'bad column type' );
+
+eval { Gtk2::SimpleList->new_from_treeview; };
+ok( $@ =~ m/not a Gtk2::TreeView/i, 'no args triggers invalid treeview first' );
+
+eval { Gtk2::SimpleList->new_from_treeview ('foo'); };
+ok( $@ =~ m/not a Gtk2::TreeView/i, 'invalid treeview reference' );
+
+my $tv = Gtk2::TreeView->new;
+eval { Gtk2::SimpleList->new_from_treeview ($tv, 'bar'); };
+ok( $@ =~ m/no columns/i, 'odd number of params' );
+
+eval { Gtk2::SimpleList->new_from_treeview ($tv, 'bar', 'baz'); };
+ok( $@ =~ m/unknown column type/i, 'unknown column type' );
+
+eval { Gtk2::SimpleList->new_from_treeview ($tv, 'bar', 'text', 'baz'); };
+ok( $@ =~ m/expecting pairs/i, 'odd number of params beyond the required first' );
+
+$tv = undef;
 
 __END__
 

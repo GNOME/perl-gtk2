@@ -1,3 +1,9 @@
+2003/10/03 13:19 muppetman
+
+	* pm/SimpleList.pm, t/19.GtkSimpleList.t: argument checks in the new
+	and new_from_treeview constructors.  new_from_treeview no longer
+	allows you to pass undef for the treeview, new creates one.
+
 2003/10/01 11:20 rwmcfa1
 
 	* Glib/GBoxed.xs, Glib/GLog.xs, Glib/GObject.xs, Glib/GSignal.xs,

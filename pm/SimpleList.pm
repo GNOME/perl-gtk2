@@ -62,12 +62,23 @@ sub text_cell_edited {
 }
 
 sub new {
-	return shift->new_from_treeview (undef, @_);
+	croak "Usage: $_[0]\->new (title => type, ...)\n"
+	    . " expecting a list of column title and type name pairs.\n"
+	    . " can't create a SimpleList with no columns"
+		unless @_ >= 3; # class, key1, val1
+	return shift->new_from_treeview (Gtk2::TreeView->new (), @_);
 }
 
 sub new_from_treeview {
 	my $class = shift;
 	my $view = shift;
+	croak "treeview is not a Gtk2::TreeView"
+		unless defined ($view)
+		   and UNIVERSAL::isa ($view, 'Gtk2::TreeView');
+	croak "Usage: $class\->new_from_treeview (treeview, title => type, ...)\n"
+	    . " expecting a treeview reference and list of column title and type name pairs.\n"
+	    . " can't create a SimpleList with no columns"
+		unless @_ >= 2; # key1, val1
 	my @column_info = ();
 	for (my $i = 0; $i < @_ ; $i+=2) {
 		my $typekey = $_[$i+1];
@@ -91,13 +102,9 @@ sub new_from_treeview {
 		};
 	}
 	my $model = Gtk2::ListStore->new (map { $_->{type} } @column_info);
-	if (defined $view) {
-		# just in case, 'cause i'm paranoid like that.
-		map { $view->remove_column ($_) } $view->get_columns;
-		$view->set_model ($model);
-	} else {
-		$view = Gtk2::TreeView->new ($model);
-	}
+	# just in case, 'cause i'm paranoid like that.
+	map { $view->remove_column ($_) } $view->get_columns;
+	$view->set_model ($model);
 	for (my $i = 0; $i < @column_info ; $i++) {
 		if( 'CODE' eq ref $column_info[$i]{attr} )
 		{
