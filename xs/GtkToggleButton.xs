@@ -25,14 +25,12 @@ MODULE = Gtk2::ToggleButton	PACKAGE = Gtk2::ToggleButton	PREFIX = gtk_toggle_but
 
 GtkWidget*
 gtk_toggle_button_news (class, label=NULL)
-	SV * class
 	const gchar * label
     ALIAS:
 	Gtk2::ToggleButton::new = 0
 	Gtk2::ToggleButton::new_with_mnemonic = 1
 	Gtk2::ToggleButton::new_with_label = 2
     CODE:
-	UNUSED(class);
 	if (label) {
 		if (ix == 2)
 			RETVAL = gtk_toggle_button_new_with_label (label);

@@ -36,12 +36,9 @@ gtk_plug_construct (plug, socket_id)
 ## GtkWidget* gtk_plug_new (GdkNativeWindow socket_id)
 GtkWidget *
 gtk_plug_new (class, socket_id)
-	SV              * class
 	GdkNativeWindow   socket_id
     C_ARGS:
 	socket_id
-    CLEANUP:
-	UNUSED(class);
 
 #if GTK_CHECK_VERSION(2,2,0)
 

@@ -32,11 +32,9 @@ MODULE = Gtk2::Gdk::DisplayManager	PACKAGE = Gtk2::Gdk::DisplayManager	PREFIX = 
  ##
 ##  GdkDisplayManager *gdk_display_manager_get (void) 
 GdkDisplayManager *
-gdk_display_manager_get (SV * class)
+gdk_display_manager_get (class)
     C_ARGS:
 	/*void*/
-    CLEANUP:
-	UNUSED(class);
 
 ##  GdkDisplay * gdk_display_manager_get_default_display (GdkDisplayManager *display_manager) 
 GdkDisplay *

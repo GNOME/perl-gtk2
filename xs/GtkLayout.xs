@@ -26,13 +26,10 @@ MODULE = Gtk2::Layout	PACKAGE = Gtk2::Layout	PREFIX = gtk_layout_
 ## GtkWidget* gtk_layout_new (GtkAdjustment *hadjustment, GtkAdjustment *vadjustment)
 GtkWidget *
 gtk_layout_new (class, hadjustment, vadjustment)
-	SV                   * class
 	GtkAdjustment_ornull * hadjustment
 	GtkAdjustment_ornull * vadjustment
     C_ARGS:
 	hadjustment, vadjustment
-    CLEANUP:
-	UNUSED(class);
 
 ## void gtk_layout_put (GtkLayout *layout, GtkWidget *child_widget, gint x, gint y)
 void

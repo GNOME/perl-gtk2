@@ -165,7 +165,7 @@ gtk_tree_selection_get_selected_rows (selection)
 	GList * list, * i;
     PPCODE:
 	list = gtk_tree_selection_get_selected_rows (selection, &model);
-	EXTEND (SP, g_list_length (list));
+	EXTEND (SP, (int)g_list_length (list));
 	for (i = list ; i != NULL ; i = i->next)
 		PUSHs (sv_2mortal (newSVGtkTreePath_own ((GtkTreePath*)i->data)));
 	g_list_free (list);

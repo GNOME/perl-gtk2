@@ -26,11 +26,8 @@ MODULE = Gtk2::Curve	PACKAGE = Gtk2::Curve	PREFIX = gtk_curve_
 ## GtkWidget* gtk_curve_new (void)
 GtkWidget *
 gtk_curve_new (class)
-	SV * class
     C_ARGS:
 	/* void */
-    CLEANUP:
-	UNUSED(class);
 
 ## void gtk_curve_reset (GtkCurve *curve)
 void

@@ -26,7 +26,6 @@ MODULE = Gtk2::RadioButton	PACKAGE = Gtk2::RadioButton	PREFIX = gtk_radio_button
 
 GtkWidget *
 gtk_radio_button_new (class, member_or_listref=NULL, label=NULL)
-	SV          * class
 	SV          * member_or_listref
 	const gchar * label
     ALIAS:
@@ -36,7 +35,6 @@ gtk_radio_button_new (class, member_or_listref=NULL, label=NULL)
 	GSList         * group = NULL;
 	GtkRadioButton * member = NULL;
     CODE:
-	UNUSED(class);
 	if( member_or_listref && member_or_listref != &PL_sv_undef
 	    && SvROK (member_or_listref)
 	    && SvRV (member_or_listref) != &PL_sv_undef )
@@ -67,14 +65,12 @@ gtk_radio_button_new (class, member_or_listref=NULL, label=NULL)
 
 GtkWidget *
 gtk_radio_button_new_from_widget (class, group, label=NULL)
-	SV                    * class
 	GtkRadioButton_ornull * group
 	const gchar           * label
     ALIAS:
 	Gtk2::RadioButton::new_with_mnemonic_from_widget = 1
 	Gtk2::RadioButton::new_with_label_from_widget = 2
     CODE:
-	UNUSED(class);
 	if (label) {
 		if (ix == 2)
 			RETVAL = gtk_radio_button_new_with_label_from_widget (group, label);

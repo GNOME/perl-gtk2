@@ -26,11 +26,8 @@ MODULE = Gtk2::Tooltips	PACKAGE = Gtk2::Tooltips	PREFIX = gtk_tooltips_
 ## GtkTooltips* gtk_tooltips_new (void)
 GtkTooltips *
 gtk_tooltips_new (class)
-	SV * class
     C_ARGS:
 	/* void */
-    CLEANUP:
-	UNUSED(class);
 
 ## void gtk_tooltips_enable (GtkTooltips *tooltips)
 void
@@ -67,13 +64,11 @@ gtk_tooltips_set_tip (tooltips, widget, tip_text, tip_private=NULL)
 ## GtkTooltipsData* gtk_tooltips_data_get (GtkWidget *widget)
 void
 gtk_tooltips_data_get (class, widget)
-	SV        * class
 	GtkWidget * widget
     PREINIT:
 	GtkTooltipsData * ret = NULL;
 	HV              * hv;
     PPCODE:
-	UNUSED(class);
 	ret = gtk_tooltips_data_get(widget);
 	if( !ret )
 		XSRETURN_UNDEF;

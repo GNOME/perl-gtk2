@@ -34,10 +34,7 @@ GtkWidget * colorsel (GtkColorSelectionDialog * dialog)
 ## GtkWidget* gtk_color_selection_dialog_new (const gchar *title)
 GtkWidget *
 gtk_color_selection_dialog_new (class, title)
-	SV          * class
 	const gchar * title
     C_ARGS:
 	title
-    CLEANUP:
-	UNUSED(class);
 

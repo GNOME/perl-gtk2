@@ -28,8 +28,8 @@ MODULE = Gtk2::Gdk::Region	PACKAGE = Gtk2::Gdk::Region	PREFIX = gtk_region_
 ###  GdkRegion *gdk_region_new (void) 
 #GdkRegion_own *
 #gdk_region_new (class)
-#	SV * class
 #    C_ARGS:
+#	/* void */
 #	
 #
 ###  GdkRegion *gdk_region_polygon (GdkPoint *points, gint npoints, GdkFillRule fill_rule) 

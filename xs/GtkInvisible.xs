@@ -30,11 +30,8 @@ MODULE = Gtk2::Invisible	PACKAGE = Gtk2::Invisible	PREFIX = gtk_invisible_
 ## GtkWidget* gtk_invisible_new (void)
 GtkWidget *
 gtk_invisible_new (class)
-	SV * class
     C_ARGS:
 	/* void */
-    CLEANUP:
-	UNUSED(class);
 
 #if GTK_CHECK_VERSION(2,2,0)
 

@@ -34,10 +34,8 @@ MODULE = Gtk2::ListItem	PACKAGE = Gtk2::ListItem	PREFIX = gtk_list_item_
 ##  GtkWidget* gtk_list_item_new_with_label (const gchar *label) 
 GtkWidget *
 gtk_list_item_new (class, label=NULL)
-	SV    * class
 	gchar * label
     CODE:
-	UNUSED(class);
 	if( label )
 		RETVAL = gtk_list_item_new_with_label(label);
 	else

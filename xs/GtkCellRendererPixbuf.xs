@@ -25,9 +25,6 @@ MODULE = Gtk2::CellRendererPixbuf	PACKAGE = Gtk2::CellRendererPixbuf	PREFIX = gt
 
 GtkCellRenderer *
 gtk_cell_renderer_pixbuf_new (class)
-	SV * class
     C_ARGS:
 	/* void */
-    CLEANUP:
-	UNUSED(class);
 

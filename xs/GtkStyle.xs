@@ -131,11 +131,8 @@ bg_pixmap (style, state)
  ## GtkStyle* gtk_style_new (void)
 GtkStyle_noinc*
 gtk_style_new (class)
-	SV * class
     C_ARGS:
 	/* void */
-    CLEANUP:
-	UNUSED(class);
 
 
  ## GtkStyle* gtk_style_copy (GtkStyle *style)
@@ -264,14 +261,10 @@ gtk_paint_polygon (style, window, state_type, shadow_type, area, widget, detail,
 	GtkWidget *widget
 	const gchar *detail
 	gboolean fill
-	gint x1
-	gint y1
     PREINIT:
 	GdkPoint *points;
 	gint npoints, i;
     CODE:
-	UNUSED(x1);
-	UNUSED(y1);
 #define first 8
 	npoints = (items - first) / 2;
 	points = g_new (GdkPoint, npoints);

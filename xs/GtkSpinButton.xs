@@ -26,26 +26,20 @@ MODULE = Gtk2::SpinButton	PACKAGE = Gtk2::SpinButton	PREFIX = gtk_spin_button_
 ##GtkWidget * gtk_spin_button_new (GtkAdjustment *adjustment, gdouble climb_rate, guint digits)
 GtkWidget *
 gtk_spin_button_new (class, adjustment, climb_rate, digits)
-	SV            * class
 	GtkAdjustment * adjustment
 	gdouble         climb_rate
 	guint           digits
     C_ARGS:
 	adjustment, climb_rate, digits
-    CLEANUP:
-	UNUSED(class);
 
 ##GtkWidget * gtk_spin_button_new_with_range (gdouble min, gdouble max, gdouble step)
 GtkWidget *
 gtk_spin_button_new_with_range (class, min, max, step)
-	SV      * class
 	gdouble   min
 	gdouble   max
 	gdouble   step
     C_ARGS:
 	min, max, step
-    CLEANUP:
-	UNUSED(class);
 
  ## void gtk_spin_button_configure (GtkSpinButton *spin_button, GtkAdjustment *adjustment, gdouble climb_rate, guint digits)
 void

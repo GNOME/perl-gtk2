@@ -25,11 +25,8 @@ MODULE = Gtk2::CellRendererToggle	PACKAGE = Gtk2::CellRendererToggle	PREFIX = gt
 
 GtkCellRenderer *
 gtk_cell_renderer_toggle_new (class)
-	SV * class
     C_ARGS:
 	/* void */
-    CLEANUP:
-	UNUSED(class);
 
 ## gboolean gtk_cell_renderer_toggle_get_radio (GtkCellRendererToggle *toggle)
 gboolean

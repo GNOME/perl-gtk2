@@ -70,6 +70,10 @@ gtk2perl_dialog_response_marshal (GClosure * closure,
 #else
 	SV **SP;
 
+	PERL_UNUSED_VAR (return_value);
+	PERL_UNUSED_VAR (n_param_values);
+	PERL_UNUSED_VAR (invocation_hint);
+
 	/* make sure we're executed by the same interpreter that created
 	 * the closure object. */
 	PERL_SET_CONTEXT (marshal_data);
@@ -143,7 +147,6 @@ gtk_dialog_widgets (dialog)
 
 ##GtkWidget *
 ##gtk_dialog_new (class)
-##	SV * class
 ##
 ##GtkWidget* gtk_dialog_new_with_buttons (const gchar     *title,
 ##                                        GtkWindow       *parent,
@@ -152,7 +155,6 @@ gtk_dialog_widgets (dialog)
 ##                                        ...);
 GtkWidget *
 gtk_dialog_new (class, ...)
-	SV * class
     ALIAS:
 	Gtk2::Dialog::new = 0
 	Gtk2::Dialog::new_with_buttons = 1
@@ -163,8 +165,7 @@ gtk_dialog_new (class, ...)
 	GtkWindow * parent;
 	int flags;
     CODE:
-	UNUSED(class);
-	UNUSED(ix);
+	PERL_UNUSED_VAR (ix);
 	if (items == 1) {
 		/* the easy way out... */
 		dialog = gtk_dialog_new ();

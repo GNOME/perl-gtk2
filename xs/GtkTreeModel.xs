@@ -45,13 +45,11 @@ MODULE = Gtk2::TreeModel	PACKAGE = Gtk2::TreePath	PREFIX = gtk_tree_path_
 
 GtkTreePath_own_ornull *
 gtk_tree_path_new (class, path=NULL)
-	SV * class
 	const gchar * path
     ALIAS:
 	new_from_string = 1
     CODE:
-	UNUSED(class);
-	UNUSED(ix);
+	PERL_UNUSED_VAR (ix);
 	if (path)
 		RETVAL = gtk_tree_path_new_from_string (path);
 	else
@@ -71,14 +69,10 @@ gtk_tree_path_new (class, path=NULL)
 ## it here, so we can use it in all versions.
 GtkTreePath_own_ornull *
 gtk_tree_path_new_from_indices (class, first_index, ...)
-	SV * class
-	gint first_index
     PREINIT:
 	gint i;
 	GtkTreePath *path;
     CODE:
-	UNUSED(class);
-	UNUSED(first_index);
 	path = gtk_tree_path_new ();
 
 	for (i = 1 ; i < items ; i++) {
@@ -102,12 +96,8 @@ gtk_tree_path_to_string (path)
 
 GtkTreePath *
 gtk_tree_path_new_first (class)
-	SV * class
     C_ARGS:
 	/* void */
-    CLEANUP:
-	UNUSED(class);
-
 
 ## gtk_tree_path_new_root is deprecated in 2.2.0
 
@@ -191,11 +181,9 @@ MODULE = Gtk2::TreeModel	PACKAGE = Gtk2::TreeRowReference	PREFIX = gtk_tree_row_
 ##GtkTreeRowReference* gtk_tree_row_reference_new (GtkTreeModel *model, GtkTreePath *path);
 #  $row_ref_or_undef = Gtk2::TreeRowReference->new ($model, $path)
 GtkTreeRowReference_own_ornull*
-gtk_tree_row_reference_new (SV * class, GtkTreeModel *model, GtkTreePath *path)
+gtk_tree_row_reference_new (class, GtkTreeModel *model, GtkTreePath *path)
     C_ARGS:
 	model, path
-    CLEANUP:
-	UNUSED(class);
 
   ## mmmm, the docs say "you do not need to use this function"
 ##GtkTreeRowReference* gtk_tree_row_reference_new_proxy (GObject *proxy, GtkTreeModel *model, GtkTreePath *path);

@@ -26,11 +26,8 @@ MODULE = Gtk2::Combo	PACKAGE = Gtk2::Combo	PREFIX = gtk_combo_
 ## GtkWidget* gtk_combo_new (void)
 GtkWidget*
 gtk_combo_new (class)
-	SV * class
     C_ARGS:
 	/* void */
-    CLEANUP:
-	UNUSED(class);
 
 ## void gtk_combo_disable_activate (GtkCombo* combo)
 void

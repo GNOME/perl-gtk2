@@ -44,6 +44,8 @@ static const char *
 gdk_event_get_package (GType gtype,
                        GdkEvent * event)
 {
+	PERL_UNUSED_VAR (gtype);
+
 	switch (event->type) {
 	    default:
 		warn ("unknown event type %d", event->type);
@@ -164,26 +166,21 @@ BOOT:
  ## gboolean gdk_events_pending (void)
 gboolean
 gdk_events_pending (class)
-	SV * class
     C_ARGS:
 	/*void*/
-    CLEANUP:
-	UNUSED(class);
 
  ## GdkEvent* gdk_event_get (void)
  ## GdkEvent* gdk_event_peek (void)
 ## caller must free
 GdkEvent_own_ornull*
 gdk_event_get (class)
-	SV * class
     ALIAS:
 	get = 0
 	peek = 1
     C_ARGS:
 	/*void*/
     CLEANUP:
-	UNUSED(class);
-	UNUSED(ix);
+	PERL_UNUSED_VAR (ix);
 
  ## GdkEvent* gdk_event_get_graphics_expose (GdkWindow *window)
 GdkEvent_own_ornull*
@@ -194,12 +191,9 @@ gdk_event_get_graphics_expose (window)
 ## call as Gtk2::Gdk::Event->put ($event)
 void
 gdk_event_put (class, event)
-	SV * class
 	GdkEvent *event
     C_ARGS:
 	event
-    CLEANUP:
-	UNUSED(class);
 
 #if GTK_CHECK_VERSION(2,2,0)
 
@@ -207,12 +201,9 @@ gdk_event_put (class, event)
 ## caller must free
 GdkEvent_own*
 gdk_event_new (class, type)
-	SV * class
 	GdkEventType type
     C_ARGS:
 	type
-    CLEANUP:
-	UNUSED(class);
 
 #endif
 
@@ -232,7 +223,7 @@ gdk_event_get_time (event)
 	Gtk2::Gdk::Event::get_time = 0
 	Gtk2::Gdk::Event::time = 1
     CLEANUP:
-	UNUSED(ix);
+	PERL_UNUSED_VAR (ix);
 
  ## gboolean gdk_event_get_state (GdkEvent *event, GdkModifierType *state)
 GdkModifierType
@@ -242,7 +233,7 @@ state (event)
 	Gtk2::Gdk::Event::get_state = 0
 	Gtk2::Gdk::Event::state = 1
     CODE:
-	UNUSED(ix);
+	PERL_UNUSED_VAR (ix);
 	if (!gdk_event_get_state (event, &RETVAL))
 		XSRETURN_UNDEF;
     OUTPUT:
@@ -364,7 +355,7 @@ DESTROY (sv)
 	Gtk2::Gdk::Event::WindowState::DESTROY = 16
 	Gtk2::Gdk::Event::DND::DESTROY         = 17
     CODE:
-	UNUSED(ix);
+	PERL_UNUSED_VAR (ix);
 	default_wrapper_class->destroy (sv);
 
 
@@ -870,20 +861,14 @@ MODULE = Gtk2::Gdk::Event	PACKAGE = Gtk2::Gdk	PREFIX = gdk_
 
 void
 gdk_set_show_events (class, show_events)
-	SV * class
 	gboolean show_events
     C_ARGS:
 	show_events
-    CLEANUP:
-	UNUSED(class);
 
 gboolean
 gdk_get_show_events (class)
-	SV * class
     C_ARGS:
 	/*void*/
-    CLEANUP:
-	UNUSED(class);
 
  # FIXME needs a callback
  ## void gdk_add_client_message_filter (GdkAtom message_type, GdkFilterFunc func, gpointer data)
@@ -896,12 +881,10 @@ gdk_get_show_events (class)
  ## gboolean gdk_setting_get (const gchar *name, GValue *value)
 SV *
 gdk_setting_get (class, name)
-	SV * class
 	const gchar *name
     PREINIT:
 	GValue value = {0,};
     CODE:
-	UNUSED(class);
 	g_value_init (&value, G_TYPE_INT);
 	if (!gdk_setting_get (name, &value))
 		XSRETURN_UNDEF;

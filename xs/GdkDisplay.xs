@@ -34,11 +34,9 @@ BOOT:
 
 ##  GdkDisplay *gdk_display_open (const gchar *display_name) 
 GdkDisplay_ornull *
-gdk_display_open (SV * class, const gchar * display_name)
+gdk_display_open (class, const gchar * display_name)
     C_ARGS:
 	display_name
-    CLEANUP:
-	UNUSED(class);
 
 const gchar * gdk_display_get_name (GdkDisplay * display)
 
@@ -92,11 +90,9 @@ void gdk_display_set_double_click_time (GdkDisplay *display, guint msec)
 
 ##  GdkDisplay *gdk_display_get_default (void) 
 GdkDisplay_ornull *
-gdk_display_get_default (SV * class)
+gdk_display_get_default (class)
     C_ARGS:
 	/*void*/
-    CLEANUP:
-	UNUSED(class);
 
 ##  GdkDevice *gdk_display_get_core_pointer (GdkDisplay *display) 
 GdkDevice *

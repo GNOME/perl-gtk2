@@ -45,12 +45,9 @@ MODULE = Gtk2::Pango::Layout	PACKAGE = Gtk2::Pango::Layout	PREFIX = pango_layout
 ##  PangoLayout *pango_layout_new (PangoContext *context) 
 PangoLayout_noinc *
 pango_layout_new (class, context)
-	SV * class
 	PangoContext * context
     C_ARGS:
 	context
-    CLEANUP:
-	UNUSED(class);
 
 ##  PangoLayout *pango_layout_copy (PangoLayout *src) 
 PangoLayout_noinc *

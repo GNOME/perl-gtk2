@@ -39,11 +39,8 @@ MODULE = Gtk2::Notebook	PACKAGE = Gtk2::Notebook	PREFIX = gtk_notebook_
 ## GtkWidget * gtk_notebook_new (void)
 GtkWidget *
 gtk_notebook_new (class)
-	SV * class
     C_ARGS:
 	/*void*/
-    CLEANUP:
-	UNUSED(class);
 
 ## void gtk_notebook_append_page (GtkNotebook *notebook, GtkWidget *child, GtkWidget *tab_label)
 void

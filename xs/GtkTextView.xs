@@ -26,16 +26,12 @@ MODULE = Gtk2::TextView	PACKAGE = Gtk2::TextView	PREFIX = gtk_text_view_
 ## GtkWidget * gtk_text_view_new (void)
 GtkWidget *
 gtk_text_view_new (class)
-	SV * class
     C_ARGS:
 	/* void */
-    CLEANUP:
-	UNUSED(class);
 
 ## GtkWidget * gtk_text_view_new_with_buffer (GtkTextBuffer *buffer)
 GtkWidget *
 gtk_text_view_new_with_buffer (class, buffer)
-	SV            * class
 	GtkTextBuffer * buffer
     C_ARGS:
 	buffer

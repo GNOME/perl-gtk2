@@ -57,35 +57,28 @@ BOOT:
 ### intentionally switched to char instead of gchar
 GdkBitmap_noinc *
 gdk_bitmap_create_from_data (class, drawable, data, width, height)
-	SV * class
 	GdkDrawable_ornull *drawable
 	const char *data
 	gint width
 	gint height
     C_ARGS:
 	drawable, data, width, height
-    CLEANUP:
-	UNUSED(class);
 
 MODULE = Gtk2::Gdk::Pixmap	PACKAGE = Gtk2::Gdk::Pixmap	PREFIX = gdk_pixmap_
 
 GdkPixmap_noinc *
 gdk_pixmap_new (class, drawable, width, height, depth)
-	SV * class
 	GdkDrawable_ornull * drawable
 	gint width
 	gint height
 	gint depth
     C_ARGS:
 	drawable, width, height, depth
-    CLEANUP:
-	UNUSED(class);
 
  ## GdkPixmap* gdk_pixmap_create_from_data (GdkDrawable *drawable, const gchar *data, gint width, gint height, gint depth, GdkColor *fg, GdkColor *bg)
 ### intentionally switched to char instead of gchar
 GdkPixmap_noinc *
 gdk_pixmap_create_from_data (class, drawable, data, width, height, depth, fg, bg)
-	SV * class
 	GdkDrawable *drawable
 	const char *data
 	gint width
@@ -95,13 +88,10 @@ gdk_pixmap_create_from_data (class, drawable, data, width, height, depth, fg, bg
 	GdkColor *bg
     C_ARGS:
 	drawable, data, width, height, depth, fg, bg
-    CLEANUP:
-	UNUSED(class);
 
  ## GdkPixmap* gdk_pixmap_create_from_xpm (GdkDrawable *drawable, GdkBitmap **mask, GdkColor *transparent_color, const gchar *filename)
 void
 gdk_pixmap_create_from_xpm (class, drawable, transparent_color, filename)
-	SV * class
 	GdkDrawable *drawable
 	GdkColor_ornull *transparent_color
 	const gchar *filename
@@ -109,7 +99,6 @@ gdk_pixmap_create_from_xpm (class, drawable, transparent_color, filename)
 	GdkPixmap * pixmap;
 	GdkBitmap * mask;
     PPCODE:
-	UNUSED(class);
 	pixmap = gdk_pixmap_create_from_xpm (drawable, &mask,
 					     transparent_color, filename);
 	EXTEND (SP, 2);
@@ -119,7 +108,6 @@ gdk_pixmap_create_from_xpm (class, drawable, transparent_color, filename)
  ## GdkPixmap* gdk_pixmap_colormap_create_from_xpm (GdkDrawable *drawable, GdkColormap *colormap, GdkBitmap **mask, GdkColor *transparent_color, const gchar *filename)
 void
 gdk_pixmap_colormap_create_from_xpm (class, drawable, colormap, transparent_color, filename)
-	SV * class
 	GdkDrawable *drawable
 	GdkColormap *colormap
 	GdkColor_ornull *transparent_color
@@ -128,7 +116,6 @@ gdk_pixmap_colormap_create_from_xpm (class, drawable, colormap, transparent_colo
 	GdkPixmap * pixmap;
 	GdkBitmap * mask;
     PPCODE:
-	UNUSED(class);
 	pixmap = gdk_pixmap_colormap_create_from_xpm (drawable, colormap,
 					&mask, transparent_color, filename);
 	EXTEND (SP, 2);
@@ -138,18 +125,14 @@ gdk_pixmap_colormap_create_from_xpm (class, drawable, colormap, transparent_colo
 ## ## GdkPixmap* gdk_pixmap_create_from_xpm_d (GdkDrawable *drawable, GdkBitmap **mask, GdkColor *transparent_color, gchar **data)
 void
 gdk_pixmap_create_from_xpm_d (class, drawable, transparent_color, data, ...)
-	SV * class
 	GdkDrawable *drawable
 	GdkColor_ornull *transparent_color
-	SV * data
     PREINIT:
 	GdkBitmap * mask = NULL;
 	GdkPixmap * pixmap = NULL;
 	char ** lines;
 	int i;
     PPCODE:
-	UNUSED(class);
-	UNUSED(data);
 	lines = g_new (char*, items - 3);
 	for (i = 3 ; i < items ; i++)
 		lines[i-3] = SvPV_nolen (ST (i));
@@ -164,19 +147,15 @@ gdk_pixmap_create_from_xpm_d (class, drawable, transparent_color, data, ...)
 ## ## GdkPixmap* gdk_pixmap_colormap_create_from_xpm_d (GdkDrawable *drawable, GdkColormap *colormap, GdkBitmap **mask, GdkColor *transparent_color, gchar **data)
 void
 gdk_pixmap_colormap_create_from_xpm_d (class, drawable, colormap, transparent_color, data, ...)
-	SV * class
 	GdkDrawable_ornull *drawable
 	GdkColormap_ornull *colormap
 	GdkColor_ornull *transparent_color
-	SV * data
     PREINIT:
 	GdkBitmap * mask = NULL;
 	GdkPixmap * pixmap = NULL;
 	char ** lines;
 	int i;
     PPCODE:
-	UNUSED(class);
-	UNUSED(data);
 	lines = g_new (char*, items - 4);
 	for (i = 4 ; i < items ; i++)
 		lines[i-4] = SvPV_nolen (ST (i));

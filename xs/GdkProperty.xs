@@ -35,7 +35,6 @@ eq (left, right, swap=FALSE)
 ##  GdkAtom gdk_atom_intern (const gchar *atom_name, gboolean only_if_exists) 
 GdkAtom
 gdk_atom_intern (class, atom_name, only_if_exists=FALSE)
-	SV * class
 	const gchar *atom_name
 	gboolean only_if_exists
     ALIAS:
@@ -44,8 +43,7 @@ gdk_atom_intern (class, atom_name, only_if_exists=FALSE)
     C_ARGS:
 	atom_name, only_if_exists
     CLEANUP:
-	UNUSED(class);
-	UNUSED(ix);
+	PERL_UNUSED_VAR (ix);
 
 ##  gchar* gdk_atom_name (GdkAtom atom) 
 gchar_own *

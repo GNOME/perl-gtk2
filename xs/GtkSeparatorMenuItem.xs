@@ -26,9 +26,6 @@ MODULE = Gtk2::SeparatorMenuItem	PACKAGE = Gtk2::SeparatorMenuItem	PREFIX = gtk_
 ## GtkWidget* gtk_separator_menu_item_new (void)
 GtkWidget *
 gtk_separator_menu_item_new (class)
-	SV * class
     C_ARGS:
 	/* void */
-    CLEANUP:
-	UNUSED(class);
 

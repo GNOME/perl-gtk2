@@ -26,15 +26,13 @@ MODULE = Gtk2::Pango::TabArray	PACKAGE = Gtk2::Pango::TabArray	PREFIX = pango_ta
 ###  PangoTabArray *pango_tab_array_new_with_positions (gint size, gboolean positions_in_pixels, PangoTabAlign first_alignment, gint first_position, ...) 
 PangoTabArray_own *
 pango_tab_array_new (class, initial_size, positions_in_pixels, ...)
-	SV * class
 	gint initial_size
 	gboolean positions_in_pixels
     ALIAS:
 	new = 1
 	new_with_positions = 2
     CODE:
-	UNUSED(class);
-	UNUSED(ix);
+	PERL_UNUSED_VAR (ix);
 	RETVAL = pango_tab_array_new (initial_size, positions_in_pixels);
 	if (items > 3) {
 		int i;

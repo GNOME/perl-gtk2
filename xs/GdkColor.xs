@@ -45,11 +45,8 @@ gdk_colormap_new (visual, allocate)
  ## GdkColormap* gdk_colormap_get_system (void)
 GdkColormap*
 gdk_colormap_get_system (class)
-	SV * class
     C_ARGS:
 	/* void */
-    CLEANUP:
-	UNUSED(class);
 
 
  ## deprecated
@@ -140,14 +137,12 @@ MODULE = Gtk2::Gdk::Color	PACKAGE = Gtk2::Gdk::Color	PREFIX = gdk_color_
 
 GdkColor_own *
 gdk_color_new (class, red, green, blue)
-	SV * class
 	int red
 	int green
 	int blue
     PREINIT:
 	GdkColor c;
     CODE:
-	UNUSED(class);
 	c.red = red;
 	c.green = green;
 	c.blue = blue;
@@ -162,12 +157,10 @@ gdk_color_new (class, red, green, blue)
  ## gint gdk_color_parse (const gchar *spec, GdkColor *color)
 GdkColor_own *
 gdk_color_parse (class, spec)
-	SV * class
 	const gchar *spec
     PREINIT:
 	GdkColor c;
     CODE:
-	UNUSED(class);
 	RETVAL = gdk_color_copy (&c);
 	if (!gdk_color_parse (spec, RETVAL)) {
 		gdk_color_free (RETVAL);

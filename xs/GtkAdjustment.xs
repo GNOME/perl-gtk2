@@ -65,7 +65,6 @@ value (GtkAdjustment *adjustment, gdouble newval = 0)
 
 GtkObject*
 gtk_adjustment_new (class, value, lower, upper, step_increment, page_increment, page_size)
-	SV      * class
 	gdouble   value
 	gdouble   lower
 	gdouble   upper
@@ -74,8 +73,6 @@ gtk_adjustment_new (class, value, lower, upper, step_increment, page_increment, 
 	gdouble   page_size
     C_ARGS:
 	value, lower, upper, step_increment, page_increment, page_size
-    CLEANUP:
-	UNUSED(class);
 
 void
 gtk_adjustment_changed (adjustment)

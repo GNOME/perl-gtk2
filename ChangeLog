@@ -1,3 +1,13 @@
+2003/10/12 13:42 rwmcfa1
+
+	* xs/(most).xs: UNUSED is no more, PERL_UNUSED_VAR used where 
+	needed, relies on new ParseXS to prevent the other warnings that were
+	its fault, we now only quite the ones that are ours
+
+	* Gtk2/xs/GtkObject.xs: fixed problem where g_object_unref was being
+	called on the wrong thing. there was both a SV * class and GtkObject 
+	class, no longer the case
+
 2003/10/10 00:13 muppetman
 
 	* Gtk2.pm, README, META.yml, debian/changelog: 1.00

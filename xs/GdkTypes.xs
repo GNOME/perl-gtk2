@@ -63,7 +63,6 @@ MODULE = Gtk2::Gdk::Types	PACKAGE = Gtk2::Gdk::Rectangle
 
 GdkRectangle_copy *
 new (class, x, y, width, height)
-	SV * class
 	gint x
 	gint y
 	gint width
@@ -71,7 +70,6 @@ new (class, x, y, width, height)
     PREINIT:
 	GdkRectangle rect;
     CODE:
-	UNUSED(class);
 	rect.x = x;
 	rect.y = y;
 	rect.width = width;

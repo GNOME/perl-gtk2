@@ -26,11 +26,8 @@ MODULE = Gtk2::Statusbar	PACKAGE = Gtk2::Statusbar	PREFIX = gtk_statusbar_
 ## GtkWidget* gtk_statusbar_new (void)
 GtkWidget *
 gtk_statusbar_new (class)
-	SV * class
     C_ARGS:
 	/* void */
-    CLEANUP:
-	UNUSED(class);
 
 ## void gtk_statusbar_pop (GtkStatusbar *statusbar, guint context_id)
 void

@@ -90,14 +90,11 @@ MODULE = Gtk2::Table	PACKAGE = Gtk2::Table	PREFIX = gtk_table_
 
 GtkWidget *
 gtk_table_new (class, rows, columns, homogeneous=FALSE)
-	SV * class
 	guint    rows
 	guint    columns
 	gboolean homogeneous
     C_ARGS:
 	rows, columns, homogeneous
-    CLEANUP:
-	UNUSED(class);
 
 void
 gtk_table_resize (table, rows, columns)

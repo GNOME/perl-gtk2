@@ -26,22 +26,16 @@ MODULE = Gtk2::VScale	PACKAGE = Gtk2::VScale	PREFIX = gtk_vscale_
 ## GtkWidget* gtk_vscale_new (GtkAdjustment *adjustment)
 GtkWidget *
 gtk_vscale_new (class, adjustment=NULL)
-	SV            * class
 	GtkAdjustment_ornull * adjustment
     C_ARGS:
 	adjustment
-    CLEANUP:
-	UNUSED(class);
 
 ## GtkWidget* gtk_vscale_new_with_range (gdouble min, gdouble max, gdouble step)
 GtkWidget *
 gtk_vscale_new_with_range (class, min, max, step)
-	SV * class
 	gdouble min
 	gdouble max
 	gdouble step
     C_ARGS:
 	min, max, step
-    CLEANUP:
-	UNUSED(class);
 

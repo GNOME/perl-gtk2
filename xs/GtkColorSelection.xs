@@ -25,11 +25,8 @@ MODULE = Gtk2::ColorSelection	PACKAGE = Gtk2::ColorSelection	PREFIX = gtk_color_
 
 GtkWidget *
 gtk_color_selection_new (class)
-	SV * class
     C_ARGS:
 	/* void */
-    CLEANUP:
-	UNUSED(class);
 
 ## gboolean gtk_color_selection_get_has_opacity_control (GtkColorSelection *colorsel)
 gboolean
@@ -120,14 +117,12 @@ gtk_color_selection_is_adjusting (colorsel)
 ## gboolean gtk_color_selection_palette_from_string (const gchar *str, GdkColor **colors, gint *n_colors)
 void
 gtk_color_selection_palette_from_string (class, string)
-	SV * class
 	gchar * string
     PREINIT:
 	GdkColor * colors;
 	gint n_colors;
 	int i;
     PPCODE:
-	UNUSED(class);
 	if (!gtk_color_selection_palette_from_string (string,
 						&colors, &n_colors))
 		XSRETURN_EMPTY;
@@ -141,14 +136,12 @@ gtk_color_selection_palette_from_string (class, string)
 
 SV *
 gtk_color_selection_palette_to_string (class, ...)
-	SV * class
     PREINIT:
 	GdkColor * colors;
 	gint n_colors;
 	gchar * string;
 	int i;
     CODE:
-	UNUSED(class);
 	n_colors = items - 1;
 	for (i = 0 ; i < n_colors ; i++) {
 		/* this will croak if any of the items are not valid */

@@ -26,11 +26,8 @@ MODULE = Gtk2::Fixed	PACKAGE = Gtk2::Fixed	PREFIX = gtk_fixed_
 ## GtkWidget* gtk_fixed_new (void)
 GtkWidget *
 gtk_fixed_new (class)
-	SV * class
     C_ARGS:
 	/* void */
-    CLEANUP:
-	UNUSED(class);
 
 ## void gtk_fixed_put (GtkFixed *fixed, GtkWidget *widget, gint x, gint y)
 void

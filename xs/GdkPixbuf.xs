@@ -25,6 +25,8 @@ static void
 gtk2perl_pixbuf_destroy_notify (guchar * pixels,
                                 gpointer data)
 {
+	PERL_UNUSED_VAR (pixels);
+
 	gperl_sv_free ((SV*)data);
 }
 
@@ -134,7 +136,6 @@ gdk_pixbuf_get_rowstride (pixbuf)
 ##  GdkPixbuf *gdk_pixbuf_new (GdkColorspace colorspace, gboolean has_alpha, int bits_per_sample, int width, int height) 
 GdkPixbuf_noinc *
 gdk_pixbuf_new (class, colorspace, has_alpha, bits_per_sample, width, height)
-	SV * class
 	GdkColorspace colorspace
 	gboolean has_alpha
 	int bits_per_sample
@@ -142,8 +143,6 @@ gdk_pixbuf_new (class, colorspace, has_alpha, bits_per_sample, width, height)
 	int height
     C_ARGS:
 	colorspace, has_alpha, bits_per_sample, width, height
-    CLEANUP:
-	UNUSED(class);
 
 ##  GdkPixbuf *gdk_pixbuf_copy (const GdkPixbuf *pixbuf) 
 GdkPixbuf_noinc *
@@ -162,12 +161,10 @@ gdk_pixbuf_new_subpixbuf (src_pixbuf, src_x, src_y, width, height)
 ##  GdkPixbuf *gdk_pixbuf_new_from_file (const char *filename, GError **error) 
 GdkPixbuf_noinc *
 gdk_pixbuf_new_from_file (class, filename)
-	SV * class
 	const char *filename
     PREINIT:
 	GError * error = NULL;
     CODE:
-	UNUSED(class);
 	RETVAL = gdk_pixbuf_new_from_file (filename, &error);
 	if (!RETVAL)
 		gperl_croak_gerror (filename, error);
@@ -202,14 +199,10 @@ gdk_pixbuf_new_from_data (class, data, colorspace, has_alpha, bits_per_sample, w
 ##  GdkPixbuf *gdk_pixbuf_new_from_xpm_data (const char **data) 
 GdkPixbuf_noinc *
 gdk_pixbuf_new_from_xpm_data (class, data, ...)
-	SV * class
-	SV * data
     PREINIT:
 	char ** lines;
 	int i;
     CODE:
-	UNUSED(class);
-	UNUSED(data);
 	lines = g_new (char *, items - 1);
 	for (i = 1; i < items; i++)
 		lines[i-1] = SvPV_nolen (ST (i));
@@ -222,14 +215,12 @@ gdk_pixbuf_new_from_xpm_data (class, data, ...)
 ##  GdkPixbuf* gdk_pixbuf_new_from_inline (gint data_length, const guint8 *data, gboolean copy_pixels, GError **error) 
 GdkPixbuf_noinc *
 gdk_pixbuf_new_from_inline (class, data_length, data, copy_pixels)
-	SV * class
 	gint data_length
 	const guchar *data
 	gboolean copy_pixels
     PREINIT:
 	GError * error = NULL;
     CODE:
-	UNUSED(class);
 	RETVAL = gdk_pixbuf_new_from_inline (data_length, data, 
 	                                     copy_pixels, &error);
 	if (!RETVAL)
@@ -391,12 +382,10 @@ MODULE = Gtk2::Gdk::Pixbuf	PACKAGE = Gtk2::Gdk::PixbufAnimation	PREFIX = gdk_pix
 ##  GdkPixbufAnimation *gdk_pixbuf_animation_new_from_file (const char *filename, GError **error) 
 GdkPixbufAnimation_noinc *
 gdk_pixbuf_animation_new_from_file (class, filename, error)
-	SV * class
 	char *filename
     PREINIT:
 	GError * error = NULL;
     CODE:
-	UNUSED(class);
 	RETVAL = gdk_pixbuf_animation_new_from_file (filename, &error);
 	if (!RETVAL)
 		gperl_croak_gerror (filename, error);

@@ -43,7 +43,6 @@ MODULE = Gtk2::Dnd	PACKAGE = Gtk2::Drag	PREFIX = gtk_drag_
 ##  GdkDragContext *gtk_drag_begin (GtkWidget *widget, GtkTargetList *targets, GdkDragAction actions, gint button, GdkEvent *event) 
 GdkDragContext *
 gtk_drag_begin (class, widget, targets, actions, button, event)
-	SV * class
 	GtkWidget *widget
 	GtkTargetList *targets
 	GdkDragAction actions
@@ -51,8 +50,6 @@ gtk_drag_begin (class, widget, targets, actions, button, event)
 	GdkEvent *event
     C_ARGS:
 	widget, targets, actions, button, event
-    CLEANUP:
-	UNUSED(class);
 
 MODULE = Gtk2::Dnd	PACKAGE = Gtk2::Gdk::DragContext	PREFIX = gtk_drag_
 

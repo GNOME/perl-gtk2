@@ -26,7 +26,6 @@ MODULE = Gtk2::MessageDialog	PACKAGE = Gtk2::MessageDialog	PREFIX = gtk_message_
 
 GtkWidget *
 gtk_message_dialog_new (class, parent, flags, type, buttons, message)
-	SV * class
 	GtkWindow_ornull * parent
 	GtkDialogFlags flags
 	GtkMessageType type
@@ -34,6 +33,4 @@ gtk_message_dialog_new (class, parent, flags, type, buttons, message)
 	char * message
     C_ARGS:
 	parent, flags, type, buttons, message
-    CLEANUP:
-	UNUSED(class);
 

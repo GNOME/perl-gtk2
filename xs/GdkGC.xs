@@ -38,12 +38,9 @@ BOOT:
  ##GdkGC * gdk_gc_new (GdkDrawable * drawable);
 GdkGC_noinc*
 gdk_gc_new (class, drawable)
-	SV * class
 	GdkDrawable * drawable
     C_ARGS:
 	drawable
-    CLEANUP:
-	UNUSED(class);
 
 # FIXME need GdkGCValues
  ##GdkGC * gdk_gc_new_with_values (GdkDrawable * drawable, GdkGCValues * values);

@@ -26,11 +26,8 @@ MODULE = Gtk2::CellRendererText	PACKAGE = Gtk2::CellRendererText	PREFIX = gtk_ce
 ##GtkWidget* gtk_cell_renderer_text_new (void);
 GtkCellRenderer *
 gtk_cell_renderer_text_new (class)
-	SV * class
     C_ARGS:
 	/* void */
-    CLEANUP:
-	UNUSED(class);
 
 ## void gtk_cell_renderer_text_set_fixed_height_from_font (GtkCellRendererText *renderer, gint number_of_rows)
 void

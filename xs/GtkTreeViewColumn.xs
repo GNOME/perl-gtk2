@@ -83,19 +83,14 @@ MODULE = Gtk2::TreeViewColumn	PACKAGE = Gtk2::TreeViewColumn	PREFIX = gtk_tree_v
 
 GtkTreeViewColumn *
 gtk_tree_view_column_new (class)
-	SV * class
     C_ARGS:
 	/*void*/
-    CLEANUP:
-	UNUSED(class);
 
 GtkTreeViewColumn *
 gtk_tree_view_column_new_with_attributes (class, title, cell, ...)
-	SV * class
 	const gchar * title
 	GtkCellRenderer * cell
     CODE:
-	UNUSED(class);
 	if (!check_stack_for_attributes (3))
 		croak ("Usage: Gtk2::TreeViewColumn->new_with_attributes (TITLE, CELLRENDERER, ATTR1, COL1, ATTR2, COL2, ...)");
 	RETVAL = gtk_tree_view_column_new ();
@@ -131,7 +126,7 @@ gtk_tree_view_column_get_cell_renderers (tree_column)
 	GList * renderers, * i;
     PPCODE:
 	renderers = gtk_tree_view_column_get_cell_renderers (tree_column);
-	EXTEND (SP, g_list_length (renderers));
+	EXTEND (SP, (int)g_list_length (renderers));
 	for (i = renderers ; i ; i = i->next)
 		PUSHs (sv_2mortal (newSVGtkCellRenderer (GTK_CELL_RENDERER (i->data))));
 	g_list_free (renderers);

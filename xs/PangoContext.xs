@@ -26,7 +26,6 @@ MODULE = Gtk2::Pango::Context	PACKAGE = Gtk2::Pango::Context	PREFIX = pango_cont
 ###  PangoContext *pango_context_new (void) 
 #PangoContext_noinc *
 #pango_context_new (class)
-#	SV * class
 #    C_ARGS:
 #	
 

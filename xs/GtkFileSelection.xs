@@ -54,12 +54,9 @@ member_widget (fs)
 ## GtkWidget* gtk_file_selection_new (const gchar *title)
 GtkWidget *
 gtk_file_selection_new (class, title)
-	SV          * class
 	const gchar * title
     C_ARGS:
 	title
-    CLEANUP:
-	UNUSED(class);
 
 ## void gtk_file_selection_set_filename (GtkFileSelection *filesel, const gchar *filename)
 void

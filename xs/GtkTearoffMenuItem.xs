@@ -26,9 +26,6 @@ MODULE = Gtk2::TearoffMenuItem	PACKAGE = Gtk2::TearoffMenuItem	PREFIX = gtk_tear
 ## GtkWidget* gtk_tearoff_menu_item_new (void)
 GtkWidget *
 gtk_tearoff_menu_item_new (class)
-	SV * class
     C_ARGS:
 	/* void */
-    CLEANUP:
-	UNUSED(class);
 

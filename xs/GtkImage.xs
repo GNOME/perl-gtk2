@@ -25,81 +25,58 @@ MODULE = Gtk2::Image	PACKAGE = Gtk2::Image	PREFIX = gtk_image_
 
 GtkWidget*
 gtk_image_new (class)
-	SV * class
     C_ARGS:
 	/*void*/
-    CLEANUP:
-	UNUSED(class);
 
  ## GtkWidget* gtk_image_new_from_pixmap (GdkPixmap *pixmap, GdkBitmap *mask)
 GtkWidget*
 gtk_image_new_from_pixmap (class, pixmap, mask)
-	SV * class
 	GdkPixmap_ornull * pixmap
 	GdkBitmap_ornull * mask
     C_ARGS:
 	pixmap, mask
-    CLEANUP:
-	UNUSED(class);
 
  ## GtkWidget* gtk_image_new_from_image (GdkImage *image, GdkBitmap *mask)
 GtkWidget*
 gtk_image_new_from_image (class, image, mask)
-	SV * class
 	GdkImage_ornull *image
 	GdkBitmap_ornull *mask
     C_ARGS:
 	image, mask
-    CLEANUP:
-	UNUSED(class);
 
 GtkWidget*
 gtk_image_new_from_file (class, filename)
-	SV * class
 	const gchar *filename
     C_ARGS:
 	filename
-    CLEANUP:
-	UNUSED(class);
 
  ## GtkWidget* gtk_image_new_from_pixbuf (GdkPixbuf *pixbuf)
 GtkWidget*
 gtk_image_new_from_pixbuf (class, pixbuf)
-	SV * class
 	GdkPixbuf_ornull * pixbuf
     C_ARGS:
 	pixbuf
-    CLEANUP:
-	UNUSED(class);
 
 GtkWidget*
 gtk_image_new_from_stock (class, stock_id, size)
-	SV * class
 	const gchar *stock_id
 	GtkIconSize size
     C_ARGS:
 	stock_id, size
-    CLEANUP:
-	UNUSED(class);
  
  ## GtkWidget* gtk_image_new_from_icon_set (GtkIconSet *icon_set, GtkIconSize size)
 GtkWidget*
 gtk_image_new_from_icon_set (class, icon_set, size)
-	SV * class
 	GtkIconSet *icon_set
 	GtkIconSize size
     C_ARGS:
 	icon_set, size
-    CLEANUP:
-	UNUSED(class);
 
  ## GtkWidget* gtk_image_new_from_animation (GdkPixbufAnimation *animation)
 GtkWidget*
-gtk_image_new_from_animation (SV * class, GdkPixbufAnimation *animation)
+gtk_image_new_from_animation (class, GdkPixbufAnimation *animation)
     C_ARGS:
 	animation
-    CLEANUP:
-	UNUSED(class);
 
  ## void gtk_image_set_from_pixmap (GtkImage *image, GdkPixmap *pixmap, GdkBitmap *mask)
 void

@@ -26,12 +26,9 @@ MODULE = Gtk2::AccelLabel	PACKAGE = Gtk2::AccelLabel	PREFIX = gtk_accel_label_
 ## GtkWidget* gtk_accel_label_new (const gchar *string)
 GtkWidget *
 gtk_accel_label_new (class, string)
-	SV          * class
 	const gchar * string
     C_ARGS:
 	string
-    CLEANUP:
-	UNUSED(class);
 
 ## GtkWidget* gtk_accel_label_get_accel_widget (GtkAccelLabel *accel_label)
 GtkWidget *

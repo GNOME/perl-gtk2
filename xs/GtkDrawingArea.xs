@@ -26,11 +26,8 @@ MODULE = Gtk2::DrawingArea	PACKAGE = Gtk2::DrawingArea	PREFIX = gtk_drawing_area
 ## GtkWidget* gtk_drawing_area_new (void)
 GtkWidget *
 gtk_drawing_area_new (class)
-	SV * class
     C_ARGS:
 	/* void */
-    CLEANUP:
-	UNUSED(class);
 
 ## void gtk_drawing_area_size (GtkDrawingArea *darea, gint width, gint height)
 void

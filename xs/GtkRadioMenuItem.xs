@@ -25,7 +25,6 @@ MODULE = Gtk2::RadioMenuItem	PACKAGE = Gtk2::RadioMenuItem	PREFIX = gtk_radio_me
 
 GtkWidget *
 gtk_radio_menu_item_news (class, member_or_listref=NULL, label=NULL)
-	SV          * class
 	SV          * member_or_listref
 	const gchar * label
     ALIAS:
@@ -36,7 +35,6 @@ gtk_radio_menu_item_news (class, member_or_listref=NULL, label=NULL)
 	GSList           * group = NULL;
 	GtkRadioMenuItem * member = NULL;
     CODE:
-	UNUSED(class);
 	if( member_or_listref && member_or_listref != &PL_sv_undef
 	    && SvROK (member_or_listref) 
 	    && SvRV (member_or_listref) != &PL_sv_undef )

@@ -62,11 +62,8 @@ MODULE = Gtk2::IconFactory	PACKAGE = Gtk2::IconFactory	PREFIX = gtk_icon_factory
 ##  GtkIconFactory* gtk_icon_factory_new (void) 
 GtkIconFactory_noinc *
 gtk_icon_factory_new (class)
-	SV * class
     C_ARGS:
 	/*void*/
-    CLEANUP:
-	UNUSED(class);
 
 ##  void gtk_icon_factory_add (GtkIconFactory *factory, const gchar *stock_id, GtkIconSet *icon_set) 
 void
@@ -96,10 +93,8 @@ gtk_icon_factory_add_default (factory)
 ##  GtkIconSet* gtk_icon_factory_lookup_default (const gchar *stock_id) 
 GtkIconSet*
 gtk_icon_factory_lookup_default (class, stock_id)
-	SV * class
 	const gchar *stock_id
     CODE:
-	UNUSED(class);
 	RETVAL = gtk_icon_factory_lookup_default (stock_id);
 	if (!RETVAL)
 		XSRETURN_UNDEF;
@@ -111,13 +106,11 @@ MODULE = Gtk2::IconFactory	PACKAGE = Gtk2::IconSize	PREFIX = gtk_icon_size_
 ##  gboolean gtk_icon_size_lookup (GtkIconSize size, gint *width, gint *height) 
 void
 gtk_icon_size_lookup (class, size)
-	SV * class
 	GtkIconSize size
     PREINIT:
 	gint width;
 	gint height;
     PPCODE:
-	UNUSED(class);
 	if (!gtk_icon_size_lookup (size, &width, &height))
 		XSRETURN_EMPTY;
 	EXTEND (SP, 2);
@@ -129,14 +122,12 @@ gtk_icon_size_lookup (class, size)
 ##  gboolean gtk_icon_size_lookup_for_settings (GtkSettings *settings, GtkIconSize size, gint *width, gint *height) 
 void
 gtk_icon_size_lookup_for_settings (class, settings, size, width, height)
-	SV * class
 	GtkSettings *settings
 	GtkIconSize size
     PREINIT:
 	gint width;
 	gint height;
     PPCODE:
-	UNUSED(class);
 	if (!gtk_icon_size_lookup_for_settings (settings, size, &width, &height))
 		XSRETURN_EMPTY;
 	EXTEND (SP, 2);
@@ -148,56 +139,41 @@ gtk_icon_size_lookup_for_settings (class, settings, size, width, height)
 ##  GtkIconSize gtk_icon_size_register (const gchar *name, gint width, gint height) 
 GtkIconSize
 gtk_icon_size_register (class, name, width, height)
-	SV * class
 	const gchar *name
 	gint width
 	gint height
     C_ARGS:
 	name, width, height
-    CLEANUP:
-	UNUSED(class);
 
 ##  void gtk_icon_size_register_alias (const gchar *alias, GtkIconSize target) 
 void
 gtk_icon_size_register_alias (class, alias, target)
-	SV * class
 	const gchar *alias
 	GtkIconSize target
     C_ARGS:
 	alias, target
-    CLEANUP:
-	UNUSED(class);
 
 ##  GtkIconSize gtk_icon_size_from_name (const gchar *name) 
 GtkIconSize
 gtk_icon_size_from_name (class, name)
-	SV * class
 	const gchar *name
     C_ARGS:
 	name
-    CLEANUP:
-	UNUSED(class);
 
 MODULE = Gtk2::IconFactory	PACKAGE = Gtk2::IconSet	PREFIX = gtk_icon_set_
 
 ##  GtkIconSet* gtk_icon_set_new (void) 
 GtkIconSet_own*
 gtk_icon_set_new (class)
-	SV * class
     C_ARGS:
 	/*void*/
-    CLEANUP:
-	UNUSED(class);
 
 ##  GtkIconSet* gtk_icon_set_new_from_pixbuf (GdkPixbuf *pixbuf) 
 GtkIconSet_own*
 gtk_icon_set_new_from_pixbuf (class, pixbuf)
-	SV * class
 	GdkPixbuf *pixbuf
     C_ARGS:
 	pixbuf
-    CLEANUP:
-	UNUSED(class);
 
 ###  GtkIconSet* gtk_icon_set_ref (GtkIconSet *icon_set) 
 ###  void gtk_icon_set_unref (GtkIconSet *icon_set) 
@@ -245,11 +221,8 @@ MODULE = Gtk2::IconFactory	PACKAGE = Gtk2::IconSource	PREFIX = gtk_icon_source_
 ##  GtkIconSource* gtk_icon_source_new (void) 
 GtkIconSource_own*
 gtk_icon_source_new (class)
-	SV * class
     C_ARGS:
 	/*void*/
-    CLEANUP:
-	UNUSED(class);
 
 ##  GtkIconSource* gtk_icon_source_copy (const GtkIconSource *source) 
 GtkIconSource_own *

@@ -61,7 +61,7 @@ UV gdk_x11_drawable_get_xid (GdkDrawable *drawable);
 	XID     = 1
         XWINDOW = 2
     CLEANUP:
-	UNUSED(ix);
+	PERL_UNUSED_VAR (ix);
 
 #endif /* GDK_WINDOWING_X11 */
 

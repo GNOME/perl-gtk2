@@ -105,7 +105,6 @@ gtk_object_destroy (object)
 
 GtkObject *
 new (class, object_class, ...)
-	SV * class
 	const char * object_class
     PREINIT:
 	int n_params = 0;
@@ -143,8 +142,9 @@ new (class, object_class, ...)
 				croak ("could not convert value for property %s",
 				       key);
 			params[i].name = key; /* will be valid until this
-			                       * xsub is finished */
+			                     issue2.html  * xsub is finished */
 		}
+		g_type_class_unref (class);
 	}
 
 	RETVAL = g_object_newv (object_type, n_params, params);	
@@ -155,7 +155,6 @@ new (class, object_class, ...)
 			g_value_unset (&params[i].value);
 		g_free (params);
 	}
-	g_type_class_unref (class);
 
     OUTPUT:
 	RETVAL

@@ -26,11 +26,8 @@ MODULE = Gtk2::GammaCurve	PACKAGE = Gtk2::GammaCurve	PREFIX = gtk_gamma_curve_
 ## GtkWidget* gtk_gamma_curve_new (void)
 GtkWidget *
 gtk_gamma_curve_new (class)
-	SV * class
     C_ARGS:
 	/* void */
-    CLEANUP:
-	UNUSED(class);
 
 GtkCurve *
 curve (gamma)

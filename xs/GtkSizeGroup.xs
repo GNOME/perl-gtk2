@@ -25,12 +25,9 @@ MODULE = Gtk2::SizeGroup	PACKAGE = Gtk2::SizeGroup	PREFIX = gtk_size_group_
 ##  GtkSizeGroup * gtk_size_group_new (GtkSizeGroupMode mode) 
 GtkSizeGroup_noinc *
 gtk_size_group_new (class, mode)
-	SV * class
 	GtkSizeGroupMode mode
     C_ARGS:
 	mode
-    CLEANUP:
-	UNUSED(class);
 
 ##  void gtk_size_group_set_mode (GtkSizeGroup *size_group, GtkSizeGroupMode mode) 
 void

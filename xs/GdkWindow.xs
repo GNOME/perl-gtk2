@@ -44,12 +44,10 @@ gdk_window_get_window_type (window)
  ## GdkWindow* gdk_window_at_pointer (gint *win_x, gint *win_y)
 void
 gdk_window_at_pointer (class)
-	SV * class
     PREINIT:
 	GdkWindow * window;
 	gint win_x, win_y;
     PPCODE:
-	UNUSED(class);
 	window = gdk_window_at_pointer (&win_x, &win_y);
 	EXTEND (SP, 3);
 	PUSHs (sv_2mortal (newSVGdkWindow (window)));
@@ -199,17 +197,13 @@ gdk_window_get_state (window)
 
 #ifndef GDK_MULTIHEAD_SAFE
 
-GdkWindow* gdk_window_foreign_new (SV * class, GdkNativeWindow anid);
+GdkWindow* gdk_window_foreign_new (class, GdkNativeWindow anid);
     C_ARGS:
 	anid
-    CLEANUP:
-	UNUSED(class);
 
-GdkWindow* gdk_window_lookup (SV * class, GdkNativeWindow anid);
+GdkWindow* gdk_window_lookup (class, GdkNativeWindow anid);
     C_ARGS:
 	anid
-    CLEANUP:
-	UNUSED(class);
 
 #endif
  
@@ -567,11 +561,9 @@ gdk_window_thaw_updates (window)
 
  ## void gdk_window_process_all_updates (void)
 void
-gdk_window_process_all_updates (SV * class)
+gdk_window_process_all_updates (class)
     C_ARGS:
 	/*void*/
-    CLEANUP:
-	UNUSED(class);
 
  ## void gdk_window_process_updates (GdkWindow *window, gboolean update_children)
 void
@@ -605,9 +597,7 @@ gdk_window_process_updates (GdkWindow * window, gboolean update_children)
 
 MODULE = Gtk2::Gdk::Window	PACKAGE = Gtk2::Gdk	PREFIX = gdk_
 
-GdkWindow *gdk_get_default_root_window (SV * class)
+GdkWindow *gdk_get_default_root_window (class)
     C_ARGS:
 	/*void*/
-    CLEANUP:
-	UNUSED(class);
 

@@ -74,9 +74,7 @@ BOOT:
 
 void
 gtk_get_version_info (class)
-	SV * class
     PPCODE:
-	UNUSED(class);
 	EXTEND(SP,3);
 	PUSHs(sv_2mortal(newSViv(gtk_major_version)));
 	PUSHs(sv_2mortal(newSViv(gtk_minor_version)));
@@ -84,18 +82,14 @@ gtk_get_version_info (class)
 
 gchar * 
 gtk_check_version (class, required_major, required_minor, required_micro)
-	SV    * class
 	guint   required_major
 	guint   required_minor
 	guint   required_micro
     C_ARGS:
 	required_major, required_minor, required_micro
-    CLEANUP:
-	UNUSED(class);
 
 gboolean
 gtk_init (class)
-	SV * class
     ALIAS:
 	Gtk2::init = 1
 	Gtk2::init_check = 2
@@ -105,7 +99,6 @@ gtk_init (class)
 	int argc, len, i;
 	char ** argv, ** shadow;
     CODE:
-	UNUSED(class);
 	/*
 	 * heavily borrowed from gtk-perl.
 	 *
@@ -154,28 +147,21 @@ gtk_init (class)
 	RETVAL
 
  ##void           gtk_disable_setlocale    (void);
-void gtk_disable_setlocale (SV * class)
+void gtk_disable_setlocale (class)
     C_ARGS:
 	/*void*/
-    CLEANUP:
-	UNUSED(class);
 
  ##gchar *        gtk_set_locale           (void);
-const gchar * gtk_set_locale (SV * class)
+const gchar * gtk_set_locale (class)
     C_ARGS:
 	/*void*/
-    CLEANUP:
-	UNUSED(class);
 
  ##PangoLanguage *gtk_get_default_language (void);
 
 gint
 gtk_events_pending (class)
-	SV * class
     C_ARGS:
 	/*void*/
-    CLEANUP:
-	UNUSED(class);
 
  ##
  ##/* The following is the event func GTK+ registers with GDK
@@ -186,35 +172,23 @@ gtk_events_pending (class)
 
 void
 gtk_main (class)
-	SV * class
     C_ARGS:
 	/*void*/
-    CLEANUP:
-	UNUSED(class);
 
 guint
 gtk_main_level (class)
-	SV * class
     C_ARGS:
 	/*void*/
-    CLEANUP:
-	UNUSED(class);
 
 void
 gtk_main_quit (class)
-	SV * class
     C_ARGS:
 	/*void*/
-    CLEANUP:
-	UNUSED(class);
 
 gboolean
 gtk_main_iteration (class)
-	SV * class
     C_ARGS:
 	/*void*/
-    CLEANUP:
-	UNUSED(class);
 
  ### gtk-perl implemented these as widget methods, but they are not widget
  ### methods.  they deal with the global grab setting.  this is bound to 
@@ -223,40 +197,29 @@ gtk_main_iteration (class)
  ## Gtk2->grab_add (widget)
 void
 gtk_grab_add (class, widget)
-	SV * class
 	GtkWidget * widget
     C_ARGS:
 	widget
-    CLEANUP:
-	UNUSED(class);
 
 GtkWidget_ornull *
 gtk_grab_get_current (class)
-	SV * class
     C_ARGS:
 	/*void*/
-    CLEANUP:
-	UNUSED(class);
 
  ## Gtk2->grab_remove (widget)
 void
 gtk_grab_remove	(class, widget)
-	SV * class
 	GtkWidget * widget
     C_ARGS:
 	widget
-    CLEANUP:
-	UNUSED(class);
 
 void 
 gtk_init_add (class, function, data=NULL)
-	SV          * class
 	SV          * function
 	SV          * data
     PREINIT:
 	GPerlCallback * real_callback;
     CODE:
-	UNUSED(class);
 	real_callback = gperl_callback_new(function, data, 
 				0, NULL, G_TYPE_BOOLEAN);
 	gtk_init_add((GtkFunction)gtk2perl_init_add_callback_invoke,
@@ -266,14 +229,12 @@ gtk_init_add (class, function, data=NULL)
 ## guint gtk_quit_add_full
 guint
 gtk_quit_add (class, main_level, function, data=NULL)
-	SV    * class
 	guint   main_level
 	SV    * function
 	SV    * data
     PREINIT:
     	GPerlCallback * real_callback;
     CODE:
-	UNUSED(class);
 	real_callback = gperl_callback_new(function, data, 
 				0, NULL, G_TYPE_UINT);
 	RETVAL = gtk_quit_add_full(main_level, 
@@ -285,19 +246,14 @@ gtk_quit_add (class, main_level, function, data=NULL)
 
 void	   
 gtk_quit_remove (class, quit_handler_id)
-	SV    * class
 	guint   quit_handler_id
     C_ARGS:
     	quit_handler_id
-    CLEANUP:
-	UNUSED(class);
 
 ## void gtk_quit_add_destroy (guint main_level, GtkObject *object);
-void gtk_quit_add_destroy (SV * class, guint main_level, GtkObject *object)
+void gtk_quit_add_destroy (class, guint main_level, GtkObject *object)
     C_ARGS:
 	main_level, object
-    CLEANUP:
-	UNUSED(class);
 
  ##void	   gtk_quit_remove_by_data (gpointer	       data);
 
@@ -341,23 +297,18 @@ void gtk_quit_add_destroy (SV * class, guint main_level, GtkObject *object)
 
  ##GdkEvent*       gtk_get_current_event       (void);
 GdkEvent_own_ornull*
-gtk_get_current_event (SV * class)
+gtk_get_current_event (class)
     C_ARGS:
 	/*void*/
-    CLEANUP:
-	UNUSED(class);
 
  ##guint32         gtk_get_current_event_time  (void);
-guint32 gtk_get_current_event_time (SV * class);
+guint32 gtk_get_current_event_time (class);
     C_ARGS:
 	/*void*/
-    CLEANUP:
-	UNUSED(class);
 
  ##gboolean        gtk_get_current_event_state (GdkModifierType *state);
-GdkModifierType gtk_get_current_event_state (SV * class)
+GdkModifierType gtk_get_current_event_state (class)
     CODE:
-	UNUSED(class);
 	if (!gtk_get_current_event_state (&RETVAL))
 		XSRETURN_UNDEF;
     OUTPUT:
@@ -365,11 +316,9 @@ GdkModifierType gtk_get_current_event_state (SV * class)
 
  ##GtkWidget* gtk_get_event_widget	   (GdkEvent	   *event);
 GtkWidget_ornull *
-gtk_get_event_widget (SV * class, GdkEvent_ornull * event)
+gtk_get_event_widget (class, GdkEvent_ornull * event)
     C_ARGS:
 	event
-    CLEANUP:
-	UNUSED(class);
 
  ## the docs say you shouldn't need this outside implementing gtk itself.
  ##void gtk_propagate_event (GtkWidget * widget, GdkEvent * event);

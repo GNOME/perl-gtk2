@@ -26,47 +26,32 @@ MODULE = Gtk2::HButtonBox	PACKAGE = Gtk2::HButtonBox	PREFIX = gtk_hbutton_box_
 ## GtkWidget* gtk_hbutton_box_new (void)
 GtkWidget *
 gtk_hbutton_box_new (class)
-	SV * class
     C_ARGS:
 	/*void*/
-    CLEANUP:
-	UNUSED(class);
 
 ## GtkButtonBoxStyle gtk_hbutton_box_get_layout_default (void)
 GtkButtonBoxStyle
 gtk_hbutton_box_get_layout_default (class)
-	SV * class
     C_ARGS:
 	/*void*/
-    CLEANUP:
-	UNUSED(class);
 
 ## void gtk_hbutton_box_set_spacing_default (gint spacing)
 void
 gtk_hbutton_box_set_spacing_default (class, spacing)
-	SV * class
 	gint spacing
     C_ARGS:
 	spacing
-    CLEANUP:
-	UNUSED(class);
 
 ## void gtk_hbutton_box_set_layout_default (GtkButtonBoxStyle layout)
 void
 gtk_hbutton_box_set_layout_default (class, layout)
-	SV * class
 	GtkButtonBoxStyle layout
     C_ARGS:
 	layout
-    CLEANUP:
-	UNUSED(class);
 
 ##gint gtk_hbutton_box_get_spacing_default (void)
 gint
 gtk_hbutton_box_get_spacing_default (class)
-	SV * class
     C_ARGS:
 	/*void*/
-    CLEANUP:
-	UNUSED(class);
 

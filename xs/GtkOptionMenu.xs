@@ -25,11 +25,8 @@ MODULE = Gtk2::OptionMenu	PACKAGE = Gtk2::OptionMenu	PREFIX = gtk_option_menu_
 
 GtkWidget *
 gtk_option_menu_new (class)
-	SV * class
     C_ARGS:
 	/* void */
-    CLEANUP:
-	UNUSED(class);
 
 GtkWidget *
 gtk_option_menu_get_menu (option_menu)

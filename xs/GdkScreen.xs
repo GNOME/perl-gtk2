@@ -169,11 +169,8 @@ gdk_screen_broadcast_client_message (screen, event)
 ##  GdkScreen *gdk_screen_get_default (void) 
 GdkScreen_ornull *
 gdk_screen_get_default (class)
-	SV * class
     C_ARGS:
 	/* void */
-    CLEANUP:
-	UNUSED(class);
 	
 
 ##  gboolean gdk_screen_get_setting (GdkScreen *screen, const gchar *name, GValue *value) 

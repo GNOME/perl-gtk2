@@ -36,7 +36,6 @@ members (dc)
 	Gtk2::Gdk::DragContext::action = 8
 	Gtk2::Gdk::DragContext::start_time = 9
     CODE:
-	UNUSED(ix);
 	RETVAL = NULL;
 	switch (ix) {
 	    case 1: RETVAL = newSVGdkDragProtocol (dc->protocol); break;
@@ -64,11 +63,8 @@ targets (dc)
 ##  GdkDragContext * gdk_drag_context_new (void) 
 GdkDragContext_noinc *
 gdk_drag_context_new (class)
-	SV *class
     C_ARGS:
 	/* void */
-    CLEANUP:
-	UNUSED(class);
 	
  # deprecated
 ##  void gdk_drag_context_ref (GdkDragContext *context) 
@@ -105,13 +101,11 @@ gdk_drag_get_selection (context)
 ##  GdkDragContext * gdk_drag_begin (GdkWindow *window, GList *targets) 
 GdkDragContext_noinc *
 gdk_drag_begin (class, window, ...)
-	SV * class
 	GdkWindow *window
     PREINIT:
 	GList *targets = NULL;
 	int i;
     CODE:
-	UNUSED(class);
 	for (i = items - 1 ; i >= 2 ; i--)
 		targets = g_list_prepend (targets,
 		                        GUINT_TO_POINTER (SvGdkAtom (ST (i))));
@@ -126,14 +120,12 @@ gdk_drag_begin (class, window, ...)
 ##  guint32 gdk_drag_get_protocol_for_display (GdkDisplay *display, guint32 xid, GdkDragProtocol *protocol) 
 void
 gdk_drag_get_protocol_for_display (class, display, xid)
-	SV * class
 	GdkDisplay *display
 	guint32 xid
     PREINIT:
 	GdkDragProtocol protocol;
 	guint32 ret;
     PPCODE:
-	UNUSED(class);
 	ret = gdk_drag_get_protocol_for_display (display, xid, &protocol);
 	XPUSHs (sv_2mortal (newSVuv (ret)));
 	XPUSHs (sv_2mortal (newSVGdkDragProtocol (protocol)));
@@ -161,13 +153,11 @@ gdk_drag_find_window_for_screen (context, drag_window, screen, x_root, y_root)
 ##  guint32 gdk_drag_get_protocol (guint32 xid, GdkDragProtocol *protocol) 
 void
 gdk_drag_get_protocol (class, xid)
-	SV * class
 	guint32 xid
     PREINIT:
 	GdkDragProtocol protocol;
 	guint32 ret;
     PPCODE:
-	UNUSED(class);
 	ret = gdk_drag_get_protocol (xid, &protocol);
 	XPUSHs (sv_2mortal (newSVuv (ret)));
 	XPUSHs (sv_2mortal (newSVGdkDragProtocol (protocol)));

@@ -27,12 +27,9 @@ MODULE = Gtk2::TextBuffer	PACKAGE = Gtk2::TextBuffer	PREFIX = gtk_text_buffer_
 
 GtkTextBuffer_noinc*
 gtk_text_buffer_new (class, tagtable=NULL)
-	SV * class
 	GtkTextTagTable_ornull * tagtable
     C_ARGS:
 	tagtable
-    CLEANUP:
-	UNUSED(class);
 
 gint
 gtk_text_buffer_get_line_count (buffer)

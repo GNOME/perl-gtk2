@@ -27,21 +27,15 @@ MODULE = Gtk2::Label	PACKAGE = Gtk2::Label	PREFIX = gtk_label_
 
 GtkWidget *
 gtk_label_new (class, str=NULL)
-	SV * class
 	const gchar * str
     C_ARGS:
 	str
-    CLEANUP:
-	UNUSED(class);
 
 GtkWidget *
 gtk_label_new_with_mnemonic (class, str)
-	SV * class
 	const gchar * str
     C_ARGS:
 	str
-    CLEANUP:
-	UNUSED(class);
 
 ### gtk_label_[gs]et_text ---- string does *not* include any embedded stuff
 void

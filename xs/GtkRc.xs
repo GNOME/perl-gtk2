@@ -30,21 +30,16 @@ MODULE = Gtk2::Rc	PACKAGE = Gtk2::Rc	PREFIX = gtk_rc_
 ## void gtk_rc_add_default_file (const gchar *filename)
 void
 gtk_rc_add_default_file (class, filename)
-	SV          * class
 	const gchar * filename
     C_ARGS:
 	filename
-    CLEANUP:
-	UNUSED(class);
 
 ## void gtk_rc_set_default_files (gchar **filenames)
 void
 gtk_rc_set_default_files (class, ...)
-	SV     *class
     PREINIT:
 	gchar **filenames = NULL;
     CODE:
-	UNUSED(class);
 	filenames = g_new0(gchar*, items);
 	for( items--; items > 0; items-- )
 		filenames[items] = SvGChar(ST(items));
@@ -83,31 +78,22 @@ gtk_rc_reparse_all_for_settings (settings, force_load)
 ## void gtk_rc_parse (const gchar *filename)
 void
 gtk_rc_parse (class, filename)
-	SV          * class
 	const gchar * filename
     C_ARGS:
 	filename
-    CLEANUP:
-	UNUSED(class);
 
 ## void gtk_rc_parse_string (const gchar *rc_string)
 void
 gtk_rc_parse_string (class, rc_string)
-	SV          * class
 	const gchar * rc_string
     C_ARGS:
 	rc_string
-    CLEANUP:
-	UNUSED(class);
 
 ## gboolean gtk_rc_reparse_all (void)
 gboolean
 gtk_rc_reparse_all (class)
-	SV * class
     C_ARGS:
 	/* void */
-    CLEANUP:
-	UNUSED(class);
 
 ## void gtk_rc_add_widget_name_style (GtkRcStyle *rc_style, const gchar *pattern)
 void
@@ -130,48 +116,33 @@ gtk_rc_add_class_style (rc_style, pattern)
 ## gchar* gtk_rc_find_module_in_path (const gchar *module_file)
 gchar_own *
 gtk_rc_find_module_in_path (class, module_file)
-	SV          * class
 	const gchar * module_file
     C_ARGS:
 	module_file
-    CLEANUP:
-	UNUSED(class);
 
 ## gchar* gtk_rc_get_theme_dir (void)
 gchar_own *
 gtk_rc_get_theme_dir (class)
-	SV * class
     C_ARGS:
 	/* void */
-    CLEANUP:
-	UNUSED(class);
 
 ## gchar* gtk_rc_get_module_dir (void)
 gchar_own *
 gtk_rc_get_module_dir (class)
-	SV * class
     C_ARGS:
 	/* void */
-    CLEANUP:
-	UNUSED(class);
 
 ## gchar* gtk_rc_get_im_module_path (void)
 gchar_own *
 gtk_rc_get_im_module_path (class)
-	SV * class
     C_ARGS:
 	/* void */
-    CLEANUP:
-	UNUSED(class);
 
 ## gchar* gtk_rc_get_im_module_file (void)
 gchar_own *
 gtk_rc_get_im_module_file (class)
-	SV * class
     C_ARGS:
 	/* void */
-    CLEANUP:
-	UNUSED(class);
 
 # TODO: GScanner * not in type map
 ## GScanner* gtk_rc_scanner_new (void)
@@ -207,7 +178,6 @@ gtk_rc_get_im_module_file (class)
 ### GtkRcStyle* gtk_rc_style_new (void)
 #GtkRcStyle_noinc *
 #gtk_rc_style_new (class)
-#	SV * class
 #    C_ARGS:
 #
 ### GtkRcStyle* gtk_rc_style_copy (GtkRcStyle *orig)
