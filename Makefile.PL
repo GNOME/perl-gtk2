@@ -145,6 +145,9 @@ sub const_cccmd {
 
 sub postamble
 {
+	# don't do any of this hand-coded install stuff on windows.
+	return '' if $^O eq 'MSWin32';
+
 	my @dirs = qw{rpms rpms/BUILD rpms/RPMS rpms/SOURCES
 		      rpms/SPECS rpms/SRPMS};
 	my $cwd = getcwd();
