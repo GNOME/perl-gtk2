@@ -51,6 +51,54 @@ gtk2perl_quit_add_callback_invoke (GPerlCallback * callback)
 	return retval;
 }
 
+static gint
+gtk2perl_key_snoop_func (GtkWidget *grab_widget,
+                         GdkEventKey *event,
+                         gpointer func_data)
+{
+	gint ret;
+	GValue retval = {0,};
+	g_value_init (&retval, G_TYPE_INT);
+	gperl_callback_invoke ((GPerlCallback*)func_data, &retval,
+	                       grab_widget, event);
+	ret = g_value_get_int (&retval);
+	g_value_unset (&retval);
+	return ret;
+}
+
+/*
+ * we must track the key snoopers ourselves so we can destroy
+ * the callback objects properly.
+ */
+static GHashTable * key_snoopers = NULL;
+
+static guint
+install_key_snooper (SV * func, SV * data)
+{
+	guint id; 
+	GPerlCallback * callback;
+	GType param_types[] = { GTK_TYPE_WIDGET, GDK_TYPE_EVENT };
+	if (!key_snoopers)
+		key_snoopers =
+			g_hash_table_new_full (g_direct_hash,
+			                       g_direct_equal,
+			                       NULL,
+			                       (GDestroyNotify)
+			                           gperl_callback_destroy);
+	callback = gperl_callback_new (func, data, 2, param_types, G_TYPE_INT);
+	id = gtk_key_snooper_install (gtk2perl_key_snoop_func, callback);
+	g_hash_table_insert (key_snoopers, (gpointer) id, callback);
+	return id;
+}
+
+static void
+remove_key_snooper (guint id)
+{
+	g_return_if_fail (key_snoopers != NULL);
+	gtk_key_snooper_remove (id);
+	g_hash_table_remove (key_snoopers, (gpointer) id);
+}
+
 MODULE = Gtk2		PACKAGE = Gtk2		PREFIX = gtk_
 
 =for object Gtk2::main
@@ -93,10 +141,26 @@ gtk_check_version (class, required_major, required_minor, required_micro)
     C_ARGS:
 	required_major, required_minor, required_micro
 
+=for apidoc Gtk2::init_check
+This is the non-fatal version of C<< Gtk2->init >>; instead of calling C<exit>
+if Gtk+ initialization fails, C<< Gtk2->init_check >> returns false.  This
+allows your application to fall back on some other means of communication with
+the user - for example a curses or command-line interface.
+=cut
+
+=for apidoc
+Initialize Gtk+.  This must be called before any other Gtk2 functions in a 
+GUI application; the Gtk2 module's import method allows you to pass C<-init>
+in the C<use> statement to do this automatically.  This function also scans
+I<@ARGV> for any options it knows, and will remove them automagically.
+
+Note: this function will terminate your program if it is unable to initialize
+the gui for any reason.  If you want your program to fall back to some other
+interface, you want to use C<< Gtk2->init_check >> instead.
+=cut
 gboolean
 gtk_init (class)
     ALIAS:
-	Gtk2::init = 1
 	Gtk2::init_check = 2
     PREINIT:
 	AV * ARGV;
@@ -294,11 +358,29 @@ void gtk_quit_add_destroy (class, guint main_level, GtkObject *object)
  ##				    GtkDestroyNotify   destroy);
  ##void	   gtk_input_remove	   (guint	       input_handler_id);
 
-# FIXME there's no way to keep this from leaking the callback.
- ##guint   gtk_key_snooper_install (GtkKeySnoopFunc snooper,
- ##				    gpointer	    func_data);
-# FIXME pointless without key snooper install
- ##void	   gtk_key_snooper_remove  (guint	    snooper_handler_id);
+ ##guint gtk_key_snooper_install (GtkKeySnoopFunc snooper, gpointer func_data);
+=for apidoc
+=for arg snooper (subroutine) function to call on every event, must return a boolean
+Install a key "snooper" function, which will get called on all key events
+before those events are delivered normally.  These snoopers can be used to
+implement custom key event handling.  I<snooper> will receive the widget to
+which the event will be delivered and the event, and also I<func_data> (if
+provided).  If I<snooper> returns true, the event propagation will stop
+(just like normal event handlers).
+
+C<key_snooper_install> returns an id that may be used with
+C<key_snooper_remove>.
+=cut
+guint gtk_key_snooper_install (class, SV * snooper, SV * func_data=NULL)
+    CODE:
+	RETVAL = install_key_snooper (snooper, func_data);
+    OUTPUT:
+	RETVAL
+
+ ##void	gtk_key_snooper_remove (guint snooper_handler_id);
+void gtk_key_snooper_remove (class, guint snooper_handler_id)
+    CODE:
+	remove_key_snooper (snooper_handler_id);
 
  ##GdkEvent*       gtk_get_current_event       (void);
 GdkEvent_own_ornull*
