@@ -1,3 +1,8 @@
+2004/03/25 09:29 (-0500) muppetman
+
+	* examples/combo_box.pl, examples/file_chooser.pl: was using wrong
+	version info, very confusing.
+
 2004/03/23 21:15 (-0500) muppetman
 
 	* Gtk2.pm, README, NEWS: stable release 1.040
