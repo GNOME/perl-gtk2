@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 
-use Gtk2::TestHelper tests => 69, noinit => 1;
+use Gtk2::TestHelper tests => 88, noinit => 1;
 
 ###############################################################################
 
@@ -181,7 +181,6 @@ $model->rows_reordered (Gtk2::TreePath->new, undef, 3, 2, 1, 0);
 $model->signal_handler_disconnect ($tag);
 
 ###############################################################################
-
 # Ross' 05.GtkListStore-etc.t.  I did not have the heart to simply merge both
 # tests.
 
