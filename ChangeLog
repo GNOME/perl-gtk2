@@ -1,3 +1,20 @@
+2003/12/23 02:10 (-0500) muppetman [unstable-2-3-x-branch]
+
+	* AUTHORS MANIFEST Makefile.PL gtk2perl.h maps-2.0 pm/SimpleList.pm
+	t/00.Gtk2.t t/01.GtkWidget.t t/05.GtkListStore-etc.t t/06.GtkLabel.t
+	t/08.GtkCombo.t t/10.GtkProgressBar.t t/22.GtkListStore.t
+	t/23.GtkTreeStore.t t/27.GtkClipboard.t t/30.GtkCellRenderer.t
+	t/accel-group-map.t t/paned.t t/text-iter-searches.t
+	tools/podifystockitems.pl xs/GdkTypes.xs xs/GtkHScrollbar.xs
+	xs/GtkLabel.xs xs/GtkList.xs xs/GtkListItem.xs xs/GtkListStore.xs
+	xs/GtkMessageDialog.xs xs/GtkPaned.xs xs/GtkRc.xs xs/GtkSizeGroup.xs
+	xs/GtkStock.xs xs/GtkTreeModel.xs xs/GtkTreeStore.xs
+	xs/GtkVScrollbar.xs xs/GtkWidget.xs xs/GtkWindow.xs:
+	another merge from HEAD.  this needs to be HEAD by now, actually.
+
+	* xs/GdkCursor.xs xs/GdkDisplay.xs xs/GdkDrawable.xs xs/GdkWindow.xs:
+	another sweep for new stuff (far from complete)
+
 2003/12/08 02:12 (-0500) muppetman [unstable-2-3-x-branch]
 
 	merge a lot of stuff from HEAD, and update some other things since the
