@@ -1,3 +1,16 @@
+Overview of changes in Gtk2 1.070
+=================================
+
+* Documentation fixes.  [muppet]
+* Generate a correct META.yml.  [muppet]
+* API additions:
+  - GtkAboutDialog, GtkCellView, and GtkIconView.  [Ross, Torsten]
+  - New stuff in GtkComboBox, GtkTreeView, GtkClipboard, GtkEntryCompletion,
+    GtkIconTheme, and GtkLabel.  [muppet, Torsten]
+  - PangoFontMap, PangoScript, and miscellaneous other pango functions.
+    [Torsten]
+* Add support for owner-change events.  [Torsten]
+
 Overview of Changes in Gtk2 1.061
 =================================
 

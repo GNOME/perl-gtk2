@@ -1,7 +1,17 @@
-api.pod
 AUTHORS
 ChangeLog
 CodeGen.pm
+Gtk2.exports
+Gtk2.pm
+LICENSE
+MANIFEST
+MANIFEST.SKIP
+META.yml			Module meta-data in YAML
+Makefile.PL
+NEWS
+README
+TODO
+api.pod
 copyright.pod
 devel.pod
 doctypes
@@ -71,21 +81,14 @@ gtk-demo/textview.pl
 gtk-demo/tree_store.pl
 gtk-demo/ui_manager.pl
 gtk.typemap
-Gtk2.exports
-Gtk2.pm
 gtk2perl.h
-LICENSE
-Makefile.PL
-MANIFEST
-MANIFEST.SKIP
 maps-2.0
 maps-2.2
 maps-2.4
 maps-2.6
 maps_pango-1.0
-maps_pango-1.5
-META.yml			Module meta-data in YAML
-NEWS
+maps_pango-1.4
+maps_pango-1.6
 pango.typemap
 perl-Gtk2.spec.in
 pm/Helper.pm
@@ -94,7 +97,6 @@ pm/SimpleList.pm
 pm/SimpleMenu.pm
 pm/TestHelper.pm
 ppport.h
-README
 t/00.Gtk2.t
 t/01.GtkWindow.t
 t/02.GtkContainer.t
@@ -168,9 +170,8 @@ t/GtkFixed.t
 t/GtkFontButton.t
 t/GtkFontSelection.t
 t/GtkFrame.t
-t/GtkGammaCurve.t
 t/GtkGC.t
-t/GtkHandleBox.t
+t/GtkGammaCurve.t
 t/GtkHBox.t
 t/GtkHButtonBox.t
 t/GtkHPaned.t
@@ -178,6 +179,7 @@ t/GtkHRuler.t
 t/GtkHScale.t
 t/GtkHScrollbar.t
 t/GtkHSeparator.t
+t/GtkHandleBox.t
 t/GtkIconFactory.t
 t/GtkIconTheme.t
 t/GtkIconView.t
@@ -232,9 +234,9 @@ t/GtkTextView.t
 t/GtkToggleAction.t
 t/GtkToggleButton.t
 t/GtkToggleToolButton.t
-t/GtkToolbar.t
 t/GtkToolButton.t
 t/GtkToolItem.t
+t/GtkToolbar.t
 t/GtkTooltips.t
 t/GtkTreeModel.t
 t/GtkTreeModelFilter.t
@@ -248,12 +250,12 @@ t/GtkTreeView.t
 t/GtkUIManager.t
 t/GtkVBox.t
 t/GtkVButtonBox.t
-t/GtkViewport.t
 t/GtkVPaned.t
 t/GtkVRuler.t
 t/GtkVScale.t
 t/GtkVScrollbar.t
 t/GtkVSeparator.t
+t/GtkViewport.t
 t/GtkWidget.t
 t/PangoContext.t
 t/PangoFont.t
@@ -263,7 +265,6 @@ t/PangoLayout.t
 t/PangoScript.t
 t/PangoTabs.t
 t/PangoTypes.t
-TODO
 tools/fetch_faq.pl
 tools/genkeysyms.pl
 tools/genmaps.pl
@@ -343,9 +344,8 @@ xs/GtkFixed.xs
 xs/GtkFontButton.xs
 xs/GtkFontSelection.xs
 xs/GtkFrame.xs
-xs/GtkGammaCurve.xs
 xs/GtkGC.xs
-xs/GtkHandleBox.xs
+xs/GtkGammaCurve.xs
 xs/GtkHBox.xs
 xs/GtkHButtonBox.xs
 xs/GtkHPaned.xs
@@ -353,6 +353,7 @@ xs/GtkHRuler.xs
 xs/GtkHScale.xs
 xs/GtkHScrollbar.xs
 xs/GtkHSeparator.xs
+xs/GtkHandleBox.xs
 xs/GtkIconFactory.xs
 xs/GtkIconTheme.xs
 xs/GtkIconView.xs
@@ -409,9 +410,9 @@ xs/GtkTextView.xs
 xs/GtkToggleAction.xs
 xs/GtkToggleButton.xs
 xs/GtkToggleToolButton.xs
-xs/GtkToolbar.xs
 xs/GtkToolButton.xs
 xs/GtkToolItem.xs
+xs/GtkToolbar.xs
 xs/GtkTooltips.xs
 xs/GtkTreeDnd.xs
 xs/GtkTreeModel.xs
@@ -425,12 +426,12 @@ xs/GtkTreeViewColumn.xs
 xs/GtkUIManager.xs
 xs/GtkVBox.xs
 xs/GtkVButtonBox.xs
-xs/GtkViewport.xs
 xs/GtkVPaned.xs
 xs/GtkVRuler.xs
 xs/GtkVScale.xs
 xs/GtkVScrollbar.xs
 xs/GtkVSeparator.xs
+xs/GtkViewport.xs
 xs/GtkWidget.xs
 xs/GtkWindow.xs
 xs/PangoContext.xs

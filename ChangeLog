@@ -1,3 +1,12 @@
+2004/11/01 21:38 (+0100) kaffeetisch
+
+	* Makefile.PL: Depend on Glib 1.070.
+
+	* MANIFEST: Add maps_pango-1.4.
+
+	* Gtk2.pm, META.yml, Makefile.PL, NEWS, README: Unstable release
+	1.070.
+
 2004/10/25 20:26 (+0200) kaffeetisch
 
 	* maps_pango-1.5, maps_pango-1.6: Rename the maps file.
