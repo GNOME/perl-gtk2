@@ -71,24 +71,22 @@ ok ($iter = $store->insert (0), '$store->insert (0)');
 ok ($iter = $store->insert_before ($iter), '$store->insert_before');
 ok ($iter = $store->insert_after ($iter), '$store->insert_after');
 ok ($iter = $store->get_iter_first, '$store->get_iter_first, treemodel');
-if ((Gtk2->get_version_info)[1] >= 2)
-{
+if ((Gtk2->get_version_info)[1] < 2) {
+	# remove had void return in 2.0.x, and the binding for this method
+	# always returns false.  remove this special case if that method is
+	# ever fixed.
+	ok (!$store->remove ($iter), '$store->remove 1');
+} else {
 	ok ($store->remove ($iter), '$store->remove 1');
 }
-else
-{
-	$store->remove ($iter);
-	ok (1, '$store->remove 1');
-}
 ok ($iter = $store->prepend, '$store->prepend');
-if ((Gtk2->get_version_info)[1] >= 2)
-{
+if ((Gtk2->get_version_info)[1] < 2) {
+	# remove had void return in 2.0.x, and the binding for this method
+	# always returns false.  remove this special case if that method is
+	# ever fixed.
+	ok (!$store->remove ($iter), '$store->remove 2');
+} else {
 	ok ($store->remove ($iter), '$store->remove 2');
-}
-else
-{
-	$store->remove ($iter);
-	ok (1, '$store->remove 2');
 }
 	
 ok (my $tree = Gtk2::TreeView->new_with_model($store), 'new treeview');
