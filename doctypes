@@ -13,3 +13,6 @@ GdkAtom         Gtk2::Gdk::Atom
 GdkBitmap       Gtk2::Gdk::Bitmap
 GdkNativeWindow Gtk2::Gdk::NativeWindow
 GdkGeometry     Gtk2::Gdk::Geometry
+GdkKeymap_orclass	Gtk2::Gdk::Keymap
+PangoRectangle	array reference
+PangoGlyph	integer

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003 by the gtk2-perl team (see the file AUTHORS)
+ * Copyright (c) 2003-2004 by the gtk2-perl team (see the file AUTHORS)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -100,6 +100,10 @@ gdk_event_get_package (GType gtype,
 		return "Gtk2::Gdk::Event::WindowState";
 	    case GDK_SETTING:
 		return "Gtk2::Gdk::Event::Setting";
+#if GTK_CHECK_VERSION (2, 5, 0) /* FIXME: 2.6 */
+	    case GDK_OWNER_CHANGE:
+		return "Gtk2::Gdk::Event::OwnerChange";
+#endif
 	    default:
 		croak ("Illegal type %d in event->type", event->type);
 		return NULL; /* not reached */
@@ -160,6 +164,9 @@ gtk2perl_gdk_event_set_state (GdkEvent * event,
 		    case GDK_UNMAP:
 		    case GDK_WINDOW_STATE:
 		    case GDK_SETTING:
+#if GTK_CHECK_VERSION (2, 5, 0) /* FIXME: 2.6 */
+		    case GDK_OWNER_CHANGE:
+#endif
 			/* no state field */
 			break;
 		}
@@ -212,6 +219,10 @@ gtk2perl_gdk_event_set_time (GdkEvent * event,
 		     case GDK_DROP_FINISHED:
 			event->dnd.time = newtime;
 			break;
+#if GTK_CHECK_VERSION (2, 5, 0) /* FIXME: 2.6 */
+		     case GDK_OWNER_CHANGE:
+			event->owner_change.time = newtime;
+#endif
 		     case GDK_CLIENT_EVENT:
 		     case GDK_VISIBILITY_NOTIFY:
 		     case GDK_NO_EXPOSE:
@@ -333,6 +344,8 @@ MODULE = Gtk2::Gdk::Event	PACKAGE = Gtk2::Gdk::Event	PREFIX = gdk_event_
 =item * L<Gtk2::Gdk::Event::Visibility>
 
 =item * L<Gtk2::Gdk::Event::WindowState>
+
+=item * L<Gtk2::Gdk::Event::OwnerChange> (since gtk+ 2.6)
 
 =back
 
@@ -611,6 +624,7 @@ DESTROY (sv)
 	Gtk2::Gdk::Event::Setting::DESTROY     = 15
 	Gtk2::Gdk::Event::WindowState::DESTROY = 16
 	Gtk2::Gdk::Event::DND::DESTROY         = 17
+	Gtk2::Gdk::Event::OwnerChange::DESTROY = 18
     CODE:
 	PERL_UNUSED_VAR (ix);
 	default_wrapper_class->destroy (sv);
@@ -638,6 +652,7 @@ DESTROY (sv)
 ##   Unmap: A window has been unmapped. (It is no longer visible on
 ##	    the screen).
 ##   Scroll: A mouse wheel was scrolled either up or down.
+##   OwnerChange: The owner of a clipboard/selection changed.
 
 
  # struct _GdkEventAny
@@ -1661,6 +1676,84 @@ context (GdkEvent * eventdnd, GdkDragContext_ornull * newvalue=NULL)
     CLEANUP:
 	if (RETVAL) g_object_unref (RETVAL);
 
+#if GTK_CHECK_VERSION (2, 5, 0) /* FIXME: 2.6 */
+
+MODULE = Gtk2::Gdk::Event	PACKAGE = Gtk2::Gdk::Event::OwnerChange
+
+=for position post_hierarchy
+
+=head1 HIERARCHY
+
+  Gtk2::Gdk::Event
+  +----Gtk2::Gdk::Event::OwnerChange
+
+=cut
+
+BOOT:
+	gperl_set_isa ("Gtk2::Gdk::Event::OwnerChange", "Gtk2::Gdk::Event");
+
+# struct _GdkEventOwnerChange
+# {
+#   GdkEventType type;  <- GdkEventAny
+#   GdkWindow *window;  <- GdkEventAny
+#   gint8 send_event;  <- GdkEventAny
+#   GdkNativeWindow owner;
+#   GdkOwnerChange reason;
+#   GdkAtom selection;
+#   guint32 time;  <- gdk_event_get_time
+#   guint32 selection_time;
+# };
+
+GdkNativeWindow
+owner (GdkEvent * event, GdkNativeWindow newvalue=0)
+    CODE:
+	RETVAL = event->owner_change.owner;
+
+	if (items == 2 && newvalue != RETVAL)
+	{
+		event->owner_change.owner = newvalue;
+	}
+    OUTPUT:
+	RETVAL
+
+GdkOwnerChange
+reason (GdkEvent * event, GdkOwnerChange newvalue=0)
+    CODE:
+	RETVAL = event->owner_change.reason;
+
+	if (items == 2 && newvalue != RETVAL)
+	{
+		event->owner_change.reason = newvalue;
+	}
+    OUTPUT:
+	RETVAL
+
+GdkAtom
+selection (GdkEvent * event, GdkAtom newvalue=0)
+    CODE:
+	RETVAL = event->owner_change.selection;
+
+	if (items == 2 && newvalue != RETVAL)
+	{
+		event->owner_change.selection = newvalue;
+	}
+    OUTPUT:
+	RETVAL
+
+guint32
+selection_time (GdkEvent * event, guint32 newvalue=0)
+    CODE:
+	RETVAL = event->owner_change.selection_time;
+
+	if (items == 2 && newvalue != RETVAL)
+	{
+		event->owner_change.selection_time = newvalue;
+	}
+    OUTPUT:
+	RETVAL
+
+#endif
+
  #union _GdkEvent
  #{
  #  GdkEventType		    type;
@@ -1677,6 +1770,7 @@ context (GdkEvent * eventdnd, GdkDragContext_ornull * newvalue=NULL)
  #  GdkEventConfigure	    configure;
  #  GdkEventProperty	    property;
  #  GdkEventSelection	    selection;
+ #  GdkEventOwnerChange		owner_change;
  #  GdkEventProximity	    proximity;
  #  GdkEventClient	    client;
  #  GdkEventDND               dnd;

@@ -14,16 +14,7 @@ no typemap (and therefore no bindings) for
 	PangoCoverage
 	PangoLayoutLine
 
-gdk_threads_init is supposed to be called before gtk_init.
-probably should have another import option, -thread-init,
-to avoid *always* enabling thread safety, since it will
-be rare to have a multi-threaded perl gtk program until
-perl threading is more mainstream.
-
 what about decorated window stuff?
 
 foreach callbacks (and possibly other types) need some doc on the callback
 api/params.
-
-*** for 2.5/6.x
- gdkevents added GDK_OWNER_CHANGE

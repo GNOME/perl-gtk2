@@ -12,8 +12,8 @@
 use strict;
 use warnings;
 
-use Gtk2::TestHelper tests => 14, noinit => 1,
-    at_least_version => [2, 5, 0, "GtkAboutDialog is new in 2.6"],
+use Gtk2::TestHelper tests => 14,
+    at_least_version => [2, 5, 0, "GtkAboutDialog is new in 2.6"], # FIXME: 2.6
     ;
 
 isa_ok (my $dialog = Gtk2::AboutDialog->new, 'Gtk2::AboutDialog',

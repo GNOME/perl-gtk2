@@ -7,7 +7,7 @@
 # 	- rm
 #########################
 
-use Gtk2::TestHelper tests => 108;
+use Gtk2::TestHelper tests => 113;
 use Data::Dumper;
 
 # Expose #######################################################################
@@ -388,8 +388,30 @@ SKIP: {
 	is ($event->requestor, $window->get_xid, '$selection_event->requestor');
 }
 
+# OwnerChange ##################################################################
+
+SKIP: {
+	skip ("the owner-change event is new in 2.6", 5)
+		unless (Gtk2->CHECK_VERSION (2, 5, 0)); # FIXME: 2.6
+
+	isa_ok ($event = Gtk2::Gdk::Event->new ("owner-change"),
+		"Gtk2::Gdk::Event::OwnerChange");
+
+	$event->owner (23);
+	is ($event->owner, 23);
+
+	$event->reason ("destroy");
+	is ($event->reason, "destroy");
+
+	$event->selection (Gtk2::Gdk::Atom->new ("bar"));
+	isa_ok ($event->selection, "Gtk2::Gdk::Atom");
+
+	$event->selection_time (42);
+	is ($event->selection_time, 42);
+}
+
 __END__
 
-Copyright (C) 2003 by the gtk2-perl team (see the file AUTHORS for the
+Copyright (C) 2003-2004 by the gtk2-perl team (see the file AUTHORS for the
 full list).  See LICENSE for more information.
 

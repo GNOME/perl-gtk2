@@ -1,3 +1,17 @@
+2004/10/17 12:30 (+0200) kaffeetisch
+
+	* doctypes: Add descriptions for GdkKeymap_orclass,
+	PangoRectangle, PangoGlyph.
+
+	* maps-2.6, t/GdkEvent.t, xs/GdkEvent.xs: Add support for owner-change
+	events.
+
+	* t/GtkAboutDialog.t: Don't use noinit.
+
+	* TODO: Remove the entry about an import option for
+	gdk_threads_init since it's been added already.  Also remove the
+	entry about owner-change events.
+
 2004/10/14 20:16 (-0400) rwmcfa1
 
 	* xs/GtkAboutDialog.xs: don't really need the extra ref the docs lead 
