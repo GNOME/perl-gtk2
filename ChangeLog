@@ -1,3 +1,7 @@
+2003/06/12 20:27 muppetman
+
+	* xs/GdkScreen.xs, xs/PangoTabs.xs: newly implemented
+
 2003/06/12 18:06 pcg
 
 	* xs/GtkWidget.xs: enable add_events, set/get_extension_events.
