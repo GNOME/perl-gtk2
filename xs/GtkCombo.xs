@@ -63,3 +63,19 @@ gtk_combo_set_popdown_strings (combo, ...)
 		gtk_combo_set_popdown_strings(combo, strings);
 		g_list_free(strings);
 	}
+
+SV*
+gtk_combo_entry (combo)
+	GtkCombo * combo
+    CODE:
+	RETVAL = newSVGtkWidget (combo->entry);
+    OUTPUT:
+	RETVAL
+
+SV*
+gtk_combo_list (combo)
+	GtkCombo * combo
+    CODE:
+	RETVAL = newSVGtkWidget (combo->list);
+    OUTPUT:
+	RETVAL
