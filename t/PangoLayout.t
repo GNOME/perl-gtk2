@@ -107,15 +107,6 @@ like($layout -> get_line_count(), $number);
 my $iter = $layout -> get_iter();
 isa_ok($iter, "Gtk2::Pango::LayoutIter");
 
-ok($iter -> next_run());
-ok($iter -> next_char());
-ok($iter -> next_cluster());
-ok(!$iter -> next_line());
-ok($iter -> at_last_line());
-
-like($iter -> get_index(), $number);
-like($iter -> get_baseline(), $number);
-
 foreach ($iter -> get_char_extents(),
          $iter -> get_cluster_extents(),
          $iter -> get_run_extents(),
@@ -127,6 +118,15 @@ foreach ($iter -> get_char_extents(),
 my ($y0, $y1) = $iter -> get_line_yrange();
 like($y0, $number);
 like($y1, $number);
+
+ok($iter -> next_run());
+ok($iter -> next_char());
+ok($iter -> next_cluster());
+ok(!$iter -> next_line());
+ok($iter -> at_last_line());
+
+like($iter -> get_index(), $number);
+like($iter -> get_baseline(), $number);
 
 __END__
 

@@ -53,6 +53,7 @@ gdk_list_visuals (class)
     PREINIT:
 	GList *i, *visuals = NULL;
     PPCODE:
+	PERL_UNUSED_VAR (ax);
 	visuals = gdk_list_visuals ();
 	for (i = visuals; i != NULL; i = i->next)
 		XPUSHs (sv_2mortal (newSVGdkVisual (i->data)));
@@ -106,10 +107,14 @@ gdk_visual_get_best_with_both (class, depth, visual_type)
     C_ARGS:
 	depth, visual_type
 
+#if GTK_CHECK_VERSION(2, 2, 0)
+
 ## GdkScreen* gdk_visual_get_screen (GdkVisual *visual)
 GdkScreen*
 gdk_visual_get_screen (visual)
 	GdkVisual *visual
+
+#endif
 
 # --------------------------------------------------------------------------- #
 

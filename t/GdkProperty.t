@@ -77,7 +77,7 @@ is(@data, 1);
 is($data[0], "Bla");
 
 SKIP: {
-  skip("GdkDisplay is new 2.2", 1)
+  skip("GdkDisplay is new 2.2", 10)
     unless (Gtk2 -> CHECK_VERSION(2, 2, 0));
 
   my $display = Gtk2::Gdk::Display -> get_default();

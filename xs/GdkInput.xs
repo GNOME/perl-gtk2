@@ -23,6 +23,7 @@ gdk_devices_list (class)
     PREINIT:
 	GList *i, *list = NULL;
     PPCODE:
+	PERL_UNUSED_VAR (ax);
 	list = gdk_devices_list ();
 	for (i = list; i != NULL; i = i->next)
 		XPUSHs (sv_2mortal (newSVGdkDevice (i->data)));

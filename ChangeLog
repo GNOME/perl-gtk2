@@ -1,3 +1,22 @@
+2004/05/15 20:58 (+0200) kaffeetisch
+
+	* t/GdkEvent.t: Be a bit more tolerant to pass on older gtk+'s.
+
+	* t/GdkProperty.t: Fix skip count.
+
+	* t/GtkFontSelection.t: Convert font name to lowercase before
+	testing.
+
+	* t/PangoLayout.t: Shuffle some tests around.
+
+	* xs/GdkInput.xs
+	* xs/GdkVisual.xs: Mark 'ax' unused.
+
+	* xs/GdkPixmap.xs: Add version guards to lookup_for_display and
+	foreign_new_for_display.
+
+	* xs/GdkVisual.xs: Add version guards to get_screen.
+
 2004/05/11 19:38 (+0200) kaffeetisch
 
 	* Gtk2.exports: Update to reflect recent changes.

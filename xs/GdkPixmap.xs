@@ -203,6 +203,8 @@ gdk_pixmap_lookup (class, anid)
     C_ARGS:
 	anid
 
+#if GTK_CHECK_VERSION(2, 2, 0)
+
 ## GdkPixmap* gdk_pixmap_lookup_for_display (GdkDisplay *display, GdkNativeWindow anid)
 GdkPixmap *
 gdk_pixmap_lookup_for_display (class, display, anid)
@@ -211,12 +213,16 @@ gdk_pixmap_lookup_for_display (class, display, anid)
     C_ARGS:
 	display, anid
 
+#endif
+
 ## GdkPixmap* gdk_pixmap_foreign_new (GdkNativeWindow anid)
 GdkPixmap *
 gdk_pixmap_foreign_new (class, anid)
 	GdkNativeWindow anid
     C_ARGS:
 	anid
+
+#if GTK_CHECK_VERSION(2, 2, 0)
 
 ## GdkPixmap* gdk_pixmap_foreign_new_for_display (GdkDisplay *display, GdkNativeWindow anid)
 GdkPixmap *
@@ -225,3 +231,5 @@ gdk_pixmap_foreign_new_for_display (class, display, anid)
 	GdkNativeWindow anid
     C_ARGS:
 	display, anid
+
+#endif
