@@ -208,6 +208,15 @@ gtk_target_list_find (list, target)
     OUTPUT:
 	RETVAL
 
+#if GTK_CHECK_VERSION (2, 6, 0)
+
+void gtk_target_list_add_text_targets (GtkTargetList  *list, guint info);
+
+void gtk_target_list_add_image_targets (GtkTargetList *list, guint info, gboolean writable);
+
+void gtk_target_list_add_uri_targets (GtkTargetList  *list, guint info);
+
+#endif
 
 MODULE = Gtk2::Selection	PACKAGE = Gtk2::Selection	PREFIX = gtk_selection_
 
@@ -362,13 +371,64 @@ gboolean
 gtk_selection_data_targets_include_text (selection_data)
 	GtkSelectionData *selection_data
 
+# FIXME: This method is completely misbound, it can only be used as
+# Gtk2::SelectionData::gtk_selection_clear ($widget, $event).  Additionally, it
+# has been deprecated since 31-Jan-03.  So remove this whenever we get the
+# chance to break API.
 ##  gboolean gtk_selection_clear (GtkWidget *widget, GdkEventSelection *event) 
+=for apidoc __hide__
+=cut
 gboolean
 gtk_selection_clear (widget, event)
 	GtkWidget *widget
 	GdkEvent *event
     C_ARGS:
 	widget, (GdkEventSelection*)event
+
+#if GTK_CHECK_VERSION (2, 6, 0)
+
+gboolean gtk_selection_data_set_pixbuf (GtkSelectionData *selection_data, GdkPixbuf *pixbuf);
+
+GdkPixbuf_noinc_ornull * gtk_selection_data_get_pixbuf (GtkSelectionData *selection_data);
+
+##  gboolean gtk_selection_data_set_uris (GtkSelectionData *selection_data, gchar **uris);
+=for apidoc
+=for arg ... of strings
+=cut
+gboolean
+gtk_selection_data_set_uris (selection_data, ...);
+	GtkSelectionData *selection_data
+    PREINIT:
+	gchar **uris = NULL;
+	int i;
+    CODE:
+	/* uris is NULL-terminated. */
+	uris = g_new0 (gchar *, items);
+	for (i = 1; i < items; i++)
+		uris[i - 1] = SvGChar (ST (i));
+	RETVAL = gtk_selection_data_set_uris (selection_data, uris);
+	g_free (uris);
+    OUTPUT:
+	RETVAL
+
+##  gchar ** gtk_selection_data_get_uris (GtkSelectionData *selection_data);
+void
+gtk_selection_data_get_uris (selection_data)
+	GtkSelectionData *selection_data
+    PREINIT:
+	gchar **uris = NULL;
+	int i;
+    PPCODE:
+	uris = gtk_selection_data_get_uris (selection_data);
+	if (!uris)
+		XSRETURN_EMPTY;
+	for (i = 0; uris[i]; i++)
+		XPUSHs (sv_2mortal (newSVGChar (uris[i])));
+	g_strfreev (uris);
+
+gboolean gtk_selection_data_targets_include_image (GtkSelectionData *selection_data, gboolean writable);
+
+#endif
 
  ## PRIVATE
 ##  gboolean _gtk_selection_request (GtkWidget *widget, GdkEventSelection *event) 

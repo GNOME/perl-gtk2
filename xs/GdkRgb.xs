@@ -220,3 +220,13 @@ gdk_rgb_ditherable (class)
     C_ARGS:
 	/*void*/
 
+#if GTK_CHECK_VERSION (2, 6, 0)
+
+##  gboolean gdk_rgb_colormap_ditherable (GdkColormap *cmap);
+gboolean
+gdk_rgb_colormap_ditherable (class, cmap)
+	GdkColormap *cmap
+    C_ARGS:
+	cmap
+
+#endif

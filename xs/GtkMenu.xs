@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003 by the gtk2-perl team (see the file AUTHORS)
+ * Copyright (c) 2003-2005 by the gtk2-perl team (see the file AUTHORS)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -242,5 +242,20 @@ gtk_menu_set_screen (menu, screen)
 void gtk_menu_attach (GtkMenu *menu, GtkWidget *child, guint left_attach, guint right_attach, guint top_attach, guint bottom_attach);
 
 void gtk_menu_set_monitor (GtkMenu *menu, gint monitor_num);
+
+#endif
+
+#if GTK_CHECK_VERSION(2,6,0)
+
+##  GList* gtk_menu_get_for_attach_widget (GtkWidget *widget);
+void
+gtk_menu_get_for_attach_widget (class, widget)
+	GtkWidget *widget
+    PREINIT:
+	GList *list, *i;
+    PPCODE:
+	list = gtk_menu_get_for_attach_widget (widget);
+	for (i = list; i; i = i->next)
+		XPUSHs (sv_2mortal (newSVGtkMenu (i->data)));
 
 #endif

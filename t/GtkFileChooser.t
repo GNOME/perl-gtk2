@@ -42,13 +42,23 @@ is ($file_chooser->get_action, 'open', 'change action to open');
 $filename = File::Spec->catfile ($cwd, 'gtk2perl.h');
 ok ($file_chooser->set_filename ($filename),
     'set filename to something that exists');
-is ($file_chooser->get_filename, $filename,
-    'set current name to something that does exist');
 
+Glib::Idle -> add(sub {
+  is ($file_chooser->get_filename, $filename,
+      'set current name to something that does exist');
+  Gtk2->main_quit;
+});
+Gtk2->main;
 
 #ok (!$file_chooser->select_filename ('/something bogus'));
 ok ($file_chooser->select_filename ($filename));
-is ($file_chooser->get_filename, $filename, 'select something');
+
+Glib::Idle -> add(sub {
+  is ($file_chooser->get_filename, $filename, 'select something');
+  Gtk2->main_quit;
+});
+Gtk2->main;
+
 my @list = $file_chooser->get_filenames;
 is (scalar (@list), 1, 'selected one thing');
 is ($list[0], $filename, 'selected '.$filename);
@@ -84,12 +94,21 @@ is ($file_chooser->get_current_folder, $cwd);
 
 my $uri = Glib::filename_to_uri (File::Spec->rel2abs ($0), undef);
 ok ($file_chooser->set_uri ($uri));
-is ($file_chooser->get_uri, $uri);
+
+Glib::Idle -> add(sub {
+  is ($file_chooser->get_uri, $uri);
+  Gtk2->main_quit;
+});
+Gtk2->main;
 
 ok ($file_chooser->select_uri ($uri));
 
-@list = $file_chooser->get_uris;
-ok (scalar (@list), 'selected a uri');
+Glib::Idle -> add(sub {
+  @list = $file_chooser->get_uris;
+  ok (scalar (@list), 'selected a uri');
+  Gtk2->main_quit;
+});
+Gtk2->main;
 
 $file_chooser->unselect_uri ($uri);
 
@@ -117,8 +136,13 @@ is ($file_chooser->get_use_preview_label, TRUE);
 $file_chooser->set_current_folder ($cwd);
 $filename = File::Spec->catfile ($cwd, 'gtk2perl.h');
 ok ($file_chooser->select_filename ($filename));
-is ($file_chooser->get_preview_filename, $filename, 'get_preview_filename');
-is ($file_chooser->get_preview_uri, "file://".$filename, 'get_preview_uri');
+
+Glib::Idle -> add(sub {
+  is ($file_chooser->get_preview_filename, $filename, 'get_preview_filename');
+  is ($file_chooser->get_preview_uri, "file://".$filename, 'get_preview_uri');
+  Gtk2->main_quit;
+});
+Gtk2->main;
 
 
 # Extra widget
@@ -154,10 +178,11 @@ $file_chooser->add_shortcut_folder_uri ("file://" . $cwd);
 is_deeply ([$file_chooser->list_shortcut_folders], [$cwd, $cwd]);
 is_deeply ([$file_chooser->list_shortcut_folder_uris], ["file://" . $cwd, "file://" . $cwd]);
 
+$file_chooser->unselect_filename ($filename);
+
 @list = $file_chooser->get_uris;
 ok (!scalar (@list), 'no uris selected');
 
-$file_chooser->unselect_filename ($filename);
 @list = $file_chooser->get_filenames;
 is (scalar (@list), 0, 'unselected everything');
 

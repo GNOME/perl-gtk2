@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 1;
+use Gtk2::TestHelper tests => 2;
 
 # $Header$
 
@@ -43,7 +43,15 @@ eval {
 
 like($@, qr/a cmap may not consist of more than 256 colors/);
 
+SKIP: {
+  skip("new 2.6 stuff", 1)
+    unless Gtk2 -> CHECK_VERSION(2, 6, 0);
+
+  my $cmap = Gtk2::Gdk::Colormap -> get_system();
+  like(Gtk2::Gdk::Rgb -> colormap_ditherable($cmap), qr/^(?:1|)$/);
+}
+
 __END__
 
-Copyright (C) 2003 by the gtk2-perl team (see the file AUTHORS for the
+Copyright (C) 2003-2005 by the gtk2-perl team (see the file AUTHORS for the
 full list).  See LICENSE for more information.

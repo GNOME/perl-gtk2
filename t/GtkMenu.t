@@ -7,7 +7,7 @@
 # 	- rm
 #########################
 
-use Gtk2::TestHelper tests => 52;
+use Gtk2::TestHelper tests => 55;
 
 ok( my $menubar = Gtk2::MenuBar->new );
 
@@ -41,6 +41,15 @@ foreach $num (qw/1 2 3/)
 	});
 
 	is ($menu->get_attach_widget, $button);
+
+	SKIP: {
+		skip "new 2.6 stuff", 1
+			unless Gtk2->CHECK_VERSION (2, 6, 0);
+
+		my @list = Gtk2::Menu->get_for_attach_widget ($button);
+		is ($list[0], $menu);
+	}
+
 	$menu->detach;
 
 	SKIP: {

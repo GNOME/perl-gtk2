@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 7;
+use Gtk2::TestHelper tests => 10;
 
 # $Header$
 
@@ -22,6 +22,21 @@ $list -> remove(Gtk2::Gdk->TARGET_BITMAP);
 is($list -> find(Gtk2::Gdk->TARGET_BITMAP), undef);
 is($list -> find(Gtk2::Gdk->TARGET_STRING), 23);
 
+SKIP: {
+  skip("2.6 stuff", 3)
+    unless Gtk2 -> CHECK_VERSION(2, 6, 0);
+
+  $list -> add_text_targets(42);
+  $list -> add_image_targets(43, TRUE);
+  $list -> add_uri_targets(44);
+
+  is($list -> find(Gtk2::Gdk::Atom -> intern("text/plain")), 42);
+  is($list -> find(Gtk2::Gdk::Atom -> intern("image/png")), 43);
+  is($list -> find(Gtk2::Gdk::Atom -> intern("text/uri-list")), 44);
+}
+
+###############################################################################
+
 my $window = Gtk2::Window -> new();
 $window -> realize();
 
@@ -31,7 +46,7 @@ is(Gtk2::Selection -> owner_set($window,
 
 SKIP: {
   skip("GdkDisplay is new in 2.2", 1)
-    unless Gtk2->CHECK_VERSION (2, 2, 0);
+    unless Gtk2 -> CHECK_VERSION(2, 2, 0);
 
   is(Gtk2::Selection -> owner_set_for_display(Gtk2::Gdk::Display -> get_default(),
                                               $window,
@@ -51,7 +66,14 @@ $window -> selection_clear_targets(Gtk2::Gdk->SELECTION_CLIPBOARD);
 
 is($window -> selection_convert(Gtk2::Gdk->SELECTION_PRIMARY, Gtk2::Gdk->TARGET_PIXMAP, 0), 1);
 
+# Test that this function continues to work, even if it's completely misbound.
+Gtk2::SelectionData::gtk_selection_clear($window, Gtk2::Gdk::Event -> new("nothing"));
+
 $window -> selection_remove_all();
+
+###############################################################################
+
+# The Gtk2::SelectionData stuff is tested in GtkClipboard.t.
 
 __END__
 

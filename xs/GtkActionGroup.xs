@@ -206,6 +206,15 @@ read_radio_action_entry_from_sv (SV * sv,
 	}
 }
 
+/* ------------------------------------------------------------------------- */
+
+/* Implemented in GtkItemFactory.xs. */
+
+extern GPerlCallback * gtk2perl_translate_func_create (SV * func, SV * data);
+
+extern gchar * gtk2perl_translate_func (const gchar *path, gpointer data);
+
+/* ------------------------------------------------------------------------- */
 
 MODULE = Gtk2::ActionGroup	PACKAGE = Gtk2::ActionGroup	PREFIX = gtk_action_group_
 
@@ -454,12 +463,36 @@ gtk_action_group_add_radio_actions (action_group, radio_action_entries, value, o
 		gperl_signal_connect (WRAPINSTANCE (first_action),
 		                      "changed", on_change, user_data, 0);
 
+void gtk_action_group_set_translation_domain (GtkActionGroup *action_group, const gchar *domain);
+
 ## NOTE: we had to implement the group adding API in xs so that we can
 ##       properly destroy the user data and callbacks and such.  since we
 ##       reimplement, we can't get to the translation function, its data,
 ##       or the translation domain, which are held in the opaque private
 ##       data object of the action group.  not the end of the world, but
 ##       not great, either.  see #135740
-##void gtk_action_group_set_translate_func (GtkActionGroup *action_group, GtkTranslateFunc func, gpointer data, GtkDestroyNotify notify);
 
-##void gtk_action_group_set_translation_domain (GtkActionGroup *action_group, const gchar *domain); 
+##       as of gtk+ 2.6.0, there is new API that allows one to call the
+##       translate func, so we can enable the whole translation API.
+
+#if GTK_CHECK_VERSION (2, 6, 0)
+
+##void gtk_action_group_set_translate_func (GtkActionGroup *action_group, GtkTranslateFunc func, gpointer data, GtkDestroyNotify notify);
+void
+gtk_action_group_set_translate_func (action_group, func, data=NULL)
+	GtkActionGroup *action_group
+	SV *func
+	SV *data
+    PREINIT:
+	GPerlCallback *callback;
+    CODE:
+	callback = gtk2perl_translate_func_create (func, data);
+	gtk_action_group_set_translate_func (action_group,
+	                                     gtk2perl_translate_func,
+	                                     callback,
+	                                     (GtkDestroyNotify)
+	                                       gperl_callback_destroy);
+
+const gchar * gtk_action_group_translate_string (GtkActionGroup *action_group, const gchar *string);
+
+#endif

@@ -4,8 +4,7 @@
 
 use Gtk2::TestHelper
 	at_least_version => [2, 4, 0, "Action-based menus are new in 2.4"],
-#	tests => 9, noinit => 1;
-	tests => 11;
+	tests => 14;
 
 my $action_group = Gtk2::ActionGroup->new ("Fred");
 
@@ -90,6 +89,24 @@ is (@list, 7);
 $action_group->add_radio_actions (\@color_entries, COLOR_GREEN, \&on_change);
 @list = $action_group->list_actions;
 is (@list, 10);
+
+$action_group->set_translation_domain("de_DE");
+
+SKIP: {
+	skip "translation API is (semi) new in 2.6", 3
+		unless Gtk2->CHECK_VERSION (2, 6, 0);
+
+	$action_group->set_translate_func(sub {
+		my ($string, $data) = @_;
+
+		is($string, "Urgs");
+		is($data, "bla");
+
+		return "Sgru";
+	}, "bla");
+
+	is($action_group->translate_string("Urgs"), "Sgru");
+}
 
 __END__
 

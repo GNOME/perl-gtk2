@@ -429,7 +429,7 @@ gboolean
 gtk_dialog_get_has_separator (dialog)
 	GtkDialog * dialog
 
-#if GTK_CHECK_VERSION (2, 5, 4) /* FIXME: 2.6 */
+#if GTK_CHECK_VERSION (2, 6, 0)
 
 ##  void gtk_dialog_set_alternative_button_order (GtkDialog *dialog, gint first_response_id, ...)
 void
@@ -449,5 +449,18 @@ gtk_dialog_set_alternative_button_order (dialog, ...)
 
 		g_free (new_order);
 	}
+
+#endif
+
+MODULE = Gtk2::Dialog	PACKAGE = Gtk2	PREFIX = gtk_
+
+#if GTK_CHECK_VERSION (2, 6, 0)
+
+##  gboolean gtk_alternative_dialog_button_order (GdkScreen *screen);
+gboolean
+gtk_alternative_dialog_button_order (class, screen=NULL)
+	GdkScreen_ornull *screen
+    C_ARGS:
+	screen
 
 #endif

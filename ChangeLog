@@ -1,3 +1,38 @@
+2005/01/02 17:44 (+0100) kaffeetisch
+
+	* t/GdkRgb.t, xs/GdkRgb.xs: Bind and test
+	gdk_rgb_colormap_ditherable.
+
+	* t/GtkActionGroup.t, xs/GtkActionGroup.xs: Bind and test
+	gtk_action_group_set_translation_domain,
+	gtk_action_group_set_translate_func, and
+	gtk_action_group_translate_string.
+
+	* t/GtkDialog.t, xs/GtkDialog.xs: Bind and test
+	gtk_alternative_dialog_button_order.
+
+	* t/GtkClipboard.t, t/GtkSelection.t, xs/GtkClipboard.xs,
+	xs/GtkSelection.xs: Bind and test gtk_clipboard_set_image,
+	gtk_clipboard_wait_for_image,
+	gtk_clipboard_wait_is_image_available,
+	gtk_clipboard_request_image, gtk_clipboard_set_can_store,
+	gtk_clipboard_store, gtk_clipboard_wait_is_target_available,
+	gtk_target_list_add_text_targets,
+	gtk_target_list_add_image_targets,
+	gtk_target_list_add_uri_targets, gtk_selection_data_set_pixbuf,
+	gtk_selection_data_get_pixbuf, gtk_selection_data_set_uris,
+	gtk_selection_data_get_uris, and
+	gtk_selection_data_targets_include_image.  Modify the received
+	funcs to free the callback directly after it was invoked.  Add a
+	FIXME comment and a test for the completely misbound
+	gtk_selection_clear.
+
+	* t/GtkFileChooser.t: Use idle callbacks to fix the test failures
+	that occured after caching was implemented.
+
+	* t/GtkMenu.t, xs/GtkMenu.xs: Bind and test
+	gtk_menu_get_for_attach_widget.
+
 2005/01/02 16:35 (+0100) kaffeetisch
 
 	* CodeGen.pm: Add a _noinc_ornull variant to the typemaps for
