@@ -25,7 +25,73 @@
 this is an interface
 */
 
+#define PREP(cell)	\
+	dSP;		\
+	ENTER;		\
+	SAVETMPS;	\
+	PUSHMARK (SP);	\
+	PUSHs (sv_2mortal (newSVGObject (G_OBJECT (cell))));
+
+#define CALL(name)	\
+	PUTBACK;				\
+	call_method (name, G_VOID|G_DISCARD);	\
+	SPAGAIN;
+
+#define FINISH	\
+	FREETMPS;	\
+	LEAVE;
+
+static void
+gtk2perl_cell_editable_start_editing (GtkCellEditable *cell_editable,
+                                      GdkEvent *event)
+{
+	PREP (cell_editable);
+	XPUSHs (sv_2mortal (newSVGdkEvent (event)));
+	CALL ("START_EDITING");
+	FINISH;
+}
+
+static void
+gtk2perl_cell_editable_editing_done (GtkCellEditable *cell_editable)
+{
+	PREP (cell_editable);
+	CALL ("EDITING_DONE");
+	FINISH;
+}
+
+static void
+gtk2perl_cell_editable_remove_widget (GtkCellEditable *cell_editable)
+{
+	PREP (cell_editable);
+	CALL ("REMOVE_WIDGET");
+	FINISH;
+}
+
+static void
+gtk2perl_cell_editable_init (GtkCellEditableIface * iface)
+{
+	iface->start_editing = gtk2perl_cell_editable_start_editing;
+	iface->editing_done  = gtk2perl_cell_editable_editing_done;
+	iface->remove_widget = gtk2perl_cell_editable_remove_widget;
+}
+
 MODULE = Gtk2::CellEditable	PACKAGE = Gtk2::CellEditable	PREFIX = gtk_cell_editable_
+
+=for apidoc __hide__
+=cut
+void
+_ADD_INTERFACE (class, const char * target_class)
+    CODE:
+    {
+	static const GInterfaceInfo iface_info = {
+		(GInterfaceInitFunc) gtk2perl_cell_editable_init,
+		(GInterfaceFinalizeFunc) NULL,
+		(gpointer) NULL
+	};
+	GType gtype = gperl_object_type_from_package (target_class);
+	g_type_add_interface_static (gtype, GTK_TYPE_CELL_EDITABLE,
+	                &iface_info);
+    }
 
 ## void gtk_cell_editable_start_editing (GtkCellEditable *cell_editable, GdkEvent *event)
 void
