@@ -28,8 +28,8 @@ value (GtkAdjustment *adjustment, gdouble newval = 0)
     ALIAS:
 	lower          = 1
 	upper          = 2
-	step_incrememt = 3
-	page_incrememt = 4
+	step_increment = 3
+	page_increment = 4
 	page_size      = 5
     CODE:
 	switch (ix) {

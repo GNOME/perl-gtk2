@@ -1,3 +1,8 @@
+2003/06/16 22:21 pcg
+
+        * xs/GtkAdjustment.xs: two minor typoes, found while porting
+        gimp-perl to 1.3. Reply to muppetman becomes urgent slowly.
+
 2003/06/16 22:36 joered
 
 	* xs/Gtk2/GtkTextIter.xs: fixed a memory leak. Thanks to
