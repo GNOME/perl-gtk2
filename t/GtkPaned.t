@@ -40,6 +40,7 @@ print "vpaned 1 -> ".$vpaned->child1_resize."\n";
 print "vpaned 2 -> ".$vpaned->child2_resize."\n";
 
 $window->show_all;
+$window->show_now;
 
 $hframe->set_size_request (50,50);
 $vframe1->set_size_request (50,50);
@@ -50,8 +51,6 @@ if ((Gtk2->get_version_info)[1] < 2) {
 	# crap.  we didn't have a way to query style property information
 	# until 2.2, so we can't implement gtk_wigdet_style_get () here.
 	# we have to improvise.
-	Glib::Timeout->add (100, sub { Gtk2->main_quit; 0 });
-	Gtk2->main;
 	$pad = $window->allocation->height
 	     - $vframe1->allocation->height
 	     - $vframe2->allocation->height;
