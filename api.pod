@@ -376,6 +376,21 @@ after it has been created, you can create new pixbufs for the changed regions
 and use C<< $pixbuf->composite >>, or try a different approach (possibly use a
 server-side pixmap and gdk drawing primitives, or something like libart).
 
+=item Gtk2::Gdk::PixbufAnimation::get_iter
+
+=item Gtk2::Gdk::PixbufAnimationIter::advance
+
+These functions take a GTimeVal in C; the GTimeVal is like a struct timeval
+in the unix standard library.  Perl 5.8.0 includes Time::HiRes, which returns
+the seconds and microseconds numbers that would go into a timeval, so
+get_iter and advance take those values instead.  If you omit all of them,
+Gtk2 will use the current time.
+
+  $animation->get_iter ($seconds, $microseconds);
+  $animation->get_iter;
+  $animiter->advance ($seconds, $microseconds);
+  $animiter->advance;
+
 =back
 
 =head1 SEE ALSO

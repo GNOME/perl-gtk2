@@ -381,7 +381,7 @@ MODULE = Gtk2::Gdk::Pixbuf	PACKAGE = Gtk2::Gdk::PixbufAnimation	PREFIX = gdk_pix
 
 ##  GdkPixbufAnimation *gdk_pixbuf_animation_new_from_file (const char *filename, GError **error) 
 GdkPixbufAnimation_noinc *
-gdk_pixbuf_animation_new_from_file (class, filename, error)
+gdk_pixbuf_animation_new_from_file (class, filename)
 	char *filename
     PREINIT:
 	GError * error = NULL;
@@ -416,56 +416,111 @@ GdkPixbuf *
 gdk_pixbuf_animation_get_static_image (animation)
 	GdkPixbufAnimation *animation
 
-## FIXME no typemap for GTimeVal
+## there's no typemap for GTimeVal.
 ## GTimeVal is in GLib, same as unix' struct timeval.
+## timeval is seconds and microseconds, which we can get from Time::HiRes.
+## so, we'll take seconds and microseconds.  if neither is available,
+## pass NULL to the wrapped function to get the current time.
 ###  GdkPixbufAnimationIter *gdk_pixbuf_animation_get_iter (GdkPixbufAnimation *animation, const GTimeVal *start_time) 
-#GdkPixbufAnimationIter_noinc *
-#gdk_pixbuf_animation_get_iter (animation, start_time)
-#	GdkPixbufAnimation *animation
-#	GTimeVal *start_time
-#
-###  int gdk_pixbuf_animation_iter_get_delay_time (GdkPixbufAnimationIter *iter) 
-#int
-#gdk_pixbuf_animation_iter_get_delay_time (iter)
-#	GdkPixbufAnimationIter *iter
-#
-###  GdkPixbuf *gdk_pixbuf_animation_iter_get_pixbuf (GdkPixbufAnimationIter *iter) 
-#GdkPixbuf *
-#gdk_pixbuf_animation_iter_get_pixbuf (iter)
-#	GdkPixbufAnimationIter *iter
-#
-###  gboolean gdk_pixbuf_animation_iter_on_currently_loading_frame (GdkPixbufAnimationIter *iter) 
-#gboolean
-#gdk_pixbuf_animation_iter_on_currently_loading_frame (iter)
-#	GdkPixbufAnimationIter *iter
-#
+GdkPixbufAnimationIter_noinc *
+gdk_pixbuf_animation_get_iter (animation, start_time_seconds=0, start_time_microseconds=0)
+	GdkPixbufAnimation *animation
+	guint start_time_seconds
+	guint start_time_microseconds
+    CODE:
+	if (start_time_microseconds) {
+		GTimeVal start_time;
+		start_time.tv_sec = start_time_seconds;
+		start_time.tv_usec = start_time_microseconds;
+		RETVAL = gdk_pixbuf_animation_get_iter (animation,
+		                                        &start_time);
+	} else
+		RETVAL = gdk_pixbuf_animation_get_iter (animation, NULL);
+    OUTPUT:
+	RETVAL
+
+MODULE = Gtk2::Gdk::Pixbuf	PACKAGE = Gtk2::Gdk::PixbufAnimationIter	PREFIX = gdk_pixbuf_animation_iter_
+
+int gdk_pixbuf_animation_iter_get_delay_time (GdkPixbufAnimationIter *iter) 
+
+GdkPixbuf *gdk_pixbuf_animation_iter_get_pixbuf (GdkPixbufAnimationIter *iter) 
+
+gboolean gdk_pixbuf_animation_iter_on_currently_loading_frame (GdkPixbufAnimationIter *iter) 
+
 ###  gboolean gdk_pixbuf_animation_iter_advance (GdkPixbufAnimationIter *iter, const GTimeVal *current_time) 
-#gboolean
-#gdk_pixbuf_animation_iter_advance (iter, current_time)
-#	GdkPixbufAnimationIter *iter
-#	GTimeVal *current_time
+gboolean
+gdk_pixbuf_animation_iter_advance (iter, current_time_seconds=0, current_time_microseconds=0)
+	GdkPixbufAnimationIter *iter
+	guint current_time_seconds
+	guint current_time_microseconds
+    CODE:
+	if (current_time_microseconds) {
+		GTimeVal current_time;
+		current_time.tv_sec = current_time_seconds;
+		current_time.tv_usec = current_time_microseconds;
+		RETVAL = gdk_pixbuf_animation_iter_advance (iter,
+		                                            &current_time);
+	} else
+		RETVAL = gdk_pixbuf_animation_iter_advance (iter, NULL);
+     OUTPUT:
+	RETVAL
+
+
+MODULE = Gtk2::Gdk::Pixbuf	PACKAGE = Gtk2::Gdk::Pixbuf	PREFIX = gdk_pixbuf_
 
 #if GTK_CHECK_VERSION(2,2,0)
 
-## FIXME no typemap entry for GdkPixbufFormat
-###  GSList *gdk_pixbuf_get_formats (void) 
-#GSList *
-#gdk_pixbuf_get_formats (void)
-#	void
-#
+## there's no typemap entry for GdkPixbufFormat, because there's no
+## boxed type support.  it's an information structure, so we'll just
+## hashify it so you can use Data::Dumper on it.
+##
+# returned strings should be freed
 ###  gchar *gdk_pixbuf_format_get_name (GdkPixbufFormat *format) 
-#gchar *
-#gdk_pixbuf_format_get_name (format)
-#	GdkPixbufFormat *format
-#
 ###  gchar *gdk_pixbuf_format_get_description (GdkPixbufFormat *format) 
-#gchar *
-#gdk_pixbuf_format_get_description (format)
-#	GdkPixbufFormat *format
-#
+###  gchar ** gdk_pixbuf_format_get_mime_types (GdkPixbufFormat *format)
+###  gchar ** gdk_pixbuf_format_get_extensions (GdkPixbufFormat *format)
 ###  gboolean gdk_pixbuf_format_is_writable (GdkPixbufFormat *format) 
-#gboolean
-#gdk_pixbuf_format_is_writable (format)
-#	GdkPixbufFormat *format
+
+###  GSList *gdk_pixbuf_get_formats (void) 
+## list should be freed, but not formats
+void
+gdk_pixbuf_get_formats (class=NULL)
+    PREINIT:
+	GSList * formats, * i;
+    PPCODE:
+	formats = gdk_pixbuf_get_formats ();
+	for (i = formats ; i != NULL ; i = i->next) {
+		gchar * s;
+		gchar ** strv;
+		int j;
+		AV * av;
+		GdkPixbufFormat * format = (GdkPixbufFormat*) i->data;
+		HV * hv = newHV ();
+
+		s = gdk_pixbuf_format_get_name (format);
+		hv_store (hv, "name", 4, newSVGChar (s), 0);
+		g_free (s);
+
+		s = gdk_pixbuf_format_get_description (format);
+		hv_store (hv, "description", 11, newSVGChar (s), 0);
+		g_free (s);
+
+		strv = gdk_pixbuf_format_get_mime_types (format);
+		av = newAV ();
+		for (j = 0 ; strv && strv[j] ; j++)
+			av_store (av, j, newSVGChar (strv[j]));
+		hv_store (hv, "mime_types", 10, newRV_noinc ((SV*) av), 0)
+		g_strfreev (strv);
+
+		strv = gdk_pixbuf_format_get_extensions (format);
+		av = newAV ();
+		for (j = 0 ; strv && strv[j] ; j++)
+			av_store (av, j, newSVGChar (strv[j]));
+		hv_store (hv, "extensions", 10, newRV_noinc ((SV*) av), 0)
+		g_strfreev (strv);
+
+		XPUSHs (sv_2mortal (newRV_noinc ((SV*) hv)));
+	}
+	g_slist_free (formats);
 
 #endif /* >= 2.2.0 */
