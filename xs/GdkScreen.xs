@@ -1,0 +1,188 @@
+/*
+ * Copyright (c) 2003 by the gtk2-perl team (see the file AUTHORS)
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Library General Public
+ * License as published by the Free Software Foundation; either
+ * version 2 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Library General Public License for more details.
+ *
+ * You should have received a copy of the GNU Library General Public
+ * License along with this library; if not, write to the 
+ * Free Software Foundation, Inc., 59 Temple Place - Suite 330, 
+ * Boston, MA  02111-1307  USA.
+ *
+ * $Header$
+ */
+#include "gtk2perl.h"
+
+MODULE = Gtk2::Gdk::Screen	PACKAGE = Gtk2::Gdk::Screen	PREFIX = gdk_screen_
+
+#ifdef GDK_TYPE_SCREEN
+
+##  void (*size_changed) (GdkScreen *screen) 
+
+##  GdkColormap *gdk_screen_get_default_colormap (GdkScreen *screen) 
+GdkColormap *
+gdk_screen_get_default_colormap (screen)
+	GdkScreen *screen
+
+##  void gdk_screen_set_default_colormap (GdkScreen *screen, GdkColormap *colormap) 
+void
+gdk_screen_set_default_colormap (screen, colormap)
+	GdkScreen *screen
+	GdkColormap *colormap
+
+##  GdkColormap* gdk_screen_get_system_colormap (GdkScreen *screen) 
+GdkColormap*
+gdk_screen_get_system_colormap (screen)
+	GdkScreen *screen
+
+##  GdkVisual* gdk_screen_get_system_visual (GdkScreen *screen) 
+GdkVisual*
+gdk_screen_get_system_visual (screen)
+	GdkScreen *screen
+
+##  GdkColormap *gdk_screen_get_rgb_colormap (GdkScreen *screen) 
+GdkColormap *
+gdk_screen_get_rgb_colormap (screen)
+	GdkScreen *screen
+
+##  GdkVisual * gdk_screen_get_rgb_visual (GdkScreen *screen) 
+GdkVisual *
+gdk_screen_get_rgb_visual (screen)
+	GdkScreen *screen
+
+##  GdkWindow * gdk_screen_get_root_window (GdkScreen *screen) 
+GdkWindow *
+gdk_screen_get_root_window (screen)
+	GdkScreen *screen
+
+##  GdkDisplay * gdk_screen_get_display (GdkScreen *screen) 
+GdkDisplay *
+gdk_screen_get_display (screen)
+	GdkScreen *screen
+
+##  gint gdk_screen_get_number (GdkScreen *screen) 
+gint
+gdk_screen_get_number (screen)
+	GdkScreen *screen
+
+##  gint gdk_screen_get_width (GdkScreen *screen) 
+gint
+gdk_screen_get_width (screen)
+	GdkScreen *screen
+
+##  gint gdk_screen_get_height (GdkScreen *screen) 
+gint
+gdk_screen_get_height (screen)
+	GdkScreen *screen
+
+##  gint gdk_screen_get_width_mm (GdkScreen *screen) 
+gint
+gdk_screen_get_width_mm (screen)
+	GdkScreen *screen
+
+##  gint gdk_screen_get_height_mm (GdkScreen *screen) 
+gint
+gdk_screen_get_height_mm (screen)
+	GdkScreen *screen
+
+##  GList * gdk_screen_list_visuals (GdkScreen *screen) 
+void
+gdk_screen_list_visuals (screen)
+	GdkScreen *screen
+    PREINIT:
+	GList * list, * i;
+    PPCODE:
+	list = gdk_screen_list_visuals (screen);
+	for (i = list ; i != NULL ; i = i->next)
+		XPUSHs (sv_2mortal (newSVGdkVisual (i->data)));
+	g_list_free (list);
+
+##  GList * gdk_screen_get_toplevel_windows (GdkScreen *screen) 
+void
+gdk_screen_get_toplevel_windows (screen)
+	GdkScreen *screen
+    PREINIT:
+	GList * list, * i;
+    PPCODE:
+	list = gdk_screen_get_toplevel_windows (screen);
+	for (i = list ; i != NULL ; i = i->next)
+		XPUSHs (sv_2mortal (newSVGdkWindow (i->data)));
+	g_list_free (list);
+
+##  gchar * gdk_screen_make_display_name (GdkScreen *screen) 
+gchar *
+gdk_screen_make_display_name (screen)
+	GdkScreen *screen
+    CLEANUP:
+	g_free (RETVAL);
+
+##  gint gdk_screen_get_n_monitors (GdkScreen *screen) 
+gint
+gdk_screen_get_n_monitors (screen)
+	GdkScreen *screen
+
+##  void gdk_screen_get_monitor_geometry (GdkScreen *screen, gint monitor_num, GdkRectangle *dest) 
+GdkRectangle_own *
+gdk_screen_get_monitor_geometry (screen, monitor_num)
+	GdkScreen *screen
+	gint monitor_num
+    PREINIT:
+	GdkRectangle dest;
+    CODE:
+	gdk_screen_get_monitor_geometry (screen, monitor_num, &dest);
+	RETVAL = &dest;
+    OUTPUT:
+	RETVAL
+
+##  gint gdk_screen_get_monitor_at_point (GdkScreen *screen, gint x, gint y) 
+gint
+gdk_screen_get_monitor_at_point (screen, x, y)
+	GdkScreen *screen
+	gint x
+	gint y
+
+##  gint gdk_screen_get_monitor_at_window (GdkScreen *screen, GdkWindow *window) 
+gint
+gdk_screen_get_monitor_at_window (screen, window)
+	GdkScreen *screen
+	GdkWindow *window
+
+##  void gdk_screen_broadcast_client_message (GdkScreen *screen, GdkEvent *event) 
+void
+gdk_screen_broadcast_client_message (screen, event)
+	GdkScreen *screen
+	GdkEvent *event
+
+ ## FIXME should this be _noinc?:  i think no, because gdk manages a list of
+ ##       these things, and we probably shouldn't mess with that...
+##  GdkScreen *gdk_screen_get_default (void) 
+GdkScreen_ornull *
+gdk_screen_get_default (class)
+	SV * class
+    C_ARGS:
+	
+
+##  gboolean gdk_screen_get_setting (GdkScreen *screen, const gchar *name, GValue *value) 
+SV *
+gdk_screen_get_setting (screen, name, value)
+	GdkScreen *screen
+	const gchar *name
+    PREINIT:
+	GValue value = {0,};
+    CODE:
+	if (!gdk_screen_get_setting (screen, name, &value))
+		XSRETURN_UNDEF;
+	RETVAL = gperl_sv_from_value (&value);
+	g_value_unset (&value);
+    OUTPUT:
+	RETVAL
+
+
+#endif /* GDK_TYPE_SCREEN */
