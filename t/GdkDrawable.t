@@ -66,9 +66,14 @@ $win -> draw_layout_with_colors($gc, 10, 10, $layout, $black, $black);
 $win -> draw_drawable($gc, $win, 5, 5, 5, 5, 10, 10);
 
 my $image = $win -> get_image(5, 5, 10, 10);
-isa_ok($image, "Gtk2::Gdk::Image");
 
-$win -> draw_image($gc, $image, 0, 0, 0, 0, 50, 50);
+SKIP: {
+  skip("get_image returned undef, skipping draw_image", 1)
+    unless (defined($image));
+
+  isa_ok($image, "Gtk2::Gdk::Image");
+  $win -> draw_image($gc, $image, 0, 0, 0, 0, 50, 50);
+}
 
 SKIP: {
   skip("draw_pixbuf is new in 2.2", 0)

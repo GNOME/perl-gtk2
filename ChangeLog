@@ -1,5 +1,8 @@
 2004/01/25 23:37 (+0100) kaffeetisch
 
+	* t/GdkDrawable.t: Skip the draw_image test if get_image returned
+	undef.
+
 	* examples/simplelist.pl
 	* pm/SimpleList.pm
 	* t/GtkSimpleList.t: Implement, document, test and demonstrate a
