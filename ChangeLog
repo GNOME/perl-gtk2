@@ -1,3 +1,11 @@
+2004/01/08 18:55 (-0500) rwmcfa1
+
+	* pm/TestHelper.pm: added at_least_version paramter, very useful.
+
+	* t/27.GtkClipboard.t: use ^, to skip unless clipboard will be around.
+
+	* xs/Gtk2.xs: apidoc fix, version_info should of been get_version_info.
+
 2004/01/09 00:47 (+0100) kaffeetisch
 
 	* xs/GdkColor.xs: Add a class argument to Gtk2::Gdk::Colormap::new

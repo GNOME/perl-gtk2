@@ -126,7 +126,7 @@ BOOT:
  ##GTKMAIN_C_VAR const guint gtk_interface_age;
 
 =for apidoc
-=for signature (major_version, minor_version, micro_version) = Gtk2->version_info
+=for signature (major_version, minor_version, micro_version) = Gtk2->get_version_info
 =cut
 void
 gtk_get_version_info (class)

@@ -1,11 +1,8 @@
 #!/usr/bin/perl -w
 
 use Data::Dumper;
-use Gtk2::TestHelper tests => 22;
-
-if (2 > (Gtk2->get_version_info)[1]) {
-	plan (skip_all => "GtkClipboard didn't exist in 2.0.x");
-} 
+use Gtk2::TestHelper tests => 22, 
+	at_least_version => [2, 1, 0, "GtkClipboard didn't exist in 2.0.x"];
 
 my $clipboard = Gtk2::Clipboard->get (Gtk2::Gdk->SELECTION_PRIMARY);
 
