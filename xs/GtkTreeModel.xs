@@ -193,9 +193,18 @@ static gboolean
 iter_from_sv (GtkTreeIter * iter,
               SV * sv)
 {
-	if (sv && SvROK (sv) && SvTYPE (SvRV (sv)) == SVt_PVAV) {
+	/* we allow undef as the sentinel from the perl vfuncs to tell us
+	 * to return FALSE from the C vfuncs.  for anything else, it *must*
+	 * be an array reference or we croak with an informative message
+	 * (since that would be caused by a programming bug). */
+	if (sv && SvOK (sv)) {
 		SV ** svp;
-		AV * av = (AV*) SvRV (sv);
+		AV * av;
+		if (!SvROK (sv) || SvTYPE (SvRV (sv)) != SVt_PVAV)
+			croak ("expecting a reference to an ARRAY to describe "
+			       "a tree iter, not a %s",
+			       sv_reftype (SvRV (sv), 0));
+		av = (AV*) SvRV (sv);
 		if ((svp = av_fetch (av, 0, FALSE)))
 			iter->stamp = SvUV (*svp);
 
@@ -825,7 +834,80 @@ gtk_tree_row_reference_valid (reference)
 
 #endif /* defined GTK_TYPE_TREE_ROW_REFERENCE */
 
-####MODULE = Gtk2::TreeModel	PACKAGE = Gtk2::TreeIter	PREFIX = gtk_tree_iter_
+MODULE = Gtk2::TreeModel	PACKAGE = Gtk2::TreeIter	PREFIX = gtk_tree_iter_
+
+=for see_also Gtk2::TreeModel
+=cut
+
+=head1 SYNOPSIS
+
+  package MyCustomListStore;
+
+  use Glib::Object::Subclass
+      Glib::Object::,
+      interfaces => [ Gtk2::TreeModel:: ],
+      ;
+
+  ...
+
+  sub set {
+      my $list = shift;
+      my $iter = shift; # a Gtk2::TreeIter
+
+      # this method needs access to the internal representation
+      # of the iter, as the model implementation sees it:
+      my $arrayref = $iter->to_arrayref ($list->{stamp});
+      ...
+  }
+
+
+=head1 DESCRIPTION
+
+The methods described here are only of use in custom Gtk2::TreeModel
+implementations; they are not safe to be used on generic iters or in
+application code.  See L<Gtk2::TreeModel/CREATING A CUSTOM TREE MODEL> for
+more information.
+
+=cut
+
+=for apidoc
+Convert a boxed Gtk2::TreeIter reference into the "internal" array reference
+representation used by custom Gtk2::TreeModel implementations.  This is
+necessary when you need to get to the data inside your iters in methods
+which are not the vfuncs of the Gtk2::TreeModelIface interface.  The stamp
+must match; this protects the binding code from potential memory faults
+when attempting to convert an iter that doesn't actually belong to your
+model.  See L<Gtk2::TreeModel/CREATING A CUSTOM TREE MODEL> for
+more information.
+=cut
+SV*
+to_arrayref (GtkTreeIter * iter, UV stamp)
+    CODE:
+	if (iter->stamp != stamp)
+		croak ("invalid iter -- stamp %d does not match requested %d",
+		       iter->stamp, stamp);
+        RETVAL = sv_from_iter (iter);
+    OUTPUT:
+        RETVAL
+
+=for apidoc
+Create a new Gtk2::TreeIter from the "internal" array reference representation
+used by custom Gtk2::TreeModel implementations.  This is the complement to
+Gtk2::TreeIter::to_arrayref(), and is used when you need to create and return
+a new iter from a method that is not one of the Gtk2::TreeModelIface
+interface vfuncs.  See L<Gtk2::TreeModel/CREATING A CUSTOM TREE MODEL> for
+more information.
+=cut
+GtkTreeIter_copy *
+new_from_arrayref (class, SV * sv_iter)
+    PREINIT:
+	GtkTreeIter iter = {0, };
+    CODE:
+	if (!iter_from_sv (&iter, sv_iter))
+		XSRETURN_UNDEF;
+	RETVAL = &iter;
+    OUTPUT:
+	RETVAL
 
 ## we get this from Glib::Boxed::copy
 ## GtkTreeIter * gtk_tree_iter_copy (GtkTreeIter * iter)

@@ -317,6 +317,70 @@ sub ITER_PARENT { FALSE }
 
 
 #
+# set: It's always nice to be able to update the data stored in a data
+#      structure.  So, here's a method to let you do that.  We emit the
+#      'row-changed' signal to notify all who care that we've updated
+#      something.
+#
+
+sub set {
+	my $self     = shift;
+	my $treeiter = shift;
+
+	# create (col, value) pairs to update.
+	my %vals     = @_;
+
+	# Convert the Gtk2::TreeIter to a more useable array reference.
+	# Note that the model's stamp must be passed in as an argument.
+	# This is so we can avoid trying to extract the guts of an iter
+	# that we did not create in the first place.
+	my $iter = $treeiter->to_arrayref($self->{stamp});
+	
+	my $record = $iter->[2];
+
+	while (my ($col, $val) = each %vals) {
+		if ($col == CUSTOM_LIST_COL_NAME) {
+			$record->{name} = $val;
+		} elsif ($col == CUSTOM_LIST_COL_YEAR_BORN) {
+			$record->{year_born} = $val;
+		} elsif ($col == CUSTOM_LIST_COL_RECORD) {
+			warn "Can't update the value of the Record column!";
+		} else {
+			warn "Invalid column used in set method!";
+		}
+	}
+
+	$self->row_changed ($self->get_path ($treeiter), $treeiter);
+}
+
+#
+# get_iter_from_name: Sometimes, you have a bit of information that
+#                     uniquely identifies a record in your TreeModel,
+#                     but it doesn't convert easily to a TreePath,
+#                     so it's hard to get a TreeIter out of it.  This
+#                     is an example of how to make a TreeModel that
+#                     can get iterators without having to find the path
+#                     first.
+#
+
+sub get_iter_from_name {
+	my $self = shift;
+	my $name   = shift;
+
+	my ($record, $n);
+
+	for (0..scalar (@{$self->{rows}})) {
+		if ($self->{rows}[$_]->{name} eq $name) {
+			$record = $self->{rows}[$_];
+			$n      = $_;
+			last;
+		}
+	}
+
+	return Gtk2::TreeIter->new_from_arrayref([$self->{stamp}, $n, $record, undef]);
+}
+
+#
 # append_record:  Empty lists are boring. This function can be used in your
 #                 own code to add rows to the list.  Note how we emit the
 #                 "row-inserted" signal after we have appended the row
@@ -387,6 +451,13 @@ sub create_view_and_model {
   $col->add_attribute ($renderer, text => &CustomList::CUSTOM_LIST_COL_NAME);
   $col->set_title ("Name");
   $view->append_column ($col);
+  $renderer->set (editable => TRUE);
+  $renderer->signal_connect (edited => sub {
+         my ($cell, $pathstring, $newtext, $model) = @_;
+         my $path = Gtk2::TreePath->new_from_string ($pathstring);
+         my $iter = $model->get_iter ($path);
+         $model->set ($iter, &CustomList::CUSTOM_LIST_COL_NAME, $newtext);
+  }, $customlist);
 
   $renderer = Gtk2::CellRendererText->new;
   $col = Gtk2::TreeViewColumn->new;
@@ -403,10 +474,8 @@ sub create_view_and_model {
   $window->set_default_size (200, 400);
   $window->signal_connect (delete_event => sub {Gtk2->main_quit; 0});
 
-  my $scrollwin = Gtk2::ScrolledWindow->new;
-
   my $view = create_view_and_model();
-
+  my $scrollwin = Gtk2::ScrolledWindow->new;
   $scrollwin->add ($view);
   $window->add ($scrollwin);
 

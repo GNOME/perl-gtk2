@@ -1,3 +1,19 @@
+2004/07/31 22:43 (-0400) muppetman
+
+	* xs/GtkTreeModel.xs, t/GtkTreeModelIface.t: add
+	Gtk2::TreeIter::to_arrayref() and Gtk2::TreeIter::new_from_arrayref(),
+	which allow custom model implementations to manipulate iters outside
+	of the vfuncs.  documentation included.  thanks to Zach Bean for
+	real-world testing of the new methods, and for nearly rewriting the
+	testcase to support and verify them.
+
+	* examples/customlist.pl: patch from Zach (slightly modified by
+	muppet) adds set() and get_iter_from_name() methods to the custom
+	list implementation, showing off the use of
+	Gtk2::TreeIter::new_from_arrayref() and to_arrayref().
+
+	* AUTHORS: add Zach
+
 2004/07/18 23:45 (-0400) muppetman
 
 	* README, NEWS, Gtk2.pm: unstable development release 1.052
