@@ -121,6 +121,7 @@ GtkObject *
 new (class, object_class, ...)
 	const char * object_class
     PREINIT:
+	int i;
 	int n_params = 0;
 	GParameter * params = NULL;
 	GType object_type;
@@ -133,21 +134,24 @@ new (class, object_class, ...)
 		croak ("cannot create instance of abstract (non-instantiatable)"
 		       " type `%s'", g_type_name (object_type));
 	if (items > 2) {
-		int i;
 		GObjectClass * class;
 		if (NULL == (class = g_type_class_ref (object_type)))
 			croak ("could not get a reference to type class");
 		n_params = (items - 2) / 2;
-		params = g_new0 (GParameter, n_params);
+		if (n_params)
+			params = gperl_alloc_temp (sizeof (GParameter)
+			                           * n_params);
 		for (i = 0 ; i < n_params ; i++) {
 			const char * key = SvPV_nolen (ST (2+i*2+0));
 			GParamSpec * pspec;
 			pspec = g_object_class_find_property (class, key);
-			if (!pspec) 
-				/* FIXME this bails out, but does not clean up 
-				 * properly. */
-				croak ("type %s does not support property %s, skipping",
+			if (!pspec) {
+				/* crap.  unwind to cleanup. */
+				while (--i >= 0)
+					g_value_unset (&params[i].value);
+				croak ("type %s does not support property '%s', skipping",
 				       object_class, key);
+			}
 			g_value_init (&params[i].value,
 			              G_PARAM_SPEC_VALUE_TYPE (pspec));
 			/* gperl_value_from_sv either succeeds or croaks. */
@@ -160,12 +164,8 @@ new (class, object_class, ...)
 
 	RETVAL = g_object_newv (object_type, n_params, params);	
 
-	if (n_params) {
-		int i;
-		for (i = 0 ; i < n_params ; i++)
-			g_value_unset (&params[i].value);
-		g_free (params);
-	}
+	for (i = 0 ; i < n_params ; i++)
+		g_value_unset (&params[i].value);
 
     OUTPUT:
 	RETVAL
