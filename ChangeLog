@@ -1,3 +1,17 @@
+2003/11/08 01:20 (-0500) muppetman
+
+	* examples/cellrenderer_date.pl, examples/cellrenderer_popup.pl,
+	examples/cellrenderer_spinbutton.pl, examples/histogramplot.pl:
+	update to use new fangled flags operators
+
+	* xs/GtkDialog.xs: fix the same sorts of bugs in the dialog::response
+	marshaller as we found earlier this week in Glib/GClosure.xs.
+
+	A examples/insert-text-test.pl
+	* xs/GtkEditable.xs: fix the Gtk2::Editable::insert-text signal.
+	allows you to modify the arguments or return values on the stack,
+	by the TIMTOWTDI principle.  new example code modifies @_.
+
 2003/11/07 21:09 pcg
 
 	* gtk2perl.h: removed newSVGdkModifierType hack.
