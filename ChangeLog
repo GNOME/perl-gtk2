@@ -1,3 +1,8 @@
+2004/02/02 19:39 (-0500) rwmcfa1
+
+	* examples/simple_menu.pl, pm/SimpleMenu.pm: examples/doc on how to use
+	new per-entry callback_data.
+
 2004/02/02 19:22 (-0500) rwmcfa1
 
 	* pm/SimpleMenu.pm, t/GtkSimpleMenu.t: added the ability to do per 

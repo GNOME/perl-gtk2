@@ -183,6 +183,7 @@ application menus
 			},
 			_Save => {
 				callback_action => 1,
+				callback_data => 'per entry cbdata',
 				accelerator => '<ctrl>S',
 			},
 			_Exec => {

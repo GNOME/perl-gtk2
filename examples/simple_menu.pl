@@ -51,11 +51,13 @@ my $menu_tree = [
 			},
 			_Save      => {
 				callback_action => $action++,
+				callback_data => 'cbdata 1',
 				accelerator => '<ctrl>S',
 			},
 			'Save _As' => {
 				callback => \&callback,
 				callback_action => $action++,
+				callback_data => 'cbdata 2',
 				accelerator => '<ctrl>A',
 			},
 			_Exit      => {
