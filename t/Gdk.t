@@ -3,7 +3,7 @@ use strict;
 use Gtk2::TestHelper tests => 11;
 
 SKIP: {
-  skip("get_display_arg_name and notify_startup_complete are new in 2.2")
+  skip("get_display_arg_name and notify_startup_complete are new in 2.2", 0)
     if (Gtk2 -> check_version(2, 2, 0));
 
   Gtk2::Gdk -> get_display_arg_name(); # FIXME: check retval?

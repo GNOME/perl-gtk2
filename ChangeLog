@@ -1,3 +1,7 @@
+2004/01/22 15:28 (-0500) muppetman
+
+	* t/Gdk.t: don't forget the skip count.
+
 2004/01/22 02:15 (-0500) muppetman
 
 	* xs/GtkFileChooser.xs, xs/GtkIconFactory.xs, xs/GtkTreeView.xs,
