@@ -1,6 +1,9 @@
 2003/10/22 13:31 muppetman
 
+	stuff found while writing a documentation generator...
+
 	* xs/GtkListStore.xs: stray semicolon
+	* xs/GdkScreen.xs: arg list had an output parameter in it
 
 2003/10/19 18:55 rwmcfa1
 
