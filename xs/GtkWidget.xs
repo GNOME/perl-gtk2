@@ -44,6 +44,14 @@ MODULE = Gtk2::Widget	PACKAGE = Gtk2::Allocation
 BOOT:
 	gperl_set_isa ("Gtk2::Allocation", "Gtk2::Gdk::Rectangle");
 
+ ## we'll need to destroy this explicitly because of the name mangling.
+void
+DESTROY (sv)
+	SV * sv
+    CODE:
+	//warn ("Gtk2::Allocation::DESTROY");
+	g_boxed_free (GDK_TYPE_RECTANGLE, GUINT_TO_POINTER (SvIV (SvRV (sv))));
+
 MODULE = Gtk2::Widget	PACKAGE = Gtk2::Widget	PREFIX = gtk_widget_
 
  ## access to important struct members:

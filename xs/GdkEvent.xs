@@ -103,14 +103,62 @@ gdk_event_get_package (GType gtype,
 	}
 }
 
+/* initialized in the boot section. */
+static GPerlBoxedWrapperClass   gdk_event_wrapper_class;
+static GPerlBoxedWrapperClass * default_wrapper_class;
+
+static SV *
+gdk_event_wrap (GType gtype,
+                const char * package,
+                GdkEvent * event,
+		gboolean own)
+{
+	HV * stash;
+	SV * sv;
+
+	sv = default_wrapper_class->wrap (gtype, package, event, own);
+
+	/* we don't really care about the registered package, override it. */
+	package = gdk_event_get_package (gtype, event);
+	stash = gv_stashpv (package, TRUE);
+	return sv_bless (sv, stash);
+}
+
+static GdkEvent *
+gdk_event_unwrap (GType gtype, const char * package, SV * sv)
+{
+	GdkEvent * event = default_wrapper_class->unwrap (gtype, package, sv);
+
+	/* we don't really care about the registered package, override it. */
+	package = gdk_event_get_package (gtype, event);
+
+	if (!sv_derived_from (sv, package))
+		croak ("variable is not of type %s", package);
+
+	return event;
+}
+
+
+
 MODULE = Gtk2::Gdk::Event	PACKAGE = Gtk2::Gdk::Event	PREFIX = gdk_event_
 
 BOOT:
-	/* the package name is still needed for reverse lookups,
-	 * but we register a package lookup function for times when
-	 * an event structure is at hand. */
+	/* GdkEvent is a polymorphic structure, whose actual package
+	 * depends on the type member's value.  instead of trying to make
+	 * a perl developer know about this, we'll bless it into the proper
+	 * subclass by overriding the default wrapper behavior.
+	 *
+	 * note that we expressly wish to keep the GdkEvent as an opaque
+	 * type in gtk2-perl for efficiency; converting an event to a
+	 * hash is an expensive operation that is usually wasted (based on
+	 * experience with gtk-perl).
+	 */ 
+	default_wrapper_class = gperl_default_boxed_wrapper_class ();
+	gdk_event_wrapper_class = * default_wrapper_class;
+	gdk_event_wrapper_class.wrap = (GPerlBoxedWrapFunc)gdk_event_wrap;
+	gdk_event_wrapper_class.unwrap = (GPerlBoxedUnwrapFunc)gdk_event_unwrap;
 	gperl_register_boxed (GDK_TYPE_EVENT, "Gtk2::Gdk::Event",
-	                      (GPerlBoxedPackageFunc)gdk_event_get_package);
+	                      &gdk_event_wrapper_class);
 	gperl_set_isa ("Gtk2::Gdk::Event", "Glib::Boxed");
 
  ## gboolean gdk_events_pending (void)
@@ -315,6 +363,34 @@ gdk_event_get_screen (event)
  ##	const gchar *name
  ##	GValue *value
 
+ ## since we're overriding the package names, Glib::Boxed::DESTROY won't
+ ## be able to find the right destructor, because these new names don't
+ ## correspond to GTypes.  we'll have to explicitly tell perl what 
+ ## destructor to use.
+void
+DESTROY (sv)
+	SV * sv
+    ALIAS:
+	Gtk2::Gdk::Event::DESTROY              =  0
+	Gtk2::Gdk::Event::Expose::DESTROY      =  1
+	Gtk2::Gdk::Event::NoExpose::DESTROY    =  2
+	Gtk2::Gdk::Event::Visibility::DESTROY  =  3
+	Gtk2::Gdk::Event::Motion::DESTROY      =  4
+	Gtk2::Gdk::Event::Button::DESTROY      =  5
+	Gtk2::Gdk::Event::Scroll::DESTROY      =  6
+	Gtk2::Gdk::Event::Key::DESTROY         =  7
+	Gtk2::Gdk::Event::Crossing::DESTROY    =  8
+	Gtk2::Gdk::Event::Focus::DESTROY       =  9
+	Gtk2::Gdk::Event::Configure::DESTROY   = 10
+	Gtk2::Gdk::Event::Property::DESTROY    = 11
+	Gtk2::Gdk::Event::Selection::DESTROY   = 12
+	Gtk2::Gdk::Event::Proximity::DESTROY   = 13
+	Gtk2::Gdk::Event::Client::DESTROY      = 14
+	Gtk2::Gdk::Event::Setting::DESTROY     = 15
+	Gtk2::Gdk::Event::WindowState::DESTROY = 16
+	Gtk2::Gdk::Event::DND::DESTROY         = 17
+    CODE:
+	default_wrapper_class->destroy (sv);
 
 
 ## Event types.
@@ -417,7 +493,6 @@ count (event)
 	RETVAL = event->expose.count;
     OUTPUT:
 	RETVAL
-
 
 MODULE = Gtk2::Gdk::Event	PACKAGE = Gtk2::Gdk::Event::NoExpose
 
