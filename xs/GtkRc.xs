@@ -79,7 +79,7 @@ gtk_rc_get_style (class, widget)
 
 ## GtkStyle* gtk_rc_get_style_by_paths (GtkSettings *settings, const char *widget_path, const char *class_path, GType type)
 GtkStyle *
-gtk_rc_get_style_by_paths (settings, widget_path, class_path, package)
+gtk_rc_get_style_by_paths (class, settings, widget_path, class_path, package)
 	GtkSettings *settings
 	const char  * widget_path
 	const char  * class_path
@@ -100,6 +100,17 @@ gtk_rc_reparse_all_for_settings (class, settings, force_load)
 	gboolean force_load
     C_ARGS:
 	settings, force_load
+
+# FIXME 2.4
+#if GTK_CHECK_VERSION (2, 3, 5)
+
+## void gtk_rc_reset_styles (GtkSettings *settings)
+void gtk_rc_reset_styles (class, settings)
+	GtkSettings *settings
+    C_ARGS:
+	settings
+
+#endif
 
 # TODO: GScanner * not in typemap
 ## gchar* gtk_rc_find_pixmap_in_path (GtkSettings *settings, GScanner *scanner, const gchar *pixmap_file)
@@ -162,8 +173,6 @@ gtk_rc_get_im_module_file (class)
 	/* void */
 
 MODULE = Gtk2::Rc	PACKAGE = Gtk2::RcStyle	PREFIX = gtk_rc_style_
-
-## void _gtk_rc_reset_styles (GtkSettings *settings)
 
 SV *
 name (style, new=NULL)

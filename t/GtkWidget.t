@@ -2,7 +2,7 @@
 
 use warnings;
 use strict;
-use Gtk2::TestHelper tests => 114;
+use Gtk2::TestHelper tests => 115;
 
 # we can't instantiate Gtk2::Widget, it's abstract.  use a DrawingArea instead.
 
@@ -89,13 +89,6 @@ my $accel_group = Gtk2::AccelGroup->new;
 $widget->add_accelerator ("activate", $accel_group, $Gtk2::Gdk::Keysyms{ Return }, qw/shift-mask/, qw/visible/);
 $widget->set_accel_path ("<gtk2perl>/Bla", $accel_group);
 $widget->remove_accelerator ($accel_group, $Gtk2::Gdk::Keysyms{ Return }, qw/shift-mask/);
-
-SKIP: {
-  skip "can_activate_accel is new in 2.4", 1
-    unless Gtk2->CHECK_VERSION (2, 3, 1);
-
-  ok(!$widget->can_activate_accel (23));
-}
 
 isa_ok ($widget->intersect (Gtk2::Gdk::Rectangle->new (0, 0, 10000, 10000)),
 	'Gtk2::Gdk::Rectangle');
@@ -345,9 +338,14 @@ isa_ok ($widget->get_settings, "Gtk2::Settings");
 $widget->set_size_request (100, 100);
 is_deeply ([$widget->get_size_request], [100, 100]);
 
+my $bitmap = Gtk2::Gdk::Bitmap->create_from_data ($win->window, "", 1, 1);
+
+$win->realize;
+$widget->shape_combine_mask ($bitmap, 5, 5);
+
 SKIP: {
 	skip "stuff that's new in 2.2", 5
-		if Gtk2->check_version (2, 2, 0);
+		unless Gtk2->CHECK_VERSION (2, 2, 0);
 
 	isa_ok ($widget->get_clipboard, "Gtk2::Clipboard");
 	isa_ok ($widget->get_display, "Gtk2::Gdk::Display");
@@ -359,10 +357,35 @@ SKIP: {
 
 SKIP: {
 	skip "stuff that's new in 2.4", 1
-		if Gtk2->check_version (2, 3, 0); # FIXME 2.4
+		unless Gtk2->CHECK_VERSION (2, 3, 0); # FIXME 2.4
 
 	$widget->set_no_show_all (1);
 	is ($widget->get_no_show_all, 1);
+
+	$widget->queue_resize_no_redraw;
+}
+
+SKIP: {
+	skip "stuff that's new in 2.4", 1
+		unless Gtk2->CHECK_VERSION (2, 3, 1); # FIXME 2.4
+
+	ok(!$widget->can_activate_accel (23));
+}
+
+SKIP: {
+	skip "stuff that's new in 2.4", 1
+		unless Gtk2->CHECK_VERSION (2, 3, 5); # FIXME 2.4
+
+	my $label_one = Gtk2::Label->new ("_One");
+	my $label_two = Gtk2::Label->new ("_Two");
+
+	$widget->add_mnemonic_label ($label_one);
+	$widget->add_mnemonic_label ($label_two);
+
+	is_deeply ([$widget->list_mnemonic_labels], [$label_one, $label_two]);
+
+	$widget->remove_mnemonic_label ($label_one);
+	$widget->remove_mnemonic_label ($label_two);
 }
 
 __END__

@@ -527,8 +527,26 @@ gtk_paint_resize_grip (style, window, state_type, area, widget, detail, edge, x,
 	gint width
 	gint height
 
+MODULE = Gtk2::Style	PACKAGE = Gtk2	PREFIX = gtk_
+
+# FIXME 2.4
+#if GTK_CHECK_VERSION (2, 3, 5)
+
+void
+gtk_draw_insertion_cursor (class, widget, drawable, area, location, is_primary, direction, draw_arrow)
+	GtkWidget *widget
+	GdkDrawable *drawable
+	GdkRectangle *area
+	GdkRectangle *location
+	gboolean is_primary
+	GtkTextDirection direction
+	gboolean draw_arrow
+    C_ARGS:
+	widget, drawable, area, location, is_primary, direction, draw_arrow
+
+#endif
+
   # for boxed support, not needed
  ## void gtk_border_free ( GtkBorder *border_)
   # private
  ## void _gtk_style_init_for_settings (GtkStyle *style, GtkSettings *settings)
- ## void _gtk_draw_insertion_cursor (GtkWidget *widget, GdkDrawable *drawable, GdkGC *gc, GdkRectangle *location, GtkTextDirection direction, gboolean draw_arrow)

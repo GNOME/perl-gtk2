@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 36;
+use Gtk2::TestHelper tests => 38;
 
 # $Header$
 
@@ -11,12 +11,23 @@ my $green = Gtk2::Gdk::Color -> new(0, 0xFFFF, 0);
 my $style = Gtk2::Rc -> get_style($button);
 isa_ok($style, "Gtk2::Style");
 
-# $style = Gtk2::Rc -> get_style_by_paths (...);
+my $settings = $button -> get_settings();
+my $path = ($button -> path())[0];
+my $class_path = ($button -> class_path())[0];
+
+ok(!Gtk2::Rc -> get_style_by_paths($settings, $path, $class_path, Gtk2::Button::));
 
 # Gtk2::Rc -> parse(...);
 Gtk2::Rc -> parse_string(qq(style "blablabla" { }));
 like(Gtk2::Rc -> reparse_all(), qr/^$|^0$/);
-# like(Gtk2::Rc -> reparse_all_for_settings(), qr/^$|^0$/);
+is(Gtk2::Rc -> reparse_all_for_settings($settings, 1), 1);
+
+SKIP: {
+  skip("reset_styles is new in 2.4", 0)
+    unless (Gtk2 -> CHECK_VERSION(2, 3, 5)); # FIXME 2.4
+
+  Gtk2::Rc -> reset_styles($settings);
+}
 
 Gtk2::Rc -> add_default_file("/tmp/bla.rc");
 is((Gtk2::Rc -> get_default_files())[-1], "/tmp/bla.rc");

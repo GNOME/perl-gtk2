@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 117;
+use Gtk2::TestHelper tests => 122;
 
 # $Header$
 
@@ -166,8 +166,7 @@ $view_column -> signal_connect(clicked => sub {
 	isa_ok($view_column, "Gtk2::TreeViewColumn");
 });
 
-# xxx
-# $view_column -> clicked();
+$view_column -> clicked();
 $view_column -> signal_emit("clicked");
 
 ###############################################################################
@@ -299,6 +298,22 @@ $view_column -> set_cell_data_func($cell_renderer, sub {
 	my ($view_column, $cell, $model, $iter) = @_;
 
         return if ($i_know_this_place++);
+
+	$view_column -> cell_set_cell_data($model,
+	                                   $model -> get_iter_first(),
+	                                   1, 1);
+
+	my ($x_offset,
+	    $y_offset,
+	    $width,
+	    $height,
+	    $cell_area) = $view_column -> cell_get_size();
+
+	like($x_offset, qr/^\d+$/);
+	like($y_offset, qr/^\d+$/);
+	like($width, qr/^\d+$/);
+	like($height, qr/^\d+$/);
+	isa_ok($cell_area, "Gtk2::Gdk::Rectangle");
 
 	isa_ok($view_column, "Gtk2::TreeViewColumn");
 	isa_ok($cell, "Gtk2::CellRendererToggle");

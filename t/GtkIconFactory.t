@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 22;
+use Gtk2::TestHelper tests => 24;
 
 # $Header$
 
@@ -16,7 +16,11 @@ my ($width, $height) = Gtk2::IconSize -> lookup("button");
 like($width, qr/^\d+$/);
 like($height, qr/^\d+$/);
 
-# lookup_for_settings
+my $settings = $button -> get_settings();
+($width, $height) = Gtk2::IconSize -> lookup_for_settings($settings, "button");
+
+like($width, qr/^\d+$/);
+like($height, qr/^\d+$/);
 
 is(Gtk2::IconSize -> register("answer", 23, 42), "answer");
 

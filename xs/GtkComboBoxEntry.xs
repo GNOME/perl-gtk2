@@ -51,3 +51,13 @@ gtk_combo_box_entry_new (class, ...)
 gint gtk_combo_box_entry_get_text_column (GtkComboBoxEntry *entry_box);
 
 void gtk_combo_box_entry_set_text_column (GtkComboBoxEntry *entry_box, gint text_column);
+
+# FIXME 2.4
+#if GTK_CHECK_VERSION (2, 3, 5)
+
+GtkWidget *
+gtk_combo_box_entry_new_text (class)
+    C_ARGS:
+	/* void */
+
+#endif

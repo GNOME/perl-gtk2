@@ -1,3 +1,34 @@
+2004/02/28 18:18 (+0100) kaffeetisch
+
+	* t/GtkIconFactory.t: Test lookup_for_settings.
+
+	* t/GtkRc.t: Test get_style_by_paths and reparse_all_for_settings.
+
+	* t/GtkWidget.t: Test shape_combine_mask and
+	queue_resize_no_redraw.
+
+	* t/GtkComboBoxEntry.t
+	* xs/GtkComboBoxEntry.xs: Bind and test new_text.
+
+	* t/GtkFileChooser.t
+	* xs/GtkFileChooser.xs: Remove [sg]et_folder_mode.
+
+	* t/GtkRc.t
+	* xs/GtkRc.xs: Add a class argument to gtk_rc_get_style_by_paths,
+	test it.  Bind and test gtk_rc_reset_styles.
+
+	* t/GtkStyle.t
+	* xs/GtkStyle.xs: Bind and test Gtk2::draw_insertion_cursor.
+
+	* t/GtkTreeView.t
+	* xs/GtkTreeViewColumn.xs: Bind and test cell_set_cell_data and
+	cell_get_size.
+
+	* t/GtkWidget.t
+	* xs/GtkWidget.xs: Initialize value and flag in the flags xsub.
+	Bind and test list_mnemonic_labels, add_mnemonic_label, and
+	remove_mnemonic_label.
+
 2004/02/28 17:43 (+0100) kaffeetisch
 
 	* t/Gdk.t: Handle the case of an already grabbed pointer

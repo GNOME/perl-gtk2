@@ -252,8 +252,8 @@ toplevel (widget, ...)
 	Gtk2::Widget::can_default      = 17
 	Gtk2::Widget::has_default      = 18
     PREINIT:
-	gboolean value;
-	GtkWidgetFlags flag;
+	gboolean value = FALSE;
+	GtkWidgetFlags flag = 0;
     CODE:
 	if (items > 2) {
 		croak ("Usage: boolean = $widget->%s\n"
@@ -494,15 +494,6 @@ gtk_widget_set_accel_path (widget, accel_path, accel_group)
 	GtkAccelGroup * accel_group
 
  #GList*     gtk_widget_list_accel_closures (GtkWidget	       *widget);
-
-#if GTK_CHECK_VERSION (2, 3, 1)	/* FIXME 2.4 */
-
-gboolean
-gtk_widget_can_activate_accel (widget, signal_id)
-	GtkWidget *widget
-	guint signal_id
-
-#endif
 
 gboolean
 gtk_widget_mnemonic_activate   (widget, group_cycling)
@@ -1025,5 +1016,33 @@ void gtk_widget_set_no_show_all (GtkWidget *widget, gboolean no_show_all);
 gboolean gtk_widget_get_no_show_all (GtkWidget *widget);
 
 void gtk_widget_queue_resize_no_redraw (GtkWidget *widget);
+
+#endif
+
+#if GTK_CHECK_VERSION(2,3,1) /* FIXME 2.4 */
+
+gboolean
+gtk_widget_can_activate_accel (widget, signal_id)
+	GtkWidget *widget
+	guint signal_id
+
+#endif
+
+#if GTK_CHECK_VERSION(2,3,5) /* FIXME 2.4 */
+
+void
+gtk_widget_list_mnemonic_labels (widget)
+	GtkWidget *widget
+    PREINIT:
+	GList *i, *list = NULL;
+    PPCODE:
+	list = gtk_widget_list_mnemonic_labels (widget);
+	for (i = list; i != NULL; i = i->next)
+		XPUSHs (sv_2mortal (newSVGtkWidget (i->data)));
+	g_list_free (list);
+
+void gtk_widget_add_mnemonic_label (GtkWidget *widget, GtkWidget *label);
+
+void gtk_widget_remove_mnemonic_label (GtkWidget *widget, GtkWidget *label);
 
 #endif

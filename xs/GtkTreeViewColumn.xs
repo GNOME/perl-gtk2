@@ -339,26 +339,30 @@ GtkSortType
 gtk_tree_view_column_get_sort_order (tree_column)
 	GtkTreeViewColumn *tree_column
 
-# FIXME 
 #### void gtk_tree_view_column_cell_set_cell_data (GtkTreeViewColumn *tree_column, GtkTreeModel *tree_model, GtkTreeIter *iter, gboolean is_expander, gboolean is_expanded)
-##void
-##gtk_tree_view_column_cell_set_cell_data (tree_column, tree_model, iter, is_expander, is_expanded)
-##	GtkTreeViewColumn *tree_column
-##	GtkTreeModel *tree_model
-##	GtkTreeIter *iter
-##	gboolean is_expander
-##	gboolean is_expanded
-##
-# FIXME need to return a rectangle from the stack, OUTLIST won't work
+void
+gtk_tree_view_column_cell_set_cell_data (tree_column, tree_model, iter, is_expander, is_expanded)
+	GtkTreeViewColumn *tree_column
+	GtkTreeModel *tree_model
+	GtkTreeIter *iter
+	gboolean is_expander
+	gboolean is_expanded
+
 #### void gtk_tree_view_column_cell_get_size (GtkTreeViewColumn *tree_column, GdkRectangle *cell_area, gint *x_offset, gint *y_offset, gint *width, gint *height)
-##void
-##gtk_tree_view_column_cell_get_size (tree_column, cell_area, x_offset, y_offset, width, height)
-##	GtkTreeViewColumn *tree_column
-##	GdkRectangle *cell_area
-##	gint *x_offset
-##	gint *y_offset
-##	gint *width
-##	gint *height
+void
+gtk_tree_view_column_cell_get_size (tree_column)
+	GtkTreeViewColumn *tree_column
+    PREINIT:
+	GdkRectangle cell_area = {0};
+	gint x_offset = 0, y_offset = 0, width = 0, height = 0;
+    PPCODE:
+	gtk_tree_view_column_cell_get_size (tree_column, &cell_area, &x_offset, &y_offset, &width, &height);
+	EXTEND (sp, 5);
+	PUSHs (sv_2mortal (newSViv (x_offset)));
+	PUSHs (sv_2mortal (newSViv (y_offset)));
+	PUSHs (sv_2mortal (newSViv (width)));
+	PUSHs (sv_2mortal (newSViv (height)));
+	PUSHs (sv_2mortal (newSVGdkRectangle (&cell_area)));
 
 #### gboolean gtk_tree_view_column_cell_is_visible (GtkTreeViewColumn *tree_column)
 gboolean

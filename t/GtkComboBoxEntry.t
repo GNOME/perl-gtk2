@@ -5,7 +5,7 @@
 use Gtk2::TestHelper
 	# FIXME 2.4
 	at_least_version => [2, 3, 0, "GtkComboBoxEntry is new in 2.4"],
-	tests => 7;
+	tests => 8;
 
 my $entry_box;
 
@@ -39,6 +39,14 @@ $entry_box->get_child->set_text ('whee');
 #
 #$dlg->show_all;
 #$dlg->run;
+
+SKIP: {
+	# FIXME: this skip can be removed altogether once 2.4 is out.
+	skip "new_text is new in 2.4", 1
+		unless Gtk2->CHECK_VERSION (2, 3, 5);
+
+	isa_ok (Gtk2::ComboBoxEntry->new_text, 'Gtk2::ComboBoxEntry');
+}
 
 __END__
 

@@ -5,7 +5,7 @@
 use Gtk2::TestHelper
 	# FIXME 2.4
 	at_least_version => [2, 3, 0, "GtkFileChooser is new in 2.4"],
-	tests => 32;
+	tests => 30;
 use File::Spec;
 use Cwd;
 
@@ -17,13 +17,6 @@ is ($file_chooser->get_action, 'save', 'mode option from construction');
 
 $file_chooser->set_action ('open');
 is ($file_chooser->get_action, 'open', 'change action to open');
-
-
-$file_chooser->set_folder_mode (TRUE);
-ok ($file_chooser->get_folder_mode, 'folder mode');
-
-$file_chooser->set_folder_mode (FALSE);
-ok (!$file_chooser->get_folder_mode, 'not folder mode');
 
 
 $file_chooser->set_local_only (TRUE);
