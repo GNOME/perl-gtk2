@@ -76,7 +76,7 @@ $runtime_reqs{'Gtk+'} = $pkgcfg{modversion};
 #
 my @gtk_version = split /\./, $pkgcfg{modversion};
 our @xs_files = ();
-my @lists = ('xs_files-2.0');
+our @lists = ('xs_files-2.0');
 push @lists, 'xs_files-2.2' if $gtk_version[1] >= 2;
 foreach my $filename (@lists) {
 	my @names = read_source_list_file ($filename);
@@ -123,8 +123,6 @@ our %pod_files = (
 #
 # autogeneration
 #
-
-
 # we have a whole lot of types which need cast macros, typemap entries,
 # and package mapping registration; instead of writing this by hand, we
 # use a map file which defines how things are laid out, and then use
@@ -144,11 +142,12 @@ Gtk2::CodeGen->write_boot (xs_files => \@xs_files);
 # hash of key names and values, %Gtk2::Gdk::Keysyms.
 system "$^X genkeysyms.pl >\"build/Keysyms.pm\""; # the "" are essential for command.com
 
-
-# now we're ready to start creating the makefile.
+#
+# now we're ready to start creating the makefile... finally.
 # we need to use ExtUtils::Depends to get relevant information out of
 # the Glib extension, and to save config information for other modules which
 # will chain from this one.
+#
 
 my $gtk2 = ExtUtils::Depends->new ('Gtk2', 'Glib');
 # Glib added -I. for us, but we'll need to add -I./build so we can get to
@@ -183,7 +182,9 @@ WriteMakefile(
     $gtk2->get_makefile_vars,
 );
 
-
+#
+# extra makefile override stuff... watch for falling wizardry.
+#
 package MY;
 
 sub postamble
@@ -222,7 +223,7 @@ sub find_extra_libs {
 	return "" unless $^O eq "MSWin32";
 
 	# win32 does not allow unresolved symbols in libraries, but
-	# Gtk2 depends on symbols in the dll created for Glib.
+	# Gtk2 uses on symbols in the dll created for Glib.
 	# so, we have to break all this nice abstraction and encapsulation
 	# and find the actual Glib.dll and Glib.lib installed by perl when
 	# the Glib module was built, and add it to the list of lib files.
