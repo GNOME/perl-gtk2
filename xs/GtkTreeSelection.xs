@@ -201,7 +201,7 @@ gtk_tree_selection_count_selected_rows (selection)
 	GtkTreeSelection *selection
     CODE:
 #if GTK_CHECK_VERSION(2,2,0)
-	RETVAL = gtk_tree_selection_count_selected_rows (selection)
+	RETVAL = gtk_tree_selection_count_selected_rows (selection);
 #else
 	RETVAL = 0;
 	gtk_tree_selection_selected_foreach (selection, 
