@@ -89,7 +89,7 @@ MODULE = Gtk2::Table	PACKAGE = Gtk2::Table	PREFIX = gtk_table_
 
 
 GtkWidget *
-gtk_table_new (class, rows, columns, homogeneous)
+gtk_table_new (class, rows, columns, homogeneous=FALSE)
 	SV * class
 	guint    rows
 	guint    columns
