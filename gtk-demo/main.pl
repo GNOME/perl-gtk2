@@ -54,6 +54,10 @@ push @testgtk_demos,
   { title => "UI Manager",       filename => "ui_manager.pl",       func => 'stub', }
 	if Gtk2->CHECK_VERSION (2, 4, 0);
 
+push @testgtk_demos,
+  { title => "Rotated Text", filename => "rotated_text.pl", func => 'stub', },
+	if Gtk2->CHECK_VERSION (2, 6, 0);
+
 # some globals.
 my $info_buffer;
 my $source_buffer;

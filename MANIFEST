@@ -75,6 +75,7 @@ gtk-demo/main.pl
 gtk-demo/menus.pl
 gtk-demo/panes.pl
 gtk-demo/pixbufs.pl
+gtk-demo/rotated_text.pl
 gtk-demo/sizegroup.pl
 gtk-demo/stock_browser.pl
 gtk-demo/textview.pl
@@ -89,6 +90,7 @@ maps-2.6
 maps_pango-1.0
 maps_pango-1.4
 maps_pango-1.6
+maps_pango-1.8
 pango.typemap
 perl-Gtk2.spec.in
 pm/Helper.pm
@@ -111,6 +113,7 @@ t/GdkEvent.t
 t/GdkGC.t
 t/GdkInput.t
 t/GdkKeys.t
+t/GdkPango.t
 t/GdkPixbuf.t
 t/GdkPixmap.t
 t/GdkProperty.t
@@ -267,6 +270,7 @@ t/PangoFont.t
 t/PangoFontMap.t
 t/PangoFontset.t
 t/PangoLayout.t
+t/PangoRenderer.t
 t/PangoScript.t
 t/PangoTabs.t
 t/PangoTypes.t
@@ -286,6 +290,7 @@ xs/GdkEvent.xs
 xs/GdkGC.xs
 xs/GdkInput.xs
 xs/GdkKeys.xs
+xs/GdkPango.xs
 xs/GdkPixbuf.xs
 xs/GdkPixbufLoader.xs
 xs/GdkPixmap.xs
@@ -449,6 +454,7 @@ xs/PangoFont.xs
 xs/PangoFontMap.xs
 xs/PangoFontset.xs
 xs/PangoLayout.xs
+xs/PangoRenderer.xs
 xs/PangoScript.xs
 xs/PangoTabs.xs
 xs/PangoTypes.xs
