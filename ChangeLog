@@ -1,11 +1,11 @@
-2003/01/05 17:18 (+0100) kaffeetisch [test-suite-branch]
+2004/01/05 17:18 (+0100) kaffeetisch [test-suite-branch]
 
 	* t/GtkIconFactory.t: Initial import.
 
 	* t/GtkTooltips.t: Test data_get more thoroughly.  Call
 	force_window.
 
-2003/01/04 21:33 (+0100) kaffeetisch [test-suite-branch]
+2004/01/04 21:33 (+0100) kaffeetisch [test-suite-branch]
 
 	* t/GdkWindow.t: Add a title field to an attributes hash to hush a
 	gdk warning.  Don't call begin_resize_drag and begin_move_drag.
@@ -17,7 +17,7 @@
 	* xs/GtkFontSelection.xs: Rearrange the accessor aliases so that no
 	unneeded xsub is created.
 
-2003/01/04 15:30 (+0100) kaffeetisch [test-suite-branch]
+2004/01/04 15:30 (+0100) kaffeetisch [test-suite-branch]
 
 	R t/01.GtkWidget.t
 	R t/02.GtkButton.t
