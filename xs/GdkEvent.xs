@@ -567,7 +567,8 @@ gdk_event_handler_set (class, func, data=NULL)
 		                       (GDestroyNotify) gperl_callback_destroy);
 	} else {
 		/* reset to gtk+'s event handler. */
-		gdk_event_handler_set (gtk_main_do_event, NULL, NULL);
+		gdk_event_handler_set ((GdkEventFunc) gtk_main_do_event,
+				       NULL, NULL);
 	}
 
 #ifdef GDK_TYPE_SCREEN
