@@ -68,9 +68,9 @@ my %pkgcfg = ExtUtils::PkgConfig->find ('gtk+-2.0 >= '.$build_reqs{'Gtk+'});
 #
 my @gtk_version = split /\./, $pkgcfg{modversion};
 our @xs_files = ();
-our @xs_lists = select_files_by_version ("xs_files", @gtk_version);
+our @xs_lists = Glib::MakeHelper->select_files_by_version ("xs_files", @gtk_version);
 foreach my $filename (@xs_lists) {
-	my @names = read_source_list_file ($filename);
+	my @names = Glib::MakeHelper->read_source_list_file ($filename);
 	print "$filename lists ".scalar(@names)." xs files\n";
 	push @xs_files, @names;
 }
@@ -172,8 +172,8 @@ Gtk2::CodeGen->parse_maps ('gtk2perl', input => [<maps-[0-9]\.[0-9]>,
                                                  <maps_pango-[0-9]\.[0-9]>]);
 # but for enums.pod, we only want to document the stuff we can actually
 # query from this target library.
-our @used_maps = select_files_by_version ("maps", @gtk_version);
-our @used_maps_pango = select_files_by_version ("maps_pango", @pango_version);
+our @used_maps = Glib::MakeHelper->select_files_by_version ("maps", @gtk_version);
+our @used_maps_pango = Glib::MakeHelper->select_files_by_version ("maps_pango", @pango_version);
 
 # one more command generates code to boot all the various extra XS modules.
 # we need this because we have lots of XS files without corresponding PMs to
@@ -313,36 +313,4 @@ sub find_extra_libs {
 		}, @INC);
 
 	return $retstring;
-}
-
-sub read_source_list_file {
-	my $filename = shift;
-	my @list = ();
-	open IN, $filename or die "can't read $filename: $!\n";
-	while (<IN>) {
-		s/#.*$//;		# eat comments
-		s/^\s*//;		# trim leading space
-		s/\s*$//;		# trim trailing space
-		push @list, $_ if $_;	# keep non-blanks
-	}
-	close IN;
-	return @list;
-}
-
-sub select_files_by_version {
-	my ($stem, $major, $minor) = @_;
-
-	my $pattern = $stem."-[0-9]\.[0-9]";
-	my @files = ();
-	foreach (glob $pattern) {
-		if (/$stem-(\d)\.(\d)/) {
-			my $fmaj = $1;
-			my $fmin = $2;
-			push @files, $_
-				if  $fmaj <= $major
-				and $fmin <= $minor;
-		}
-	}
-
-	return @files;
 }

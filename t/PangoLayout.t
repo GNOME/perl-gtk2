@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 49;
+use Gtk2::TestHelper tests => 50;
 
 # $Header$
 
@@ -128,7 +128,15 @@ ok($iter -> at_last_line());
 like($iter -> get_index(), $number);
 like($iter -> get_baseline(), $number);
 
+SKIP: {
+  skip("[sg]et_ellipsize are new in 1.6", 1)
+    unless (Gtk2::Pango -> CHECK_VERSION(1, 5, 1)); # FIXME: 1.6
+
+  $layout -> set_ellipsize("end");
+  is($layout -> get_ellipsize(), "end");
+}
+
 __END__
 
-Copyright (C) 2003 by the gtk2-perl team (see the file AUTHORS for the
+Copyright (C) 2003-2004 by the gtk2-perl team (see the file AUTHORS for the
 full list).  See LICENSE for more information.

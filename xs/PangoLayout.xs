@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003 by the gtk2-perl team (see the file AUTHORS)
+ * Copyright (c) 2003-2004 by the gtk2-perl team (see the file AUTHORS)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -245,6 +245,21 @@ pango_layout_set_wrap (layout, wrap)
 PangoWrapMode
 pango_layout_get_wrap (layout)
 	PangoLayout *layout
+
+#if PANGO_CHECK_VERSION (1, 5, 1) /* FIXME: 1.6 */
+
+##  void pango_layout_set_ellipsize (PangoLayout *layout, PangoEllipsizeMode ellipsize)
+void
+pango_layout_set_ellipsize (layout, ellipsize)
+	PangoLayout *layout
+	PangoEllipsizeMode ellipsize
+
+##  PangoEllipsizeMode pango_layout_get_ellipsize (PangoLayout *layout)
+PangoEllipsizeMode
+pango_layout_get_ellipsize (layout)
+	PangoLayout *layout
+
+#endif
 
 #if PANGO_CHECK_VERSION (1, 3, 5)
 

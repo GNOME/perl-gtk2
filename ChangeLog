@@ -1,3 +1,14 @@
+2004/08/01 18:12 (+0200) kaffeetisch
+
+	* Makefile.PL: select_files_by_version and read_source_list_file
+	were moved to Glib::MakeHelper -- adjust the function calls
+	accordingly.
+
+	* t/00.Gtk2.t, xs/Gtk2.xs: Bind and test gtk_parse_args.
+
+	* maps_pango-1.5, t/PangoLayout.t, xs/PangoLayout.xs: Bind and
+	test pango_layout_[sg]et_ellipsize.
+
 2004/07/31 22:43 (-0400) muppetman
 
 	* xs/GtkTreeModel.xs, t/GtkTreeModelIface.t: add

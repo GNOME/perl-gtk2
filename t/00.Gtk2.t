@@ -12,7 +12,7 @@ use warnings;
 
 #########################
 
-use Test::More tests => 34;
+use Test::More tests => 35;
 BEGIN { use_ok('Gtk2') };
 
 #########################
@@ -48,12 +48,22 @@ SKIP:
 	@ARGV = qw(--help --g-fatal-warnings --name gtk2perl --urgs tree);
 
 	skip 'Gtk2->init_check failed, probably unable to open DISPLAY', 
-		18, unless( Gtk2->init_check );
+		19, unless( Gtk2->init_check );
 
 	ok( Gtk2->init );
 	ok( Gtk2->set_locale );
 
 	is_deeply(\@ARGV, [qw(--help --urgs tree)]);
+
+	SKIP:
+	{
+		skip "parse_args is new in 2.4.5", 1
+			unless Gtk2->CHECK_VERSION (2, 4, 5);
+
+		# we can't do much more than just calling it, since it always
+		# immediately returns if init() was called already.
+		ok( Gtk2->parse_args );
+	}
 
 	isa_ok( Gtk2->get_default_language, "Gtk2::Pango::Language" );
 
@@ -124,5 +134,5 @@ SKIP:
 
 __END__
 
-Copyright (C) 2003 by the gtk2-perl team (see the file AUTHORS for the
+Copyright (C) 2003-2004 by the gtk2-perl team (see the file AUTHORS for the
 full list).  See LICENSE for more information.
