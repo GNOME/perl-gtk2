@@ -2,6 +2,8 @@
 #
 # $Header$
 #
+# copyright (c) 2003 by muppet
+#
 
 use Gtk2;
 use Data::Dumper;

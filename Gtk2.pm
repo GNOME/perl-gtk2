@@ -147,16 +147,32 @@ Glib::PkgConfig, and ExtUtils::Depends.
 
 =head1 AUTHORS
 
+The gtk2-perl team:
+
 muppet E<lt>scott at asofyet dot orgE<gt>
 Ross McFarland E<lt>rwmcfa1 at neces dot comE<gt>
 Jörn Reder E<lt>joern at zyn dot deE<gt>
 Göran Thyni E<lt>gthyni at kirra dot netE<gt>
+Chas Owens E<lt>alas at wilma dot widomaker dot comE<gt>
+Guillaume Cottenceau E<lt>gc at mandrakesoft dot comE<gt>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2003 by muppet
+Copyright 2003 by the gtk2-perl team.
 
-This library is free software; you can redistribute it and/or modify
-it under the same terms as Perl itself. 
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Library General Public
+License as published by the Free Software Foundation; either
+version 2 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Library General Public License for more details.
+
+You should have received a copy of the GNU Library General Public
+License along with this library; if not, write to the 
+Free Software Foundation, Inc., 59 Temple Place - Suite 330, 
+Boston, MA  02111-1307  USA.
 
 =cut

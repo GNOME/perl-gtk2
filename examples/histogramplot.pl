@@ -1,6 +1,8 @@
 #!/usr/bin/perl -w
 
 # $Header$
+#
+# Copyright (c) 2002 by muppet, ported to gtk2-perl 2003 by muppet
 
 package Histogram::Plot;
 

@@ -1,3 +1,23 @@
+/*
+ * Copyright (c) 2003 by the gtk2-perl team (see the file AUTHORS)
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Library General Public
+ * License as published by the Free Software Foundation; either
+ * version 2 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Library General Public License for more details.
+ *
+ * You should have received a copy of the GNU Library General Public
+ * License along with this library; if not, write to the 
+ * Free Software Foundation, Inc., 59 Temple Place - Suite 330, 
+ * Boston, MA  02111-1307  USA.
+ *
+ * $Header$
+ */
 #include "gtk2perl.h"
 
 MODULE = Gtk2::Gdk::PixbufLoader	PACKAGE = Gtk2::Gdk::PixbufLoader	PREFIX = gdk_pixbuf_loader_
@@ -37,16 +57,21 @@ gdk_pixbuf_loader_set_size (loader, width, height)
 gboolean
 gdk_pixbuf_loader_write (loader, buf, count=0)
 	GdkPixbufLoader *loader
-	char * buf
+	SV * buf
 	gint count
     PREINIT:
-	//const guchar * realbuf;
 	GError * error = NULL;
     CODE:
 	if (count == 0)
-		count = sv_len (ST (1));
-warn ("writing %d bytes from %p", count, buf);
-	RETVAL = gdk_pixbuf_loader_write (loader, buf, count, &error);
+//		count = SvCUR (buf);
+//		count = sv_len (ST (1));
+		count = sv_len (buf);
+//warn ("buf = %s\n", SvPVX (buf));
+//warn ("writing %d bytes from %p", count, buf);
+//warn ("   %d utf8 characters\n", sv_len_utf8 (buf));
+//	SvLEN (buf) = count;
+//	RETVAL = gdk_pixbuf_loader_write (loader, buf, count, &error);
+	RETVAL = gdk_pixbuf_loader_write (loader, SvPVX (buf), count, &error);
 	if (!RETVAL)
 		gperl_croak_gerror (NULL, error);
     OUTPUT:

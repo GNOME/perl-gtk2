@@ -4,7 +4,7 @@
 #
 
 
-# by rm
+# Copyright (c) 2003 by ross mcfarland
 
 use strict;
 use Gtk2;

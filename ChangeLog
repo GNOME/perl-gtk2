@@ -1,3 +1,9 @@
+2003/05/22 10:30 muppetman
+
+	* AUTHORS, LICENSE, *: added copyright and license info to just about
+	every file, and pointers to the AUTHORS file which contains the list
+	of who's responsible for this mess.
+
 2003/05/18 14:00 muppetman
 
 	* ChangeLog: since breaking the monolithic build into pieces, 

@@ -129,11 +129,11 @@ sub query_for_toplevel {
   $popup->show_all;
   my $cursor = Gtk2::Gdk::Cursor->new_for_display ($display, 'crosshair');
   
-  if (gdk_pointer_grab (popup->window, FALSE,
-			GDK_BUTTON_RELEASE_MASK,
-			NULL,
-			cursor,
-			GDK_CURRENT_TIME) == GDK_GRAB_SUCCESS)
+  if (Gtk2::Gdk->pointer_grab ($popup->window, FALSE,
+                               'button-release-mask',
+                               undef,
+                               $cursor,
+                               undef) eq 'GDK_GRAB_SUCCESS')
     {
       my $clicked = FALSE;
       
@@ -528,7 +528,19 @@ my $info = undef;
 #
 sub do {
   if (!$info) {
-      $info = {};
+    $info = {};
+
+    if ($ver = Gtk2->check_version (2, 2, 0)) {
+        my $dialog = Gtk2::MessageDialog->new (undef,
+					       'destroy-with-parent',
+					       'info', 'ok',
+					       $ver."\n\nThis sample requires"
+					       ." at least Gtk+ version 2.2.0");
+	$dialog->show;
+	$dialog->signal_connect (destroy => sub {$info = undef});
+	$dialog->signal_connect (response => sub {$dialog->destroy; 1});
+	$info->{window} = $dialog;
+    } else {
 
 ###      info->window = Gtk2::Dialog->new_with_buttons ("Change Screen or display",
       $info->{window} = Gtk2::Dialog->new ("Change Screen or display",
@@ -557,8 +569,9 @@ sub do {
 
       $info->{window}->show_all;
       return $info->{window};
+    }
   } else {
-      $window->destroy;
+      $info->{window}->destroy;
       return undef;
   }
 }
