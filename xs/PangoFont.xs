@@ -23,6 +23,9 @@
 
 MODULE = Gtk2::Pango::Font	PACKAGE = Gtk2::Pango
 
+=for object Gtk2::Pango::FontDescription
+=cut
+
 ### some constants...
 double
 constant (class)

@@ -1,3 +1,9 @@
+2003/11/11 23:00 (-0500) muppetman
+
+	* xs/PangoFont.xs: put the docs for the constants into the
+	Gtk2::Pango::FontDescription package, so that the doc generation
+	stuff doesn't overwrite the docs from Pango.pm.
+
 2003/11/12 01:57 pcg
 
         * xs/GdkPixbuf.xs, xs/GtkWindow.xs, xs/GtkImage.xs, xs/GtkRc.xs,
