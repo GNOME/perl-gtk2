@@ -1,3 +1,11 @@
+2004/02/04 02:16 (+0100) kaffeetisch
+
+	* t/PangoLayout.t: Skip the call to set_font_description with
+	undef until another bug in pango has been fixed.
+
+	* t/PangoTabs.t: Skip the whole test for now until the bug in
+	pango has been fixed.
+
 2004/02/03 23:20 (+0100) kaffeetisch
 
 	* t/02.GtkContainer.t
