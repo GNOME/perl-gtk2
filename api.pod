@@ -14,8 +14,6 @@ C API documentation nor the mapping principles.
 
 =head1 DESCRIPTION
 
-FIXME The list of specific differences is not complete.
-
 The canonical documentation is the C API reference at
 http://developer.gnome.org/doc/API/gtk/ and
 http://developer.gnome.org/doc/API/gdk/
@@ -29,9 +27,23 @@ methods, renamed methods, and different call signatures.
 
 =head1 BINDING BASICS
 
-Anything listed as "deprecated" in the C API reference does not appear in the
-bindings.  Many functions refer to C concepts which are alien to the bindings.
-many things have replacements.
+We avoid deprecated APIs.  Many functions refer to C concepts which are alien
+to the bindings.  Many things have replacements.
+
+=head2 Deprecated Stuff Isn't Bound
+
+Things that were marked as deprecated at gtk+ 2.0.0 do not appear in the
+bindings.  This means that gtk+-1.x's GtkCList, GtkTree, and GtkText are
+not available.  The notable exception is GtkList, which is available solely
+in support of GtkCombo (which was itself replaced by GtkComboBox in 2.4);
+it should not be used under any other circumstances.  If you I<really> need
+access to these old widgets, search the web for C<Gtk2::Deprecated>.
+
+Some other things were deprecated during the gtk+ 2.x series, e.g.
+GtkOptionMenu was deprecated in favor of GtkComboBox in 2.4.  Things that were
+marked as deprecated during the 2.x series will not be removed, basically
+because older versions do not have the replacements, and removing them would
+break backward compatibility.
 
 =head2 Namespaces and Objects
 
@@ -93,8 +105,8 @@ way to say 'no flags'.
   FOO_BAR_BAZ | FOO_BAR_QUU | FOO_BAR_QUUX => [qw/baz quu qux/]
   0 => []
 
-In some cases you need to see if a bit is set in a bitfield; Methods
-returning flags therefore return an overloaded object. See L<Glib> for
+In some cases you need to see if a bit is set in a bitfield; methods
+returning flags therefore return an overloaded object.  See L<Glib> for
 more details on which operations are allowed on these flag objects, but
 here is a quick example:
 
@@ -152,20 +164,34 @@ You don't need to specify string lengths, although string length
 parameters should still be available for functions dealing with binary
 strings. You can always use C<substr> to pass different parts of a string.
 
-Anything that uses GError in C will C<croak> on failure, setting $@ to the
+Anything that uses GError in C will C<croak> on failure, setting $@ to a
+magical exception object, which is overloaded to print as the
 returned error message.  The ideology here is that GError is to be used
 for runtime exceptions, and C<croak> is how you do that in perl.  You can
 catch a croak very easily by wrapping the function in an eval:
 
-   eval { $pixbuf = Gtk2::Gdk::Pixbuf->new_from_file ($filename); };
+   eval {
+      my $pixbuf = Gtk2::Gdk::Pixbuf->new_from_file ($filename);
+      $image->set_from_pixbuf ($pixbuf);
+   };
    if ($@) {
-        # couldn't open the file, $@ has the message
-   } else {
-        # do something with $pixbuf
+      print "$@\n"; # prints the possibly-localized error message
+      if (Glib::Error::matches ($@, 'Gtk2::Gdk::Pixbuf::Error',
+                                    'unknown-format')) {
+         change_format_and_try_again ();
+      } elsif (Glib::Error::matches ($@, 'Glib::File::Error', 'noent')) {
+         change_source_dir_and_try_again ();
+      } else {
+         # don't know how to handle this
+         die $@;
+      }
    }
 
 This has the added advantage of letting you bunch things together as you would
-with a try/throw/catch block in C++ -- you get cleaner code.
+with a try/throw/catch block in C++ -- you get cleaner code.  By using
+Glib::Error exception objects, you don't have to rely on string matching
+on a possibly localized error message; you can match errors by explicit and
+predictable conditions.  See L<Glib::Error> for more information.
 
 Use normal perl callback/closure tricks with callbacks.  The most common use
 you'll have for callbacks is with the Glib signal_connect method:
@@ -236,8 +262,8 @@ Avoid a clash with $gobject->set.
 As a general rule function that take a pair of parameters, a list and the
 number of elements in that list, will normally omit the number of elements
 and just accept a variable number of arguments that will be converted into
-the list and number of elements. In many instances parameters have been
-reordered so that this will work. See below for exceptions and specific
+the list and number of elements.  In many instances parameters have been
+reordered so that this will work.  See below for exceptions and specific
 cases that are not detailed in the generated Perl API reference.
 
 =over
@@ -310,6 +336,9 @@ list:
 The canonical documentation is the C API reference at
 http://developer.gnome.org/doc/API/gtk/ and
 http://developer.gnome.org/doc/API/gdk/
+
+Gtk2 includes a full suite of automatically-generated API reference POD for
+the Perl API -- see L<Gtk2::index> for the starting point.
 
 There should be a similar document for Glib --- link to it here when it exists.
 

@@ -1,3 +1,34 @@
+2004/02/29 04:37 (-0500) muppetman
+
+	* Makefile.PL, xs_files-2.0: only build xs/GdkX11.xs when linking\
+	against the x11 gtk target.
+
+	* api.pod: updated
+
+	* gtk-demo/editable_cells.pl, tools/podifyenums.pl, xs/GdkScreen.xs,
+	xs/GtkActionGroup.xs, xs/GtkContainer.xs, xs/GtkTreeModel.xs,
+	xs/GtkTreeSelection.xs: remove outdated FIXME
+
+	* t/01.GtkWindow.t: implement a test for set_default
+
+	* t/GdkCursor.t: test new_from_pixmap
+
+	* t/GdkDnd.t: re-enable GdkDnd.t in hopes that its brokenness will
+	get it fixed
+
+	* xs/Gdk.xs: use runtime version check rather than compile-time check
+	to get around leak bug
+
+	* xs/GtkComboBoxEntry.xs, xs/GtkRadioMenuItem.xs, xs/GtkRc.xs,
+	xs/GtkStyle.xs, xs/GtkTreeViewColumn.xs: use C comment rather than
+	xs comment to keep from confusing xsubpp
+
+	* xs/GtkListStore.xs, xs/GtkObject.xs, xs/GtkTreeStore.xs: remove
+	unreachable code and strings that will never be used.
+	gperl_value_from_sv either succeeds or croaks, so there's no sense
+	in testing its return value.  the return value never changed, to
+	retain ABI compatibility.
+
 2004/02/29 00:11 (-0500) muppetman
 
 	* xs/GtkWidget.xs: fix the pod for (push|pop)_composite_child
