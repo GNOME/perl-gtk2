@@ -8,7 +8,8 @@
 
 	* t/01.GtkWindow.t: Test add_accel_group, remove_accel_group and
 	Gtk2::WindowGroup::new, ::add_window, and ::remove_window.
-	
+
+	* MANIFEST
 	R t/01.GtkWidget.t
 	R t/02.GtkButton.t
 	A t/02.GtkContainer.t
