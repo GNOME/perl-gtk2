@@ -201,3 +201,4 @@ xs/GtkWindow.xs
 xs/PangoContext.xs
 xs/PangoFont.xs
 xs/PangoLayout.xs
+META.yml                                Module meta-data in YAML

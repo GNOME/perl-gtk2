@@ -1,3 +1,7 @@
+2003/06/23 12:07 pcg
+
+	* xs/GtkWidget.xs: implement {get,create}_pango_context.
+
 2003/06/22 13:37 pcg
 
         * gtk-demo/*: fix various minor problems, including using

@@ -532,7 +532,12 @@ gtk_widget_modify_font (widget, font_desc)
 
 
  #PangoContext *gtk_widget_create_pango_context (GtkWidget   *widget);
+PangoContext_noinc *
+gtk_widget_create_pango_context (GtkWidget *widget)
+
  #PangoContext *gtk_widget_get_pango_context    (GtkWidget   *widget);
+PangoContext_noinc *
+gtk_widget_get_pango_context (GtkWidget *widget)
 
 PangoLayout_noinc *
 gtk_widget_create_pango_layout (widget, text)
