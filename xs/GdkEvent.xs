@@ -105,6 +105,131 @@ gdk_event_get_package (GType gtype,
 	}
 }
 
+static void
+gtk2perl_gdk_event_set_state (GdkEvent * event,
+                              GdkModifierType newstate)
+{
+	if (event) {
+		switch (event->type) {
+		    case GDK_MOTION_NOTIFY:
+			event->motion.state = newstate;
+			break;
+		    case GDK_BUTTON_PRESS:
+		    case GDK_2BUTTON_PRESS:
+		    case GDK_3BUTTON_PRESS:
+		    case GDK_BUTTON_RELEASE:
+			event->button.state = newstate = newstate;
+			break;
+		    case GDK_SCROLL:
+			event->scroll.state = newstate;
+			return TRUE;
+		    case GDK_KEY_PRESS:
+		    case GDK_KEY_RELEASE:
+			event->key.state = newstate;
+			return TRUE;
+		    case GDK_ENTER_NOTIFY:
+		    case GDK_LEAVE_NOTIFY:
+			event->crossing.state = newstate;
+			return TRUE;
+		    case GDK_PROPERTY_NOTIFY:
+			event->property.state = newstate;
+			return TRUE;
+		    case GDK_VISIBILITY_NOTIFY:
+			/* visibility state is something else. */
+		    case GDK_CLIENT_EVENT:
+		    case GDK_NO_EXPOSE:
+		    case GDK_CONFIGURE:
+		    case GDK_FOCUS_CHANGE:
+		    case GDK_SELECTION_CLEAR:
+		    case GDK_SELECTION_REQUEST:
+		    case GDK_SELECTION_NOTIFY:
+		    case GDK_PROXIMITY_IN:
+		    case GDK_PROXIMITY_OUT:
+		    case GDK_DRAG_ENTER:
+		    case GDK_DRAG_LEAVE:
+		    case GDK_DRAG_MOTION:
+		    case GDK_DRAG_STATUS:
+		    case GDK_DROP_START:
+		    case GDK_DROP_FINISHED:
+		    case GDK_NOTHING:
+		    case GDK_DELETE:
+		    case GDK_DESTROY:
+		    case GDK_EXPOSE:
+		    case GDK_MAP:
+		    case GDK_UNMAP:
+		    case GDK_WINDOW_STATE:
+		    case GDK_SETTING:
+			/* no state field */
+			break;
+		}
+	}
+}
+
+static void
+gtk2perl_gdk_event_set_time (GdkEvent * event,
+                             guint32 newtime)
+{
+	if (event) {
+		switch (event->type) {
+		     case GDK_MOTION_NOTIFY:
+			event->motion.time = newtime;
+			break;
+		     case GDK_BUTTON_PRESS:
+		     case GDK_2BUTTON_PRESS:
+		     case GDK_3BUTTON_PRESS:
+		     case GDK_BUTTON_RELEASE:
+			event->button.time = newtime;
+			break;
+		     case GDK_SCROLL:
+			event->scroll.time = newtime;
+			break;
+		     case GDK_KEY_PRESS:
+		     case GDK_KEY_RELEASE:
+			event->key.time = newtime;
+			break;
+		     case GDK_ENTER_NOTIFY:
+		     case GDK_LEAVE_NOTIFY:
+			event->crossing.time = newtime;
+			break;
+		     case GDK_PROPERTY_NOTIFY:
+			event->property.time = newtime;
+			break;
+		     case GDK_SELECTION_CLEAR:
+		     case GDK_SELECTION_REQUEST:
+		     case GDK_SELECTION_NOTIFY:
+			event->selection.time = newtime;
+			break;
+		     case GDK_PROXIMITY_IN:
+		     case GDK_PROXIMITY_OUT:
+			event->proximity.time = newtime;
+			break;
+		     case GDK_DRAG_ENTER:
+		     case GDK_DRAG_LEAVE:
+		     case GDK_DRAG_MOTION:
+		     case GDK_DRAG_STATUS:
+		     case GDK_DROP_START:
+		     case GDK_DROP_FINISHED:
+			event->dnd.time = newtime;
+			break;
+		     case GDK_CLIENT_EVENT:
+		     case GDK_VISIBILITY_NOTIFY:
+		     case GDK_NO_EXPOSE:
+		     case GDK_CONFIGURE:
+		     case GDK_FOCUS_CHANGE:
+		     case GDK_NOTHING:
+		     case GDK_DELETE:
+		     case GDK_DESTROY:
+		     case GDK_EXPOSE:
+		     case GDK_MAP:
+		     case GDK_UNMAP:
+		     case GDK_WINDOW_STATE:
+		     case GDK_SETTING:
+			/* no time */
+			break;
+		}
+	}
+}
+
 /* initialized in the boot section. */
 static GPerlBoxedWrapperClass   gdk_event_wrapper_class;
 static GPerlBoxedWrapperClass * default_wrapper_class;
@@ -280,23 +405,51 @@ gdk_event_copy (event)
 
  ## guint32 gdk_event_get_time (GdkEvent *event)
 guint
-gdk_event_get_time (event)
+gdk_event_get_time (event, ...)
 	GdkEvent *event
     ALIAS:
 	Gtk2::Gdk::Event::time = 1
-    CLEANUP:
-	PERL_UNUSED_VAR (ix);
+	Gtk2::Gdk::Event::set_time = 2
+    CODE:
+	if (ix == 0 && items != 1)
+		croak ("Usage:  Gtk2::Gdk::Event::get_time (event)");
+	if (ix == 2 && items != 2)
+		croak ("Usage:  Gtk2::Gdk::Event::set_time (event, newtime)");
+	RETVAL = gdk_event_get_time (event);
+	if (items == 2 || ix == 2) {
+		/* set */
+		gtk2perl_gdk_event_set_time (event, SvIV (ST (1)));
+	}
+    OUTPUT:
+	RETVAL
 
  ## gboolean gdk_event_get_state (GdkEvent *event, GdkModifierType *state)
 GdkModifierType
-gdk_event_get_state (event)
+gdk_event_get_state (event, ...)
 	GdkEvent *event
     ALIAS:
 	Gtk2::Gdk::Event::state = 1
+	Gtk2::Gdk::Event::set_state = 2
     CODE:
-	PERL_UNUSED_VAR (ix);
-	if (!gdk_event_get_state (event, &RETVAL))
-		XSRETURN_UNDEF;
+	if (ix == 0 && items != 1)
+		croak ("Usage:  Gtk2::Gdk::Event::get_state (event)");
+	if (ix == 2 && items != 2)
+		croak ("Usage:  Gtk2::Gdk::Event::set_state (event, newstate)");
+	if (items == 2 || ix == 2) {
+		/* set; return old value. */
+		if (!gdk_event_get_state (event, &RETVAL)) {
+			SV * s = gperl_convert_back_enum (GDK_TYPE_EVENT_TYPE,
+			                                  event->type);
+			croak ("events of type %s have no state member",
+			       SvPV_nolen (s));
+		}
+		gtk2perl_gdk_event_set_state (event,
+		                              SvGdkModifierType (ST (1)));
+	} else {
+		/* just get */
+		if (!gdk_event_get_state (event, &RETVAL))
+			XSRETURN_UNDEF;
+	}
     OUTPUT:
 	RETVAL
 
@@ -384,8 +537,19 @@ gdk_event_get_axis (event, axis_use)
 	RETVAL
 
  ## void gdk_event_handler_set (GdkEventFunc func, gpointer data, GDestroyNotify notify)
+=for apidoc
+=for arg func (subroutine) function to get called for each event.
+Set the function that handles all events from GDK.  GTK+ uses this to
+dispatch events, and as such this is rarely of use to applications,
+unless you are implementing completely custom event dispatching (unlikely)
+or preprocess events somehow and then pass them on to
+C<Gtk2::Gdk::main_do_event>.  As a special case, if I<func> is undef,
+we "reset" the handler by passing the actual C function gtk_main_do_event
+to GDK, to bypass the Perl marshaling (and take things back up to full
+speed).
+=cut
 void
-gdk_event_handler_set (class, func, data)
+gdk_event_handler_set (class, func, data=NULL)
 	SV * func
 	SV * data
     PREINIT:
@@ -394,11 +558,17 @@ gdk_event_handler_set (class, func, data)
 		GDK_TYPE_EVENT
 	};
     CODE:
-	callback = gperl_callback_new (func, data, G_N_ELEMENTS (params),
-	                               params, 0);
-	gdk_event_handler_set (gtk2perl_event_func,
-	                       callback,
-	                       (GDestroyNotify) gperl_callback_destroy);
+	if (SvOK (func)) {
+		callback = gperl_callback_new (func, data,
+		                               G_N_ELEMENTS (params),
+		                               params, 0);
+		gdk_event_handler_set (gtk2perl_event_func,
+		                       callback,
+		                       (GDestroyNotify) gperl_callback_destroy);
+	} else {
+		/* reset to gtk+'s event handler. */
+		gdk_event_handler_set (gtk_main_do_event, NULL, NULL);
+	}
 
 #ifdef GDK_TYPE_SCREEN
 

@@ -7,7 +7,7 @@
 # 	- rm
 #########################
 
-use Gtk2::TestHelper tests => 88;
+use Gtk2::TestHelper tests => 97;
 use Data::Dumper;
 
 # Expose #######################################################################
@@ -160,6 +160,27 @@ is ($event->get_axis ("y"), 13);
 is_deeply ([$event->coords], [13, 13]);
 is_deeply ([$event->get_coords], [13, 13]);
 
+# a little stress-testing on the complicated parameter validation of
+# get_state|set_state|state
+eval { $event->set_state; };
+like ($@, qr/Usage/, 'set_state with no args croaks');
+eval { $event->get_state ('foo'); };
+like ($@, qr/Usage/, 'get_state with an arg croaks');
+eval { $event->state; };
+is ($@, '', "state with no args doesn't croak");
+eval { $event->state ('control-mask'); };
+is ($@, '', "nor does state with an arg");
+
+# similarly for get_time|set_time|time
+eval { $event->set_time; };
+like ($@, qr/Usage/, "set_time with no args croaks");
+eval { $event->get_time ('foo'); };
+like ($@, qr/Usage/, "get_time with an arg croaks");
+eval { $event->time; };
+is ($@, '', "time with no args does not croak");
+eval { $event->time (time); };
+is ($@, '', "nor does time with an arg");
+
 Gtk2::Gdk::Event->put ($event);
 is (Gtk2::Gdk->events_pending, 1);
 isa_ok (Gtk2::Gdk::Event->get, "Gtk2::Gdk::Event::Crossing");
@@ -169,12 +190,19 @@ is (Gtk2::Gdk->events_pending, 1);
 isa_ok (Gtk2::Gdk::Event->peek, "Gtk2::Gdk::Event::Crossing");
 
 Gtk2::Gdk::Event -> handler_set(sub {
-	isa_ok (shift, 'Gtk2::Gdk::Event::Crossing');
-	is (shift, 'bla');
+	my ($ev, $data) = @_;
+	isa_ok ($ev, 'Gtk2::Gdk::Event::Crossing', '$ev of expected type');
+	is ($data, 'bla', 'user data passed properly');
+	is_deeply ($ev->get_state, ['control-mask'], '$ev->get_state');
+	# pass to gtk+ default handler
+	Gtk2->main_do_event ($ev);
 }, 'bla');
 
 Gtk2::Gdk::Event->put ($event);
 Gtk2->main_iteration while Gtk2->events_pending;
+
+# reset
+Gtk2::Gdk::Event -> handler_set (undef);
 
 # FIXME: how to test?  seems to block.
 # warn Gtk2::Gdk::Event->get_graphics_expose ($window);
