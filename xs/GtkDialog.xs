@@ -20,6 +20,7 @@
  */
 
 #include "gtk2perl.h"
+#include <gperl_marshal.h>
 
 /*
  * GtkDialog interprets the response id as completely user-defined for
@@ -62,16 +63,9 @@ gtk2perl_dialog_response_marshal (GClosure * closure,
                                   gpointer invocation_hint,
                                   gpointer marshal_data)
 {
-	GPerlClosure *pc = (GPerlClosure *)closure;
-	SV * data;
-	SV * instance;
-	dSP;
-#ifdef PERL_IMPLICIT_CONTEXT
-	/* make sure we're executed by the same interpreter that created
-	 * the closure object. */
-	PERL_SET_CONTEXT (marshal_data);
-	SPAGAIN;
-#endif
+	dGPERL_CLOSURE_MARSHAL_ARGS;
+
+	GPERL_CLOSURE_MARSHAL_INIT (closure, marshal_data);
 
 	PERL_UNUSED_VAR (return_value);
 	PERL_UNUSED_VAR (n_param_values);
@@ -82,34 +76,19 @@ gtk2perl_dialog_response_marshal (GClosure * closure,
 
 	PUSHMARK (SP);
 
-	if (GPERL_CLOSURE_SWAP_DATA (pc)) {
-		/* swap instance and data */
-		data     = gperl_sv_from_value (param_values);
-		instance = SvREFCNT_inc (pc->data);
-	} else {
-		/* normal */
-		instance = gperl_sv_from_value (param_values);
-		data     = SvREFCNT_inc (pc->data);
-	}
-
-	EXTEND (SP, 2);
-	/* the instance is always the first item in @_ */
-	PUSHs (sv_2mortal (instance));
+	GPERL_CLOSURE_MARSHAL_PUSH_INSTANCE (param_values);
 
 	/* the second parameter for this signal is defined as an int
 	 * but is actually a response code, and can have GtkResponseType
 	 * values. */
-	PUSHs (sv_2mortal (response_id_to_sv
+	XPUSHs (sv_2mortal (response_id_to_sv
 				(g_value_get_int (param_values + 1))));
 
-	if (data)
-		XPUSHs (sv_2mortal (data));
+	GPERL_CLOSURE_MARSHAL_PUSH_DATA;
+
 	PUTBACK;
 
-	call_sv (pc->callback, G_DISCARD | G_EVAL);
-
-	if (SvTRUE (ERRSV))
-		gperl_run_exception_handlers ();
+	GPERL_CLOSURE_MARSHAL_CALL (G_DISCARD);
 
 	/*
 	 * clean up 

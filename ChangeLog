@@ -1,3 +1,10 @@
+2003/11/10 13:35 (-0500) muppetman
+
+	* xs/GtkDialog.xs, xs/GtkEditable.xs: use the new macros in the new
+	gperl_marshal.h to implement custom signal marshallers.
+
+	* examples/insert-text-test.pl: additional marshaller smoke test
+
 2003/11/10 09:12 (-0500) rwmcfa1
 	
 	* xs/GtkTreeSelection.xs: missing ; on the end of function call caused

@@ -20,6 +20,7 @@
  */
 
 #include "gtk2perl.h"
+#include <gperl_marshal.h>
 
 /*
 GtkEditable's insert-text signal uses an integer pointer as a write-through
@@ -31,11 +32,6 @@ editable object, because an integer is an integral type.
                         gint new_text_length,
                         gint *position,  <<=== that's the problem
                         gpointer user_data);
-
-this custom marshaller re-defines the call signature for the signal handler.
-this is evil, as the change won't be picked up by the auto-generated docs
-and will not comply with the C api reference, but i really can't think of
-another way to handle this situation.
 */
 static void
 gtk2perl_editable_insert_text_marshal (GClosure * closure,
@@ -45,19 +41,12 @@ gtk2perl_editable_insert_text_marshal (GClosure * closure,
                                        gpointer invocation_hint,
                                        gpointer marshal_data)
 {
-	GPerlClosure *pc = (GPerlClosure *)closure;
-	SV * data;
-	SV * instance;
-	int len, count;
+	dGPERL_CLOSURE_MARSHAL_ARGS;
+	int len;
 	gint * position_p;
 	SV * string, * position;
-	dSP;
-#ifdef PERL_IMPLICIT_CONTEXT
-	/* make sure we're executed by the same interpreter that created
-	 * the closure object. */
-	PERL_SET_CONTEXT (marshal_data);
-	SPAGAIN;
-#endif
+
+	GPERL_CLOSURE_MARSHAL_INIT (closure, marshal_data);
 
 	PERL_UNUSED_VAR (return_value);
 	PERL_UNUSED_VAR (n_param_values);
@@ -68,44 +57,26 @@ gtk2perl_editable_insert_text_marshal (GClosure * closure,
 
 	PUSHMARK (SP);
 
-	if (GPERL_CLOSURE_SWAP_DATA (pc)) {
-		/* swap instance and data */
-		data     = gperl_sv_from_value (param_values);
-		instance = SvREFCNT_inc (pc->data);
-	} else {
-		/* normal */
-		instance = gperl_sv_from_value (param_values);
-		data     = SvREFCNT_inc (pc->data);
-	}
-
-	EXTEND (SP, 4);
-	/* the instance is always the first item in @_ */
-	PUSHs (sv_2mortal (instance));
+	GPERL_CLOSURE_MARSHAL_PUSH_INSTANCE (param_values);
 
 	/* new_text */
-	//PUSHs (sv_2mortal (newSVpv (g_value_get_string (param_values+1), 0)));
 	string = newSVpv (g_value_get_string (param_values+1), 0);
-	PUSHs (string);
+	XPUSHs (string);
 
 	/* text length is redundant, but documented.  it doesn't hurt
 	 * anything to include it, but would be a doc hassle to omit it. */
-	PUSHs (sv_2mortal (newSViv (g_value_get_int (param_values+2))));
+	XPUSHs (sv_2mortal (newSViv (g_value_get_int (param_values+2))));
 
 	/* insert position */
 	position_p = g_value_get_pointer (param_values+3);
 	position = newSViv (*position_p);
-	PUSHs (position);
+	XPUSHs (position);
 
-	if (data)
-		XPUSHs (sv_2mortal (data));
+	GPERL_CLOSURE_MARSHAL_PUSH_DATA;
+
 	PUTBACK;
 
-	count = call_sv (pc->callback, G_ARRAY | G_EVAL);
-
-	SPAGAIN;
-
-	if (SvTRUE (ERRSV))
-		gperl_run_exception_handlers ();
+	GPERL_CLOSURE_MARSHAL_CALL (G_ARRAY);
 
 	/* refresh the param_values with whatever changes the callback may
 	 * have made.  values returned on the stack take precedence over
