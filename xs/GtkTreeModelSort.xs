@@ -29,8 +29,10 @@ BOOT:
 
 
 GtkTreeModel_noinc *
-gtk_tree_model_sort_new_with_model (child_model)
+gtk_tree_model_sort_new_with_model (class, child_model)
 	GtkTreeModel * child_model
+    C_ARGS:
+	child_model
 
 GtkTreeModel *
 gtk_tree_model_sort_get_model (tree_model)

@@ -156,14 +156,28 @@ gtk_editable_get_selection_bounds (editable)
 	PUSHs (sv_2mortal (newSViv (start)));
 	PUSHs (sv_2mortal (newSViv (end)));
 
+=for apidoc
+=for signature new_position = $editable->insert_text (new_text, position)
+=cut
  ## returns position of next char after inserted text
 gint
-gtk_editable_insert_text (editable, new_text, new_text_length, position)
+gtk_editable_insert_text (editable, new_text, ...)
 	GtkEditable *editable
-	const gchar *new_text
-	gint new_text_length
-	gint position
+	gchar *new_text
+    PREINIT:
+	gint new_text_length;
+	gint position;
     CODE:
+	if (items == 3) {
+		new_text_length = strlen (new_text);
+		position = SvIV (ST (2));
+	} else if (items == 4) {
+		new_text_length = SvIV (ST (2));
+		position = SvIV (ST (3));
+	} else {
+		croak ("Usage: Gtk2::Editable::insert_text(editable, new_text, position)");
+	}
+		
 	gtk_editable_insert_text (editable, new_text,
 				  new_text_length, &position);
 	RETVAL = position;

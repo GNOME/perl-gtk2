@@ -1,77 +1,38 @@
-#
-# $Header$
-#
-
+#!/usr/bin/perl -w
+use strict;
 use Gtk2::TestHelper
-	# FIXME 2.4
-	at_least_version => [2, 3, 0, "GtkCellLayout is new in 2.4"],
-	tests => 1, noinit => 1;
+  # FIXME 2.4
+  at_least_version => [2, 3, 0, "GtkCellLayout is new in 2.3"],
+  tests => 4,
+  noinit => 1;
 
-SKIP: { skip "NOT IMPLEMENTED", 1; }
+# $Header$
+
+my $column = Gtk2::TreeViewColumn -> new();
+isa_ok($column, "Gtk2::CellLayout");
+
+my $box = Gtk2::ComboBox -> new();
+isa_ok($box, "Gtk2::CellLayout");
+
+my $entry = Gtk2::ComboBoxEntry -> new();
+isa_ok($entry, "Gtk2::CellLayout");
+
+my $completion = Gtk2::EntryCompletion -> new();
+isa_ok($completion, "Gtk2::CellLayout");
+
+my $renderer = Gtk2::CellRendererText -> new();
+
+$completion -> pack_start($renderer, 0);
+$completion -> clear();
+$completion -> pack_end($renderer, 1);
+
+$completion -> set_attributes($renderer, stock_id => 0);
+$completion -> add_attribute($renderer, activatable => 1);
+$completion -> clear_attributes($renderer);
+
+$completion -> set_cell_data_func($renderer, sub { warn @_; }, 23);
+
 __END__
 
-/*
-typedef void (* GtkCellLayoutDataFunc) (GtkCellLayout   *cell_layout,
-                                        GtkCellRenderer *cell,
-                                        GtkTreeModel    *tree_model,
-                                        GtkTreeIter     *iter,
-                                        gpointer         data);
-*/
-
-static void
-gtk2perl_cell_layout_data_func (GtkCellLayout   *cell_layout,
-                                GtkCellRenderer *cell,
-                                GtkTreeModel    *tree_model,
-                                GtkTreeIter     *iter,
-                                gpointer         data)
-{
-	GPerlCallback * callback = (GPerlCallback *) data;
-
-	gperl_callback_invoke (callback, NULL, cell_layout, cell,
-	                       tree_model, iter);
-}
-
-## MODULE = Gtk2::CellLayout
-
-$cell_layout->pack_start (GtkCellRenderer *cell, gboolean expand);
-
-$cell_layout->pack_end (GtkCellRenderer *cell, gboolean expand);
-
-$cell_layout->clear
-
-$cell_layout->set_attributes (GtkCellRenderer *cell, ...);
-    PREINIT:
-	gint i;
-    CODE:
-	if (items < 4 || 0 != (items - 2) % 2)
-		croak ("usage: $cell_layout->set_attributes (name => column, ...)\n"
-		       "   expecting a list of name => column pairs"); 
-	for (i = 2 ; i < items ; i+=2) {
-		$cell_layout->add_attribute (cell_layout, cell,
-		                               SvPV_nolen (ST (i)),
-		                               SvIV (ST (i+1)));
-	}
-
-$cell_layout->add_attribute (GtkCellRenderer *cell, const gchar *attribute, gint column);
-
-$cell_layout->set_cell_data_func (GtkCellRenderer *cell, SV * func, SV * func_data=NULL);
-    PREINIT:
-	GType param_types[] = {
-		GTK_TYPE_CELL_LAYOUT,
-		GTK_TYPE_CELL_RENDERER,
-		GTK_TYPE_TREE_MODEL,
-		GTK_TYPE_TREE_ITER
-	};
-	GPerlCallback * callback;
-    CODE:
-	callback = gperl_callback_new (func, func_data, 4, param_types,
-	                               G_TYPE_NONE);
-	$cell_layout->set_cell_data_func
-	                    (cell_layout, cell,
-	                     gtk2perl_cell_layout_data_func, callback,
-		             (GDestroyNotify) gperl_callback_destroy);
-
-$cell_layout->clear_attributes (GtkCellRenderer *cell);
-
-$cell_layout->reorder (GtkCellRenderer *cell, gint position)
-
+Copyright (C) 2003 by the gtk2-perl team (see the file AUTHORS for the
+full list).  See LICENSE for more information.

@@ -1,65 +1,59 @@
-#
-# $Header$
-#
-
+#!/usr/bin/perl -w
+use strict;
 use Gtk2::TestHelper
-	# FIXME 2.4
-	at_least_version => [2, 3, 0, "GtkTreeModelFilter is new in 2.4"],
-	tests => 1, noinit => 1;
+  tests => 20,
+  noinit => 1,
+  # FIXME 2.4
+  at_least_version => [2, 3, 0, "GtkTreeModelFilter is new in 2.4"];
 
-SKIP: { skip "NOT IMPLEMENTED", 1; }
+# $Header$
+
+my $list = Gtk2::ListStore -> new("Glib::Int", "Glib::String");
+
+$list -> set($list -> append(), 0 => 42);
+$list -> set($list -> append(), 0 => 23);
+$list -> set($list -> append(), 0 => 23);
+$list -> set($list -> append(), 0 => 23);
+
+my $filter = Gtk2::TreeModelFilter -> new($list);
+isa_ok($filter, "Gtk2::TreeModelFilter");
+
+$filter = Gtk2::TreeModelFilter -> new($list, undef);
+isa_ok($filter, "Gtk2::TreeModelFilter");
+
+is($filter -> get_model(), $list);
+
+my $path = Gtk2::TreePath -> new_from_string("1");
+my $iter = $list -> get_iter($path);
+
+isa_ok(my $tmp = $filter -> convert_child_iter_to_iter($iter), "Gtk2::TreeIter");
+isa_ok($filter -> convert_iter_to_child_iter($tmp), "Gtk2::TreeIter");
+
+isa_ok($filter -> convert_child_path_to_path($path), "Gtk2::TreePath");
+isa_ok($filter -> convert_path_to_child_path($path), "Gtk2::TreePath");
+
+$filter -> set_visible_func(sub {
+  my ($model, $iter, $data) = @_;
+
+  is($model, $list);
+  isa_ok($iter, "Gtk2::TreeIter");
+  is($data, 23);
+
+  return 1;
+}, 23);
+
+$filter -> set_modify_func(["Glib::Int", "Glib::String"], sub { warn @_; }, 42);
+
+$filter -> refilter();
+$filter -> clear_cache();
+
+$filter = Gtk2::TreeModelFilter -> new($list, Gtk2::TreePath -> new_from_string("1"));
+isa_ok($filter, "Gtk2::TreeModelFilter");
+
+$filter -> set_visible_column(0);
+$filter -> set_modify_func("Glib::Int", sub { warn @_; }, 42);
+
 __END__
 
-sub visible_func {
-	my ($model, $iter, $data) = @_;
-	isa_ok ($model, 'Gtk2::TreeModel');
-	isa_ok ($iter,  'Gtk2::TreeIter');
-	return TRUE;
-}
-
-sub modify_func {
-	my ($model, $iter, $value, $column, $data) = @_;
-	isa_ok ($model, 'Gtk2::TreeModel');
-	isa_ok ($iter,  'Gtk2::TreeIter');
-	#isa_ok ($value, 'Glib::Scalar');
-	#isa_ok ($column, 'Glib::Int');
-}
-
-
-
-my $root = $child_model->get_path ($child_model->get_iter_first);
-my $filter = Gtk2::TreeModelFilter->new ($child_model, $root);
-my $filter = Gtk2::TreeModelFilter->new ($child_model, undef);
-
-$filter->set_visible_func (SV * func, SV * data=NULL)
-
-$filter->set_modify_func (SV * types, SV * func, SV * data=NULL);
-
-
-$filter->set_visible_column (GtkTreeModelFilter *filter, gint column);
-
-
-is ($filter->get_model, $child_model);
-
-
-##
-## conversion
-##
-
-$filter->convert_child_iter_to_iter (GtkTreeIter *filter_iter, GtkTreeIter *child_iter);
-
-$filter->convert_iter_to_child_iter (GtkTreeIter *child_iter, GtkTreeIter *filter_iter);
-
-GtkTreePath *$filter->convert_child_path_to_path (GtkTreePath *child_path);
-
-GtkTreePath *$filter->convert_path_to_child_path (GtkTreePath *filter_path);
-
-
-##
-## extras
-##
-
-$filter->refilter
-
-$filter->clear_cache
-
+Copyright (C) 2003 by the gtk2-perl team (see the file AUTHORS for the
+full list).  See LICENSE for more information.

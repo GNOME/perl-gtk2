@@ -29,9 +29,9 @@ MODULE = Gtk2::CellEditable	PACKAGE = Gtk2::CellEditable	PREFIX = gtk_cell_edita
 
 ## void gtk_cell_editable_start_editing (GtkCellEditable *cell_editable, GdkEvent *event)
 void
-gtk_cell_editable_start_editing (cell_editable, event)
+gtk_cell_editable_start_editing (cell_editable, event=NULL)
 	GtkCellEditable *cell_editable
-	GdkEvent *event
+	GdkEvent_ornull *event
 
 ## void gtk_cell_editable_editing_done (GtkCellEditable *cell_editable)
 void

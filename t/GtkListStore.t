@@ -1,5 +1,5 @@
 #!/usr/bin/perl -w
-use Gtk2::TestHelper tests => 88, noinit => 1;
+use Gtk2::TestHelper tests => 42, noinit => 1;
 
 # $Header$
 
@@ -7,6 +7,10 @@ use Gtk2::TestHelper tests => 88, noinit => 1;
 
 my $model = Gtk2::ListStore -> new("Glib::String", "Glib::Int");
 isa_ok($model, "Gtk2::ListStore");
+
+$model -> set_column_types("Glib::String", "Glib::Int");
+is($model -> get_column_type(0), "Glib::String");
+is($model -> get_column_type(1), "Glib::Int");
 
 foreach (qw(bla blee bliii bloooo)) {
 	my $iter = $model -> append();
@@ -16,104 +20,17 @@ foreach (qw(bla blee bliii bloooo)) {
 		      0 => $_,
 		      1 => length($_));
 
-	is($model -> get($iter, 0), $_);
-	is($model -> get($iter, 1), length($_));
-
-	is(($model -> get($iter, 0, 1))[0], $_);
-	is(($model -> get($iter, 0, 1))[1], length($_));
-
-	is($model -> get_value($iter, 0), $_);
-	is($model -> get_value($iter, 1), length($_));
+	$model -> set_value($iter,
+                            0 => $_,
+                            1 => length($_));
 }
-
-my $count = $model -> get_n_columns();
-is($count, 2);
-
-is($model -> get_column_type(0), "Glib::String");
-is($model -> get_column_type(1), "Glib::Int");
-
-my $flags = $model -> get_flags();
-is($flags -> [0], "iters-persist");
-is($flags -> [1], "list-only");
-
-###############################################################################
-
-my($path_one, $path_two);
-
-$path_one = Gtk2::TreePath -> new();
-isa_ok($path_one, "Gtk2::TreePath");
-
-$path_one = Gtk2::TreePath -> new_from_string("0");
-is($path_one -> to_string(), "0");
-
-$path_one = Gtk2::TreePath -> new_first();
-is($path_one -> to_string(), "0");
-
-$path_two = $path_one -> copy();
-is($path_one -> compare($path_two), 0);
-
-###############################################################################
-
-SKIP: {
-	skip("there doesn't seem to be a GType for GtkTreeRowReference in 2.0.x", 4)
-		unless ((Gtk2 -> get_version_info())[1] >= 2);
-
-	my ($ref_one, $ref_two, $ref_path);
-
-	$ref_one = Gtk2::TreeRowReference -> new($model, Gtk2::TreePath -> new_from_string("0"));
-	isa_ok($ref_one, "Gtk2::TreeRowReference");
-	is($ref_one -> valid(), 1);
-
-	$ref_path = $ref_one -> get_path();
-	is($ref_path -> to_string(), "0");
-
-	$ref_two = $ref_one -> copy();
-	is($ref_two -> valid(), 1);
-}
-
-###############################################################################
-
-my $iter;
-
-$iter = $model -> get_iter(Gtk2::TreePath -> new_from_string("0"));
-isa_ok($iter, "Gtk2::TreeIter");
-is($model -> get_path($iter) -> to_string(), "0");
-
-$iter = $model -> get_iter_from_string("0");
-is($model -> get_path($iter) -> to_string(), "0");
-
-$iter = $model -> get_iter_first();
-is($model -> get_path($iter) -> to_string(), "0");
-
-my $next = $model -> iter_next($iter);
-is($model -> get_path($iter) -> to_string(), "0");
-is($model -> get_path($next) -> to_string(), "1");
-
-SKIP: {
-	skip("get_string_from_iter is new in 2.2.x", 1)
-		unless ((Gtk2 -> get_version_info())[1] >= 2);
-
-	is($model -> get_string_from_iter($iter), "0");
-}
-
-###############################################################################
-
-$model -> foreach(sub {
-	my ($model, $path, $iter) = @_;
-
-	isa_ok($model, "Gtk2::ListStore");
-	isa_ok($path, "Gtk2::TreePath");
-	isa_ok($iter, "Gtk2::TreeIter");
-
-	return 1;
-});
 
 ###############################################################################
 
 my $path_model = Gtk2::TreePath -> new_from_string("0");
 my $iter_model;
 
-$model -> remove($model -> get_iter($path_model));
+is($model -> remove($model -> get_iter($path_model)), 1);
 is($model -> get($model -> get_iter($path_model), 0), "blee");
 
 $model -> clear();
@@ -157,10 +74,10 @@ SKIP: {
 
 	is($model -> get($model -> get_iter_from_string("1"), 0), "ble");
 
-	my $tag = $model->signal_connect("rows_reordered", sub {
+	my $tag = $model -> signal_connect(rows_reordered => sub {
 		my $new_order = $_[3];
 		isa_ok($new_order, "ARRAY", "new index order");
-		ok(eq_array($new_order, [3, 2, 1, 0]));
+		is_deeply($new_order, [3, 2, 1, 0]);
 	});
 	$model -> reorder(3, 2, 1, 0);
 	$model -> signal_handler_disconnect ($tag);
@@ -170,16 +87,6 @@ SKIP: {
 	is($model -> get($model -> get_iter_from_string("2"), 0), "ble");
 	is($model -> get($model -> get_iter_from_string("3"), 0), "bla");
 }
-
-# but the rows_reordered method is always available.
-# give it a test-drive, too.
-my $tag = $model->signal_connect("rows_reordered", sub {
-	my $new_order = $_[3];
-	isa_ok($new_order, "ARRAY", "new index order");
-	ok(eq_array($new_order, [3, 2, 1, 0]));
-});
-$model->rows_reordered (Gtk2::TreePath->new, undef, 3, 2, 1, 0);
-$model->signal_handler_disconnect ($tag);
 
 ###############################################################################
 # Ross' 05.GtkListStore-etc.t.  I did not have the heart to simply merge both

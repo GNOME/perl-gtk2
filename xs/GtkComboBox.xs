@@ -2,6 +2,9 @@
 
 MODULE = Gtk2::ComboBox	PACKAGE = Gtk2::ComboBox	PREFIX = gtk_combo_box_
 
+BOOT:
+	gperl_set_isa ("Gtk2::ComboBox", "Gtk2::CellLayout");
+
 GtkWidget *gtk_combo_box_new (class, GtkTreeModel *model=NULL)
     ALIAS:
 	new_with_model = 1

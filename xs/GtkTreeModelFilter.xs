@@ -63,7 +63,7 @@ MODULE = Gtk2::TreeModelFilter	PACKAGE = Gtk2::TreeModelFilter	PREFIX = gtk_tree
 
 
  ## GtkTreeModel *gtk_tree_model_filter_new (GtkTreeModel *child_model, GtkTreePath *root);
-GtkTreeModel *gtk_tree_model_filter_new (class, GtkTreeModel *child_model, GtkTreePath_ornull *root);
+GtkTreeModel *gtk_tree_model_filter_new (class, GtkTreeModel *child_model, GtkTreePath_ornull *root=NULL);
     C_ARGS:
 	child_model, root
 
@@ -84,7 +84,7 @@ gtk_tree_model_filter_set_visible_func (GtkTreeModelFilter *filter, SV * func, S
 			 callback, (GtkDestroyNotify)gperl_callback_destroy);
 
  ## void gtk_tree_model_filter_set_modify_func (GtkTreeModelFilter *filter, gint n_columns, GType *types, GtkTreeModelFilterModifyFunc func, gpointer data, GtkDestroyNotify destroy);
-void gtk_tree_model_filter_set_modify_func (GtkTreeModelFilter *filter, SV * types, SV * func, SV * data=NULL);
+void gtk_tree_model_filter_set_modify_func (GtkTreeModelFilter *filter, SV * types, SV * func=NULL, SV * data=NULL);
     PREINIT:
 	GType * real_types = NULL;
 	gint n_columns;
@@ -93,7 +93,7 @@ void gtk_tree_model_filter_set_modify_func (GtkTreeModelFilter *filter, SV * typ
 		gint i;
 		AV * av = (AV*) SvRV (types);
 		n_columns = av_len (av) + 1;
-		types = gperl_alloc_temp (sizeof (GType) * n_columns);
+		real_types = gperl_alloc_temp (sizeof (GType) * n_columns);
 		for (i = 0 ; i < n_columns ; i++) {
 			SV ** svp = av_fetch (av, i, FALSE);
 			real_types[i] =
@@ -143,9 +143,31 @@ GtkTreeModel *gtk_tree_model_filter_get_model (GtkTreeModelFilter *filter);
 ## conversion
 ##
 
-void gtk_tree_model_filter_convert_child_iter_to_iter (GtkTreeModelFilter *filter, GtkTreeIter *filter_iter, GtkTreeIter *child_iter);
+## void gtk_tree_model_filter_convert_child_iter_to_iter (GtkTreeModelFilter *filter, GtkTreeIter *filter_iter, GtkTreeIter *child_iter)
+GtkTreeIter_copy *
+gtk_tree_model_filter_convert_child_iter_to_iter (filter, child_iter)
+	GtkTreeModelFilter *filter
+	GtkTreeIter *child_iter
+    PREINIT:
+	GtkTreeIter filter_iter;
+    CODE:
+	gtk_tree_model_filter_convert_child_iter_to_iter (filter, &filter_iter, child_iter);
+	RETVAL = &filter_iter;
+    OUTPUT:
+	RETVAL
 
-void gtk_tree_model_filter_convert_iter_to_child_iter (GtkTreeModelFilter *filter, GtkTreeIter *child_iter, GtkTreeIter *filter_iter);
+## void gtk_tree_model_filter_convert_iter_to_child_iter (GtkTreeModelFilter *filter, GtkTreeIter *child_iter, GtkTreeIter *filter_iter)
+GtkTreeIter_copy *
+gtk_tree_model_filter_convert_iter_to_child_iter (filter, filter_iter)
+	GtkTreeModelFilter *filter
+	GtkTreeIter *filter_iter
+    PREINIT:
+	GtkTreeIter child_iter;
+    CODE:
+	gtk_tree_model_filter_convert_iter_to_child_iter (filter, &child_iter, filter_iter);
+	RETVAL = &child_iter;
+    OUTPUT:
+	RETVAL
 
 GtkTreePath *gtk_tree_model_filter_convert_child_path_to_path (GtkTreeModelFilter *filter, GtkTreePath *child_path);
 

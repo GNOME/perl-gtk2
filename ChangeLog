@@ -1,3 +1,40 @@
+2004/02/06 22:25 (+0100) kaffeetisch
+
+	* MANIFEST
+	A t/GtkCellEditable.t
+	A t/GtkEditable.t
+	A t/GtkTreeModelSort.t
+	A t/GtkTreeSortable.t: New tests.
+
+	* t/GtkTreeModelFilter.t
+	* t/GtkCellLayout.t: Implement.
+
+	A t/GtkTreeModel.t
+	* MANIFEST
+	* t/GtkListStore.t
+	* t/GtkTreeStore.t: Rearrange the tree model tests quite a bit to
+	better suit the XS layout.
+
+	* xs/GtkCellEditable.xs: Provide a default for the event argument
+	of start_editing.
+
+	* xs/GtkEditable.xs: Remove the string length argument from
+	insert_text but keep it compatible with the old version.
+
+	* xs/GtkObject.xs: Don't include "../gtk2perl.h" and "../ppport.h"
+	but "gtk2perl.h" and "ppport.h".
+
+	* xs/GtkTreeModelFilter.xs: Provide a default for the root
+	argument of new and for the func argument of set_modify_func.  Fix
+	an allocation bug.  Implement convert_child_iter_to_iter and
+	convert_iter_to_child_iter.
+
+	* xs/GtkTreeModelSort.xs: Add a class argument to new_with_model.
+
+	* xs/GtkComboBox.xs
+	* xs/GtkEntryCompletion.xs
+	* xs/GtkTreeViewColumn.xs: Add Gtk2::CellLayout to the ancestry.
+
 2004/02/06 00:39 (-0500) muppetman
 
 	A examples/cellrenderer_progress.pl
