@@ -370,7 +370,7 @@ gtk_tree_model_iter_has_child (tree_model, iter)
 
 ## gint gtk_tree_model_iter_n_children (GtkTreeModel *tree_model, GtkTreeIter *iter)
 gint
-gtk_tree_model_iter_n_children (tree_model, iter)
+gtk_tree_model_iter_n_children (tree_model, iter=NULL)
 	GtkTreeModel *tree_model
 	GtkTreeIter_ornull *iter
 
