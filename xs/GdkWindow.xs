@@ -63,6 +63,9 @@ SvGdkWindowAttrReal (SV *object, GdkWindowAttributesType *mask)
 
 	GdkWindowAttr *attr = gperl_alloc_temp (sizeof (GdkWindowAttr));
 
+	/* better start with an empty mask */
+	if (mask) *mask = 0;
+
 	if (object && SvOK (object) && SvROK (object) && SvTYPE (SvRV (object)) == SVt_PVHV) {
 		GTK2PERL_WINDOW_ATTR_FETCH (title, "title", SvGChar);
 		GTK2PERL_WINDOW_ATTR_FETCH (event_mask, "event_mask", SvGdkEventMask);
@@ -80,9 +83,6 @@ SvGdkWindowAttrReal (SV *object, GdkWindowAttributesType *mask)
 		GTK2PERL_WINDOW_ATTR_FETCH (override_redirect, "override_redirect", SvUV);
 
 		if (mask) {
-			/* better start with an empty mask */
-			*mask = 0;
-
 			if (title) *mask |= GDK_WA_TITLE;
 			if (x) *mask |= GDK_WA_X;
 			if (y) *mask |= GDK_WA_Y;
