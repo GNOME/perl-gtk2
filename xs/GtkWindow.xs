@@ -308,6 +308,8 @@ gtk_window_set_icon (window, icon)
 #if GTK_CHECK_VERSION(2,2,0)
 
 #gboolean gtk_window_set_icon_from_file (GtkWindow *window, const gchar *filename, GError **err)
+=for apidoc __gerror__
+=cut
 void
 gtk_window_set_icon_from_file (window, filename)
 	GtkWindow     * window
@@ -320,7 +322,7 @@ gtk_window_set_icon_from_file (window, filename)
 		gperl_croak_gerror (filename, error);
 
 #gboolean gtk_window_set_default_icon_from_file (GtkWindow *window, const gchar *filename, GError **err)
-=for apidoc
+=for apidoc __gerror__
 =for signature Gtk2::Window->set_default_icon_from_file ($filename)
 =for signature $window->set_default_icon_from_file ($filename)
 =cut

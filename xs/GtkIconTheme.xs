@@ -79,6 +79,8 @@ gboolean gtk_icon_theme_has_icon (GtkIconTheme *icon_theme, const gchar *icon_na
 GtkIconInfo_own_ornull * gtk_icon_theme_lookup_icon (GtkIconTheme *icon_theme, const gchar *icon_name, gint size, GtkIconLookupFlags flags);
 
  ## GdkPixbuf * gtk_icon_theme_load_icon (GtkIconTheme *icon_theme, const gchar *icon_name, gint size, GtkIconLookupFlags flags, GError **error);
+=for apidoc __gerror__
+=cut
 GdkPixbuf_ornull * gtk_icon_theme_load_icon (GtkIconTheme *icon_theme, const gchar *icon_name, gint size, GtkIconLookupFlags flags)
     PREINIT:
 	GError * error = NULL;
@@ -126,6 +128,8 @@ const gchar *gtk_icon_info_get_filename (GtkIconInfo *icon_info);
 GdkPixbuf * gtk_icon_info_get_builtin_pixbuf (GtkIconInfo *icon_info);
 
  ## GdkPixbuf * gtk_icon_info_load_icon (GtkIconInfo *icon_info, GError **error);
+=for apidoc __gerror__
+=cut
 GdkPixbuf * gtk_icon_info_load_icon (GtkIconInfo *icon_info)
     PREINIT:
 	GError *error = NULL;

@@ -29,6 +29,8 @@ gdk_pixbuf_loader_new (class)
 	/* void */
 
 ##  GdkPixbufLoader * gdk_pixbuf_loader_new_with_type (const char *image_type, GError **error) 
+=for apidoc __gerror__
+=cut
 GdkPixbufLoader_noinc *
 gdk_pixbuf_loader_new_with_type (image_type)
 	const char *image_type
@@ -44,6 +46,8 @@ gdk_pixbuf_loader_new_with_type (image_type)
 #if GTK_CHECK_VERSION(2,3,0) /* FIXME 2.4 */
 
 ## GdkPixbufLoader * gdk_pixbuf_loader_new_with_mime_type (const char *mime_type, GError **error);
+=for apidoc __gerror__
+=cut
 GdkPixbufLoader_noinc *
 gdk_pixbuf_loader_new_with_mime_type (const char *mime_type)
     PREINIT:
@@ -69,6 +73,8 @@ gdk_pixbuf_loader_set_size (loader, width, height)
 #endif /* >= 2.2.0 */
 
 ##  gboolean gdk_pixbuf_loader_write (GdkPixbufLoader *loader, const guchar *buf, gsize count, GError **error) 
+=for apidoc __gerror__
+=cut
 gboolean
 gdk_pixbuf_loader_write (loader, buf)
 	GdkPixbufLoader *loader
@@ -95,6 +101,8 @@ gdk_pixbuf_loader_get_animation (loader)
 	GdkPixbufLoader *loader
 
 ##  gboolean gdk_pixbuf_loader_close (GdkPixbufLoader *loader, GError **error) 
+=for apidoc __gerror__
+=cut
 void
 gdk_pixbuf_loader_close (loader)
 	GdkPixbufLoader *loader

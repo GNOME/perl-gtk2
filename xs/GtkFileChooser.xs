@@ -157,6 +157,8 @@ GtkFileFilter *gtk_file_chooser_get_filter (GtkFileChooser *chooser);
 
 ## Per-application shortcut folders
 
+=for apidoc __gerror__
+=cut
 void
 gtk_file_chooser_add_shortcut_folder (GtkFileChooser *chooser, const char *folder);
     ALIAS:

@@ -47,6 +47,8 @@ gtk_ui_manager_get_toplevels (GtkUIManager *self, GtkUIManagerItemType types)
 
 GtkAction *gtk_ui_manager_get_action (GtkUIManager *self, const gchar *path);
 
+=for apidoc __gerror__
+=cut
 guint gtk_ui_manager_add_ui_from_string (GtkUIManager *self, const gchar_length *buffer, int length(buffer));
     PREINIT:
 	GError * error = NULL;
@@ -57,6 +59,8 @@ guint gtk_ui_manager_add_ui_from_string (GtkUIManager *self, const gchar_length 
     OUTPUT:
 	RETVAL
 
+=for apidoc __gerror__
+=cut
 guint gtk_ui_manager_add_ui_from_file (GtkUIManager *self, const gchar *filename);
     PREINIT:
 	GError * error = NULL;

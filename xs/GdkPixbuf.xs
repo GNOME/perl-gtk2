@@ -266,6 +266,8 @@ gdk_pixbuf_new_subpixbuf (src_pixbuf, src_x, src_y, width, height)
 	int height
 
 ##  GdkPixbuf *gdk_pixbuf_new_from_file (const char *filename, GError **error) 
+=for apidoc __gerror__
+=cut
 GdkPixbuf_noinc *
 gdk_pixbuf_new_from_file (class, filename)
 	GPerlFilename filename
@@ -281,6 +283,8 @@ gdk_pixbuf_new_from_file (class, filename)
 #if GTK_CHECK_VERSION(2,3,0) /* FIXME 2.4 */
 
 ## GdkPixbuf *gdk_pixbuf_new_from_file_at_size (const char *filename, int width, int height, GError **error);
+=for apidoc __gerror__
+=cut
 GdkPixbuf_noinc *
 gdk_pixbuf_new_from_file_at_size (class, GPerlFilename filename, int width, int height)
     PREINIT:
@@ -401,7 +405,7 @@ gdk_pixbuf_new_from_xpm_data (class, ...)
 
 ## croaks on error
 ##  GdkPixbuf* gdk_pixbuf_new_from_inline (gint data_length, const guint8 *data, gboolean copy_pixels, GError **error) 
-=for apidoc
+=for apidoc __gerror__
 =for arg data (packed binary data) the format is special, see discussion
 =for arg copy_pixels whether I<$data> should be copied, defaults to true
 
@@ -443,7 +447,7 @@ gdk_pixbuf_new_from_inline (class, data, copy_pixels=TRUE)
 
 ### croaks on error
 ##  gboolean gdk_pixbuf_save (GdkPixbuf *pixbuf, const char *filename, const char *type, GError **error, ...) 
-=for apidoc
+=for apidoc __gerror__
 =for arg type name of file format (e.g. "jpeg", "png")
 =for arg ... list of key-value save options
 
@@ -622,6 +626,8 @@ BOOT:
 					(GDK_TYPE_PIXBUF_ANIMATION, TRUE);
 
 ##  GdkPixbufAnimation *gdk_pixbuf_animation_new_from_file (const char *filename, GError **error) 
+=for apidoc __gerror__
+=cut
 GdkPixbufAnimation_noinc *
 gdk_pixbuf_animation_new_from_file (class, filename)
 	GPerlFilename filename

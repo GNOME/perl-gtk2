@@ -1,3 +1,9 @@
+2004/03/07 22:01 (-0500) rwmcfa1
+
+	* xs/GdkPixbuf.xs, xs/GdkPixbufLoader.xs, xs/GtkFileChooser.xs,
+	xs/GtkIconTheme.xs, xs/GtkUIManager.xs, xs/GtkWindow.xs: use __gerror__
+	for apidoc where needed.
+
 2004/03/06 18:25 (-0500) muppetman
 
 	* xs/GtkFileChooser.xs, t/GtkFileChooser.t: track upstream API changes.
