@@ -21,36 +21,73 @@
 #include "gtk2perl.h"
 
 /*
- * whee!  since the Callback1 form does not have data at the end and all that
- * fun stuff, so we can't use the spiffy generic GPerlCallback marshaller i
- * just wrote, or even the GPerlClosure stuff that would be rather useful.
+ * a custom marshaler for the item factory callbacks
  */
 static void
-gtk2perl_item_factory_item_activate (GtkWidget * widget,
-                                     GPerlCallback * callback)
+gtk2perl_item_factory_item_activate (gpointer    nothing,
+				     guint       callback_action,
+				     GtkWidget * widget)
 {
-	guint callback_action;
+	SV    * callback_sv;
+	SV    * callback_data;
+
 	dSP; 
 
-	if (callback->func == NULL || callback->func == &PL_sv_undef)
-		return;
+	/* the the callback and it's data out of the widget */
+	callback_sv = (SV*)g_object_get_data (
+				G_OBJECT (widget), "_callback_sv");
+	callback_data = (SV*)g_object_get_data (
+				G_OBJECT (widget), "_callback_data");
 
-	callback_action = (guint)
-		g_object_get_data (G_OBJECT (widget), "_callback_action");
+	ENTER;
+	SAVETMPS;
+
+	PUSHMARK (SP);
+	/* put the parameters on the stack (we're always type 1) */
+	EXTEND (SP, 3);
+	PUSHs (sv_2mortal (newSVsv (callback_data
+	                            ? callback_data
+	       	                    : &PL_sv_undef)));
+	PUSHs (sv_2mortal (newSViv (callback_action)));
+	PUSHs (sv_2mortal (newSVGtkWidget (widget)));
+	PUTBACK;
+
+	/* call the code in sv */
+	call_sv (callback_sv, G_DISCARD);
+
+	FREETMPS;
+	LEAVE;
+}
+
+/* we unfortunately have to fake out the type0 callback stuff */
+static void
+gtk2perl_item_factory_item_activate_type0 (gpointer    nothing,
+				           guint       callback_action,
+				           GtkWidget * widget)
+{
+	SV * callback_sv;
+	SV * callback_data;
+
+	dSP; 
+
+	callback_sv = (SV*)g_object_get_data (
+				G_OBJECT (widget), "_callback_sv");
+	callback_data = (SV*)g_object_get_data (
+				G_OBJECT (widget), "_callback_data");
 
 	ENTER;
 	SAVETMPS;
 
 	PUSHMARK (SP);
 	EXTEND (SP, 3);
-	PUSHs (sv_2mortal (newSVsv (callback->data
-	                            ? callback->data
+	PUSHs (sv_2mortal (newSVsv (callback_data
+	                            ? callback_data
 	                            : &PL_sv_undef)));
 	PUSHs (sv_2mortal (newSViv (callback_action)));
 	PUSHs (sv_2mortal (newSVGtkWidget (widget)));
 	PUTBACK;
 
-	call_sv (callback->func, G_DISCARD);
+	call_sv (callback_sv, G_DISCARD);
 
 	FREETMPS;
 	LEAVE;
@@ -116,50 +153,53 @@ gtk_item_factory_get_item_by_action (ifactory, action)
 ### this is called by Gtk2::IconFactory::create_item, which is implemented
 ### in perl and mangles the arguments for us.
 void
-_create_item (ifactory, path, accel, action, type, extra, clean_path, callback_sv, callback_data)
+_create_item (ifactory, path, accelerator, callback_action, item_type, extra_data, clean_path, callback_sv, callback_data)
 	GtkItemFactory * ifactory
 	gchar * path
-	gchar * accel
-	gint action
-	gchar * type
-	SV * extra
-	char * clean_path
-	SV * callback_sv
-	SV * callback_data
+	gchar * accelerator
+	gint    callback_action
+	gchar * item_type
+	SV    * extra_data
+	char  * clean_path
+	SV    * callback_sv
+	SV    * callback_data
     PREINIT:
-	GtkItemFactoryEntry entry = {0, };
+	GtkItemFactoryEntry   entry = {0, };
+	GtkWidget           * widget = NULL;
     CODE:
 	entry.path = path;
-	entry.accelerator = accel;
+	entry.accelerator = accelerator;
+	/* start out with no callback, we'll probably add one in a min */
 	entry.callback = NULL;
-	entry.callback_action = action;
-	entry.item_type = type;
-	entry.extra_data = SvPOK (extra) ? SvGChar (extra) : NULL; 
+	entry.callback_action = callback_action;
+	entry.item_type = item_type;
+	entry.extra_data = SvPOK (extra_data) ? SvGChar (extra_data) : NULL; 
 
+	/* if the user supplied a callback then we'll need to call our
+	 * marshaler in order to call it */
+	if( SvTRUE(callback_sv) )
+		entry.callback = gtk2perl_item_factory_item_activate;
+
+	/* create the item in the normal manner now */
 	gtk_item_factory_create_item (ifactory, &entry, NULL, 1);
-	if (callback_sv && callback_sv != &PL_sv_undef) {
-		/* set up the callback.  we need to pass two bits of data.  
-		 * rather than add yet another ugly hack to GPerlClosure, 
-		 * we'll use a GPerlCallback. */
-		GPerlCallback * callback;
-		GtkWidget * widget;
-
-		widget = gtk_item_factory_get_item (ifactory, clean_path);
-
-		/* we'll be marshalling this ourselves, so don't worry about
-		 * the argtypes array. */
-		callback = gperl_callback_new (callback_sv, callback_data,
-		                               0, NULL, 0);
-
-		g_object_set_data (G_OBJECT (widget), "_callback_action", 
-		                   (gpointer)action);
-
-		g_signal_connect_data (G_OBJECT (widget), "activate",
-		             G_CALLBACK (gtk2perl_item_factory_item_activate),
-			     callback,
-			     (GClosureNotify)gperl_callback_destroy,
-		             0);
+	
+	/* get the widget that was created by create_item (this is why
+	 * we needed clean_path) */
+	widget = gtk_item_factory_get_item (ifactory, clean_path);
+	if ( widget )
+	{
+		/* put the sv we need to call into the widget */
+		g_object_set_data_full (G_OBJECT (widget), "_callback_sv", 
+					(gpointer)gperl_sv_copy(callback_sv),
+				        (GtkDestroyNotify)gperl_sv_free);
+		
+		/* and put the callback data in there as well */
+		g_object_set_data_full (G_OBJECT (widget), "_callback_data", 
+					(gpointer)gperl_sv_copy(callback_data),
+					(GtkDestroyNotify)gperl_sv_free);
 	}
+	else
+		croak("ItemFactory couldn't retrieve widget it just created");
 
 
 ###### implemented in perl, see Gtk2.pm
