@@ -113,8 +113,7 @@ gtk_stock_lookup (class, stock_id)
 	if (! gtk_stock_lookup (stock_id, &item))
 		XSRETURN_UNDEF;
 	hv = stock_item_to_hv (&item);
-//	RETVAL = newRV_noinc ((SV*)hv);
-	RETVAL = newRV ((SV*)hv);
+	RETVAL = newRV_noinc ((SV*)hv);
     OUTPUT:
 	RETVAL
 
