@@ -105,7 +105,7 @@ can think of for that is
  in perl:
   # $event->state is a reference to an array of flag constants
   warn "control was down\n"
-      if grep {'control-mask'} @{ $event->state };
+      if grep {/control-mask/} @{ $event->state };
 
 FIXME if anyone can think of a better way to check this, i'm all ears.
 
