@@ -103,6 +103,8 @@ SvGtkTargetList (SV * sv)
 
 MODULE = Gtk2::Selection	PACKAGE = Gtk2::TargetEntry
 
+=pod position=SYNOPSIS
+
 =head1 SYNOPSIS
 
   # as a HASH
@@ -114,6 +116,10 @@ MODULE = Gtk2::Selection	PACKAGE = Gtk2::TargetEntry
 
   # as an ARRAY, for compactness
   $target_entry = [ $target, $flags, $info ];
+
+=cut
+
+=pod position=DESCRIPTION
 
 =head1 DESCRIPTION
 

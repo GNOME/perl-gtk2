@@ -417,6 +417,8 @@ MODULE = Gtk2::TreeModel	PACKAGE = Gtk2::TreeModel
 =for flags GtkTreeModelFlags
 =cut
 
+=pod position=DESCRIPTION
+
 =head1 DESCRIPTION
 
 The Gtk2::TreeModel provides a generic tree interface for use by the 
@@ -431,6 +433,8 @@ FIXME FIXME say more here
 ## FIXME FIXME it would be nice for this section to *follow* the normal
 ##             method listing, rather than precede it.
 ##
+
+=pod position=post_methods
 
 =head1 CREATING A CUSTOM TREE MODEL
 

@@ -31,6 +31,8 @@ GdkColor_copy in all the right places.
 
 MODULE = Gtk2::Gdk::Color	PACKAGE = Gtk2::Gdk::Colormap	PREFIX = gdk_colormap_
 
+=pod position=DESCRIPTION
+
 =head1 DESCRIPTION
 
 Colormaps are used to store the mappings between the RGB values you ask for
@@ -171,6 +173,8 @@ gdk_colormap_get_screen (cmap)
 #endif
 
 MODULE = Gtk2::Gdk::Color	PACKAGE = Gtk2::Gdk::Color	PREFIX = gdk_color_
+
+=pod position=DESCRIPTION
 
 =head1 DESCRIPTION
 

@@ -88,8 +88,7 @@ MODULE = Gtk2::Stock	PACKAGE = Gtk2::Stock	PREFIX = gtk_stock_
 =head1 Gtk2::StockItem
 
 When a Gtk2::StockItem is returned from a function or required as a parameter a
-hash reference with the following key/value pairs will be in the
-required/returned.
+hash reference with the following key/value pairs will be required/returned.
 
   {
       stock_id => (string),

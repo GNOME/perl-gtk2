@@ -277,6 +277,10 @@ MODULE = Gtk2::CellRenderer	PACKAGE = Gtk2::CellRenderer	PREFIX = gtk_cell_rende
 
 =for object Gtk2::CellRenderer - An object that renders a single cell onto a Gtk2::Gdk::Drawable
 
+=cut
+
+=pod position=DESCRIPTION
+
 =head1 DESCRIPTION
 
 The Gtk2::CellRenderer is the base class for objects which render cells
@@ -287,6 +291,10 @@ Typically, one cell renderer is used to draw many cells onto the screen.
 Thus, the cell renderer doesn't keep state; instead, any state is set
 immediately prior to use through the object property system.  The cell
 is measured with C<get_size>, and then renderered with C<render>.
+
+=cut
+
+=pod position=post_enums
 
 =head1 DERIVING NEW CELL RENDERERS
 

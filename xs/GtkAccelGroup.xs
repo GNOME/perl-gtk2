@@ -45,6 +45,8 @@ find_closure (GtkAccelKey * key,
 
 MODULE = Gtk2::AccelGroup	PACKAGE = Gtk2::AccelGroup	PREFIX = gtk_accel_group_
 
+=pod position=SYNOPSIS
+
 =head1 SYNOPSIS
 
   my $win = Gtk2::Window->new;
