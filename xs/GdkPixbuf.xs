@@ -65,26 +65,37 @@ gdk_pixbuf_render_to_drawable_alpha (pixbuf, drawable, src_x, src_y, dest_x, des
 	int x_dither
 	int y_dither
 
-### FIXME return pixmap and bitmap on output stack
-## ## void gdk_pixbuf_render_pixmap_and_mask_for_colormap (GdkPixbuf *pixbuf, GdkColormap *colormap, GdkPixmap **pixmap_return, GdkBitmap **mask_return, int alpha_threshold)
-##void
-##gdk_pixbuf_render_pixmap_and_mask_for_colormap (pixbuf, colormap, pixmap_return, mask_return, alpha_threshold)
-##	GdkPixbuf *pixbuf
-##	GdkColormap *colormap
-##	GdkPixmap **pixmap_return
-##	GdkBitmap **mask_return
-##	int alpha_threshold
-##
-### FIXME return pixmap and bitmap on output stack
-## ## void gdk_pixbuf_render_pixmap_and_mask (GdkPixbuf *pixbuf, GdkPixmap **pixmap_return, GdkBitmap **mask_return, int alpha_threshold)
-##void
-##gdk_pixbuf_render_pixmap_and_mask (pixbuf, pixmap_return, mask_return, alpha_threshold)
-##	GdkPixbuf *pixbuf
-##	GdkPixmap **pixmap_return
-##	GdkBitmap **mask_return
-##	int alpha_threshold
-##
+void
+gdk_pixbuf_render_pixmap_and_mask_for_colormap (pixbuf, colormap, alpha_threshold)
+	GdkPixbuf *pixbuf
+	GdkColormap *colormap
+	int alpha_threshold
+        PPCODE:
+{
+        GdkPixmap *pm;
+        GdkBitmap *bm;
 
+        gdk_pixbuf_render_pixmap_and_mask_for_colormap (pixbuf, colormap, &pm, GIMME_V == G_ARRAY ? &bm : 0, alpha_threshold);
+        XPUSHs (newSVGdkPixmap (pm));
+        if (GIMME_V == G_ARRAY)
+          XPUSHs (newSVGdkBitmap (bm));
+}
+
+
+void
+gdk_pixbuf_render_pixmap_and_mask (pixbuf, alpha_threshold)
+	GdkPixbuf *pixbuf
+	int alpha_threshold
+        PPCODE:
+{
+        GdkPixmap *pm;
+        GdkBitmap *bm;
+
+        gdk_pixbuf_render_pixmap_and_mask (pixbuf, &pm, GIMME_V == G_ARRAY ? &bm : 0, alpha_threshold);
+        XPUSHs (newSVGdkPixmap (pm));
+        if (GIMME_V == G_ARRAY)
+          XPUSHs (newSVGdkBitmap (bm));
+}
 
 
 ##  GQuark gdk_pixbuf_error_quark (void) G_GNUC_CONST 

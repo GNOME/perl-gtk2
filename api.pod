@@ -232,6 +232,23 @@ cases.
 
 =over
 
+=item Gtk2::ScrollBar vs. GtkScrollbar
+
+All the scrollbar classes (Gtk2:ScrollBar, Gtk2::HScrollBar,
+Gtk2::VScrollBar) are written with a capital C<B> as opposed to a
+lowercase C<b> that is used in gtk2+ itself.
+
+=item Gtk2::Gdk::Pixbuf::render_pixmap_and_mask
+
+=item Gtk2::Gdk::Pixbuf::render_pixmap_and_mask_for_colormap
+
+These two methods don't take the pixmap and bitmap as arguments, instead
+they return the pixmap in scalar context and both pixmap and bitmap in
+list context, i.e.:
+
+  my $pixmap = $pixbuf->render_pixmap_and_mask (0.5);
+  my ($pixmap, $bitmap) = $pixbuf->render_pixmap_and_mask (0.5);
+
 =item Gtk2::ItemFactory::create_items
 
 The n_entries parameter has been ommited and callback_data is accepted as the
@@ -283,7 +300,7 @@ can set any widget you like to be the tab label.  However, the most common use
 is a plain Gtk2::Label; so these three functions will stringify anything passed
 to tab_label that's not a GtkWidget and wrap a Gtk2::Label around it for you.
 
-Note that the _menu versions of these functions do I<not> do this.
+Note that the C<_menu> versions of these functions do I<not> do this.
 
 =item Gtk2::Widget::intersect
 

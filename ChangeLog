@@ -1,3 +1,12 @@
+2003/11/02 23:26 pcg
+
+        * xs/GdkPixbuf.xs, api.pod: Implement and document
+        gdk_pixbuf_render_pixmap_and_mask* functions.
+
+2003/11/02 13:24 pcg
+
+	* api.pod: Document Scrollbar vs. ScrollBar inconsistency.
+
 2003/11/02 16:17 muppetman
 
 	* Gtk2.pm: undo my silly "atleast" version checks, and so something
