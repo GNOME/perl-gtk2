@@ -118,8 +118,8 @@ sub event_after {
 
   # we shouldn't follow a link if the user has selected something
   my ($start, $end) = $buffer->get_selection_bounds;
-  return FALSE unless defined $end;
-  return FALSE unless $start->get_offset == $end->get_offset;
+  return FALSE if defined $end
+                  and $start->get_offset != $end->get_offset;
 
   my ($x, $y) = $text_view->window_to_buffer_coords ('widget', #GTK_TEXT_WINDOW_WIDGET,
                                                      $event->x, $event->y);
@@ -148,9 +148,7 @@ sub set_cursor_if_appropriate {
   my $iter = $text_view->get_iter_at_location ($x, $y);
   
   foreach my $tag ($iter->get_tags) {
-      my $page = $tag->{page};
-
-      if ($page != 0) {
+      if ($tag->{page}) {
           $hovering = TRUE;
           last;
       }
@@ -160,10 +158,6 @@ sub set_cursor_if_appropriate {
     {
       $hovering_over_link = $hovering;
 
-##      if (hovering_over_link)
-##        gdk_window_set_cursor (gtk_text_view_get_window (text_view, GTK_TEXT_WINDOW_TEXT), hand_cursor);
-##      else
-##	gdk_window_set_cursor (gtk_text_view_get_window (text_view, GTK_TEXT_WINDOW_TEXT), regular_cursor);
       $text_view->get_window ('text')->set_cursor
       		($hovering_over_link ? $hand_cursor : $regular_cursor);
     }
@@ -209,7 +203,8 @@ sub do {
       $regular_cursor = Gtk2::Gdk::Cursor->new ('xterm');
       
       $window = Gtk2::Window->new;
-      $window->set_screen ($do_widget->get_screen);
+      $window->set_screen ($do_widget->get_screen)
+        unless Gtk2->check_version (2, 2, 0);
       $window->set_default_size (450, 450);
       
       $window->signal_connect (destroy => sub {$window = undef});
