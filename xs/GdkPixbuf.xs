@@ -21,6 +21,13 @@
 
 #include "gtk2perl.h"
 
+static void
+gtk2perl_pixbuf_destroy_notify (guchar * pixels,
+                                gpointer data)
+{
+	gperl_sv_free ((SV*)data);
+}
+
 MODULE = Gtk2::Gdk::Pixbuf	PACKAGE = Gtk2::Gdk::Pixbuf	PREFIX = gdk_pixbuf_
 
  ## void gdk_pixbuf_render_to_drawable (GdkPixbuf *pixbuf, GdkDrawable *drawable, GdkGC *gc, int src_x, int src_y, int dest_x, int dest_y, int width, int height, GdkRgbDither dither, int x_dither, int y_dither)
@@ -167,20 +174,30 @@ gdk_pixbuf_new_from_file (class, filename)
     OUTPUT:
 	RETVAL
 
-### FIXME need a callback here, or just install a SvREFCNT_dec?
 ###  GdkPixbuf *gdk_pixbuf_new_from_data (const guchar *data, GdkColorspace colorspace, gboolean has_alpha, int bits_per_sample, int width, int height, int rowstride, GdkPixbufDestroyNotify destroy_fn, gpointer destroy_fn_data) 
-##GdkPixbuf_noinc *
-##gdk_pixbuf_new_from_data (class, data, colorspace, has_alpha, bits_per_sample, width, height, rowstride, destroy_fn, destroy_fn_data)
-##	SV * class
-##	const guchar *data
-##	GdkColorspace colorspace
-##	gboolean has_alpha
-##	int bits_per_sample
-##	int width
-##	int height
-##	int rowstride
-##	GdkPixbufDestroyNotify destroy_fn
-##	gpointer destroy_fn_data
+GdkPixbuf_noinc *
+gdk_pixbuf_new_from_data (class, data, colorspace, has_alpha, bits_per_sample, width, height, rowstride)
+	SV * data
+	GdkColorspace colorspace
+	gboolean has_alpha
+	int bits_per_sample
+	int width
+	int height
+	int rowstride
+    PREINIT:
+	SV * real_data;
+    CODE:
+	if (!SvTRUE (data) || !SvPOK (data))
+		croak ("expecting a packed string for pixel data");
+	real_data = gperl_sv_copy (data);
+	RETVAL = gdk_pixbuf_new_from_data (SvPV_nolen (real_data),
+	                                   colorspace, has_alpha,
+					   bits_per_sample,
+					   width, height, rowstride,
+					   gtk2perl_pixbuf_destroy_notify,
+					   real_data);
+    OUTPUT:
+	RETVAL
 
 ##  GdkPixbuf *gdk_pixbuf_new_from_xpm_data (const char **data) 
 GdkPixbuf_noinc *

@@ -362,6 +362,20 @@ list:
  $clipboard->set_with_owner (\&get_func, \&clear_func, $owner,
                              @target_entries);
 
+=item Gtk2::Gdk::Pixbuf::new_from_data
+
+In C this function allows you to wrap a GdkPixbuf structure around existing
+pixel data.  In Perl, we have to use C<pack> to generate a scalar containing
+the pixel data, and pass that scalar to C<new_from_data>, which copies the
+scalar to keep it around.  It also manages the memory automagically, so there's
+no need for the destroy notifier function.  This all means that if you change
+your copy of the data scalar later, the pixbuf will not reflect that, but
+because of the way perl manages string data and scalars, it would be pretty
+fragile to do that in the first place.  If you need to modify a pixbuf's data
+after it has been created, you can create new pixbufs for the changed regions
+and use C<< $pixbuf->composite >>, or try a different approach (possibly use a
+server-side pixmap and gdk drawing primitives, or something like libart).
+
 =back
 
 =head1 SEE ALSO

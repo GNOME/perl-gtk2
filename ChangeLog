@@ -1,4 +1,9 @@
-2003/10/03 13:19 muppetman
+2003/10/03 15:19 muppetman
+
+	* xs/GdkPixbuf.xs, api.pod: implemented new_from_data.  it doesn't take
+	a destroy notify function, as that's automatic.
+
+2003/10/03 13:27 muppetman
 
 	* xs/GdkEvent.xs: some of the event functions return new events that
 	are owned by the calling code.  use _own and _own_ornull variants as
