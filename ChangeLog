@@ -1,3 +1,11 @@
+2003/07/17 11:35 muppetman
+
+	* xs/GdkX11.xs: a few x11-backend-specific functions from gdkx.h,
+	only used on the X11 backend.
+
+	* xs/GdkRgb.xs: hackish implementations for some rarely-used but
+	handy gdk-rgb stuff.
+
 2003/07/16 10:04 muppetman
 
 	* xs/GtkTreeModel.xs, xs/GdkScreen.xs, xs/GtkWidget.xs: more
