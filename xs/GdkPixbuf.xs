@@ -587,6 +587,11 @@ gdk_pixbuf_composite_color_simple (src, dest_width, dest_height, interp_type, ov
 
 MODULE = Gtk2::Gdk::Pixbuf	PACKAGE = Gtk2::Gdk::PixbufAnimation	PREFIX = gdk_pixbuf_animation_
 
+BOOT:
+	/* types like GdkPixbufGifAnim are unknown to us. */
+	gperl_object_set_no_warn_unreg_subclass
+					(GDK_TYPE_PIXBUF_ANIMATION, TRUE);
+
 ##  GdkPixbufAnimation *gdk_pixbuf_animation_new_from_file (const char *filename, GError **error) 
 GdkPixbufAnimation_noinc *
 gdk_pixbuf_animation_new_from_file (class, filename)
