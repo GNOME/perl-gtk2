@@ -347,6 +347,21 @@ list of index values; in fact, it will croak on negative numbers with a
 friendly reminder.  Although this function was introduced into gtk+ in
 2.2.0, it is available in gtk2-perl with gtk+ 2.0.x.
 
+=item Gtk2::Clipboard::set_with_data
+
+=item Gtk2::Clipboard::set_with_owner
+
+In C, these functions take an array of GtkTargetEntries and the number of
+elements in that array as the second and third parameters.  In Perl, the
+number of target entries is implied by the number of items on the stack,
+and the target entries are supplied as a list at the end of the parameter
+list:
+
+ $clipboard->set_with_data (\&get_func, \&clear_func, $user_data,
+                            @target_entries);
+ $clipboard->set_with_owner (\&get_func, \&clear_func, $owner,
+                             @target_entries);
+
 =back
 
 =head1 SEE ALSO

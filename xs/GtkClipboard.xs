@@ -28,13 +28,13 @@
 
 
 #define DEFINE_QUARK(stem)	\
-static GQuark								       \
-stem ## _quark (void) 							       \
-{									       \
-	static GQuark q = 0;						       \
-	if (q == 0)							       \
-		q = g_quark_from_static_string ("gtk2perl_ ## stem ## "); \
-	return q;							       \
+static GQuark								\
+stem ## _quark (void) 							\
+{									\
+	static GQuark q = 0;						\
+	if (q == 0)							\
+		q = g_quark_from_static_string ("gtk2perl_" #stem );	\
+	return q;							\
 }
 
 DEFINE_QUARK (clipboard_received);
@@ -61,7 +61,7 @@ gtk2perl_clipboard_text_received_func (GtkClipboard *clipboard,
 {
 	GPerlCallback * callback = (GPerlCallback*)
 			g_object_get_qdata (G_OBJECT (clipboard),
-			                    clipboard_get_quark());
+			                    clipboard_text_received_quark());
 	gperl_callback_invoke (callback, NULL, clipboard, text);
 }
 
@@ -73,7 +73,7 @@ gtk2perl_clipboard_get_func (GtkClipboard *clipboard,
 {
 	GPerlCallback * callback = (GPerlCallback*)
 			g_object_get_qdata (G_OBJECT (clipboard),
-			                    clipboard_text_received_quark());
+			                    clipboard_get_quark());
 	gperl_callback_invoke (callback, NULL,
 	                       clipboard, selection_data, info,
 	                       user_data_or_owner);
@@ -103,16 +103,22 @@ MODULE = Gtk2::Clipboard	PACKAGE = Gtk2::Clipboard	PREFIX = gtk_clipboard_
 
 ##  GtkClipboard *gtk_clipboard_get (GdkAtom selection) 
 GtkClipboard_noinc *
-gtk_clipboard_get (selection)
+gtk_clipboard_get (class, selection)
+	SV * class
 	GdkAtom selection
+    C_ARGS:
+	selection
 
 #if GTK_CHECK_VERSION(2,2,0)
 
 ##  GtkClipboard *gtk_clipboard_get_for_display (GdkDisplay *display, GdkAtom selection) 
 GtkClipboard_noinc *
-gtk_clipboard_get_for_display (display, selection)
+gtk_clipboard_get_for_display (class, display, selection)
+	SV * class
 	GdkDisplay *display
 	GdkAtom selection
+    C_ARGS:
+	display, selection
 
 ##  GdkDisplay *gtk_clipboard_get_display (GtkClipboard *clipboard) 
 GdkDisplay *
@@ -121,133 +127,136 @@ gtk_clipboard_get_display (clipboard)
 
 #endif /* >=2.2.0 */
 
-# FIXME needs validation
-######  gboolean gtk_clipboard_set_with_data (GtkClipboard *clipboard, const GtkTargetEntry *targets, guint n_targets, GtkClipboardGetFunc get_func, GtkClipboardClearFunc clear_func, gpointer user_data) 
-##gboolean
-##gtk_clipboard_set_with_data (clipboard, targets, n_targets, get_func, clear_func, user_data)
-##	GtkClipboard *clipboard
-##	GtkTargetEntry *targets
-##	guint n_targets
-##	SV * get_func
-##	SV * clear_func
-##	SV * user_data
-##    PREINIT:
-##	GPerlCallback * get_callback;
-##	GType get_param_types[] = {
-##		GTK_TYPE_CLIPBOARD,
-##		GTK_TYPE_SELECTION_DATA,
-##		G_TYPE_UINT,
-##		GPERL_TYPE_SV   /* since we're on the _data one */
-##	};
-##	GPerlCallback * clear_callback;
-##	GType get_param_types[] = {
-##		GTK_TYPE_CLIPBOARD,
-##		GPERL_TYPE_SV   /* since we're on the _data one */
-##	};
-##	SV * real_user_data;
-##    CODE:
-##	/* WARNING: since we're piggybacking on the same callback for
-##	 *    the _with_data and _with_owner forms, the user_data arg
-##	 *    will go through the standard GSignal user data, and thus
-##	 *    we'll pass NULL to gperl_callback_new's user_data parameter.
-##	 *    this is not typical usage. */
-##	get_callback = gperl_callback_new (get_func, NULL,
-##	                                   4, get_param_types, G_TYPE_NONE);
-##	clear_callback = gperl_callback_new (clear_func, NULL,
-##	                                     2, clear_param_types, G_TYPE_NONE);
-##	real_user_data = newSVsv (user_data);
-##
-##	RETVAL = gtk_clipboard_set_with_data (clipboard, targets, n_targets,
-##	                                      gtk2perl_clipboard_get_func,
-##	                                      gtk2perl_clipboard_clear_func,
-##	                                      real_user_data)
-##
-##	if (!RETVAL) {
-##		gperl_callback_destroy (get_callback);
-##		gperl_callback_destroy (clear_callback);
-##		SvREFCNT_dec (real_user_data);
-##	} else {
-##		g_object_set_qdata_full (G_OBJECT (clipboard),
-##		                         clipboard_get_quark(),
-##		                         clear_callback,
-##		                         (GDestroyNotify)
-##		                               gperl_callback_destroy);
-##		g_object_set_qdata_full (G_OBJECT (clipboard),
-##		                         clipboard_clear_quark(),
-##		                         clear_callback,
-##		                         (GDestroyNotify)
-##		                               gperl_callback_destroy);
-##		g_object_set_qdata_full (G_OBJECT (clipboard),
-##		                         clipboard_user_data_quark (),
-##		                         real_user_data,
-##		                         destroy_notify);
-##	}
-##    OUTPUT:
-##	RETVAL
-##
-# FIXME needs validation
-####  gboolean gtk_clipboard_set_with_owner (GtkClipboard *clipboard, const GtkTargetEntry *targets, guint n_targets, GtkClipboardGetFunc get_func, GtkClipboardClearFunc clear_func, GObject *owner) 
-##gboolean
-##gtk_clipboard_set_with_owner (clipboard, targets, n_targets, get_func, clear_func, owner)
-##	GtkClipboard *clipboard
-##	GtkTargetEntry *targets
-##	guint n_targets
-##	SV * get_func
-##	SV * clear_func
-##	GObject *owner
-##    PREINIT:
-##	GPerlCallback * get_callback;
-##	GType get_param_types[] = {
-##		GTK_TYPE_CLIPBOARD,
-##		GTK_TYPE_SELECTION_DATA,
-##		G_TYPE_UINT,
-##		G_TYPE_OBJECT   /* since we're on the _owner one */
-##	};
-##	GPerlCallback * clear_callback;
-##	GType get_param_types[] = {
-##		GTK_TYPE_CLIPBOARD,
-##		G_TYPE_OBJECT   /* since we're on the _owner one */
-##	};
-##    CODE:
-##	/* WARNING: since we're piggybacking on the same callback for
-##	 *    the _with_data and _with_owner forms, the owner arg
-##	 *    will go through the standard GSignal user data, and thus
-##	 *    we'll pass NULL to gperl_callback_new's user_data parameter.
-##	 *    this is not typical usage. 
-##	 *
-##	 *    you may be thinking that i should just use the same function
-##	 *    for both forms, like with signal_connect in Glib.  the 
-##	 *    difference here is that gtk will treat the owner differently --
-##	 *    you can query the owner -- so we have to call the proper one.
-##	 *    of course, we could put both of these in the same perl wrapper...
-##	 */
-##	get_callback = gperl_callback_new (get_func, NULL,
-##	                                   4, get_param_types, G_TYPE_NONE);
-##	clear_callback = gperl_callback_new (clear_func, NULL,
-##	                                     2, clear_param_types, G_TYPE_NONE);
-##
-##	RETVAL = gtk_clipboard_set_with_owner (clipboard, targets, n_targets,
-##	                                       gtk2perl_clipboard_get_func,
-##	                                       gtk2perl_clipboard_clear_func,
-##	                                       owner)
-##
-##	if (!RETVAL) {
-##		gperl_callback_destroy (get_callback);
-##		gperl_callback_destroy (clear_callback);
-##	} else {
-##		g_object_set_qdata_full (G_OBJECT (clipboard),
-##		                         clipboard_get_quark(),
-##		                         clear_callback,
-##		                         (GDestroyNotify)
-##		                               gperl_callback_destroy);
-##		g_object_set_qdata_full (G_OBJECT (clipboard),
-##		                         clipboard_clear_quark(),
-##		                         clear_callback,
-##		                         (GDestroyNotify)
-##		                               gperl_callback_destroy);
-##	}
-##    OUTPUT:
-##	RETVAL
+####  gboolean gtk_clipboard_set_with_data (GtkClipboard *clipboard, const GtkTargetEntry *targets, guint n_targets, GtkClipboardGetFunc get_func, GtkClipboardClearFunc clear_func, gpointer user_data) 
+gboolean
+gtk_clipboard_set_with_data (clipboard, get_func, clear_func, user_data, target1, ...)
+	GtkClipboard *clipboard
+	SV * get_func
+	SV * clear_func
+	SV * user_data
+	GtkTargetEntry *target1
+    PREINIT:
+	GtkTargetEntry *targets = NULL;
+	guint n_targets;
+	GPerlCallback * get_callback;
+	GType get_param_types[] = {
+		GTK_TYPE_CLIPBOARD,
+		GTK_TYPE_SELECTION_DATA,
+		G_TYPE_UINT,
+		GPERL_TYPE_SV   /* since we're on the _data one */
+	};
+	GPerlCallback * clear_callback;
+	GType clear_param_types[] = {
+		GTK_TYPE_CLIPBOARD,
+		GPERL_TYPE_SV   /* since we're on the _data one */
+	};
+	SV * real_user_data;
+    CODE:
+	GTK2PERL_STACK_ITEMS_TO_TARGET_ENTRY_ARRAY (4, targets, n_targets);
+	/* WARNING: since we're piggybacking on the same callback for
+	 *    the _with_data and _with_owner forms, the user_data arg
+	 *    will go through the standard GSignal user data, and thus
+	 *    we'll pass NULL to gperl_callback_new's user_data parameter.
+	 *    this is not typical usage. */
+	get_callback = gperl_callback_new (get_func, NULL,
+	                                   4, get_param_types, G_TYPE_NONE);
+	clear_callback = gperl_callback_new (clear_func, NULL,
+	                                     2, clear_param_types, G_TYPE_NONE);
+	real_user_data = newSVsv (user_data);
+
+	RETVAL = gtk_clipboard_set_with_data (clipboard, targets, n_targets,
+	                                      gtk2perl_clipboard_get_func,
+	                                      gtk2perl_clipboard_clear_func,
+	                                      real_user_data);
+	if (!RETVAL) {
+		gperl_callback_destroy (get_callback);
+		gperl_callback_destroy (clear_callback);
+		SvREFCNT_dec (real_user_data);
+	} else {
+		g_object_set_qdata_full (G_OBJECT (clipboard),
+		                         clipboard_get_quark(),
+		                         get_callback,
+		                         (GDestroyNotify)
+		                                gperl_callback_destroy);
+		g_object_set_qdata_full (G_OBJECT (clipboard),
+		                         clipboard_clear_quark(),
+		                         clear_callback,
+		                         (GDestroyNotify)
+		                                gperl_callback_destroy);
+		g_object_set_qdata_full (G_OBJECT (clipboard),
+		                         clipboard_user_data_quark (),
+		                         real_user_data,
+		                         (GDestroyNotify)
+		                                gperl_sv_free);
+	}
+    OUTPUT:
+	RETVAL
+    CLEANUP:
+	g_free (targets);
+
+##  gboolean gtk_clipboard_set_with_owner (GtkClipboard *clipboard, const GtkTargetEntry *targets, guint n_targets, GtkClipboardGetFunc get_func, GtkClipboardClearFunc clear_func, GObject *owner) 
+gboolean
+gtk_clipboard_set_with_owner (clipboard, get_func, clear_func, owner, target1, ...)
+	GtkClipboard *clipboard
+	SV * get_func
+	SV * clear_func
+	GObject *owner
+	GtkTargetEntry *target1
+    PREINIT:
+	GtkTargetEntry *targets = NULL;
+	guint n_targets = 0;
+	GPerlCallback * get_callback;
+	GType get_param_types[] = {
+		GTK_TYPE_CLIPBOARD,
+		GTK_TYPE_SELECTION_DATA,
+		G_TYPE_UINT,
+		G_TYPE_OBJECT   /* since we're on the _owner one */
+	};
+	GPerlCallback * clear_callback;
+	GType clear_param_types[] = {
+		GTK_TYPE_CLIPBOARD,
+		G_TYPE_OBJECT   /* since we're on the _owner one */
+	};
+    CODE:
+	GTK2PERL_STACK_ITEMS_TO_TARGET_ENTRY_ARRAY (4, targets, n_targets);
+	/* WARNING: since we're piggybacking on the same callback for
+	 *    the _with_data and _with_owner forms, the owner arg
+	 *    will go through the standard GSignal user data, and thus
+	 *    we'll pass NULL to gperl_callback_new's user_data parameter.
+	 *    this is not typical usage. 
+	 *
+	 *    you may be thinking that i should just use the same function
+	 *    for both forms, like with signal_connect in Glib.  the 
+	 *    difference here is that gtk will treat the owner differently --
+	 *    you can query the owner -- so we have to call the proper one.
+	 *    of course, we could put both of these in the same perl wrapper...
+	 */
+	get_callback = gperl_callback_new (get_func, NULL,
+	                                   4, get_param_types, G_TYPE_NONE);
+	clear_callback = gperl_callback_new (clear_func, NULL,
+	                                     2, clear_param_types, G_TYPE_NONE);
+
+	RETVAL = gtk_clipboard_set_with_owner (clipboard, targets, n_targets,
+	                                       gtk2perl_clipboard_get_func,
+	                                       gtk2perl_clipboard_clear_func,
+	                                       owner);
+	if (!RETVAL) {
+		gperl_callback_destroy (get_callback);
+		gperl_callback_destroy (clear_callback);
+	} else {
+		g_object_set_qdata_full (G_OBJECT (clipboard),
+		                         clipboard_get_quark(),
+		                         get_callback,
+		                         (GDestroyNotify)
+		                                gperl_callback_destroy);
+		g_object_set_qdata_full (G_OBJECT (clipboard),
+		                         clipboard_clear_quark(),
+		                         clear_callback,
+		                         (GDestroyNotify)
+		                                gperl_callback_destroy);
+	}
+    OUTPUT:
+	RETVAL
 
 ##  GObject *gtk_clipboard_get_owner (GtkClipboard *clipboard) 
 ###GObject_ornull *
@@ -275,10 +284,13 @@ gtk_clipboard_request_contents (clipboard, target, callback, user_data)
     CODE:
 	real_callback = gperl_callback_new (callback, user_data,
 	                                    2, param_types, G_TYPE_NONE);
+	g_object_set_qdata_full (G_OBJECT (clipboard),
+	                         clipboard_received_quark (),
+	                         real_callback,
+	                         (GDestroyNotify) gperl_callback_destroy);
 	gtk_clipboard_request_contents (clipboard, target, 
 	                                gtk2perl_clipboard_received_func,
 					real_callback);
-	gperl_callback_destroy (real_callback);
 
 ##  void gtk_clipboard_request_text (GtkClipboard *clipboard, GtkClipboardTextReceivedFunc callback, gpointer user_data) 
 void
@@ -290,16 +302,18 @@ gtk_clipboard_request_text (clipboard, callback, user_data)
 	GPerlCallback * real_callback;
 	GType param_types[] = {
 		GTK_TYPE_CLIPBOARD,
-		GTK_TYPE_SELECTION_DATA,
-		G_TYPE_UINT
+		G_TYPE_STRING
 	};
     CODE:
 	real_callback = gperl_callback_new (callback, user_data,
-	                                    3, param_types, G_TYPE_NONE);
+	                                    2, param_types, G_TYPE_NONE);
+	g_object_set_qdata_full (G_OBJECT (clipboard),
+	                         clipboard_text_received_quark (),
+	                         real_callback,
+	                         (GDestroyNotify) gperl_callback_destroy);
 	gtk_clipboard_request_text (clipboard, 
 				    gtk2perl_clipboard_text_received_func, 
 				    real_callback);
-	gperl_callback_destroy (real_callback);
 
 ##  GtkSelectionData *gtk_clipboard_wait_for_contents (GtkClipboard *clipboard, GdkAtom target) 
 GtkSelectionData_own_ornull *
