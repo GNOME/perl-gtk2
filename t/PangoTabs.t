@@ -11,7 +11,7 @@ SKIP: {
   my $array = Gtk2::Pango::TabArray -> new(8, 0);
   isa_ok($array, "Gtk2::Pango::TabArray");
 
-  $array = Gtk2::Pango::TabArray -> new(2, 1, "left", 8, "left", 16);
+  $array = Gtk2::Pango::TabArray -> new_with_positions(2, 1, "left", 8, "left", 16);
   isa_ok($array, "Gtk2::Pango::TabArray");
 
   $array -> resize(3);

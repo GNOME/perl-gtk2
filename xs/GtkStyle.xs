@@ -531,6 +531,9 @@ MODULE = Gtk2::Style	PACKAGE = Gtk2	PREFIX = gtk_
 
 #if GTK_CHECK_VERSION (2, 4, 0)
 
+=for object Gtk2::Style
+=cut
+
 void
 gtk_draw_insertion_cursor (class, widget, drawable, area, location, is_primary, direction, draw_arrow)
 	GtkWidget *widget

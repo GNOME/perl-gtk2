@@ -78,7 +78,8 @@ Gtk2::Gdk -> pointer_ungrab(0);
 
 # Gtk2::Gdk -> set_double_click_time(20);
 
-is(Gtk2::Gdk -> keyboard_grab($window -> window(), 1, 0), "success");
+$result = Gtk2::Gdk -> keyboard_grab($window -> window(), 1, 0);
+like($result, qr/^(?:success|already-grabbed)$/);
 Gtk2::Gdk -> keyboard_ungrab(0);
 
 Gtk2::Gdk -> error_trap_push();

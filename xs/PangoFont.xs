@@ -307,7 +307,6 @@ pango_font_face_list_sizes (PangoFontFace *face)
     PPCODE:
 	pango_font_face_list_sizes (face, &sizes, &n_sizes);
 	if (n_sizes > 0) {
-		int i;
 		EXTEND (SP, n_sizes);
 		for (i = 0 ; i < n_sizes ; i++)
 			PUSHs (sv_2mortal (newSViv (sizes[i])));
