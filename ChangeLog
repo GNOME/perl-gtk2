@@ -1,3 +1,29 @@
+2004/01/25 00:58 (-0500) muppetman
+
+	A NEWS
+	  add a file to summarize changes
+
+	A t/GtkAction.t
+	A t/GtkComboBoxEntry.t
+	A t/GtkFileFilter.t
+	  new tests
+
+	M MANIFEST
+	  updated
+
+	* pm/Pango.pm: add L<> to links in SEE ALSO.
+
+	* t/GtkButton.t: sprintf the values returned by get_alignment to
+	avoid precision mismatch problems
+
+	* t/GtkIconTheme.t: implement some tests
+
+	* t/GtkItemFactory.t: don't forget to return a string from the
+	translation func
+
+	* xs/GtkItemFactory.xs: keep the value returned from the perl
+	callback alive long enough to be used by the caller.
+
 2004/01/24 21:44 (-0500) rwmcfa1
 
 	* Makefile.PL: removed runtime_reqs stuff, replaced by the pkg-config 
