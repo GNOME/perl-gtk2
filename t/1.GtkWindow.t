@@ -26,6 +26,8 @@ ok( $win = Gtk2::Window->new('toplevel') );
 $win->set_has_frame('false');
 
 G::Idle->add(sub { 
+		$win2->show;
+
 		$_[0]->move(100, 100);
 
 		$_[0]->resize(480,600);
@@ -101,7 +103,6 @@ ok( $win2->get_transient_for->eq($win) );
 #$win->set_icon($pixbuf);
 
 $win->show;
-$win2->show;
 
 $win->present;
 

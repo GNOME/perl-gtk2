@@ -42,17 +42,6 @@ $button->signal_connect( "clicked" , sub
 $win->add($button);
 $win->show;
 
-G::Idle->add( sub 
-	{
-		$button->pressed;
-		$button->released;
-		#$button->clicked;
-		$button->enter;
-		$button->leave;
-		Gtk2->main_quit;
-		0;
-	} );
-
 $button->set_relief("half");
 
 ok( $button->get_relief eq 'half' );
@@ -65,6 +54,17 @@ ok( $win2 = Gtk2::Window->new('toplevel') );
 ok( $button_stock = Gtk2::Button->new_from_stock('Apply') );
 $win2->add($button_stock);
 $button_stock->show;
-$win2->show;
+
+G::Idle->add( sub 
+	{
+		$win2->show;
+		$button->pressed;
+		$button->released;
+		#$button->clicked;
+		$button->enter;
+		$button->leave;
+		Gtk2->main_quit;
+		0;
+	} );
 
 Gtk2->main;
