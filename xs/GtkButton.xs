@@ -154,4 +154,15 @@ void gtk_button_set_alignment (GtkButton * button, gfloat xalign, gfloat yalign)
  ## void gtk_button_get_alignment (GtkButton *button, gfloat *xalign, gfloat *yalign)
 void gtk_button_get_alignment (GtkButton *button, OUTLIST gfloat xalign, OUTLIST gfloat yalign)
 
+##void gtk_button_get_alignment (GtkButton *button)
+##    PREINIT:
+##	gfloat xalign;
+##	gfloat yalign;
+##    PPCODE:
+##	gtk_button_get_alignment (button, &xalign, &yalign);
+##	warn ("%.20f, %.20f", xalign, yalign);
+##	EXTEND (sp, 2);
+##	PUSHs (sv_2mortal (newSVnv (xalign)));
+##	PUSHs (sv_2mortal (newSVnv (yalign)));
+
 #endif

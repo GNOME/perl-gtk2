@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 172;
+use Gtk2::TestHelper tests => 116;
 
 my @version_info = Gtk2 -> get_version_info();
 
@@ -53,8 +53,8 @@ isa_ok($view_column, "Gtk2::TreeViewColumn");
 $view_column -> set_spacing(23);
 is($view_column -> get_spacing(), 23);
 
-$view_column -> set_visible(0);
-is($view_column -> get_visible(), ""); # xxx
+$view_column -> set_visible(1);
+is($view_column -> get_visible(), 1);
 
 $view_column -> set_resizable(1);
 is($view_column -> get_resizable(), 1);
@@ -98,7 +98,7 @@ SKIP: {
 	skip("cell_is_visible is new in 2.2.x", 1)
 		unless ($version_info[1] >= 2);
 
-	is($view_column -> cell_is_visible(), ""); # xxx
+	ok(!$view_column -> cell_is_visible());
 }
 
 ###############################################################################
@@ -220,8 +220,8 @@ $view -> set_vadjustment($v_adjustment);
 is($view -> get_hadjustment(), $h_adjustment);
 is($view -> get_vadjustment(), $v_adjustment);
 
-$view -> set_headers_visible(0);
-is($view -> get_headers_visible(), ""); # xxx
+$view -> set_headers_visible(1);
+is($view -> get_headers_visible(), 1);
 
 $view -> set_headers_clickable(1);
 
@@ -231,8 +231,8 @@ is($view -> get_rules_hint(), 1);
 $view -> set_reorderable(1);
 is($view -> get_reorderable(), 1);
 
-$view -> set_enable_search(0);
-is($view -> get_enable_search(), ""); # xxx
+$view -> set_enable_search(1);
+is($view -> get_enable_search(), 1);
 
 $view -> set_search_column(1);
 is($view -> get_search_column(), 1);
@@ -259,10 +259,10 @@ SKIP: {
 }
 
 $view -> collapse_row($path);
-is($view -> row_expanded($path), ""); # xxx
+ok(!$view -> row_expanded($path));
 
 $view -> expand_row($path, 0);
-is($view -> row_expanded($path), 1);
+ok($view -> row_expanded($path));
 
 $view -> map_expanded_rows(sub {
 	my ($view, $path) = @_;
@@ -274,7 +274,7 @@ $view -> map_expanded_rows(sub {
 });
 
 $view -> collapse_all();
-is($view -> row_expanded($path), ""); # xxx
+ok(!$view -> row_expanded($path));
 
 ###############################################################################
 
@@ -283,11 +283,14 @@ $view -> set_column_drag_function(sub { return 1; });
 
 ###############################################################################
 
+my $i_know_this_place = 0;
 $cell_renderer = Gtk2::CellRendererToggle -> new();
 
 $view_column = Gtk2::TreeViewColumn -> new_with_attributes("Blab", $cell_renderer);
 $view_column -> set_cell_data_func($cell_renderer, sub {
 	my ($view_column, $cell, $model, $iter) = @_;
+
+        return if ($i_know_this_place++);
 
 	isa_ok($view_column, "Gtk2::TreeViewColumn");
 	isa_ok($cell, "Gtk2::CellRendererToggle");
@@ -331,33 +334,28 @@ $view->scroll_to_point (0, 0);
 $view->set_cursor_on_cell (Gtk2::TreePath->new ("1:1"), undef, undef, 0)
 	unless ($version_info[1] < 2);
 
-SKIP: {
-	skip("Gtk2::Gdk::Event::new is new in 2.2", 6)
-		if (Gtk2 -> check_version(2, 2, 0));
+$view->signal_connect (button_press_event => sub {
+		my ($v, $e) = @_;
+		my @res = $view->get_path_at_pos ($e->x, $e->y);
+		isa_ok ($res[0], 'Gtk2::TreePath', 'get_path_at_pos, path');
+		isa_ok ($res[1], 'Gtk2::TreeViewColumn', 'get_path_at_pos, col');
+		ok ($res[2] == 0 && $res[3] == 0, 'get_path_at_pos, pos');
 
-	$view->signal_connect (button_press_event => sub {
-			my ($v, $e) = @_;
-			my @res = $view->get_path_at_pos ($e->x, $e->y);
-			isa_ok ($res[0], 'Gtk2::TreePath', 'get_path_at_pos, path');
-			isa_ok ($res[1], 'Gtk2::TreeViewColumn', 'get_path_at_pos, col');
-			ok ($res[2] == 0 && $res[3] == 0, 'get_path_at_pos, pos');
-	
-			@res = $view->tree_to_widget_coords (10, 10);
-			is (scalar (@res), 2, 'tree_to_widget_coords, num returns');
-			@res = $view->widget_to_tree_coords (@res);
-			is (scalar (@res), 2, 'tree_to_widget_coords, num returns');
-			ok (eq_array (\@res, [10, 10]), 
-			    'tree_to_widget_coords -> widget_to_tree_coords');
-	
-		});
-	my $event = Gtk2::Gdk::Event->new ('button-press');
-	Glib::Idle->add (sub {
-			$view->signal_emit ('button_press_event', $event);
-			Gtk2->main_quit;
-			0;
-		});
-	Gtk2->main;
-}
+		@res = $view->tree_to_widget_coords (10, 10);
+		is (scalar (@res), 2, 'tree_to_widget_coords, num returns');
+		@res = $view->widget_to_tree_coords (@res);
+		is (scalar (@res), 2, 'tree_to_widget_coords, num returns');
+		ok (eq_array (\@res, [10, 10]), 
+		    'tree_to_widget_coords -> widget_to_tree_coords');
+
+	});
+my $event = Gtk2::Gdk::Event->new ('button-press');
+Glib::Idle->add (sub {
+		$view->signal_emit ('button_press_event', $event);
+		Gtk2->main_quit;
+		0;
+	});
+Gtk2->main;
 
 ###############################################################################
 

@@ -385,14 +385,14 @@ void gtk_clipboard_request_targets (GtkClipboard *clipboard, SV * callback, SV *
 			 real_callback);
 
  ## gboolean gtk_clipboard_wait_for_targets (GtkClipboard  *clipboard, GdkAtom **targets, gint *n_targets);
-gboolean gtk_clipboard_wait_for_targets (GtkClipboard  *clipboard, ...)
+void gtk_clipboard_wait_for_targets (GtkClipboard  *clipboard, ...)
     PREINIT:
 	GdkAtom *targets = NULL;
 	gint n_targets, i;
     PPCODE:
 	if (!gtk_clipboard_wait_for_targets (clipboard, &targets, &n_targets))
 		XSRETURN_EMPTY;
-	if (n_targets) {
+	if (targets) {
 		EXTEND (SP, n_targets);
 		for (i = 0 ; i < n_targets ; i++)
 			PUSHs (sv_2mortal (newSVGdkAtom (targets[i])));

@@ -1,3 +1,56 @@
+2004/01/17 16:26 (+0100) kaffeetisch
+
+	* t/GdkEvent.t: Only declare $event once to avoid warnings.
+
+	* t/GtkButton.t: Put a TODO block around get_alignment - it has
+	precision issues.
+
+	* t/GtkCalendar.t: Test [sg]et_display_options.
+
+	* t/GtkClipboard.t: Test request_targets.
+
+	* xs/GtkDnd.t
+	* t/GtkDnd.t: Implement and test both syntaxes:
+	Gtk2::Drag->begin($button, ...) and $button->drag_begin(...).
+
+	* xs/GtkIconFactory.xs:
+	* t/GtkIconFactory.t: Implement and test [sg]et_icon_name.
+
+	* t/GtkAccelGroup.t
+	* t/GtkAlignment.t
+	* t/GtkButton.t
+	* t/GtkButtonBox.t
+	* t/GtkCheckMenuItem.t
+	* t/GtkMenuShell.t: Test for 2.3.0 instead of 2.4.0 until we have
+	a stable release of gtk+.
+
+	* t/01.GtkWindow.t
+	* t/GtkPaned.t: Don't declare TRUE and FALSE, Gtk2::TestHelper
+	does that now.
+
+	* t/02.GtkContainer.t
+	* t/GtkDnd.t
+	* t/GtkTextTag.t
+	* t/GtkTreeView.t: Remove the Gtk2::Gdk::Event::new skips.
+
+	* t/GtkTreeView.t: Use true values to test functions that
+	return/take a boolean.  Only test stuff inside the cell_data_func
+	once.
+
+	* xs/GtkClipboard.xs: Use void for the return value of
+	wait_for_targets - it uses PPCODE.  Check targets for NULL instead
+	of n_targets.
+
+	* xs/GtkCalendar.xs
+	* xs/GtkComboBox.xs: Mark ix as unused.
+
+	* xs/GtkFileChooser.xs: Initialize ret to hush a compiler warning.
+
+	* MANIFEST
+	A t/GdkProperty.t
+	* xs/GdkProperty.xs: Fix and test property_get and
+	property_change.  Also test the other bound methods.
+
 2004/01/17 04:10 (-0500) muppetman
 
 	A t/GtkComboBox.t

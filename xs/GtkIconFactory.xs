@@ -321,3 +321,18 @@ gtk_icon_source_get_state (source)
 GtkIconSize
 gtk_icon_source_get_size (source)
 	GtkIconSource *source
+
+#if GTK_CHECK_VERSION(2,3,0) /* FIXME 2.4 */
+
+##  void gtk_icon_source_set_icon_name (GtkIconSource *source, const gchar *icon_name) 
+void
+gtk_icon_source_set_icon_name (source, icon_name)
+	GtkIconSource *source
+	const gchar *icon_name
+
+##  const gchar *gtk_icon_source_get_icon_name (const GtkIconSource *source) 
+const gchar *
+gtk_icon_source_get_icon_name (source)
+	GtkIconSource *source
+
+#endif

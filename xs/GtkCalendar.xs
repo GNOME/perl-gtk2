@@ -122,6 +122,8 @@ gtk_calendar_set_display_options (calendar, flags)
 #else
 	gtk_calendar_display_options (calendar, flags);
 #endif
+    CLEANUP:
+	PERL_UNUSED_VAR (ix);
 
 GtkCalendarDisplayOptions
 gtk_calendar_get_display_options (GtkCalendar * calendar)

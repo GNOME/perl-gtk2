@@ -54,8 +54,7 @@ gdk_atom_name (atom)
 
 MODULE = Gtk2::Gdk::Property	PACKAGE = Gtk2::Gdk::Window	PREFIX = gdk_
 
- ### the docs warn us not to use this one, but don't say it's deprecated.
-
+### the docs warn us not to use this one, but don't say it's deprecated.
 ##  gboolean gdk_property_get (GdkWindow *window, GdkAtom property, GdkAtom type, gulong offset, gulong length, gint pdelete, GdkAtom *actual_property_type, gint *actual_format, gint *actual_length, guchar **data) 
 =for apidoc
 =for signature (property_type, format, length) = $window->property_get ($property, $type, $offset, $length, $pdelete)
@@ -73,28 +72,93 @@ gdk_property_get (window, property, type, offset, length, pdelete)
 	gint actual_format;
 	gint actual_length;
 	guchar *data;
+	int i;
     PPCODE:
-	if (gdk_property_get (window, property, type, offset, length, pdelete,
-	                      &actual_property_type, &actual_format,
-	                      &actual_length, &data))
+	if (! gdk_property_get (window, property, type, offset, length, pdelete,
+	                        &actual_property_type, &actual_format,
+	                        &actual_length, &data))
 		XSRETURN_EMPTY;
-	EXTEND (SP, 3);
+
+	EXTEND (SP, 2);
 	PUSHs (sv_2mortal (newSVGdkAtom (actual_property_type)));
 	PUSHs (sv_2mortal (newSViv (actual_format)));
-	PUSHs (sv_2mortal (newSVpv (data, actual_length)));
-	g_free (data);
 
- ## nelements is the number of elements in the data, not the number of bytes.
+	if (data) {
+		switch (actual_format) {
+			case 8: {
+				gchar *char_data = (gchar *) data;
+				XPUSHs (sv_2mortal (newSVpv (char_data, actual_length)));
+				break;
+			}
+			case 16: {
+				gushort *short_data = (gushort *) data;
+				for (i = 0; i < (actual_length / sizeof (gushort)); i++)
+					XPUSHs (sv_2mortal (newSVuv (short_data[i])));
+				break;
+			}
+			case 32: {
+				gulong *long_data = (gulong *) data;
+				for (i = 0; i < (actual_length / sizeof (gulong)); i++)
+					XPUSHs (sv_2mortal (newSVuv (long_data[i])));
+				break;
+			}
+			default:
+				warn ("Unhandled format value %d in gdk_property_get, should not happen", actual_format);
+		}
+
+		g_free (data);
+	}
+
+### nelements is the number of elements in the data, not the number of bytes.
 ##  void gdk_property_change (GdkWindow *window, GdkAtom property, GdkAtom type, gint format, GdkPropMode mode, const guchar *data, gint nelements) 
 void
-gdk_property_change (window, property, type, format, mode, data, nelements)
+gdk_property_change (window, property, type, format, mode, ...)
 	GdkWindow *window
 	GdkAtom property
 	GdkAtom type
 	gint format
 	GdkPropMode mode
-	const guchar *data
-	gint nelements
+    PREINIT:
+	guchar *data = NULL;
+	int i;
+	int first_index = 5;
+	gint nelements;
+    CODE:
+	switch (format) {
+		case 8: {
+			gchar *char_data = SvPV_nolen (ST (first_index));
+
+			data = (guchar *) char_data;
+			nelements = strlen (char_data);
+			break;
+		}
+		case 16: {
+			/* FIXME: valgrind says that this leaks 56 bytes in 2
+			   blocks.  why? */
+			gushort *short_data = g_new0 (gushort, items - first_index);
+
+			for (i = first_index; i < items; i++)
+				short_data[i - first_index] = (gushort) SvUV (ST (i));
+
+			data = (guchar *) short_data;
+			nelements = items - first_index;
+			break;
+		}
+		case 32: {
+			gulong *long_data = g_new0 (gulong, items - first_index);
+
+			for (i = first_index; i < items; i++)
+				long_data[i - first_index] = (gulong) SvUV (ST (i));
+
+			data = (guchar *) long_data;
+			nelements = items - first_index;
+			break;
+		}
+		default:
+			croak ("Illegal format value %d used; should be either 8, 16 or 32", format);
+	}
+
+	gdk_property_change (window, property, type, format, mode, data, nelements);
 
 ##  void gdk_property_delete (GdkWindow *window, GdkAtom property) 
 void

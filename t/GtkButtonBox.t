@@ -14,10 +14,10 @@ $box -> pack_start_defaults($button);
 $box -> set_child_secondary($button, 1);
 
 SKIP: {
-  skip("get_child_secondary is new in 2.4", 1)
-    if (Gtk2 -> check_version(2, 4, 0));
+  skip("get_child_secondary is new in 2.3", 1)
+    if (Gtk2 -> check_version(2, 3, 0));
 
-  is($box -> get_child_secondary(), 1);
+  is($box -> get_child_secondary($button), 1);
 }
 
 __END__

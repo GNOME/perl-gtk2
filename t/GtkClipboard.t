@@ -1,7 +1,7 @@
 #!/usr/bin/perl -w
 
 #use Data::Dumper;
-use Gtk2::TestHelper tests => 58,
+use Gtk2::TestHelper tests => 62,
 	at_least_version => [2, 2, 0, "GtkClipboard didn't exist in 2.0.x"];
 
 my $clipboard;
@@ -56,6 +56,22 @@ $clipboard->request_contents (Gtk2::Gdk->SELECTION_TYPE_STRING, sub {
 	is ($_[2], 'user data!');
 	is ($_[1]->get_text, $expect);
 }, 'user data!');
+
+
+SKIP: {
+	skip 'request_targets and wait_for_targets are new in 2.3', 4
+		if Gtk2->check_version (2, 3, 0);
+
+	$clipboard->request_targets (sub {
+		is ($_[0], $clipboard);
+		isa_ok ($_[1], "ARRAY");
+		isa_ok ($_[1][0], "Gtk2::Gdk::Atom");
+		is ($_[2], "bla");
+	}, "bla");
+
+	# FIXME: always empty?
+	# warn $clipboard->wait_for_targets;
+}
 
 Glib::Timeout->add (200, sub {Gtk2->main_quit;1});
 Gtk2->main;

@@ -11,21 +11,16 @@ $table -> add($tag);
 $tag -> set_priority(0);
 is($tag -> get_priority(), 0);
 
-SKIP: {
-  skip("Gtk2::Gdk::Event::new is new in 2.2", 0)
-    if (Gtk2 -> check_version(2, 2, 0));
+my $model = Gtk2::TextBuffer -> new();
+$model -> insert($model -> get_start_iter(),
+                 join("", "Lore ipsem dolor.  I think that is misspelled.\n" x 80));
 
-  my $model = Gtk2::TextBuffer -> new();
-  $model -> insert($model -> get_start_iter(),
-                   join("", "Lore ipsem dolor.  I think that is misspelled.\n" x 80));
+my $button = Gtk2::Button -> new("Bla");
+my $event = Gtk2::Gdk::Event -> new("button-press");
+my $iter = $model -> get_iter_at_offset(10);
 
-  my $button = Gtk2::Button -> new("Bla");
-  my $event = Gtk2::Gdk::Event -> new("button-press");
-  my $iter = $model -> get_iter_at_offset(10);
-
-  # FIXME: check retval?
-  $tag -> event($button, $event, $iter);
-}
+# FIXME: check retval?
+$tag -> event($button, $event, $iter);
 
 __END__
 

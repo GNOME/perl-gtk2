@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 21;
+use Gtk2::TestHelper tests => 22;
 
 my $pixbuf = Gtk2::Gdk::Pixbuf -> new("rgb", 0, 8, 10, 10);
 my $style = Gtk2::Style -> new();
@@ -26,6 +26,17 @@ is(Gtk2::IconSize -> from_name("everything"), "answer");
 my $source = Gtk2::IconSource -> new();
 isa_ok($source, "Gtk2::IconSource");
 
+SKIP: {
+  skip("[sg]et_icon_name are new in 2.3", 1)
+    if (Gtk2 -> check_version(2, 3, 0));
+
+  $source -> set_icon_name("gtk-save");
+  is($source -> get_icon_name(), "gtk-save");
+}
+
+$source = Gtk2::IconSource -> new();
+isa_ok($source, "Gtk2::IconSource");
+
 $source -> set_direction("ltr");
 is($source -> get_direction(), "ltr");
 
@@ -37,14 +48,6 @@ is($source -> get_filename(), "/tmp/bla");
 
 $source -> set_pixbuf($pixbuf);
 is($source -> get_pixbuf(), $pixbuf);
-
-SKIP: {
-  skip("[sg]et_icon_name are new in 2.4", 1)
-    if (Gtk2 -> check_version(2, 4, 0));
-
-  $source -> set_icon_name("gtk-save");
-  is($source -> get_icon_name(), "gtk-save");
-}
 
 $source -> set_size("button");
 is($source -> get_size(), "button");

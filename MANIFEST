@@ -89,6 +89,7 @@ t/02.GtkContainer.t
 t/GdkColor.t
 t/GdkDnd.t
 t/GdkEvent.t
+t/GdkProperty.t
 t/GdkRegion.t
 t/GdkWindow.t
 t/GtkAccelGroup.t
@@ -169,7 +170,6 @@ t/GtkSocket-GtkPlug.t
 t/GtkSpinButton.t
 t/GtkStatusBar.t
 t/GtkStock.t
-#t/GtkStyle.t
 t/GtkTable.t
 t/GtkTearoffMenuItem.t
 t/GtkTextBuffer.t

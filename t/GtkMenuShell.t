@@ -30,8 +30,8 @@ SKIP: {
 }
 
 SKIP: {
-  skip("cancel is new in 2.4", 0)
-    if (Gtk2 -> check_version(2, 4, 0));
+  skip("cancel is new in 2.3", 0)
+    if (Gtk2 -> check_version(2, 3, 0));
 
   $shell -> cancel();
 }

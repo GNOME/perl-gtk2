@@ -36,23 +36,6 @@ GtkWidget *
 gtk_drag_get_source_widget (context)
 	GdkDragContext *context
 
-
-MODULE = Gtk2::Dnd	PACKAGE = Gtk2::Drag	PREFIX = gtk_drag_
-
- ### FIXME do we own this object?:
-##  GdkDragContext *gtk_drag_begin (GtkWidget *widget, GtkTargetList *targets, GdkDragAction actions, gint button, GdkEvent *event) 
-GdkDragContext *
-gtk_drag_begin (class, widget, targets, actions, button, event)
-	GtkWidget *widget
-	GtkTargetList *targets
-	GdkDragAction actions
-	gint button
-	GdkEvent *event
-    C_ARGS:
-	widget, targets, actions, button, event
-
-MODULE = Gtk2::Dnd	PACKAGE = Gtk2::Gdk::DragContext	PREFIX = gtk_drag_
-
 ##  void gtk_drag_set_icon_widget (GdkDragContext *context, GtkWidget *widget, gint hot_x, gint hot_y) 
 void
 gtk_drag_set_icon_widget (context, widget, hot_x, hot_y)
@@ -92,8 +75,29 @@ void
 gtk_drag_set_icon_default (context)
 	GdkDragContext *context
 
+MODULE = Gtk2::Dnd	PACKAGE = Gtk2::Drag	PREFIX = gtk_drag_
+
+##  GdkDragContext *gtk_drag_begin (GtkWidget *widget, GtkTargetList *targets, GdkDragAction actions, gint button, GdkEvent *event) 
+GdkDragContext_noinc *
+gtk_drag_begin (class, widget, targets, actions, button, event)
+	GtkWidget *widget
+	GtkTargetList *targets
+	GdkDragAction actions
+	gint button
+	GdkEvent *event
+    C_ARGS:
+	widget, targets, actions, button, event
 
 MODULE = Gtk2::Dnd	PACKAGE = Gtk2::Widget	PREFIX = gtk_
+
+##  GdkDragContext *gtk_drag_begin (GtkWidget *widget, GtkTargetList *targets, GdkDragAction actions, gint button, GdkEvent *event) 
+GdkDragContext_noinc *
+gtk_drag_begin (widget, targets, actions, button, event)
+	GtkWidget *widget
+	GtkTargetList *targets
+	GdkDragAction actions
+	gint button
+	GdkEvent *event
 
 ##  void gtk_drag_get_data (GtkWidget *widget, GdkDragContext *context, GdkAtom target, guint32 time_) 
 void

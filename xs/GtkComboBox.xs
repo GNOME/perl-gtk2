@@ -12,6 +12,8 @@ GtkWidget *gtk_combo_box_new (class, GtkTreeModel *model=NULL)
 		RETVAL = gtk_combo_box_new ();
     OUTPUT:
 	RETVAL
+    CLEANUP:
+	PERL_UNUSED_VAR (ix);
 
 ##/* grids */
 void gtk_combo_box_set_wrap_width (GtkComboBox *combo_box, gint width);

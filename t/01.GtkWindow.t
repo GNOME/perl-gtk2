@@ -11,9 +11,6 @@
 
 use Gtk2::TestHelper tests => 101;
 
-use constant TRUE => 1;
-use constant FALSE => 0;
-
 ok( my $win = Gtk2::Window->new );
 ok( $win = Gtk2::Window->new('popup') );
 ok( $win = Gtk2::Window->new('toplevel') );

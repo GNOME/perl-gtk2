@@ -41,7 +41,7 @@ is($group -> disconnect_key($key, $mask), 1);
 SKIP: {
   # TODO: when this is fixed, test for version
   skip 'disconnect_key from empty group, bug in gtk+', 1
-    if Gtk2->check_version(2, 4, 0);
+    if Gtk2->check_version(2, 3, 0);
 
   ok (not ($group->disconnect_key (42, qw/shift-mask/)),
       'second disconnect_key shift-mask should fail');

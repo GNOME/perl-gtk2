@@ -32,15 +32,10 @@ ok(1);
 $window->set_border_width(10);
 is($window->get_border_width, 10);
 
-SKIP: {
-	skip 'Gtk2::Gdk::Event->new is new in 2.2.0', 1
-		if Gtk2->check_version(2, 2, 0);
+my $expose_event = Gtk2::Gdk::Event->new("expose");
+$window->propagate_expose($vbox, $expose_event);
 
-	my $expose_event = Gtk2::Gdk::Event->new("expose");
-	$window->propagate_expose($vbox, $expose_event);
-
-	ok(1);
-}
+ok(1);
 
 # child_type returns undef when no more children may be added
 #ok (!defined ($window->child_type),

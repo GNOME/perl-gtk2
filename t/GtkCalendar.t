@@ -7,7 +7,7 @@
 # 	- rm
 #########################
 
-use Gtk2::TestHelper tests => 10, noinit => 1;
+use Gtk2::TestHelper tests => 11, noinit => 1;
 
 ok( my $cal = Gtk2::Calendar->new );
 
@@ -40,7 +40,9 @@ is ($cal->month, 11);
 is ($cal->selected_day, 4);
 ok (eq_array ([ $cal->get_date ], [ 2003, 11, 4 ]));
 
-$cal->display_options (qw/show-day-names/);
+$cal->display_options ([qw/show-day-names no-month-change/]);
+$cal->set_display_options ([qw/show-day-names no-month-change/]);
+ok ($cal->get_display_options == [qw/show-day-names no-month-change/]);
 
 1;
 

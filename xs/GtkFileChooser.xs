@@ -138,7 +138,7 @@ gtk_file_chooser_add_shortcut_folder (GtkFileChooser *chooser, const char *folde
 	remove_shortcut_folder_uri = 3
     PREINIT:
 	GError * error = NULL;
-	gboolean ret;
+	gboolean ret = FALSE;
     CODE:
 	switch (ix) {
 	    case 0: ret = gtk_file_chooser_add_shortcut_folder (chooser, folder, &error); break;
