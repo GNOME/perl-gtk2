@@ -19,6 +19,7 @@ examples/buttonbox.pl
 examples/calendar.pl
 examples/cellrenderer_date.pl
 examples/cellrenderer_popup.pl
+examples/cellrenderer_progress.pl
 examples/cellrenderer_spinbutton.pl
 examples/color_list.pl
 examples/colorselectiontest.pl
