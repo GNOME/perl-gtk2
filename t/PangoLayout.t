@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 52;
+use Gtk2::TestHelper tests => 53;
 
 # $Header$
 
@@ -54,6 +54,10 @@ is($layout -> get_spacing(), 5);
 
 $layout -> set_justify(1);
 is($layout -> get_justify(), 1);
+
+my $attributes = $layout -> get_attributes();
+isa_ok($attributes, "Gtk2::Pango::AttrList");
+$layout -> set_attributes($attributes);
 
 SKIP: {
   skip("[sg]et_auto_dir are new in 1.3.5", 1)
