@@ -532,30 +532,40 @@ gtk_widget_get_events (widget)
     OUTPUT:
 	RETVAL
 
- #void	     gtk_widget_get_pointer	(GtkWidget	*widget,
- #					 gint		*x,
- #					 gint		*y);
- #
- #gboolean     gtk_widget_is_ancestor	(GtkWidget	*widget,
- #					 GtkWidget	*ancestor);
- #
- #gboolean     gtk_widget_translate_coordinates (GtkWidget  *src_widget,
- #					       GtkWidget  *dest_widget,
- #					       gint        src_x,
- #					       gint        src_y,
- #					       gint       *dest_x,
- #					       gint       *dest_y);
- #
- #/* Hide widget and return TRUE.
- # */
+ #void gtk_widget_get_pointer (GtkWidget *widget, gint *x, gint *y);
+void
+gtk_widget_get_pointer (GtkWidget *widget, OUTLIST gint x, OUTLIST gint y);
+
+gboolean gtk_widget_is_ancestor (GtkWidget *widget, GtkWidget *ancestor); 
+
+ #gboolean gtk_widget_translate_coordinates (GtkWidget *src_widget, GtkWidget *dest_widget, gint src_x, gint src_y, gint *dest_x, gint *dest_y);
+void
+gtk_widget_translate_coordinates (GtkWidget *src_widget, GtkWidget *dest_widget, gint src_x, gint src_y)
+    PREINIT:
+	gint dest_x, dest_y;
+    PPCODE:
+	if (!gtk_widget_translate_coordinates (src_widget, dest_widget,
+	                                     src_x, src_y, &dest_x, &dest_y))
+		XSRETURN_EMPTY;
+	EXTEND (SP, 2);
+	PUSHs (sv_2mortal (newSViv (dest_x)));
+	PUSHs (sv_2mortal (newSViv (dest_y)));
+
+
+ # Hide widget and return TRUE.
+ # intended for passing directly to g_signal_connect for handling
+ # the delete event.  pointless in perl.
  #gboolean     gtk_widget_hide_on_delete	(GtkWidget	*widget);
- #
+
+
  #/* Widget styles.
  # */
- #void	   gtk_widget_set_style		(GtkWidget	*widget,
- #					 GtkStyle	*style);
- #void	   gtk_widget_ensure_style	(GtkWidget	*widget);
- #
+
+void gtk_widget_set_style (GtkWidget *widget, GtkStyle_ornull *style);
+
+void gtk_widget_ensure_style (GtkWidget *widget);
+
+# FIXME need GtkRcStyle stuff for this
  ###void gtk_widget_modify_style (GtkWidget *widget, GtkRcStyle *style);
  #void
  #gtk_widget_modify_style (widget, style)
@@ -602,7 +612,7 @@ gtk_widget_render_icon (widget, stock_id, size, detail=NULL)
 	GtkIconSize   size
 	const gchar * detail
 
-
+# bunch of FIXMEs FIXME FIXME FIXME
  #/* handle composite names for GTK_COMPOSITE_CHILD widgets,
  # * the returned name is newly allocated.
  # */
