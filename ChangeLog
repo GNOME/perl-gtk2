@@ -1,3 +1,7 @@
+2004/03/04 02:42 (+0100) kaffeetisch
+
+	* t/GtkCellEditable.t: Test-drive the custom cell editable stuff.
+
 2004/03/03 15:58 (-0500) muppetman
 
 	A examples/color_snooper.pl
