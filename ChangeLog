@@ -1,3 +1,7 @@
+2004/03/20 23:54 (-0500) muppetman
+
+	* MANIFEST: add examples/dialog.pl
+
 2004/03/20 23:37 (-0500) muppetman
 
 	* xs/Gtk2.xs: fix broken see_also entry
