@@ -37,7 +37,7 @@ foreach (@prog)
 	is( $_->get_text, "Bla" );
 
 	$_->set_text(undef);
-	is( $_->get_text, undef );
+	ok( ! $_->get_text );
 
 	$_->set_pulse_step(0.42);
 	is( $_->get_pulse_step, 0.42 );
