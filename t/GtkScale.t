@@ -20,7 +20,7 @@ is($scale -> get_value_pos(), "right");
 
 SKIP: {
   skip("get_layout and get_layout_offsets are new in 2.3", 2)
-    if (Gtk2 -> check_version(2, 3, 3));
+    unless Gtk2->CHECK_VERSION (2, 3, 3); # FIXME 2.4
 
   isa_ok($scale -> get_layout(), "Gtk2::Pango::Layout");
   is(@{[$scale -> get_layout_offsets()]}, 2);

@@ -50,7 +50,7 @@ SKIP:
 	isa_ok( Gtk2->get_default_language, "Gtk2::Pango::Language" );
 
 	TODO: {
-	local $TODO = ((Gtk2->get_version_info)[1] > 2)
+	local $TODO = Gtk2->CHECK_VERSION (2, 3, 0) # FIXME 2.4
 	            ? "events_pending != 0 on 2.3.x ???"
 	            : undef;
 	is( Gtk2->events_pending, 0, 'no events pending on initialization' );

@@ -26,14 +26,14 @@ $shell -> activate_item($item_one, 1);
 
 SKIP: {
   skip("cancel is new in 2.2", 0)
-    if (Gtk2 -> check_version(2, 2, 0));
+    unless Gtk2->CHECK_VERSION (2, 2, 0);
 
   $shell -> select_first(0);
 }
 
 SKIP: {
   skip("cancel is new in 2.3", 0)
-    if (Gtk2 -> check_version(2, 3, 0));
+    unless Gtk2->CHECK_VERSION (2, 3, 0); # FIXME 2.4
 
   $shell -> cancel();
 }

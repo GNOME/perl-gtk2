@@ -45,7 +45,7 @@ isa_ok($mask, "Gtk2::Gdk::ModifierType");
 
 SKIP: {
   skip("stuff new in 2.3", 6)
-    if (Gtk2 -> check_version(2, 3, 0));
+    unless Gtk2 -> CHECK_VERSION(2, 3, 0); # FIXME 2.4
 
   $display -> flush();
   $display -> set_double_click_distance(5);

@@ -26,7 +26,7 @@ $sort -> clear_cache();
 
 SKIP: {
   skip("iter_is_valid is new in 2.2", 1)
-    if (Gtk2 -> check_version(2, 2, 0));
+    unless Gtk2->CHECK_VERSION (2, 2, 0);
 
   is($sort -> iter_is_valid($sort -> get_iter($path)), 1);
 }

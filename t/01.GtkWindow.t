@@ -145,7 +145,7 @@ foreach (qw/normal dialog menu toolbar/)
 
 SKIP: {
 	skip 'stuff missing in 2.0.x', 6
-		unless (Gtk2->get_version_info)[1] >= 2;
+		unless Gtk2->CHECK_VERSION (2, 2, 0);
 
 	foreach (qw/splashscreen utility dock desktop/)
 	{
@@ -230,7 +230,7 @@ Glib::Idle->add(sub {
 			my $reason;
 			if ($^O eq 'MSWin32') {
 				$reason = 'GdkScreen not available on win32';
-			} elsif ((Gtk2->get_version_info)[1] < 2) {
+			} elsif (!Gtk2->CHECK_VERSION (2, 2, 0)) {
 				$reason = 'stuff not available before 2.2.x';
 			} else {
 				$reason = undef;
@@ -247,10 +247,10 @@ Glib::Idle->add(sub {
 
 		SKIP: {
 			skip "new things in 2.3", 3
-				if Gtk2->check_version (2, 3, 0);
+				unless Gtk2->CHECK_VERSION (2, 3, 0); # FIXME 2.4
 
 			TODO: {
-			local $TODO = ((Gtk2->get_version_info)[1] > 2)
+			local $TODO = (Gtk2->CHECK_VERSION (2, 3, 0)) # FIXME 2.4
 				? "is_active remote/non-gnome-desktop ???"
 				: undef;
 			is($win->is_active, 1);
@@ -304,7 +304,7 @@ ok( $win2->parse_geometry("100x100+10+10") );
 
 SKIP: {
 	skip 'set_auto_startup_notification is new in 2.2', 0
-		if Gtk2->check_version(2, 2, 0);
+		unless Gtk2->CHECK_VERSION(2, 2, 0);
 
 	$win2->set_auto_startup_notification(FALSE);
 }

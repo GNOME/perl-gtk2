@@ -9,7 +9,7 @@ isa_ok($map, "Gtk2::Gdk::Keymap");
 
 SKIP: {
   skip("GdkDisplay is new in 2.2", 1)
-    if (Gtk2 -> check_version(2, 2, 0));
+    unless Gtk2->CHECK_VERSION (2, 2, 0);
 
   $map = Gtk2::Gdk::Keymap -> get_for_display (Gtk2::Gdk::Display -> get_default());
   isa_ok($map, "Gtk2::Gdk::Keymap");

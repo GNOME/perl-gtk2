@@ -4,8 +4,6 @@ use Gtk2::TestHelper tests => 5,
 	skip_all => 'how do we simulate a drag';
 use Data::Dumper;
 
-my @version_info = Gtk2 -> get_version_info();
-
 my $win = Gtk2::Window->new;
 
 my $model = Gtk2::TreeStore->new (qw/Glib::String/);

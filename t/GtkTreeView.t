@@ -4,8 +4,6 @@ use Gtk2::TestHelper tests => 117;
 
 # $Header$
 
-my @version_info = Gtk2 -> get_version_info();
-
 ###############################################################################
 
 my $window = Gtk2::Window -> new("toplevel");
@@ -98,14 +96,14 @@ is($view_column -> get_sort_order(), "descending");
 
 SKIP: {
 	skip("cell_is_visible is new in 2.2.x", 1)
-		unless ($version_info[1] >= 2);
+		unless Gtk2->CHECK_VERSION (2, 2, 0);
 
 	ok(!$view_column -> cell_is_visible());
 }
 
 SKIP: {
 	skip("[sg]et_expand are new in 2.3", 1)
-		if (Gtk2 -> check_version(2, 3, 0));
+		unless Gtk2->CHECK_VERSION (2, 3, 0); # FIXME 2.4
 
 	$view_column -> set_expand(1);
 	is($view_column -> get_expand(), 1);
@@ -191,7 +189,7 @@ $view -> set_expander_column($view_column_one);
 
 SKIP: {
 	skip("get_expander_column is new in 2.2.x", 1)
-		unless ($version_info[1] >= 2);
+		unless Gtk2->CHECK_VERSION (2, 2, 0);
 
 	is($view -> get_expander_column(), $view_column_one);
 }
@@ -262,7 +260,7 @@ is($view -> row_expanded($path), 1);
 
 SKIP: {
 	skip("expand_to_path is new in 2.2.x", 1)
-		unless ($version_info[1] >= 2);
+		unless Gtk2->CHECK_VERSION (2, 2, 0);
 
 	$view -> expand_to_path($path);
 	is($view -> row_expanded($path), 1);
@@ -309,7 +307,7 @@ $view_column -> set_cell_data_func($cell_renderer, sub {
 
 	SKIP: {
 		skip("focus_cell is new in 2.2.x", 2)
-			unless ($version_info[1] >= 2);
+			unless Gtk2->CHECK_VERSION (2, 2, 0);
 
 		$view_column -> focus_cell($cell);
 
@@ -327,7 +325,7 @@ $view -> append_column($view_column);
 
 SKIP: {
 	skip("set_cursor_on_cell is new in 2.2.x", 2)
-		unless ($version_info[1] >= 2);
+		unless Gtk2->CHECK_VERSION (2, 2, 0);
 
 	$view -> set_cursor_on_cell(Gtk2::TreePath -> new("1:1"),
 				    $view_column,
@@ -342,7 +340,7 @@ SKIP: {
 $view->scroll_to_point (0, 0);
 
 $view->set_cursor_on_cell (Gtk2::TreePath->new ("1:1"), undef, undef, 0)
-	unless ($version_info[1] < 2);
+	if Gtk2->CHECK_VERSION (2, 2, 0);
 
 $view->signal_connect (button_press_event => sub {
 		my ($v, $e) = @_;

@@ -95,7 +95,7 @@ is($selection -> count_selected_rows(), 2);
 
 SKIP: {
 	skip("unselect_range is new in 2.2.x", 1)
-		unless ((Gtk2 -> get_version_info())[1] >= 2);
+		unless Gtk2->CHECK_VERSION (2, 2, 0);
 
 	$selection -> unselect_range($path_start, $path_end);
 	is($selection -> count_selected_rows(), 0);

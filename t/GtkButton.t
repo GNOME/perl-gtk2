@@ -55,7 +55,7 @@ ok( $button_stock->get_use_underline );
 
 SKIP: {
 	skip("[sg]et_focus_on_click and [sg]et_alignment are new in 2.3", 4)
-		if (Gtk2->check_version(2, 3, 0));
+		unless Gtk2->CHECK_VERSION (2, 3, 0); # FIXME 2.4
 
 	$button_stock->set_focus_on_click(0);
 	ok(1);

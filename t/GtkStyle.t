@@ -89,7 +89,7 @@ $style -> paint_expander($window -> window(), "normal", $rectangle, $view, "deta
 # of code that you reach by passing other values.  so, eh, never pass anything
 # but south-east to old gtk+.
 $style -> paint_resize_grip($window -> window(), "normal", $rectangle, $button, "detail", "north-west", 10, 10, 10, 10)
-	if !Gtk2->check_version (2, 2, 0);
+	if Gtk2->CHECK_VERSION (2, 2, 0);
 $style -> paint_resize_grip($window -> window(), "normal", $rectangle, $button, "detail", "south-east", 10, 10, 10, 10);
 
 $style -> detach();

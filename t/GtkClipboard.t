@@ -8,7 +8,7 @@ my $clipboard;
 
 SKIP: {
 	skip "GdkDisplay is new in 2.2", 1
-		if Gtk2->check_version (2, 2, 0);
+		unless Gtk2->CHECK_VERSION (2, 2, 0);
 
 	my $display = Gtk2::Gdk::Display->get_default;
 
@@ -58,7 +58,7 @@ $clipboard->request_contents (Gtk2::Gdk->SELECTION_TYPE_STRING, sub {
 
 SKIP: {
 	skip 'request_targets and wait_for_targets are new in 2.3', 4
-		if Gtk2->check_version (2, 3, 0);
+		unless Gtk2->CHECK_VERSION (2, 3, 0); # FIXME 2.4
 
 	$clipboard->request_targets (sub {
 		is ($_[0], $clipboard);
@@ -95,7 +95,7 @@ sub get_func {
 
 	SKIP: {
 		skip 'GdkDisplay is new in 2.2', 1
-			if Gtk2->check_version (2, 2, 0);
+			unless Gtk2->CHECK_VERSION (2, 2, 0);
 
 		isa_ok ($_[1]->display, 'Gtk2::Gdk::Display');
 	}

@@ -46,15 +46,15 @@ $vframe1->set_size_request (50,50);
 $vframe2->set_size_request (50,50);
 
 my $pad;
-if ((Gtk2->get_version_info)[1] < 2) {
+if (Gtk2->CHECK_VERSION (2, 2, 0)) {
+	$pad = $hpaned->style_get ('handle-size');
+} else {
 	# crap.  we didn't have a way to query style property information
 	# until 2.2, so we can't implement gtk_wigdet_style_get () here.
 	# we have to improvise.
 	$pad = $window->allocation->height
 	     - $vframe1->allocation->height
 	     - $vframe2->allocation->height;
-} else {
-	$pad = $hpaned->style_get ('handle-size');
 }
 print "handle-size $pad\n";
 
@@ -93,7 +93,7 @@ $window->signal_connect (size_allocate => sub {
 
 	if ($i++) {
 	TODO: {
-		local $TODO = ((Gtk2->get_version_info)[1] > 2)
+		local $TODO = Gtk2->CHECK_VERSION (2, 2, 0)
 			? "paned fails remote/non-gnome-desktop/2.2.3 ???"
 			: undef;
 		# don't validate the first wave -- the window probably

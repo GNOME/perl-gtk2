@@ -31,7 +31,7 @@ is(Gtk2::Selection -> owner_set($window,
 
 SKIP: {
   skip("GdkDisplay is new in 2.2", 1)
-    if (Gtk2 -> check_version(2, 2, 0));
+    unless Gtk2->CHECK_VERSION (2, 2, 0);
 
   is(Gtk2::Selection -> owner_set_for_display(Gtk2::Gdk::Display -> get_default(),
                                               $window,

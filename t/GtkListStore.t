@@ -32,7 +32,7 @@ my $iter_model;
 
 # remove returns boolean in >= 2.2.0, but false (actually, void) in 2.0.x.
 is($model -> remove($model -> get_iter($path_model)), 
-   (((Gtk2->get_version_info)[1] < 2) ? '' : 1));
+   (Gtk2->CHECK_VERSION (2, 2, 0) ? 1 : ''));
 is($model -> get($model -> get_iter($path_model), 0), "blee");
 
 $model -> clear();
@@ -57,7 +57,7 @@ is($model -> get($iter_model, 0), "blo");
 
 SKIP: {
 	skip("swap, move_before, move_after and reorder are new in 2.2.x", 10)
-		unless ((Gtk2 -> get_version_info())[1] >= 2);
+		unless Gtk2->CHECK_VERSION (2, 2, 0);
 
 
 	$model -> swap($model -> get_iter_from_string("1"),
@@ -129,7 +129,7 @@ ok ($iter = $store->insert (0), '$store->insert (0)');
 ok ($iter = $store->insert_before ($iter), '$store->insert_before');
 ok ($iter = $store->insert_after ($iter), '$store->insert_after');
 ok ($iter = $store->get_iter_first, '$store->get_iter_first, treemodel');
-if ((Gtk2->get_version_info)[1] < 2) {
+if (!Gtk2->CHECK_VERSION (2, 2, 0)) {
 	# remove had void return in 2.0.x, and the binding for this method
 	# always returns false.  remove this special case if that method is
 	# ever fixed.
@@ -138,7 +138,7 @@ if ((Gtk2->get_version_info)[1] < 2) {
 	ok ($store->remove ($iter), '$store->remove 1');
 }
 ok ($iter = $store->prepend, '$store->prepend');
-if ((Gtk2->get_version_info)[1] < 2) {
+if (!Gtk2->CHECK_VERSION (2, 2, 0)) {
 	# remove had void return in 2.0.x, and the binding for this method
 	# always returns false.  remove this special case if that method is
 	# ever fixed.
@@ -152,7 +152,7 @@ SKIP: {
     # there's no display.  xft does require an x server...  later versions
     # don't use xft and appear to be fine without a display.
     skip "can't create a treeview on 2.0.x without a display", 7
-    	if (Gtk2->get_version_info)[1] < 2 && not Gtk2->init_check;
+	unless Gtk2->CHECK_VERSION (2, 2, 0) or Gtk2->init_check;
 
     ok (my $tree = Gtk2::TreeView->new_with_model($store), 'new treeview');
 
@@ -188,7 +188,7 @@ SKIP: {
     Glib::Idle->add( sub {
 		SKIP: {
 			skip 'function only in version > 2.2', 5
-				unless ((Gtk2->get_version_info)[1] >= 2);
+				unless Gtk2->CHECK_VERSION (2, 2, 0);
 			$store->reorder(4, 3, 2, 0, 1);
 			$iter = $store->get_iter_first;
 			ok ($store->iter_is_valid ($iter), 

@@ -11,7 +11,7 @@ my $win = $window -> window();
 
 SKIP: {
   skip("GdkDisplay and GdkScreen are new in 2.2", 2)
-    if (Gtk2 -> check_version(2, 2, 0));
+    unless Gtk2->CHECK_VERSION (2, 2, 0);
 
   isa_ok($win -> get_display(), "Gtk2::Gdk::Display");
   isa_ok($win -> get_screen(), "Gtk2::Gdk::Screen");
@@ -79,14 +79,14 @@ SKIP: {
 
 SKIP: {
   skip("draw_pixbuf is new in 2.2", 0)
-    if (Gtk2 -> check_version(2, 2, 0));
+    unless Gtk2->CHECK_VERSION (2, 2, 0);
 
   $win -> draw_pixbuf($gc, Gtk2::Gdk::Pixbuf -> new("rgb", 0, 8, 10, 10), 0, 0, 0, 0, -1, -1, "none", 5, 5);
 }
 
 SKIP: {
   skip("copy_to_image is new in 2.3", 1)
-    if (Gtk2 -> check_version(2, 3, 0));
+    unless Gtk2->CHECK_VERSION (2, 3, 0); # FIXME 2.4
 
   my $image = $win -> copy_to_image($image, 0, 0, 0, 0, 50, 50);
 

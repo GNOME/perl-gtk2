@@ -40,7 +40,7 @@ isa_ok($gc, "Gtk2::Gdk::GC");
 
 SKIP: {
   skip "GdkScreen didn't appear until 2.2.0", 1
-    if Gtk2->check_version (2,2,0);
+    unless Gtk2->CHECK_VERSION (2,2,0);
   isa_ok($gc -> get_screen(), "Gtk2::Gdk::Screen");
 }
 

@@ -1,3 +1,20 @@
+2004/02/27 00:36 (-0500) muppetman
+
+	* ChangeLog, t/00.Gtk2.t, t/01.GtkWindow.t, t/Gdk.t, t/GdkColor.t,
+	t/GdkCursor.t, t/GdkDisplay.t, t/GdkDnd.t, t/GdkDrawable.t,
+	t/GdkEvent.t, t/GdkGC.t, t/GdkKeys.t, t/GdkSelection.t, t/GdkWindow.t,
+	t/GdkX11.t, t/GtkAccelGroup.t, t/GtkAlignment.t, t/GtkButton.t,
+	t/GtkButtonBox.t, t/GtkCellRenderer.t, t/GtkCheckMenuItem.t,
+	t/GtkClipboard.t, t/GtkComboBox.t, t/GtkEntry.t, t/GtkEventBox.t,
+	t/GtkIconFactory.t, t/GtkIconTheme.t, t/GtkInvisible.t,
+	t/GtkListStore.t, t/GtkMenu.t, t/GtkMenuShell.t, t/GtkMessageDialog.t,
+	t/GtkPaned.t, t/GtkRadioMenuItem.t, t/GtkScale.t, t/GtkSelection.t,
+	t/GtkStyle.t, t/GtkTextBuffer.t, t/GtkTextIter.t, t/GtkTextView.t,
+	t/GtkToolbar.t, t/GtkTreeModel.t, t/GtkTreeModelSort.t,
+	t/GtkTreeSelection.t, t/GtkTreeStore.t, t/GtkTreeView-Dnd.t,
+	t/GtkTreeView.t: use Gtk2->CHECK_VERSION instead of check_version
+	and get_version_info.
+
 2004/02/26 23:00 (-0500) muppetman
 
 	* README: update the sandbox instructions.

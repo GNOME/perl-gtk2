@@ -20,7 +20,7 @@ isa_ok($dialog, "Gtk2::MessageDialog");
 
 SKIP: {
   skip("new_with_markup and set_markup are new in 2.3", 1)
-    if (Gtk2 -> check_version(2, 3, 0));
+    unless Gtk2->CHECK_VERSION (2, 3, 0); # FIXME 2.4
 
   $dialog = Gtk2::MessageDialog -> new_with_markup(undef,
                                                    "destroy-with-parent",

@@ -43,7 +43,7 @@ foreach (qw(bla blee bliii bloooo)) {
 
 SKIP: {
 	skip("swap, move_before, move_after and reorder are new in 2.2.x", 12)
-		unless ((Gtk2 -> get_version_info())[1] >= 2);
+		unless Gtk2->CHECK_VERSION (2, 2, 0);
 
 	is($model->get($model->get_iter_from_string("1:1"), 0), "bleeblee");
 	is($model->get($model->get_iter_from_string("1:2"), 0), "bleebleeblee");
@@ -83,7 +83,7 @@ SKIP: {
 my $path_model = Gtk2::TreePath -> new_from_string("0");
 my $iter_model;
 
-if ((Gtk2->get_version_info)[1] < 2) {
+if (! Gtk2->CHECK_VERSION (2, 2, 0)) {
 	# this always returns false on 2.0.x.
 	ok(!$model -> remove($model -> get_iter($path_model)));
 	# we skipped some list manipulation above, so this is different.
@@ -113,7 +113,7 @@ is($model -> get($iter_model, 0), "blo");
 
 SKIP: {
   skip "iter_is_valid is new in 2.2.x", 1
-    unless (Gtk2 -> get_version_info())[1] >= 2;
+    unless Gtk2->CHECK_VERSION (2, 2, 0);
     
   is($model -> iter_is_valid($iter_model), 1);
 }

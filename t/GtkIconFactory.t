@@ -30,7 +30,7 @@ isa_ok($source, "Gtk2::IconSource");
 
 SKIP: {
   skip("[sg]et_icon_name are new in 2.3", 1)
-    if (Gtk2 -> check_version(2, 3, 0));
+    unless Gtk2->CHECK_VERSION (2, 3, 0); # FIXME 2.4
 
   $source -> set_icon_name("gtk-save");
   is($source -> get_icon_name(), "gtk-save");

@@ -22,7 +22,7 @@ ok ($icon_theme->list_icons (undef));
 
 SKIP: {
 	skip "the search path api was broken prior to 2.3.3", 3
-		if Gtk2->check_version(2, 3, 3);
+		unless Gtk2->CHECK_VERSION (2, 3, 3); # FIXME 2.4
 	
 	my @paths = qw(/tmp /etc /home);
 	$icon_theme->set_search_path (@paths);

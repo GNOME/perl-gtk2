@@ -131,7 +131,7 @@ is_deeply([$renderer->get_fixed_size], [23, 42]);
 
 SKIP: {
 	skip "editing_canceled is new in 2.4", 0
-		if Gtk2->check_version(2, 3, 0); # FIXME 2.4
+		unless Gtk2->CHECK_VERSION (2, 3, 0); # FIXME 2.4
 
 	$renderer->editing_canceled;
 }

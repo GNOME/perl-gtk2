@@ -12,7 +12,7 @@ my $attributes = {
   width => 20,
   height => 20,
   wclass => "output",
-  (!Gtk2->check_version (2,2,0)
+  (Gtk2->CHECK_VERSION (2,2,0)
    ? (visual => Gtk2::Gdk::Screen -> get_default() -> get_system_visual())
    : ()),
   colormap => Gtk2::Gdk::Colormap -> get_system(),
@@ -54,7 +54,7 @@ $window -> unmaximize();
 
 SKIP: {
   skip("(un)fullscreen are new in 2.2.0", 0)
-    if (Gtk2 -> check_version(2, 2, 0));
+    unless Gtk2->CHECK_VERSION (2, 2, 0);
 
   $window -> fullscreen();
   $window -> unfullscreen();
@@ -212,7 +212,7 @@ $window -> set_type_hint("normal");
 
 SKIP: {
   skip("set_skip_taskbar_hint and set_skip_pager_hint are new in 2.2.0", 0)
-    if (Gtk2 -> check_version(2, 2, 0));
+    unless Gtk2->CHECK_VERSION (2, 2, 0);
 
   $window_three -> set_skip_taskbar_hint(0);
   $window_three -> set_skip_pager_hint(0);

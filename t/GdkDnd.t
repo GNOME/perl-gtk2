@@ -51,7 +51,7 @@ my ($destination, $protocol);
 
 SKIP: {
   skip("GdkScreen is new in 2.2", 2)
-    if (Gtk2 -> check_version(2, 2, 0));
+    unless Gtk2 -> CHECK_VERSION(2, 2, 0);
 
   ($destination, $protocol) =  $context -> find_window_for_screen($window -> window(), Gtk2::Gdk::Screen -> get_default(), 0, 0);
 
@@ -88,7 +88,7 @@ is_deeply([Gtk2::Gdk::DragContext -> get_protocol($destination -> get_xid())],
 
 SKIP: {
   skip("get_protocol_for_display is new in 2.2", 1)
-    if (Gtk2 -> check_version(2, 2, 0));
+    unless Gtk2->CHECK_VERSION (2, 2, 0);
 
   # FIXME: this should probably be skipped on win32.
   is_deeply([Gtk2::Gdk::DragContext -> get_protocol_for_display(Gtk2::Gdk::Display -> get_default(), $destination -> get_xid())],

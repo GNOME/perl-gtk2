@@ -45,7 +45,7 @@ foreach $num (qw/1 2 3/)
 
 	SKIP: {
 		skip "set_screen is new in 2.2", 0
-			if Gtk2->check_version (2, 2, 0);
+			unless Gtk2->CHECK_VERSION (2, 2, 0);
 
 		$menu->set_screen (Gtk2::Gdk::Screen->get_default);
 	}
@@ -97,7 +97,7 @@ my $position_callback = sub {
 
 	SKIP: {
 		skip("attach and set_monitor are new in 2.3", 0)
-			if (Gtk2->check_version(2, 3, 0));
+			unless Gtk2->CHECK_VERSION (2, 3, 0); # FIXME 2.4
 
 		$menu->attach(Gtk2::MenuItem->new("Bla"), 0, 1, 0, 1);
 		$menu->set_monitor(0);

@@ -22,7 +22,7 @@ Gtk2::Gdk::Threads -> leave();
 
 SKIP: {
   skip("get_display_arg_name and notify_startup_complete are new in 2.2", 0)
-    if (Gtk2 -> check_version(2, 2, 0));
+    unless Gtk2 -> CHECK_VERSION(2, 2, 0);
 
   Gtk2::Gdk -> get_display_arg_name(); # FIXME: check retval?
   Gtk2::Gdk -> notify_startup_complete();
@@ -70,7 +70,7 @@ Gtk2::Gdk::Event -> send_clientmessage_toall($event);
 
 SKIP: {
   skip("GdkDisplay is new in 2.2", 1)
-    if (Gtk2 -> check_version(2, 2, 0));
+    unless Gtk2 -> CHECK_VERSION(2, 2, 0);
 
   is(Gtk2::Gdk::Event -> send_client_message_for_display(Gtk2::Gdk::Display -> get_default(), $event, $window -> window() -> get_xid()), 1);
 }

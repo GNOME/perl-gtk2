@@ -35,7 +35,7 @@ is ($model->get_path ($combo_box->get_active_iter)->to_string,
 
 SKIP: {
 	skip "set_active_iter was borken prior to 2.3.3", 1
-		if Gtk2->check_version(2, 3, 3);
+		unless Gtk2->CHECK_VERSION (2, 3, 3); # FIXME 2.4 remove
 
 	my $iter = $model->get_iter_first;
 	$combo_box->set_active_iter ($iter);

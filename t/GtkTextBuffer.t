@@ -86,7 +86,7 @@ ok(!$buffer -> get_selection_bounds());
 
 SKIP: {
   skip("select_range is new in 2.3", 0)
-    if (Gtk2 -> check_version(2, 3, 0));
+    unless Gtk2->CHECK_VERSION (2, 3, 0); # FIXME 2.4
 
   $buffer -> select_range($buffer -> get_start_iter(), $buffer -> get_end_iter());
 }
@@ -108,7 +108,7 @@ $buffer -> remove_all_tags($buffer -> get_start_iter(), $buffer -> get_end_iter(
 
 SKIP: {
   skip "Clipboard did not exist until 2.2.0", 0
-    if (Gtk2->get_version_info)[1] < 2;
+    unless Gtk2->CHECK_VERSION (2, 2, 0);
 
   my $clipboard = Gtk2::Clipboard -> get(Gtk2::Gdk -> SELECTION_CLIPBOARD);
 

@@ -60,7 +60,7 @@ foreach (qw(bla blee bliii bloooo)) {
 
 SKIP: {
 	skip("there doesn't seem to be a GType for GtkTreeRowReference in 2.0.x", 4)
-		unless ((Gtk2 -> get_version_info())[1] >= 2);
+		unless Gtk2->CHECK_VERSION (2, 2, 0);
 
 	my ($ref_one, $ref_two, $ref_path);
 
@@ -107,7 +107,7 @@ $path_one = Gtk2::TreePath -> new("1");
 
 SKIP: {
 	skip("new_from_indices is new in 2.2.x", 1)
-		unless ((Gtk2 -> get_version_info())[1] >= 2);
+		unless Gtk2->CHECK_VERSION (2, 2, 0);
 
 	$path_one = Gtk2::TreePath -> new_from_indices(1);
 	is($model -> get($model -> get_iter($path_one), 0), "blee");
@@ -159,7 +159,7 @@ is($model -> get_path($next) -> to_string(), "1");
 
 SKIP: {
 	skip("get_string_from_iter is new in 2.2.x", 1)
-		unless ((Gtk2 -> get_version_info())[1] >= 2);
+		unless Gtk2->CHECK_VERSION (2, 2, 0);
 
 	is($model -> get_string_from_iter($iter), "0");
 }

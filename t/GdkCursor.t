@@ -12,7 +12,7 @@ is($cursor -> type(), "watch");
 
 SKIP: {
   skip("new_from_pixbuf is new in 2.3", 1)
-    if (Gtk2 -> check_version(2, 3, 0));
+    unless Gtk2 -> CHECK_VERSION(2, 3, 0); # FIXME 2.4
 
   my $display = Gtk2::Gdk::Display -> get_default();
   my $pixbuf = Gtk2::Gdk::Pixbuf -> new("rgb", 0, 8, 10, 10);
@@ -23,7 +23,7 @@ SKIP: {
 
 SKIP: {
   skip("new_for_display is new in 2.2", 2)
-    if (Gtk2 -> check_version(2, 2, 0));
+    unless Gtk2 -> CHECK_VERSION(2, 2, 0);
 
   my $display = Gtk2::Gdk::Display -> get_default();
 

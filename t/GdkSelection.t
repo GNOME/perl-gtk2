@@ -37,7 +37,7 @@ Gtk2::Gdk::Selection -> convert($window -> window(), $primary, $target, 0);
 
 SKIP: {
   skip("GdkDisplay is new in 2.2", 2)
-    if (Gtk2 -> check_version(2, 2, 0));
+    unless Gtk2->CHECK_VERSION (2, 2, 0);
 
   my $display = Gtk2::Gdk::Display -> get_default();
 
