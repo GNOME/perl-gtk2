@@ -69,7 +69,7 @@ $vbox->pack_start($optmenu, 0, 0, 0);
 $optmenu->set_menu($menu);
 
 Glib::Idle->add( sub {
-		$menu->popup(undef, undef, undef, undef, undef, undef);
+		$menu->popup(undef, undef, undef, undef, 1, 0);
 		ok(1);
 		Gtk2->main_quit;
 		0;

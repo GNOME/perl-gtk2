@@ -1,3 +1,10 @@
+2003/08/14 20:43 muppetman
+
+	busy day, busy day...
+
+	* t/00.Gtk2.t, t/16.GtkMenu-etc.t, t/19.GtkSimpleList.t: patch from
+	Torsten Schoenfeld hushes some warnings in make test
+
 2003/08/14 16:59 muppetman
 
 	* t/04.GtkSocket-GtkPlug.t: skip this test on win32

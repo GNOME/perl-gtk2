@@ -125,14 +125,14 @@ Glib::Idle->add( sub
 			$ldata->[1][3] == 0 and
 			$ldata->[2][3] == 1 and
 			$ldata->[3][3] == 0 and
-			$ldata->[0][4] == undef and
-			$ldata->[1][4] == undef and
-			$ldata->[2][4] == $scalar and
-			$ldata->[3][4] == $scalar and
+			not defined($ldata->[0][4]) and
+			not defined($ldata->[1][4]) and
+			$ldata->[2][4] eq $scalar and
+			$ldata->[3][4] eq $scalar and
 			$ldata->[0][5] == $pixbuf and
-			$ldata->[1][5] == undef and
+			not defined($ldata->[1][5]) and
 			$ldata->[2][5] == $pixbuf and
-			$ldata->[3][5] == $undef and
+			not defined($ldata->[3][5]) and
 			eq_array($ldata->[0][7], [0, 1, 2]) and
 			eq_array($ldata->[1][7], [1, 2, 3]) and
 			eq_array($ldata->[2][7], [2, 3, 4]) and
@@ -185,14 +185,14 @@ Glib::Idle->add( sub
 			$ldata->[1][3] == 0 and
 			$ldata->[2][3] == 1 and
 			$ldata->[3][3] == 0 and
-			$ldata->[0][4] == undef and
-			$ldata->[1][4] == undef and
-			$ldata->[2][4] == $scalar and
-			$ldata->[3][4] == $scalar and
+			not defined($ldata->[0][4]) and
+			not defined($ldata->[1][4]) and
+			$ldata->[2][4] eq $scalar and
+			$ldata->[3][4] eq $scalar and
 			$ldata->[0][5] == $pixbuf and
-			$ldata->[1][5] == undef and
+			not defined($ldata->[1][5]) and
 			$ldata->[2][5] == $pixbuf and
-			$ldata->[3][5] == $undef and
+			not defined($ldata->[3][5]) and
 			eq_array($ldata->[0][7], [0, 1, 2]) and
 			eq_array($ldata->[1][7], [1, 2, 3]) and
 			eq_array($ldata->[2][7], [2, 3, 4]) and
