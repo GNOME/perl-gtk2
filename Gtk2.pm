@@ -12,16 +12,18 @@ use warnings;
 
 use Glib;
 
-require Exporter;
 require DynaLoader;
 
-our @ISA = qw(Exporter DynaLoader);
+our $VERSION = '0.25';
 
-# we export nothink.  nothink!
-our @EXPORT_OK = ();
-our @EXPORT = qw();
+our @ISA = qw(DynaLoader);
 
-our $VERSION = '0.24';
+sub import {
+	my $self = shift;
+	foreach (@_) {
+		$self->init,	next if /^-init$/;
+	}
+}
 
 # this is critical -- tell dynaloader to load the module so that its 
 # symbols are available to all other modules.  without this, nobody
@@ -101,8 +103,8 @@ Gtk2 - Perl interface to the 2.x series of the Gimp Toolkit library
 
 =head1 SYNOPSIS
 
-  use Gtk2;
-  Gtk2->init;
+  use Gtk2 -init;
+  # Gtk2->init; works if you didn't use -init on use
   my $window = Gtk2::Window->new ('toplevel');
   my $button = Gtk2::Button->new ('Quit');
   $button->signal_connect (clicked => sub { Gtk2->main_quit });
