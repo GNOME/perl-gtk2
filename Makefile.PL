@@ -115,6 +115,7 @@ my %pod_files = (
 	'api.pod'          => '$(INST_MAN3DIR)/Gtk2::api.$(MAN3EXT)',
 	'devel.pod'        => '$(INST_MAN3DIR)/Gtk2::devel.$(MAN3EXT)',
 );
+our @xs_files = <xs/*.xs>;
 
 # now we're ready to start creating the makefile.
 # we need to use ExtUtils::Depends to get relevant information out of
@@ -128,7 +129,7 @@ my $gtk2 = ExtUtils::Depends->new ('Gtk2', 'Glib');
 $gtk2->set_inc ($pkgcfg{cflags} . ' -I./build ');
 $gtk2->set_libs ($pkgcfg{libs} . find_extra_libs());
 $gtk2->add_pm (%pm_files);
-$gtk2->add_xs (<xs/*.xs>);
+$gtk2->add_xs (@xs_files);
 my $cwd = cwd();
 $gtk2->add_typemaps (map {File::Spec->catfile($cwd,$_)}
 		     'build/gtk2perl.typemap',
@@ -222,8 +223,26 @@ perl-\$(DISTNAME).spec: perl-\$(DISTNAME).spec.in \$(VERSION_FROM) Makefile
 dist-rpms: Makefile dist perl-\$(DISTNAME).spec rpms/
 	cp \$(DISTNAME)-\$(VERSION).tar.gz rpms/SOURCES/
 	rpmbuild -ba --define \"_topdir $cwd/rpms\" perl-\$(DISTNAME).spec
+
+# documentation stuff
+build/\$(NAME).doc.pl: @main::xs_files
+	$^X -I \$(INST_LIB) -I \$(INST_ARCHLIB) -MGlib::ParseXSDoc \\
+		-e 'xsdocparse (".join(", ", map {"\"$_\""} @main::xs_files)
+		               .")' > \$@
+
+build/xsapi.pod: build/\$(NAME).doc.pl apidoc.pl
+	$^X apidoc.pl xsapi.pod.head xsapi.pod.foot build/\$(NAME).doc.pl > \$@
+
+pod: all build/\$(NAME).doc.pl
+	$^X -I \$(INST_LIB) -I \$(INST_ARCHLIB) -MGlib::GenPod -M\$(NAME) \\
+		-e \"xsdoc2pod('build/\$(NAME).doc.pl', '\$(INST_LIB)/\$(NAME)', 'build/podindex')\"
+	$^X -e 'print \"\\n=head1 NAME\\n\\n\$(NAME) Pod Index\\n\\n=head1 FILES\\n\\n\"' \\
+		> \$(INST_LIB)/\$(NAME)/docindex.pod
+	$^X -nae 'print \" \$\$F[1]\\n\";' < build/podindex >> \$(INST_LIB)/\$(NAME)/docindex.pod
 "
 }
+
+
 package main;
 
 # this probably needs to go into ExtUtils::Depends.
