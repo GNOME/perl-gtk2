@@ -7,6 +7,8 @@
 #
 #
 
+package colorsel;
+
 use blib '..';
 use blib '../..';
 use blib '../../G';
@@ -44,7 +46,7 @@ sub change_color_callback {
   $dialog->destroy;
 }
 
-sub do_colorsel {
+sub do {
   if (!$window) {
       $color = Gtk2::Gdk::Color->new (0, 65535, 0);
       
@@ -95,7 +97,4 @@ sub do_colorsel {
   return $window;
 }
 
-
-Gtk2->init;
-do_colorsel;
-Gtk2->main;
+1;

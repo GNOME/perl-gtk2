@@ -1,15 +1,13 @@
+# Tree View/List Store
 #
-# $Header$
+# The GtkListStore is used to store data in list form, to be used
+# later on by a GtkTreeView to display it. This demo builds a
+# simple GtkListStore and displays it. See the Stock Browser
+# demo for a more advanced example.
+#
 #
 
-#/* Tree View/List Store
-# *
-# * The GtkListStore is used to store data in list form, to be used
-# * later on by a GtkTreeView to display it. This demo builds a
-# * simple GtkListStore and displays it. See the Stock Browser
-# * demo for a more advanced example.
-# *
-# */
+package list_store;
 
 use blib '../../G';
 use blib '..';
@@ -28,14 +26,11 @@ use Gtk2;
 #}
 #Bug;
 
-#enum
-#{
 use constant COLUMN_FIXED       => 0;
 use constant COLUMN_NUMBER      => 1;
 use constant COLUMN_SEVERITY    => 2;
 use constant COLUMN_DESCRIPTION => 3;
 use constant NUM_COLUMNS        => 4;
-#};
 
 use constant FALSE => 0;
 use constant TRUE => 1;
@@ -57,16 +52,12 @@ my @data = (
   { fixed => FALSE, number => 1,     severity => "Normal",     description => "First bug :=)" },
 );
 
-#static GtkTreeModel *
-#create_model (void)
 sub create_model {
   # create list store
-#  store = gtk_list_store_new (NUM_COLUMNS,
-#			      G_TYPE_BOOLEAN,
-#			      G_TYPE_UINT,
-#			      G_TYPE_STRING,
-#			      G_TYPE_STRING);
-  my $store = Gtk2::ListStore->new ('G::Boolean', 'G::Uint', 'G::String', 'G::String');
+  my $store = Gtk2::ListStore->new ('G::Boolean', # => G_TYPE_BOOLEAN
+                                    'G::Uint',    # => G_TYPE_UINT
+                                    'G::String',  # => G_TYPE_STRING
+                                    'G::String'); # you get the idea
 
   # add data to the list store
   foreach my $d (@data) {
@@ -145,7 +136,7 @@ sub add_columns {
   $treeview->append_column ($column);
 }
 
-sub do_list_store {
+sub do {
   if (!$window) {
 
     # create window, etc
@@ -188,7 +179,6 @@ sub do_list_store {
     $window->set_default_size (280, 250);
   }
 
-#  if (!GTK_WIDGET_VISIBLE (window))
   if (!$window->visible) {
     $window->show_all;
   } else {
@@ -196,10 +186,7 @@ sub do_list_store {
     $window = undef;
   }
 
-  return window;
+  return $window;
 }
 
-
-Gtk2->init;
-do_list_store ();
-Gtk2->main;
+1;

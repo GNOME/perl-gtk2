@@ -30,6 +30,8 @@
 # 
 #
 
+package menus;
+
 use blib '..';
 use blib '../../';
 use blib '../../G';
@@ -75,7 +77,7 @@ sub create_menu {
 }
 
 my $window = undef;
-sub do_menus {
+sub do {
   if (!$window) {
       $window = Gtk2::Window->new;
       
@@ -184,6 +186,4 @@ sub do_menus {
   return $window;
 }
 
-Gtk2->init;
-do_menus;
-Gtk2->main;
+1;

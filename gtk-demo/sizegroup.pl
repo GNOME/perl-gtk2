@@ -15,6 +15,8 @@
 # into a table, you would not include the GTK_FILL flag.
 #
 
+package sizegroup;
+
 use blib '..';
 use blib '../..';
 use blib '../../G';
@@ -80,7 +82,7 @@ sub toggle_grouping {
   $size_group->set_mode ($new_mode);
 }
 
-sub do_sizegroup {
+sub do {
   my @color_options = qw/Red Green Blue/;
   my @dash_options  = qw/Solid Dashed Dotted/;
   my @end_options   = qw/Square Round Arrow/;
@@ -144,6 +146,4 @@ sub do_sizegroup {
   return $window;
 }
 
-Gtk2->init;
-do_sizegroup;
-Gtk2->main;
+1;

@@ -1,7 +1,3 @@
-#
-# $Header$
-#
-
 # Tree View/Tree Store
 #
 # The GtkTreeStore is used to store data in tree form, to be
@@ -11,6 +7,7 @@
 # example first.
 #
 
+package tree_store;
 
 use blib '../../G';
 use blib '..';
@@ -318,16 +315,12 @@ sub add_columns {
    $column->set_clickable (TRUE);
 }
 
-#GtkWidget *
-sub do_tree_store {
-
+sub do {
   if (!$window) {
-
        # create window, etc
        $window = Gtk2::Window->new ('toplevel');
        $window->set_title ("Card planning sheet");
        $window->signal_connect (destroy => sub { $window = undef });
-       ##$window->signal_connect (destroy => sub { ${ $_[1] } = undef }, \$window);
 
        my $vbox = Gtk2::VBox->new (FALSE, 8);
        $vbox->set_border_width (8);
@@ -370,7 +363,4 @@ sub do_tree_store {
    return $window;
 }
 
-
-Gtk2->init;
-do_tree_store ();
-Gtk2->main;
+1;

@@ -28,6 +28,8 @@
 #  - Using GtkDialog
 #
 
+package changedisplay;
+
 use blib '..';
 use blib '../..';
 use blib '../../G';
@@ -528,7 +530,7 @@ my $info = undef;
 # Main entry point. If the dialog for this demo doesn't yet exist, creates
 # it. Otherwise, destroys it.
 #
-sub do_changedisplay {
+sub do {
   if (!$info) {
       $info = {};
 
@@ -565,6 +567,4 @@ sub do_changedisplay {
   }
 }
 
-Gtk2->init;
-do_changedisplay;
-Gtk2->main;
+1;

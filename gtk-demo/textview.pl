@@ -1,9 +1,5 @@
 #!/usr/bin/perl -w 
 #
-# $Header$
-#
-
-#
 # Text Widget
 #
 # The GtkTextView widget displays a GtkTextBuffer. One GtkTextBuffer
@@ -11,6 +7,8 @@
 # displaying a single buffer, and shows off the widget's text
 # formatting features.
 #
+
+package textview;
 
 use blib '../../G';
 use blib '..';
@@ -354,11 +352,7 @@ sub attach_widgets {
 
 my $window;
 
-#GtkWidget *
-#do_textview (void)
-sub do_textview {
-  #static GtkWidget *window = NULL;
-
+sub do {
   if (!$window) {
       
       $window = Gtk2::Window->new ('toplevel');
@@ -414,11 +408,6 @@ sub do_textview {
   return $window;
 }
 
-
-#static void
-#recursive_attach_view (int                 depth,
-#                       GtkTextView        *view,
-#                       GtkTextChildAnchor *anchor)
 sub recursive_attach_view {
   my ($depth, $view, $anchor) = @_;
   
@@ -442,9 +431,6 @@ sub recursive_attach_view {
   recursive_attach_view ($depth + 1, $child_view, $anchor);
 }
 
-#static void
-#easter_egg_callback (GtkWidget *button,
-#                     gpointer   data)
 sub easter_egg_callback {
   my $button = shift;
 
@@ -483,6 +469,4 @@ sub easter_egg_callback {
   $tvee_window->show_all;
 }
 
-Gtk2->init;
-do_textview;
-Gtk2->main;
+1;

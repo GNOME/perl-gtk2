@@ -8,6 +8,8 @@
 # and stock items.
 #
 
+package stock_browser;
+
 use blib '../../';
 use blib '../../G/';
 use blib '../';
@@ -205,7 +207,7 @@ sub label_set_func {
 ###}
 
 
-sub do_stock_browser {
+sub do {
   if (!$window) {
       ##my $window = Gtk2::Window->new ('toplevel');
       $window = Gtk2::Window->new;
@@ -305,8 +307,4 @@ sub do_stock_browser {
   return $window;
 }
 
-
-Gtk2->init;
-do_stock_browser();
-Gtk2->main;
-exit;
+1;

@@ -5,6 +5,8 @@
 # Dialog widgets are used to pop up a transient window for user feedback.
 #
 
+package dialog;
+
 use blib '..';
 use blib '../..';
 use blib '../../G';
@@ -78,7 +80,7 @@ sub interactive_dialog_clicked {
   $dialog->destroy;
 }
 
-sub do_dialog {
+sub do {
   if (!$window) {
       $window = Gtk2::Window->new;
       $window->set_title ("Dialogs");
@@ -143,6 +145,4 @@ sub do_dialog {
   return $window;
 }
 
-Gtk2->init;
-do_dialog;
-Gtk2->main;
+1;

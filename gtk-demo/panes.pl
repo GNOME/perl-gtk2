@@ -13,6 +13,8 @@
 # each side of each widget.
 #
 
+package panes;
+
 use blib '..';
 use blib '../..';
 use blib '../../G';
@@ -94,7 +96,7 @@ sub create_pane_options {
 }
 
 my $window = undef;
-sub do_panes {
+sub do {
   if (!$window) {
       $window = Gtk2::Window->new;
 
@@ -152,6 +154,4 @@ sub do_panes {
   return $window;
 }
 
-Gtk2->init;
-do_panes;
-Gtk2->main;
+1;

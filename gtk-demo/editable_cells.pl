@@ -6,6 +6,8 @@
 #
 #
 
+package editable_cells;
+
 use blib '..';
 use blib '../..';
 use blib '../../G';
@@ -83,7 +85,7 @@ sub remove_item {
   my $model = $treeview->get_model;
   my $selection = $treeview->get_selection;
 
-  my ($iter, $model) = $selection->get_selected;
+  my ($iter, undef) = $selection->get_selected;
   if ($iter) {
       my $path = $model->get_path ($iter);
       my $i = ($path->get_indices)[0];
@@ -113,7 +115,7 @@ sub cell_edited {
 	#g_free (old_text);
 
 	my $i = ($path->get_indices)[0];
-	$articles[i]{product} = $new_text;
+	$articles[$i]{product} = $new_text;
 
 	$model->set ($iter, $column, $articles[$i]{product});
   }
@@ -142,7 +144,7 @@ sub add_columns {
 					    editable => COLUMN_EDITABLE);
 }
 
-sub do_editable_cells {
+sub do {
   if (!$window) {
       # create window, etc
       $window = Gtk2::Window->new;
@@ -199,6 +201,4 @@ sub do_editable_cells {
   return $window;
 }
 
-Gtk2->init;
-do_editable_cells;
-Gtk2->main;
+1;

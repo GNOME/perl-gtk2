@@ -5,6 +5,8 @@
 # The Button Box widgets are used to arrange buttons with padding.
 #
 
+package button_box;
+
 use blib '..';
 use blib '../..';
 use blib '../../G';
@@ -45,7 +47,7 @@ sub create_bbox {
 
 my $window = undef;
 
-sub do_button_box {
+sub do {
   if (!$window) {
     $window = Gtk2::Window->new;
     $window->set_title ("Button Boxes");
@@ -92,6 +94,4 @@ sub do_button_box {
   return $window;
 }
 
-Gtk2->init;
-do_button_box;
-Gtk2->main;
+1;

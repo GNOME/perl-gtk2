@@ -5,6 +5,8 @@
 # Demonstrates a typical application window, with menubar, toolbar, statusbar.
 #
 
+package appwindow;
+
 use blib '..';
 use blib '../..';
 use blib '../../G';
@@ -156,7 +158,7 @@ sub mark_set_callback {
 }
 
 
-sub do_appwindow {  
+sub do {  
   if (!$window) {
       register_stock_icons ();
      
@@ -285,6 +287,5 @@ sub do_appwindow {
   return $window;
 }
 
-Gtk2->init;
-do_appwindow;
-Gtk2->main;
+
+1;

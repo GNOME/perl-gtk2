@@ -6,6 +6,8 @@
 # from an array of descriptions of menu items.
 #
 
+package item_factory;
+
 use blib '..';
 use blib '../..';
 
@@ -50,7 +52,7 @@ my @menu_items = (
 
 my $window = undef;
 
-sub do_item_factory {
+sub do {
   if (!$window) {
       $window = Gtk2::Window->new;
       
@@ -104,7 +106,4 @@ sub do_item_factory {
   return $window;
 }
 
-
-Gtk2->init;
-do_item_factory;
-Gtk2->main;
+1;
