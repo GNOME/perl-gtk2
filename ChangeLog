@@ -1,3 +1,9 @@
+2005/01/29 01:40 (-0400) muppetman
+
+	* xs/GtkAboutDialog.xs, t/GtkAboutDialog.t: extend the test suite to
+	test the GStrv properties.  use SvGChar, not SvPV_nolen, to make sure
+	we get unicode text.
+
 2005/01/19 07:52 (-0400) rwmcfa1
 
 	* t/GtkCellView.t, t/GtkComboBox.t, t/GtkComboBoxEntry.t,

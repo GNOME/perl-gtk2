@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2004 by the gtk2-perl team (see the file AUTHORS)
+ * Copyright (c) 2004-2005 by the gtk2-perl team (see the file AUTHORS)
  *
  * Licensed under the LGPL, see LICENSE file for more information.
  *
@@ -76,7 +76,7 @@ void gtk_about_dialog_set_website_label (GtkAboutDialog * about, const gchar_orn
 		gint num = items - 1;				\
 		(outof) = g_new0 (gchar *, num + 30);		\
 		for (i = 0; i < num; i++)			\
-			(outof)[i] = SvPV_nolen (ST (1 + i));	\
+			(outof)[i] = SvGChar (ST (1 + i));	\
 	}
 
 ##const gchar * const * gtk_about_dialog_get_authors (GtkAboutDialog * about);

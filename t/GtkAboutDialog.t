@@ -12,7 +12,7 @@
 use strict;
 use warnings;
 
-use Gtk2::TestHelper tests => 23,
+use Gtk2::TestHelper tests => 29,
     at_least_version => [2, 6, 0, "GtkAboutDialog is new in 2.6"];
 
 isa_ok (my $dialog = Gtk2::AboutDialog->new, 'Gtk2::AboutDialog',
@@ -22,8 +22,8 @@ $dialog->set_name ('AboutDialog');
 is ($dialog->get_name, 'AboutDialog', '$dialog->set|get_name');
 
 $dialog->set_name (undef);
-# get_name seems to return basename($0) if name is undef.  I don't know if
-# that's reliable enough to have a test for it, though.
+# according to the docs, name falls back to g_get_application_name().
+is ($dialog->get_name, Glib::get_application_name, 'fallback');
 
 $dialog->set_version ('Ver: 1.2');
 is ($dialog->get_version, 'Ver: 1.2', '$dialog->set|get_version');
@@ -63,7 +63,7 @@ ok (eq_array ([$dialog->get_artists], [qw/three four five/]),
 
 $dialog->set_translator_credits ('people');
 is ($dialog->get_translator_credits, 'people',
-    '$dialog->set|get_transltor_credits');
+    '$dialog->set|get_translator_credits');
 
 $dialog->set_translator_credits (undef);
 is ($dialog->get_translator_credits, undef);
@@ -105,3 +105,24 @@ is ($dialog->get_website, 'http://gtk2-perl.sourceforge.net/',
 
 $dialog->set_website (undef);
 is ($dialog->get_website, undef);
+
+
+# test out the Glib::Strv properties.  this is partially to make sure these
+# work right for the dialog, and partially to test the functionality from
+# Glib (there's nothing that can really test them in gobject).
+$dialog->set (authors => 'me');
+ok (eq_array ($dialog->get ('authors'), ['me']), 'authors property (scalar)');
+
+my @authors = qw/me myself i/;
+$dialog->set (authors => \@authors);
+ok (eq_array ($dialog->get ('authors'), \@authors), 'authors property (array)');
+
+$dialog->set (authors => undef);
+ok (!$dialog->get ('authors'), 'authors property (undef)');
+
+$dialog->set (documenters => []);
+ok (!$dialog->get ('documenters'), 'documenters property (empty array)');
+
+my @artists = qw/Leonardo Donatello Raphael Michelangelo/;
+$dialog->set (artists => \@artists);
+ok (eq_array ($dialog->get ('artists'), \@artists), 'artists property');
