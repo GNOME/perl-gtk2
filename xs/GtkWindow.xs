@@ -1,3 +1,7 @@
+/*
+ * $Header$
+ */
+
 #include "gtk2perl.h"
 
 MODULE = Gtk2::Window	PACKAGE = Gtk2::Window	PREFIX = gtk_window_
