@@ -1,3 +1,12 @@
+2003/12/11 22:16 (-0500) muppetman
+
+	* Gtk2.pm, README: stable release 1.020
+	
+	* Makefile.PL: require Glib 1.020
+
+	* podifystockitems.pl: don't use -init; not needed, and keeps the
+	build from working when no display is available.
+
 2003/12/11 16:53 (-0500) muppetman
 
 	* t/27.GtkClipboard.t, t/30.GtkCellRenderer.t, t/text-iter-searches.t:
