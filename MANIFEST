@@ -116,6 +116,7 @@ xs/GdkDnd.xs
 xs/GdkDrawable.xs
 xs/GdkEvent.xs
 xs/GdkGC.xs
+xs/GdkKeys.xs
 xs/GdkPixbuf.xs
 xs/GdkPixbufLoader.xs
 xs/GdkPixmap.xs
