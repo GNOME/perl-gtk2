@@ -70,7 +70,9 @@ gtk-demo/textview.pl
 gtk-demo/tree_store.pl
 gtk.typemap
 gtk2perl.h
-maps
+maps-2.0
+maps-2.2
+maps-2.3
 xs_files-2.0
 xs_files-2.2  
 xs_files-2.3
