@@ -165,9 +165,6 @@ MODULE = Gtk2::Rc	PACKAGE = Gtk2::RcStyle	PREFIX = gtk_rc_style_
 
 ## void _gtk_rc_reset_styles (GtkSettings *settings)
 
-# FIXME: "name" and "bg_pixmap_name" seem to be broken.  valgrind warns about
-# an invalid free, looks like Perl and gtk+ try to free the string.
-
 SV *
 name (style, new=NULL)
 	GtkRcStyle *style
@@ -187,24 +184,45 @@ name (style, new=NULL)
 
 	if (new) {
 		switch (ix) {
-			case 0: style->name = SvGChar (new); break;
-			case 1: style->font_desc = SvPangoFontDescription (new); break;
-			case 2: style->xthickness = SvIV (new); break;
-			case 3: style->ythickness = SvIV (new); break;
+		    case 0:
+			if (style->name)
+				g_free (style->name);
+			style->name = SvOK (new)
+			            ? g_strdup (SvGChar (new))
+				    : NULL;
+			break;
+		    case 1:
+			/* FIXME this will destroy the retval! */
+			if (style->font_desc)
+				pango_font_description_free (style->font_desc);
+			style->font_desc = SvOK (new)
+			                 ? SvPangoFontDescription (new)
+					 : NULL;
+			if (style->font_desc)
+				style->font_desc = pango_font_description_copy
+							(style->font_desc);
+			break;
+		    case 2: style->xthickness = SvIV (new); break;
+		    case 3: style->ythickness = SvIV (new); break;
 		}
 	}
     OUTPUT:
 	RETVAL
 
-gchar *
+SV *
 bg_pixmap_name (style, state, new=NULL)
 	GtkRcStyle *style
 	GtkStateType state
 	gchar *new
     CODE:
-	RETVAL = style->bg_pixmap_name[state];
-	if (new)
-		style->bg_pixmap_name[state] = new;
+	RETVAL = style->bg_pixmap_name[state]
+	       ? newSVGChar (style->bg_pixmap_name[state])
+	       : NULL;
+	if (new) {
+		if (style->bg_pixmap_name[state])
+			g_free (style->bg_pixmap_name[state]);
+		style->bg_pixmap_name[state] = g_strdup (new);
+	}
     OUTPUT:
 	RETVAL
 
