@@ -322,7 +322,7 @@ gtk_widget_get_parent (widget)
  #                                           GtkDirectionType     direction);
 
 void
-gtk_widget_set_size_request (widget, width, height)
+gtk_widget_set_size_request (widget, width=-1, height=-1)
 	GtkWidget * widget
 	gint width
 	gint height
@@ -430,12 +430,17 @@ gtk_widget_modify_font (widget, font_desc)
  #PangoContext *gtk_widget_get_pango_context    (GtkWidget   *widget);
  #PangoLayout  *gtk_widget_create_pango_layout  (GtkWidget   *widget,
  #					       const gchar *text);
- #
- #GdkPixbuf    *gtk_widget_render_icon          (GtkWidget   *widget,
- #                                               const gchar *stock_id,
- #                                               GtkIconSize  size,
- #                                               const gchar *detail);
- #
+
+ ### FIXME may return NULL if stockid isn't known.... but then, it will
+ ###       croak on converting unknown stock ids, too.
+GdkPixbuf_noinc *
+gtk_widget_render_icon (widget, stock_id, size, detail=NULL)
+	GtkWidget   * widget
+	const gchar * stock_id
+	GtkIconSize   size
+	const gchar * detail
+
+
  #/* handle composite names for GTK_COMPOSITE_CHILD widgets,
  # * the returned name is newly allocated.
  # */
