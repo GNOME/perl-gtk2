@@ -332,8 +332,18 @@ gtk_widget_queue_draw_area (widget, x, y, width, height)
 	gint height
 
  #void	   gtk_widget_queue_resize	  (GtkWidget	       *widget);
- #void	   gtk_widget_size_request	  (GtkWidget	       *widget,
- #					   GtkRequisition      *requisition);
+
+GtkRequisition_copy *
+gtk_widget_size_request (widget)
+	GtkWidget * widget
+    PREINIT:
+	GtkRequisition req;
+    CODE:
+	gtk_widget_size_request (widget, &req);
+	RETVAL = &req;
+    OUTPUT:
+	RETVAL
+
  #void	   gtk_widget_size_allocate	  (GtkWidget	       *widget,
  #					   GtkAllocation       *allocation);
  #void       gtk_widget_get_child_requisition (GtkWidget	       *widget,
