@@ -70,12 +70,19 @@ sub new_from_treeview {
 	my $view = shift;
 	my @column_info = ();
 	for (my $i = 0; $i < @_ ; $i+=2) {
+		my $typekey = $_[$i+1];
 		croak "expecting pairs of title=>type"
-			unless $_[$i+1];
-		my $type = $column_types{$_[$i+1]}{type};
-		croak "unknown column type $_[$i+1], use one of "
+			unless $typekey;
+		croak "unknown column type $typekey, use one of "
 		    . join(", ", keys %column_types)
-			unless defined $type;
+			unless exists $column_types{$typekey};
+		my $type = $column_types{$typekey}{type};
+		if (not defined $type) {
+			$type = 'Glib::String';
+			carp "column type $typekey has no type field; did you"
+			   . " create a custom column type incorrectly?\n"
+			   . "limping along with $type";
+		}
 		push @column_info, {
 			title => $_[$i],
 			type => $type,

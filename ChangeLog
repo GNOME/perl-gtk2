@@ -1,3 +1,12 @@
+2003/09/26 16:42 muppetman
+
+	* pm/SimpleList.pm: be defensive and use exists() to check whether
+	keys already exist in %column_types; this fixes a bug reported by
+	Jaap Karssenberg, where supply a bad column type would tell you that
+	column type was invalid, but include that bad name in the list of
+	valid keys (because of autovivification).  (a lot of explaining for
+	a simple bug.)
+
 2003/09/26 26:25 rwmcfa1
 
 	* xs/GtkTextView.xs: new_with_buffer had class param but no spec for it
