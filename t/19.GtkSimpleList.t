@@ -21,7 +21,7 @@ BEGIN { use_ok('Gtk2::SimpleList') };
 Gtk2::SimpleList->add_column_type(
 	'ralacs', 	# think about it for a second...
 		type     => 'Glib::Scalar',      
-		renderer => 'Text',   
+		renderer => 'Gtk2::CellRendererText',   
 		attr     => sub {
 			my ($tree_column, $cell, $model, $iter, $i) = @_;
 			my ($info) = $model->get ($iter, $i);
@@ -34,7 +34,7 @@ Gtk2::SimpleList->add_column_type(
 Gtk2::SimpleList->add_column_type(
 	'sum_of_array',
 		type     => 'Glib::Scalar',      
-		renderer => 'Text',   
+		renderer => 'Gtk2::CellRendererText',   
 		attr     => sub {
 			my ($tree_column, $cell, $model, $iter, $i) = @_;
 			my $sum = 0;

@@ -10,7 +10,7 @@ use Gtk2::SimpleList;
 Gtk2::SimpleList->add_column_type(
 	'ralacs', 	# think about it for a second...
 		type     => 'Glib::Scalar',      
-		renderer => 'Text',   
+		renderer => 'Gtk2::CellRendererText',   
 		attr     => sub {
 			my ($tree_column, $cell, $model, $iter, $i) = @_;
 			my $info = $model->get ($iter, $i);
@@ -23,7 +23,7 @@ Gtk2::SimpleList->add_column_type(
 Gtk2::SimpleList->add_column_type(
 	'sum_of_array',
 		type     => 'Glib::Scalar',      
-		renderer => 'Text',   
+		renderer => 'Gtk2::CellRendererText',   
 		attr     => sub {
 			my ($tree_column, $cell, $model, $iter, $i) = @_;
 			my $sum = 0;
@@ -79,6 +79,8 @@ foreach (
 		[ 'Delete', 'Delete the ~middle element from the list' ],
 		[ 'Empty', 'Delete all rows from the list with an empty array assignement' ],
 		[ 'Fill', 'Fill the list with data using an array assignment' ],
+		[ 'Dump List', 'Dump list data to stdout' ],
+		[ 'Dump Sel', 'Dump index of selected item(s)' ],
 	)
 {
 	$btn = Gtk2::Button->new ($_->[0]);
@@ -87,6 +89,34 @@ foreach (
 	$vbox->pack_start($btn, 0, 1, 0);
 }
 $tooltips->enable;
+
+# here's a little optionmenu to set the list's selection mode.
+my $opt = Gtk2::OptionMenu->new;
+my $menu = Gtk2::Menu->new;
+foreach (qw/none single browse multiple/) {
+	my $item = Gtk2::MenuItem->new ($_);
+	$item->signal_connect (activate => sub {
+			$slist->get_selection->set_mode ($_[1]);
+			}, $_);
+	$item->show;
+	$menu->append ($item);
+}
+$opt->set_menu ($menu);
+$opt->set_history (1);
+$vbox->pack_start ($opt, 0, 0, 0);
+$tooltips->set_tip ($opt, 'set the selection mode for the list');
+
+# toggle the editable-ness of column 0
+my $chk = Gtk2::CheckButton->new ('editable');
+$chk->set_active (0);
+$chk->signal_connect (toggled => sub {
+		$slist->set_column_editable (0, $_[0]->get_active);
+		});
+$vbox->pack_start ($chk, 0, 0, 0);
+$tooltips->set_tip ($chk, 'set whether column zero\'s text is editable');
+
+#$slist->set_column_editable (1, 1);
+#$slist->set_column_editable (2, 1);
 
 $btn = Gtk2::Button->new_from_stock ('gtk-quit');
 $btn->signal_connect (clicked => sub  { Gtk2->main_quit; });
@@ -178,6 +208,16 @@ sub btn_clicked
 			[ 'four', 4, 4.4, 0, 'quatro', undef,  'quatro', 
 				[4, 5, 6] ],
 		);
+	}
+	elsif( $op eq 'Dump Sel' )
+	{
+		print "selected indices: "
+		    . join(", ", $slist->get_selected_indices)
+		    . "\n";
+	}
+	elsif( $op eq 'Dump List' )
+	{
+		print "\n\nList Data\n".Dumper($slist->{data})."\n\n";
 	}
 
 	1;
