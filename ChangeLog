@@ -1,5 +1,21 @@
 2004/01/22 15:28 (-0500) muppetman
 
+	A NEWS
+	M MANIFEST
+	add a NEWS file that summarizes the ChangeLog in digestible terms.
+
+	* t/GtkStyle.t: versions of gtk+ prior to 2.2.0 handled only
+	'south-east', which isn't so bad, except that they actually called
+	g_assert_not_reached() in the branch of code that you reach by
+	passing other values.  so, eh, never pass anything but south-east
+	to old gtk+.
+
+	* t/GtkTextChildAnchor.t: letting an anchor die without having
+	inserted it into a buffer causes very bad things to happen.
+	dispose of it nicely.
+
+2004/01/22 15:28 (-0500) muppetman
+
 	* t/Gdk.t: don't forget the skip count.
 
 2004/01/22 02:15 (-0500) muppetman
