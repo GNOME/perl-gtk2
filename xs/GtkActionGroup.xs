@@ -239,6 +239,8 @@ gtk_action_group_add_actions (action_group, action_entries, user_data=NULL)
 		croak ("actions must be a reference to an array of action entries");
 	av = (AV*) SvRV (action_entries);
 	n_actions = av_len (av) + 1;
+	if (n_actions < 1)
+		croak ("action array is empty");
 	entries = gperl_alloc_temp (sizeof (GtkActionEntry) * n_actions);
 	for (i = 0 ; i < n_actions ; i++) {
 		SV ** svp = av_fetch (av, i, 0);
@@ -305,6 +307,8 @@ gtk_action_group_add_toggle_actions (action_group, toggle_action_entries, user_d
 		croak ("entries must be a reference to an array of toggle action entries");
 	av = (AV*) SvRV (toggle_action_entries);
 	n_actions = av_len (av) + 1;
+	if (n_actions < 1)
+		croak ("toggle action array is empty");
 	entries = gperl_alloc_temp (sizeof (GtkToggleActionEntry) * n_actions);
 	for (i = 0 ; i < n_actions ; i++) {
 		SV ** svp = av_fetch (av, i, 0);
@@ -378,6 +382,8 @@ gtk_action_group_add_radio_actions (action_group, radio_action_entries, value, o
 	av = (AV*) SvRV (radio_action_entries);
 	n_actions = av_len (av) + 1;
 	warn ("n_actions : %d\n", n_actions);
+	if (n_actions < 1)
+		croak ("radio action array is empty");
 	entries = gperl_alloc_temp (sizeof (GtkRadioActionEntry) * n_actions);
 	for (i = 0 ; i < n_actions ; i++) {
 		SV ** svp = av_fetch (av, i, 0);
