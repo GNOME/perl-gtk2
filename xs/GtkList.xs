@@ -52,7 +52,7 @@ gtk_list_insert_items (list, position, ...)
 	for( items--; items > 0; items-- )
 		list_items = g_list_prepend(list_items, 
 					SvGtkListItem(ST(items)));
-	if( list )
+	if( list_items )
 	{
 		gtk_list_insert_items(list, list_items, position);
 		g_list_free(list_items);
@@ -71,7 +71,7 @@ gtk_list_append_items (list, ...)
 	for( items--; items > 0; items-- )
 		list_items = g_list_prepend(list_items, 
 					SvGtkListItem(ST(items)));
-	if( list )
+	if( list_items )
 	{
 		gtk_list_append_items(list, list_items);
 		g_list_free(list_items);
@@ -91,7 +91,7 @@ gtk_list_prepend_items (list, ...)
 	for( items--; items > 0; items-- )
 		list_items = g_list_prepend(list_items, 
 					SvGtkListItem(ST(items)));
-	if( list )
+	if( list_items )
 	{
 		gtk_list_prepend_items(list, list_items);
 		g_list_free(list_items);
@@ -111,7 +111,7 @@ gtk_list_remove_items (list, ...)
 	for( items--; items > 0; items-- )
 		list_items = g_list_prepend(list_items, 
 					SvGtkListItem(ST(items)));
-	if( list )
+	if( list_items )
 	{
 		gtk_list_remove_items(list, list_items);
 		g_list_free(list_items);
@@ -130,7 +130,7 @@ gtk_list_remove_items (list, ...)
 ##	for( items--; items > 0; items-- )
 ##		list_items = g_list_prepend(list_items, 
 ##					SvGtkListItem(ST(items)));
-##	if( list )
+##	if( list_items )
 ##	{
 ##		gtk_list_remove_items_no_unref(list, list_items);
 ##		g_list_free(list_items);
