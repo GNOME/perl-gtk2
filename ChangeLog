@@ -1,3 +1,9 @@
+2004/01/14 20:44 (-0500) rwmcfa1
+
+	* t/GtkImage.t: nearly complete testing now, needs test for from_image
+	funcs. found problem that needs resolving with PixbufAnimation, see
+	warnings printed here, at this point.
+
 2004/01/14 17:53 (-0500) muppetman
 
 	test fixes on RH8.0 / gtk+-2.0.6
