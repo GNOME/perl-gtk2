@@ -1,3 +1,7 @@
+2004/02/01 01:12 (+0100) kaffeetisch
+
+	* t/GtkTextView.t: Test [sg]et_overwrite and [sg]et_accepts_tab.
+
 2004/01/31 23:59 (+0100) kaffeetisch
 
 	A t/GdkX11.t

@@ -1,6 +1,8 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 39;
+use Gtk2::TestHelper tests => 41;
+
+# $Header$
 
 my $window = Gtk2::Window -> new();
 my $buffer = Gtk2::TextBuffer -> new();
@@ -110,6 +112,17 @@ $view -> set_tabs(Gtk2::Pango::TabArray -> new(8, 0));
 isa_ok($view -> get_tabs(), "Gtk2::Pango::TabArray");
 
 isa_ok($view -> get_default_attributes(), "Gtk2::TextAttributes");
+
+SKIP: {
+  skip("[sg]et_overwrite and [sg]et_accepts_tab are new in 2.3", 2)
+    if (Gtk2 -> check_version(2, 3, 0));
+
+  $view -> set_overwrite(1);
+  is($view -> get_overwrite(), 1);
+
+  $view -> set_accepts_tab(1);
+  is($view -> get_accepts_tab(), 1);
+}
 
 __END__
 
