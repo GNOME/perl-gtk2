@@ -88,8 +88,8 @@ gtk2perl_editable_insert_text_marshal (GClosure * closure,
 		*position_p = POPi;
 		sv = POPs;
 		sv_utf8_upgrade (sv);
-		g_value_set_string (param_values+1, SvPV (sv, len));
-		g_value_set_int (param_values+2, len);
+		g_value_set_string ((GValue*)param_values+1, SvPV (sv, len));
+		g_value_set_int ((GValue*)param_values+2, len);
 		PUTBACK;
 		
 	} else if (count == 0) {
@@ -97,8 +97,9 @@ gtk2perl_editable_insert_text_marshal (GClosure * closure,
 		 * params from the callback's args, which may have been
 		 * modified. */
 		sv_utf8_upgrade (string);
-		g_value_set_string (param_values+1, SvPV (string, len));
-		g_value_set_int (param_values+2, len);
+		g_value_set_string ((GValue*)param_values+1,
+		                    SvPV (string, len));
+		g_value_set_int ((GValue*)param_values+2, len);
 		*position_p = SvIV (position);
 		if (*position_p < 0)
 			*position_p = 0;
