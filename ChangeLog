@@ -1,3 +1,10 @@
+2004/03/20 22:28 (-0500) muppetman
+
+	* xs/GdkEvent.xs: remove cruft
+
+	* xs/GtkObject.xs: clean up properly on bad property in
+	Gtk2::Object::new
+
 2004/03/20 21:42 (-0500) muppetman
 
 	* examples/dialog.pl: handle delete-event, beef up commentary, use
