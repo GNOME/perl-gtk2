@@ -1,3 +1,9 @@
+2003/07/14 15:05 muppetman
+
+	* xs/GdkWindow.xs: back out the OUTLIST stuff for get_pointer.
+	i don't understand why, but the OUTLIST form causes get_pointer
+	to break in examples/histogramplot.pl and examples/scribble.pl.
+
 2003/07/11 13:22 muppetman
 
 	* xs/GtkIconFactory.xs, gtk-demo/stock_browser.pl: make some fixes
