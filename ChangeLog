@@ -1,3 +1,8 @@
+2005/01/08 22:30 (-0400) muppetman
+
+	* xs/GtkActionGroup.xs, t/GtkActionGroup.t: enable and test
+	translation of action groups.
+
 2005/01/07 22:27 (+0200) kaffeetisch
 
 	* examples/cellrenderer_data.pl,

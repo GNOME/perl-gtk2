@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003 by the gtk2-perl team (see the file AUTHORS)
+ * Copyright (c) 2003-2005 by the gtk2-perl team (see the file AUTHORS)
  *
  * Licensed under the LGPL, see LICENSE file for more information.
  *
@@ -218,6 +218,21 @@ extern gchar * gtk2perl_translate_func (const gchar *path, gpointer data);
 
 MODULE = Gtk2::ActionGroup	PACKAGE = Gtk2::ActionGroup	PREFIX = gtk_action_group_
 
+
+=for position DESCRIPTION
+
+=head2 NOTE: Translation
+
+In C, gtk+'s action groups can use the translation domain to ensure that action
+labels and tooltips are translated along with the rest of the app.  However,
+the translation function was not available for calling B<by> the Perl bindings
+until gtk+ 2.6; that is, setting the translation domain had no effect.
+Translation of action groups is supported in Perl as of Gtk2 1.080 using
+gtk+ 2.6.0 or later.
+
+=cut
+
+
 GtkActionGroup_noinc *gtk_action_group_new (class, const gchar *name);
     C_ARGS:
 	name
@@ -277,13 +292,23 @@ gtk_action_group_add_actions (action_group, action_entries, user_data=NULL)
 	for (i = 0 ; i < n_actions ; i++) {
 		GtkAction * action;
 		gchar * accel_path;
+		const gchar * label;
+		const gchar * tooltip;
+#if GTK_CHECK_VERSION (2, 6, 0)
+		label = gtk_action_group_translate_string (action_group,
+							   entries[i].label);
+		tooltip =
+			gtk_action_group_translate_string (action_group,
+							   entries[i].tooltip);
+#else
+		label = entries[i].label;
+		tooltip = entries[i].tooltip;
+#endif
 
-		action = g_object_new (GTK_TYPE_ACTION,
-		                       "name", entries[i].name,
-		                       "label", entries[i].label,
-		                       "tooltip", entries[i].tooltip,
-		                       "stock_id", entries[i].stock_id,
-		                       NULL);
+		action = gtk_action_new (entries[i].name,
+		                         label,
+		                         tooltip,
+		                         entries[i].stock_id);
 		if (entries[i].callback)
 			gperl_signal_connect (WRAPINSTANCE (action),
 			                      "activate",
@@ -344,11 +369,23 @@ gtk_action_group_add_toggle_actions (action_group, toggle_action_entries, user_d
 	for (i = 0 ; i < n_actions ; i++) {
 		GtkAction * action;
 		gchar * accel_path;
+		const gchar * label;
+		const gchar * tooltip;
+#if GTK_CHECK_VERSION (2, 6, 0)
+		label = gtk_action_group_translate_string (action_group,
+							   entries[i].label);
+		tooltip =
+			gtk_action_group_translate_string (action_group,
+							   entries[i].tooltip);
+#else
+		label = entries[i].label;
+		tooltip = entries[i].tooltip;
+#endif
 
 		action = g_object_new (GTK_TYPE_TOGGLE_ACTION,
 		                       "name", entries[i].name,
-		                       "label", entries[i].label,
-		                       "tooltip", entries[i].tooltip,
+		                       "label", label,
+		                       "tooltip", tooltip,
 		                       "stock_id", entries[i].stock_id,
 		                       NULL);
 		gtk_toggle_action_set_active (GTK_TOGGLE_ACTION (action),
@@ -417,11 +454,23 @@ gtk_action_group_add_radio_actions (action_group, radio_action_entries, value, o
 	for (i = 0 ; i < n_actions ; i++) {
 		GtkAction * action;
 		gchar * accel_path;
+		const gchar * label;
+		const gchar * tooltip;
+#if GTK_CHECK_VERSION (2, 6, 0)
+		label = gtk_action_group_translate_string (action_group,
+							   entries[i].label);
+		tooltip =
+			gtk_action_group_translate_string (action_group,
+							   entries[i].tooltip);
+#else
+		label = entries[i].label;
+		tooltip = entries[i].tooltip;
+#endif
 
 		action = g_object_new (GTK_TYPE_RADIO_ACTION,
 		                       "name", entries[i].name,
-		                       "label", entries[i].label,
-		                       "tooltip", entries[i].tooltip,
+		                       "label", label,
+		                       "tooltip", tooltip,
 		                       "stock_id", entries[i].stock_id,
 		                       "value", entries[i].value,
 		                       NULL);
