@@ -19,6 +19,7 @@ examples/item_factory_demo.pl
 examples/layout.pl
 examples/plug.pl
 examples/scribble.pl
+examples/simplelist.pl
 examples/socket.pl
 examples/testdnd.pl
 examples/timeouttest.pl
@@ -59,6 +60,7 @@ gtk2perl.h
 maps
 pm/Helper.pm
 pm/Pango.pm
+pm/SimpleList.pm
 ppport.h
 t/00.Gtk2.t
 t/01.GtkWindow.t
@@ -79,6 +81,7 @@ t/15.GtkHandleBox.t
 t/16.GtkMenu-etc.t
 t/17.GtkItemFactory.t
 t/18.GtkNotebook.t
+t/19.GtkSimpleList.t
 testgtk.pl
 xs/Gdk.xs
 xs/GdkColor.xs

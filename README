@@ -1,6 +1,6 @@
 # $Header$
 
-Gtk2 version 0.91
+Gtk2 version 0.92
 =================
 
 Perl bindings to the 2.x series of the Gtk+ graphical user interface library.
@@ -58,7 +58,7 @@ DEPENDENCIES
 This module requires these other modules and libraries:
 
   perl >= 5.8.0
-  Glib >= 0.90 (perl module)
+  Glib >= 0.92 (perl module)
   GTK+ > 2.x (C library)
 
 

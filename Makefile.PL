@@ -8,7 +8,7 @@ use ExtUtils::MakeMaker;
 use Cwd;
 
 # minimum required version of Glib with which we can work.
-my $req_glib_ver = 0.90;
+my $req_glib_ver = 0.92;
 
 # Writing a fake Makefile ensures that CPAN will pick up the correct
 # dependencies and install them.
