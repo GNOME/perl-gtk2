@@ -1,3 +1,8 @@
+2003/11/08 01:56 (-0500) muppetman [unstable-2-3-x-branch]
+
+	* Makefile.PL: oooops, looks like the addition of xs_files-2.3
+	went into the wrong branch.  adding it again here.
+
 2003/11/08 01:52 (-0500) muppetman [unstable-2-3-x-branch]
 
 	M MANIFEST
