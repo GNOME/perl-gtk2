@@ -1,3 +1,8 @@
+2004/01/21 21:42 (-0500) muppetman
+
+	* xs/GtkSelection.xs: free the value returned from 
+	gtk_selection_data_get_text().  also make sure Perl treats is as utf8.
+
 2004/01/21 21:00 (-0500) muppetman
 
 	* gtk2perl.h, xs/GtkClipboard.xs, xs/GtkSelection.xs: use

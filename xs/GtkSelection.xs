@@ -283,7 +283,8 @@ gtk_selection_data_set_text (selection_data, str, len=-1)
 	gint len
 
 ##  guchar * gtk_selection_data_get_text (GtkSelectionData *selection_data) 
-guchar *
+#guchar *
+gchar_own *
 gtk_selection_data_get_text (selection_data)
 	GtkSelectionData *selection_data
 
