@@ -11,7 +11,6 @@
 
 /* this is just an interface */
 
-
 static gboolean
 gtk2perl_tree_model_foreach_func (GtkTreeModel *model,
                                   GtkTreePath *path,
@@ -81,13 +80,468 @@ gtk2perl_tree_model_rows_reordered_marshal (GClosure * closure,
 	GPERL_CLOSURE_MARSHAL_CALL (G_DISCARD);
 
 	/*
-	 * clean up 
+	 * clean up
 	 */
 
 	FREETMPS;
 	LEAVE;
 }
 
+/*
+ * GtkTreeModelIface
+ */
+
+/*
+ * Signals - these have class closures, so we can override them "normally"
+ *           (for gtk2-perl, that is)
+ *
+ *	row_changed
+ *	row_inserted
+ *	row_has_child_toggled
+ *	row_deleted
+ *	rows_reordered
+ */
+
+/*
+ * Virtual Table - things for which we must provide overrides
+ */
+
+static SV *
+find_func (GtkTreeModel * tree_model,
+           const char * method_name)
+{
+	HV * stash = gperl_object_stash_from_type (G_OBJECT_TYPE (tree_model));
+	return (SV*) gv_fetchmethod (stash, method_name);
+}
+
+#define PUSH_INSTANCE(var)	\
+	PUSHs (sv_2mortal (newSVGObject (G_OBJECT (var))))
+
+#define PREP(model)	\
+	dSP;			\
+	ENTER;			\
+	SAVETMPS;		\
+	PUSHMARK (SP);		\
+	PUSHs (sv_2mortal (newSVGObject (G_OBJECT (model))));
+
+#define CALL(name, flags)	\
+	PUTBACK;			\
+	call_method (name, flags);	\
+	SPAGAIN;
+
+#define FINISH	\
+	PUTBACK;	\
+	FREETMPS;	\
+	LEAVE;
+
+static GtkTreeModelFlags
+gtk2perl_tree_model_get_flags (GtkTreeModel *tree_model)
+{
+	GtkTreeModelFlags ret;
+	PREP (tree_model);
+	CALL ("GET_FLAGS", G_SCALAR);
+	ret = SvGtkTreeModelFlags (POPs);
+	FINISH;
+	return ret;
+}
+
+static gint
+gtk2perl_tree_model_get_n_columns (GtkTreeModel *tree_model)
+{
+	int ret;
+	PREP (tree_model);
+	CALL ("GET_N_COLUMNS", G_SCALAR);
+	ret = POPi;
+	FINISH;
+	return ret;
+}
+
+static GType
+gtk2perl_tree_model_get_column_type (GtkTreeModel *tree_model,
+                                     gint          index_)
+{
+	GType ret;
+	SV * svret;
+	PREP (tree_model);
+	XPUSHs (sv_2mortal (newSViv (index_)));
+	CALL ("GET_COLUMN_TYPE", G_SCALAR);
+	svret = POPs;
+	PUTBACK;
+	ret = gperl_type_from_package (SvPV_nolen (svret));
+	if (!ret)
+		croak ("package %s is not registered with GPerl\n",
+		       SvPV_nolen (svret));
+	FREETMPS;
+	LEAVE;
+	return ret;
+}
+
+static SV *
+sv_from_iter (GtkTreeIter * iter)
+{
+	AV * av = newAV ();
+	if (!iter)
+		return &PL_sv_undef;
+	av_push (av, newSVuv (iter->stamp));
+	av_push (av, newSViv (PTR2IV (iter->user_data)));
+	av_push (av, iter->user_data2 ? newRV (iter->user_data2) : &PL_sv_undef);
+	av_push (av, iter->user_data3 ? newRV (iter->user_data3) : &PL_sv_undef);
+	//warn ("sv_from_iter : av %p  %x %x %x %x\n", av,
+	//      iter->stamp, iter->user_data, iter->user_data2, iter->user_data3);
+	return newRV_noinc ((SV*)av);
+}
+
+static gboolean
+iter_from_sv (GtkTreeIter * iter,
+              SV * sv)
+{
+	//warn ("iter_from_sv 0x%x, 0x%x\n", iter, sv);
+	if (sv && SvROK (sv) && SvTYPE (SvRV (sv)) == SVt_PVAV) {
+		SV ** svp;
+		AV * av = (AV*) SvRV (sv);
+		if ((svp = av_fetch (av, 0, FALSE)))
+			iter->stamp = SvUV (*svp);
+
+		if ((svp = av_fetch (av, 1, FALSE)) && SvIOK (*svp))
+			iter->user_data = INT2PTR (gpointer, SvIV (*svp));
+		else
+			iter->user_data = NULL;
+
+		if ((svp = av_fetch (av, 2, FALSE)) && SvROK (*svp))
+			iter->user_data2 =  SvRV (*svp);
+		else
+			iter->user_data2 = NULL;
+
+		if ((svp = av_fetch (av, 3, FALSE)) && SvROK (*svp))
+			iter->user_data3 =  SvRV (*svp);
+		else
+			iter->user_data3 = NULL;
+		//warn ("iter_from_sv 0x%p  %x %x %x %x\n", iter,
+		//      iter->stamp, iter->user_data, iter->user_data2, iter->user_data3);
+		return TRUE;
+	} else {
+		iter->stamp = 0;
+		iter->user_data = 0;
+		iter->user_data2 = 0;
+		iter->user_data3 = 0;
+		return FALSE;
+	}
+}
+
+static gboolean
+gtk2perl_tree_model_get_iter (GtkTreeModel *tree_model,
+      			      GtkTreeIter  *iter,
+      			      GtkTreePath  *path)
+{
+	gboolean ret;
+	PREP (tree_model);
+	XPUSHs (sv_2mortal (path ? newSVGtkTreePath (path) : &PL_sv_undef));
+	CALL ("GET_ITER", G_SCALAR);
+	ret = iter_from_sv (iter, POPs);
+	FINISH;
+	return ret;
+}
+
+static GtkTreePath *
+gtk2perl_tree_model_get_path (GtkTreeModel *tree_model,
+      			      GtkTreeIter  *iter)
+{
+	GtkTreePath * ret = NULL;
+	SV * sv;
+	PREP (tree_model);
+	XPUSHs (sv_2mortal (sv_from_iter (iter)));
+	CALL ("GET_PATH", G_SCALAR);
+	sv = POPs;
+	/* restore the stack before parsing the output, since SvGtkTreePath
+	 * might croak.  FREETMPS will destroy the path, though, so we need
+	 * to copy it, first. */
+	PUTBACK;
+	if (sv && SvOK (sv))
+		ret = gtk_tree_path_copy (SvGtkTreePath (sv));
+	FREETMPS;
+	LEAVE;
+	return ret;
+}
+
+static void
+gtk2perl_tree_model_get_value (GtkTreeModel *tree_model,
+      			       GtkTreeIter  *iter,
+      			       gint          column,
+      			       GValue       *value)
+{
+	g_value_init (value,
+	              gtk2perl_tree_model_get_column_type (tree_model, column));
+	{
+		PREP (tree_model);
+		XPUSHs (sv_2mortal (sv_from_iter (iter)));
+		XPUSHs (sv_2mortal (newSViv (column)));
+		CALL ("GET_VALUE", G_SCALAR);
+		gperl_value_from_sv (value, POPs);
+		FINISH;
+	}
+}
+
+static gboolean
+gtk2perl_tree_model_iter_next (GtkTreeModel *tree_model,
+      			       GtkTreeIter  *iter)
+{
+	gboolean ret;
+	PREP (tree_model);
+	XPUSHs (sv_2mortal (sv_from_iter (iter)));
+	CALL ("ITER_NEXT", G_SCALAR);
+	ret = iter_from_sv (iter, POPs);
+	FINISH;
+	return ret;
+}
+
+static gboolean
+gtk2perl_tree_model_iter_children (GtkTreeModel *tree_model,
+                                   GtkTreeIter  *iter,
+                                   GtkTreeIter  *parent)
+{
+	gboolean ret;
+	PREP (tree_model);
+	XPUSHs (sv_2mortal (sv_from_iter (parent)));
+	CALL ("ITER_CHILDREN", G_SCALAR);
+	ret = iter_from_sv (iter, POPs);
+	FINISH;
+	return ret;
+}
+
+static gboolean
+gtk2perl_tree_model_iter_has_child (GtkTreeModel *tree_model,
+                                    GtkTreeIter  *iter)
+{
+	gboolean ret;
+	PREP (tree_model);
+	XPUSHs (sv_2mortal (sv_from_iter (iter)));
+	CALL ("ITER_HAS_CHILD", G_SCALAR);
+	ret = POPi;
+	FINISH;
+	return ret;
+}
+
+static gint
+gtk2perl_tree_model_iter_n_children (GtkTreeModel *tree_model,
+      			    GtkTreeIter  *iter)
+{
+	gint ret;
+	PREP (tree_model);
+	XPUSHs (sv_2mortal (sv_from_iter (iter)));
+	CALL ("ITER_N_CHILDREN", G_SCALAR);
+	ret = POPi;
+	FINISH;
+	return ret;
+}
+
+static gboolean
+gtk2perl_tree_model_iter_nth_child (GtkTreeModel *tree_model,
+                                    GtkTreeIter  *iter,
+                                    GtkTreeIter  *parent,
+                                    gint          n)
+{
+	gboolean ret;
+	PREP (tree_model);
+	XPUSHs (sv_2mortal (sv_from_iter (parent)));
+	XPUSHs (sv_2mortal (newSViv (n)));
+	CALL ("ITER_NTH_CHILD", G_SCALAR);
+	ret = iter_from_sv (iter, POPs);
+	FINISH;
+	return ret;
+}
+
+static gboolean
+gtk2perl_tree_model_iter_parent (GtkTreeModel *tree_model,
+      			         GtkTreeIter  *iter,
+      			         GtkTreeIter  *child)
+{
+	gboolean ret;
+	PREP (tree_model);
+	XPUSHs (sv_2mortal (sv_from_iter (child)));
+	CALL ("ITER_PARENT", G_SCALAR);
+	ret = iter_from_sv (iter, POPs);
+	FINISH;
+	return ret;
+}
+
+static void
+gtk2perl_tree_model_ref_node (GtkTreeModel *tree_model,
+                              GtkTreeIter  *iter)
+{
+	SV * func = find_func (tree_model, "REF_NODE");
+	if (func) {
+		PREP (tree_model);
+		XPUSHs (sv_2mortal (sv_from_iter (iter)));
+		PUTBACK;
+		call_sv (func, G_VOID|G_DISCARD);
+		FINISH;
+	}
+}
+
+static void
+gtk2perl_tree_model_unref_node (GtkTreeModel *tree_model,
+                                GtkTreeIter  *iter)
+{
+	SV * func = find_func (tree_model, "UNREF_NODE");
+	if (func) {
+		PREP (tree_model);
+		XPUSHs (sv_2mortal (sv_from_iter (iter)));
+		PUTBACK;
+		call_sv (func, G_VOID|G_DISCARD);
+		FINISH;
+	}
+}
+
+
+static void
+gtk2perl_tree_model_init (GtkTreeModelIface * iface)
+{
+	iface->get_flags       = gtk2perl_tree_model_get_flags;
+	iface->get_n_columns   = gtk2perl_tree_model_get_n_columns;
+	iface->get_column_type = gtk2perl_tree_model_get_column_type;
+	iface->get_iter        = gtk2perl_tree_model_get_iter;
+	iface->get_path        = gtk2perl_tree_model_get_path;
+	iface->get_value       = gtk2perl_tree_model_get_value;
+	iface->iter_next       = gtk2perl_tree_model_iter_next;
+	iface->iter_children   = gtk2perl_tree_model_iter_children;
+	iface->iter_has_child  = gtk2perl_tree_model_iter_has_child;
+	iface->iter_n_children = gtk2perl_tree_model_iter_n_children;
+	iface->iter_nth_child  = gtk2perl_tree_model_iter_nth_child;
+	iface->iter_parent     = gtk2perl_tree_model_iter_parent;
+	iface->ref_node        = gtk2perl_tree_model_ref_node;
+	iface->unref_node      = gtk2perl_tree_model_unref_node;
+}
+
+MODULE = Gtk2::TreeModel	PACKAGE = Gtk2::TreeModel
+
+=for flags GtkTreeModelFlags
+=cut
+
+=head1 DESCRIPTION
+
+The Gtk2::TreeModel provides a generic tree interface for use by the 
+Gtk2::TreeView widget.  It is an abstract interface, designed to be usable
+with any appropriate data structure.
+
+FIXME FIXME say more here
+
+=cut
+
+##
+## FIXME FIXME it would be nice for this section to *follow* the normal
+##             method listing, rather than precede it.
+##
+
+=head1 CREATING A CUSTOM TREE MODEL
+
+GTK+ provides two model implementations, Gtk2::TreeStore and Gtk2::ListStore,
+which should be sufficient in most cases.  For some cases, however, it is
+advantageous to provide a custom tree model implementation.  It is possible
+to create custom tree models in Perl, because we're cool like that.
+
+To do this, you create a Glib::Object derivative which implements the 
+Gtk2::TreeModel interface; this is gtk2-perl-speak for "you have to add
+a special key when you register your object type."  For example:
+
+  package MyModel;
+  use Gtk2;
+  use Glib::Object::Subclass
+      Glib::Object::,
+      interfaces => [ Gtk2::TreeModel:: ],
+      ;
+
+This will cause perl to call several virtual methods with ALL_CAPS_NAMES
+when Gtk+ attempts to perform certain actions on the model.  You simply
+provide (or override) those methods.
+
+=head2 TREE ITERS
+
+Gtk2::TreeIter is normally an opaque object, but on the implementation side
+of a Gtk2::TreeModel, you have to define what's inside.  The virtual methods
+described below deal with iters as a reference to an array containing four
+values:
+
+=over
+
+=item o stamp (integer)
+
+A number unique to this model.
+
+=item o user_data (integer)
+
+An arbitrary integer value.
+
+=item o user_data2 (scalar)
+
+An arbitrary scalar.  Will not persist.  May be undef.
+
+=item o user_data3 (scalar)
+
+An arbitrary scalar.  Will not persist.  May be undef.
+
+=back
+
+=head2 VIRTUAL METHODS
+
+An implementation of
+
+=over
+
+=item treemodelflags = GET_FLAGS ($model)
+
+=item integer = GET_N_COLUMNS ($model)
+
+=item string = GET_COLUMN_TYPE ($model, $index)
+
+=item ARRAYREF = GET_ITER ($model, $path)
+
+See above for a description of what goes in the returned array reference.
+
+=item treepath = GET_PATH ($model, ARRAYREF)
+
+=item scalar = GET_VALUE ($model, ARRAYREF, $column)
+
+Implements $treemodel->get().
+
+=item ARRAYREF = ITER_NEXT ($model, ARRAYREF)
+
+=item ARRAYREF = ITER_CHILDREN ($model, ARRAYREF)
+
+=item boolean = ITER_HAS_CHILD ($model, ARRAYREF)
+
+=item integer = ITER_N_CHILDREN ($model, ARRAYREF)
+
+=item ARRAYREF = ITER_NTH_CHILD ($model, ARRAYREF, $n)
+
+=item ARRAYREF = ITER_PARENT ($model, ARRAYREF)
+
+=item REF_NODE ($model, ARRAYREF)
+
+Optional.
+
+=item REF_NODE ($model, ARRAYREF)
+
+Optional.
+
+=back
+
+=cut
+
+=for apidoc __hide__
+=cut
+void
+_ADD_INTERFACE (class, const char * target_class)
+    CODE:
+    {
+	static const GInterfaceInfo iface_info = {
+		(GInterfaceInitFunc) gtk2perl_tree_model_init,
+		(GInterfaceFinalizeFunc) NULL,
+		(gpointer) NULL
+	};
+	GType gtype = gperl_object_type_from_package (target_class);
+	g_type_add_interface_static (gtype, GTK_TYPE_TREE_MODEL, &iface_info);
+    }
+	
 
 MODULE = Gtk2::TreeModel	PACKAGE = Gtk2::TreePath	PREFIX = gtk_tree_path_
 
@@ -395,7 +849,7 @@ gtk_tree_model_get_path (tree_model, iter)
 Alias for L<get|list = $tree_model-E<gt>get ($iter, ...)>.
 =cut
 
-=for apidoc 
+=for apidoc
 =for arg ... of column indices
 
 Fetch and return the model's values in the row pointed to by I<$iter>.
@@ -421,7 +875,7 @@ gtk_tree_model_get (tree_model, iter, ...)
 	{
 		for (i = 2 ; i < items ; i++) {
 			GValue gvalue = {0, };
-			gtk_tree_model_get_value (tree_model, iter, 
+			gtk_tree_model_get_value (tree_model, iter,
 			                          SvIV (ST (i)), &gvalue);
 			XPUSHs (sv_2mortal (gperl_sv_from_value (&gvalue)));
 			g_value_unset (&gvalue);
@@ -433,7 +887,7 @@ gtk_tree_model_get (tree_model, iter, ...)
 		for( i = 0; i < gtk_tree_model_get_n_columns(tree_model); i++ )
 		{
 			GValue gvalue = {0, };
-			gtk_tree_model_get_value (tree_model, iter, 
+			gtk_tree_model_get_value (tree_model, iter,
 			                          i, &gvalue);
 			XPUSHs (sv_2mortal (gperl_sv_from_value (&gvalue)));
 			g_value_unset (&gvalue);
@@ -574,9 +1028,6 @@ gtk_tree_model_row_deleted (tree_model, path)
 	GtkTreePath *path
 
 #### void gtk_tree_model_rows_reordered (GtkTreeModel *tree_model, GtkTreePath *path, GtkTreeIter *iter, gint *new_order)
-=for apidoc
-=for arg ... of integers, the new order
-=cut
 void
 gtk_tree_model_rows_reordered (tree_model, path, iter, ...)
 	GtkTreeModel *tree_model
