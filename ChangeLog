@@ -1,3 +1,7 @@
+2004/02/27 11:55 (-0500) muppetman
+
+	* pm/SimpleList.pm: updated see-alsos and other pod, bump version.
+
 2004/02/27 02:19 (-0500) muppetman
 
 	* README, Gtk2.pm, NEWS: unstable release 1.037

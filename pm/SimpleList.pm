@@ -11,7 +11,7 @@ use Gtk2;
 
 our @ISA = 'Gtk2::TreeView';
 
-our $VERSION = '0.14';
+our $VERSION = '0.15';
 
 our %column_types = (
   'hidden' => {type=>'Glib::String',                                        attr=>'hidden'},
@@ -525,7 +525,7 @@ arbitrary new column types before calling the new function.
            +--- Gtk2::TreeView
 	        +--- Gtk2::SimpleList
 
-=head1 FUNCTIONS
+=head1 METHODS
 
 =over
 
@@ -601,7 +601,10 @@ The first parameter is the column type name, the list of six are examples.
 There are no restrictions on the names and you may even overwrite the existing
 ones should you choose to do so. The remaining parameters are the type
 definition consisting of key value pairs. There are three required: type,
-renderer, and attr. The type key should be always be set to 'Glib::Scalar'. The
+renderer, and attr. The type key determines what actual datatype will be
+stored in the underlying model representation; this is a package name, e.g.
+Glib::String, Glib::Int, Glib::Boolean, but in general if you want an
+arbitrary Perl data structure you will want to use 'Glib::Scalar'. The
 renderer key should hold the class name of the cell renderer to create for this
 column type; this may be any of Gtk2::CellRendererText,
 Gtk2::CellRendererToggle, Gtk2::CellRendererPixbuf, or some other, possibly
@@ -669,8 +672,8 @@ section will prove redundant, but just in case:
     unshift @{$slist->{data}}, [col1_data, col2_data, ..., coln_data];
     # shift a row off of the beginning of the list
     $rowref = shift @{$slist->{data}};
-    # delete the row at index n, 0 indexed
-    delete $slist->{data}[n];
+    # delete the row at index $n, 0 indexed
+    splice @{ $slist->{data} }, $n, 1;
     # set the entire list to be the data in a array
     @{$slist->{data}} = ( [row1, ...], [row2, ...], [row3, ...] );
 
@@ -687,7 +690,8 @@ section will prove redundant, but just in case:
 
 =head1 SEE ALSO
 
-Perl(1), Glib(3pm), Gtk2(3pm).
+Perl(1), Glib(3pm), Gtk2(3pm), Gtk2::TreeView(3pm), Gtk2::TreeModel(3pm),
+Gtk2::ListStore(3pm).
 
 =head1 AUTHORS
 
