@@ -1,3 +1,8 @@
+2003/11/16 02:44 (-0500) muppetman
+
+	* xs/GtkCellRenderer.xs, xs/GtkEditable.xs, xs/GtkMenu.xs:
+	clean up the stack properly after call_sv to stop internal bleeding.
+
 2003/11/13 23:41 (-0500) muppetman
 
 	* Gtk2.pm, Makefile.PL, README: bump version to 1.011
