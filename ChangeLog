@@ -1,3 +1,7 @@
+2003/11/28 14:54 (-0500) rwmcfa1
+
+	* Makefile.PL: DOC_PL_DEPENDS -> POD_DEPENDS
+
 2003/11/28 12:44 (-0500) rwmcfa1
 
 	* Gtk2.pm: fixed bug in cleanpath code, spotty by kaffee

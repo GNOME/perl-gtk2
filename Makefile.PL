@@ -188,7 +188,7 @@ WriteMakefile(
 
 sub MY::postamble
 {
-	my $text = "DOC_PL_DEPENDS=build/stock_items.podi\n\n"
+	my $text = "POD_DEPENDS=build/stock_items.podi\n\n"
 		 . Glib::MakeHelper->postamble_clean ()
 	         . Glib::MakeHelper->postamble_docs (@xs_files)
 	         . Glib::MakeHelper->postamble_rpms (
