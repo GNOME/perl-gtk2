@@ -12,7 +12,7 @@ use warnings;
 
 #########################
 
-use Test::More tests => 28;
+use Test::More tests => 30;
 BEGIN { use_ok('Gtk2') };
 
 #########################
@@ -49,23 +49,51 @@ SKIP:
 
 	isa_ok( Gtk2->get_default_language, "Gtk2::Pango::Language" );
 
-	TODO: {
-	local $TODO = Gtk2->CHECK_VERSION (2, 3, 0) # FIXME 2.4
-	            ? "events_pending != 0 on 2.3.x ???"
-	            : undef;
-	is( Gtk2->events_pending, 0, 'no events pending on initialization' );
-	}
-
 	is( Gtk2->main_level, 0, 'main level is zero when there are no loops' );
 
-	# warn Gtk2->main_iteration;
-	is( Gtk2->main_iteration_do (0), 1 );
+	my $window = Gtk2::Object->new ("Gtk2::Window");
+	my $object = Gtk2::Object->new ("Gtk2::Label");
+
+	my $event = Gtk2::Gdk::Event->new ("button-press");
+
+	$event->button (1);
+	$event->time (time);
+	$event->state ([qw/shift-mask control-mask/]);
+
+	Gtk2::Gdk::Event->put ($event);
+
+	$window->add ($object);
+	$object->realize;
+
+	$object->propagate_event ($event);
 
 	# warn Gtk2->get_current_event;
 	# warn Gtk2->get_current_event_time;
 	# warn Gtk2->get_current_event_state;
-	# warn Gtk2->get_event_widget;
-	# warn $widget->propagate_event;
+	# warn Gtk2->get_event_widget ($event);
+
+	my $events = 0;
+	my $retval;
+
+	while (Gtk2->events_pending) {
+		$retval = Gtk2->main_iteration;
+		$events++;
+	}
+
+	ok( $events );
+	ok( $retval );
+
+	Gtk2::Gdk::Event->put ($event);
+
+	$events = 0;
+
+	while (Gtk2->events_pending) {
+		$retval = Gtk2->main_iteration_do (0);
+		$events++;
+	}
+
+	ok( $events );
+	ok( $retval );
 
 	my $snooper;
 	ok( $snooper = Gtk2->key_snooper_install (sub { warn @_; 0; }, "bla") );
@@ -75,7 +103,7 @@ SKIP:
 	Gtk2->init_add( sub { ok($_[0] eq 'foo'); }, 'foo' );
 	ok(1);
 
-	Gtk2->quit_add_destroy (1, Gtk2::Object->new ("Gtk2::Label"));
+	Gtk2->quit_add_destroy (1, $object);
 
 	my $q1;
 	ok( $q1 = Gtk2->quit_add( 0, sub { Gtk2->quit_remove($q1); ok(1); } ) );
