@@ -1,5 +1,9 @@
 2004/01/09 06:19 (+0100) kaffeetisch
 
+	* AUTHORS, Gtk2.pm, README: mailing list addr correction
+
+2004/01/09 06:19 (+0100) kaffeetisch
+
 	* xs/GtkAccelGroup.xs: Don't unref the closure in connect_by_path.
 	Make Gtk2::Accelerator::get_default_mod_mask return a
 	GdkModifierType.  Add a class argument to
