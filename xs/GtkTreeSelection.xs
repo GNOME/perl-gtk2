@@ -129,12 +129,19 @@ gtk_tree_selection_set_select_function (selection, func, data=NULL)
 						callback,
 						(GDestroyNotify) gperl_callback_destroy);
 
-## FIXME this is a different user_data --- it's the user data that gets
-##       passed to the select function.  i don't understand why it is separate.
-### gpointer gtk_tree_selection_get_user_data (GtkTreeSelection *selection)
-#gpointer
-#gtk_tree_selection_get_user_data (selection)
-#	GtkTreeSelection *selection
+## gpointer gtk_tree_selection_get_user_data (GtkTreeSelection *selection)
+SV *
+gtk_tree_selection_get_user_data (selection)
+	GtkTreeSelection *selection
+    PREINIT:
+	GPerlCallback *callback = NULL;
+    CODE:
+	callback = (GPerlCallback *) gtk_tree_selection_get_user_data (selection);
+	RETVAL = callback && callback->data && SvOK (callback->data) ?
+	           callback->data :
+	           &PL_sv_undef;
+    OUTPUT:
+	RETVAL
 
 ## GtkTreeView* gtk_tree_selection_get_tree_view (GtkTreeSelection *selection)
 GtkTreeView*

@@ -838,11 +838,12 @@ is_hint (GdkEvent * eventmotion, guint newvalue=0)
     OUTPUT:
 	RETVAL
 
-## TODO/FIXME: how would this be set
 GdkDevice_ornull *
-device (GdkEvent * eventmotion)
+device (GdkEvent * eventmotion, GdkDevice_ornull * newvalue=NULL)
     CODE:
 	RETVAL = eventmotion->motion.device;
+	if (items == 2)
+		eventmotion->motion.device = newvalue;
     OUTPUT:
 	RETVAL
 
@@ -902,11 +903,12 @@ button (GdkEvent * eventbutton, guint newvalue=0)
     OUTPUT:
 	RETVAL
 
-## TODO/FIXME: how would this be set
 GdkDevice_ornull *
-device (GdkEvent * eventbutton)
+device (GdkEvent * eventbutton, GdkDevice_ornull * newvalue=NULL)
     CODE:
 	RETVAL = eventbutton->button.device;
+	if (items == 2)
+		eventbutton->button.device = newvalue;
     OUTPUT:
 	RETVAL
 
@@ -965,11 +967,12 @@ direction (GdkEvent * eventscroll, GdkScrollDirection newvalue=0)
     OUTPUT:
 	RETVAL
 
-## TODO/FIXME: how would this be set
 GdkDevice_ornull *
-device (GdkEvent * eventscroll)
+device (GdkEvent * eventscroll, GdkDevice_ornull * newvalue=NULL)
     CODE:
 	RETVAL = eventscroll->scroll.device;
+	if (items == 2)
+		eventscroll->scroll.device = newvalue;
     OUTPUT:
 	RETVAL
 
@@ -1377,11 +1380,12 @@ BOOT:
  #  GdkDevice *device;
  #};
 
-## TODO/FIXME: how do we set this
 GdkDevice_ornull *
-device (GdkEvent * eventproximity)
+device (GdkEvent * eventproximity, GdkDevice_ornull * newvalue=NULL)
     CODE:
 	RETVAL = eventproximity->motion.device;
+	if (items == 2)
+		eventproximity->motion.device = newvalue;
     OUTPUT:
 	RETVAL
 

@@ -7,7 +7,7 @@
 # 	- rm
 #########################
 
-use Gtk2::TestHelper tests => 100;
+use Gtk2::TestHelper tests => 108;
 use Data::Dumper;
 
 # Expose #######################################################################
@@ -38,11 +38,19 @@ is ($event->state, 'partial', '$visibility_event->state');
 
 # Motion #######################################################################
 
+my $device = Gtk2::Gdk::Device -> get_core_pointer();
+
 isa_ok ($event = Gtk2::Gdk::Event->new ('motion-notify'),
 	'Gtk2::Gdk::Event::Motion', 'Gtk2::Gdk::Event->new motion');
 
 $event->is_hint (2);
 is ($event->is_hint, 2, '$motion_event->is_hint');
+
+$event->device ($device);
+is ($event->device, $device, '$motion_event->device');
+
+$event->device (undef);
+is ($event->device, undef, '$motion_event->device & undef');
 
 $event->x (13);
 is ($event->x, 13, '$motion_event->x');
@@ -58,6 +66,12 @@ isa_ok ($event = Gtk2::Gdk::Event->new ('button-press'),
 $event->button (2);
 is ($event->button, 2, '$button_event->button');
 
+$event->device ($device);
+is ($event->device, $device, '$button_event->device');
+
+$event->device (undef);
+is ($event->device, undef, '$button_event->device & undef');
+
 $event->x (13);
 is ($event->x, 13, '$button_event->x');
 
@@ -71,6 +85,12 @@ isa_ok ($event = Gtk2::Gdk::Event->new ('scroll'),
 
 $event->direction ('down');
 is ($event->direction, 'down', '$scroll_event->direction');
+
+$event->device ($device);
+is ($event->device, $device, '$scroll_event->device');
+
+$event->device (undef);
+is ($event->device, undef, '$scroll_event->device & undef');
 
 $event->x (13);
 is ($event->x, 13, '$scroll_event->x');
@@ -271,6 +291,12 @@ isa_ok ($event->atom, 'Gtk2::Gdk::Atom', '$property_event->atom');
 
 isa_ok ($event = Gtk2::Gdk::Event->new ('proximity-in'),
 	'Gtk2::Gdk::Event::Proximity', 'Gtk2::Gdk::Event->new proximity');
+
+$event->device ($device);
+is ($event->device, $device, '$proximity_event->device');
+
+$event->device (undef);
+is ($event->device, undef, '$proximity_event->device & undef');
 
 # Client #######################################################################
 

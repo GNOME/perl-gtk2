@@ -104,8 +104,10 @@ t/GdkDnd.t
 t/GdkDrawable.t
 t/GdkEvent.t
 t/GdkGC.t
+t/GdkInput.t
 t/GdkKeys.t
 t/GdkPixbuf.t
+t/GdkPixmap.t
 t/GdkProperty.t
 t/GdkRegion.t
 t/GdkScreen.t
@@ -226,8 +228,8 @@ t/GtkToolItem.t
 t/GtkToolbar.t
 t/GtkTooltips.t
 t/GtkTreeModel.t
-t/GtkTreeModelIface.t
 t/GtkTreeModelFilter.t
+t/GtkTreeModelIface.t
 t/GtkTreeModelSort.t
 t/GtkTreeSelection.t
 t/GtkTreeSortable.t
@@ -262,6 +264,7 @@ xs/GdkDnd.xs
 xs/GdkDrawable.xs
 xs/GdkEvent.xs
 xs/GdkGC.xs
+xs/GdkInput.xs
 xs/GdkKeys.xs
 xs/GdkPixbuf.xs
 xs/GdkPixbufLoader.xs

@@ -1,3 +1,37 @@
+2004/04/03 21:30 (+0200) kaffeetisch
+
+	A t/GdkInput.t
+	A xs/GdkInput.xs
+	* MANIFEST: Bind and test GdkInput.
+
+	* t/Gdk.t
+	* xs/Gdk.xs: Bind and test init, init_check, and parse_args.
+
+	* t/GdkEvent.t
+	* xs/GdkEvent.xs: Add and test the ability to change the device with
+	Gtk2::Gdk::Event::Motion::device,
+	Gtk2::Gdk::Event::Button::device,
+	Gtk2::Gdk::Event::Scroll::device, and
+	Gtk2::Gdk::Event::Proximity::device.
+
+	* gdk.typemap
+	* maps-2.0: Use a custom typemap for Gtk2::Gdk::Keymap so you can
+	use Gtk2::Gdk::Keymap->method instead of $keymap->method to get
+	the default keymap.
+
+	* t/GdkKeys.t
+	* xs/GdkKeys.xs: Bind and test
+	Gtk2::Gdk::Keymap::get_entries_for_keyval and
+	::get_entries_for_keycode.
+
+	A t/GdkPixmap.t
+	* MANIFEST
+	* xs/GdkPixmap.xs: Bind and test lookup, lookup_for_display,
+	foreign_new, and foreign_new_for_display.
+
+	* t/GtkTreeSelection.t
+	* xs/GtkTreeSelection.xs: Bind and test get_user_data.
+
 2004/03/28 18:01 (-0500) rwmcfa1
 
 	* pm/SimpleList.pm, examples/simplelist.pl: get_data_from_path ->

@@ -35,3 +35,20 @@ GdkAtom 		T_GPERL_GENERIC_WRAPPER
 
 GdkGeometry *		T_GPERL_GENERIC_WRAPPER
 GdkWindowAttr *		T_GPERL_GENERIC_WRAPPER
+
+# can be either an object or NULL to get the default keymap
+GdkKeymap *		T_GDK_KEYMAP
+
+INPUT
+
+T_GDK_KEYMAP
+	if ($arg && SvOK ($arg) && SvROK ($arg) && sv_derived_from ($arg, \"Gtk2::Gdk::Keymap\")) {
+		$var = ($type) SvIV (SvRV ($arg));
+	} else {
+		$var = NULL;
+	}
+
+OUTPUT
+
+T_GDK_KEYMAP
+	sv_setref_pv ($arg, \"Gtk2::Gdk::Keymap\", $var);

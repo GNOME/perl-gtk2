@@ -1,8 +1,10 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 15;
+use Gtk2::TestHelper tests => 27;
 
 # $Header$
+
+use Gtk2::Gdk::Keysyms;
 
 my $map = Gtk2::Gdk::Keymap -> get_default();
 isa_ok($map, "Gtk2::Gdk::Keymap");
@@ -15,15 +17,36 @@ SKIP: {
   isa_ok($map, "Gtk2::Gdk::Keymap");
 }
 
-my ($keyval, $group, $level, $mods) = $map -> translate_keyboard_state(10, [qw(shift-mask lock-mask)], 0);
+my @keys = $map -> get_entries_for_keyval($Gtk2::Gdk::Keysyms{ Escape });
+isa_ok($keys[0], "HASH");
+like($keys[0] -> { keycode }, qr/^\d+$/);
+like($keys[0] -> { group }, qr/^\d+$/);
+like($keys[0] -> { level }, qr/^\d+$/);
+
+my ($keyval, $group, $level, $mods) = $map -> translate_keyboard_state($keys[0] -> { keycode }, [qw(shift-mask)], 0);
 like($keyval, qr/^\d+$/);
-like($keyval, qr/^\d+$/);
-like($keyval, qr/^\d+$/);
+like($group, qr/^\d+$/);
+like($level, qr/^\d+$/);
 isa_ok($mods, "Gtk2::Gdk::ModifierType");
 
-ok(defined($map -> get_direction()));
+my $key = {
+  keycode => $keys[0] -> { keycode },
+  group => $group,
+  level => $level
+};
 
-use Gtk2::Gdk::Keysyms;
+like($map -> lookup_key($key), qr/^\d+$/);
+like(Gtk2::Gdk::Keymap -> lookup_key($key), qr/^\d+$/);
+
+my @entries = $map -> get_entries_for_keycode($keys[0] -> { keycode });
+isa_ok($entries[0], "HASH");
+like($entries[0] -> { keyval }, qr/^\d+$/);
+isa_ok($entries[0] -> { key }, "HASH");
+like($entries[0] -> { key } -> { keycode }, qr/^\d+$/);
+like($entries[0] -> { key } -> { group }, qr/^\d+$/);
+like($entries[0] -> { key } -> { level }, qr/^\d+$/);
+
+ok(defined($map -> get_direction()));
 
 my $a = $Gtk2::Gdk::Keysyms{ a };
 my $A = $Gtk2::Gdk::Keysyms{ A };

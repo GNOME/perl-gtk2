@@ -22,25 +22,43 @@
 
 MODULE = Gtk2::Gdk	PACKAGE = Gtk2::Gdk	PREFIX = gdk_
 
-###  void gdk_init (gint *argc, gchar ***argv) 
-#void
-#gdk_init (argc, argv)
-#	gint *argc
-#	gchar ***argv
+##  void gdk_init (gint *argc, gchar ***argv) 
+gboolean
+gdk_init (class=NULL)
+    ALIAS:
+	Gtk2::Gdk::init_check = 1
+    PREINIT:
+	GPerlArgv *pargv;
+    CODE:
+	pargv = gperl_argv_new ();
 
-###  gboolean gdk_init_check (gint *argc, gchar ***argv) 
-#gboolean
-#gdk_init_check (argc, argv)
-#	gint *argc
-#	gchar ***argv
+	if (ix == 1) {
+		RETVAL = gdk_init_check (&pargv->argc, &pargv->argv);
+	} else {
+		gdk_init (&pargv->argc, &pargv->argv);
+		/* gdk_init() either succeeds or does not return. */
+		RETVAL = TRUE;
+	}
+
+	gperl_argv_update (pargv);
+	gperl_argv_free (pargv);
+    OUTPUT:
+	RETVAL
 
 #if GTK_CHECK_VERSION(2,2,0)
 
-###  void gdk_parse_args (gint *argc, gchar ***argv) 
-#void
-#gdk_parse_args (argc, argv)
-#	gint *argc
-#	gchar ***argv
+##  void gdk_parse_args (gint *argc, gchar ***argv) 
+void
+gdk_parse_args (class=NULL)
+    PREINIT:
+	GPerlArgv *pargv;
+    CODE:
+	pargv = gperl_argv_new ();
+
+	gdk_parse_args (&pargv->argc, &pargv->argv);
+
+	gperl_argv_update (pargv);
+	gperl_argv_free (pargv);
 
 const gchar *
 gdk_get_display_arg_name (class)
@@ -281,6 +299,3 @@ gdk_threads_init (class)
 		default:
 			g_assert_not_reached ();
 	}
-
-
-MODULE = Gtk2::Gdk	PACKAGE = Gtk2::Gdk	PREFIX = gdk_

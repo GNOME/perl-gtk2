@@ -7,9 +7,11 @@ use Gtk2;
 
 Gtk2::Gdk::Threads -> init();
 
-if (Gtk2->init_check )
+@ARGV = qw(--help --name bla --urgs tree);
+
+if (Gtk2::Gdk->init_check )
 {
-	plan tests => 13;
+	plan tests => 17;
 }
 else
 {
@@ -20,9 +22,25 @@ else
 Gtk2::Gdk::Threads -> enter();
 Gtk2::Gdk::Threads -> leave();
 
+is(Gtk2::Gdk -> init_check(), 1);
+is(Gtk2::Gdk -> init(), 1);
+
+is_deeply(\@ARGV, [qw(--help --urgs tree)]);
+
+# Also call Gtk2's init to avoid hangs.
+Gtk2 -> init();
+
 SKIP: {
-  skip("get_display_arg_name and notify_startup_complete are new in 2.2", 0)
+  skip("parse_args, get_display_arg_name and notify_startup_complete are new in 2.2", 1)
     unless Gtk2 -> CHECK_VERSION(2, 2, 0);
+
+  @ARGV = qw(--help --name bla --urgs tree);
+
+  # FIXME: this immediately returns if gdk is already initialized.  so does
+  # gdk_init.  how to test both of them in one test?
+  Gtk2::Gdk -> parse_args();
+
+  is_deeply(\@ARGV, [qw(--help --name bla --urgs tree)]);
 
   Gtk2::Gdk -> get_display_arg_name(); # FIXME: check retval?
   Gtk2::Gdk -> notify_startup_complete();
