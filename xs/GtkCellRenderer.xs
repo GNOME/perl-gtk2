@@ -21,6 +21,25 @@
 
 #include "gtk2perl.h"
 
+static void
+warn_deprecated (const char * old_and_busted,
+              const char * new_hotness)
+{
+	static int debugging_on = -1;
+	if (debugging_on < 0) {
+		HV * env = get_hv ("::ENV", FALSE);
+		SV ** v = hv_fetch (env, "GTK2PERL_DEBUG", 14, 0);
+		debugging_on = (v && SvTRUE (*v));
+	}
+	if (debugging_on) {
+		if (new_hotness)
+			warn ("%s is deprecated, use %s instead",
+			      old_and_busted, new_hotness);
+		else
+			warn ("%s is deprecated", old_and_busted);
+	}
+}
+
 #define newSVGdkRectangle_ornull(r)	\
 	((r) ? newSVGdkRectangle(r) : newSVsv (&PL_sv_undef))
 #define newSVGdkEvent_ornull(e)	\
@@ -89,12 +108,12 @@ gtk2perl_cell_renderer_class_init (GtkCellRendererClass * class)
  */
 
 #define GET_METHOD(cell, method, fallback)	\
-	HV * stash = gperl_object_stash_from_type (G_OBJECT_TYPE (cell));    \
-	GV * slot = gv_fetchmethod (stash, fallback);			     \
-									     \
-	if (slot && GvCV (slot))					     \
-		warn ("%s is deprecated, use %s instead", fallback, method); \
-	else								     \
+	HV * stash = gperl_object_stash_from_type (G_OBJECT_TYPE (cell)); \
+	GV * slot = gv_fetchmethod (stash, fallback);			  \
+									  \
+	if (slot && GvCV (slot))					  \
+		warn_deprecated (fallback, method);			  \
+	else								  \
 		slot = gv_fetchmethod (stash, method);
 
 static void
