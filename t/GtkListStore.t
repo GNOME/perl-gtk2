@@ -1,5 +1,6 @@
 #!/usr/bin/perl -w
-use Gtk2::TestHelper tests => 43, noinit => 1;
+use Gtk2::TestHelper tests => 43, noinit => 1, 
+	at_least_version => [3, 4, 0, "broken"];
 
 # $Header$
 
