@@ -20,6 +20,9 @@ gtk2perl_item_factory_item_activate (GtkWidget * widget,
 	callback_action = (guint)
 		g_object_get_data (G_OBJECT (widget), "_callback_action");
 
+	ENTER;
+	SAVETMPS;
+
 	PUSHMARK (SP);
 	XPUSHs (callback->data ? callback->data : &PL_sv_undef);
 	XPUSHs (sv_2mortal (newSViv (callback_action)));
@@ -27,6 +30,9 @@ gtk2perl_item_factory_item_activate (GtkWidget * widget,
 	PUTBACK;
 
 	call_sv (callback->func, G_DISCARD);
+
+	FREETMPS;
+	LEAVE;
 }
 
 
