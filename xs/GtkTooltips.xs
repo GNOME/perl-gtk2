@@ -24,7 +24,7 @@ gtk_tooltips_disable (tooltips)
 
 ## void gtk_tooltips_set_tip (GtkTooltips *tooltips, GtkWidget *widget, const gchar *tip_text, const gchar *tip_private)
 void
-gtk_tooltips_set_tip (tooltips, widget, tip_text, tip_private)
+gtk_tooltips_set_tip (tooltips, widget, tip_text, tip_private=NULL)
 	GtkTooltips * tooltips
 	GtkWidget   * widget
 	const gchar * tip_text
