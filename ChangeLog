@@ -1,3 +1,7 @@
+2003/08/05 22:16 muppetman
+
+	* pm/SimpleList.pm: pod patch from James Curbo
+
 2003/08/01 12:45 muppetman
 
 	* MANIFEST, Gtk2.pm, README, Makefile.PL: updated for 0.92 release
