@@ -157,10 +157,15 @@ $btn = Gtk2::Button->new_from_stock ('gtk-quit');
 $btn->signal_connect (clicked => sub  { Gtk2->main_quit; });
 $vbox->pack_end($btn, 0, 1, 0);
 
+$slist->signal_connect (row_activated => sub {
+		my ($slist, $path, $column) = @_;
+		my $row_ref = $slist->get_data_from_path ($path);
+		print 'act '.Dumper ($row_ref);	
+	});
+
 # just for shorthand
 my $dslist = $slist->{data};
 my $op_count = 0;
-
 
 my @pixbufs;
 foreach (qw/gtk-ok gtk-cancel gtk-quit gtk-apply gtk-clear 

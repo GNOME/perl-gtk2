@@ -1,3 +1,11 @@
+2004/03/27 13:12 (-0500) rwmcfa1
+
+	* pm/SimpleList.pm: applied a (slightly modified) path from Nathan Kurz
+	that provides easy access to the data of a row when given a path. some
+	general doc clean-up/fixes while i was in there.
+
+	* examples/simplelist.pl: exemplify ^
+
 2004/03/25 21:45 (-0500) muppetman
 
 	* NEWS: merged from stable, so we'll have it in future versions.

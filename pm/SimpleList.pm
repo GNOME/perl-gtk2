@@ -202,6 +202,20 @@ sub set_data_array
 	@{$_[0]->{data}} = @{$_[1]};
 }
 
+sub get_data_from_path
+{
+	my ($self, $path) = @_;
+
+	# $path->get_depth always 1 for SimpleList
+	# my $depth = $path->get_depth;
+
+	# array has only one member for SimpleList
+	my @indices = $path->get_indices;
+	my $index = $indices[0];
+
+	return $self->{data}->[$index];
+}
+
 ##################################
 package Gtk2::SimpleList::TiedRow;
 
@@ -483,7 +497,11 @@ Gtk2::SimpleList - A simple interface to Gtk2's complex MVC list widget
   # Gtk2::SimpleList derives from Gtk2::TreeView, so all methods
   # on a treeview are available.
   $slist->set_rules_hint (TRUE);
-  $slist->signal_connect (row_activated => \&row_clicked);
+  $slist->signal_connect (row_activated => sub {
+          my ($sl, $path, $column) = @_;
+	  my $row_ref = $sl->get_data_from_path ($path);
+	  # $row_ref is now an array ref to the double-clicked row's data.
+      });
 
   # turn an existing TreeView into a SimpleList; useful for
   # Glade-generated interfaces.
@@ -529,11 +547,23 @@ arbitrary new column types before calling the new function.
 
 =over
 
-=item $slist = Gtk2::SimpleList->new (cname, ctype, [cname, ctype, ...])
+=item $slist = Gtk2::SimpleList->new ($cname, $ctype, ...)
+
+=over
+
+=over
+
+=item * $cname (string)
+
+=item * $ctype (string)
+
+=back
+
+=back
 
 Creates a new Gtk2::SimpleList object with the specified columns. The parameter
-C<cname> is the name of the column, what will be displayed in the list headers if
-they are turned on. The parameter ctype is the type of the column, one of:
+C<cname> is the name of the column, what will be displayed in the list headers
+if they are turned on. The parameter ctype is the type of the column, one of:
 
  text    normal text strings
  markup  pango markup strings
@@ -543,10 +573,24 @@ they are turned on. The parameter ctype is the type of the column, one of:
  scalar  a perl scalar, displayed as a text string by default
  pixbuf  a Gtk2::Gdk::Pixbuf
 
-or the name of a custom type you add with C<add_column_type>.
-These should be provided in pairs according to the desired columns for you list.
+or the name of a custom type you add with C<add_column_type>.  These should be
+provided in pairs according to the desired columns for you list.
 
-=item $slist = Gtk2::SimpleList->new_from_treeview (treeview, cname, ctype, ...)
+=item $slist = Gtk2::SimpleList->new_from_treeview ($treeview, $cname, $ctype, ...)
+
+=over
+
+=over
+
+=item * $treeview (Gtk2::TreeView)
+
+=item * $cname (string)
+
+=item * $ctype (string)
+
+=back
+
+=back
 
 Like C<< Gtk2::SimpleList->new() >>, but turns an existing Gtk2::TreeView into
 a Gtk2::SimpleList.  This is intended mostly for use with stuff like Glade,
@@ -554,9 +598,19 @@ where the widget is created for you.  This will create and attach a new model
 and remove any existing columns from I<treeview>.  Returns I<treeview>,
 re-blessed as a Gtk2::SimpleList.
 
-=item $slist->set_data_array (arrayref)
+=item $slist->set_data_array ($arrayref)
 
-Set the data in the list to the array reference arrayref. This is completely
+=over
+
+=over
+
+=item * $arrayref (array reference)
+
+=back
+
+=back
+
+Set the data in the list to the array reference $arrayref. This is completely
 equivalent to @{$list->{data}} = @{$arrayref} and is only here for convenience
 and for those programmers who don't like to type-cast and have static, set once
 data.
@@ -565,9 +619,33 @@ data.
 
 Return the indices of the selected rows in the ListStore.
 
-=item $slist->select (index, ...);
+=item $slist->get_data_from_path ($path)
 
-=item $slist->unselect (index, ...);
+=over
+
+=over
+
+=item * $path (Gtk2::TreePath) the path of the desired row 
+
+=back
+
+=back
+
+Returns an array ref with the data of the row indicated by $path.
+
+=item $slist->select ($index, ...);
+
+=item $slist->unselect ($index, ...);
+
+=over
+
+=over
+
+=item * $index (integer)
+
+=back
+
+=back
 
 Select or unselect rows in the list by index.  If the list is set for multiple
 selection, all indices in the list will be set/unset; otherwise, just the
@@ -577,9 +655,31 @@ To set the selection mode, or to select all or none of the rows, use the normal
 TreeView/TreeSelection stuff, e.g.  $slist->get_selection and the TreeSelection
 methods C<get_mode>, C<set_mode>, C<select_all>, and C<unselect_all>.
 
-=item $slist->set_column_editable (index, editable)
+=item $slist->set_column_editable ($index, $editable)
 
-=item boolean = $slist->get_column_editable (index)
+=over
+
+=over
+
+=item * $index (integer)
+
+=item * $editable (boolean)
+
+=back
+
+=back
+
+=item boolean = $slist->get_column_editable ($index)
+
+=over
+
+=over
+
+=item * $index (integer)
+
+=back
+
+=back
 
 This is a very simple interface to Gtk2::TreeView's editable text column cells.
 All columns which use the attr "text" (basically, any text or number column,
@@ -589,7 +689,18 @@ in-place editing.
 
 C<get_column_editable> tells you if column I<index> is currently editable.
 
-=item Gtk2::SimpleList->add_column_type (type_name, ...)
+=item Gtk2::SimpleList->add_column_type ($type_name, ...)
+
+
+=over
+
+=over
+
+=item $type_name (string)
+
+=back
+
+=back
 
 Add a new column type to the list of possible types. Initially six column types
 are defined, text, int, double, bool, scalar, and pixbuf. The bool column type
