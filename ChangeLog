@@ -1,3 +1,12 @@
+2004/03/12 23:11 (-0500) muppetman
+
+	* Gtk2.exports: fix missing symbols in the exports so we can link
+	on win32
+
+	* xs/GdkEvent.xs, xs/GdkProperty.xs, xs/GdkRgb.xs, xs/PangoLayout.xs:
+	little warning fixes; signedness, returning from all paths or at least
+	putting a note that the code is not reached, explicit casts, etc.
+
 2004/03/12 00:43 (-0500) muppetman
 
 	* Glib.pm, NEWS, README, Makefile.PL: beta release 1.039
