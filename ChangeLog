@@ -1,3 +1,14 @@
+2003/11/11 00:36 (-0500) muppetman
+
+	* MANIFEST, debian/*: remove the debian packaging files, since having
+	them in the upstream dist makes it difficult for the maintainers
+
+	* xs/GtkEditable.xs: use casts to hush the compiler's indignant warnings
+	about our flagrant disregard for the const-ness of param_values
+
+	* xs/PangoContext.xs: remove a couple of functions that are only enabled
+	when building pango backends
+
 2003/11/10 15:00 (-0500) muppetman
 
 	* xs/GtkWidget.xs: bind gtk_widget_event().
