@@ -2,6 +2,7 @@ AUTHORS
 ChangeLog
 Changes
 CodeGen.pm
+Gtk2.exports
 Gtk2.pm
 LICENSE
 MANIFEST
