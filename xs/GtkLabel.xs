@@ -9,7 +9,7 @@ MODULE = Gtk2::Label	PACKAGE = Gtk2::Label	PREFIX = gtk_label_
 
 
 GtkWidget *
-gtk_label_new (class, str)
+gtk_label_new (class, str=NULL)
 	SV * class
 	const char * str
     C_ARGS:
