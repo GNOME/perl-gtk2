@@ -117,7 +117,15 @@ gtk_init (class)
 	RETVAL
 
  ##void           gtk_disable_setlocale    (void);
+void gtk_disable_setlocale (SV * class)
+    C_ARGS:
+	/*void*/
+
  ##gchar *        gtk_set_locale           (void);
+const gchar * gtk_set_locale (SV * class)
+    C_ARGS:
+	/*void*/
+
  ##PangoLanguage *gtk_get_default_language (void);
 
 gint
