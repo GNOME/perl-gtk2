@@ -1,3 +1,34 @@
+Overview of Changes in 1.040
+============================
+
+  Since 1.02x (the previous stable series)
+  ----------------------------------------
+  * Updated requirements:
+    - Glib >= 1.040
+    - ExtUtils::Depends >= 0.2  (required only at build time)
+    - ExtUtils::PkgConfig >= 1.03  (require only at build time)
+  * Add support for new objects and API in gtk+-2.4.0.
+  * Derivation of Gtk2::CellRenderer has been reworked; it's much more sane
+    now, but we retain backward compatibility with the 1.02x code.
+  * It is now possible to implement GInterfaces in Perl code, so you can now
+    implement your own Gtk2::TreeModels and Gtk2::CellEditables.  Examples
+    are included.
+  * The SPLICE operation is now supported on Gtk2::SimpleList's tied data.
+  * New, standardized versioning API and documentation.
+  * Documentation enhancements all around.
+  * Huge test suite expansion and amazing increase in API coverage.
+  * New utility module Gtk2::TestHelper wraps up some of the boilerplate
+    involved in testing Gtk2-based modules.
+
+  Since 1.0391
+  ------------
+  * Test fixes.  [Torsten]
+  * Use INT2PTR to quell cast warnings.  [muppet]
+  * Documentation updates.  [all]
+  * Hide private symbols from ABI.  [muppet]
+  * Add examples/dialog.pl  [Ross]
+  * Assorted bits of code cleanup.  [muppet]
+
 Overview of Changes in 1.0391
 =============================
 
