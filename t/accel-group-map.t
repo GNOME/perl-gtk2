@@ -17,7 +17,7 @@ use Test::More;
 
 if (Gtk2->init_check)
 {
-	plan tests => 7;
+	plan tests => 9;
 }
 else
 {
@@ -29,39 +29,51 @@ else
 
 require './t/ignore_keyboard.pl';
 
-my $win = Gtk2::Window->new();
-$win->set_border_width(10);
+my $win = Gtk2::Window->new;
+$win->set_border_width (10);
 
 ok (my $accel = Gtk2::AccelGroup->new, 'Gtk2::AccelGrop->new');
 
 sub conn_func
 {
-	ok(1, 'connect_func ctrl')
+	ok (1, 'connect_func ctrl')
 }
 
 $accel->connect (42, qw/control-mask/, [], \&conn_func);
 
-$accel->connect (42, qw/shift-mask/, 'visible', 
-	sub { ok(1, 'connect_func alt') });
+$accel->connect (42, qw/shift-mask/, 'visible',
+	sub { ok (1, 'connect_func alt') });
 
-# TODO: $accel->connect_by_path
+Gtk2::AccelMap->add_entry ('<accel-map>/File/Save', 42, 'control-mask');
+Gtk2::AccelMap->add_entry ('<accel-map>/File/Save As', 43, 'control-mask');
+Gtk2::AccelMap->add_entry ('<accel-map>/File/Save It', 44, 'control-mask');
+my $file = './t/test.accel_map';
+Gtk2::AccelMap->save ($file);
+Gtk2::AccelMap->load ($file);
+ok (Gtk2::AccelMap->change_entry ('<accel-map>/File/Save As', 
+				  45, 'control-mask', 1), 'map change_entry');
+unlink ($file);
+
+$accel->connect_by_path ('<accel-map>/File/Save It', 
+	                 sub { ok (1, 'connect_by_path') });
 
 $win->add_accel_group ($accel);
 $accel->lock;
 $win->show_all;
 
-is (Gtk2->accel_groups_from_object ($win), $accel, 
+is (Gtk2::AccelGroups->from_object ($win), $accel,
 	'Gtk2->accel_groups_from_object');
 
 Glib::Idle->add (sub {
 
-		Gtk2->accel_groups_activate ($win, 42, qw/control-mask/);
-		Gtk2->accel_groups_activate ($win, 42, qw/shift-mask/);
-		
+		Gtk2::AccelGroups->activate ($win, 42, qw/control-mask/);
+		Gtk2::AccelGroups->activate ($win, 42, qw/shift-mask/);
+		Gtk2::AccelGroups->activate ($win, 44, qw/control-mask/);
+
 		Gtk2->main_quit;
 		$accel->unlock;
 
-		ok ($accel->disconnect_key (42, qw/shift-mask/), 
+		ok ($accel->disconnect_key (42, qw/shift-mask/),
 			'disconnect_key shift-mask');
 		ok ($accel->disconnect (\&conn_func), 'disconnect conn_func');
 		SKIP: {

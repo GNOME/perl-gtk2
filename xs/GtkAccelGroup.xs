@@ -229,7 +229,7 @@ gtk_accelerator_valid (keyval, modifiers)
 #	for( i = 0; i < n_entries; i++ )
 #		PUSHs(sv_2mortal(newSVGtkAccelGroupEntry(entries[i])));
 
-MODULE = Gtk2::AccelGroup	PACKAGE = Gtk2	PREFIX = gtk_
+MODULE = Gtk2::AccelGroup	PACKAGE = Gtk2::AccelGroups	PREFIX = gtk_accel_groups_
 
 =for object Gtk2::AccelGroup
 

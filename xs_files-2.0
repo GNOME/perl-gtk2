@@ -27,6 +27,7 @@ xs/GdkX11.xs # FIXME this should only be built when using the X11 backend
 xs/Gtk2.xs
 xs/GtkAccelGroup.xs
 xs/GtkAccelLabel.xs
+xs/GtkAccelMap.xs
 xs/GtkAdjustment.xs
 xs/GtkAlignment.xs
 xs/GtkArrow.xs
