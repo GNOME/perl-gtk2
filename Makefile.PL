@@ -248,8 +248,8 @@ sub MY::postamble
 # rebuild the makefile if the file lists change
 Makefile : ".join(" ", @lists)."
 
-\$(INST_LIB)/\$(FULLEXT)/enums.pod : \$(BLIB_DONE) maps tools/podifyenums.pl
-	\$(PERLRUNINST) -M\$(NAME) tools/podifyenums.pl \$(NAME) maps > \$@
+\$(INST_LIB)/\$(FULLEXT)/enums.pod : \$(BLIB_DONE) @maps tools/podifyenums.pl
+	\$(PERLRUNINST) -M\$(NAME) tools/podifyenums.pl \$(NAME) @maps > \$@
 
 build/stock_items.podi: \$(BLIB_DONE) tools/podifystockitems.pl
 	\$(PERLRUNINST) -M\$(NAME) tools/podifystockitems.pl > \$@
