@@ -111,6 +111,7 @@ t/GtkColorButton.t
 t/GtkColorSelection.t
 t/GtkColorSelectionDialog.t
 t/GtkCombo.t
+t/GtkComboBox.t
 t/GtkCurve.t
 t/GtkDialog.t
 t/GtkDnd.t
