@@ -211,8 +211,9 @@ MODULE = Gtk2::Gdk::Types	PACKAGE = Gtk2::Gdk::Geometry
 GdkGeometry *
 new (class)
     PREINIT:
-	GdkGeometry geometry = { };
+	GdkGeometry geometry;
     CODE:
+	memset (&geometry, 0, sizeof (GdkGeometry));
 	geometry.win_gravity = GDK_GRAVITY_NORTH_WEST;
 	RETVAL = &geometry;
     OUTPUT:
