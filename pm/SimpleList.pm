@@ -243,7 +243,8 @@ sub POP {
 
 sub SHIFT { 
 	my $model = $_[0]->{model};
-	$model->remove($model->iter_nth_child(undef, 0));
+	$model->remove($model->iter_nth_child(undef, 0))
+		if( $model->iter_n_children );
 }
 
 sub UNSHIFT { 
