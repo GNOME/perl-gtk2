@@ -74,4 +74,16 @@ SV * newSVGdkBitmap_noinc (GdkBitmap * bitmap);
 #undef newSVGdkModifierType
 SV * newSVGdkModifierType (GdkModifierType mods);
 
+/*
+ * GdkAtom, an opaque pointer
+ */
+SV * newSVGdkAtom (GdkAtom atom);
+GdkAtom SvGdkAtom (SV * sv);
+
+SV * newSVGtkTargetEntry (GtkTargetEntry * target_entry);
+/* do not store GtkTargetEntry objects returned from this function -- 
+ * they are only good for the block of code in which they are created */
+GtkTargetEntry * SvGtkTargetEntry (SV * sv);
+void gtk2perl_read_gtk_target_entry (SV * sv, GtkTargetEntry * entry);
+
 #endif /* _GTK2PERL_H_ */
