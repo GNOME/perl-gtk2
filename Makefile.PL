@@ -58,6 +58,22 @@ Gtk2::CodeGen->write_boot;
 # hash of key names and values, %Gtk2::Gdk::Keysyms.
 system 'perl genkeysyms.pl > build/Keysyms.pm';
 
+my %pm_files = (
+	'Gtk2.pm'          => '$(INST_LIBDIR)/Gtk2.pm',
+	'build/Keysyms.pm' => '$(INST_LIBDIR)/Gtk2/Gdk/Keysyms.pm',
+	'CodeGen.pm'       => '$(INST_LIBDIR)/Gtk2/CodeGen.pm',
+	'pm/Helper.pm'     => '$(INST_LIBDIR)/Gtk2/Helper.pm',
+	'pm/Pango.pm'      => '$(INST_LIBDIR)/Gtk2/Pango.pm',
+);
+my %pod_files = (
+	'Gtk2.pm'          => '$(INST_MAN3DIR)/Gtk2.3pm',
+	'build/Keysyms.pm' => '$(INST_MAN3DIR)/Gtk2::Gdk::Keysyms.3pm',
+	'CodeGen.pm'       => '$(INST_MAN3DIR)/Gtk2::CodeGen.3pm',
+	'pm/Helper.pm'     => '$(INST_MAN3DIR)/Gtk2::Helper.3pm',
+	'pm/Pango.pm'      => '$(INST_MAN3DIR)/Gtk2::Pango.3pm',
+	'api.pod'          => '$(INST_MAN3DIR)/Gtk2::api.3pm',
+);
+
 # now we're ready to start creating the makefile.
 # we need to use ExtUtils::Depends to get relevant information out of
 # the Glib extension, and to save config information for other modules which
@@ -69,10 +85,7 @@ my $gtk2 = ExtUtils::Depends->new ('Gtk2', 'Glib');
 # modules, as these will carry through via the depends mechanism.
 $gtk2->set_inc ($pkgcfg{cflags} . ' -I./build ');
 $gtk2->set_libs ($pkgcfg{libs});
-$gtk2->add_pm ('Gtk2.pm'          => '$(INST_LIBDIR)/Gtk2.pm',
-               'build/Keysyms.pm' => '$(INST_LIBDIR)/Gtk2/Gdk/Keysyms.pm',
-               'CodeGen.pm'       => '$(INST_LIBDIR)/Gtk2/CodeGen.pm',
-	       'pm/Helper.pm'	  => '$(INST_LIBDIR)/Gtk2/Helper.pm');
+$gtk2->add_pm (%pm_files);
 $gtk2->add_xs (<xs/*.xs>);
 $gtk2->add_typemaps (map {cwd().'/'.$_} 'gdk.typemap', 'build/gtk2perl.typemap');
 $gtk2->add_headers ('gtk2perl.h');
@@ -85,6 +98,7 @@ WriteMakefile(
     VERSION_FROM  => 'Gtk2.pm', # finds $VERSION
     ABSTRACT_FROM => 'Gtk2.pm', # retrieve abstract from module
     XSPROTOARG    => '-noprototypes',
+    MAN3PODS      => \%pod_files,
     # PREREQ see beginning of file
     $gtk2->get_makefile_vars,
 );
