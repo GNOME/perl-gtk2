@@ -7,6 +7,7 @@ colorselectiontest.pl
 examples/buttonbox.pl
 examples/calendar.pl
 examples/histogramplot.pl
+examples/item_factory_demo.p
 examples/layout.pl
 examples/plug.pl
 examples/scribble.pl
