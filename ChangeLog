@@ -13,6 +13,10 @@
 	* xs/GtkWidget.xs: support for requisitions as writable objects.
 	needed for supporting size_request event.
 
+	* xs/GtkStock.xs: watch out for NULLs in stock_item_to_hv; this fixes
+	a crash that resulted whenever the stock browser wasn't the first
+	thing opened in gtk-demo.
+
 2003/06/26 01:11 pcg
 
 	* META.yml: Add module meta-data in YAML for CPAN.

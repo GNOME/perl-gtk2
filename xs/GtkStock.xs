@@ -40,6 +40,7 @@ stock_item_to_hv (GtkStockItem * item)
 	hv_store (hv, "label", 5, newSVpv (item->label, 0), 0);
 	hv_store (hv, "modifier", 8, newSVGdkModifierType (item->modifier), 0);
 	hv_store (hv, "keyval", 6, newSVuv (item->keyval), 0);
+	if (item->translation_domain)
 	hv_store (hv, "translation_domain", 18, newSVpv (item->translation_domain, 0), 0);
 	return hv;
 }
