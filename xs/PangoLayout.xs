@@ -121,7 +121,7 @@ newSVPangoLogAttr (PangoLogAttr * logattr)
 	hv_store (hv, "is_sentence_boundary",        20, newSVuv (logattr->is_sentence_boundary),        0);
 	hv_store (hv, "is_sentence_start",           17, newSVuv (logattr->is_sentence_start),           0);
 	hv_store (hv, "is_sentence_end",             15, newSVuv (logattr->is_sentence_end),             0);
-#if PANGO_CHECK_VERSION (1, 3, 0)
+#if PANGO_CHECK_VERSION (1, 4, 0)
 	hv_store (hv, "backspace_deletes_character", 27, newSVuv (logattr->backspace_deletes_character), 0);
 #endif
 
@@ -246,7 +246,7 @@ PangoWrapMode
 pango_layout_get_wrap (layout)
 	PangoLayout *layout
 
-#if PANGO_CHECK_VERSION (1, 5, 1) /* FIXME: 1.6 */
+#if PANGO_CHECK_VERSION (1, 6, 0)
 
 ##  void pango_layout_set_ellipsize (PangoLayout *layout, PangoEllipsizeMode ellipsize)
 void
@@ -261,7 +261,7 @@ pango_layout_get_ellipsize (layout)
 
 #endif
 
-#if PANGO_CHECK_VERSION (1, 3, 5)
+#if PANGO_CHECK_VERSION (1, 4, 0)
 
 ##  void pango_layout_set_auto_dir (PangoLayout *layout, gboolean auto_dir)
 void

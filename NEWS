@@ -1,3 +1,28 @@
+Overview of Changes in Gtk2 1.060
+=================================
+
+ Since 1.04x (the previous stable series)
+ ----------------------------------------
+  * Require Glib 1.060.
+  * Support new stuff in Pango 1.6.
+  * Documentation and example code improvements.
+  * Code cleanup and various bugfixes.
+  * Even yet still more test suite improvements.
+  * Allow undef to various Gtk2::Toolbar methods where appropriate.
+  * Add important utility functions (with docs) for use by custom tree model
+    implementations: Gtk2::TreeIter::to_arrayref and
+    Gtk2::TreeIter::new_from_arrayref.
+  * Add bindings for more esoteric bits if API from GDK and GTK+.
+  * Thread support improvement.  A new module import option, -threads-init,
+    calls Gtk2::Gdk::Threads::init() for you.
+  * Allow the creation of anonymous marks.
+  * Allow easy access to the data of a SimpleList row when given a path.
+
+ Since 1.055
+ -----------
+  * Fix refcounting bugs in Gtk2::CellRenderer and Gtk2::ItemFactory.  [muppet]
+  * Documentation improvements.  [muppet, Ross, A. Pagaltzis]
+
 Overview of Changes in Gtk2 1.055
 =================================
 

@@ -11,7 +11,7 @@ is($language -> matches("*"), 1);
 
 SKIP: {
   skip("PangoMatrix is new in 1.6", 44)
-    unless (Gtk2::Pango -> CHECK_VERSION(1, 5, 0)); # FIXME: 1.6
+    unless (Gtk2::Pango -> CHECK_VERSION(1, 6, 0));
 
   my $matrix = Gtk2::Pango::Matrix -> new(2.3, 2.3, 2.3, 2.3, 2.3, 2.3);
   isa_ok($matrix, "Gtk2::Pango::Matrix");

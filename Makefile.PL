@@ -32,7 +32,7 @@ use Cwd;
 our %build_reqs = (
 	'perl-ExtUtils-Depends'   => '0.2',
 	'perl-ExtUtils-PkgConfig' => '1.03',
-	'perl-Glib'               => '1.055',
+	'perl-Glib'               => '1.060',
 	'Gtk+'                    => '2.0.0',
 );
 
@@ -226,17 +226,6 @@ WriteMakefile(
     $gtk2->get_makefile_vars,
 );
 
-print "
-WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING 
-
-   This is an unstable development release of Gtk2.  The API is not
-   frozen and things are subject to change at any time.  Report any
-   bugs to gtk-perl-list AT gnome DOT org as soon as possible.
-   Please use the stable 1.04x series for important work.
-
-WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING 
-
-";
 
 #
 # extra makefile override stuff... watch for falling wizardry.

@@ -31,7 +31,7 @@ isa_ok($context -> get_metrics($font, $language), "Gtk2::Pango::FontMetrics");
 
 SKIP: {
   skip("[sg]et_matrix are new in 1.6", 2)
-    unless (Gtk2::Pango -> CHECK_VERSION(1, 5, 0)); # FIXME: 1.6
+    unless (Gtk2::Pango -> CHECK_VERSION(1, 6, 0));
 
   $context -> set_matrix(Gtk2::Pango::Matrix -> new());
   isa_ok($context -> get_matrix(), "Gtk2::Pango::Matrix");
@@ -42,7 +42,7 @@ SKIP: {
 
 SKIP: {
   skip("get_font_map is new in 1.6", 1)
-    unless (Gtk2::Pango -> CHECK_VERSION(1, 5, 1)); # FIXME: 1.6
+    unless (Gtk2::Pango -> CHECK_VERSION(1, 6, 0));
 
   isa_ok($context -> get_font_map(), "Gtk2::Pango::FontMap");
 }

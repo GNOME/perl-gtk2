@@ -32,7 +32,7 @@ MODULE = Gtk2::Pango::Context	PACKAGE = Gtk2::Pango::Context	PREFIX = pango_cont
  ## same thing goes for pango_context_set_font_map.
 ##  void pango_context_set_font_map (PangoContext *context, PangoFontMap *font_map) 
 
-#if PANGO_CHECK_VERSION (1, 5, 1) /* FIXME: 1.6 */
+#if PANGO_CHECK_VERSION (1, 6, 0)
 
 ##  PangoFontMap *pango_context_get_font_map (PangoContext *context)
 PangoFontMap *
@@ -139,7 +139,7 @@ pango_context_get_base_dir (context)
 #	PangoAttrList *attrs
 #	PangoAttrIterator *cached_iter
 
-#if PANGO_CHECK_VERSION (1, 5, 0) /* FIXME: 1.6 */
+#if PANGO_CHECK_VERSION (1, 6, 0)
 
 ##  PangoMatrix * pango_context_get_matrix (PangoContext *context)
 const PangoMatrix_ornull *

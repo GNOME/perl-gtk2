@@ -21,7 +21,7 @@ is($layout -> set_markup_with_accel("Bla _bla.", "_"), "b");
 
 SKIP: {
   skip("set_font_description is slightly borken currently", 0)
-    unless (Gtk2::Pango -> CHECK_VERSION(1, 3, 3));
+    unless (Gtk2::Pango -> CHECK_VERSION(1, 4, 0));
 
   $layout -> set_font_description(undef);
 }
@@ -45,7 +45,7 @@ is($layout -> get_justify(), 1);
 
 SKIP: {
   skip("[sg]et_auto_dir are new in 1.3.5", 1)
-    unless (Gtk2::Pango -> CHECK_VERSION(1, 3, 5));
+    unless (Gtk2::Pango -> CHECK_VERSION(1, 4, 0));
 
   $layout -> set_auto_dir(1);
   is($layout -> get_auto_dir(), 1);
@@ -74,7 +74,7 @@ is_deeply($attribute, {
   is_sentence_boundary => 0,
   is_sentence_start => 1,
   is_sentence_end => 0,
-  Gtk2::Pango -> CHECK_VERSION(1, 3, 0) ?
+  Gtk2::Pango -> CHECK_VERSION(1, 4, 0) ?
     (backspace_deletes_character => 1) :
     ()
 });
@@ -130,7 +130,7 @@ like($iter -> get_baseline(), $number);
 
 SKIP: {
   skip("[sg]et_ellipsize are new in 1.6", 1)
-    unless (Gtk2::Pango -> CHECK_VERSION(1, 5, 1)); # FIXME: 1.6
+    unless (Gtk2::Pango -> CHECK_VERSION(1, 6, 0));
 
   $layout -> set_ellipsize("end");
   is($layout -> get_ellipsize(), "end");

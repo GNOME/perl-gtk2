@@ -1,3 +1,15 @@
+2004/09/13 23:01 (+0200) kaffeetisch
+
+	* t/GtkTextView.t, t/PangoContext.t, t/PangoLayout.t,
+	t/PangoTabs.t, t/PangoTypes.t, xs/PangoContext.xs,
+	xs/PangoLayout.xs, xs/PangoTypes.xs: Make all version checks refer
+	to stable releases.
+
+	* Makefile.PL: Remove the "unstable" warning.  Depend on Glib
+	1.060.
+
+	* Gtk2.pm, NEWS, README: Stable release 1.060.
+
 2004/09/07 18:00 (-0400) rwmcfa1
 
 	* api.pod: Glib::IOChannel -> Glib::IO. spotted by Aristotle Pagaltzis

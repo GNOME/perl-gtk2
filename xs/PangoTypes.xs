@@ -49,7 +49,7 @@ pango_language_matches (language, range_list)
 
 MODULE = Gtk2::Pango::Types	PACKAGE = Gtk2::Pango::Matrix	PREFIX = pango_matrix_
 
-#if PANGO_CHECK_VERSION (1, 5, 0) /* FIXME: 1.6 */
+#if PANGO_CHECK_VERSION (1, 6, 0)
 
 double
 xx (matrix, new = 0)
