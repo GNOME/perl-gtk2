@@ -1,3 +1,7 @@
+2004/05/21 02:28 (+0200) pcg
+
+        * xs/GtkTextBuffer.xs: Allow creation of anonymous marks.
+
 2004/05/15 20:58 (+0200) kaffeetisch
 
 	* t/GdkEvent.t: Be a bit more tolerant to pass on older gtk+'s.
