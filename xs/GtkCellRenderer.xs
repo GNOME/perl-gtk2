@@ -83,10 +83,19 @@ gtk2perl_cell_renderer_class_init (GtkCellRendererClass * class)
 }
 
 /*
- * the following functions look for on_whatever in the package belonging
+ * the following functions look for WHATEVER in the package belonging
  * to a cell.  this is our custom override, since CellRenderer does not
  * have signals for these virtual methods.
  */
+
+#define GET_METHOD(cell, method, fallback)	\
+	HV * stash = gperl_object_stash_from_type (G_OBJECT_TYPE (cell));    \
+	GV * slot = gv_fetchmethod (stash, fallback);			     \
+									     \
+	if (slot && GvCV (slot))					     \
+		warn ("%s is deprecated, use %s instead", fallback, method); \
+	else								     \
+		slot = gv_fetchmethod (stash, method);
 
 static void
 gtk2perl_cell_renderer_get_size (GtkCellRenderer      * cell,
@@ -97,11 +106,9 @@ gtk2perl_cell_renderer_get_size (GtkCellRenderer      * cell,
 				 gint                 * width,
 				 gint                 * height)
 {
-	HV * stash = gperl_object_stash_from_type (G_OBJECT_TYPE (cell));
-	SV ** slot = hv_fetch (stash, "on_get_size",
-	                       sizeof ("on_get_size") - 1, 0);
+	GET_METHOD (cell, "GET_SIZE", "on_get_size");
 
-	if (slot && GvCV (*slot)) {
+	if (slot && GvCV (slot)) {
 		int count, i;
 		dSP;
 
@@ -115,10 +122,11 @@ gtk2perl_cell_renderer_get_size (GtkCellRenderer      * cell,
 		PUSHs (sv_2mortal (newSVGdkRectangle_ornull (cell_area)));
 
 		PUTBACK;
-		count = call_sv ((SV *)GvCV (*slot), G_ARRAY);
+		count = call_sv ((SV *)GvCV (slot), G_ARRAY);
+//		count = call_method ("GET_SIZE", G_ARRAY);
 		SPAGAIN;
 		if (count != 4)
-			croak ("on_get_size must return four values -- "
+			croak ("GET_SIZE must return four values -- "
 			       "the x_offset, y_offset, width, and height");
 
 		i = POPi;  if (height)   *height   = i;
@@ -145,10 +153,9 @@ gtk2perl_cell_renderer_render (GtkCellRenderer      * cell,
 			       GdkRectangle         * expose_area,
 			       GtkCellRendererState   flags)
 {
-	HV * stash = gperl_object_stash_from_type (G_OBJECT_TYPE (cell));
-	SV ** slot = hv_fetch (stash, "on_render", sizeof ("on_render") - 1, 0);
+	GET_METHOD (cell, "RENDER", "on_render");
 
-	if (slot && GvCV (*slot)) {
+	if (slot && GvCV (slot)) {
 		dSP;
 
 		ENTER;
@@ -165,7 +172,8 @@ gtk2perl_cell_renderer_render (GtkCellRenderer      * cell,
 		PUSHs (sv_2mortal (newSVGtkCellRendererState (flags)));
 
 		PUTBACK;
-		call_sv ((SV *)GvCV (*slot), G_VOID|G_DISCARD);
+		call_sv ((SV *)GvCV (slot), G_VOID|G_DISCARD);
+//		call_method ("RENDER", G_VOID|G_DISCARD);
 
 		FREETMPS;
 		LEAVE;
@@ -182,11 +190,10 @@ gtk2perl_cell_renderer_activate (GtkCellRenderer      * cell,
 				 GtkCellRendererState   flags)
 {
 	gboolean retval = FALSE;
-	HV * stash = gperl_object_stash_from_type (G_OBJECT_TYPE (cell));
-	SV ** slot = hv_fetch (stash, "on_activate",
-	                       sizeof ("on_activate") - 1, 0);
 
-	if (slot && GvCV (*slot)) {
+	GET_METHOD (cell, "ACTIVATE", "on_activate");
+
+	if (slot && GvCV (slot)) {
 		dSP;
 
 		ENTER;
@@ -202,7 +209,8 @@ gtk2perl_cell_renderer_activate (GtkCellRenderer      * cell,
 		XPUSHs (sv_2mortal (newSVGtkCellRendererState (flags)));
 
 		PUTBACK;
-		call_sv ((SV*) GvCV (*slot), G_SCALAR);
+		call_sv ((SV*) GvCV (slot), G_SCALAR);
+//		call_method ("ACTIVATE", G_SCALAR);
 		SPAGAIN;
 
 		retval = POPi;
@@ -226,11 +234,9 @@ gtk2perl_cell_renderer_start_editing (GtkCellRenderer      * cell,
 {
 	GtkCellEditable * editable = NULL;
 
-	HV * stash = gperl_object_stash_from_type (G_OBJECT_TYPE (cell));
-	SV ** slot = hv_fetch (stash, "on_start_editing",
-	                       sizeof ("on_start_editing") - 1, 0);
+	GET_METHOD (cell, "START_EDITING", "on_start_editing");
 
-	if (slot && GvCV (*slot)) {
+	if (slot && GvCV (slot)) {
 		SV * sv;
 		dSP;
 
@@ -248,7 +254,8 @@ gtk2perl_cell_renderer_start_editing (GtkCellRenderer      * cell,
 		PUSHs (sv_2mortal (newSVGtkCellRendererState (flags)));
 
 		PUTBACK;
-		call_sv ((SV*) GvCV (*slot), G_SCALAR);
+		call_sv ((SV*) GvCV (slot), G_SCALAR);
+//		call_method ("START_EDITING", G_SCALAR);
 		SPAGAIN;
 
 		sv = POPs;
@@ -285,48 +292,30 @@ is measured with C<get_size>, and then renderered with C<render>.
 
 Gtk+ provides three cell renderers: Gtk2::CellRendererText,
 Gtk2::CellRendererToggle, and Gtk2::CellRendererPixbuf.
-However, Gtk2::CellRenderer does not provide signals for it methods,
-and thus, because of implementation details requiring that a signal exist
-for each virtual method that a language binding wishes to override when
-subclassing, it is not possible to use Glib::Object's normal virtual
-override machinery in non-C languages.
+You may derive a new renderer from any of these, or directly from
+Gtk2::CellRenderer itself.
 
-Therefore Gtk2::CellRenderer provides a specialized way to derive a
-new cell renderer in Perl.  After deriving your class from something that
-descends from Gtk2::CellRenderer, call I<YourClass>->_install_overrides
-to mangle the underlying object such that it will call perl subs instead
-of C ones.
+The new renderer must be a GObject, so you must follow the normal procedure
+for creating a new Glib::Object (i.e., either Glib::Object::Subclass or
+Glib::Type::register_object).  The new subclass can customize the object's
+behavior by provide new implementations of these four methods:
 
-Because things are not quite normal, chaining up to the parent is also
-somewhat different.  You can't use SUPER, because the C classes don't 
-define the methods we're using and if you did use SUPER you'd create 
-an infinite loop (by starting the method invocation all over again).
-Thus the perl subs are static methods for each class in the heirarchy.
-Instead, you'll do $self->parent_I<foo>, where I<foo> is the method 
-you're in, e.g., 
+=over
 
-  # here's a pointless subclass implementation which
-  # expensively illustrates how to chain up with cell renderers.
-  sub on_get_size {
-     return shift->parent_get_size (@_);
-  }
+=item (x_offset, y_offset, width, height) = GET_SIZE ($cell, $widget, $cell_area)
 
-  sub on_render {
-     shift->parent_render (@_);
-  }
+=item RENDER ($cell, $drawable, $widget, $background_area, $cell_area, $expose_area, $flags)
 
-  sub on_activate {
-     return shift->parent_activate (@_);
-  }
+=item boolean = ACTIVATE ($cell, $event, $widget, $path, $background_area, $cell_area, $flags)
 
-  sub on_start_editing {
-     return shift->parent_start_editing (@_);
-  }
+=item celleditable = START_EDITING ($cell, $event, $widget, $path, $background_area, $cell_area, $flags)
 
-For the curious, the parent_* functions use C<caller> to find the calling
-package, in order to determine the parent package on which to call the
-proper method.  That means that these functions can only be used within
-your cell renderer implementation!
+=back
+
+Note: for backward compatibility, the bizarre and non-standard scheme used
+for this in 1.02x is still supported, but is deprecated and should not be
+used in new code, and since i don't want people to use it any more i will
+not document it here.
 
 =cut
 
@@ -338,24 +327,23 @@ your cell renderer implementation!
 
 ## void gtk_cell_renderer_get_size (GtkCellRenderer *cell, GtkWidget *widget, GdkRectangle *cell_area, gint *x_offset, gint *y_offset, gint *width, gint *height)
 =for apidoc
-=for signature (cell_area, x_offset, y_offset, width, height) = $cell->renderer_get_size ($widget)
+=for signature (x_offset, y_offset, width, height) = $cell->renderer_get_size ($widget, $cell_area)
 =cut
 void
-gtk_cell_renderer_get_size (cell, widget)
-	GtkCellRenderer * cell
-	GtkWidget       * widget
+gtk_cell_renderer_get_size (cell, widget, cell_area)
+	GtkCellRenderer     * cell
+	GtkWidget           * widget
+	GdkRectangle_ornull * cell_area
     PREINIT:
 	gint x_offset;
 	gint y_offset;
 	gint width;
 	gint height;
-	GdkRectangle cell_area;
     PPCODE:
-	cell_area.width = cell_area.height = 0;
-	gtk_cell_renderer_get_size(cell, widget, &cell_area,
+	//cell_area.width = cell_area.height = 0;
+	gtk_cell_renderer_get_size(cell, widget, cell_area,
 		&x_offset, &y_offset, &width, &height);
-	EXTEND(SP,5);
-	PUSHs(sv_2mortal(newSVGdkRectangle_copy (&cell_area)));
+	EXTEND(SP,4);
 	PUSHs(sv_2mortal(newSViv(x_offset)));
 	PUSHs(sv_2mortal(newSViv(y_offset)));
 	PUSHs(sv_2mortal(newSViv(width)));
@@ -406,28 +394,27 @@ gtk_cell_renderer_start_editing (cell, event, widget, path, background_area, cel
 	GtkCellRendererState   flags
 
 
-=for apidoc
-
-=for signature YourCellRendererPackage->_install_overrides
-
-Modify the underlying GObjectClass structure for the package
-I<YouCellRendererPackage> to call Perl methods as virtual overrides for the
-C<get_size>, C<render>, C<activate>, and C<start_editing> methods.  The
-overrides will look for I<YourCellRendererPackage>::on_get_size,
-I<YourCellRendererPackage>::on_render, I<YourCellRendererPackage>::on_activate,
-and I<YourCellRendererPackage>::on_start_editing.  If the method is not
-present, it will silently be skipped.
-
-Usually called on __PACKAGE__ immediately after registering a new cellrenderer
-subclass.
-
-=cut
+##
+## Modify the underlying GObjectClass structure for the given package
+## to call Perl methods as virtual overrides for the get_size, render, 
+## activate, and start_editing vfuncs.  The overrides will look for 
+## methods with all-caps versions of the vfunc names.
+##
+## This is called automatically by Glib::Type::register_object.
+##
+## For backward compatibility, we support being called directly as
+## _install_overrides; this is deprecated, however.
+##
 void
-_install_overrides (const char * package)
+_INSTALL_OVERRIDES (const char * package)
+    ALIAS:
+	_install_overrides = 1
     PREINIT:
 	GType gtype;
 	GtkCellRendererClass * class;
     CODE:
+	//warn ("%s %s", ix == 1 ? "_install_overrides" : "_INSTALL_OVERRIDES",
+	//               package);
 	gtype = gperl_object_type_from_package (package);
 	if (!gtype)
 		croak ("package '%s' is not registered with Gtk2-Perl",
@@ -439,87 +426,35 @@ _install_overrides (const char * package)
 	 * alive for us. */
 	class = g_type_class_peek (gtype);
 	if (! class)
+		/* er, didn't work.  leak a reference, then. */
+		class = g_type_class_ref (gtype);
+	if (! class)
 		croak ("internal problem: can't peek at type class for %s(%d)",
 		       g_type_name (gtype), gtype);
 	gtk2perl_cell_renderer_class_init (class);
 
 
-#
-# here we provide a hokey way to chain up from one of the overrides we
-# installed above.  since the class of an object is determined by looking
-# at the bottom of the chain, we can't rely on that to give us the
-# class of the parent; so we rely on the package returned by caller().
-# therefore, it is only valid to call these from the derived package.
-#
-=for apidoc parent_render
-
-=for signature $cell->parent_render ($window, $widget, $rectangle, $background_area, $cell_area, $expose_area, $flags)
-
-=for arg ... (__hide__)
-=for arg drawable (GdkDrawable)
-=for arg widget (GtkWidget)
-=for arg background_area (GdkRectangle_ornull)
-=for arg cell_area (GdkRectangle_ornull)
-=for arg expose_area (GdkRectangle_ornull)
-=for arg flags (GtkCellRendererState)
-
-Invoke the C<render> method of the parent class; only valid in virtual
-overrides for C<on_render>.
-
-=cut
-
-=for apidoc parent_activate
-
-=for signature boolean = $cell->parent_activate ($event, $widget, $path, $background_area, $cell_area, $flags)
-
-=for arg ... (__hide__)
-=for arg event (GdkEvent)
-=for arg widget (GtkWidget)
-=for arg background_area (GdkRectangle_ornull)
-=for arg cell_area (GdkRectangle_ornull)
-=for arg expose_area (GdkRectangle_ornull)
-=for arg flags (GtkCellRendererState)
-
-Invoke the C<activate> method of the parent class; only valid in virtual
-overrides for C<on_activate>.
-
-=cut
-
-=for apidoc parent_start_editing
-
-=for signature GtkEditable_ornull = $cell->parent_start_editing ($widget, $rectangle)
-
-=for arg ... (__hide__)
-=for arg event (GdkEvent)
-=for arg widget (GtkWidget)
-=for arg path (char*)
-=for arg background_area (GdkRectangle_ornull)
-=for arg cell_area (GdkRectangle_ornull)
-=for arg flags (GtkCellRendererState)
-
-Invoke the C<start_editing> method of the parent class; only valid in virtual
-overrides for C<on_start_editing>.
-
-=cut
-
-=for apidoc
-
-=for signature ($xoffset, $yoffset, $width, $height) = $cell->parent_get_size ($widget, $rectangle)
-
-=for arg ... (__hide__)
-=for arg widget (GtkWidget)
-=for arg rectangle (GdkRectangle_ornull)
-
-Invoke the C<get_size> method of the parent class; only valid in virtual
-overrides for C<on_get_size>.
-
-=cut
+##
+## here we provide a hokey way to chain up from one of the overrides we
+## installed above.  since the class of an object is determined by looking
+## at the bottom of the chain, we can't rely on that to give us the
+## class of the parent; so we rely on the package returned by caller().
+## if caller returns nothing useful, then we assume we need to call the
+## base method.
+##
+## For backward compatibility, we support the old parent_foo syntax, although
+## the actual call semantics are slightly different.
+##
 void
-parent_get_size (GtkCellRenderer * cell, ...)
+GET_SIZE (GtkCellRenderer * cell, ...)
     ALIAS:
-	parent_render        = 1
-	parent_activate      = 2
-	parent_start_editing = 3
+	RENDER               = 1
+	ACTIVATE             = 2
+	START_EDITING        = 3
+	parent_get_size      = 4
+	parent_render        = 5
+	parent_activate      = 6
+	parent_start_editing = 7
     PREINIT:
 	GtkCellRendererClass * class;
 	GType thisclass, parent_class;
@@ -530,6 +465,8 @@ parent_get_size (GtkCellRenderer * cell, ...)
 	eval_pv ("$_ = caller;", 0);
 	thisclass = gperl_type_from_package (SvPV_nolen (DEFSV));
 	SvSetSV (DEFSV, saveddefsv);
+	if (!thisclass)
+		thisclass = G_OBJECT_TYPE (cell);
 	/* look up his parent */
 	parent_class = g_type_parent (thisclass);
 	if (! g_type_is_a (parent_class, GTK_TYPE_CELL_RENDERER))
@@ -538,7 +475,8 @@ parent_get_size (GtkCellRenderer * cell, ...)
 	/* that's our boy.  call one of his functions. */
 	class = g_type_class_peek (parent_class);
 	switch (ix) {
-	    case 0:
+	    case 4: /* deprecated parent_get_size */
+	    case 0: /* GET_SIZE */
 		if (class->get_size) {
 			gint x_offset, y_offset, width, height;
 			class->get_size (cell,
@@ -555,7 +493,8 @@ parent_get_size (GtkCellRenderer * cell, ...)
 			PUSHs (sv_2mortal (newSViv (height)));
 		}
 		break;
-	    case 1:
+	    case 5: /* deprecated parent_render */
+	    case 1: /* RENDER */
 		if (class->render)
 			class->render (cell,
 			               SvGdkDrawable_ornull (ST (1)), /* drawable */
@@ -565,7 +504,8 @@ parent_get_size (GtkCellRenderer * cell, ...)
 				       SvGdkRectangle_ornull (ST (5)), /* expose_area */
 				       SvGtkCellRendererState (ST (6))); /* flags */
 		break;
-	    case 2:
+	    case 6: /* deprecated parent_activate */
+	    case 2: /* ACTIVATE */
 		if (class->activate) {
 			gboolean ret;
 			ret = class->activate (cell,
@@ -579,7 +519,8 @@ parent_get_size (GtkCellRenderer * cell, ...)
 			PUSHs (sv_2mortal (newSViv (ret)));
 		}
 		break;
-	    case 3:
+	    case 7: /* deprecated parent_start_editing */
+	    case 3: /* START_EDITING */
 		if (class->start_editing) {
 			GtkCellEditable * editable;
 			editable = class->start_editing (cell,
