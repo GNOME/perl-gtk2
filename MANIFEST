@@ -312,7 +312,9 @@ xs/GtkCalendar.xs
 xs/GtkCellEditable.xs
 xs/GtkCellLayout.xs
 xs/GtkCellRenderer.xs
+xs/GtkCellRendererCombo.xs
 xs/GtkCellRendererPixbuf.xs
+xs/GtkCellRendererProgress.xs
 xs/GtkCellRendererText.xs
 xs/GtkCellRendererToggle.xs
 xs/GtkCellView.xs
@@ -336,6 +338,7 @@ xs/GtkEntryCompletion.xs
 xs/GtkEventBox.xs
 xs/GtkExpander.xs
 xs/GtkFileChooser.xs
+xs/GtkFileChooserButton.xs
 xs/GtkFileChooserDialog.xs
 xs/GtkFileChooserWidget.xs
 xs/GtkFileFilter.xs
@@ -372,6 +375,7 @@ xs/GtkMenu.xs
 xs/GtkMenuBar.xs
 xs/GtkMenuItem.xs
 xs/GtkMenuShell.xs
+xs/GtkMenuToolButton.xs
 xs/GtkMessageDialog.xs
 xs/GtkMisc.xs
 xs/GtkNotebook.xs
