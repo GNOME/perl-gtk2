@@ -282,7 +282,7 @@ sub attach_widgets {
           $widget->signal_connect (clicked => \&easter_egg_callback);
 
       } elsif ($i == 1) {
-	  if ((Gtk2->get_version_info)[1] > 2) {
+	  if ((Gtk2->CHECK_VERSION (2, 4, 0)) {
              $widget = Gtk2::ComboBox->new_text;
              $widget->append_text ("Option 1");
              $widget->append_text ("Option 2");
