@@ -1,3 +1,7 @@
+2003/12/16 04:36 (-0500) rwmcfa1
+
+	* t/05.GtkListStore-etc.t: complete GtkListStore api testing.
+
 2003/12/16 13:16 (-0500) rwmcfa1
 
 	* Makefile.PL: use the new BLIB_MOD_EXISTS var in place of pure_all

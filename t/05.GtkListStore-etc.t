@@ -5,6 +5,9 @@
 #
 # $Header$
 #
+# TODO:
+#	accessed as a: GtkTreeDragSource, GtkTreeDragDest and GtkTreeSortable.
+#
 
 use strict;
 use warnings;
@@ -16,7 +19,7 @@ use Test::More;
 
 if( Gtk2->init_check )
 {
-	plan tests => 3;
+	plan tests => 19;
 }
 else
 {
@@ -28,7 +31,7 @@ else
 
 require './t/ignore_keyboard.pl';
 
-ok( my $win = Gtk2::Window->new );
+my $win = Gtk2::Window->new;
 
 my @cols = (
 		{ title => 'Author', type => 'Glib::String',  },
@@ -37,24 +40,40 @@ my @cols = (
 		{ title => 'Print',  type => 'Glib::Boolean', },
 	);
 
-ok( my $store = Gtk2::ListStore->new( map {$_->{type}} @cols ) );
+ok (my $store = Gtk2::ListStore->new (map {$_->{type}} @cols), 'new liststore');
+
+$store->set_column_types (map {$_->{type}} @cols);
+ok (1, '$store->set_column_types');
 
 my @data = (
 	{ Author => 'John Doe', Work => 'Who am I', Sold => '32', Print => 0 },
 	{ Author => 'John Doe', Work => 'Who am I', Sold => '44', Print => 1 },
 );
 
+my $iter;
 foreach (@data)
 {
-	my $iter = $store->append;
+	$iter = $store->append;
 	$store->set($iter,
 		1, $_->{Work},
 		0, $_->{Author},
 		2, $_->{Sold},
 		3, $_->{Print} );
+	ok (eq_array ([$store->get ($iter)], 
+		      [$_->{Author}, $_->{Work}, $_->{Sold}, $_->{Print},]),
+		'$store->set/get');
 }
 
-ok( my $tree = Gtk2::TreeView->new_with_model($store) );
+ok ($iter = $store->insert (0), '$store->insert (5)');
+ok ($iter = $store->insert (0), '$store->insert (0)');
+ok ($iter = $store->insert_before ($iter), '$store->insert_before');
+ok ($iter = $store->insert_after ($iter), '$store->insert_after');
+ok ($iter = $store->get_iter_first, '$store->get_iter_first, treemodel');
+ok ($store->remove ($iter), '$store->remove 1');
+ok ($iter = $store->prepend, '$store->prepend');
+ok ($store->remove ($iter), '$store->remove 2');
+
+ok (my $tree = Gtk2::TreeView->new_with_model($store), 'new treeview');
 $win->add($tree);
 
 my $renderer;
@@ -91,9 +110,39 @@ $win->show_all;
 Glib::Idle->add( sub {
 		if( (Gtk2->get_version_info)[1] >= 2 )
 		{
-			$store->reorder(1, 0);
+			$store->reorder(4, 3, 2, 0, 1);
+			$iter = $store->get_iter_first;
+			ok ($store->iter_is_valid ($iter), 
+				'$store->iter_is_valid');
+			ok (eq_array ([$store->get ($iter), 
+				       $store->get ($store->iter_next($iter))],
+				      ['John Doe', 'Who am I', 32, 0,
+				       'John Doe', 'Who am I', 44, 1]), 
+			       '$store->reorder worked');
+			$store->swap ($iter, $store->iter_next($iter));
+			$iter = $store->get_iter_first;
+			ok (eq_array ([$store->get ($iter), 
+				       $store->get ($store->iter_next($iter))],
+				      ['John Doe', 'Who am I', 44, 1,
+				       'John Doe', 'Who am I', 32, 0]), 
+			       '$store->swap worked');
+			$iter = $store->get_iter_first;
+			$store->move_before ($iter, undef);
+			ok (eq_array ([$store->get 
+					($store->iter_nth_child(undef, 4))],
+				      ['John Doe', 'Who am I', 44, 1]), 
+			       '$store->move_before worked');
+			$store->move_after ($iter, $store->get_iter_first);
+			ok (eq_array ([$store->get 
+					($store->iter_nth_child(undef, 1))],
+				      ['John Doe', 'Who am I', 44, 1]), 
+			       '$store->move_after worked');
 		}
+		$store->clear;
+		ok ($store->iter_n_children == 0, 
+			'$store->clear/iter_n_children');
 		Gtk2->main_quit;
+		0;
 	} );
 
 Gtk2->main;
