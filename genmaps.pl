@@ -13,7 +13,6 @@
 	'/usr/include/atk-1.0/atk/',
 	'/usr/include/pango-1.0/pango/',
 #	'/usr/include/libgnomeui-2.0/libgnomeui/',
-#	'/usr/include/lpqa/',
 );
 
 foreach $dir (@dirs) {
@@ -31,7 +30,6 @@ select FOO;
 
 print '#include <stdio.h>
 #include <gtk/gtk.h>
-#include <lpqa/lpqa.h>
 
 const char * find_base (GType gtype)
 {
@@ -86,7 +84,7 @@ print '
 close FOO;
 select STDOUT;
 
-system 'gcc -DGTK_DISABLE_DEPRECATED -Wall -o foo foo.c `pkg-config gtk+-2.0 --cflags --libs` `pkg-config lpqa --cflags --libs`'
+system 'gcc -DGTK_DISABLE_DEPRECATED -Wall -o foo foo.c `pkg-config gtk+-2.0 --cflags --libs`'
 	and die "couldn't compile helper program";
 
 %packagemap = (
