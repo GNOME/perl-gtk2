@@ -9,10 +9,13 @@ object-oriented way, freeing you from the casting and memory management in C,
 yet remaining very close in spirit to original API.  Find out more about Gtk+
 at http://www.gtk.org.
 
-The GTK+ Reference Manual is also a handy companion when writing Gtk
-programs in any language.  http://developer.gnome.org/doc/API/2.0/gtk/
+The GTK+ Reference Manual [ http://developer.gnome.org/doc/API/2.0/gtk/ ]
+is also a handy companion when writing Gtk programs in any language.
 The perl bindings follow the C API very closely, and the C reference
-documentation should be considered the canonical source.
+should be considered the canonical documentation.
+
+Be sure to check out the example programs in the "examples" and "gtk-demo"
+directories.
 
 To discuss gtk2-perl, ask questions and flame/praise the authors,
 join gtk-perl-list@gnome.org at lists.gnome.org.
