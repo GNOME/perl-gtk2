@@ -25,7 +25,7 @@ ok( $win = Gtk2::Window->new('toplevel') );
 			
 $win->set_has_frame('false');
 
-G::Idle->add(sub { 
+Glib::Idle->add(sub { 
 		$win2->show;
 
 		$_[0]->move(100, 100);

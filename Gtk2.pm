@@ -10,7 +10,7 @@ use 5.008;
 use strict;
 use warnings;
 
-use G;
+use Glib;
 
 require Exporter;
 require DynaLoader;
@@ -136,14 +136,14 @@ FIXME we have no other documentation, but we probably need it.
 
 =head1 SEE ALSO
 
-perl(1), G(1).
+perl(1), Glib(1).
 
 The Gtk2::Helper module contains stuff that makes writing Gtk2 programs
 a little easier.
 
 Gtk2 also provides code to make it relatively painless to create perl
 wrappers for other GLib/Gtk-based libraries.  See Gtk2::CodeGen, 
-G::PkgConfig, and ExtUtils::Depends.
+Glib::PkgConfig, and ExtUtils::Depends.
 
 =head1 AUTHORS
 

@@ -23,8 +23,8 @@ sub add_watch {
 	# event also to get this convenient behaviour again.
 
 	my $tag = {
-		io_id  => G::IO->add_watch ($fd, $cond, $callback, $data),
-		hup_id => G::IO->add_watch ($fd, 'G_IO_HUP', $callback, $data),
+		io_id  => Glib::IO->add_watch ($fd, $cond, $callback, $data),
+		hup_id => Glib::IO->add_watch ($fd, 'G_IO_HUP', $callback, $data),
 	};
 
 	return $tag;
@@ -34,8 +34,8 @@ sub remove_watch {
 	shift; # lose the class
 	my ($tag) = @_;
 
-	my $rc_io  = G::Source->remove ($tag->{io_id});
-	my $rc_hup = G::Source->remove ($tag->{hup_id});
+	my $rc_io  = Glib::Source->remove ($tag->{io_id});
+	my $rc_hup = Glib::Source->remove ($tag->{hup_id});
 	
 	return ($rc_io && $rc_hup);
 }
@@ -67,7 +67,7 @@ implementing some common tasks easier.
 
   $tag = Gtk2::Helper->add_watch ( $fd, $cond, $callback, $data )
 
-This method is a wrapper for G::IO->add_watch. The callback is
+This method is a wrapper for Glib::IO->add_watch. The callback is
 called every time when it's safe to read from or write to the
 watched filehandle.
 

@@ -25,7 +25,7 @@
  * owns the object, at least until it's taken over by something else,
  * gtk2perl_new_gtkobject() *always* refs (via gperl_new_object()) and sinks
  * (via gtk_object_sink()) the object.  if the object was owned by someone
- * else it simply gets a second ref which is removed by G::Object::DESTROY.
+ * else it simply gets a second ref which is removed by Glib::Object::DESTROY.
  *
  * returns: scalar wrapper for @object.
  *

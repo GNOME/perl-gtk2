@@ -40,7 +40,7 @@ for( $r = 0; $r < 3; $r++ )
 
 $win->show_all;
 
-G::Idle->add( sub {
+Glib::Idle->add( sub {
 		Gtk2->main_quit;
 		0;
 	} );

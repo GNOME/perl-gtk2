@@ -26,7 +26,7 @@ my $window = undef;
 #
 # in perl we don't do such things.  the StockItemInfo structure becomes
 # just a perl hash, and we store it in the Gtk2::ListStore in a column
-# with the G::Scalar type.  this way all the memory management happens
+# with the Glib::Scalar type.  this way all the memory management happens
 # properly and you don't have to think up elaborate schemes to do so
 # (because i already did it for you).
 #
@@ -42,8 +42,8 @@ sub id_to_macro {
 
 sub create_model {
   #store = gtk_list_store_new (2, STOCK_ITEM_INFO_TYPE, G_TYPE_STRING);
-  #my $store = Gtk2::ListStore->new ('scalar', 'G::String');
-  my $store = Gtk2::ListStore->new ('G::Scalar', 'G::String');
+  #my $store = Gtk2::ListStore->new ('scalar', 'Glib::String');
+  my $store = Gtk2::ListStore->new ('Glib::Scalar', 'Glib::String');
 
    foreach my $id (sort Gtk2::Stock->list_ids) {
        my $item = Gtk2::Stock->lookup ($id);

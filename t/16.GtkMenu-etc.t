@@ -68,7 +68,7 @@ ok( $optmenu = Gtk2::OptionMenu->new );
 $vbox->pack_start($optmenu, 0, 0, 0);
 $optmenu->set_menu($menu);
 
-G::Idle->add( sub {
+Glib::Idle->add( sub {
 		$menu->popup(undef, undef, undef, undef, undef, undef);
 		ok(1);
 		Gtk2->main_quit;

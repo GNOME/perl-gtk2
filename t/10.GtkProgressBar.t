@@ -40,7 +40,7 @@ foreach (@ori)
 
 $win->show_all;
 
-G::Idle->add( sub {
+Glib::Idle->add( sub {
 		foreach (@prog)
 		{
 			$_->pulse;

@@ -51,7 +51,7 @@ ok(1);
 $tips->enable;
 ok(1);
 
-G::Idle->add( sub {
+Glib::Idle->add( sub {
 		Gtk2->main_quit;
 		0;
 	});

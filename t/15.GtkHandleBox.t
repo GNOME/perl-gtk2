@@ -46,7 +46,7 @@ ok( $hb->get_handle_position eq 'left' );
 $hb->set_handle_position('top');
 ok( $hb->get_handle_position eq 'top' );
 
-G::Idle->add( sub {
+Glib::Idle->add( sub {
 		Gtk2->main_quit;
 		0;
 	});

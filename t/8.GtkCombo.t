@@ -32,7 +32,7 @@ $combo->set_popdown_strings( qw/str1 str2 str3 str4/ );
 
 $combo->set_value_in_list(1, 0);
 
-G::Idle->add( sub 
+Glib::Idle->add( sub 
 	{
 		Gtk2->main_quit;
 		0;

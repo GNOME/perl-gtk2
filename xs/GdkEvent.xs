@@ -94,7 +94,7 @@ BOOT:
 	 * an event structure is at hand. */
 	gperl_register_boxed (GDK_TYPE_EVENT, "Gtk2::Gdk::Event",
 	                      (GPerlBoxedPackageFunc)gdk_event_get_package);
-	gperl_set_isa ("Gtk2::Gdk::Event", "G::Boxed");
+	gperl_set_isa ("Gtk2::Gdk::Event", "Glib::Boxed");
 
  ## gboolean gdk_events_pending (void)
 gboolean

@@ -32,7 +32,7 @@ ok( $d1 = Gtk2::Dialog->new("Test Dialog", $win,
 		'gtk-cancel', 2, 'gtk-quit', 3 ) );
 ok( $btn1 = $d1->add_button('Another', 4) );
 ok( $d1->get_has_separator == 0 );
-G::Idle->add( sub {
+Glib::Idle->add( sub {
 		$btn1->clicked;
 		0;
 	});
@@ -52,7 +52,7 @@ $d2->signal_connect( response => sub {
 		ok( $_[1] == 1 );
 		1;
 	});
-G::Idle->add( sub {
+Glib::Idle->add( sub {
 		$btn2->clicked;
 		0;
 	});
@@ -76,7 +76,7 @@ ok(1);
 
 #$win->show_all;
 
-G::Idle->add( sub {
+Glib::Idle->add( sub {
 		$btn3->clicked;
 		Gtk2->main_quit;
 		0;

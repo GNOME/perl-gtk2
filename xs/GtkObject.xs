@@ -31,7 +31,7 @@ MODULE = Gtk2::Object	PACKAGE = Gtk2::Object	PREFIX = gtk_object_
 
 
  # this is an explicit destroy --- NOT the auto destroy; Gtk2::Object
- # inherits that from G::Object!
+ # inherits that from Glib::Object!
 
 void
 gtk_object_destroy (object)

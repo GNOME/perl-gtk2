@@ -41,7 +41,7 @@ $win->show_all;
 $sts->pop($sts_cid2);
 $sts->pop($sts_cid1);
 
-G::Idle->add( sub {
+Glib::Idle->add( sub {
 		$sts->pop($sts_cid2);
 		Gtk2->main_quit;
 		0;

@@ -12,11 +12,11 @@ open IN, "< $input_map"
 	or die "can't open $input_map for reading: $!\n";
 
 %types = (
-	'G::Object' => {
+	'Glib::Object' => {
 			typemacro => 'G_TYPE_OBJECT',
 			classname => 'GObject',
 			parentname => undef,
-			'package' => 'G::Object',
+			'package' => 'Glib::Object',
 		},
 );
 
@@ -76,7 +76,7 @@ sub find_children {
 	pop @stack;
 }
 
-find_children ('G::Object');
+find_children ('Glib::Object');
 print Dumper(\%tree);
 
 =cut

@@ -175,7 +175,7 @@ sub timeout {
 my $timeout_id;
 
 sub cleanup_callback {
-  G::Source->remove ($timeout_id);
+  Glib::Source->remove ($timeout_id);
   $timeout_id = 0;
 }
 
@@ -211,7 +211,7 @@ sub do {
 
 	  $window->add ($da);
 
-	  $timeout_id = G::Timeout->add (FRAME_DELAY, \&timeout);
+	  $timeout_id = Glib::Timeout->add (FRAME_DELAY, \&timeout);
     }
   }
 

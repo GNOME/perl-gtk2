@@ -36,7 +36,7 @@ $label->select_region(2, 8);
 
 $win->show_all;
 
-G::Idle->add( sub {
+Glib::Idle->add( sub {
 		Gtk2->main_quit;
 		0;
 	} );

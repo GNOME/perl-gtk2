@@ -56,7 +56,7 @@ for( $i = 0; $i < 5; $i++ )
 
 ok( scalar(@{$rdobtns[0]->get_group}) == 5 );
 
-G::Idle->add( sub 
+Glib::Idle->add( sub 
 	{
 		Gtk2->main_quit;
 		0;

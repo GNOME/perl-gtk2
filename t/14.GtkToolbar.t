@@ -105,7 +105,7 @@ ok( $entry = Gtk2::Entry->new );
 $tlbr->append_widget( $entry, 'This is just an entry', 'Private' );
 $entry->set_text('An Entry Widget');
 
-G::Idle->add( sub {
+Glib::Idle->add( sub {
 		$icons->clicked;
 		$text->clicked;
 		$both->clicked;

@@ -8,7 +8,7 @@ MODULE = Gtk2::TreeStore	PACKAGE = Gtk2::TreeStore	PREFIX = gtk_tree_store_
 
 BOOT:
 	/* must prepend TreeModel in the hierarchy so that
-	 * Gtk2::TreeModel::get isn't masked by G::Object::get.
+	 * Gtk2::TreeModel::get isn't masked by Glib::Object::get.
 	 * should we change the api to something unique, instead? */
 	gperl_prepend_isa ("Gtk2::TreeStore", "Gtk2::TreeModel");
 	gperl_set_isa ("Gtk2::TreeStore", "Gtk2::TreeDragSource");

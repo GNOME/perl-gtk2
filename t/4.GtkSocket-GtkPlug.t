@@ -44,7 +44,7 @@ Gtk2->init;
 
 \$plug->show_all;
 
-G::Timeout->add( 100, sub {
+Glib::Timeout->add( 100, sub {
 		\$btn->clicked;
 		0;
 	} );

@@ -176,7 +176,7 @@ gdk_error_trap_pop (class)
     C_ARGS:
 	
 
-### deprecated in favor of G::IO::add_watch etc
+### deprecated in favor of Glib::IO::add_watch etc
 ##  gint gdk_input_add_full (gint source, GdkInputCondition condition, GdkInputFunction function, gpointer data, GdkDestroyNotify destroy) 
 ##  gint gdk_input_add (gint source, GdkInputCondition condition, GdkInputFunction function, gpointer data) 
 ##  void gdk_input_remove (gint tag) 

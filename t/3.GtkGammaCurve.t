@@ -31,7 +31,7 @@ $gamma->curve->set_range(0, 255, 0, 255);
 
 $win->show_all;
 
-G::Idle->add( sub
+Glib::Idle->add( sub
 	{
 		$gamma->curve->set_vector(0, 255);
 		$gamma->curve->set_curve_type('spline');

@@ -20,10 +20,10 @@ ok( Gtk2->init );
 ok( $win = Gtk2::Window->new );
 
 @cols = (
-		{ title => 'Author', type => 'G::String',  },
-		{ title => 'Work',   type => 'G::String',  },
-		{ title => 'Sold',   type => 'G::Uint',    },
-		{ title => 'Print',  type => 'G::Boolean', },
+		{ title => 'Author', type => 'Glib::String',  },
+		{ title => 'Work',   type => 'Glib::String',  },
+		{ title => 'Sold',   type => 'Glib::Uint',    },
+		{ title => 'Print',  type => 'Glib::Boolean', },
 	);
 
 ok( $store = Gtk2::ListStore->new( map {$_->{type}} @cols ) );
@@ -49,21 +49,21 @@ $win->add($tree);
 $i = 0;
 foreach (@cols)
 {
-	if( $_->{type} =~ /G::String/ )
+	if( $_->{type} =~ /Glib::String/ )
 	{
 		$renderer = Gtk2::CellRendererText->new;
 		$column = Gtk2::TreeViewColumn->new_with_attributes(
 			$_->{title}, $renderer, text => $i );
 		$tree->append_column($column);
 	}
-	elsif( $_->{type} =~ /G::Uint/ )
+	elsif( $_->{type} =~ /Glib::Uint/ )
 	{
 		$renderer = Gtk2::CellRendererText->new;
 		$column = Gtk2::TreeViewColumn->new_with_attributes(
 			$_->{title}, $renderer, text =>  $i );
 		$tree->append_column($column);
 	}
-	elsif( $_->{type} =~ /G::Boolean/ )
+	elsif( $_->{type} =~ /Glib::Boolean/ )
 	{
   		$renderer = Gtk2::CellRendererToggle->new;
 		$column = Gtk2::TreeViewColumn->new_with_attributes(
@@ -75,7 +75,7 @@ foreach (@cols)
 
 $win->show_all;
 
-G::Idle->add( sub {
+Glib::Idle->add( sub {
 		if( (Gtk2->get_version_info)[1] >= 2 )
 		{
 			$store->reorder(1, 0);

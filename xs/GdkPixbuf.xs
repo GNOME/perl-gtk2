@@ -63,7 +63,7 @@ gdk_pixbuf_render_to_drawable_alpha (pixbuf, drawable, src_x, src_y, dest_x, des
 
 ##  GQuark gdk_pixbuf_error_quark (void) G_GNUC_CONST 
 
-### handled by G::Object
+### handled by Glib::Object
 ##  GdkPixbuf *gdk_pixbuf_ref (GdkPixbuf *pixbuf) 
 ##  void gdk_pixbuf_unref (GdkPixbuf *pixbuf) 
 
@@ -351,7 +351,7 @@ gdk_pixbuf_animation_new_from_file (class, filename, error)
     OUTPUT:
 	RETVAL
 
-### handled by G::Object
+### handled by Glib::Object
 ###  GdkPixbufAnimation *gdk_pixbuf_animation_ref (GdkPixbufAnimation *animation) 
 ###  void gdk_pixbuf_animation_unref (GdkPixbufAnimation *animation) 
 

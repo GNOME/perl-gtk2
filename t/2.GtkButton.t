@@ -55,7 +55,7 @@ ok( $button_stock = Gtk2::Button->new_from_stock('Apply') );
 $win2->add($button_stock);
 $button_stock->show;
 
-G::Idle->add( sub 
+Glib::Idle->add( sub 
 	{
 		$win2->show;
 		$button->pressed;
