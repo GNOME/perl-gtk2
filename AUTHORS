@@ -20,6 +20,7 @@ Dr. Michael Langner  langner at fiz-chemie dot de
 Anuradha Ratnaweera  Aratnaweera at virtusa dot com
 Bjarne Steinsbø      bosteins at broadpark dot no
 Roderich Schupp      Roderich dot Schupp at partner dot bmw dot de
+Nathan Kurz          nate at verse dot com
 
 several important bits of gtk2-perl were heavily inspired by pygtk, gtk-perl,
 and a good read-through of the gtk+ source code, so credit goes to those guys
