@@ -49,10 +49,17 @@ gtk_combo_set_item_string (combo, item, item_value)
 	GtkItem  * item
 	gchar    * item_value
 
-# TODO: GList not in typemap (perhaps just take an array of strings
 ##void gtk_combo_set_popdown_strings (GtkCombo* combo, GList *strings)
-#void
-#gtk_combo_set_popdown_strings (combo, strings)
-#	GtkCombo * combo
-#	GList    * strings
-
+void
+gtk_combo_set_popdown_strings (combo, ...)
+	GtkCombo * combo
+    PREINIT:
+	GList * strings = NULL;
+    CODE:
+	for( items--; items > 0; items-- )
+		strings = g_list_prepend(strings, SvPV_nolen(ST(items)));
+	if( strings )
+	{
+		gtk_combo_set_popdown_strings(combo, strings);
+		g_list_free(strings);
+	}
