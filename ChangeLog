@@ -1,8 +1,17 @@
-2003/08/19 23:04 muppetman
+2003/08/20 01:45 muppetman
 
-	* xs/GtkTreeSelection.xs: patche from Torsten Schoenfeld implements
+	* xs/GtkTreeSelection.xs: patch from Torsten Schoenfeld implements
 	gtk_tree_selection_set_select_function and
 	gtk_tree_selection_selected_foreach
+
+	* xs/GtkContainer.xs, t/21.GtkContainer.t: implemented a slew of
+	missing GtkContainer methods, with a test.  the functions for child
+	properties are still unbound.
+
+	* xs/GtkTreeDnd.xs: missing functions gtk_tree_get_row_drag_data
+	and gtk_tree_drag_source_drag_data_get.  changed package for
+	gtk_tree_(get|set)_row_drag_data to Gtk2::SelectionData so they
+	will be called properly as methods.
 
 2003/08/19 22:52 rwmcfa1
 
