@@ -273,6 +273,12 @@ gtk_main_iteration_do (class, blocking)
     C_ARGS:
 	blocking
 
+gboolean
+gtk_main_iteration_do (class, blocking)
+	gboolean blocking
+    C_ARGS:
+	blocking
+
  ### gtk-perl implemented these as widget methods, but they are not widget
  ### methods.  they deal with the global grab setting.  this is bound to 
  ### be a FAQ.
@@ -433,6 +439,16 @@ gtk_get_event_widget (class, GdkEvent_ornull * event)
 
 MODULE = Gtk2		PACKAGE = Gtk2::Widget		PREFIX = gtk_
 
+=for apidoc
+
+From gtk+'s API documentation:
+
+You most likely don't want to use any of these functions; synthesizing events
+is rarely needed. Consider asking on the mailing list for better ways to
+achieve your goals. For example, use Gtk2::Gdk::invalidate_rect or
+Gtk2::Widget::queue_draw instead of making up expose events.
+
+=cut
  ##void gtk_propagate_event (GtkWidget * widget, GdkEvent * event);
 void
 gtk_propagate_event (widget, event)

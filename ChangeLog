@@ -1,3 +1,8 @@
+2004/01/10 02:54 (+0100) kaffeetisch
+
+	* xs/Gtk2.xs: Implement get_default_language, main_iteration_do
+	and, Gtk2::Widget::propagate_event.
+
 2004/01/09 14:33 (-0500) rwmcfa1
 
 	* AUTHORS, Gtk2.pm, README: mailing list addr correction
