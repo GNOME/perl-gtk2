@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-#use Gtk2::TestHelper tests => 19;
+use Gtk2::TestHelper tests => 19;
 ### FIXME FIXME
 ### this test is failing for me rather insistently.
 ### using gtk+ on cvs HEAD (2.3.something).
@@ -28,7 +28,7 @@ use strict;
 ### for the time being, i'm just disabling these tests so the release can
 ### go out.
 ### FIXME FIXME
-use Test::More skip_all => "FIXME FIXME FIXME something is horribly wrong with this test";
+#use Test::More skip_all => "FIXME FIXME FIXME something is horribly wrong with this test";
 
 # $Header$
 
@@ -82,11 +82,13 @@ ok($context -> actions() == [qw(copy move)]);
 ok($context -> suggested_action() == qw(copy));
 is($context -> start_time(), 0);
 
-# FIXME: this should probably be skipped on win32.
-is_deeply([Gtk2::Gdk::DragContext -> get_protocol($destination -> get_xid())],
-          [$destination -> get_xid(), $protocol]);
-
 SKIP: {
+  skip "can't do x11 stuff on this platform", 2
+    if $^O eq 'MSWin32';
+
+  is_deeply([Gtk2::Gdk::DragContext -> get_protocol($destination -> get_xid())],
+            [$destination -> get_xid(), $protocol]);
+
   skip("get_protocol_for_display is new in 2.2", 1)
     unless Gtk2->CHECK_VERSION (2, 2, 0);
 
