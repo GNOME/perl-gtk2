@@ -50,7 +50,7 @@ GtkIconSize
 SvGtkIconSize (SV * sv)
 {
 	GtkIconSize size;
-	if (gperl_try_convert_enum (GTK_TYPE_ICON_SIZE, sv, &size))
+	if (gperl_try_convert_enum (GTK_TYPE_ICON_SIZE, sv, (gint*)&size))
 		return size;
 	/* fall back... */
 	return gtk_icon_size_from_name (SvPV_nolen (sv));
