@@ -41,6 +41,7 @@ use warnings;
 use strict;
 use Glib qw/TRUE FALSE/;
 use Gtk2;
+use Gtk2::Gdk::Keysyms;
 
 use constant MIN_CHART_WIDTH  => 256;
 use constant MIN_CHART_HEIGHT => 100;
@@ -111,6 +112,9 @@ use Glib::Object::Subclass
 		motion_notify_event => \&motion_notify_event,
 		button_press_event => \&button_press_event,
 		button_release_event => \&button_release_event,
+		key_press_event => \&key_press_event,
+		focus_in_event => \&handle_focus,
+		focus_out_event => \&handle_focus,
 	},
 	properties => [
 		Glib::ParamSpec->double ('threshold',
@@ -141,10 +145,13 @@ sub INIT_INSTANCE {
 	my $plot = shift;
 	warn "INIT_INSTANCE $plot";
 
+	$plot->can_focus (TRUE);
+
 	$plot->{threshold}       = 0;
 	$plot->{histogram}       = [ 0..255 ];
 	$plot->{pixmap}          = undef;
 	$plot->{th_gc}           = undef;
+	$plot->{focus_gc}        = undef;
 	$plot->{dragging}        = FALSE;
 	$plot->{continuous}      = FALSE;
 	$plot->{origin_layout}   = $plot->create_pango_layout ("0.0%");
@@ -271,14 +278,23 @@ sub configure_event {
 sub draw_th_marker {
 	my ($plot, $w, $draw_text) = @_;
 
+	my $threshold_screen = $plot->threshold_to_screen ($plot->{threshold});
+
 	if (!$plot->{th_gc}) {
 		$plot->{th_gc} = Gtk2::Gdk::GC->new ($plot->{pixmap});
 		$plot->{th_gc}->copy ($plot->style->fg_gc ($plot->state));
 		$plot->{th_gc}->set_function ('invert');
+
+		my $bits = pack "bb", 0xaa, 0x55;
+		my $stipple = Gtk2::Gdk::Bitmap->create_from_data
+					($plot->{pixmap}, $bits, 8, 2);
+		$plot->{focus_gc} = Gtk2::Gdk::GC->new ($plot->{pixmap});
+		$plot->{focus_gc}->copy ($plot->style->fg_gc ($plot->state));
+		$plot->{focus_gc}->set_stipple ($stipple);
 	}
 	$w->draw_line ($plot->{th_gc},
-		       $plot->threshold_to_screen ($plot->{threshold}), 0,
-		       $plot->threshold_to_screen ($plot->{threshold}), $plot->{bottom});
+		       $threshold_screen, 0,
+		       $threshold_screen, $plot->{bottom});
 
 	$plot->{current_layout}->set_text (sprintf '%d', $plot->{threshold});
 	my ($textwidth, $textheight) = $plot->{current_layout}->get_pixel_size;
@@ -287,18 +303,30 @@ sub draw_th_marker {
 	# erase text
 	$w->draw_rectangle ($plot->style->bg_gc($plot->state), 
 			    TRUE,
-			    $plot->threshold_to_screen ($plot->{threshold})
-			    	- $plot->{marker_textwidth} - 1,
+			    $threshold_screen - $plot->{marker_textwidth} - 1,
 			    $plot->{bottom} + 1,
-			    $plot->{marker_textwidth} + 1,
+			    # the extra 1 in width erases the focus ring
+			    $plot->{marker_textwidth} + 2,
 			    $textheight);
 
-	$w->draw_layout ($plot->{th_gc}, 
-			 $plot->threshold_to_screen ($plot->{threshold})
-				 	- $plot->{marker_textwidth},
+	if ($draw_text) {
+		$w->draw_layout ($plot->{th_gc}, 
+				 $threshold_screen - $plot->{marker_textwidth},
 				 $plot->{bottom} + 1,
-				 $plot->{current_layout})
-		if $draw_text;
+				 $plot->{current_layout});
+		$plot->style->paint_focus
+				($w,
+				 $plot->state,
+				 undef, # area
+				 $plot,
+				 undef, # detail
+				 $threshold_screen
+				    - $plot->{marker_textwidth},
+				 $plot->{bottom} + 1,
+				 $plot->{marker_textwidth} + 1,
+				 $textheight)
+			if $plot->has_focus;
+	}
 }
 
 #
@@ -327,6 +355,8 @@ sub marker_hit {
 
 sub button_press_event {
 	my ($plot, $event) = @_;
+
+	$plot->grab_focus if $plot->can_focus and not $plot->has_focus;
 
 	return FALSE
 		if ($event->button != 1 || not defined $plot->{pixmap});
@@ -381,6 +411,65 @@ sub button_release_event {
 
 	return TRUE;
 }
+
+sub key_press_event {
+	my ($plot, $event) = @_;
+	my $increment;
+
+	my $keyval = $event->keyval;
+	if ($keyval == $Gtk2::Gdk::Keysyms{Up} ||
+	    $keyval == $Gtk2::Gdk::Keysyms{KP_Up} ||
+	    $keyval == $Gtk2::Gdk::Keysyms{Left} ||
+	    $keyval == $Gtk2::Gdk::Keysyms{KP_Left}) {
+		# just a jump to the left...
+		$increment = -1;
+	} elsif ($keyval == $Gtk2::Gdk::Keysyms{Down} ||
+		 $keyval == $Gtk2::Gdk::Keysyms{KP_Down} ||
+		 $keyval == $Gtk2::Gdk::Keysyms{Right} ||
+		 $keyval == $Gtk2::Gdk::Keysyms{KP_Right}) {
+		# and a step to the ri-i-ight
+		$increment = 1;
+	} else {
+		$increment = 0;
+	}
+
+	if ($increment) {
+		if ($event->state >= 'control-mask') {
+			# Ctrl+Arrow jumps to the relevant extreme.
+			$increment *= 256;
+		} elsif ($event->state >= 'shift-mask') {
+			# Shift+Arrow bumps by a larger increment.
+			$increment *= 10;
+		}
+
+		my $newthresh = $plot->{threshold} + $increment;
+		$newthresh = 0 if $newthresh < 0;
+		$newthresh = 255 if $newthresh > 255;
+		if ($newthresh != $plot->{threshold}) {
+			# use set so the redraw happens correctly.
+			$plot->set (threshold => $newthresh);
+			# always emit.
+			$plot->signal_emit ('threshold-changed');
+		}
+
+		return TRUE;
+
+	} else {
+		return FALSE;
+	}
+}
+
+sub handle_focus {
+	my $plot = shift;
+	my $ret = $plot->signal_chain_from_overridden (@_);
+	# erase
+	$plot->draw_th_marker ($plot->{pixmap}, FALSE);
+	# redraw
+	$plot->draw_th_marker ($plot->{pixmap}, TRUE);
+	return $ret;
+}
+
+
 
 my $sizer;
 
@@ -520,7 +609,7 @@ sub set_plot_data {
 }
 
 sub do_threshold_changed {
-	warn "default threshold handler";
+	warn "default threshold handler\n";
 }
 
 ################
@@ -575,7 +664,7 @@ $check->signal_connect (toggled => sub {
 #
 # do something fun when the threshold changes.
 #
-my $label = Gtk2::Label->new (sprintf "threshold: %.1f",
+my $label = Gtk2::Label->new (sprintf 'threshold: %d',
                                        $plot->get ('threshold'));
 $vbox->pack_start ($label, FALSE, FALSE, 0);
 

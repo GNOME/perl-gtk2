@@ -1,3 +1,7 @@
+2004/12/04 21:44 (-0400) muppetman
+
+	* examples/histogramplot.h: Add key navigation to the plot widget.
+
 2004/11/29 21:43 (+0100) kaffeetisch
 
 	* Makefile.PL: Correct the unstable warning message to say 1.06x
