@@ -1,3 +1,10 @@
+2003/09/11 23:51 muppetman
+
+	* ChangeLog, Gtk2.pm, MANIFEST, META.yml, README, debian/changelog,
+	debian/control: updated for 1.00rc1 release
+
+	* Makefile.PL: require Glib 1.00rc1
+
 2003/09/11 23:41 muppetman
 
 	* examples/histogramplot.pl: update to use the new, fixed overrides

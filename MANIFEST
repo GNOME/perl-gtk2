@@ -68,6 +68,7 @@ gtk-demo/tree_store.pl
 gtk.typemap
 gtk2perl.h
 maps
+perl-Gtk2.spec.in
 pm/Helper.pm
 pm/Pango.pm
 pm/Responses.pm
