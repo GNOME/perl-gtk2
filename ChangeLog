@@ -1,3 +1,14 @@
+2003/12/02 13:58 (-0500) rwmcfa1
+
+	* : Merge of rel-1-02 doc and fixes back. (following 2 apply)
+
+	* xs/GdkEvent.xs, xs/GdkPixmap.xs, xs/GtkObject.xs: doc
+
+	* xs/GdkDnd.xs xs/GdkProperty.xs, xs/GtkClipboard.xs, xs/GtkDnd.xs,
+	xs/GtkListStore.xs, xs/GtkSelection.xs, xs/GtkTextBuffer.xs,
+	xs/GtkTreeDnd.xs, xs/GtkTreeStore.xs, xs/GtkTreeView.xs,
+	xs/GtkTreeViewColumn.xs: api doc additions.
+
 2003/11/29 12:21 (-0500) muppetman
 
 	* xs/GtkMessageDialog.xs: gtk_message_dialog_new uses printf-like

@@ -109,8 +109,12 @@ DESTROY (SV * list)
 	gtk_target_list_unref (SvGtkTargetList (list));
 
 ##  GtkTargetList *gtk_target_list_new (const GtkTargetEntry *targets, guint ntargets) 
+=for apidoc
+=for arg target1 (Gtk2::TargetEntry) the first target
+=for arg ... (__hide__)
+=cut
 GtkTargetList *
-gtk_target_list_new (class, ...)
+gtk_target_list_new (class, target1, ...)
     PREINIT:
 	GtkTargetEntry *targets;
 	guint ntargets;
@@ -136,8 +140,12 @@ gtk_target_list_add (list, target, flags, info)
 	guint info
 
 ##  void gtk_target_list_add_table (GtkTargetList *list, const GtkTargetEntry *targets, guint ntargets) 
+=for apidoc
+=for arg target1 (Gtk2::TargetEntry) the first target
+=for arg ... (__hide__)
+=cut
 void
-gtk_target_list_add_table (GtkTargetList * list, target, ...)
+gtk_target_list_add_table (GtkTargetList * list, target1, ...)
     PREINIT:
 	GtkTargetEntry *targets;
 	guint ntargets;
@@ -201,8 +209,12 @@ gtk_selection_add_target (widget, selection, target, info)
 	guint info
 
 ##  void gtk_selection_add_targets (GtkWidget *widget, GdkAtom selection, const GtkTargetEntry *targets, guint ntargets) 
+=for apidoc
+=for arg target1 (Gtk2::TargetEntry) the first target
+=for arg ... (__hide__)
+=cut
 void
-gtk_selection_add_targets (widget, selection, target, ...)
+gtk_selection_add_targets (widget, selection, target1, ...)
 	GtkWidget *widget
 	GdkAtom selection
     PREINIT:

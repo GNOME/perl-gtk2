@@ -90,9 +90,10 @@ BOOT:
  ## we don't need this to be exported to perl, it's automagical
 
 
- # this is an explicit destroy --- NOT the auto destroy; Gtk2::Object
- # inherits that from Glib::Object!
-
+=for apidoc
+This is an explicit destroy --- NOT the auto destroy; Gtk2::Object
+inherits that from Glib::Object!
+=cut
 void
 gtk_object_destroy (object)
 	GtkObject * object
@@ -103,6 +104,19 @@ gtk_object_destroy (object)
 
  ## however, we need one more for various purposes...
 
+=for apidoc
+=for arg object_class package name of object to create
+=for arg ... list of property-name => value pairs
+Create a new object of type I<$object_class>, with some optional initial
+property values.  You may see this used in some code as Gtk2::Widget->new,
+e.g.
+
+ $window = Gtk2::Widget->new ('Gtk2::Window',
+                              title => 'something cool',
+                              allow_grow => TRUE);
+
+This is really just a convenience function that wraps Glib::Object->new.
+=cut
 GtkObject *
 new (class, object_class, ...)
 	const char * object_class
@@ -142,7 +156,7 @@ new (class, object_class, ...)
 				croak ("could not convert value for property %s",
 				       key);
 			params[i].name = key; /* will be valid until this
-			                     issue2.html  * xsub is finished */
+			                       * xsub is finished */
 		}
 		g_type_class_unref (class);
 	}

@@ -102,8 +102,12 @@ gdk_drag_get_selection (context)
 	GdkDragContext *context
 
 ##  GdkDragContext * gdk_drag_begin (GdkWindow *window, GList *targets) 
+=for apidoc
+=for arg target1 (Gtk2::Gdk::Atom) the first atom
+=for arg ... (__hide__)
+=cut
 GdkDragContext_noinc *
-gdk_drag_begin (class, window, ...)
+gdk_drag_begin (class, window, target1, ...)
 	GdkWindow *window
     PREINIT:
 	GList *targets = NULL;

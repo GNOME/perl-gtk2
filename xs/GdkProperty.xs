@@ -23,6 +23,9 @@
 MODULE = Gtk2::Gdk::Property	PACKAGE = Gtk2::Gdk::Atom	PREFIX = gdk_atom_
 
 ## for easy comparisons of atoms
+=for apidoc __hide__
+=for arg swap (boolean)
+=cut
 gboolean
 eq (left, right, swap=FALSE)
 	GdkAtom left
