@@ -1,3 +1,17 @@
+2003/12/29 03:21 (+0100) kaffeetisch
+
+	* t/01.GtkWindow.t
+	* t/12.GtkDialog.t
+	* t/21.GtkContainer.t: Add tests for the remaining functions.
+
+	* xs/GtkColorSelectionDialog.xs
+	* xs/GtkFileSelection.xs: Provide accessors for all struct fields.
+
+	* xs/GtkWindow.xs: Use gchar_ornull in set_title.  Provide a
+	default for the focus argument of set_focus and the mask argument
+	of set_geometry_hints.  Add a class parameter to
+	set_auto_startup_notification.
+
 2003/12/28 06:32 (+0100) kaffeetisch
 
 	* xs/GdkEvent.xs: Implement Gtk2::Gdk::Event::Expose::region.
