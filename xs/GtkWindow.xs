@@ -173,14 +173,13 @@ GdkGravity
 gtk_window_get_gravity (window)
 	GtkWindow * window
 
-# TODO: GDkGeometry not in typemap
 ## void gtk_window_set_geometry_hints (GtkWindow *window, GtkWidget *geometry_widget, GdkGeometry *geometry, GdkWindowHints geom_mask)
-#void
-#gtk_window_set_geometry_hints (window, geometry_widget, geometry, geom_mask)
-#	GtkWindow      * window
-#	GtkWidget      * geometry_widget
-#	GdkGeometry    * geometry
-#	GdkWindowHints   geom_mask
+void
+gtk_window_set_geometry_hints (window, geometry_widget, geometry, geom_mask)
+	GtkWindow      * window
+	GtkWidget      * geometry_widget
+	GdkGeometry    * geometry
+	GdkWindowHints   geom_mask
 
 ## gboolean gtk_window_get_has_frame (GtkWindow *window)
 gboolean

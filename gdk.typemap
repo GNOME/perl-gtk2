@@ -33,3 +33,20 @@ GdkBitmap_noinc *	T_GPERL_GENERIC_WRAPPER
 # one of those magickal opaque pointer types
 GdkAtom 		T_GPERL_GENERIC_WRAPPER
 
+# unfortunately this is not a boxed type
+GdkGeometry *		T_GDK_GEOMETRY
+
+INPUT
+
+T_GDK_GEOMETRY
+	if (!sv_derived_from ($arg, \"Gtk2::Gdk::Geometry\"))
+        	croak (aTHX_ \"$var is not of type Gtk2::Gdk::Geometry\");
+	if (SvCUR (SvRV ($arg)) != sizeof (GdkGeometry))
+        	croak (aTHX_ \"$var is a corrupted Gtk2::Gdk::Geometry object\");
+        $var = (GdkGeometry *)SvPVX (SvRV ($arg));
+
+OUTPUT
+
+T_GDK_GEOMETRY
+	sv_setref_pvn ($arg, \"Gtk2::Gdk::Geometry\", (char *)$var, sizeof (GdkGeometry));
+

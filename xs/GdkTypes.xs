@@ -41,7 +41,6 @@ SvGdkAtom (SV * sv)
 	return (GdkAtom)NULL; /* not reached */
 }
 
-
 MODULE = Gtk2::Gdk::Types	PACKAGE = Gtk2::Gdk::Rectangle
 
 GdkRectangle_copy *
@@ -95,3 +94,98 @@ values (rectangle)
 	PUSHs (sv_2mortal (newSViv (rectangle->y)));
 	PUSHs (sv_2mortal (newSViv (rectangle->width)));
 	PUSHs (sv_2mortal (newSViv (rectangle->height)));
+
+MODULE = Gtk2::Gdk::Types	PACKAGE = Gtk2::Gdk::Geometry
+
+GdkGeometry *
+new (class)
+	SV *class
+    PREINIT:
+	GdkGeometry geometry;
+    CODE:
+        memset (&geometry, 0, sizeof (geometry));
+	RETVAL = &geometry;
+    OUTPUT:
+	RETVAL
+
+gint
+min_width (GdkGeometry *geometry, gint newvalue = 0)
+    ALIAS:
+        min_height = 1
+        max_width = 2
+        max_height = 3
+        base_width = 4
+        base_height = 5
+        width_inc = 6
+        height_inc = 7
+    CODE:
+	switch (ix) {
+                case 0: RETVAL = geometry->min_width;   break;
+                case 1: RETVAL = geometry->min_height;  break;
+                case 2: RETVAL = geometry->max_width;   break;
+                case 3: RETVAL = geometry->max_height;  break;
+                case 4: RETVAL = geometry->base_width;  break;
+                case 5: RETVAL = geometry->base_height; break;
+                case 6: RETVAL = geometry->width_inc;   break;
+                case 7: RETVAL = geometry->height_inc;  break;
+        }
+	if (items > 1) {
+                switch (ix) {
+                        case 0: geometry->min_width   = newvalue; break;
+                        case 1: geometry->min_height  = newvalue; break;
+                        case 2: geometry->max_width   = newvalue; break;
+                        case 3: geometry->max_height  = newvalue; break;
+                        case 4: geometry->base_width  = newvalue; break;
+                        case 5: geometry->base_height = newvalue; break;
+                        case 6: geometry->width_inc   = newvalue; break;
+                        case 7: geometry->height_inc  = newvalue; break;
+                }
+        }
+    OUTPUT:
+	RETVAL
+
+gdouble
+min_aspect (GdkGeometry *geometry, gdouble newvalue = 0)
+    ALIAS:
+        max_aspect = 1
+    CODE:
+	switch (ix) {
+                case 0: RETVAL = geometry->min_aspect; break;
+                case 1: RETVAL = geometry->max_aspect; break;
+        }
+	if (items > 1) {
+                switch (ix) {
+                        case 0: geometry->min_aspect = newvalue; break;
+                        case 1: geometry->max_aspect = newvalue; break;
+                }
+        }
+    OUTPUT:
+	RETVAL
+
+GdkGravity
+gravity (GdkGeometry *geometry, GdkGravity newvalue = 0)
+    CODE:
+        RETVAL = geometry->win_gravity;
+        if (items > 1)
+  		geometry->win_gravity = newvalue;
+    OUTPUT:
+        RETVAL
+
+## moved here because it makes plain sense
+## need to document it...
+## ## void gdk_window_constrain_size (GdkGeometry *geometry, guint flags, gint width, gint height, gint *new_width, gint *new_height)
+void
+gdk_window_constrain_size (geometry, flags, width, height)
+	GdkGeometry *geometry
+	GdkWindowHints flags
+	gint width
+	gint height
+    PREINIT:
+	gint new_width;
+	gint new_height;
+    PPCODE:
+	gdk_window_constrain_size (geometry, flags, width, height, &new_width, &new_height);
+	EXTEND (SP, 2);
+	PUSHs (sv_2mortal (mewSViv (new_width)));
+	PUSHs (sv_2mortal (mewSViv (new_height)));
+

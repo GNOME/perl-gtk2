@@ -1,3 +1,9 @@
+2003/11/12 18:28 pcg
+
+	* gdk.typemap, xs/GdkTypes.xs: implement Gtk2::Gdk::Geometry.
+        * xs/GdkWindow.xs, xs/GtkWindow.xs: use it and move
+        gdk_window_constraing_size to GdkTypes.xs.
+
 2003/11/12 16:05 pcg
 
 	* xs/GdkTypes.xs: change acessor methods to mutators for
