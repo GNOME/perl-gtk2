@@ -1,4 +1,8 @@
-2004/01/16 00:53 (-0500) muppetman
+2004/01/16 02:00 (-0500) muppetman
+
+	release 1.030 (unstable)
+
+2004/01/16 01:54 (-0500) muppetman
 
 	* t/GdkDnd.t: this test fails rather insistently on my system;
 	disabling it with loud FIXMEs so we can make a release.
