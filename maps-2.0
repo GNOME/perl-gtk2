@@ -342,3 +342,6 @@ PANGO_TYPE_UNDERLINE	PangoUnderline	GEnum	Gtk2::Pango::Underline
 PANGO_TYPE_VARIANT	PangoVariant	GEnum	Gtk2::Pango::Variant
 PANGO_TYPE_WEIGHT	PangoWeight	GEnum	Gtk2::Pango::Weight
 PANGO_TYPE_WRAP_MODE	PangoWrapMode	GEnum	Gtk2::Pango::WrapMode
+
+# not really defined by GTK+, but we'll use it for ourselves.
+GDK_TYPE_REGION	GdkRegion	GBoxed	Gtk2::Gdk::Region
