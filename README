@@ -1,6 +1,6 @@
 # $Header$
 
-Gtk2 version 1.061
+Gtk2 version 1.062
 ==================
 
 Perl bindings to the 2.x series of the Gtk+ graphical user interface library.
@@ -71,7 +71,7 @@ In order to build it from source, you'll also need
 
 COPYRIGHT AND LICENSE
 
-Copyright (C) 2003-2004 by the gtk2-perl team (see the file AUTHORS for the
+Copyright (C) 2003-2005 by the gtk2-perl team (see the file AUTHORS for the
 full list)
 
 This library is free software; you can redistribute it and/or modify it under

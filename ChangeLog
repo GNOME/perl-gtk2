@@ -1,3 +1,8 @@
+2005/01/31 20:58 (+0100) kaffeetisch
+
+	* Gtk2.pm, META.yml, Makefile.PL, NEWS, README: stable release
+	1.062.
+
 2005/01/31 20:53 (+0100) kaffeetisch
 
 	* t/GtkAccelGroup.t, t/GtkAccelMap.t, t/GtkBox.t,

@@ -1,3 +1,15 @@
+Overview of Changes in Gtk2 1.062
+=================================
+
+* Documentation fixes.  [muppet]
+* Properly create META.yml.  [muppet]
+* Make Gtk2::TreeModelFilter actually work by letting it inherit from
+  Gtk2::TreeModel.  [muppet]
+* Add missing interfaces to widgets that implement them.  [Ross]
+* Make the Gtk2::Clipboard constructors not assume ownership.  [Torsten]
+* Fix or disable some tests that fail with newer versions of Test::More.
+  [Torsten]
+
 Overview of Changes in Gtk2 1.061
 =================================
 
