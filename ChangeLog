@@ -1,3 +1,8 @@
+2004/04/03 22:27 (+0100) kaffeetisch
+
+	* t/01.GtkWindow.t: Fix the TODO by allowing both, TRUE and FALSE,
+	as the return value of is_active and has_toplevel_focus.
+
 2004/04/03 21:30 (+0200) kaffeetisch
 
 	A t/GdkInput.t
