@@ -1,3 +1,10 @@
+Overview of Changes in Gtk2 1.061
+=================================
+
+* Miscellaneous code cleanup and build fixes.  [Torsten]
+* Doc fixes and improvements.  [Torsten]
+* Fix some utf-8 issues related to non-English locales.  [muppet, ender]
+
 Overview of Changes in Gtk2 1.060
 =================================
 
