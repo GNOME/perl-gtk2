@@ -29,6 +29,9 @@
 	the Clipboard object with _noinc, it's a singleton owned by
 	the display.
 
+	* t/GtkFileChooser.t: fix test to work with gtk+ 2.6.x's slight
+	under-the-hood timing changes.
+
 2005/01/16 02:34 (-0400) muppetman
 
 	* xs/GtkTreeModelFilter.xs, t/GtkTreeModelFilter.t: Set up @ISA 
