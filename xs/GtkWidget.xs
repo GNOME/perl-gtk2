@@ -66,6 +66,7 @@ allocation (widget)
     OUTPUT:
 	RETVAL
 
+#GtkStyle*  gtk_widget_get_style		(GtkWidget	*widget);
 GtkStyle*
 style (widget)
 	GtkWidget * widget
@@ -438,7 +439,11 @@ gtk_widget_get_toplevel	(widget)
 
  #GtkWidget*   gtk_widget_get_ancestor	(GtkWidget	*widget,
  #					 GtkType	widget_type);
- #GdkColormap* gtk_widget_get_colormap	(GtkWidget	*widget);
+
+GdkColormap*
+gtk_widget_get_colormap	(widget)
+	GtkWidget * widget
+
  #GdkVisual*   gtk_widget_get_visual	(GtkWidget	*widget);
  #
  #GtkSettings* gtk_widget_get_settings    (GtkWidget      *widget);
@@ -488,7 +493,6 @@ gtk_widget_get_events (widget)
  #void	   gtk_widget_set_style		(GtkWidget	*widget,
  #					 GtkStyle	*style);
  #void	   gtk_widget_ensure_style	(GtkWidget	*widget);
-#GtkStyle*  gtk_widget_get_style		(GtkWidget	*widget);
  #
  ###void gtk_widget_modify_style (GtkWidget *widget, GtkRcStyle *style);
  #void
