@@ -17,7 +17,7 @@ use Test::More;
 
 if( Gtk2->init_check )
 {
-	plan tests => 101;
+	plan tests => 100;
 }
 else
 {
