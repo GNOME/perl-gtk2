@@ -324,7 +324,8 @@ sub STORE { # this, index, value
 	} else {
 		$row[0] = $_[2];
 	}
-	return 1;
+
+	return $_[2];
 }
 
 sub FETCHSIZE { # this
@@ -345,20 +346,24 @@ sub PUSH { # this, list
 			$row[0] = $_;
 		}
 	}
-	return 1;
+	return $model->iter_n_children (undef);
 }
 
 sub POP { # this
 	my $model = $_[0]->{model};
 	my $index = $model->iter_n_children-1;
-	$model->remove($model->iter_nth_child(undef, $index))
-		if( $index >= 0 );
+	my $iter = $model->iter_nth_child(undef, $index);
+	my $ret = [ $model->get ($iter) ];
+	$model->remove($iter) if( $index >= 0 );
+	return $ret;
 }
 
 sub SHIFT { # this
 	my $model = $_[0]->{model};
-	$model->remove($model->iter_nth_child(undef, 0))
-		if( $model->iter_n_children );
+	my $iter = $model->iter_nth_child(undef, 0);
+	my $ret = [ $model->get ($iter) ];
+	$model->remove($iter) if( $model->iter_n_children );
+	return $ret;
 }
 
 sub UNSHIFT { # this, list
@@ -375,7 +380,7 @@ sub UNSHIFT { # this, list
 			$row[0] = $_;
 		}
 	}
-	return 1;
+	return $model->iter_n_children (undef);
 }
 
 # note: really, arrays aren't supposed to support the delete operator this
@@ -429,10 +434,12 @@ sub SPLICE { # this, offset, length, list
 	my @ret = ();
 
 	# remove the desired elements
+	my $ret;
 	for (my $i = $offset; $i < $offset+$length; $i++)
 	{
 		# things will be shifting forward, so always delete at offset
-		push @ret, $self->DELETE ($offset);
+		$ret = $self->DELETE ($offset);
+		push @ret, $ret if defined $ret;
 	}
 
 	# insert the passed list at offset in reverse order, so the will

@@ -124,14 +124,14 @@ BOOT:
 
 	/* make sure that we're running/linked against a version at least as 
 	 * new as we built against, otherwise bad things can happen. */
-	if ((gtk_major_version < GTK_MAJOR_VERSION)
+	if ((((int)gtk_major_version) < GTK_MAJOR_VERSION)
 	    ||
 	    (gtk_major_version == GTK_MAJOR_VERSION && 
-	     gtk_minor_version < GTK_MINOR_VERSION)
+	     ((int)gtk_minor_version) < GTK_MINOR_VERSION)
 	    ||
 	    (gtk_major_version == GTK_MAJOR_VERSION && 
 	     gtk_minor_version == GTK_MINOR_VERSION &&
-	     gtk_micro_version < GTK_MICRO_VERSION))
+	     ((int)gtk_micro_version) < GTK_MICRO_VERSION))
 		warn ("*** This build of Gtk2 was compiled with gtk+ %d.%d.%d,"
 		      " but is currently running with %d.%d.%d, which is too"
 		      " old.  We'll continue, but expect problems!\n",

@@ -367,7 +367,7 @@ gdk_gc_set_rgb_bg_color (gc, color)
 	GdkGC *gc
 	GdkColor *color
 
-#ifdef GDK_TYPE_SCREEN
+#if GTK_CHECK_VERSION(2,2,0)
 
  ## GdkScreen * gdk_gc_get_screen (GdkGC *gc)
 GdkScreen *

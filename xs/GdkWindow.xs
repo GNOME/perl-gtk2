@@ -358,7 +358,7 @@ GdkWindow* gdk_window_lookup (class, GdkNativeWindow anid);
 
 #endif
  
-#ifdef GDK_TYPE_DISPLAY
+#if GTK_CHECK_VERSION(2,2,0)
  
 GdkWindow *gdk_window_foreign_new_for_display (class, GdkDisplay *display, GdkNativeWindow  anid);
     C_ARGS:

@@ -299,3 +299,5 @@ gdk_threads_init (class)
 		default:
 			g_assert_not_reached ();
 	}
+
+MODULE = Gtk2::Gdk	PACKAGE = Gtk2::Gdk	PREFIX = gdk_

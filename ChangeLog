@@ -1,3 +1,23 @@
+2004/04/09 08:17 (-0400) muppetman
+
+	merge a bunch more bugfixes from stable.
+
+	* gtk-demo/appwindow.pl: clean up warnings.
+	
+	* gtk-demo/sizegroup.pl, gtk-demo/textview.pl: patch from Thierry
+	Vignaud lets gtk-demo work again by removing muppet's stupid syntax
+	errors.
+	
+	* pm/SimpleList.pm, t/GtkSimpleList.t: ross made SimpleList's tied
+	operations return the correct values.
+	
+	* xs/Gdk.xs, xs/GdkColor.xs, xs/GdkGC.xs, xs/GdkScreen.xs,
+	xs/GdkWindow.xs, xs/Gtk2.xs: extended a patch from Cory Omand that
+	uses explicit stable version checks to avoid problems when building
+	against unstable gtk+.
+	
+	* xs/GtkHandleBox.xs: doc fixes.
+
 2004/04/07 19:21 (+0200) kaffeetisch
 
 	A t/GdkVisual.t

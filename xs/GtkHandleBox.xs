@@ -23,6 +23,12 @@
 
 MODULE = Gtk2::HandleBox	PACKAGE = Gtk2::HandleBox	PREFIX = gtk_handle_box_
 
+=for enum GtkPositionType
+=cut
+
+=for enum GtkShadowType
+=cut
+
 ## GtkWidget* gtk_handle_box_new (void)
 GtkWidget *
 gtk_handle_box_new (class)

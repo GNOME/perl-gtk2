@@ -22,7 +22,9 @@
 
 MODULE = Gtk2::Gdk::Screen	PACKAGE = Gtk2::Gdk::Screen	PREFIX = gdk_screen_
 
-#ifdef GDK_TYPE_SCREEN
+ ## GdkScreen was introduced in 2.1.x, but wasn't stable until 2.2.0.
+
+#if GTK_CHECK_VERSION(2,2,0)
 
 BOOT:
 	/* the gdk backends override the public GdkScreen with private,

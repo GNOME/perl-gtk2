@@ -163,7 +163,7 @@ GdkVisual *
 gdk_colormap_get_visual (colormap)
 	GdkColormap *colormap
 
-#ifdef GDK_TYPE_SCREEN
+#if GTK_CHECK_VERSION(2,2,0)
 
  ## GdkScreen* gdk_colormap_get_screen (GdkColormap *cmap)
 GdkScreen *

@@ -32,7 +32,7 @@ sub menuitem_cb {
 
 
 my @menu_items = (
-  [ "/_File",            undef,        0,              0, "<Branch>" ],
+  [ "/_File",            undef,        undef,          0, "<Branch>" ],
   [ "/File/_New",        "<control>N", \&menuitem_cb,  0, "<StockItem>", 'gtk-new' ],
   [ "/File/_Open",       "<control>O", \&menuitem_cb,  0, "<StockItem>", 'gtk-open' ],
   [ "/File/_Save",       "<control>S", \&menuitem_cb,  0, "<StockItem>", 'gtk-save' ],
@@ -40,19 +40,19 @@ my @menu_items = (
   [ "/File/sep1",        undef,        \&menuitem_cb,  0, "<Separator>" ],
   [ "/File/_Quit",       "<control>Q", \&menuitem_cb,  0, "<StockItem>", 'gtk-quit' ],
 
-  [ "/_Preferences",                  undef, 0,             0, "<Branch>" ],
-  [ "/_Preferences/_Color",           undef, 0,             0, "<Branch>" ],
+  [ "/_Preferences",                  undef, undef,         0, "<Branch>" ],
+  [ "/_Preferences/_Color",           undef, undef,         0, "<Branch>" ],
   [ "/_Preferences/Color/_Red",       undef, \&menuitem_cb, 0, "<RadioItem>" ],
   [ "/_Preferences/Color/_Green",     undef, \&menuitem_cb, 0, "/Preferences/Color/Red" ],
   [ "/_Preferences/Color/_Blue",      undef, \&menuitem_cb, 0, "/Preferences/Color/Red" ],
-  [ "/_Preferences/_Shape",           undef, 0,             0, "<Branch>" ],
+  [ "/_Preferences/_Shape",           undef, undef,         0, "<Branch>" ],
   [ "/_Preferences/Shape/_Square",    undef, \&menuitem_cb, 0, "<RadioItem>" ],
   [ "/_Preferences/Shape/_Rectangle", undef, \&menuitem_cb, 0, "/Preferences/Shape/Square" ],
   [ "/_Preferences/Shape/_Oval",      undef, \&menuitem_cb, 0, "/Preferences/Shape/Rectangle" ],
 
   # If you wanted this to be right justified you would use "<LastBranch>", not "<Branch>".
   # Right justified help menu items are generally considered a bad idea now days.
-  [ "/_Help",       undef, 0,             0, "<Branch>" ],
+  [ "/_Help",       undef, undef,         0, "<Branch>" ],
   [ "/Help/_About", undef, \&menuitem_cb, 0 ],
 );
 
