@@ -43,6 +43,8 @@ typedef enum {
 	INSERT,
 } WhichOp;
 
+#define SvGChar_ornull(sv)   ((sv) && SvOK((sv)) ? SvGChar ((sv)) : NULL)
+
 static GtkWidget *
 gtk2perl_toolbar_insert_internal (GtkToolbar * toolbar,
                                   SV * type,
@@ -61,14 +63,15 @@ gtk2perl_toolbar_insert_internal (GtkToolbar * toolbar,
 	const char * real_tooltip_text = NULL;
 	const char * real_tooltip_private_text = NULL;
 
-	if (tooltip_text && SvOK (tooltip_text))
-		real_tooltip_text = SvGChar (tooltip_text);
-
-	if (tooltip_private_text && SvOK (tooltip_private_text))
-		real_tooltip_private_text = SvGChar (tooltip_private_text);
+	/* _ornull is not always right for text, but is for the others. */
+	real_tooltip_text = SvGChar_ornull (tooltip_text);
+	real_tooltip_private_text = SvGChar_ornull (tooltip_private_text);
 
 	switch (which) {
 	    case STOCK:
+		/* stock with NULL text (the stock id) makes no sense,
+		 * so let's make sure perl will issue an uninitialized
+		 * value warning for undef passed here for text. */
 		w = gtk_toolbar_insert_stock (toolbar, SvGChar (text),
 		                              real_tooltip_text,
 		                              real_tooltip_private_text,
@@ -77,7 +80,7 @@ gtk2perl_toolbar_insert_internal (GtkToolbar * toolbar,
 		break;
 	    case ITEM:
 		{
-		const gchar * real_text = SvGChar (text);
+		const gchar * real_text = SvGChar_ornull (text);
 		GtkWidget * real_icon = SvGtkWidget_ornull (icon);
 		switch (op) {
 		    case PREPEND:
@@ -107,7 +110,7 @@ gtk2perl_toolbar_insert_internal (GtkToolbar * toolbar,
 	    case ELEMENT:
 		{
 		GtkToolbarChildType real_type = SvGtkToolbarChildType(type);
-		const gchar * real_text = SvGChar (text);
+		const gchar * real_text = SvGChar_ornull (text);
 		GtkWidget * real_widget = SvGtkWidget_ornull (widget);
 		GtkWidget * real_icon = SvGtkWidget_ornull (icon);
 		switch (op) {
