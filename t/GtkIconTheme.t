@@ -18,26 +18,21 @@ isa_ok ($icon_theme, 'Gtk2::IconTheme');
 
 $icon_theme->set_screen (Gtk2::Gdk::Screen->get_default);
 
-my @paths = qw(/tmp /etc /home);
-$icon_theme->set_search_path (@paths);
-
-is_deeply ([$icon_theme->get_search_path],
-           [ map {s{^/}{}; $_} @paths ]);
-
-$icon_theme->append_search_path ('/usr/local/tmp');
-push @paths, '/usr/local/tmp';
-is_deeply ([$icon_theme->get_search_path],
-           [ map {s{^/}{}; $_} @paths ]);
-
 TODO: {
-	local $TODO = "not sure what's wrong here";
-$icon_theme->prepend_search_path ('/usr/tmp');
-unshift @paths, '/usr/tmp';
-use Data::Dumper;
-print Dumper ([$icon_theme->get_search_path],
-           [ map {s{^/}{}; $_} @paths ]);
-is_deeply ([$icon_theme->get_search_path],
-           [ map {s{^/}{}; $_} @paths ]);
+	local $TODO = "the various path function are currently broken";
+	
+	my @paths = qw(/tmp /etc /home);
+	$icon_theme->set_search_path (@paths);
+	
+	is_deeply ([$icon_theme->get_search_path], \@paths);
+	
+	$icon_theme->append_search_path ('/usr/local/tmp');
+	push @paths, '/usr/local/tmp';
+	is_deeply ([$icon_theme->get_search_path], \@paths);
+	
+	$icon_theme->prepend_search_path ('/usr/tmp');
+	unshift @paths, '/usr/tmp';
+	is_deeply ([$icon_theme->get_search_path], \@paths);
 }
 
 ok (!$icon_theme->has_icon ('gtk-open'));

@@ -1,3 +1,9 @@
+2004/02/12 19:08 (+0100) kaffeetisch
+
+	* t/GtkFileChooser.t
+	* t/GtkIconTheme.t: Mark some tests as TODOs.  They are broken
+	because of what seems to be gtk+ bugs.
+
 2004/02/11 20:25 (+0100) kaffeetisch
 
 	* examples/cellrenderer_date.pl: Adjust the positioning code to
