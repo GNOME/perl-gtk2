@@ -2,13 +2,8 @@
 # $Header$
 #
 
-
-NEED TO IMPLEMENT...
-
-- PangoFont stuff and other things needed for text handling
-
-
-NEED TO TEST...
-
-- nearly all of the class modules.
-
+update modules_list.txt
+move colorselectiontest.pl to a proper t/* test
+give a better name to the entry point for gtk-demo
+make gtk-demo not show the 2.2 stuff when running on 2.0
+figure out why GdkPixbufLoader is flaky; see gtk-demo/images.pl
