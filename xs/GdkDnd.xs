@@ -126,7 +126,9 @@ gdk_drag_get_protocol_for_display (class, display, xid)
     PPCODE:
 	ret = gdk_drag_get_protocol_for_display (display, xid, &protocol);
 	XPUSHs (sv_2mortal (newSVuv (ret)));
-	XPUSHs (sv_2mortal (newSVGdkDragProtocol (protocol)));
+	XPUSHs (sv_2mortal (ret 
+	                    ? newSVGdkDragProtocol (protocol)
+	                    : newSVsv (&PL_sv_undef)));
 
 ##  void gdk_drag_find_window_for_screen (GdkDragContext *context, GdkWindow *drag_window, GdkScreen *screen, gint x_root, gint y_root, GdkWindow **dest_window, GdkDragProtocol *protocol) 
 =for apidoc
@@ -140,14 +142,16 @@ gdk_drag_find_window_for_screen (context, drag_window, screen, x_root, y_root)
 	gint x_root
 	gint y_root
     PREINIT:
-	GdkWindow *dest_window;
+	GdkWindow *dest_window = NULL;
 	GdkDragProtocol protocol;
     PPCODE:
 	gdk_drag_find_window_for_screen (context, drag_window, screen, 
 	                                 x_root, y_root, 
 	                                 &dest_window, &protocol);
 	XPUSHs (sv_2mortal (newSVGdkWindow (dest_window)));
-	XPUSHs (sv_2mortal (newSVGdkDragProtocol (protocol)));
+	XPUSHs (sv_2mortal ((dest_window
+	                     ? newSVGdkDragProtocol (protocol)
+	                     : newSVsv (&PL_sv_undef))));
 
 #endif /* >= 2.2.0 */
 
@@ -183,8 +187,10 @@ gdk_drag_find_window (context, drag_window, x_root, y_root)
     PPCODE:
 	gdk_drag_find_window (context, drag_window, x_root, y_root, 
 	                      &dest_window, &protocol);
-	XPUSHs (sv_2mortal (newSVGdkWindow (dest_window)));
-	XPUSHs (sv_2mortal (newSVGdkDragProtocol (protocol)));
+	XPUSHs (sv_2mortal (newSVGdkWindow_ornull (dest_window)));
+	XPUSHs (sv_2mortal (dest_window
+	                    ? newSVGdkDragProtocol (protocol)
+	                    : newSVsv (&PL_sv_undef)));
 
 
 ##  gboolean gdk_drag_motion (GdkDragContext *context, GdkWindow *dest_window, GdkDragProtocol protocol, gint x_root, gint y_root, GdkDragAction suggested_action, GdkDragAction possible_actions, guint32 time_) 
