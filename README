@@ -61,8 +61,8 @@ This module requires these other modules and libraries:
 
 In order to build it from source, you'll also need
 
-  ExtUtils::Depends >= 0.1
-  ExtUtils::PkgConfig >= 1.00
+  ExtUtils::Depends >= 0.2
+  ExtUtils::PkgConfig >= 1.03
 
 COPYRIGHT AND LICENSE
 
