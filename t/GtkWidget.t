@@ -1,6 +1,8 @@
 # $Header$
 
-use Gtk2::TestHelper tests => 62;
+use warnings;
+use strict;
+use Gtk2::TestHelper tests => 114;
 
 # we can't instantiate Gtk2::Widget, it's abstract.  use a DrawingArea instead.
 
@@ -19,18 +21,23 @@ ok (eq_array ([$widget->get ('name', 'height-request')],
 $widget->set_name ('bar');
 is ($widget->get ('name'), 'bar', '$widget->set_name');
 
-$widget->set_parent (Gtk2::Widget->new ('Gtk2::Window'));
-is (ref $widget->get ('parent'), 'Gtk2::Window', '$widget->unparent');
-# TODO: doesn't work right for some widget types
-#$widget->reparent (Gtk2::Widget->new ('Gtk2::Window'));
-#is (ref $widget->get ('parent'), 'Gtk2::Window', '$widget->unparent');
+my $win = Gtk2::Window->new;
+$win->realize;
+
+$widget->set_parent ($win);
+is ($widget->get ('parent'), $win);
+
+$widget->set_parent_window ($win->window);
+is ($widget->get_parent_window, $win->window);
+
+$widget->reparent ($win);
+is ($widget->get ('parent'), $win);
+
 $widget->unparent;
 is ($widget->get ('parent'), undef, '$widget->unparent');
-# TODO: how
-#$widget->set_parent_window (Gtk2::Widget->new ('Gtk2::Window'));
 
-is( $widget->get_parent, $win );
-is( $widget->parent, $win );
+is( $widget->get_parent, undef );
+is( $widget->parent, undef );
 
 $widget->show;
 ok ($widget->get ('visible'), '$widget->show');
@@ -44,7 +51,7 @@ $widget->show_all;
 ok ($widget->get ('visible') == 1, '$widget->hide');
 
 # we need to parent this widget for tests below,
-my $win = Gtk2::Widget->new ('Gtk2::Window');
+$win = Gtk2::Widget->new ('Gtk2::Window');
 $win->add ($widget);
 print 'trying: $widget->map'."\n";
 $widget->map;
@@ -74,26 +81,41 @@ is (ref $widget->size_request, 'Gtk2::Requisition', '$widget->size_request');
 is (ref $widget->get_child_requisition, 'Gtk2::Requisition',
 	'$widget->get_child_requisition');
 
-# TODO: not bound
-#$widget->size_allocate (100, 100);
+$widget->size_allocate (Gtk2::Gdk::Rectangle->new (5, 5, 100, 100));
 
-# $widget->add_accelerator|$widget->remove_accelerator|set_accel_path,
-# $btn->set_accel_path|$widget->remove_accelerator,
-# tested in accel-group-map
+use Gtk2::Gdk::Keysyms;
 
-# TODO: how
-#$widget->event
+my $accel_group = Gtk2::AccelGroup->new;
+$widget->add_accelerator ("activate", $accel_group, $Gtk2::Gdk::Keysyms{ Return }, qw/shift-mask/, qw/visible/);
+$widget->set_accel_path ("<gtk2perl>/Bla", $accel_group);
+$widget->remove_accelerator ($accel_group, $Gtk2::Gdk::Keysyms{ Return }, qw/shift-mask/);
 
-ok ($widget->intersect (Gtk2::Gdk::Rectangle->new (0, 0, 10000, 10000)),
-	'$widget->intersect');
+SKIP: {
+  skip "can_activate_accel is new in 2.4", 1
+    unless Gtk2->CHECK_VERSION (2, 3, 1);
 
-# TODO: focus
-#$widget->can_focus (1);
-#$widget->grab_focus;
-#is ($widget->has_focus, -1, '$widget->grab_focus|has_focus');
+  ok(!$widget->can_activate_accel (23));
+}
+
+isa_ok ($widget->intersect (Gtk2::Gdk::Rectangle->new (0, 0, 10000, 10000)),
+	'Gtk2::Gdk::Rectangle');
+
+isa_ok ($widget->region_intersect (Gtk2::Gdk::Region->new ()),
+	'Gtk2::Gdk::Region');
+
+$widget->grab_focus;
+ok ($widget->is_focus, '$widget->grab_focus|is_focus');
+ok (!$widget->has_focus, '$widget->grab_focus|has_focus');
+
+$widget->can_default (1);
+$widget->grab_default;
+
+$widget->set_name ("bla!");
+is ($widget->get_name, "bla!");
 
 $widget->set_state ('active');
 is ($widget->state, 'active', '$widget->set_state|state');
+is ($widget->saved_state, 'normal', '$widget->saved_state');
 
 $widget->set_sensitive (0);
 is ($widget->sensitive, '', '$widget->set_sensitive|sensitive false');
@@ -124,6 +146,7 @@ is (ref $widget->get_default_colormap, 'Gtk2::Gdk::Colormap',
 	'$widget->set_default_colormap|get_default_colormap');
 
 is (ref $widget->get_visual, 'Gtk2::Gdk::Visual', '$widget->get_visual');
+is (ref $widget->get_default_visual, 'Gtk2::Gdk::Visual', '$widget->get_visual');
 
 # TODO: should this be -1?
 is (scalar ($widget->get_pointer), -1, '$widget->get_pointer');
@@ -132,14 +155,14 @@ is ($widget->is_ancestor (Gtk2::Window->new), '',
 	'$widget->is_ancestor, false');
 is ($widget->is_ancestor ($win), 1, '$widget->is_ancestor, true');
 
-# TODO: should this be false
-is ($widget->translate_coordinates ($win, 10, 10), undef, 
-	'$widget->translate_coordinates');
+$widget->realize;
+my @new = $widget->translate_coordinates ($win, 10, 10);
+is (@new, 2, '$widget->translate_coordinates');
 
-# TODO: comments says useless in perl
-#is ($widget->hide_on_delete, -1, '$widget->hide_on_delete');
+my $style = Gtk2::Style->new;
 
-is (ref $widget->get_style, 'Gtk2::Style', '$widget->get_style');
+$widget->set_style ($style);
+is ($widget->get_style, $style, '$widget->get_style');
 is (ref $widget->get_default_style, 'Gtk2::Style', 
 	'$widget->get_default_style');
 
@@ -154,12 +177,26 @@ $widget->set_default_direction ('ltr');
 is ($widget->get_default_direction, 'ltr', 
 	'$widget->set_default_direction|get_default_direction, ltr');
 
+is_deeply ([$widget->path], ["GtkWindow.bla!", "!alb.wodniWktG"]);
+is_deeply ([$widget->class_path], ["GtkWindow.GtkButton", "nottuBktG.wodniWktG"]);
+
+$widget->composite_child (1);
+$widget->set_composite_name ("Bla!");
+is ($widget->get_composite_name, "Bla!");
+
 Gtk2->grab_add ($widget);
 is( Gtk2->grab_get_current, $widget, 'grabbing worked' );
 Gtk2->grab_remove ($widget);
 
 $widget->realize;
 isa_ok( $widget->window, "Gtk2::Gdk::Window" );
+
+isa_ok ($widget->style, 'Gtk2::Style');
+isa_ok ($widget->requisition, 'Gtk2::Requisition');
+isa_ok ($widget->allocation, 'Gtk2::Gdk::Rectangle');
+isa_ok ($widget->parent, 'Gtk2::Window');
+
+$widget->event (Gtk2::Gdk::Event->new ("button-press"));
 
 ## end item by item check
 
@@ -185,6 +222,7 @@ ok( $widget->get ('can-focus'), 'this one also has a property, value match?' );
 
 $widget->can_focus (0);
 
+$flags = $widget->flags;
 $flags = $widget->get_flags;
 
 ok( !($flags & 'can-focus'), '$flags & can-focus');
@@ -220,6 +258,112 @@ $requisition = Gtk2::Requisition->new (5, 5);
 isa_ok( $requisition, "Gtk2::Requisition" );
 is( $requisition->width, 5 );
 is( $requisition->height, 5 );
+
+foreach (qw(toplevel
+            no_window
+            realized
+            mapped
+            visible
+            sensitive
+            parent_sensitive
+            can_focus
+            has_focus
+            can_default
+            has_default
+            has_grab
+            rc_style
+            composite_child
+            app_paintable
+            receives_default
+            double_buffered)) {
+	$widget->$_ (1);
+	is ($widget->$_, 1);
+
+	$widget->$_ (0); # to avoid strange segfaults
+}
+
+ok (!$widget->drawable);
+ok (!$widget->is_sensitive);
+
+my $rc_style = Gtk2::RcStyle->new;
+
+$widget->modify_style ($rc_style);
+isa_ok ($widget->get_modifier_style, "Gtk2::RcStyle");
+
+my $black = Gtk2::Gdk::Color->new (0, 0, 0);
+
+$widget->modify_fg (qw/normal/, $black);
+$widget->modify_bg (qw/normal/, $black);
+$widget->modify_text (qw/normal/, $black);
+$widget->modify_base (qw/normal/, $black);
+$widget->modify_font (Gtk2::Pango::FontDescription->from_string ("Sans"));
+
+isa_ok ($widget->create_pango_context, "Gtk2::Pango::Context");
+isa_ok ($widget->get_pango_context, "Gtk2::Pango::Context");
+isa_ok ($widget->create_pango_layout ("Bla"), "Gtk2::Pango::Layout");
+isa_ok ($widget->render_icon ("gtk-open", "menu", "detail"), "Gtk2::Gdk::Pixbuf");
+
+Gtk2::Widget->push_composite_child;
+Gtk2::Widget->pop_composite_child;
+
+$win = Gtk2::Window->new;
+my $box = Gtk2::VBox->new (TRUE, 0);
+
+$box->add ($widget);
+$win->add ($box);
+
+$widget->realize;
+
+$widget->queue_draw_area (0, 0, 10, 10);
+$widget->reset_shapes;
+
+$widget->set_app_paintable (1);
+$widget->set_double_buffered (1);
+$widget->set_redraw_on_allocate (1);
+
+my $adjustment = Gtk2::Adjustment->new (0, 0, 100, 1, 5, 10);
+$widget->set_scroll_adjustments ($adjustment, $adjustment);
+
+$widget->mnemonic_activate (1);
+
+my @style = $widget->style_get ("focus-line-width", "focus-padding");
+is (@style, 2);
+
+isa_ok ($widget->get_accessible, "Gtk2::Atk::Object");
+
+ok (!$widget->child_focus ("down"));
+
+$widget->child_notify ("expand");
+$widget->freeze_child_notify;
+$widget->thaw_child_notify;
+
+$widget->set_child_visible (1);
+is ($widget->get_child_visible, 1);
+
+isa_ok ($widget->get_settings, "Gtk2::Settings");
+
+$widget->set_size_request (100, 100);
+is_deeply ([$widget->get_size_request], [100, 100]);
+
+SKIP: {
+	skip "stuff that's new in 2.2", 5
+		if Gtk2->check_version (2, 2, 0);
+
+	isa_ok ($widget->get_clipboard, "Gtk2::Clipboard");
+	isa_ok ($widget->get_display, "Gtk2::Gdk::Display");
+	isa_ok ($widget->get_root_window, "Gtk2::Gdk::Window");
+	isa_ok ($widget->get_screen, "Gtk2::Gdk::Screen");
+
+	is ($widget->has_screen, 1);
+}
+
+SKIP: {
+	skip "stuff that's new in 2.4", 1
+		if Gtk2->check_version (2, 3, 0); # FIXME 2.4
+
+	$widget->set_no_show_all (1);
+	is ($widget->get_no_show_all, 1);
+}
 
 __END__
 

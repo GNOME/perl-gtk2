@@ -8,44 +8,6 @@
 #include "gtk2perl.h"
 #include "ppport.h"
 
-/*
-gtkwidget.h typedefs GtkAllocation to be the same as GdkRectangle;
-unfortunately, there is no type macro associated with GtkAllocation itself.
-on the other hand, it's only used in one or two places, and is used only for
-looking at the width and height members, anyway.  so, we treat is specially
-here.
-
-since allocations are notoriously read-only, we specify that it's always a
-copy.
-*/
-SV *
-newSVGtkAllocation (GtkAllocation * allocation)
-{
-	SV * sv = gperl_new_boxed_copy (allocation, GDK_TYPE_RECTANGLE);
-	return sv_bless (sv, gv_stashpv ("Gtk2::Allocation", TRUE));
-}
-
-
-MODULE = Gtk2::Widget	PACKAGE = Gtk2::Allocation
-
-BOOT:
-	gperl_set_isa ("Gtk2::Allocation", "Gtk2::Gdk::Rectangle");
-
- ## we'll need to destroy this explicitly because of the name mangling.
-void
-DESTROY (sv)
-	SV * sv
-    PREINIT:
-	static GPerlBoxedWrapperClass * wrapper_class = NULL;
-    CODE:
-	/* warning -- this is fragile and will break if the wrapper for
-	 * GdkRectangle is ever changed */
-	/* warn ("Gtk2::Allocation::DESTROY"); */
-	if (!wrapper_class)
-		wrapper_class = gperl_default_boxed_wrapper_class ();
-	if (sv && SvOK (sv))
-		wrapper_class->destroy (sv);
-
 MODULE = Gtk2::Widget	PACKAGE = Gtk2::Requisition
 
 gint
@@ -99,17 +61,24 @@ window (widget)
     OUTPUT:
 	RETVAL
 
+GtkRequisition *
+requisition (widget)
+	GtkWidget * widget
+    CODE:
+	RETVAL = &(widget->requisition);
+    OUTPUT:
+	RETVAL
+
 =for apidoc
 =for signature allocation = $widget->allocation
-Returns I<$widget>'s current allocated size as a read-only rectangle
-(re-blessed as a Gtk2::Allocation); the allocated size is not necessarily
-the same as the requested size.
+Returns I<$widget>'s current allocated size as a read-only rectangle; the
+allocated size is not necessarily the same as the requested size.
 =cut
-SV *
+GdkRectangle *
 allocation (widget)
 	GtkWidget * widget
     CODE:
-	RETVAL = newSVGtkAllocation (&(widget->allocation));
+	RETVAL = &(widget->allocation);
     OUTPUT:
 	RETVAL
 
@@ -129,16 +98,20 @@ style (widget)
 
  ##define GTK_WIDGET_TYPE(wid)		  (GTK_OBJECT_TYPE (wid))
  ##define GTK_WIDGET_STATE(wid)		  (GTK_WIDGET (wid)->state)
+ ##define GTK_WIDGET_SAVED_STATE(wid)	  (GTK_WIDGET (wid)->saved_state)
 GtkStateType
 state (widget)
 	GtkWidget * widget
+    ALIAS:
+	Gtk2::Widget::saved_state = 1
     CODE:
-	RETVAL = GTK_WIDGET_STATE (widget);
+	switch (ix) {
+	    case 0: RETVAL = GTK_WIDGET_STATE (widget);       break;
+	    case 1: RETVAL = GTK_WIDGET_SAVED_STATE (widget); break;
+	    default: RETVAL = 0; g_assert_not_reached ();
+	}
     OUTPUT:
 	RETVAL
-
- ##define GTK_WIDGET_SAVED_STATE(wid)	  (GTK_WIDGET (wid)->saved_state)
-
 
  ##define GTK_WIDGET_FLAGS(wid)		  (GTK_OBJECT_FLAGS (wid))
 
@@ -479,8 +452,12 @@ gtk_widget_size_request (widget)
     OUTPUT:
 	RETVAL
 
-## TODO/FIXME: GtkAllocation is not in typemap
+
 ##void gtk_widget_size_allocate (GtkWidget * widget, GtkAllocation * allocation);
+void
+gtk_widget_size_allocate (widget, allocation)
+	GtkWidget * widget
+	GdkRectangle * allocation
 
 ## function is only useful for widget implementations
 ##void gtk_widget_get_child_requisition (GtkWidget *widget, GtkRequisition *requisition);
@@ -517,6 +494,15 @@ gtk_widget_set_accel_path (widget, accel_path, accel_group)
 	GtkAccelGroup * accel_group
 
  #GList*     gtk_widget_list_accel_closures (GtkWidget	       *widget);
+
+#if GTK_CHECK_VERSION (2, 3, 1)	/* FIXME 2.4 */
+
+gboolean
+gtk_widget_can_activate_accel (widget, signal_id)
+	GtkWidget *widget
+	guint signal_id
+
+#endif
 
 gboolean
 gtk_widget_mnemonic_activate   (widget, group_cycling)
@@ -568,8 +554,7 @@ gtk_widget_intersect (widget, area)
     OUTPUT:
 	RETVAL
 
-# FIXME needs typemap for GdkRegion
- #GdkRegion *gtk_widget_region_intersect (GtkWidget *widget, GdkRegion *region);
+GdkRegion * gtk_widget_region_intersect (GtkWidget * widget, GdkRegion * region)
 
 void gtk_widget_child_notify (GtkWidget	*widget, const gchar *child_property);
 
@@ -599,9 +584,6 @@ void gtk_widget_set_double_buffered (GtkWidget *widget, gboolean double_buffered
 
 void gtk_widget_set_redraw_on_allocate (GtkWidget *widget, gboolean redraw_on_allocate);
 
- # gtk doc says useful only for impelemnting container sub classes, never to be
- # called by apps
-
 void 
 gtk_widget_set_parent (GtkWidget *widget, GtkWidget *parent);
 
@@ -628,9 +610,7 @@ gtk_widget_get_parent (widget)
 
 GdkWindow *gtk_widget_get_parent_window	  (GtkWidget	       *widget);
 
- # gtk doc says this is only useful for widget impelementations, never for apps
- #gboolean   gtk_widget_child_focus         (GtkWidget           *widget,
- #                                           GtkDirectionType     direction);
+gboolean gtk_widget_child_focus (GtkWidget *widget, GtkDirectionType direction);
 
 void
 gtk_widget_set_size_request (widget, width=-1, height=-1)
@@ -889,10 +869,14 @@ style_get (GtkWidget * widget, first_property_name, ...)
 		GParamSpec * pspec;
 		pspec = gtk_widget_class_find_style_property
 		                         (GTK_WIDGET_GET_CLASS (widget), name);
-		g_value_init (&value, G_PARAM_SPEC_VALUE_TYPE (pspec));
-		gtk_widget_style_get_property (widget, name, &value);
-		PUSHs (sv_2mortal (gperl_sv_from_value (&value)));
-		g_value_unset (&value);
+		if (pspec) {
+			g_value_init (&value, G_PARAM_SPEC_VALUE_TYPE (pspec));
+			gtk_widget_style_get_property (widget, name, &value);
+			PUSHs (sv_2mortal (gperl_sv_from_value (&value)));
+			g_value_unset (&value);
+		} else {
+			warn ("Invalid property `%s' used", name);
+		}
 	}
 
 #endif

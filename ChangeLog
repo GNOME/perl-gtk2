@@ -1,3 +1,18 @@
+2004/02/27 15:20 (-0500) muppetman
+
+	* t/GtkWidget.t, xs/GtkWidget.xs: large patch from Torsten adds
+	several things that are of importance when deriving containers in
+	Perl.
+	- removed Gtk2::Allocation, use use Gtk2::Gdk::Rectangle
+	- new bindings for
+	  Gtk2::Widget::requisition
+	  Gtk2::Widget::size_allocate
+	  Gtk2::Widget::saved_state
+	  Gtk2::Widget::can_activate_accel (new in 2.4)
+	  Gtk2::Widget::region_intersect
+	  Gtk2::Widget::child_focus
+	- don't segfault when a style property is not found.
+
 2004/02/27 11:55 (-0500) muppetman
 
 	* pm/SimpleList.pm: updated see-alsos and other pod, bump version.
