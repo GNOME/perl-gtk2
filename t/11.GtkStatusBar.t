@@ -12,7 +12,7 @@ use warnings;
 
 #########################
 
-use Gtk2::TestHelper tests => 9;
+use Gtk2::TestHelper tests => 10;
 
 ok( my $win = Gtk2::Window->new('toplevel') );
 $win->set_title('GtkStatusbar.t Test Window');
@@ -21,12 +21,15 @@ $win->set_default_size(120,25);
 ok( my $sts = Gtk2::Statusbar->new );
 $win->add($sts);
 
+$sts->set_has_resize_grip(1);
+is( $sts->get_has_resize_grip, 1 );
+
 ok( my $sts_cid1 = $sts->get_context_id('Main') );
 ok( $sts->push($sts_cid1, 'Ready 1-0') );
 ok( $sts->push($sts_cid1, 'Ready 1-1') );
 
 ok( my $sts_cid2 = $sts->get_context_id('Not Main') );
-ok( $sts->push($sts_cid2, 'Ready 2-0') );
+ok( my $sts_mid1 = $sts->push($sts_cid2, 'Ready 2-0') );
 ok( $sts->push($sts_cid2, 'Ready 2-1') );
 
 $win->show_all;
@@ -36,6 +39,7 @@ $sts->pop($sts_cid1);
 
 Glib::Idle->add( sub {
 		$sts->pop($sts_cid2);
+		$sts->remove($sts_cid2, $sts_mid1);
 		Gtk2->main_quit;
 		0;
 	});
