@@ -1,3 +1,12 @@
+2005/04/02	kaffeetisch
+
+	* MANIFEST, maps-2.4, maps-2.6, maps_pango-1.8, xs_files-2.0,
+	xs_files-2.6, gtk-demo/main.pl, gtk-demo/rotated_text.pl,
+	t/GdkPango.t, t/PangoRenderer.t, xs/GdkPango.xs,
+	xs/PangoRenderer.xs: Add initial bindings and tests for
+	PangoRenderer and GtkPango.  Also add muppet's rotated text
+	example.
+
 2005/03/25	kaffeetisch
 
 	* CodeGen.pm: Make the GEnum and GFlags converters cast their
