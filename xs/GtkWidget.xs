@@ -401,8 +401,16 @@ gtk_widget_mnemonic_activate   (widget, group_cycling)
 	gboolean    group_cycling
 
  # gtk docs say rarely used, suggest other ways
- #gboolean   gtk_widget_event		  (GtkWidget	       *widget,
- #					   GdkEvent	       *event);
+=for apidoc
+This rarely-used function emits an event signal on I<$widget>.  Don't use
+this to synthesize events; use C<< Gtk2->main_do_event >> instead.  Don't
+synthesize expose events; use C<< $gdkwindow->invalidate_rect >> instead.
+Basically, the main use for this in gtk2-perl will be to pass motion
+notify events to rulers from other widgets.
+=cut
+gboolean gtk_widget_event (GtkWidget * widget, GdkEvent	*event);
+
+ # gtk docs say rarely used, suggest other ways
  #gint       gtk_widget_send_expose         (GtkWidget           *widget,
  #					   GdkEvent            *event);
 

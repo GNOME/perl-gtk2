@@ -1,3 +1,12 @@
+2003/11/10 15:00 (-0500) muppetman
+
+	* xs/GtkWidget.xs: bind gtk_widget_event().
+
+	* examples/rulers.pl, MANIFEST: add a ported version of the rulers
+	example from the gtk-perl tutorial, using gtk_widget_event() to 
+	propagate the motion notify events to the rulers.  this was previously
+	not possible.
+
 2003/11/10 13:35 (-0500) muppetman
 
 	* xs/GtkDialog.xs, xs/GtkEditable.xs: use the new macros in the new
