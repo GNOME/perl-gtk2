@@ -16,6 +16,7 @@
 	* xs/GtkTreeView.xs xs/GtkTreeViewColumn.xs: a few more missing functions
 	* t/22.GtkListStore.t t/23.GtkTreeStore.t t/24.GtkTreeView.t: new tests
 	* t/22.GtkTreeSelection.t, t/25.GtkTreeSelection.t: renamed and updated
+	* MANIFEST: updated accordingly
 
 2003/08/25 13:40 pcg
 

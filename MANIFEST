@@ -93,7 +93,10 @@ t/18.GtkNotebook.t
 t/19.GtkSimpleList.t
 t/20.GdkColor.t
 t/21.GtkContainer.t
-t/22.GtkTreeSelection.t
+t/22.GtkListStore.t
+t/23.GtkTreeStore.t
+t/24.GtkTreeView.t
+t/25.GtkTreeSelection.t
 testgtk.pl
 xs/Gdk.xs
 xs/GdkColor.xs
