@@ -25,6 +25,27 @@
 
 // typedef void (* GtkTreeSelectionForeachFunc) (GtkTreeModel *model, GtkTreePath *path, GtkTreeIter *iter, gpointer data)
 
+#if !GTK_CHECK_VERSION(2,2,0)
+/* selected_foreach callbacks to implement get_selected_rows and 
+ * count_selected_rows for gtk < 2.2 */
+static void
+get_selected_rows (GtkTreeModel * model,
+                   GtkTreePath * path,
+                   GtkTreeIter * iter,
+                   GList ** paths)
+{
+	*paths = g_list_append (*paths, gtk_tree_path_copy (path));
+}
+
+static void
+count_selected_rows (GtkTreeModel * model,
+                     GtkTreePath * path,
+                     GtkTreeIter * iter,
+                     gint * n)
+{
+	++*n;
+}
+#endif /* <2.2.0 */
 
 MODULE = Gtk2::TreeSelection	PACKAGE = Gtk2::TreeSelection	PREFIX = gtk_tree_selection_
 
@@ -70,27 +91,72 @@ gtk_tree_selection_get_selected (selection)
     PPCODE:
 	if (!gtk_tree_selection_get_selected (selection, &model, &iter))
 		XSRETURN_EMPTY;
-	EXTEND (SP, 2);
-	PUSHs (sv_2mortal (newSVGtkTreeIter_copy (&iter)));
-	PUSHs (sv_2mortal (newSVGtkTreeModel (model)));
+	XPUSHs (sv_2mortal (newSVGtkTreeIter_copy (&iter)));
+	if (GIMME_V == G_ARRAY)
+		XPUSHs (sv_2mortal (newSVGtkTreeModel (model)));
 
-#
-### GList * gtk_tree_selection_get_selected_rows (GtkTreeSelection *selection, GtkTreeModel **model)
-#GList *
-#gtk_tree_selection_get_selected_rows (selection, model)
-#	GtkTreeSelection *selection
-#	GtkTreeModel **model
-#
-#
-##if GTK_CHECK_VERSION(2,2,0)
-#
-### gint gtk_tree_selection_count_selected_rows (GtkTreeSelection *selection)
-#gint
-#gtk_tree_selection_count_selected_rows (selection)
-#	GtkTreeSelection *selection
-#
-##endif /* 2.2.0 */
-#
+#if GTK_CHECK_VERSION(2,2,0)
+
+## GList * gtk_tree_selection_get_selected_rows (GtkTreeSelection *selection, GtkTreeModel **model)
+void
+gtk_tree_selection_get_selected_rows (selection)
+	GtkTreeSelection *selection
+    PREINIT:
+	GtkTreeModel * model NULL;
+	GList * list, * i;
+    PPCODE:
+	list = gtk_tree_selection_get_selected_rows (selection, &model);
+	EXTEND (SP, 1+g_list_length (list));
+	PUSHs (sv_2mortal (newSVGtkTreeModel (model)));
+	for (i = list ; i != NULL ; i = i->next)
+		PUSHs (sv_2mortal (newSVGtkTreePath_own ((GtkTreePath*)i->data)));
+	g_list_free (list);
+
+## gint gtk_tree_selection_count_selected_rows (GtkTreeSelection *selection)
+gint
+gtk_tree_selection_count_selected_rows (selection)
+	GtkTreeSelection *selection
+
+#else
+
+  ## these two are generally useful and very slow to implement in perl, so
+  ## we'll be really nice and provide implementations for people stuck on
+  ## gtk < 2.2.x
+
+void
+gtk_tree_selection_get_selected_rows (selection)
+	GtkTreeSelection * selection
+    PREINIT:
+	GtkTreeView * view;
+	GtkTreeModel * model = NULL;
+	GList * paths = NULL, * i;
+    PPCODE:
+	view = gtk_tree_selection_get_tree_view (selection);
+	model = gtk_tree_view_get_model (view);
+	gtk_tree_selection_selected_foreach (selection,
+					     (GtkTreeSelectionForeachFunc)
+					       get_selected_rows, &paths);
+	EXTEND (SP, 1+g_list_length (paths));
+	PUSHs (sv_2mortal (newSVGtkTreeModel (model)));
+	for (i = paths ; i != NULL ; i = i->next)
+		PUSHs (sv_2mortal (newSVGtkTreePath_own ((GtkTreePath*)i->data)));
+	g_list_free (paths);
+
+
+gint
+gtk_tree_selection_count_selected_rows (selection)
+	GtkTreeSelection * selection
+    CODE:
+	RETVAL = 0;
+	gtk_tree_selection_selected_foreach (selection, 
+					     (GtkTreeSelectionForeachFunc)
+					        count_selected_rows, &RETVAL);
+    OUTPUT:
+	RETVAL
+
+#endif /* 2.2.0 */
+
+
 ### void gtk_tree_selection_selected_foreach (GtkTreeSelection *selection, GtkTreeSelectionForeachFunc func, gpointer data)
 #void
 #gtk_tree_selection_selected_foreach (selection, func, data)
