@@ -1,3 +1,12 @@
+2003/06/24 08:58 rwmcfa1
+
+	* maps: added GTK_TYPE_LIST and GTK_TYPE_LIST_ITEM
+
+	* xs/GtkList.xs, xs/GtkListItem.xs: initial import required for use of
+	Gtk2::Combo from perl even thought they are both deprecated. in the 
+	future hopefully this won't be necessary. (also added files to the
+	MANIFEST)
+
 2003/06/23 12:07 pcg
 
 	* xs/GtkWidget.xs: implement {get,create}_pango_context.
