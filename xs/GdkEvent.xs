@@ -122,18 +122,18 @@ gtk2perl_gdk_event_set_state (GdkEvent * event,
 			break;
 		    case GDK_SCROLL:
 			event->scroll.state = newstate;
-			return TRUE;
+			break;
 		    case GDK_KEY_PRESS:
 		    case GDK_KEY_RELEASE:
 			event->key.state = newstate;
-			return TRUE;
+			break;
 		    case GDK_ENTER_NOTIFY:
 		    case GDK_LEAVE_NOTIFY:
 			event->crossing.state = newstate;
-			return TRUE;
+			break;
 		    case GDK_PROPERTY_NOTIFY:
 			event->property.state = newstate;
-			return TRUE;
+			break;
 		    case GDK_VISIBILITY_NOTIFY:
 			/* visibility state is something else. */
 		    case GDK_CLIENT_EVENT:
