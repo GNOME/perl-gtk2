@@ -111,7 +111,7 @@ $size->clicked;
 $quit_btn->clicked;
 
 SKIP: {
-	skip "stuff new in 2.4", 1
+	skip "stuff new in 2.4", 6
 		if Gtk2->check_version (2, 3, 0); # FIXME 2.4
 
 	$tlbr = Gtk2::Toolbar->new;
