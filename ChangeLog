@@ -1,3 +1,7 @@
+2004/02/19 13:47 (+0100) kaffeetisch
+
+	* t/GdkDisplay.t: Only test if get_name's return value is defined.
+
 2004/02/19 12:53 (+0100) kaffeetisch
 
 	* gtk2perl.h: Alter GTK2PERL_STACK_ITEMS_TO_TARGET_ENTRY_ARRAY to
