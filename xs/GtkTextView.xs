@@ -129,9 +129,8 @@ gtk_text_view_get_iter_at_location (text_view, x, y)
     OUTPUT:
 	RETVAL
 
-# TODO:  had to lose the const on GtkTextIter
 ## void gtk_text_view_get_line_yrange (GtkTextView *text_view, const GtkTextIter *iter, gint *y, gint *height)
-void gtk_text_view_get_line_yrange (GtkTextView *text_view, GtkTextIter *iter, OUTLIST gint y, OUTLIST gint height)
+void gtk_text_view_get_line_yrange (GtkTextView *text_view, const GtkTextIter *iter, OUTLIST gint y, OUTLIST gint height)
 
 ## void gtk_text_view_get_line_at_y (GtkTextView *text_view, GtkTextIter *target_iter, gint y, gint *line_top)
 =for apidoc 
@@ -205,12 +204,11 @@ gtk_text_view_backward_display_line_start (text_view, iter)
 	GtkTextView * text_view
 	GtkTextIter * iter
 
-# TODO:  had to lose the const on GtkTextIter
 ## gboolean gtk_text_view_starts_display_line (GtkTextView *text_view, const GtkTextIter *iter)
 gboolean
 gtk_text_view_starts_display_line (text_view, iter)
 	GtkTextView * text_view
-	GtkTextIter * iter
+	const GtkTextIter * iter
 
 ## gboolean gtk_text_view_move_visually (GtkTextView *text_view, GtkTextIter *iter, gint count)
 gboolean

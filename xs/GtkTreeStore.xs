@@ -226,7 +226,6 @@ gtk_tree_store_iter_is_valid (tree_store, iter)
 	GtkTreeStore *tree_store
 	GtkTreeIter *iter
 
-# TODO: definitely needs testing
 #### void gtk_tree_store_reorder (GtkTreeStore *tree_store, GtkTreeIter *parent, gint *new_order)
 =for apidoc
 =for arg ... of integer's, the new_order

@@ -37,7 +37,6 @@ gtk_arrow_new (class, arrow_type, shadow_type)
     C_ARGS:
 	arrow_type, shadow_type
 
-## TODO: what about gobject set?
 ## void gtk_arrow_set (GtkArrow *arrow, GtkArrowType arrow_type, GtkShadowType shadow_type)
 void
 gtk_arrow_set (arrow, arrow_type, shadow_type)

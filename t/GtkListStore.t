@@ -1,5 +1,5 @@
 #!/usr/bin/perl -w
-use Gtk2::TestHelper tests => 42, noinit => 1;
+use Gtk2::TestHelper tests => 43, noinit => 1;
 
 # $Header$
 
@@ -75,6 +75,9 @@ SKIP: {
 			     $model -> get_iter_from_string("0"));
 
 	is($model -> get($model -> get_iter_from_string("1"), 0), "ble");
+
+	eval { $model -> reorder(3, 2, 1); };
+	like($@, qr/wrong number of positions passed/);
 
 	my $tag = $model -> signal_connect(rows_reordered => sub {
 		my $new_order = $_[3];

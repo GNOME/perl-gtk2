@@ -42,7 +42,6 @@ gtk_window_set_title (window, title=NULL)
 	GtkWindow          * window
 	const gchar_ornull * title
 
-## TODO: the doc says don't use this, but not dep. should we remove?
 ## void gtk_window_set_wmclass (GtkWindow *window, const gchar *wmclass_name, const gchar *wmclass_class)
 void
 gtk_window_set_wmclass (window, wmclass_name, wmclass_class)
@@ -346,7 +345,6 @@ void gtk_window_set_default_icon (class, GdkPixbuf * icon)
 
 #endif
 
-## TODO: api doc doesn't say return can be null, but it can
 ## GdkPixbuf* gtk_window_get_icon (GtkWindow *window)
 GdkPixbuf_ornull *
 gtk_window_get_icon (window)

@@ -540,8 +540,7 @@ gtk_cell_renderer_start_editing (cell, event, widget, path, background_area, cel
 	GdkRectangle         * cell_area
 	GtkCellRendererState   flags
 
-# FIXME 2.4
-#if GTK_CHECK_VERSION (2, 3, 2)
+#if GTK_CHECK_VERSION (2, 3, 2) /* FIXME 2.4 */
 
 ## void gtk_cell_renderer_editing_canceled (GtkCellRenderer *cell)
 void

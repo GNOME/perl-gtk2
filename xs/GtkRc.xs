@@ -202,7 +202,6 @@ name (style, new=NULL)
 				    : NULL;
 			break;
 		    case 1:
-			/* FIXME this will destroy the retval! */
 			if (style->font_desc)
 				pango_font_description_free (style->font_desc);
 			style->font_desc = SvOK (new)

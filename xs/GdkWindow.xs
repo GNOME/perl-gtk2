@@ -135,7 +135,6 @@ gtk2perl_gdk_window_invalidate_maybe_recurse_func (GdkWindow *window,
 
 MODULE = Gtk2::Gdk::Window	PACKAGE = Gtk2::Gdk::Window	PREFIX = gdk_window_
 
-# FIXME: this leaks.
  ## GdkWindow* gdk_window_new (GdkWindow *parent, GdkWindowAttr *attributes, gint attributes_mask)
 GdkWindow_noinc *
 gdk_window_new (class, parent, attributes_ref)

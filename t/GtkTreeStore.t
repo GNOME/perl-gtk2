@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 38, noinit => 1;
+use Gtk2::TestHelper tests => 41, noinit => 1;
 
 # $Header$
 
@@ -70,11 +70,20 @@ SKIP: {
 	is($model -> get($model -> get_iter_from_string("2:1"), 0),
 	   "bliiibliiibliii");
 
-	$model -> reorder(undef, 3, 2, 1, 0);
+	eval { $model -> reorder(undef, 3, 2, 1); };
+	like($@, qr/wrong number of positions passed/);
+
+	my $tag = $model -> signal_connect(rows_reordered => sub {
+		my $new_order = $_[3];
+		isa_ok($new_order, "ARRAY", "new index order");
+		is_deeply($new_order, [3, 1, 2, 0]);
+	});
+	$model -> reorder(undef, 3, 1, 2, 0);
+	$model -> signal_handler_disconnect ($tag);
 
 	is($model -> get($model -> get_iter_from_string("0:0"), 0), "bloooo");
-	is($model -> get($model -> get_iter_from_string("1:0"), 0), "bliii");
-	is($model -> get($model -> get_iter_from_string("2:0"), 0), "blee");
+	is($model -> get($model -> get_iter_from_string("1:0"), 0), "blee");
+	is($model -> get($model -> get_iter_from_string("2:0"), 0), "bliii");
 	is($model -> get($model -> get_iter_from_string("3:0"), 0), "blabla");
 }
 
@@ -86,12 +95,11 @@ my $iter_model;
 if (! Gtk2->CHECK_VERSION (2, 2, 0)) {
 	# this always returns false on 2.0.x.
 	ok(!$model -> remove($model -> get_iter($path_model)));
-	# we skipped some list manipulation above, so this is different.
-	is($model -> get($model -> get_iter($path_model), 0), "blee");
 } else {
 	is($model -> remove($model -> get_iter($path_model)), 1);
-	is($model -> get($model -> get_iter($path_model), 0), "bliii");
 }
+
+is($model -> get($model -> get_iter($path_model), 0), "blee");
 
 $model -> clear();
 

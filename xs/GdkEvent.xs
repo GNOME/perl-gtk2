@@ -543,7 +543,7 @@ Set the function that handles all events from GDK.  GTK+ uses this to
 dispatch events, and as such this is rarely of use to applications,
 unless you are implementing completely custom event dispatching (unlikely)
 or preprocess events somehow and then pass them on to
-C<Gtk2::Gdk::main_do_event>.  As a special case, if I<func> is undef,
+C<Gtk2::main_do_event>.  As a special case, if I<func> is undef,
 we "reset" the handler by passing the actual C function gtk_main_do_event
 to GDK, to bypass the Perl marshaling (and take things back up to full
 speed).

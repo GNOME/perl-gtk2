@@ -1,3 +1,22 @@
+2004/03/09 00:06 (+0100) kaffeetisch
+
+	* t/GtkListStore.t
+	* t/GtkTreeStore.t: Test-drive both reorder functions a bit more.
+
+	* xs/GdkEvent.xs: Apidoc fix:
+	s/Gtk2::Gdk::main_do_event/Gtk2::main_do_event/.
+
+	* xs/GtkTextView.xs: Use const for two GtkTreeIter's -- the
+	typemap is now able to handle it.
+
+	* xs/GdkWindow.xs
+	* xs/GtkArrow.xs
+	* xs/GtkCellRenderer.xs
+	* xs/GtkRc.xs
+	* xs/GtkTreeStore.xs
+	* xs/GtkWindow.xs: Remove various outdated TODO and FIXME
+	comments.
+
 2004/03/07 22:01 (-0500) rwmcfa1
 
 	* xs/GdkPixbuf.xs, xs/GdkPixbufLoader.xs, xs/GtkFileChooser.xs,
