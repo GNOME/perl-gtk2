@@ -132,7 +132,11 @@ our %pod_files = (
 #
 # we'll use all the default filenames.
 #
-Gtk2::CodeGen->parse_maps ('gtk2perl');
+# all possible maps must be available at xsubpp time, as xsubpp processes
+# all code, even inside #ifdefs.  we have the broken out for maintenance
+# purposes.
+my @maps = qw(maps-2.0 maps-2.2 maps-2.3);
+Gtk2::CodeGen->parse_maps ('gtk2perl', input => \@maps);
 
 # one more command generates code to boot all the various extra XS modules.
 # we need this because we have lots of XS files without corresponding PMs to
