@@ -1,3 +1,9 @@
+2003/06/07 18:51 muppetman
+
+	* xs/GtkTreeModel.xs: implemented treemodel->foreach, and some others.
+
+	* xs/GtkTreeView.xs: argument defaults patch from rene seindal 
+
 2003/06/06 23:55 muppetman
 
 	* Gtk2.pm, xs/GdkProperty.xs, xs/GdkSelection.xs: added stuff for
