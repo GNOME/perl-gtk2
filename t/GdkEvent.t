@@ -7,14 +7,14 @@
 # 	- rm
 #########################
 
-use Gtk2::TestHelper tests => 57;
+use Gtk2::TestHelper tests => 67;
 use Data::Dumper;
 
 # Expose #######################################################################
 
-isa_ok (my $event = Gtk2::Gdk::Event->new ('expose'), 
+isa_ok (my $event = Gtk2::Gdk::Event->new ('expose'),
 	'Gtk2::Gdk::Event::Expose', 'Gtk2::Gdk::Event->new expose');
-	
+
 $event->area (Gtk2::Gdk::Rectangle->new (0, 0, 100, 100));
 my $rect = $event->area;
 ok (eq_array ([$rect->x, $rect->y, $rect->width, $rect->height],
@@ -30,7 +30,7 @@ is ($event->count, 10, '$expose_event->count');
 
 # Visibility ###################################################################
 
-isa_ok ($event = Gtk2::Gdk::Event->new ('visibility-notify'), 
+isa_ok ($event = Gtk2::Gdk::Event->new ('visibility-notify'),
 	'Gtk2::Gdk::Event::Visibility', 'Gtk2::Gdk::Event->new visibility');
 
 $event->state ('partial');
@@ -38,31 +38,49 @@ is ($event->state, 'partial', '$visibility_event->state');
 
 # Motion #######################################################################
 
-isa_ok ($event = Gtk2::Gdk::Event->new ('motion-notify'), 
+isa_ok ($event = Gtk2::Gdk::Event->new ('motion-notify'),
 	'Gtk2::Gdk::Event::Motion', 'Gtk2::Gdk::Event->new motion');
 
 $event->is_hint (2);
 is ($event->is_hint, 2, '$motion_event->is_hint');
 
+$event->x (13);
+is ($event->x, 13, '$motion_event->x');
+
+$event->y (13);
+is ($event->y, 13, '$motion_event->y');
+
 # Button #######################################################################
 
-isa_ok ($event = Gtk2::Gdk::Event->new ('button-press'), 
+isa_ok ($event = Gtk2::Gdk::Event->new ('button-press'),
 	'Gtk2::Gdk::Event::Button', 'Gtk2::Gdk::Event->new button');
 
 $event->button (2);
 is ($event->button, 2, '$button_event->button');
 
+$event->x (13);
+is ($event->x, 13, '$button_event->x');
+
+$event->y (13);
+is ($event->y, 13, '$button_event->y');
+
 # Scroll #######################################################################
 
-isa_ok ($event = Gtk2::Gdk::Event->new ('scroll'), 
+isa_ok ($event = Gtk2::Gdk::Event->new ('scroll'),
 	'Gtk2::Gdk::Event::Scroll', 'Gtk2::Gdk::Event->new scroll');
 
 $event->direction ('down');
 is ($event->direction, 'down', '$scroll_event->direction');
 
+$event->x (13);
+is ($event->x, 13, '$scroll_event->x');
+
+$event->y (13);
+is ($event->y, 13, '$scroll_event->y');
+
 # Key ##########################################################################
 
-isa_ok ($event = Gtk2::Gdk::Event->new ('key-press'), 
+isa_ok ($event = Gtk2::Gdk::Event->new ('key-press'),
 	'Gtk2::Gdk::Event::Key', 'Gtk2::Gdk::Event->new key');
 
 $event->keyval (44);
@@ -76,7 +94,7 @@ is ($event->group, 11, '$key_event->group');
 
 # Crossing #####################################################################
 
-isa_ok ($event = Gtk2::Gdk::Event->new ('enter-notify'), 
+isa_ok ($event = Gtk2::Gdk::Event->new ('enter-notify'),
 	'Gtk2::Gdk::Event::Crossing', 'Gtk2::Gdk::Event->new crossing');
 
 $event->subwindow (Gtk2::Gdk::Window->new (undef, {
@@ -112,7 +130,7 @@ is ($event->y_root, 0, '$event->y_root');
 
 #SKIP: {
 #	skip "GdkScreen didn't exist until 2.2.x", 1
-#		unless (Gtk2->get_version_info)[1] >= 2;
+#		unless (Gtk2->get_bound_version_info)[1] >= 2;
 # TODO/FIXME:
 #	$event->set_screen (Gtk2::Gdk::Screen->new);
 #	isa_ok ($event->get_screen, 'Gtk2::Gdk::Screen', '$event->get_screen');
@@ -129,9 +147,15 @@ isa_ok ($event->window, 'Gtk2::Gdk::Window', '$event->window');
 $event->send_event (3);
 is ($event->send_event, 3, '$event->send_event');
 
+$event->x (13);
+is ($event->x, 13, '$crossing_event->x');
+
+$event->y (13);
+is ($event->y, 13, '$crossing_event->y');
+
 # Focus ########################################################################
 
-isa_ok ($event = Gtk2::Gdk::Event->new ('focus-change'), 
+isa_ok ($event = Gtk2::Gdk::Event->new ('focus-change'),
 	'Gtk2::Gdk::Event::Focus', 'Gtk2::Gdk::Event->new focus');
 
 $event->in (10);
@@ -139,7 +163,7 @@ is ($event->in, 10, '$focus_event->in');
 
 # Configure ####################################################################
 
-isa_ok ($event = Gtk2::Gdk::Event->new ('configure'), 
+isa_ok ($event = Gtk2::Gdk::Event->new ('configure'),
 	'Gtk2::Gdk::Event::Configure', 'Gtk2::Gdk::Event->new configure');
 
 $event->width (10);
@@ -148,9 +172,15 @@ is ($event->width, 10, '$configure_event->width');
 $event->height (12);
 is ($event->height, 12, '$configure_event->height');
 
+$event->x (13);
+is ($event->x, 13, '$configure_event->x');
+
+$event->y (13);
+is ($event->y, 13, '$configure_event->y');
+
 # Property #####################################################################
 
-isa_ok ($event = Gtk2::Gdk::Event->new ('property-notify'), 
+isa_ok ($event = Gtk2::Gdk::Event->new ('property-notify'),
 	'Gtk2::Gdk::Event::Property', 'Gtk2::Gdk::Event->new property');
 
 $event->state (10);
@@ -161,12 +191,12 @@ isa_ok ($event->atom, 'Gtk2::Gdk::Atom', '$property_event->atom');
 
 # Proximity ####################################################################
 
-isa_ok ($event = Gtk2::Gdk::Event->new ('proximity-in'), 
+isa_ok ($event = Gtk2::Gdk::Event->new ('proximity-in'),
 	'Gtk2::Gdk::Event::Proximity', 'Gtk2::Gdk::Event->new proximity');
 
 # Client #######################################################################
 
-isa_ok ($event = Gtk2::Gdk::Event->new ('client-event'), 
+isa_ok ($event = Gtk2::Gdk::Event->new ('client-event'),
 	'Gtk2::Gdk::Event::Client', 'Gtk2::Gdk::Event->new client');
 
 $event->data_format (8);
@@ -174,7 +204,7 @@ is ($event->data_format, 8, '$client_event->data_format');
 
 # Setting ######################################################################
 
-isa_ok ($event = Gtk2::Gdk::Event->new ('setting'), 
+isa_ok ($event = Gtk2::Gdk::Event->new ('setting'),
 	'Gtk2::Gdk::Event::Setting', 'Gtk2::Gdk::Event->new setting');
 
 $event->action ('new');
@@ -185,7 +215,7 @@ is ($event->name, 'a name', '$property_event->name');
 
 # WindowState ##################################################################
 
-isa_ok ($event = Gtk2::Gdk::Event->new ('window-state'), 
+isa_ok ($event = Gtk2::Gdk::Event->new ('window-state'),
 	'Gtk2::Gdk::Event::WindowState', 'Gtk2::Gdk::Event->new windowstate');
 
 $event->changed_mask ('maximized');
@@ -196,7 +226,7 @@ is ($event->new_window_state, 'withdrawn', '$property_event->new_window_state');
 
 # DND ##########################################################################
 
-isa_ok ($event = Gtk2::Gdk::Event->new ('drag-enter'), 
+isa_ok ($event = Gtk2::Gdk::Event->new ('drag-enter'),
 	'Gtk2::Gdk::Event::DND', 'Gtk2::Gdk::Event->new dnd');
 
 $event->context (Gtk2::Gdk::DragContext->new);
@@ -204,7 +234,7 @@ isa_ok ($event->context, 'Gtk2::Gdk::DragContext', '$property_event->context');
 
 # Selection ####################################################################
 
-isa_ok ($event = Gtk2::Gdk::Event->new ('selection-clear'), 
+isa_ok ($event = Gtk2::Gdk::Event->new ('selection-clear'),
 	'Gtk2::Gdk::Event::Selection', 'Gtk2::Gdk::Event->new selection');
 
 $event->selection (Gtk2::Gdk::Atom->new ('foo'));

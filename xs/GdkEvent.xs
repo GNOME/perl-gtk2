@@ -12,8 +12,8 @@
  * Library General Public License for more details.
  *
  * You should have received a copy of the GNU Library General Public
- * License along with this library; if not, write to the 
- * Free Software Foundation, Inc., 59 Temple Place - Suite 330, 
+ * License along with this library; if not, write to the
+ * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
  * Boston, MA  02111-1307  USA.
  *
  * $Header$
@@ -154,6 +154,48 @@ gtk2perl_gdk_event_new (GdkEventType type)
 
 MODULE = Gtk2::Gdk::Event	PACKAGE = Gtk2::Gdk::Event	PREFIX = gdk_event_
 
+=head1 EVENT TYPES
+
+=over
+
+=item * L<Gtk2::Gdk::Event::Button>
+
+=item * L<Gtk2::Gdk::Event::Client>
+
+=item * L<Gtk2::Gdk::Event::Configure>
+
+=item * L<Gtk2::Gdk::Event::Crossing>
+
+=item * L<Gtk2::Gdk::Event::DND>
+
+=item * L<Gtk2::Gdk::Event::Expose>
+
+=item * L<Gtk2::Gdk::Event::Focus>
+
+=item * L<Gtk2::Gdk::Event::Key>
+
+=item * L<Gtk2::Gdk::Event::Motion>
+
+=item * L<Gtk2::Gdk::Event::NoExpose>
+
+=item * L<Gtk2::Gdk::Event::Property>
+
+=item * L<Gtk2::Gdk::Event::Proximity>
+
+=item * L<Gtk2::Gdk::Event::Scroll>
+
+=item * L<Gtk2::Gdk::Event::Selection>
+
+=item * L<Gtk2::Gdk::Event::Setting>
+
+=item * L<Gtk2::Gdk::Event::Visibility>
+
+=item * L<Gtk2::Gdk::Event::WindowState>
+
+=back
+
+=cut
+
 =for enum GdkEventType
 =cut
 
@@ -167,7 +209,7 @@ BOOT:
 	 * type in gtk2-perl for efficiency; converting an event to a
 	 * hash is an expensive operation that is usually wasted (based on
 	 * experience with gtk-perl).
-	 */ 
+	 */
 	default_wrapper_class = gperl_default_boxed_wrapper_class ();
 	gdk_event_wrapper_class = * default_wrapper_class;
 	gdk_event_wrapper_class.wrap = (GPerlBoxedWrapFunc)gdk_event_wrap;
@@ -256,39 +298,22 @@ gdk_event_get_state (event)
 =for signature ($x, $y) = $event->coords
 =cut
 
-=for apidoc Gtk2::Gdk::Event::x
-=for signature integer = $event->x
-=cut
-
-=for apidoc Gtk2::Gdk::Event::y
-=for signature integer = $event->y
-=cut
-
  ## gboolean gdk_event_get_coords (GdkEvent *event, gdouble *x_win, gdouble *y_win)
 void
 gdk_event_get_coords (event)
 	GdkEvent *event
     ALIAS:
 	Gtk2::Gdk::Event::coords = 1
-	Gtk2::Gdk::Event::x = 2
-	Gtk2::Gdk::Event::y = 3
     PREINIT:
-	gdouble x;	gdouble y;
+	gdouble x;
+	gdouble y;
     PPCODE:
 	if (!gdk_event_get_coords (event, &x, &y))
 		XSRETURN_EMPTY;
-	switch (ix) {
-		case 2: /* x */
-			PUSHs (sv_2mortal (newSVnv (x)));
-			break;
-		case 3: /* y */
-			PUSHs (sv_2mortal (newSVnv (y)));
-			break;
-		default:
-			EXTEND (SP, 2);
-			PUSHs (sv_2mortal (newSVnv (x)));
-			PUSHs (sv_2mortal (newSVnv (y)));
-	}
+	PERL_UNUSED_VAR (ix);
+	EXTEND (SP, 2);
+	PUSHs (sv_2mortal (newSVnv (x)));
+	PUSHs (sv_2mortal (newSVnv (y)));
 
 =for apidoc Gtk2::Gdk::Event::get_root_coords
 =for signature ($x_root, $y_root) = $event->get_root_coords
@@ -368,7 +393,7 @@ gdk_event_get_screen (event)
 
  ## since we're overriding the package names, Glib::Boxed::DESTROY won't
  ## be able to find the right destructor, because these new names don't
- ## correspond to GTypes.  we'll have to explicitly tell perl what 
+ ## correspond to GTypes.  we'll have to explicitly tell perl what
  ## destructor to use.
 void
 DESTROY (sv)
@@ -460,11 +485,15 @@ send_event (GdkEvent * event, gint8 newvalue=0)
 
 MODULE = Gtk2::Gdk::Event	PACKAGE = Gtk2::Gdk::Event::Expose
 
+=head1 HIERARCHY
+
+  Gtk2::Gdk::Event
+  +----Gtk2::Gdk::Event::Expose
+
+=cut
+
 BOOT:
 	gperl_set_isa ("Gtk2::Gdk::Event::Expose", "Gtk2::Gdk::Event");
-
-=for object Gtk2::Gdk::Event
-=cut
 
  #struct _GdkEventExpose
  #{
@@ -519,11 +548,15 @@ count (GdkEvent * eventexpose, guint newvalue=0)
 
 MODULE = Gtk2::Gdk::Event	PACKAGE = Gtk2::Gdk::Event::NoExpose
 
+=head1 HIERARCHY
+
+  Gtk2::Gdk::Event
+  +----Gtk2::Gdk::Event::NoExpose
+
+=cut
+
 BOOT:
 	gperl_set_isa ("Gtk2::Gdk::Event::NoExpose", "Gtk2::Gdk::Event");
-
-=for object Gtk2::Gdk::Event
-=cut
 
  #struct _GdkEventNoExpose
  #{
@@ -534,11 +567,15 @@ BOOT:
 
 MODULE = Gtk2::Gdk::Event	PACKAGE = Gtk2::Gdk::Event::Visibility
 
+=head1 HIERARCHY
+
+  Gtk2::Gdk::Event
+  +----Gtk2::Gdk::Event::Visibility
+
+=cut
+
 BOOT:
 	gperl_set_isa ("Gtk2::Gdk::Event::Visibility", "Gtk2::Gdk::Event");
-
-=for object Gtk2::Gdk::Event
-=cut
 
  #struct _GdkEventVisibility
  #{
@@ -560,11 +597,15 @@ state (GdkEvent * eventvisibility, GdkVisibilityState newvalue=0)
 
 MODULE = Gtk2::Gdk::Event	PACKAGE = Gtk2::Gdk::Event::Motion
 
+=head1 HIERARCHY
+
+  Gtk2::Gdk::Event
+  +----Gtk2::Gdk::Event::Motion
+
+=cut
+
 BOOT:
 	gperl_set_isa ("Gtk2::Gdk::Event::Motion", "Gtk2::Gdk::Event");
-
-=for object Gtk2::Gdk::Event
-=cut
 
  #struct _GdkEventMotion
  #{
@@ -572,8 +613,8 @@ BOOT:
  #//  GdkWindow *window;  <- GdkEventAny
  #//  gint8 send_event;  <- GdkEventAny
  #//  guint32 time;  <- gdk_event_get_time
- #//  gdouble x; <- get_coords
- #//  gdouble y; <- get_coords
+ #  gdouble x;
+ #  gdouble y;
  #//  gdouble *axes; <- get_axes
  #//  guint state; <- get_state
  #  gint16 is_hint;
@@ -598,13 +639,35 @@ device (GdkEvent * eventmotion)
     OUTPUT:
 	RETVAL
 
+gdouble
+x (GdkEvent * event, gdouble newvalue=0.0)
+    CODE:
+	RETVAL = event->motion.x;
+	if (items == 2)
+		event->motion.x = newvalue;
+    OUTPUT:
+	RETVAL
+
+gdouble
+y (GdkEvent * event, gdouble newvalue=0.0)
+    CODE:
+	RETVAL = event->motion.y;
+	if (items == 2)
+		event->motion.y = newvalue;
+    OUTPUT:
+	RETVAL
+
 MODULE = Gtk2::Gdk::Event	PACKAGE = Gtk2::Gdk::Event::Button
+
+=head1 HIERARCHY
+
+  Gtk2::Gdk::Event
+  +----Gtk2::Gdk::Event::Button
+
+=cut
 
 BOOT:
 	gperl_set_isa ("Gtk2::Gdk::Event::Button", "Gtk2::Gdk::Event");
-
-=for object Gtk2::Gdk::Event
-=cut
 
  #struct _GdkEventButton
  #{
@@ -612,8 +675,8 @@ BOOT:
  #//  GdkWindow *window;  <- GdkEventAny
  #//  gint8 send_event;  <- GdkEventAny
  #//  guint32 time;  <- gdk_event_get_time
- #//  gdouble x; <- get_coords
- #//  gdouble y; <- get_coords
+ #  gdouble x;
+ #  gdouble y;
  #//  gdouble *axes; <- get_axes
  #//  guint state; <- get_state
  #  guint button;
@@ -638,13 +701,35 @@ device (GdkEvent * eventbutton)
     OUTPUT:
 	RETVAL
 
+gdouble
+x (GdkEvent * event, gdouble newvalue=0.0)
+    CODE:
+	RETVAL = event->button.x;
+	if (items == 2)
+		event->button.x = newvalue;
+    OUTPUT:
+	RETVAL
+
+gdouble
+y (GdkEvent * event, gdouble newvalue=0.0)
+    CODE:
+	RETVAL = event->button.y;
+	if (items == 2)
+		event->button.y = newvalue;
+    OUTPUT:
+	RETVAL
+
 MODULE = Gtk2::Gdk::Event	PACKAGE = Gtk2::Gdk::Event::Scroll
+
+=head1 HIERARCHY
+
+  Gtk2::Gdk::Event
+  +----Gtk2::Gdk::Event::Scroll
+
+=cut
 
 BOOT:
 	gperl_set_isa ("Gtk2::Gdk::Event::Scroll", "Gtk2::Gdk::Event");
-
-=for object Gtk2::Gdk::Event
-=cut
 
  #struct _GdkEventScroll
  #{
@@ -652,8 +737,8 @@ BOOT:
  #//  GdkWindow *window;  <- GdkEventAny
  #//  gint8 send_event;  <- GdkEventAny
  #//  guint32 time;  <- gdk_event_get_time
- #//  gdouble x; <- get_coords
- #//  gdouble y; <- get_coords
+ #  gdouble x;
+ #  gdouble y;
  #//  guint state; <- get_state
  #  GdkScrollDirection direction;
  #  GdkDevice *device;
@@ -677,14 +762,35 @@ device (GdkEvent * eventscroll)
     OUTPUT:
 	RETVAL
 
+gdouble
+x (GdkEvent * event, gdouble newvalue=0.0)
+    CODE:
+	RETVAL = event->scroll.x;
+	if (items == 2)
+		event->scroll.x = newvalue;
+    OUTPUT:
+	RETVAL
+
+gdouble
+y (GdkEvent * event, gdouble newvalue=0.0)
+    CODE:
+	RETVAL = event->scroll.y;
+	if (items == 2)
+		event->scroll.y = newvalue;
+    OUTPUT:
+	RETVAL
 
 MODULE = Gtk2::Gdk::Event	PACKAGE = Gtk2::Gdk::Event::Key
 
+=head1 HIERARCHY
+
+  Gtk2::Gdk::Event
+  +----Gtk2::Gdk::Event::Key
+
+=cut
+
 BOOT:
 	gperl_set_isa ("Gtk2::Gdk::Event::Key", "Gtk2::Gdk::Event");
-
-=for object Gtk2::Gdk::Event
-=cut
 
  #struct _GdkEventKey
  #{
@@ -755,11 +861,15 @@ group (GdkEvent * eventkey, guint8 newvalue=0)
 
 MODULE = Gtk2::Gdk::Event	PACKAGE = Gtk2::Gdk::Event::Crossing
 
+=head1 HIERARCHY
+
+  Gtk2::Gdk::Event
+  +----Gtk2::Gdk::Event::Crossing
+
+=cut
+
 BOOT:
 	gperl_set_isa ("Gtk2::Gdk::Event::Crossing", "Gtk2::Gdk::Event");
-
-=for object Gtk2::Gdk::Event
-=cut
 
  #struct _GdkEventCrossing
  #{
@@ -768,8 +878,8 @@ BOOT:
  #//  gint8 send_event;  <- GdkEventAny
  #  GdkWindow *subwindow;
  #//  guint32 time;  <- gdk_event_get_time
- #//  gdouble x; <- get_coords
- #//  gdouble y; <- get_coords
+ #  gdouble x;
+ #  gdouble y;
  #//  gdouble x_root; <- get_root_coords
  #//  gdouble y_root; <- get_root_coords
  #  GdkCrossingMode mode;
@@ -819,13 +929,35 @@ focus (GdkEvent * eventcrossing, gboolean newvalue=0)
     OUTPUT:
 	RETVAL
 
+gdouble
+x (GdkEvent * event, gdouble newvalue=0.0)
+    CODE:
+	RETVAL = event->crossing.x;
+	if (items == 2)
+		event->crossing.x = newvalue;
+    OUTPUT:
+	RETVAL
+
+gdouble
+y (GdkEvent * event, gdouble newvalue=0.0)
+    CODE:
+	RETVAL = event->crossing.y;
+	if (items == 2)
+		event->crossing.y = newvalue;
+    OUTPUT:
+	RETVAL
+
 MODULE = Gtk2::Gdk::Event	PACKAGE = Gtk2::Gdk::Event::Focus
+
+=head1 HIERARCHY
+
+  Gtk2::Gdk::Event
+  +----Gtk2::Gdk::Event::Focus
+
+=cut
 
 BOOT:
 	gperl_set_isa ("Gtk2::Gdk::Event::Focus", "Gtk2::Gdk::Event");
-
-=for object Gtk2::Gdk::Event
-=cut
 
  #struct _GdkEventFocus
  #{
@@ -846,18 +978,22 @@ in (GdkEvent * eventfocus, gint16 newvalue=0)
 
 MODULE = Gtk2::Gdk::Event	PACKAGE = Gtk2::Gdk::Event::Configure
 
+=head1 HIERARCHY
+
+  Gtk2::Gdk::Event
+  +----Gtk2::Gdk::Event::Configure
+
+=cut
+
 BOOT:
 	gperl_set_isa ("Gtk2::Gdk::Event::Configure", "Gtk2::Gdk::Event");
-
-=for object Gtk2::Gdk::Event
-=cut
 
  #struct _GdkEventConfigure
  #{
  #//  GdkEventType type;  <- GdkEventAny
  #//  GdkWindow *window;  <- GdkEventAny
  #//  gint8 send_event;  <- GdkEventAny
- #//  gint x, y; <- get_coords
+ #  gint x, y;
  #  gint width;
  #  gint height;
  #};
@@ -869,20 +1005,20 @@ width (GdkEvent * eventconfigure, gint newvalue=0)
     CODE:
 	RETVAL = -1;
 	switch (ix) {
-		case 0: 
-			RETVAL = eventconfigure->configure.width; 
+		case 0:
+			RETVAL = eventconfigure->configure.width;
 			break;
-		case 1: 
-			RETVAL = eventconfigure->configure.height; 
+		case 1:
+			RETVAL = eventconfigure->configure.height;
 			break;
 	}
 	if (items == 2)
 	{
 		switch (ix) {
-			case 0: 
+			case 0:
 				eventconfigure->configure.width = newvalue;
 				break;
-			case 1: 
+			case 1:
 				eventconfigure->configure.height = newvalue;
 				break;
 		}
@@ -890,13 +1026,35 @@ width (GdkEvent * eventconfigure, gint newvalue=0)
     OUTPUT:
 	RETVAL
 
+gint
+x (GdkEvent * event, gint newvalue=0)
+    CODE:
+	RETVAL = event->configure.x;
+	if (items == 2)
+		event->configure.x = newvalue;
+    OUTPUT:
+	RETVAL
+
+gint
+y (GdkEvent * event, gint newvalue=0)
+    CODE:
+	RETVAL = event->configure.y;
+	if (items == 2)
+		event->configure.y = newvalue;
+    OUTPUT:
+	RETVAL
+
 MODULE = Gtk2::Gdk::Event	PACKAGE = Gtk2::Gdk::Event::Property
+
+=head1 HIERARCHY
+
+  Gtk2::Gdk::Event
+  +----Gtk2::Gdk::Event::Property
+
+=cut
 
 BOOT:
 	gperl_set_isa ("Gtk2::Gdk::Event::Property", "Gtk2::Gdk::Event");
-
-=for object Gtk2::Gdk::Event
-=cut
 
  #struct _GdkEventProperty
  #{
@@ -928,11 +1086,15 @@ state (GdkEvent * eventproperty, guint newvalue=0)
 
 MODULE = Gtk2::Gdk::Event	PACKAGE = Gtk2::Gdk::Event::Selection
 
+=head1 HIERARCHY
+
+  Gtk2::Gdk::Event
+  +----Gtk2::Gdk::Event::Selection
+
+=cut
+
 BOOT:
 	gperl_set_isa ("Gtk2::Gdk::Event::Selection", "Gtk2::Gdk::Event");
-
-=for object Gtk2::Gdk::Event
-=cut
 
  #struct _GdkEventSelection
  #{
@@ -984,11 +1146,15 @@ requestor (GdkEvent * eventselection, GdkNativeWindow newvalue=0)
 
 MODULE = Gtk2::Gdk::Event	PACKAGE = Gtk2::Gdk::Event::Proximity
 
+=head1 HIERARCHY
+
+  Gtk2::Gdk::Event
+  +----Gtk2::Gdk::Event::Proximity
+
+=cut
+
 BOOT:
 	gperl_set_isa ("Gtk2::Gdk::Event::Proximity", "Gtk2::Gdk::Event");
-
-=for object Gtk2::Gdk::Event
-=cut
 
  #/* This event type will be used pretty rarely. It only is important
  #   for XInput aware programs that are drawing their own cursor */
@@ -1012,11 +1178,15 @@ device (GdkEvent * eventproximity)
 
 MODULE = Gtk2::Gdk::Event	PACKAGE = Gtk2::Gdk::Event::Client
 
+=head1 HIERARCHY
+
+  Gtk2::Gdk::Event
+  +----Gtk2::Gdk::Event::Client
+
+=cut
+
 BOOT:
 	gperl_set_isa ("Gtk2::Gdk::Event::Client", "Gtk2::Gdk::Event");
-
-=for object Gtk2::Gdk::Event
-=cut
 
  #struct _GdkEventClient
  #{
@@ -1045,11 +1215,15 @@ data_format (GdkEvent * eventclient, gushort newvalue=0)
 
 MODULE = Gtk2::Gdk::Event	PACKAGE = Gtk2::Gdk::Event::Setting
 
+=head1 HIERARCHY
+
+  Gtk2::Gdk::Event
+  +----Gtk2::Gdk::Event::Setting
+
+=cut
+
 BOOT:
 	gperl_set_isa ("Gtk2::Gdk::Event::Setting", "Gtk2::Gdk::Event");
-
-=for object Gtk2::Gdk::Event
-=cut
 
  #struct _GdkEventSetting
  #{
@@ -1085,11 +1259,15 @@ name (GdkEvent * eventsetting, char * newvalue=NULL)
 
 MODULE = Gtk2::Gdk::Event	PACKAGE = Gtk2::Gdk::Event::WindowState
 
+=head1 HIERARCHY
+
+  Gtk2::Gdk::Event
+  +----Gtk2::Gdk::Event::WindowState
+
+=cut
+
 BOOT:
 	gperl_set_isa ("Gtk2::Gdk::Event::WindowState", "Gtk2::Gdk::Event");
-
-=for object Gtk2::Gdk::Event
-=cut
 
  #struct _GdkEventWindowState
  #{
@@ -1120,11 +1298,15 @@ new_window_state (GdkEvent * eventwindowstate, GdkWindowState newvalue=0)
 
 MODULE = Gtk2::Gdk::Event	PACKAGE = Gtk2::Gdk::Event::DND
 
+=head1 HIERARCHY
+
+  Gtk2::Gdk::Event
+  +----Gtk2::Gdk::Event::DND
+
+=cut
+
 BOOT:
 	gperl_set_isa ("Gtk2::Gdk::Event::DND", "Gtk2::Gdk::Event");
-
-=for object Gtk2::Gdk::Event
-=cut
 
  #/* Event types for DND */
 
@@ -1183,7 +1365,7 @@ context (GdkEvent * eventdnd, GdkDragContext * newvalue=NULL)
 
 MODULE = Gtk2::Gdk::Event	PACKAGE = Gtk2::Gdk	PREFIX = gdk_
 
-# these are of limited usefulness, as you must have compiled GTK+ 
+# these are of limited usefulness, as you must have compiled GTK+
 # with debugging turned on.
 
 void

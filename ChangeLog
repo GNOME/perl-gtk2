@@ -1,3 +1,18 @@
+2004/01/25 10:51 (-0500) rwmcfa1
+
+	* xs/GdkEvent.xs: moved ->x/y out of base class (they didn't belong 
+	there anyway and into the specific events that have them. which allowed
+	them to be implemented as set/get accessors. the doc for event was 
+	messed up as well, all of the stuff was put on the event object when 
+	many of the methods were only available on certian even types. this does
+	now cause several event pod to be created, but that's much cleaner and
+	clearer. added custom pod to each of the event types saying they're 
+	parent is base event. also added a list of event types to the parent
+	event's pod.
+
+	* t/GdkEvent.t: test all of the new set/get x/y accessors on the 
+	appropriate event types.
+
 2004/01/25 13:13 (+0100) kaffeetisch
 
 	* MANIFEST
