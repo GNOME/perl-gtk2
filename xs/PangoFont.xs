@@ -50,6 +50,15 @@ constant (class)
     OUTPUT:
 	RETVAL
 
+double
+PANGO_PIXELS (class, d)
+	SV * class
+	double d
+    ALIAS:
+	Gtk2::Pango::pixels = 1
+    C_ARGS:
+	d
+
 MODULE = Gtk2::Pango::Font	PACKAGE = Gtk2::Pango::FontDescription	PREFIX = pango_font_description_
 
 ##PangoFontDescription* pango_font_description_new (void)
