@@ -1,3 +1,20 @@
+2004/01/15 14:37 (-0500) muppetman
+
+	* t/GtkTextView.t: allow negative numbers when testing returns from
+	buffer_to_window_ccords.
+
+	* xs/GtkIconFactory.xs: remove return values from call signature of
+	lookup_for_settings
+
+	* xs/GtkImage.xs: allow null filename to new_from_file and
+	set_from_file, as documented in C API ref
+
+	* xs/GtkTreeView.xs: use XS comments to hide commented-out function
+	from ParseXSDoc (supress "missing" warnings)
+
+	* xs/GtkList.xs, xs/GtkRc.xs, xs/GtkWidget.xs, xs/GtkWindow.xs:
+	give types to faked args to hush warnings from podify
+
 2004/01/15 18:55 (+0100) kaffeetisch
 
 	A t/GdkDnd.t
