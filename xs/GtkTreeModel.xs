@@ -47,6 +47,8 @@ GtkTreePath_own_ornull *
 gtk_tree_path_new (class, path=NULL)
 	SV * class
 	const gchar * path
+    ALIAS:
+	new_from_string = 1
     CODE:
 	if (path)
 		RETVAL = gtk_tree_path_new_from_string (path);
@@ -56,26 +58,39 @@ gtk_tree_path_new (class, path=NULL)
 	RETVAL
 
 
-GtkTreePath_own_ornull *
-gtk_tree_path_new_from_string (class, path)
-	SV * class
-	const gchar * path
-    C_ARGS:
-	path
-
-#if GTK_CHECK_VERSION(2,2,0)
-
 ## GtkTreePath * gtk_tree_path_new_from_indices (gint first_index, ...)
-## C version uses list terminated by -1; perl version should take
-## everything on the stack and stop at any -1s encountered
-## FIXME API reference doesn't mention whether returned value is an array
-#GtkTreePath_own_ornull *
-#gtk_tree_path_new_from_indices (class, first_index, ...)
-#	SV * class
-#	gint first_index
+## C version is a vararg convenience function which uses a list of ints
+## terminated by -1, since -1 is an invalid index; we can just use the
+## number of stack items, instead, but the API docs tell users to put
+## -1 at the end.  we'll consider that to be a programmer error and
+## croak on it.  you get it once while you're developing, and from then
+## on you know not to do that.
+## also, it's implemented in C only in 2.2.x, but we're reimplementing
+## it here, so we can use it in all versions.
+GtkTreePath_own_ornull *
+gtk_tree_path_new_from_indices (class, first_index, ...)
+	SV * class
+	gint first_index
+    PREINIT:
+	gint i;
+	GtkTreePath *path;
+    CODE:
+	path = gtk_tree_path_new ();
 
-#endif /* 2.2.0 */
+	for (i = 1 ; i < items ; i++) {
+		gint index = SvIV (ST (i));
+		if (i < 0)
+			croak ("Gtk2::TreePath->new_from_indices takes index"
+			       " values from the argument stack and therefore"
+			       " does not use a -1 terminator value like its"
+			       " C counterpart; negative index values are"
+			       " not allowed");
+		gtk_tree_path_append_index (path, SvIV (ST (i)));
+	}
 
+	RETVAL = path;
+    OUTPUT:
+	RETVAL
 
 gchar_own *
 gtk_tree_path_to_string (path)
@@ -167,7 +182,11 @@ MODULE = Gtk2::TreeModel	PACKAGE = Gtk2::TreeRowReference	PREFIX = gtk_tree_row_
 #ifdef GTK_TYPE_TREE_ROW_REFERENCE
 
 ##GtkTreeRowReference* gtk_tree_row_reference_new (GtkTreeModel *model, GtkTreePath *path);
-GtkTreeRowReference_own_ornull* gtk_tree_row_reference_new (GtkTreeModel *model, GtkTreePath *path);
+#  $row_ref_or_undef = Gtk2::TreeRowReference->new ($model, $path)
+GtkTreeRowReference_own_ornull*
+gtk_tree_row_reference_new (SV * class, GtkTreeModel *model, GtkTreePath *path)
+    C_ARGS:
+	model, path
 
   ## mmmm, the docs say "you do not need to use this function"
 ##GtkTreeRowReference* gtk_tree_row_reference_new_proxy (GObject *proxy, GtkTreeModel *model, GtkTreePath *path);
