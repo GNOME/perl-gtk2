@@ -1,3 +1,16 @@
+2004/02/06 00:39 (-0500) muppetman
+
+	A examples/cellrenderer_progress.pl
+	M MANIFEST
+	  add new cellrenderer example, ported from the TreeView tutorial.
+	
+	* xs/GtkCellRenderer.xs: big honkin' doc updates.  flesh out docs
+	for the process of deriving a new renderer, hide the methods that
+	are called behind the scenes, and swizzle the order of things so
+	that the meaningful methods are listed first.
+
+	* xs/Gtk2.xs: better message?
+ 
 2004/02/05 22:54 (+0100) kaffeetisch
 
 	* t/GdkWindow.t: Test Gtk2::Gdk::Rectangle::new, x, y, width,
