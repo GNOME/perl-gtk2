@@ -1,3 +1,16 @@
+2004/01/31 16:19 (+0100) kaffeetisch
+
+	* t/GtkFileChooserDialog.t
+	* t/GtkFileChooserWidget.t: Initialize gtk+.
+
+	* xs/PangoContext: Don't warn about unregistered subclasses of
+	Gtk2::Pango::Fontset.
+
+	* xs/PangoFont.xs: Don't warn about unregistered subclasses.
+	Implement get_family.  Make better_match also accept undef for
+	old_match.  Move Gtk2::PangoFont::get_metrics and implement
+	::describe.
+
 2004/01/30 22:49 (-0500) muppetman
 
 	A examples/filesel_multisel.pl

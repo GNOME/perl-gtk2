@@ -20,6 +20,14 @@
  */
 #include "gtk2perl.h"
 
+/* FIXME: this is just a temporary place for the BOOT thingy.  Once
+ *        PangoFontset is bound, move it there. */
+
+MODULE = Gtk2::Pango::Context	PACKAGE = Gtk2::Pango::Fontset
+
+BOOT:
+	gperl_object_set_no_warn_unreg_subclass (PANGO_TYPE_FONTSET, TRUE);
+
 MODULE = Gtk2::Pango::Context	PACKAGE = Gtk2::Pango::Context	PREFIX = pango_context_
 
  ## applications have no cause to use pango_context_new() -- it is intended

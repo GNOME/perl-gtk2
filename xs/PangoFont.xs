@@ -23,6 +23,9 @@
 
 MODULE = Gtk2::Pango::Font	PACKAGE = Gtk2::Pango
 
+BOOT:
+	gperl_object_set_no_warn_unreg_subclass (PANGO_TYPE_FONT, TRUE);
+
 =for object Gtk2::Pango::FontDescription
 =cut
 
@@ -96,6 +99,11 @@ void
 pango_font_description_set_family_static (desc, family)
 	PangoFontDescription *desc
 	const char *family
+
+## void pango_font_description_get_family (PangoFontDescription *desc, )
+const char *
+pango_font_description_get_family (desc)
+	PangoFontDescription *desc
 
 ## void pango_font_description_set_style (PangoFontDescription *desc, PangoStyle style)
 void
@@ -181,7 +189,7 @@ pango_font_description_merge_static (desc, desc_to_merge, replace_existing)
 gboolean
 pango_font_description_better_match (desc, old_match, new_match)
 	PangoFontDescription *desc
-	PangoFontDescription *old_match
+	PangoFontDescription_ornull *old_match
 	PangoFontDescription *new_match
 
 
@@ -231,12 +239,6 @@ int
 pango_font_metrics_get_approximate_digit_width (metrics)
 	PangoFontMetrics *metrics
 
-## PangoFontMetrics * pango_font_get_metrics (PangoFont *font, PangoLanguage *language)
-PangoFontMetrics *
-pango_font_get_metrics (font, language)
-	PangoFont *font
-	PangoLanguage *language
-
 MODULE = Gtk2::Pango::Font	PACKAGE = Gtk2::Pango::FontFamily	PREFIX = pango_font_family_
 
 ## void pango_font_family_list_faces (PangoFontFamily *family, PangoFontFace ***faces, int *n_faces)
@@ -262,8 +264,19 @@ pango_font_family_list_faces (family)
 	}
 	g_free(faces);
 
-###MODULE = Gtk2::Pango::Font	PACKAGE = Gtk2::Pango::Font	PREFIX = pango_font_
-###
+MODULE = Gtk2::Pango::Font	PACKAGE = Gtk2::Pango::Font	PREFIX = pango_font_
+
+## PangoFontMetrics * pango_font_get_metrics (PangoFont *font, PangoLanguage *language)
+PangoFontMetrics *
+pango_font_get_metrics (font, language)
+	PangoFont *font
+	PangoLanguage *language
+
+## PangoFontDescription* pango_font_describe (PangoFont *font)
+PangoFontDescription *
+pango_font_describe (font)
+	PangoFont *font
+
 ### no typemaps for this stuff.
 ### it looks like it would only be useful from C, though.
 ### PangoCoverage * pango_font_get_coverage (PangoFont *font, PangoLanguage *language)
