@@ -39,6 +39,9 @@ is ($model->get_path ($combo_box->get_active_iter)->to_string,
 
 $combo_box = Gtk2::ComboBox->new;
 isa_ok ($combo_box, 'Gtk2::ComboBox');
+# set a model to avoid a nastygram when destroying; some versions of gtk+
+# do not check for NULL before unreffing the model.
+$combo_box->set_model ($model);
 
 $combo_box = Gtk2::ComboBox->new ($model);
 isa_ok ($combo_box, 'Gtk2::ComboBox');

@@ -99,6 +99,14 @@ Do not call Gtk2->init_check, assume that it is not necessary.
 
 Set to true if all tests are to be skipped on the win32 platform.
 
+=item at_least_version
+
+A reference to a list that is checked with Gtk2->CHECK_VERSION.
+
+=item skip_all
+
+Simply skip all tests with the reason provided.
+
 =back
 
 =head1 SEE ALSO

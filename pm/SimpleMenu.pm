@@ -171,7 +171,7 @@ application menus
 
   my $menu_tree = [
   	_File => {
-		item_type => '<Branch',
+		item_type => '<Branch>',
 		children => [
 			_New => {
 				callback => \&new_cb,
@@ -257,7 +257,7 @@ which is the natural representation of such a menu.
 =head1 DESCRIPTION
 
 SimpleMenu aims to simplify the design and management of a complex application
-menu bar by allow the structure to be specified as a multi-rooted tree. Much
+menu bar by allowing the structure to be specified as a multi-rooted tree. Much
 the same functionality is provided by Gtk2::ItemFactory, but the data provided
 as input is a 1-D array and the hierarchy of the menu is controled entierly by
 the path componenets. This is not ideal when languages such as perl provide for
@@ -284,7 +284,7 @@ Any method that can be called on a ItemFactory can be called on a SimpleMenu.
 
 Creates a new Gtk2::SimpleMenu object with the specified tree. Optionally key
 value paris providing a default_callback and user_data can be provided as well.
-Affter creating the menu object all of the subsequent widgets will have been
+After creating the menu object all of the subsequent widgets will have been
 created and are ready for use.
 
 =back

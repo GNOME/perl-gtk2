@@ -1,3 +1,24 @@
+Overview of Changes in Gtk2 1.042
+=================================
+
+* Documentation fixes and improvements.  [muppet, Torsten, Jason Stirling]
+* Fix silly bugs in examples.  [Thierry Vignaud]
+* Hush nastygrams from test suite.  [muppet]
+
+Overview of Changes in 1.041
+============================
+
+* SimpleList bugfixes; store, pop, shift, unshift, and splice now return the
+  proper values.  [Ross]
+* Fix incorrect code in examples.  [muppet]
+* Doc updates.  [Torsten, Ross]
+* Don't overwrite the Gtk2.pm docs with a Gtk2.pod.  Unfortunately, those 
+  upgrading from source or CPAN will need to remove the stray Gtk2.pod from
+  the perl library manually in order to get the correct docs from perldoc;
+  the manpage should upgrade fine.  [Torsten]
+* Test suite updates and fixes.  [Torsten, Ross]
+* Fix miscellaneous issues.  [Thierry Vignaud, Cory Omand, muppet, Ross]
+
 Overview of Changes in 1.040
 ============================
 

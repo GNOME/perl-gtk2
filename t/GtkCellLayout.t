@@ -16,6 +16,12 @@ isa_ok($box, "Gtk2::CellLayout");
 my $entry = Gtk2::ComboBoxEntry -> new();
 isa_ok($entry, "Gtk2::CellLayout");
 
+# make sure there is a model; early versions of 2.4.x do not check for NULL
+# before unreffing the model.
+my $model = Gtk2::ListStore->new ('Glib::Int');
+$box->set_model ($model);
+$entry->set_model ($model);
+
 my $completion = Gtk2::EntryCompletion -> new();
 isa_ok($completion, "Gtk2::CellLayout");
 

@@ -1,3 +1,32 @@
+2004/04/19 20:13 (+0200) kaffeetisch
+
+	* xs/Gdk.xs: Remove a needless MODULE line.
+
+	Yet another merge from the stable-1-04 branch:
+
+	* AUTHORS: Add Cory Omand and Jason Stirling.
+
+	* Makefile.PL: Document that the library finding hack does not
+	work on Cygwin.
+
+	* NEWS: Add entries for the stable releases.
+
+	* CodeGen.pm
+	* pm/SimpleList.pm
+	* pm/SimpleMenu.pm: Update bits of the documentation, fix the
+	examples.
+
+	* pm/TestHelper.pm: Document at_least_version and skip_all.
+
+	* t/GdkEvent.t
+	* t/GtkCellLayout.t
+	* t/GtkComboBox.t: Hush test warnings.
+
+	* xs/GdkEvent.xs
+	* xs/GtkTextBuffer.xs: Use explicit version guards to avoid
+	including new functions when compiling against development
+	releases.
+
 2004/04/09 08:17 (-0400) muppetman
 
 	merge a bunch more bugfixes from stable.

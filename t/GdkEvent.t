@@ -360,6 +360,9 @@ isa_ok ($event->context, 'Gtk2::Gdk::DragContext', '$dnd_event->context');
 $event->context (undef);
 is ($event->context, undef, '$dnd_event->context & undef');
 
+# put this back to keep the event destructor from barfing on a NULL pointer
+$event->context (Gtk2::Gdk::DragContext->new);
+
 # Selection ####################################################################
 
 isa_ok ($event = Gtk2::Gdk::Event->new ('selection-clear'),

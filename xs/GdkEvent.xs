@@ -572,7 +572,7 @@ gdk_event_handler_set (class, func, data=NULL)
 				       NULL, NULL);
 	}
 
-#ifdef GDK_TYPE_SCREEN
+#if GTK_CHECK_VERSION (2,2,0)
 
 void
 gdk_event_set_screen (event, screen)

@@ -286,6 +286,7 @@ install-\%: %
 # this probably needs to go into ExtUtils::Depends.
 sub find_extra_libs {
 	# right now we need this terrible hack only for windows.
+	# unfortunately, this code doesn't work on cygwin.  :-/
 	return "" unless $^O eq "MSWin32";
 
 	# win32 does not allow unresolved symbols in libraries, but
