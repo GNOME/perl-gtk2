@@ -1,3 +1,13 @@
+2004/01/14 17:53 (-0500) muppetman
+
+	test fixes on RH8.0 / gtk+-2.0.6
+
+	* t/GtkPaned.t: use show_now to ensure the window is on screen,
+	rather than unreliable timeout hacks.
+
+	* t/GtkTreeView.t: fix inverted logic on version guard for
+	set_cursor_on_cell.
+
 2004/01/14 12:06 (-0500) rwmcfa1
 
 	* xs/GtkImage.xs: fixed bug in gtk_image_stock_get xsub found when 
