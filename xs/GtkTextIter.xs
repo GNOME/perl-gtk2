@@ -28,16 +28,9 @@ gtk_text_iter_get_buffer (iter)
 	GtkTextIter * iter
 
 ## GtkTextIter* gtk_text_iter_copy (const GtkTextIter *iter);
-GtkTextIter_copy *
+GtkTextIter_own*
 gtk_text_iter_copy (iter)
 	GtkTextIter *iter
-    PREINIT:
-	GtkTextIter *iter_copy;
-    CODE:
-	iter_copy = gtk_text_iter_copy (iter);
-	RETVAL = iter_copy;
-    OUTPUT:
-	RETVAL
 
 ## perl doesn't need to know about gtk_text_iter_free
 
