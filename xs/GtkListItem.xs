@@ -35,7 +35,10 @@ MODULE = Gtk2::ListItem	PACKAGE = Gtk2::ListItem	PREFIX = gtk_list_item_
 GtkWidget *
 gtk_list_item_new (class, label=NULL)
 	gchar * label
+    ALIAS:
+	Gtk2::ListItem::new_with_label = 1
     CODE:
+	PERL_UNUSED_VAR (ix);
 	if( label )
 		RETVAL = gtk_list_item_new_with_label(label);
 	else

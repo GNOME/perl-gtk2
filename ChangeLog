@@ -1,3 +1,16 @@
+2003/12/16 21:56 (-0500) rwmcfa1
+
+	* t/06.GtkLabel.t, t/08.GtkCombo.t: more complete testing
+       
+	* t/05.GtkListStore-etc.t: added complete comment
+	
+	* t/accel-group-map.t: added a version check to the skip, since it will
+	be fixed by 2.4.x
+
+	* xs/GtkListItem.xs: added an alias for new_with_label
+	
+	* xs/GtkListStore.xs: added an alias for set_value
+
 2003/12/16 04:36 (-0500) rwmcfa1
 
 	* t/05.GtkListStore-etc.t: complete GtkListStore api testing.

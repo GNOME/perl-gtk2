@@ -78,7 +78,8 @@ Glib::Idle->add (sub {
 		ok ($accel->disconnect (\&conn_func), 'disconnect conn_func');
 		SKIP: {
 			# TODO: when this is fixed, test for version
-			skip 'disconnect_key from empty group, bug in gtk+', 1;
+			skip 'disconnect_key from empty group, bug in gtk+', 1
+				unless (Gtk2->get_version_info)[1] >= 4;
 			ok (not ($accel->disconnect_key (42, qw/shift-mask/)),
 				'second disconnect_key shift-mask should fail');
 		}

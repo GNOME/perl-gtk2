@@ -5,6 +5,8 @@
 #
 # $Header$
 #
+# Pretty much complete
+#
 # TODO:
 #	accessed as a: GtkTreeDragSource, GtkTreeDragDest and GtkTreeSortable.
 #
