@@ -30,7 +30,7 @@
 ##  gulong gdk_rgb_xpixel_from_rgb (guint32 rgb) G_GNUC_CONST 
 */
 
-guchar *
+static guchar *
 SvImageDataPointer (SV * sv)
 {
 	if (SvIOK (sv))
