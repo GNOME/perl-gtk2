@@ -1,3 +1,9 @@
+2004/02/08 20:46 (-0500) muppetman
+
+	* Glib.pm, README, NEWS: unstable release 1.034
+
+	* Makefile.PL, README: require Glib 1.034
+
 2004/02/07 02:22 (-0500) muppetman
 
 	* xs/GtkCellEditable.xs: allow perl implementations of GtkCellEditable

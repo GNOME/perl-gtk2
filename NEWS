@@ -1,3 +1,21 @@
+Overview of Changes in Gtk2 1.034
+=================================
+
+* Updated Glib requirement to 1.034.
+* Updated ExtUtils::PkgConfig requirement to 1.03.
+* Even yet still more tests, examples, and bugfixes.
+* Improved (corrected?) handling of Gtk2::CellRenderer derivation; based on
+  a more generic method for handling vfuncs as inheritable ALL_CAPS methods.
+  Includes backward compatibility, plenty of documentation, and updated
+  examples.  [muppet]
+* Allow perl implementations of the Gtk2::CellEditable and Gtk2::TreeModel
+  interfaces; two new examples included.  Huge thanks to Bjarne Steinsbo.
+  [muppet]
+* Per-entry callback data in SimpleMenu.  [Ross]
+* Add versioning macros for Pango.  [Torsten]
+* Implement startup-time version checking.  [Ross]
+* Add skip_all option to Gtk2::TestHelper.  [Ross]
+
 Overview of Changes in Gtk2 1.033
 =================================
 
