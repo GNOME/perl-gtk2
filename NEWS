@@ -1,6 +1,7 @@
 Overview of Changes in Gtk2 1.031
 =================================
 
+* Updated Glib requirement to 1.031.
 * Added binding support for objects and functions new in gtk+-2.3.x.  Not
   all tests are complete.  Updated gtk-demo and examples to use the new stuff
   if available.  This code will be protected by 2.4.0 version guards when
@@ -16,7 +17,8 @@ Overview of Changes in Gtk2 1.031
 * Even yet still more tests. [Torsten]
 * Don't copy colors when accessing Style members; this makes it possible to
   change the colors in a style. [Torsten]
-* Various little bugfixes, memory leak plugs, ornulls, doc updates, etc.
+* Various little bugfixes, memory leak plugs, ornulls, doc updates, build
+  enhancements, etc.
 
 Overview of Changes from Gtk2 1.02x to 1.030
 ============================================
