@@ -1,3 +1,7 @@
+2004/03/06 18:25 (-0500) muppetman
+
+	* xs/GtkFileChooser.xs, t/GtkFileChooser.t: track upstream API changes.
+
 2004/03/05 16:13 (+0100) kaffeetisch
 
 	* t/GdkEvent.t: Make sure the test doesn't fail when unexpected
