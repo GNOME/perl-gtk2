@@ -3,3 +3,21 @@ TYPEMAP
 
 # can be either a pointer or an integer, this handles both cases
 GdkNativeWindow	T_UV
+
+
+GdkBitmap *	T_GDK_BITMAP
+GdkBitmap_ornull *	T_GDK_BITMAP_ORNULL
+GdkBitmap_noinc *	T_GDK_BITMAP_NOINC
+
+INPUT
+T_GDK_BITMAP
+	$var = SvGdkBitmap ($arg);
+T_GDK_BITMAP_ORNULL
+	$var = SvGdkBitmap_ornull ($arg);
+
+OUTPUT
+T_GDK_BITMAP
+	$arg = newSVGdkBitmap ($var);
+T_GDK_BITMAP_NOINC
+	$arg = newSVGdkBitmap_noinc ($var);
+

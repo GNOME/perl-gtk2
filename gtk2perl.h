@@ -29,15 +29,19 @@
  */
 SV * gtk2perl_new_gtkobject (GtkObject * object);
 
+
 /*
 custom handling for GdkBitmaps, since there are no typemacros for them.
 */
 /* GObject derivative GdkBitmap */
 #define SvGdkBitmap(sv)       ((GdkBitmap*)gperl_get_object_check (sv, GDK_TYPE_DRAWABLE))
-#define newSVGdkBitmap(val)   (gperl_new_object (G_OBJECT (val), FALSE))
 typedef GdkBitmap GdkBitmap_ornull;
 #define SvGdkBitmap_ornull(sv)        (((sv) == &PL_sv_undef) ? NULL : SvGdkBitmap(sv))
-
+typedef GdkBitmap GdkBitmap_noinc;
+/* these are real functions, rather than macros, because there's some extra
+ * work involved in making sure it's blessed into Gtk2::Gdk::Bitmap when no
+ * GType exists for GdkBitmap. */
+SV * newSVGdkBitmap (GdkBitmap * bitmap);
 SV * newSVGdkBitmap_noinc (GdkBitmap * bitmap);
 
 #endif /* _GTK2PERL_H_ */
