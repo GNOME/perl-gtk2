@@ -14,7 +14,7 @@ use Glib;
 
 require DynaLoader;
 
-our $VERSION = '0.93';
+our $VERSION = '0.94';
 
 our @ISA = qw(DynaLoader);
 
@@ -191,7 +191,9 @@ easier to use.
 
 Gtk2 also provides code to make it relatively painless to create perl
 wrappers for other GLib/Gtk-based libraries.  See Gtk2::CodeGen, 
-Glib::PkgConfig, and ExtUtils::Depends.
+Glib::PkgConfig, and ExtUtils::Depends.  If you're writing bindings,
+you'll probably also be interested in Gtk2::devel, which is a supplement
+to Glib::devel and Glib::xsapi.
 
 =head1 AUTHORS
 

@@ -11,6 +11,12 @@ Makefile.PL
 README
 TODO
 api.pod
+debian/changelog
+debian/compat
+debian/control
+debian/copyright
+debian/rules
+devel.pod
 examples/buttonbox.pl
 examples/calendar.pl
 examples/colorselectiontest.pl
@@ -86,6 +92,8 @@ testgtk.pl
 xs/Gdk.xs
 xs/GdkColor.xs
 xs/GdkCursor.xs
+xs/GdkDisplay.xs
+xs/GdkDisplayManager.xs
 xs/GdkDnd.xs
 xs/GdkDrawable.xs
 xs/GdkEvent.xs
