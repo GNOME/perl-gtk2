@@ -58,7 +58,6 @@ use Glib::Object::Subclass
        ["step",  "Step",  "Okay.",                      5.0])
   ]
 ;
-__PACKAGE__->_install_overrides;
 
 sub INIT_INSTANCE {
 	my $self = shift;
@@ -87,7 +86,7 @@ sub format_text {
 	sprintf $format, $cell->{value};
 }
 
-sub on_get_size {
+sub GET_SIZE {
   my ($cell, $widget, $area) = @_;
 
   my $layout = $cell -> get_layout($widget);
@@ -102,7 +101,7 @@ sub get_layout {
   return $widget -> create_pango_layout("");
 }
 
-sub on_render {
+sub RENDER {
   my ($cell, $window, $widget, $background_area, $cell_area, $expose_area, $flags) = @_;
   my $state;
 
@@ -132,7 +131,7 @@ sub on_render {
                                        $layout);
 }
 
-sub on_start_editing {
+sub START_EDITING {
   my ($cell, $event, $view, $path, $background_area, $cell_area, $flags) = @_;
   my $spin_button = Gtk2::SpinButton -> new_with_range($cell -> get(qw(min max step)));
 

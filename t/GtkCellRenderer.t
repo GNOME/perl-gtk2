@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 
-use Gtk2::TestHelper tests => 2;
+use Gtk2::TestHelper tests => 3;
 
 package Mup::CellRendererPopup;
 
@@ -10,9 +10,27 @@ use Glib::Object::Subclass
 	Gtk2::CellRendererText::,
 	;
 
-__PACKAGE__->_install_overrides;
-
 my %hits;
+
+sub INIT_INSTANCE { $hits{init}++; }
+
+sub GET_SIZE { $hits{size}++;  shift->SUPER::GET_SIZE (@_) }
+sub RENDER { $hits{render}++;  shift->SUPER::RENDER (@_) }
+sub ACTIVATE { $hits{activate}++;  shift->SUPER::ACTIVATE (@_) }
+sub START_EDITING { $hits{edit}++;  shift->SUPER::START_EDITING (@_) }
+
+
+# do that again, in the style of 1.02x, to check for regressions of
+# backward compatibility.
+package Mup::CellRendererPopupCompat;
+
+use Test::More;
+
+use Glib::Object::Subclass
+	Gtk2::CellRendererText::,
+	;
+
+__PACKAGE__->_install_overrides;
 
 sub INIT_INSTANCE { $hits{init}++; }
 
@@ -53,6 +71,24 @@ $treeview = Gtk2::TreeView->new ($model);
 # custom cell renderer
 #
 ok ($renderer = Mup::CellRendererPopup->new, 'Mup::CellRendererPopup->new');
+$renderer->set (mode => 'editable');
+$column = Gtk2::TreeViewColumn->new_with_attributes ('selector', $renderer,
+                                                     text => 0,);
+# this handler commits the user's selection to the model.  compare with
+# the one for the typical text renderer -- the only difference is a var name.
+$renderer->signal_connect (edited => sub {
+		my ($cell, $text_path, $new_text, $model) = @_;
+		my $path = Gtk2::TreePath->new_from_string ($text_path);
+		my $iter = $model->get_iter ($path);
+		$model->set ($iter, 2, $new_text);
+	}, $model);
+$treeview->append_column ($column);
+
+
+#
+# custom cell renderer
+#
+ok ($renderer = Mup::CellRendererPopupCompat->new, 'Mup::CellRendererPopupCompat->new');
 $renderer->set (mode => 'editable');
 $column = Gtk2::TreeViewColumn->new_with_attributes ('selector', $renderer,
                                                      text => 0,);
