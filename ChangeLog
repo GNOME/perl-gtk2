@@ -1,3 +1,18 @@
+2004/03/10 22:48 (-0500) muppetman
+
+	* gtk-demo/main.pl, t/GdkCursor.t, t/GdkDrawable.t, t/GdkPixbuf.t,
+	t/GtkAccelGroup.t, t/GtkAlignment.t, t/GtkButton.t, t/GtkButtonBox.t,
+	t/GtkCellRenderer.t, t/GtkCheckMenuItem.t, t/GtkClipboard.t,
+	t/GtkDnd.t, t/GtkEntry.t, t/GtkIconFactory.t, t/GtkMenu.t,
+	t/GtkRadioMenuItem.t, t/GtkScale.t, t/GtkStyle.t, t/GtkTextBuffer.t,
+	t/GtkTextIter.t, t/GtkTextView.t, t/GtkToolbar.t,
+	xs/GtkTreeViewColumn.xs: bump version checks
+
+	* t/GdkEvent.t, t/GdkGC.t, t/GdkProperty.t, xs/GdkEvent.xs,
+	xs/GdkProperty.xs, xs/GtkDialog.xs, gtk-demo/changedisplay.pl,
+	xs/GdkWindow.xs, xs/GtkObject.xs, examples/item_factory_demo.pl:
+	clean up and bugfixes merged from stable
+
 2004/03/20 20:47 (-0500) muppetman
 
 	More merging from the stable-1-04 branch.

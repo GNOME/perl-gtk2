@@ -175,6 +175,9 @@ because unknown string values tend to be mapped to 0.
 
 =cut
 
+=for enum GtkDialogFlags
+=cut
+
 BOOT:
 	gperl_signal_set_marshaller_for (GTK_TYPE_DIALOG, "response",
 	                                 gtk2perl_dialog_response_marshal);

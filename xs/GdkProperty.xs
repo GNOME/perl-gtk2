@@ -146,10 +146,11 @@ gdk_property_change (window, property, type, format, mode, ...)
     CODE:
 	switch (format) {
 		case 8: {
-			gchar *char_data = SvPV_nolen (ST (first_index));
+			SV *sv = ST (first_index);
 
-			data = (guchar *) char_data;
-			nelements = strlen (char_data);
+			/* need to use sv_len here because \0's are allowed. */
+			nelements = sv_len (sv);
+			data = (guchar *) SvPV (sv, nelements);
 			break;
 		}
 		case 16: {
