@@ -25,7 +25,6 @@
 static GtkWidget *
 ensure_label_widget (SV * sv)
 {
-	GtkWidget * label = NULL;
 	if (!sv || !SvTRUE (sv))
 		return NULL;
 	if (sv_derived_from (sv, "Gtk2::Widget"))

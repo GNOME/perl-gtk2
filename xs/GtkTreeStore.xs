@@ -78,7 +78,6 @@ gtk_tree_store_set (tree_store, iter, ...)
 	ncols = gtk_tree_model_get_n_columns (GTK_TREE_MODEL (tree_store));
 	for (i = 2 ; i < items ; i+= 2) {
 		gint column;
-		SV * sv;
 		GValue gvalue = {0, };
 		if (!looks_like_number (ST (i)))
 			croak ("Usage: $treestore->set ($iter, column1, value1, column2, value2, ...)\n"
