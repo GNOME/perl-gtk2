@@ -67,7 +67,7 @@ SKIP: {
 
 	# avoid precision issues, only compare one decimal place.
 	is_deeply([map {sprintf '%.1f', $_} $button_stock->get_alignment()],
-	          ['0.7', '0.3']);
+	          [0.7, 0.3]);
 }
 
 ok( my $button3 = Gtk2::Button->new('gtk-quit') );
