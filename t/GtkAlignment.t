@@ -10,8 +10,8 @@ isa_ok($alignment, "Gtk2::Alignment");
 $alignment -> set(2.3, 4.2, 7, 13);
 
 SKIP: {
-  skip("[sg]et_padding are new in 2.3", 1)
-    unless Gtk2->CHECK_VERSION (2, 3, 0); # FIXME 2.4
+  skip("[sg]et_padding are new in 2.4", 1)
+    unless Gtk2->CHECK_VERSION (2, 4, 0);
 
   $alignment -> set_padding(1, 2, 3, 4);
   is_deeply([$alignment -> get_padding()], [1, 2, 3, 4]);

@@ -55,7 +55,7 @@ gboolean gtk_check_menu_item_get_inconsistent (GtkCheckMenuItem *check_menu_item
 
 void gtk_check_menu_item_set_show_toggle (GtkCheckMenuItem *menu_item, gboolean always)
 
-#if GTK_CHECK_VERSION(2,3,0) /* FIXME 2.4 */
+#if GTK_CHECK_VERSION(2,4,0)
 
 void gtk_check_menu_item_set_draw_as_radio (GtkCheckMenuItem *check_menu_item, gboolean draw_as_radio);
 

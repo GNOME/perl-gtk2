@@ -44,8 +44,8 @@ isa_ok($mask, "Gtk2::Gdk::ModifierType");
 # warn $display -> get_window_at_pointer();
 
 SKIP: {
-  skip("stuff new in 2.3", 6)
-    unless Gtk2 -> CHECK_VERSION(2, 3, 0); # FIXME 2.4
+  skip("stuff new in 2.4", 6)
+    unless Gtk2 -> CHECK_VERSION(2, 4, 0);
 
   $display -> flush();
   $display -> set_double_click_distance(5);

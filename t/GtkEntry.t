@@ -36,7 +36,7 @@ like($y, qr/^-?\d+$/);
 
 SKIP: {
   skip("[sg]et_completion are new in 2.4", 1)
-    unless Gtk2->CHECK_VERSION (2, 3, 0); # FIXME 2.4
+    unless Gtk2->CHECK_VERSION (2, 4, 0);
 
   my $completion = Gtk2::EntryCompletion -> new();
 
@@ -46,7 +46,7 @@ SKIP: {
 
 SKIP: {
   skip("[sg]et_alignment are new in 2.4", 1)
-    unless Gtk2->CHECK_VERSION (2, 3, 5); # FIXME 2.4
+    unless Gtk2->CHECK_VERSION (2, 4, 0);
 
   $entry -> set_alignment(0.23);
   is(int($entry -> get_alignment() * 100) / 100, 0.23);

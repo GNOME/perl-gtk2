@@ -31,8 +31,8 @@ isa_ok($cursor, "Gtk2::Gdk::Cursor");
 
 
 SKIP: {
-  skip("new_from_pixbuf is new in 2.3", 1)
-    unless Gtk2 -> CHECK_VERSION(2, 3, 0); # FIXME 2.4
+  skip("new_from_pixbuf is new in 2.4", 1)
+    unless Gtk2 -> CHECK_VERSION(2, 4, 0);
 
   my $display = Gtk2::Gdk::Display -> get_default();
   my $pixbuf = Gtk2::Gdk::Pixbuf -> new("rgb", 0, 8, 10, 10);

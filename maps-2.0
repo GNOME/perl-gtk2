@@ -279,7 +279,7 @@ GTK_TYPE_TEXT_CHILD_ANCHOR	GtkTextChildAnchor	GObject	Gtk2::TextChildAnchor
 GTK_TYPE_TEXT_DIRECTION	GtkTextDirection	GEnum	Gtk2::TextDirection
 GTK_TYPE_TEXT_ITER	GtkTextIter	GBoxed	Gtk2::TextIter
 GTK_TYPE_TEXT_MARK	GtkTextMark	GObject	Gtk2::TextMark
-# in versions before 2.3.0, GtkTextSearchFlags was declared in such a way that
+# in versions before 2.4.0, GtkTextSearchFlags was declared in such a way that
 # caused it to be misdetected by glib-mkenums as a GEnum.  gtk2-perl.h accounts
 # for that by redefining the generated macros on those versions. 
 GTK_TYPE_TEXT_SEARCH_FLAGS	GtkTextSearchFlags	GFlags	Gtk2::TextSearchFlags

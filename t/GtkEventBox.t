@@ -8,8 +8,8 @@ my $box = Gtk2::EventBox -> new();
 isa_ok($box, "Gtk2::EventBox");
 
 SKIP: {
-  skip("[sg]et_above_child and [sg]et_visible_window are new in 2.3", 2)
-    unless Gtk2->CHECK_VERSION (2, 3, 0); # FIXME 2.4
+  skip("[sg]et_above_child and [sg]et_visible_window are new in 2.4", 2)
+    unless Gtk2->CHECK_VERSION (2, 4, 0);
 
   $box -> set_above_child(1);
   is($box -> get_above_child(), 1);

@@ -71,7 +71,7 @@ void gtk_menu_shell_select_first (GtkMenuShell *menu_shell, gboolean search_sens
 
 #endif /* >= 2.2.0 */
 
-#if GTK_CHECK_VERSION(2, 3, 0) /* FIXME 2.4 */
+#if GTK_CHECK_VERSION(2, 4, 0)
 
 void gtk_menu_shell_cancel (GtkMenuShell *menu_shell);
 

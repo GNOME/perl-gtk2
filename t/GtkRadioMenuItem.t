@@ -21,8 +21,8 @@ $item_three -> set_group($item_one);
 is_deeply($item_one -> get_group(), [$item_one, $item_two, $item_three, $item_four]);
 
 SKIP: {
-  skip("the from_widget's are new in 2.4", 4)
-    unless Gtk2->CHECK_VERSION (2, 3, 3); # FIXME 2.4
+  skip("the from_widget variants are new in 2.4", 4)
+    unless Gtk2->CHECK_VERSION (2, 4, 0);
 
   my $item_five = Gtk2::RadioMenuItem -> new_from_widget($item_one);
   isa_ok($item_five, "Gtk2::RadioMenuItem");

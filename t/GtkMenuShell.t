@@ -32,8 +32,8 @@ SKIP: {
 }
 
 SKIP: {
-  skip("cancel is new in 2.3", 0)
-    unless Gtk2->CHECK_VERSION (2, 3, 0); # FIXME 2.4
+  skip("cancel is new in 2.4", 0)
+    unless Gtk2->CHECK_VERSION (2, 4, 0);
 
   $shell -> cancel();
 }

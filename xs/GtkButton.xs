@@ -143,7 +143,7 @@ gboolean
 gtk_button_get_use_stock (button)
 	GtkButton * button
 
-#if GTK_CHECK_VERSION(2,3,0) /* FIXME 2.4 */
+#if GTK_CHECK_VERSION(2,4,0)
 
 void gtk_button_set_focus_on_click (GtkButton * button, gboolean focus_on_click)
 

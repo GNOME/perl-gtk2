@@ -118,7 +118,7 @@ gtk_calendar_set_display_options (calendar, flags)
     ALIAS:
 	display_options = 1
     CODE:
-#if GTK_CHECK_VERSION(2,3,0) /* FIXME 2.4 */
+#if GTK_CHECK_VERSION(2,4,0)
 	gtk_calendar_set_display_options (calendar, flags);
 #else
 	gtk_calendar_display_options (calendar, flags);
@@ -129,7 +129,7 @@ gtk_calendar_set_display_options (calendar, flags)
 GtkCalendarDisplayOptions
 gtk_calendar_get_display_options (GtkCalendar * calendar)
     CODE:
-#if GTK_CHECK_VERSION(2,3,0) /* FIXME 2.4 */
+#if GTK_CHECK_VERSION(2,4,0)
 	RETVAL = gtk_calendar_get_display_options (calendar);
 #else
 	RETVAL = calendar->display_flags;

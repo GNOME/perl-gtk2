@@ -102,8 +102,8 @@ SKIP: {
 }
 
 SKIP: {
-	skip("[sg]et_expand are new in 2.3", 1)
-		unless Gtk2->CHECK_VERSION (2, 3, 0); # FIXME 2.4
+	skip("[sg]et_expand are new in 2.4", 1)
+		unless Gtk2->CHECK_VERSION (2, 4, 0);
 
 	$view_column -> set_expand(1);
 	is($view_column -> get_expand(), 1);

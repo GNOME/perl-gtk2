@@ -100,8 +100,8 @@ my $position_callback = sub {
 	is ($data, "bla");
 
 	SKIP: {
-		skip("attach and set_monitor are new in 2.3", 0)
-			unless Gtk2->CHECK_VERSION (2, 3, 0); # FIXME 2.4
+		skip("attach and set_monitor are new in 2.4", 0)
+			unless Gtk2->CHECK_VERSION (2, 4, 0);
 
 		$menu->attach(Gtk2::MenuItem->new("Bla"), 0, 1, 0, 1);
 		$menu->set_monitor(0);

@@ -1,8 +1,7 @@
 #!/usr/bin/perl -w
 use strict;
 use Gtk2::TestHelper
-  # FIXME 2.4
-  at_least_version => [2, 3, 0, "GtkCellLayout is new in 2.3"],
+  at_least_version => [2, 4, 0, "GtkCellLayout is new in 2.4"],
   tests => 4,
   noinit => 1;
 

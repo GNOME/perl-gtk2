@@ -188,7 +188,7 @@ gtk_toolbar_new (class)
     C_ARGS:
 	/* void */
 
-#if GTK_CHECK_VERSION(2,3,0) /* FIXME 2.4 */
+#if GTK_CHECK_VERSION(2,4,0)
 
 void gtk_toolbar_insert (GtkToolbar *toolbar, GtkToolItem *item, gint pos);
 
@@ -211,7 +211,7 @@ void gtk_toolbar_set_drop_highlight_item (GtkToolbar * toolbar, GtkToolItem * to
 #endif
 
 #
-# just about everything from here to the end is deprecated as of 2.3.0,
+# just about everything from here to the end is deprecated as of 2.4.0,
 # but will not be disabled because it wasn't deprecated in 2.0.x and 2.2.x.
 #
 

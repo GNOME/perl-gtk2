@@ -106,7 +106,7 @@ ok( ! $win2->mnemonic_activate($mnemonic, "shift-mask") );
 
 SKIP: {
 	skip "activate_key and propagate_key_event are new in 2.4", 2
-		unless Gtk2->CHECK_VERSION (2, 3, 5); # FIXME 2.4
+		unless Gtk2->CHECK_VERSION (2, 4, 0);
 
 	my $event = Gtk2::Gdk::Event::Key->new ("key-press");
 	$event->keyval ($Gtk2::Gdk::Keysyms{ A });
@@ -258,11 +258,11 @@ Glib::Idle->add(sub {
 		}
 
 		SKIP: {
-			skip "new things in 2.3", 3
-				unless Gtk2->CHECK_VERSION (2, 3, 0); # FIXME 2.4
+			skip "new things in 2.4", 3
+				unless Gtk2->CHECK_VERSION (2, 4, 0);
 
 			TODO: {
-			local $TODO = (Gtk2->CHECK_VERSION (2, 3, 0)) # FIXME 2.4
+			local $TODO = (Gtk2->CHECK_VERSION (2, 4, 0))
 				? "is_active remote/non-gnome-desktop ???"
 				: undef;
 			is($win->is_active, 1);

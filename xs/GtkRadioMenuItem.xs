@@ -61,7 +61,7 @@ gtk_radio_menu_item_new (class, member_or_listref=NULL, label=NULL)
     OUTPUT:
 	RETVAL
 
-#if GTK_CHECK_VERSION (2, 3, 3) /* FIXME 2.4 */
+#if GTK_CHECK_VERSION (2, 4, 0)
 
 GtkWidget *
 gtk_radio_menu_item_new_from_widget (class, group, label=NULL)

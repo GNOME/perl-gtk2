@@ -42,7 +42,7 @@ gtk_alignment_set (alignment, xalign, yalign, xscale, yscale)
 	gfloat         xscale
 	gfloat         yscale
 
-#if GTK_CHECK_VERSION(2,3,0) /* FIXME 2.4 */
+#if GTK_CHECK_VERSION(2,4,0)
 
 void gtk_alignment_set_padding (GtkAlignment *alignment, guint padding_top, guint padding_bottom, guint padding_left, guint padding_right);
 
