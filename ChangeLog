@@ -1,3 +1,12 @@
+2003/11/21 02:16 (-0500) muppetman
+
+	* Gtk2.pm, README, Makefile.PL: update requirements to Glib 1.012,
+	and bump version for 1.012 beta release.
+
+	* xs/GtkIconFactory.xs, xs/GtkIconFactory.xs, xs/GtkSelection.xs,
+	xs/GtkTextIter.xs, xs/GtkTextTag.xs, xs/GtkTreeModel.xs,
+	xs/PangoTabs.xs: remove copy methods in favor of Glib::Boxed::copy.
+
 2003/11/21 01:09 (-0500) muppetman
 
 	* CodeGen.pm, gtk2perl.h, xs/GdkGC.xs, xs/GdkPixbuf.xs,
