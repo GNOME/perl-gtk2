@@ -1,3 +1,10 @@
+2003/10/30 22:10 rwmcfa1
+
+	* t/30.GtkCellRenderer.t: this test seems kinda flaky, it was counting 
+	that 24 callbacks happened, but often that number seems inconsistent. 
+	slight modifications made so that we now check that at least one, edit, 
+	render, size, and init happen. activate doesn't seem to ever occur.
+
 2003/10/29 12:40 muppetman
 
 	fixing a few things while tracking down bugs reported by

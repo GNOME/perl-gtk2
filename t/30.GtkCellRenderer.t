@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 
-use Test::More tests => 21;
+use Test::More tests => 4;
 use Gtk2 -init;
 
 package Mup::CellRendererPopup;
@@ -13,12 +13,14 @@ use Glib::Object::Subclass
 
 __PACKAGE__->_install_overrides;
 
-sub INIT_INSTANCE { ok (1); }
+my %hits;
 
-sub on_get_size { ok (1, 'on_get_size'); shift->parent_get_size (@_) }
-sub on_render { ok (1, 'on_render'); shift->parent_render (@_) }
-sub on_activate { ok (1, 'on_activate'); shift->parent_activate (@_) }
-sub on_start_editing { ok (1, 'on_start_editing'); shift->parent_start_editing (@_) }
+sub INIT_INSTANCE { $hits{init}++; }
+
+sub on_get_size { $hits{size}++;  shift->parent_get_size (@_) }
+sub on_render { $hits{render}++;  shift->parent_render (@_) }
+sub on_activate { $hits{activate}++;  shift->parent_activate (@_) }
+sub on_start_editing { $hits{edit}++;  shift->parent_start_editing (@_) }
 
 
 
@@ -77,3 +79,8 @@ Glib::Idle->add (sub {
 });
 
 Gtk2->main;
+
+foreach (keys %hits)
+{
+	ok ($hits{$_}, $_);
+}
