@@ -179,11 +179,22 @@ gdk_pixbuf_new_from_file (class, filename)
 #	GdkPixbufDestroyNotify destroy_fn
 #	gpointer destroy_fn_data
 
-### FIXME read data as list of strings on argument stack
-###  GdkPixbuf *gdk_pixbuf_new_from_xpm_data (const char **data) 
-#GdkPixbuf_noinc *
-#gdk_pixbuf_new_from_xpm_data (data)
-#	const char **data
+##  GdkPixbuf *gdk_pixbuf_new_from_xpm_data (const char **data) 
+GdkPixbuf_noinc *
+gdk_pixbuf_new_from_xpm_data (class, data, ...)
+	SV * class
+	SV * data
+	PREINIT:
+		char ** lines;
+		int i;
+	CODE:
+		lines = g_new (char *, items - 1);
+		for (i = 1; i < items; i++)
+			lines[i-1] = SvPV_nolen (ST (i));
+		RETVAL = gdk_pixbuf_new_from_xpm_data(lines);
+		g_free(lines);
+	OUTPUT:
+		RETVAL
 
 ## croaks on error
 ##  GdkPixbuf* gdk_pixbuf_new_from_inline (gint data_length, const guint8 *data, gboolean copy_pixels, GError **error) 
