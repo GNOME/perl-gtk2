@@ -1,3 +1,14 @@
+2003/06/27 17:00 muppetman
+
+	* Makefile.PL: require bleeding edge Glib.
+
+	* gtk-demo/appwindow.pl, gtk-demo/item_factory.pl,
+	gtk-demo/stock_browser.pl, testgtk.pl: remove bad usage of
+	set_data and get_data
+
+	* examples/histogramplot.pl: rewritten with new Glib::Object::Subclass
+	features.
+
 2003/06/26 14:49 rwmcfa1
 
 	* MANIFEST, MANIFEST.SKIP: the manifest was updated to include a few
