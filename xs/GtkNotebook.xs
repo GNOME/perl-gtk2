@@ -42,7 +42,65 @@ gtk_notebook_new (class)
     C_ARGS:
 	/*void*/
 
-## void gtk_notebook_append_page (GtkNotebook *notebook, GtkWidget *child, GtkWidget *tab_label)
+#if GTK_CHECK_VERSION(2,4,0)
+
+## gint gtk_notebook_append_page (GtkNotebook *notebook, GtkWidget *child, GtkWidget *tab_label)
+gint
+gtk_notebook_append_page (notebook, child, tab_label=NULL)
+	GtkNotebook * notebook
+	GtkWidget   * child
+	SV          * tab_label
+    C_ARGS:
+	notebook, child, ensure_label_widget (tab_label)
+
+## gint gtk_notebook_append_page_menu (GtkNotebook *notebook, GtkWidget *child, GtkWidget *tab_label, GtkWidget *menu_label)
+gint
+gtk_notebook_append_page_menu (notebook, child, tab_label, menu_label)
+	GtkNotebook      * notebook
+	GtkWidget        * child
+	GtkWidget_ornull * tab_label
+	GtkWidget_ornull * menu_label
+
+## gint gtk_notebook_prepend_page (GtkNotebook *notebook, GtkWidget *child, GtkWidget *tab_label)
+gint
+gtk_notebook_prepend_page (notebook, child, tab_label=NULL)
+	GtkNotebook * notebook
+	GtkWidget   * child
+	SV          * tab_label
+    C_ARGS:
+	notebook, child, ensure_label_widget (tab_label)
+
+## gint gtk_notebook_prepend_page_menu (GtkNotebook *notebook, GtkWidget *child, GtkWidget *tab_label, GtkWidget *menu_label)
+gint
+gtk_notebook_prepend_page_menu (notebook, child, tab_label, menu_label)
+	GtkNotebook      * notebook
+	GtkWidget        * child
+	GtkWidget_ornull * tab_label
+	GtkWidget_ornull * menu_label
+
+## gint gtk_notebook_insert_page (GtkNotebook *notebook, GtkWidget *child, GtkWidget *tab_label, gint position)
+gint
+gtk_notebook_insert_page (notebook, child, tab_label, position)
+	GtkNotebook * notebook
+	GtkWidget   * child
+	SV          * tab_label
+	gint          position
+    C_ARGS:
+	notebook, child, ensure_label_widget (tab_label), position
+
+## gint gtk_notebook_insert_page_menu (GtkNotebook *notebook, GtkWidget *child, GtkWidget *tab_label, GtkWidget *menu_label, gint position)
+gint
+gtk_notebook_insert_page_menu (notebook, child, tab_label, menu_label, position)
+	GtkNotebook      * notebook
+	GtkWidget        * child
+	GtkWidget_ornull * tab_label
+	GtkWidget_ornull * menu_label
+	gint               position
+
+#else
+
+# compatibility cruft for 2.2, remove when 2.2 is obsoleted
+
 void
 gtk_notebook_append_page (notebook, child, tab_label=NULL)
 	GtkNotebook * notebook
@@ -51,7 +109,6 @@ gtk_notebook_append_page (notebook, child, tab_label=NULL)
     C_ARGS:
 	notebook, child, ensure_label_widget (tab_label)
 
-## void gtk_notebook_append_page_menu (GtkNotebook *notebook, GtkWidget *child, GtkWidget *tab_label, GtkWidget *menu_label)
 void
 gtk_notebook_append_page_menu (notebook, child, tab_label, menu_label)
 	GtkNotebook      * notebook
@@ -59,7 +116,6 @@ gtk_notebook_append_page_menu (notebook, child, tab_label, menu_label)
 	GtkWidget_ornull * tab_label
 	GtkWidget_ornull * menu_label
 
-## void gtk_notebook_prepend_page (GtkNotebook *notebook, GtkWidget *child, GtkWidget *tab_label)
 void
 gtk_notebook_prepend_page (notebook, child, tab_label=NULL)
 	GtkNotebook * notebook
@@ -68,7 +124,6 @@ gtk_notebook_prepend_page (notebook, child, tab_label=NULL)
     C_ARGS:
 	notebook, child, ensure_label_widget (tab_label)
 
-## void gtk_notebook_prepend_page_menu (GtkNotebook *notebook, GtkWidget *child, GtkWidget *tab_label, GtkWidget *menu_label)
 void
 gtk_notebook_prepend_page_menu (notebook, child, tab_label, menu_label)
 	GtkNotebook      * notebook
@@ -76,7 +131,6 @@ gtk_notebook_prepend_page_menu (notebook, child, tab_label, menu_label)
 	GtkWidget_ornull * tab_label
 	GtkWidget_ornull * menu_label
 
-## void gtk_notebook_insert_page (GtkNotebook *notebook, GtkWidget *child, GtkWidget *tab_label, gint position)
 void
 gtk_notebook_insert_page (notebook, child, tab_label, position)
 	GtkNotebook * notebook
@@ -86,7 +140,6 @@ gtk_notebook_insert_page (notebook, child, tab_label, position)
     C_ARGS:
 	notebook, child, ensure_label_widget (tab_label), position
 
-## void gtk_notebook_insert_page_menu (GtkNotebook *notebook, GtkWidget *child, GtkWidget *tab_label, GtkWidget *menu_label, gint position)
 void
 gtk_notebook_insert_page_menu (notebook, child, tab_label, menu_label, position)
 	GtkNotebook      * notebook
@@ -95,7 +148,7 @@ gtk_notebook_insert_page_menu (notebook, child, tab_label, menu_label, position)
 	GtkWidget_ornull * menu_label
 	gint               position
 
-
+#endif
 
 ## void gtk_notebook_remove_page (GtkNotebook *notebook, gint page_num)
 void

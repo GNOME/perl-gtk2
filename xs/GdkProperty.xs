@@ -96,7 +96,7 @@ MODULE = Gtk2::Gdk::Property	PACKAGE = Gtk2::Gdk::Window	PREFIX = gdk_
 ##  gboolean gdk_property_get (GdkWindow *window, GdkAtom property, GdkAtom type, gulong offset, gulong length, gint pdelete, GdkAtom *actual_property_type, gint *actual_format, gint *actual_length, guchar **data) 
 =for apidoc
 
-=for signature (property_type, format, length) = $window->property_get ($property, $type, $offset, $length, $pdelete)
+=for signature (property_type, format, data) = $window->property_get ($property, $type, $offset, $length, $pdelete)
 
 See I<property_change> for an explanation of the meaning of I<format>.
 
