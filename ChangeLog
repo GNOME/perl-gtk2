@@ -1,3 +1,7 @@
+2003/11/06 10:30 (-0500) muppetman
+
+	* xs/Gtk2.xs: handle logs for GdkPixbuf, too.
+
 2003/11/06 13:48 kaffeetisch
 
 	* xs/GtkItemFactory.xs: Call dSP before PERL_UNUSED_VAR to make it
@@ -204,6 +208,8 @@
 	* Gtk2/xs/GtkObject.xs: fixed problem where g_object_unref was being
 	called on the wrong thing. there was both a SV * class and GtkObject 
 	class, no longer the case
+
+========
 
 2003/10/10 00:13 muppetman
 
