@@ -46,11 +46,12 @@ gtk2perl_menu_position_func (GtkMenu * menu,
 
 	PUSHMARK (SP);
 
-	XPUSHs (sv_2mortal (newSVGtkMenu (menu)));
-	XPUSHs (sv_2mortal (newSViv (*x)));
-	XPUSHs (sv_2mortal (newSViv (*y)));
-	XPUSHs (sv_2mortal (newSViv (*push_in)));
-	XPUSHs (sv_2mortal (callback->data ? callback->data : &PL_sv_undef));
+	EXTEND (SP, 3);
+	PUSHs (sv_2mortal (newSVGtkMenu (menu)));
+	PUSHs (sv_2mortal (newSViv (*x)));
+	PUSHs (sv_2mortal (newSViv (*y)));
+	if (callback->data)
+		XPUSHs (sv_2mortal (newSVsv (callback->data)));
 
 	PUTBACK;
 

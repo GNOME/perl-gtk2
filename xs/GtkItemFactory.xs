@@ -20,7 +20,6 @@
  */
 #include "gtk2perl.h"
 
-
 /*
  * whee!  since the Callback1 form does not have data at the end and all that
  * fun stuff, so we can't use the spiffy generic GPerlCallback marshaller i
@@ -43,9 +42,12 @@ gtk2perl_item_factory_item_activate (GtkWidget * widget,
 	SAVETMPS;
 
 	PUSHMARK (SP);
-	XPUSHs (callback->data ? callback->data : &PL_sv_undef);
-	XPUSHs (sv_2mortal (newSViv (callback_action)));
-	XPUSHs (sv_2mortal (newSVGtkWidget (widget)));
+	EXTEND (SP, 3);
+	PUSHs (sv_2mortal (newSVsv (callback->data
+	                            ? callback->data
+	                            : &PL_sv_undef)));
+	PUSHs (sv_2mortal (newSViv (callback_action)));
+	PUSHs (sv_2mortal (newSVGtkWidget (widget)));
 	PUTBACK;
 
 	call_sv (callback->func, G_DISCARD);
