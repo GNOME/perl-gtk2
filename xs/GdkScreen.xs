@@ -24,6 +24,12 @@ MODULE = Gtk2::Gdk::Screen	PACKAGE = Gtk2::Gdk::Screen	PREFIX = gdk_screen_
 
 #ifdef GDK_TYPE_SCREEN
 
+BOOT:
+	/* the gdk backends override the public GdkScreen with private,
+	 * back-end-specific types.  tell gperl_get_object not to 
+	 * complain about them.  */
+	gperl_object_set_no_warn_unreg_subclass (GDK_TYPE_SCREEN, TRUE);
+
 ##  void (*size_changed) (GdkScreen *screen) 
 
 ##  GdkColormap *gdk_screen_get_default_colormap (GdkScreen *screen) 
