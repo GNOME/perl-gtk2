@@ -2,7 +2,7 @@
 use strict;
 
 use Gtk2;
-use Gtk2::TestHelper tests => 4;
+use Gtk2::TestHelper tests => 4, noinit => 1;
 
 my $button = Gtk2::Button -> new("Blub");
 

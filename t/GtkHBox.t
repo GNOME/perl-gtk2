@@ -2,7 +2,7 @@
 use strict;
 
 use Gtk2;
-use Gtk2::TestHelper tests => 1;
+use Gtk2::TestHelper tests => 1, noinit => 1;
 
 my $box = Gtk2::HBox -> new();
 isa_ok($box, "Gtk2::HBox");

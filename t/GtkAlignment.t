@@ -2,7 +2,7 @@
 use strict;
 
 use Gtk2;
-use Gtk2::TestHelper tests => 2;
+use Gtk2::TestHelper tests => 2, noinit => 1;
 
 my $alignment = Gtk2::Alignment -> new(2.3, 4.2, 7, 13);
 isa_ok($alignment, "Gtk2::Alignment");

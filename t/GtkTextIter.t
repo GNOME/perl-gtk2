@@ -1,5 +1,5 @@
 
-use Gtk2::TestHelper tests => 16;
+use Gtk2::TestHelper tests => 16, noinit => 1;
 
 $model = Gtk2::TextBuffer->new;
 $model->insert ($model->get_start_iter, join " ", 'Lore ipsem dolor.  I think that is misspelled.'x80);

@@ -2,7 +2,7 @@
 use strict;
 
 use Gtk2;
-use Gtk2::TestHelper tests => 2;
+use Gtk2::TestHelper tests => 2, noinit => 1;
 
 use Gtk2::Gdk::Keysyms;
 

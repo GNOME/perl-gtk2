@@ -12,7 +12,7 @@ use warnings;
 
 #########################
 
-use Gtk2::TestHelper tests => 9;
+use Gtk2::TestHelper tests => 9, noinit => 1;
 
 ok( my $sts = Gtk2::Statusbar->new );
 

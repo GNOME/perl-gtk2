@@ -2,7 +2,7 @@
 use strict;
 
 use Gtk2;
-use Gtk2::TestHelper tests => 2;
+use Gtk2::TestHelper tests => 2, noinit => 1;
 
 my $dialog = Gtk2::MessageDialog -> new(undef,
                                         "destroy-with-parent",

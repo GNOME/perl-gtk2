@@ -2,7 +2,7 @@
 use strict;
 
 use Gtk2;
-use Gtk2::TestHelper tests => 5;
+use Gtk2::TestHelper tests => 5, noinit => 1;
 
 my $table = Gtk2::Table -> new(5, 5, 1);
 

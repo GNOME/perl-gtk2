@@ -7,7 +7,7 @@
 # 	- rm
 #########################
 
-use Gtk2::TestHelper tests => 10;
+use Gtk2::TestHelper tests => 10, noinit => 1;
 
 ok( my $cal = Gtk2::Calendar->new );
 

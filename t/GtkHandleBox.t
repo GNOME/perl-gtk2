@@ -7,7 +7,7 @@
 # 	- rm
 #########################
 
-use Gtk2::TestHelper tests => 8;
+use Gtk2::TestHelper tests => 8, noinit => 1;
 
 ok( my $hb = Gtk2::HandleBox->new );
 

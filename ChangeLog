@@ -1,3 +1,25 @@
+2004/01/10 12:44 (-0500) rwmcfa1
+
+	* t/02.GtkContainer.t, t/GdkRegion.t, t/GtkAccelLabel.t,
+	t/GtkAdjustment.t, t/GtkAlignment.t, t/GtkArrow.t, t/GtkAspectFrame.t,
+	t/GtkBin.t, t/GtkBox.t, t/GtkButton.t, t/GtkButtonBox.t, t/GtkCalendar.t,
+	t/GtkCheckButton.t, t/GtkCheckMenuItem.t, t/GtkDrawingArea.t,
+	t/GtkEventBox.t, t/GtkFixed.t, t/GtkFrame.t, t/GtkHBox.t,
+	t/GtkHButtonBox.t, t/GtkHPaned.t, t/GtkHRuler.t, t/GtkHScale.t,
+	t/GtkHScrollbar.t, t/GtkHSeparator.t, t/GtkHandleBox.t,
+	t/GtkImageMenuItem.t, t/GtkLayout.t, t/GtkMenuBar.t, t/GtkMenuItem.t,
+	t/GtkMessageDialog.t, t/GtkMisc.t, t/GtkProgressBar.t,
+	t/GtkRadioButton.t, t/GtkRadioMenuItem.t, t/GtkRange.t, t/GtkRuler.t,
+	t/GtkScale.t, t/GtkScrolledWindow.t, t/GtkSeparatorMenuItem.t,
+	t/GtkSizeGroup.t, t/GtkStatusBar.t, t/GtkStock.t, t/GtkTable.t,
+	t/GtkTearoffMenuItem.t, t/GtkTextIter.t, t/GtkToggleButton.t,
+	t/GtkTreeSelection.t, t/GtkVBox.t, t/GtkVButtonBox.t, t/GtkVPaned.t,
+	t/GtkVRuler.t, t/GtkVScale.t, t/GtkVScrollbar.t, t/GtkVSeparator.t,
+	t/GtkViewport.t: used noinit => 1 with TestHelper b/c these seem to
+	be able to go about there business without init. and yes i know this is
+	a huge commit log, but it's useful to be able to see which tests i did
+	this to at a glance.
+
 2004/01/10 12:26 (-0500) muppetman
 
 	* t/GdkWindow.t: one more fix -- GdkScreen didn't exist on 2.0.x

@@ -2,7 +2,7 @@
 use strict;
 
 use Gtk2;
-use Gtk2::TestHelper tests => 2;
+use Gtk2::TestHelper tests => 2, noinit => 1;
 
 my $separator = Gtk2::HSeparator -> new();
 isa_ok($separator, "Gtk2::Separator");

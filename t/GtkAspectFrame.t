@@ -2,7 +2,7 @@
 use strict;
 
 use Gtk2;
-use Gtk2::TestHelper tests => 3;
+use Gtk2::TestHelper tests => 3, noinit => 1;
 
 # Blatantly stolen from Ross' original test.
 

@@ -2,7 +2,7 @@
 use strict;
 
 use Gtk2;
-use Gtk2::TestHelper tests => 2;
+use Gtk2::TestHelper tests => 2, noinit => 1;
 
 my $adjustment = Gtk2::Adjustment -> new(0, 0, 100, 1, 5, 10);
 

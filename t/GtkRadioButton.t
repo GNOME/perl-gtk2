@@ -7,7 +7,7 @@
 # 	- rm
 #########################
 
-use Gtk2::TestHelper tests => 9;
+use Gtk2::TestHelper tests => 9, noinit => 1;
 
 ok( my $vbox = Gtk2::VBox->new(0, 5) );
 # $win->add($vbox);
