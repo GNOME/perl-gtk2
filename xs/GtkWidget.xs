@@ -536,7 +536,7 @@ PangoContext_noinc *
 gtk_widget_create_pango_context (GtkWidget *widget)
 
  #PangoContext *gtk_widget_get_pango_context    (GtkWidget   *widget);
-PangoContext_noinc *
+PangoContext *
 gtk_widget_get_pango_context (GtkWidget *widget)
 
 PangoLayout_noinc *
