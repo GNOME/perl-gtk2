@@ -65,7 +65,7 @@ gtk_list_store_set_column_types (list_store, ...)
 ## void gtk_list_store_set (GtkListStore *list_store, GtkTreeIter *iter, ...)
 void
 gtk_list_store_set (list_store, iter, ...)
-	GtkListStore *list_store;
+	GtkListStore *list_store
 	GtkTreeIter *iter
     PREINIT:
 	int i, ncols;

@@ -1,3 +1,7 @@
+2003/10/22 13:31 muppetman
+
+	* xs/GtkListStore.xs: stray semicolon
+
 2003/10/19 18:55 rwmcfa1
 
 	* xs/GdkPixbuf.xs: two missing semicolons added, in 2.2 section so 
