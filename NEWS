@@ -1,3 +1,15 @@
+Overview of Changes in 1.0391
+=============================
+
+* Disavow the existence of gtk+ 2.3.x, bump all version checks to 2.4. [muppet]
+* Add, document, and test Gtk2::GET_VERSION_INFO; rename
+  Gtk2::Pango::get_version_info to Gtk2::Pango::GET_VERSION_INFO.  [muppet]
+* New example, improved examples, improved commentary.  [Ross, muppet]
+* Documentation improvements.
+* Allow embedded \0s in property strings.  [Torsten]
+* Test suite stuff.
+* Portability fixes, and update the exports file for win32.  [muppet]
+
 Overview of Changes in Gtk2 1.039
 =================================
 
