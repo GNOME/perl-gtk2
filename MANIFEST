@@ -216,6 +216,7 @@ t/GtkTreeModelFilter.t
 t/GtkTreeSelection.t
 t/GtkTreeStore.t
 t/GtkTreeView.t
+t/GtkTreeView-Dnd.t
 t/GtkUIManager.t
 t/GtkVBox.t
 t/GtkVButtonBox.t

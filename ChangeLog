@@ -1,3 +1,10 @@
+2004/02/02 22:37 (-0500) rwmcfa1
+
+	* xs/GtkTreeView.xs: gtk_tree_view_create_row_drag_icon was missing, 
+	now implemented.
+
+	* t/GtkTreeView-Dnd.t: initial import, awaiting simulating a dnd
+
 2004/02/02 19:39 (-0500) rwmcfa1
 
 	* examples/simple_menu.pl, pm/SimpleMenu.pm: examples/doc on how to use

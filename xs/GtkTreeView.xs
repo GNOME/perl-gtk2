@@ -530,6 +530,8 @@ void gtk_tree_view_widget_to_tree_coords (GtkTreeView *tree_view, gint wx, gint 
 #### void gtk_tree_view_tree_to_widget_coords (GtkTreeView *tree_view, gint tx, gint ty, gint *wx, gint *wy)
 void gtk_tree_view_tree_to_widget_coords (GtkTreeView *tree_view, gint tx, gint ty, OUTLIST gint wx, OUTLIST gint wy)
 
+GdkPixmap * gtk_tree_view_create_row_drag_icon (GtkTreeView * tree_view, GtkTreePath * path);
+
 #### void gtk_tree_view_enable_model_drag_source (GtkTreeView *tree_view, GdkModifierType start_button_mask, const GtkTargetEntry *targets, gint n_targets, GdkDragAction actions)
 =for apidoc
 =for arg ... of Gtk2::TargetEntry's
