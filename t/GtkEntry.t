@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 12;
+use Gtk2::TestHelper tests => 13;
 
 # $Header$
 
@@ -35,13 +35,21 @@ like($x, qr/^-?\d+$/);
 like($y, qr/^-?\d+$/);
 
 SKIP: {
-  skip("[sg]et_completion are new in 2.3", 1)
+  skip("[sg]et_completion are new in 2.4", 1)
     unless Gtk2->CHECK_VERSION (2, 3, 0); # FIXME 2.4
 
   my $completion = Gtk2::EntryCompletion -> new();
 
   $entry -> set_completion($completion);
   is($entry -> get_completion(), $completion);
+}
+
+SKIP: {
+  skip("[sg]et_alignment are new in 2.4", 1)
+    unless Gtk2->CHECK_VERSION (2, 3, 5); # FIXME 2.4
+
+  $entry -> set_alignment(0.23);
+  is(int($entry -> get_alignment() * 100) / 100, 0.23);
 }
 
 __END__

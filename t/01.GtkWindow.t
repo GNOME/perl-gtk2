@@ -9,7 +9,7 @@
 
 #########################
 
-use Gtk2::TestHelper tests => 104;
+use Gtk2::TestHelper tests => 105;
 
 ok( my $win = Gtk2::Window->new );
 ok( $win = Gtk2::Window->new('popup') );
@@ -103,6 +103,16 @@ ok(1);
 
 # FIXME: is it correct to assume that it always returns false?
 ok( ! $win2->mnemonic_activate($mnemonic, "shift-mask") );
+
+SKIP: {
+	skip "activate_key is new in 2.4", 1
+		unless Gtk2->CHECK_VERSION (2, 3, 5); # FIXME 2.4
+
+	my $event = Gtk2::Gdk::Event::Key->new ("key-press");
+	$event->keyval ($Gtk2::Gdk::Keysyms{ A });
+
+	ok ( ! $win2->activate_key ($event) );
+}
 
 $win2->remove_mnemonic($mnemonic, $label);
 ok(1);

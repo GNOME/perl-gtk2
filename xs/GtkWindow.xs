@@ -605,6 +605,17 @@ gtk_window_set_auto_startup_notification (class, setting)
 
 #endif
 
+#if GTK_CHECK_VERSION(2,3,5) /* FIXME 2.4 */
+
+gboolean
+gtk_window_activate_key (window, event)
+	GtkWindow *window
+	GdkEvent *event
+    C_ARGS:
+	window, (GdkEventKey *) event
+
+#endif
+
 MODULE = Gtk2::Window	PACKAGE = Gtk2::WindowGroup	PREFIX = gtk_window_group_
 
 ## GtkWindowGroup * gtk_window_group_new (void)

@@ -121,6 +121,14 @@ GtkEntryCompletion *gtk_entry_get_completion (GtkEntry *entry);
 
 #endif
 
+#if GTK_CHECK_VERSION(2,3,5) /* FIXME 2.4 */
+
+void gtk_entry_set_alignment (GtkEntry *entry, gfloat xalign);
+
+gfloat gtk_entry_get_alignment (GtkEntry *entry);
+
+#endif
+
 ##
 ## hey, these are deprecated!  is that new as of 2.3.x?
 ##

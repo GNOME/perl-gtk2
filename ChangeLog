@@ -1,3 +1,11 @@
+2004/03/01 19:55 (+0100) kaffeetisch
+
+	* t/GtkEntry.t
+	* xs/GtkEntry.xs: Bind and test [sg]et_alignment.
+
+	* t/01.GtkWindow.t
+	* xs/GtkWindow.xs: Bind and test activate_key.
+
 2004/03/01 02:24 (-0500) muppetman
 
 	* xs/GdkPixmap.xs: bad signature in pod
