@@ -1,3 +1,18 @@
+2004/04/04 19:26 (+0100) kaffeetisch
+
+	* t/01.GtkWindow.t: Fix the TODO by allowing both, TRUE and FALSE,
+	as the return value of is_active and has_toplevel_focus.
+
+	* t/Gdk.t: Don't fail the keyboard_grab test if there already is
+	an active keyboard grab.
+
+	* t/PangoTabs.t: Test new and new_with_positions instead of two
+	times new.
+
+	Merge from HEAD:
+
+	* xs/Gtk2.xs: Link to Glib::version.
+
 2004/04/04 12:56 (-0500) rwmcfa1
 
 	* xs/Gtk2.xs: quite some warnings in the runtime version checking.

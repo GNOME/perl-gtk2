@@ -173,6 +173,10 @@ semantics in C, and we have preserved those faithfully.
 
 =cut
 
+=for see_also Glib::version
+=cut
+
+  # we have no use for these in perl.
  ##GTKMAIN_C_VAR const guint gtk_binary_age;
  ##GTKMAIN_C_VAR const guint gtk_interface_age;
 
