@@ -1,3 +1,18 @@
+2004/09/21 20:06 (-0400) muppetman
+
+	Fix issues related to utf-8 and locales.  Thanks to ender for
+	pointing these out in irc.
+
+	* t/GtkButton.t: in some locales the decimal is ",", not "."; this can
+	cause problems because '0.7' != '0,7', etc.  To avoid such problems,
+	don't use hardcoded strings for comparison of floats.
+
+	* xs/GtkStock.xs: use newSVGChar() instead of newSVpv() for gchar*
+	strings.
+
+	* tools/podifystockitems.pl: set STDOUT's binmode properly for writing
+	utf8 characters, to avoid "Wide character in print" warnings.
+
 2004/09/19 23:35 (+0200) kaffeetisch
 
 	* CodeGen.pm, Makefile.PL: Use capitals at the start of everything
