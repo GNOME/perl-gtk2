@@ -1,3 +1,13 @@
+Overview of Changes in Gtk2 1.043
+=================================
+
+* Code fixes and cleanup for C89 compatibility.  [Albert Chin, muppet]
+* Check for correct build dependency versions.  [Torsten]
+* Fix tests that were giving false positives.  [Torsten]
+* Allow creation of anonymous text marks.  [Marc Lehmann]
+* Documentation improvements.  [Torsten, Marc Lehmann]
+* Minor bugfixes.  [Torsten]
+
 Overview of Changes in Gtk2 1.042
 =================================
 
