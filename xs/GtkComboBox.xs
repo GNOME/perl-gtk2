@@ -70,3 +70,21 @@ void gtk_combo_box_insert_text (GtkComboBox *combo_box, gint position, const gch
 void gtk_combo_box_prepend_text (GtkComboBox *combo_box, const gchar *text);
 
 void gtk_combo_box_remove_text (GtkComboBox *combo_box, gint position);
+
+#if GTK_CHECK_VERSION (2, 5, 2) /* FIXME 2.6.0 */
+
+gchar_own * gtk_combo_box_get_active_text (GtkComboBox *combo_box);
+
+gboolean gtk_combo_box_get_add_tearoffs (GtkComboBox *combo_box);
+
+void gtk_combo_box_set_add_tearoffs (GtkComboBox *combo_box, gboolean add_tearoffs);
+
+#AtkObject * gtk_combo_box_get_popup_accessible (GtkComboBox *combo_box);
+#GtkTreeViewRowSeparatorFunc gtk_combo_box_get_row_separator_func (GtkComboBox *combo_box);
+#void gtk_combo_box_set_row_separator_func (GtkComboBox *combo_box, GtkTreeViewRowSeparatorFunc func, gpointer data, GtkDestroyNotify destroy)
+
+void gtk_combo_box_set_focus_on_click (GtkComboBox *combo_box, gboolean focus_on_click);
+
+gboolean gtk_combo_box_get_focus_on_click (GtkComboBox *combo_box);
+
+#endif

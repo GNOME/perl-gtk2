@@ -1,3 +1,13 @@
+2004/10/24 11:56 (-0400) muppetman
+
+	* xs/GtkComboBox.xs, t/GtkComboBox.t: bind and test
+	gtk_combo_box_get_active_text,
+	gtk_combo_box_get_add_tearoffs, gtk_combo_box_set_add_tearoffs,
+	gtk_combo_box_get_focus_on_click, gtk_combo_box_set_focus_on_click.
+	in order to test get_active_text, there needs to be data in the model;
+	adding data to the model makes set_column_span_column hang the test,
+	so i've disabled that.
+
 2004/10/24 11:48 (-0400) muppetman
 
 	* t/PangoFontMap.t: correct skip count
