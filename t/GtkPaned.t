@@ -90,6 +90,10 @@ $window->signal_connect (size_allocate => sub {
 	$this = shift @framesizes;
 
 	if ($i++) {
+	TODO: {
+		local $TODO = ((Gtk2->get_version_info)[1] > 2)
+			? "paned fails remote/non-gnome-desktop/2.2.3 ???"
+			: undef;
 		# don't validate the first wave -- the window probably
 		# hasn't had time to get properly sized.
 		($w, $h) = sizeof ($hframe);
@@ -107,6 +111,7 @@ $window->signal_connect (size_allocate => sub {
 		is ($h, $this->[5]);
 		push @foo, $w, $h;
 		print join(" ", "[", @foo, "]\n");
+	}
 	}
 
 	$this = shift @windowprops;

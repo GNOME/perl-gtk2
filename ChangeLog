@@ -1,3 +1,9 @@
+2004/01/29 18:30 (-0500) rwmcfa1
+
+	* t/01.GtkWindow.t, t/GdkDrawable.t, t/GdkWindow.t, t/GtkPaned.t: 
+	temporary stop-gap fixes for test failures against HEAD, remotely 
+	running windowmaker, that's a mouth full.
+
 2004/01/28 15:42 (-0500) rwmcfa1
 
 	* xs/GtkCalendar.xs, xs/GtkRenderer.xs, xs/GtkTextChildAnchor.xs,
