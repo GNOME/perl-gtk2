@@ -138,6 +138,7 @@ t/GtkEntry.t
 t/GtkEntryCompletion.t
 t/GtkEventBox.t
 t/GtkExpander.t
+t/GtkFileChooser.t
 t/GtkFileChooserDialog.t
 t/GtkFileChooserWidget.t
 t/GtkFileFilter.t
