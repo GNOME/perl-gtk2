@@ -39,15 +39,9 @@ $button->signal_connect (toggled => sub {
 # here's a timeout that is always running, but only does something if
 # $button is toggled on.
 #
-# the real way...
-#my $id = Glib::Timeout->add (100, sub {
-# the Gtk2 wrapper
-my $id = Gtk2->timeout_add (100, sub {
-#			warn Dumper(\@_);
-			#if ($button->get_active) {
+my $id = Glib::Timeout->add (100, sub {
 			if ($_[0][1]->get_active) {
 				$str++;
-				#$label->set_text ($str);
 				$_[0][0]->set_text ($str);
 			}
 			1;
@@ -71,14 +65,11 @@ $button2->signal_connect (toggled => sub {
 		if (!$_[0]->get_active) {
 			# user turned us off before the callback ran
 			warn "uninstalling $id2";
-			###Gtk2->timeout_remove ($id2);
 			Glib::Source->remove ($id2);
 			$id2 = undef;
 		} else {
-			###$id2 = Gtk2->timeout_add (1000, sub {
 			$id2 = Glib::Timeout->add (1000, sub {
 				warn "callback, $_[0]";
-				#$_[0]->toggle;
 				$_[0]->set_active (0);
 				0;	# don't run again
 				}, $_[0]);
