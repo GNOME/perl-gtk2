@@ -1,3 +1,17 @@
+Overview of changes in Gtk2 1.073
+=================================
+
+* Require Glib 1.073.
+* API additions:  [muppet]
+  - Gtk2::show_about_dialog (new in gtk+ 2.6.0)
+  - Gtk2::CellRenderer::stop_editing (new in gtk+ 2.6.0)
+  - Gtk2::Gdk::Pixbuf::get_option
+  - Gtk2::IconView::selected_foreach (new in gtk+ 2.6.0)
+  - Gtk2::Pango::parse_markup
+* Add missing @ISA entries for various GInterfaces.  [Ross, muppet]
+* Make sure to treat text as utf8 in AboutDialog methods.  [muppet]
+* Test suite updates.  [muppet, Ross]
+
 Overview of changes in Gtk2 1.072
 =================================
 
