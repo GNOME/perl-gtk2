@@ -4,6 +4,14 @@
 
 #include "gtk2perl.h"
 
+/* handlers for GtkTreeCellDataFunc, defined in GtkTreeViewColumn.xs */
+GPerlCallback * gtk2perl_tree_cell_data_func_create (SV * func, SV *data);
+void  gtk2perl_tree_cell_data_func (GtkTreeViewColumn * tree_column,
+                                    GtkCellRenderer * cell,
+                                    GtkTreeModel * tree_model,
+                                    GtkTreeIter * iter,
+                                    gpointer data);
+
 // typedef gboolean (* GtkTreeViewColumnDropFunc) (GtkTreeView *tree_view, GtkTreeViewColumn *column, GtkTreeViewColumn *prev_column, GtkTreeViewColumn *next_column, gpointer data)
 // typedef void (* GtkTreeViewMappingFunc) (GtkTreeView *tree_view, GtkTreePath *path, gpointer user_data)
 // typedef gboolean (*GtkTreeViewSearchEqualFunc) (GtkTreeModel *model, gint column, const gchar *key, GtkTreeIter *iter, gpointer search_data)
@@ -125,6 +133,24 @@ gtk_tree_view_insert_column (tree_view, column, position)
 ##	GtkTreeCellDataFunc func
 ##	gpointer data
 ##	GDestroyNotify dnotify
+gint
+gtk_tree_view_insert_column_with_data_func (tree_view, position, title, cell, func, data=NULL)
+	GtkTreeView *tree_view
+	gint position
+	const gchar *title
+	GtkCellRenderer *cell
+	SV * func
+	SV * data
+    PREINIT:
+	GPerlCallback * callback;
+    CODE:
+	callback = gtk2perl_tree_cell_data_func_create (func, data);
+	RETVAL = gtk_tree_view_insert_column_with_data_func
+				(tree_view, position, title, cell,
+				 gtk2perl_tree_cell_data_func, callback,
+				 (GDestroyNotify) gperl_callback_destroy);
+    OUTPUT:
+	RETVAL
 
 GtkTreeViewColumn *
 gtk_tree_view_get_column (tree_view, n)
