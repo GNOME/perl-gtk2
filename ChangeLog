@@ -2,6 +2,9 @@
 
 	* Gtk2.pm, README, NEWS: unstable development release 1.051
 
+	* gtk2perl.h: protect custom GTypes with #ifndefs, to avoid
+	redefining symbols that are provided upstream in different versions.
+
 2004/06/22 20:19 (-0400) rwmcfa1
 
 	* examples/thread_usage.pl: now that we can truely support threads

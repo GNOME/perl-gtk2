@@ -28,12 +28,16 @@
 #include <gtk/gtk.h>
 
 /* custom GType for GdkRegion */
-#define GDK_TYPE_REGION (gtk2perl_gdk_region_get_type ())
-GType gtk2perl_gdk_region_get_type (void) G_GNUC_CONST;
+#ifndef GDK_TYPE_REGION
+# define GDK_TYPE_REGION (gtk2perl_gdk_region_get_type ())
+  GType gtk2perl_gdk_region_get_type (void) G_GNUC_CONST;
+#endif
 
 /* custom GType for PangoLayoutIter */
-#define PANGO_TYPE_LAYOUT_ITER (gtk2perl_pango_layout_iter_get_type ())
-GType gtk2perl_pango_layout_iter_get_type (void) G_GNUC_CONST;
+#ifndef PANGO_TYPE_LAYOUT_ITER
+# define PANGO_TYPE_LAYOUT_ITER (gtk2perl_pango_layout_iter_get_type ())
+  GType gtk2perl_pango_layout_iter_get_type (void) G_GNUC_CONST;
+#endif
 
 #include "gtk2perl-autogen.h"
 #include "gtk2perl-versions.h"
