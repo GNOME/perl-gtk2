@@ -1,3 +1,16 @@
+2004/05/11 19:38 (+0200) kaffeetisch
+
+	* Gtk2.exports: Update to reflect recent changes.
+
+	* Makefile.PL: Check for the correct versions of EU::Depends and
+	EU::PkgConfig.
+
+	* gtk2perl.h: Remove duplicate declarations of newSVGtkTargetEntry
+	and SvGtkTargetEntry.
+
+	* t/GdkKeys.t: Use a version check for the
+	translate_keyboard_state test instead of always skipping it.
+
 2004/04/25 13:10 (+0200) kaffeetisch
 
 	* t/GdkDisplay.t: Add a reference to the relevant bug to the FIXME

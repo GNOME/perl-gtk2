@@ -37,8 +37,7 @@ isa_ok($mods, "Gtk2::Gdk::ModifierType");
 
 SKIP: {
   skip("translate_keyboard_state is broken", 4)
-    unless (0); # FIXME: use a version check once the fix made it into a release.
-                # see #139715.
+    unless (Gtk2 -> CHECK_VERSION(2, 4, 1));
 
   ($keyval, $group, $level, $mods) = Gtk2::Gdk::Keymap -> translate_keyboard_state($keys[0] -> { keycode }, [qw(shift-mask)], 0);
   like($keyval, qr/^\d+$/);

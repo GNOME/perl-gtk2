@@ -143,9 +143,6 @@ SV * newSVGtkTargetList (GtkTargetList * list);
 GtkTargetList * SvGtkTargetList (SV * sv);
 #define SvGtkTargetList_ornull(sv)	(((sv) && SvOK (sv)) ? SvGtkTargetList (sv) : NULL)
 
-SV * newSVGtkTargetEntry (GtkTargetEntry * entry);
-GtkTargetEntry * SvGtkTargetEntry (SV * sv);
-
 /*
  * exported so Gnome2 can reuse it in wrappers.  other modules might want to
  * do the same.  the callback for it needn't worry about param_types or
