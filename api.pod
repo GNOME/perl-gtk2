@@ -111,8 +111,8 @@ FIXME if anyone can think of a better way to check this, i'm all ears.
 The gtk stock item stuff is a little different -- the GTK_STOCK_* constants
 are actually macros which evaluate to strings, so they aren't handled by the
 mechanism described above; you just specify the string, e.g., 
-GTK_STOCK_OK => 'gtk-ok'.   I don't know where the docs are for those strings,
-but it's been my first guess every time.
+GTK_STOCK_OK => 'gtk-ok'. The full list of stock items can be found at 
+http://developer.gnome.org/doc/API/2.0/gtk/gtk-Stock-Items.html
 
 =head2 Memory Handling
 

@@ -1,9 +1,16 @@
+2003/08/20 12:39 rwmcfa1
+
+	* api.pod: url of stock items strings added, thierry vignaud
+
+	* t/04.GtkSocket-GtkPlug.t: make sure that forked perl runs under the
+	same interperter that it does, calle dybedahl
+
 2003/08/20 04:20 muppetman
 
 	* TODO, examples/accel_groups.pl, xs/GtkAccelGroup.xs, api.pod:
 	implemented a bunch of the GtkAccelGroup stuff, with an example.
 
-2003/08/20 01:45 muppetman
+2003/08/20 01:45 muppetma
 
 	* xs/GtkTreeSelection.xs: patch from Torsten Schoenfeld implements
 	gtk_tree_selection_set_select_function and
@@ -43,6 +50,13 @@
 
 	* Makefile.PL: added realclean removal of build dir to postamble 
 	section. install SimpleMenu.pm
+
+2003/08/19 10:19 rwmcfa1
+
+	* api.pod: url added for location of stock item strings, thierry
+	vignaud
+
+	* t/04.GtkSocket-GtkPlug.t: 
 
 2003/08/19 10:19 rwmcfa1
 
