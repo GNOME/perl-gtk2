@@ -36,11 +36,19 @@ gtk_tree_drag_source_drag_data_delete (drag_source, path)
 	GtkTreePath *path
 
 ### gboolean gtk_tree_drag_source_drag_data_get (GtkTreeDragSource *drag_source, GtkTreePath *path, GtkSelectionData *selection_data)
-#gboolean
-#gtk_tree_drag_source_drag_data_get (drag_source, path, selection_data)
-#	GtkTreeDragSource *drag_source
-#	GtkTreePath *path
-#	GtkSelectionData *selection_data
+GtkSelectionData_copy *
+gtk_tree_drag_source_drag_data_get (drag_source, path, selection_data)
+	GtkTreeDragSource *drag_source
+	GtkTreePath *path
+    PREINIT:
+	GtkSelectionData selection_data;
+    CODE:
+	if (!gtk_tree_drag_source_drag_data_get (drag_source, path, 
+	                                         &selection_data))
+		XSRETURN_UNDEF;
+	RETVAL = &selection_data;
+    OUTPUT:
+	RETVAL
 
 MODULE = Gtk2::TreeDnd	PACKAGE = Gtk2::TreeDragDest	PREFIX = gtk_tree_drag_dest_
 
@@ -58,7 +66,7 @@ gtk_tree_drag_dest_row_drop_possible (drag_dest, dest_path, selection_data)
 	GtkTreePath *dest_path
 	GtkSelectionData *selection_data
 
-MODULE = Gtk2::TreeDnd	PACKAGE = Gtk2::Tree	PREFIX = gtk_tree_
+MODULE = Gtk2::TreeDnd	PACKAGE = Gtk2::SelectionData	PREFIX = gtk_tree_
 
 ## gboolean gtk_tree_set_row_drag_data (GtkSelectionData *selection_data, GtkTreeModel *tree_model, GtkTreePath *path)
 gboolean
@@ -67,10 +75,17 @@ gtk_tree_set_row_drag_data (selection_data, tree_model, path)
 	GtkTreeModel *tree_model
 	GtkTreePath *path
 
-### gboolean gtk_tree_get_row_drag_data (GtkSelectionData *selection_data, GtkTreeModel **tree_model, GtkTreePath **path)
-#gboolean
-#gtk_tree_get_row_drag_data (selection_data, tree_model, path)
-#	GtkSelectionData *selection_data
-#	GtkTreeModel **tree_model
-#	GtkTreePath **path
+## gboolean gtk_tree_get_row_drag_data (GtkSelectionData *selection_data, GtkTreeModel **tree_model, GtkTreePath **path)
+void
+gtk_tree_get_row_drag_data (selection_data, tree_model, path)
+	GtkSelectionData *selection_data
+    PREINIT:
+	GtkTreeModel *tree_model;
+	GtkTreePath *path;
+    PPCODE:
+	if (! gtk_tree_get_row_drag_data (selection_data, &tree_model, &path))
+		XSRETURN_EMPTY;
+	EXTEND (SP, 2);
+	PUSHs (sv_2mortal (newSVGtkTreeModel (tree_model)));
+	PUSHs (sv_2mortal (newSVGtkTreePath_own (path)));
 
