@@ -34,16 +34,12 @@ use constant TRUE => 1;
 use constant FALSE => 0;
 
 # Backing pixmap for drawing area
-#static GdkPixmap *pixmap = NULL;
 my $pixmap = undef;
 
 # Create a new backing pixmap of the appropriate size
 sub configure_event {
   my $widget = shift; # GtkWidget         *widget
   my $event  = shift; # GdkEventConfigure *event
-
-#  if (pixmap)
-#    g_object_unref (pixmap);
 
   $pixmap = Gtk2::Gdk::Pixmap->new ($widget->window,
                                     $widget->allocation->width,
@@ -54,14 +50,6 @@ sub configure_event {
                            0, 0,
                            $widget->allocation->width,
                            $widget->allocation->height);
-
-#  warn "*****************************************************\n";
-#  use Devel::Peek;
-#  my ($foo, $bar);
-#  $foo = $widget->allocation;
-#  $bar = \$$foo;
-#  Dump ($widget->allocation);
-##  die;
 
   return TRUE;
 }
@@ -83,9 +71,7 @@ sub expose_event {
 
 # Draw a rectangle on the screen
 sub draw_brush {
-  my $widget = shift; # GtkWidget *widget
-  my $x = shift; # gdouble    x
-  my $y = shift; # gdouble    y
+  my ($widget, $x, $y) = @_;
 
   # this is not a real GdkRectangle structure; we don't actually need one.
   my @update_rect;
@@ -123,10 +109,6 @@ sub motion_notify_event {
     $state = $event->state;
   }
 
-  #use Data::Dumper;
-  #print Data::Dumper->Dump ([$x, $y, $state], [qw/x y state/]);
-
-#  if (state & GDK_BUTTON1_MASK && pixmap != NULL)
   if (grep (/button1-mask/, @$state) && defined $pixmap) {
     draw_brush ($widget, $x, $y);
   }
@@ -150,26 +132,25 @@ sub motion_notify_event {
 
   my $drawing_area = Gtk2::DrawingArea->new;
   $drawing_area->set_size_request (200, 200);
-#  $drawing_area->size (200, 200);
   $vbox->pack_start ($drawing_area, TRUE, TRUE, 0);
 
   $drawing_area->show;
 
   # Signals used to handle backing pixmap
 
-  $drawing_area->signal_connect (expose_event => \&expose_event, undef);
-  $drawing_area->signal_connect (configure_event => \&configure_event, undef);
+  $drawing_area->signal_connect (expose_event => \&expose_event);
+  $drawing_area->signal_connect (configure_event => \&configure_event);
 
   # Event signals
 
-  $drawing_area->signal_connect (motion_notify_event => \&motion_notify_event, undef);
-  $drawing_area->signal_connect (button_press_event => \&button_press_event, undef);
+  $drawing_area->signal_connect (motion_notify_event => \&motion_notify_event);
+  $drawing_area->signal_connect (button_press_event => \&button_press_event);
 
-  $drawing_area->set_events ([qw/GDK_EXPOSURE_MASK
-			         GDK_LEAVE_NOTIFY_MASK
-			         GDK_BUTTON_PRESS_MASK
-			         GDK_POINTER_MOTION_MASK
-			         GDK_POINTER_MOTION_HINT_MASK/]);
+  $drawing_area->set_events ([qw/exposure-mask
+			         leave-notify-mask
+			         button-press-mask
+			         pointer-motion-mask
+			         pointer-motion-hint-mask/]);
 
   # .. And a quit button
   my $button = Gtk2::Button->new ("Quit");

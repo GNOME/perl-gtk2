@@ -147,9 +147,7 @@ $chk->signal_connect (toggled => sub {
 $vbox->pack_start ($chk, 0, 0, 0);
 $tooltips->set_tip ($chk, 'set whether the list is reorderable');
 
-#$slist->set_column_editable (1, 1);
-#$slist->set_column_editable (2, 1);
-
+# finally, a button to end it all
 $btn = Gtk2::Button->new_from_stock ('gtk-quit');
 $btn->signal_connect (clicked => sub  { Gtk2->main_quit; });
 $vbox->pack_end($btn, 0, 1, 0);
