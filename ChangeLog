@@ -1,3 +1,11 @@
+2003/08/19 10:19 rwmcfa1
+
+	* t/*.t: fixed things so that test do not fail if init_check fails,
+	this is so that it can be build without a DISPLAY. tests are skipped
+	and a warning message is printed by Test::More. in reality passing
+	this doesn't mean much more than Gtk2 will load, but without a display
+	that's all that can be done.
+
 2003/08/18 17:24 muppetman
 
 	* README: remove FIXME: we do have more docs, they're linked
