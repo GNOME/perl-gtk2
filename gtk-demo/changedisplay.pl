@@ -218,11 +218,7 @@ sub fill_screens {
 sub response_cb {
   my ($dialog, $response_id, $info) = @_;
 
-  # the nice string enums we work with normally don't work inside
-  # the response handler, for reasons too boring to get into here.
-  # Gtk2::Dialog::Responses gives us usable constants.
-  use Gtk2::Dialog::Responses;
-  if ($response_id == GTK_RESPONSE_OK) {
+  if ($response_id eq 'ok') {
     query_change_display ($info);
   } else {
     $dialog->destroy;

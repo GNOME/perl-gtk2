@@ -9,7 +9,7 @@ use Config;
 use Cwd;
 
 # minimum required version of Glib with which we can work.
-my $req_glib_ver = '1.00rc1';
+my $req_glib_ver = '1.00rc2';
 
 # Writing a fake Makefile ensures that CPAN will pick up the correct
 # dependencies and install them.
@@ -70,7 +70,6 @@ my %pm_files = (
 	'CodeGen.pm'       => '$(INST_LIBDIR)/Gtk2/CodeGen.pm',
 	'pm/Helper.pm'     => '$(INST_LIBDIR)/Gtk2/Helper.pm',
 	'pm/Pango.pm'      => '$(INST_LIBDIR)/Gtk2/Pango.pm',
-	'pm/Responses.pm'  => '$(INST_LIBDIR)/Gtk2/Dialog/Responses.pm',
 	'pm/SimpleList.pm' => '$(INST_LIBDIR)/Gtk2/SimpleList.pm',
 	'pm/SimpleMenu.pm' => '$(INST_LIBDIR)/Gtk2/SimpleMenu.pm',
 	'api.pod'          => '$(INST_LIBDIR)/Gtk2/api.pod',
@@ -82,7 +81,6 @@ my %pod_files = (
 	'CodeGen.pm'       => '$(INST_MAN3DIR)/Gtk2::CodeGen.$(MAN3EXT)',
 	'pm/Helper.pm'     => '$(INST_MAN3DIR)/Gtk2::Helper.$(MAN3EXT)',
 	'pm/Pango.pm'      => '$(INST_MAN3DIR)/Gtk2::Pango.$(MAN3EXT)',
-	'pm/Responses.pm'  => '$(INST_MAN3DIR)/Gtk2::Dialog::Responses.$(MAN3EXT)',
 	'pm/SimpleList.pm' => '$(INST_MAN3DIR)/Gtk2::SimpleList.$(MAN3EXT)',
 	'pm/SimpleMenu.pm' => '$(INST_MAN3DIR)/Gtk2::SimpleMenu.$(MAN3EXT)',
 	'api.pod'          => '$(INST_MAN3DIR)/Gtk2::api.$(MAN3EXT)',
