@@ -97,15 +97,20 @@ $buffer -> remove_all_tags($buffer -> get_start_iter(), $buffer -> get_end_iter(
 ok(!$buffer -> delete_selection(1, 1));
 ok(!$buffer -> get_selection_bounds());
 
-my $clipboard = Gtk2::Clipboard -> get(Gtk2::Gdk -> SELECTION_CLIPBOARD);
+SKIP: {
+  skip "Clipboard did not exist until 2.2.0", 0
+    if (Gtk2->get_version_info)[1] < 2;
 
-$buffer -> paste_clipboard($clipboard, $buffer -> get_end_iter(), 1);
-$buffer -> paste_clipboard($clipboard, undef, 1);
-$buffer -> copy_clipboard($clipboard);
-$buffer -> cut_clipboard($clipboard, 1);
+  my $clipboard = Gtk2::Clipboard -> get(Gtk2::Gdk -> SELECTION_CLIPBOARD);
 
-$buffer -> add_selection_clipboard($clipboard);
-$buffer -> remove_selection_clipboard($clipboard);
+  $buffer -> paste_clipboard($clipboard, $buffer -> get_end_iter(), 1);
+  $buffer -> paste_clipboard($clipboard, undef, 1);
+  $buffer -> copy_clipboard($clipboard);
+  $buffer -> cut_clipboard($clipboard, 1);
+
+  $buffer -> add_selection_clipboard($clipboard);
+  $buffer -> remove_selection_clipboard($clipboard);
+}
 
 $buffer -> begin_user_action();
 $buffer -> end_user_action();
