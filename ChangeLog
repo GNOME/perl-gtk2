@@ -1,3 +1,18 @@
+2003/06/26 13:48 muppetman
+
+	* pm/Pango.pm: new file allows you to import the Pango constants.
+
+	* Gtk2.pm: allow 'use Gtk2 -init', a la gtk-perl; bumped version
+	to 0.25 for CVS.
+
+	* Makefile.PL: add Pango.pm and api.pod to install; install manpages.
+
+	* gtk-demo/images.pl: use normal operators rather than ->eq (works on
+	overloaded and persistent wrappers)
+
+	* xs/GtkWidget.xs: support for requisitions as writable objects.
+	needed for supporting size_request event.
+
 2003/06/26 01:11 pcg
 
 	* META.yml: Add module meta-data in YAML for CPAN.
