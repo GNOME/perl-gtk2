@@ -118,8 +118,9 @@ ok(1);
 $win2->set_focus(Gtk2::Entry->new());
 ok(1);
 
-# FIXME: what could be used here?
-# $win2->set_default(...);
+my $button = Gtk2::Button->new ('i can default!');
+$button->can_default (TRUE);
+$win2->set_default($button);
 
 $win2->set_decorated(TRUE);
 ok(1);
