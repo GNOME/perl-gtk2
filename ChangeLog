@@ -1,3 +1,7 @@
+2003/06/12 18:06 pcg
+
+	* xs/GtkWidget.xs: enable add_events, set/get_extension_events.
+
 2003/06/09 13:49 muppetman
 
 	* xs/GtkClipboard.xs: new stuff; 2.2.x only, so only smoke-tested on

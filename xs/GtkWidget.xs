@@ -423,16 +423,22 @@ gtk_widget_set_events (widget, events)
 	GdkEventMask            events
  ###	gint			events
 
- #void       gtk_widget_add_events          (GtkWidget           *widget,
- #					   gint	                events);
- #void	   gtk_widget_set_extension_events (GtkWidget		*widget,
- #					    GdkExtensionMode	mode);
- #
- #GdkExtensionMode gtk_widget_get_extension_events (GtkWidget	*widget);
+void
+gtk_widget_add_events          (widget, events)
+	GtkWidget           *widget
+	GdkEventMask         events
 
- ## allow NULL for those crazy folks who call get_toplevel before a
- ## widget has been added to a container
+void
+gtk_widget_set_extension_events (widget, mode)
+	GtkWidget		*widget
+	GdkExtensionMode	mode
 
+GdkExtensionMode
+gtk_widget_get_extension_events (widget)
+	GtkWidget	*widget
+
+## allow NULL for those crazy folks who call get_toplevel before a
+## widget has been added to a container
 GtkWidget_ornull *
 gtk_widget_get_toplevel	(widget)
 	GtkWidget * widget
