@@ -105,6 +105,12 @@ window (widget)
     OUTPUT:
 	RETVAL
 
+=for apidoc
+=for signature allocation = $widget->allocation
+Returns I<$widget>'s current allocated size as a read-only rectangle
+(re-blessed as a Gtk2::Allocation); the allocated size is not necessarily
+the same as the requested size.
+=cut
 SV *
 allocation (widget)
 	GtkWidget * widget
@@ -415,6 +421,9 @@ gtk_widget_reparent (widget, new_parent)
 	GtkWidget * widget
 	GtkWidget * new_parent
 
+=for apidoc
+Returns undef if I<$widget> and I<$area> do not intersect.
+=cut
 GdkRectangle_copy *
 gtk_widget_intersect (widget, area)
 	GtkWidget    * widget
@@ -575,6 +584,11 @@ gtk_widget_get_pointer (GtkWidget *widget, OUTLIST gint x, OUTLIST gint y);
 gboolean gtk_widget_is_ancestor (GtkWidget *widget, GtkWidget *ancestor);
 
  #gboolean gtk_widget_translate_coordinates (GtkWidget *src_widget, GtkWidget *dest_widget, gint src_x, gint src_y, gint *dest_x, gint *dest_y);
+=for apidoc
+=for signature (dst_x, dst_y) = $src_widget->translate_coordinates ($dest_widget, $src_x, $src_y)
+Returns an empty list if either widget is not realized or if they do not share
+a common ancestor.
+=cut
 void
 gtk_widget_translate_coordinates (GtkWidget *src_widget, GtkWidget *dest_widget, gint src_x, gint src_y)
     PREINIT:
@@ -732,6 +746,14 @@ gtk_widget_get_default_direction (class);
  # void gtk_widget_class_path (GtkWidget *widget, guint *path_length, gchar **path, gchar **path_reversed);
  ## both changed to ($path, $path_reversed) = $widget->(path|class_path);
  ## returns the path_reversed straight from C, no matter how nonsensical...
+=for apidoc Gtk2::Widget::path
+=for signature (path, path_reversed) = $widget->path
+=cut
+
+=for apidoc class_path
+=for signature (path, path_reversed) = $widget->class_path
+=cut
+
 void
 gtk_widget_path (GtkWidget *widget)
     ALIAS:

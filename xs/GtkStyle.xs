@@ -251,6 +251,11 @@ gtk_paint_shadow (style, window, state_type, shadow_type, area, widget, detail, 
 	gint height
 
  ## void gtk_paint_polygon (GtkStyle *style, GdkWindow *window, GtkStateType state_type, GtkShadowType shadow_type, GdkRectangle *area, GtkWidget *widget, const gchar *detail, GdkPoint *points, gint npoints, gboolean fill)
+=for apidoc
+=for arg x1 (gint) x coordinate of the first vertex
+=for arg y1 (gint) y coordinate of the first vertex
+=for arg ... more vertex coordinate pairs
+=cut
 void
 gtk_paint_polygon (style, window, state_type, shadow_type, area, widget, detail, fill, x1, y1, ...)
 	GtkStyle *style

@@ -32,6 +32,9 @@ gtk2perl_pixbuf_destroy_notify (guchar * pixels,
 
 MODULE = Gtk2::Gdk::Pixbuf	PACKAGE = Gtk2::Gdk::Pixbuf	PREFIX = gdk_pixbuf_
 
+=for enum GdkPixbufAlphaMode
+=cut
+
  ## void gdk_pixbuf_render_to_drawable (GdkPixbuf *pixbuf, GdkDrawable *drawable, GdkGC *gc, int src_x, int src_y, int dest_x, int dest_y, int width, int height, GdkRgbDither dither, int x_dither, int y_dither)
 void
 gdk_pixbuf_render_to_drawable (pixbuf, drawable, gc, src_x, src_y, dest_x, dest_y, width, height, dither, x_dither, y_dither)
@@ -65,6 +68,10 @@ gdk_pixbuf_render_to_drawable_alpha (pixbuf, drawable, src_x, src_y, dest_x, des
 	int x_dither
 	int y_dither
 
+=for apidoc
+=for signature pixmap = $pixbuf->render_pixmap_and_mask_for_colormap ($colormap, $alpha_threshold)
+=for signature (pixmap, mask) = $pixbuf->render_pixmap_and_mask_for_colormap ($colormap, $alpha_threshold)
+=cut
 void
 gdk_pixbuf_render_pixmap_and_mask_for_colormap (pixbuf, colormap, alpha_threshold)
 	GdkPixbuf *pixbuf
@@ -82,6 +89,10 @@ gdk_pixbuf_render_pixmap_and_mask_for_colormap (pixbuf, colormap, alpha_threshol
 }
 
 
+=for apidoc
+=for signature pixmap = $pixbuf->render_pixmap_and_mask ($alpha_threshold)
+=for signature (pixmap, mask) = $pixbuf->render_pixmap_and_mask ($alpha_threshold)
+=cut
 void
 gdk_pixbuf_render_pixmap_and_mask (pixbuf, alpha_threshold)
 	GdkPixbuf *pixbuf
@@ -183,6 +194,21 @@ gdk_pixbuf_new_from_file (class, filename)
 	RETVAL
 
 ###  GdkPixbuf *gdk_pixbuf_new_from_data (const guchar *data, GdkColorspace colorspace, gboolean has_alpha, int bits_per_sample, int width, int height, int rowstride, GdkPixbufDestroyNotify destroy_fn, gpointer destroy_fn_data) 
+=for apidoc
+
+In C this function allows you to wrap a GdkPixbuf structure around existing
+pixel data.  In Perl, we have to use C<pack> to generate a scalar containing
+the pixel data, and pass that scalar to C<new_from_data>, which copies the
+scalar to keep it around.  It also manages the memory automagically, so there's
+no need for a destruction notifier function.  This all means that if you change
+your copy of the data scalar later, the pixbuf will I<not> reflect that, but
+because of the way perl manages string data and scalars, it would be pretty
+fragile to do that in the first place.  If you need to modify a pixbuf's data
+after it has been created, you can create new pixbufs for the changed regions
+and use C<< $pixbuf->composite >>, or try a different approach (possibly use a
+server-side pixmap and gdk drawing primitives, or something like libart).
+
+=cut
 GdkPixbuf_noinc *
 gdk_pixbuf_new_from_data (class, data, colorspace, has_alpha, bits_per_sample, width, height, rowstride)
 	SV * data
@@ -433,6 +459,13 @@ gdk_pixbuf_animation_get_static_image (animation)
 ## so, we'll take seconds and microseconds.  if neither is available,
 ## pass NULL to the wrapped function to get the current time.
 ###  GdkPixbufAnimationIter *gdk_pixbuf_animation_get_iter (GdkPixbufAnimation *animation, const GTimeVal *start_time) 
+=for apidoc
+
+The seconds and microseconds values are available from Time::HiRes, which is
+standard since perl 5.8.0.  If both are undef or omitted, the function uses the
+current time.
+
+=cut
 GdkPixbufAnimationIter_noinc *
 gdk_pixbuf_animation_get_iter (animation, start_time_seconds=0, start_time_microseconds=0)
 	GdkPixbufAnimation *animation

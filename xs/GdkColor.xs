@@ -22,14 +22,26 @@
 #include "gtk2perl.h"
 
 /*
-GdkColormap is a direct GObject subclass; be sure to use GdkColormap_noinc in the
-proper places.
+GdkColormap is a direct GObject subclass; be sure to use GdkColormap_noinc
+in the proper places.
 
 GdkColor is a plain structure treated as a boxed type.  use GdkColor_own and
 GdkColor_copy in all the right places.
 */
 
 MODULE = Gtk2::Gdk::Color	PACKAGE = Gtk2::Gdk::Colormap	PREFIX = gdk_colormap_
+
+=head1 DESCRIPTION
+
+Colormaps are used to store the mappings between the RGB values you ask for
+and the actual, hardware-dependent values used to display those colors.
+The C<< $colormap->alloc_color >> and C<< $colormap->alloc_colors >> methods
+do the necessary work to allocate a color within the visual; this actually
+has nothing to do with memory management, so it is important that you call
+C<< $colormap->free_colors >> to release those spots in the colormap
+allocated by C<alloc_color> and C<alloc_colors>.
+
+=cut
 
  ## GdkColormap* gdk_colormap_new (GdkVisual *visual, gboolean allocate)
 GdkColormap_noinc*
@@ -56,6 +68,11 @@ gdk_colormap_get_system (class)
 ## success becomes an array of TRUE or FALSE corresponding to each input
 ## color, telling whether each one was successfully allocated.  the return
 ## value is the number that were NOT allocated.
+=for apidoc
+=for arg ... list of Gtk2::Gdk::Colors to allocate
+Returns a list of boolean values, telling whether the color at the
+corresponding spot in I<...> could be allocated.
+=cut
 void
 gdk_colormap_alloc_colors (colormap, writeable, best_match, ...)
 	GdkColormap *colormap
@@ -134,6 +151,15 @@ gdk_colormap_query_color (colormap, pixel)
 	RETVAL
 
 MODULE = Gtk2::Gdk::Color	PACKAGE = Gtk2::Gdk::Color	PREFIX = gdk_color_
+
+=head1 DESCRIPTION
+
+Gdk's colors are 16-bit RGB values -- that is, the red, green, and blue
+components are integer values from 0 to 65535, with 65535 meaning full
+saturation.  If you are used to dealing with colors on the range of 0 to
+255, just scale those numbers by a factor of 8.
+
+=cut
 
 GdkColor_own *
 gdk_color_new (class, red, green, blue)

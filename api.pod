@@ -238,7 +238,7 @@ number of elements in that list, will normally omit the number of elements
 and just accept a variable number of arguments that will be converted into
 the list and number of elements. In many instances parameters have been
 reordered so that this will work. See below for exceptions and specific
-cases.
+cases that are not detailed in the generated Perl API reference.
 
 =over
 
@@ -247,17 +247,6 @@ cases.
 These classes were incorrectly written with a capital C<B> in version 1.00
 and below.  They have been renamed in version 1.01 and the old way to
 write them is deprecated, but supported.
-
-=item Gtk2::Gdk::Pixbuf::render_pixmap_and_mask
-
-=item Gtk2::Gdk::Pixbuf::render_pixmap_and_mask_for_colormap
-
-These two methods don't take the pixmap and bitmap as arguments, instead
-they return the pixmap in scalar context and both pixmap and bitmap in
-list context, i.e.:
-
-  my $pixmap = $pixbuf->render_pixmap_and_mask (0.5);
-  my ($pixmap, $bitmap) = $pixbuf->render_pixmap_and_mask (0.5);
 
 =item Gtk2::ItemFactory::create_items
 
@@ -272,21 +261,6 @@ list could be used. C<< $list->insert_items($position, $item1, $item2, ...) >>
 GtkCombo still makes use of them, they are subject to removal at any point so
 you should not utilize them unless absolutely necessary.)
 
-=item Gtk2::TreeSelection::get_selected
-
-Since most of the time you are interested only in the iter, this function
-behaves differently in scalar context than in list context:
-
-  ## scalar context
-  $iter = $tree_selection->get_selected;
-  ## list context
-  ($model, $iter) = $tree_selection->get_selected;
-
-=item Gtk2::TreeSelection::get_selected_rows
-
-Returns @paths; model is not returned as documented in the C API.
-to get the model, try C<< $selection->get_tree_view->get_model >>.
-
 =item Gtk2::Notebook::append_page
 
 =item Gtk2::Notebook::prepend_page
@@ -299,47 +273,6 @@ is a plain Gtk2::Label; so these three functions will stringify anything passed
 to tab_label that's not a GtkWidget and wrap a Gtk2::Label around it for you.
 
 Note that the C<_menu> versions of these functions do I<not> do this.
-
-=item Gtk2::Widget::intersect
-
-The intersection parameter is omitted; the method instead returns a new
-Gtk2::Gdk::Rectangle representing the intersection, or undef if the area
-and the widget don't intersect.
-
-=item Gtk2::Widget::path
-
-=item Gtk2::Widget::class_path
-
-In C, these functions return the length of the strings, the path string, and
-the reverse path string.  In perl, the string length is unnecessary, and has
-been omitted from the return list.
-
- ($path, $path_reverse) = $widget->path;
- ($path, $path_reverse) = $widget->class_path;
-
-=item Gtk2::Gdk::Colormap::alloc_colors
-
-Whereas alloc_color only takes one color, alloc_colors takes an array of 
-colors; the colors are thus moved to the end on the vectorized version.
-alloc_colors returns a list containing a boolean status value for each
-color passed in, telling whether the color could be allocated.
-
- # single
- $gdkcolormap->alloc_color ($color, $writeable, $best_match)
- @s = $gdkcolormap->alloc_colors ($writable, $best_match, @colors)
-
-Note that C<< $colormap->free_colors (@colors) >> is used to deallocate
-colors allocated by alloc_color/alloc_colors, and has nothing to do with
-memory management.  therefore, you may need to call free_colors.
-
-=item Gtk2::Style::paint_polygon
-
-The list of coordinates for the vertices was moved to the end to use the
-argument stack.
-
- $style->paint_polygon ($gdkwindow, $state_type, $shadow_type,
-                        $area, $widget, $detail, $fill,
-                        $x1, $y1, $x2, $y2, ...);
 
 =item Gtk2::AccelGroup::connect
 
@@ -355,13 +288,6 @@ connected to the given perl subroutine.  To disconnect all groups attached to a
 subroutine, you can call disconnect with the same subroutine reference (or
 name) until it stops returning true.
 
-=item Gtk2::TreePath->new_from_indices
-
-Unlike its C counterpart, this function does not need a -1 to terminate the
-list of index values; in fact, it will croak on negative numbers with a 
-friendly reminder.  Although this function was introduced into gtk+ in
-2.2.0, it is available in gtk2-perl with gtk+ 2.0.x.
-
 =item Gtk2::Clipboard::set_with_data
 
 =item Gtk2::Clipboard::set_with_owner
@@ -376,35 +302,6 @@ list:
                             @target_entries);
  $clipboard->set_with_owner (\&get_func, \&clear_func, $owner,
                              @target_entries);
-
-=item Gtk2::Gdk::Pixbuf::new_from_data
-
-In C this function allows you to wrap a GdkPixbuf structure around existing
-pixel data.  In Perl, we have to use C<pack> to generate a scalar containing
-the pixel data, and pass that scalar to C<new_from_data>, which copies the
-scalar to keep it around.  It also manages the memory automagically, so there's
-no need for the destroy notifier function.  This all means that if you change
-your copy of the data scalar later, the pixbuf will not reflect that, but
-because of the way perl manages string data and scalars, it would be pretty
-fragile to do that in the first place.  If you need to modify a pixbuf's data
-after it has been created, you can create new pixbufs for the changed regions
-and use C<< $pixbuf->composite >>, or try a different approach (possibly use a
-server-side pixmap and gdk drawing primitives, or something like libart).
-
-=item Gtk2::Gdk::PixbufAnimation::get_iter
-
-=item Gtk2::Gdk::PixbufAnimationIter::advance
-
-These functions take a GTimeVal in C; the GTimeVal is like a struct timeval
-in the unix standard library.  Perl 5.8.0 includes Time::HiRes, which returns
-the seconds and microseconds numbers that would go into a timeval, so
-get_iter and advance take those values instead.  If you omit all of them,
-Gtk2 will use the current time.
-
-  $animation->get_iter ($seconds, $microseconds);
-  $animation->get_iter;
-  $animiter->advance ($seconds, $microseconds);
-  $animiter->advance;
 
 =back
 
