@@ -1,3 +1,7 @@
+2003/11/28 21:57 (-0500) muppetman
+
+	* xs/GtkRc.xs: SV * class isn't needed
+
 2003/11/28 14:54 (-0500) rwmcfa1
 
 	* Makefile.PL: DOC_PL_DEPENDS -> POD_DEPENDS

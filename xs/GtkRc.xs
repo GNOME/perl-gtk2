@@ -241,7 +241,6 @@ colors (GtkRcStyle * style, GtkStateType state, GdkColor_ornull * newcolor=NULL)
 ## GtkRcStyle* gtk_rc_style_new (void)
 GtkRcStyle_noinc *
 gtk_rc_style_new (class)
-	SV * class
     C_ARGS:
 	/*void*/
 
