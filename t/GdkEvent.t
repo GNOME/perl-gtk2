@@ -133,7 +133,7 @@ is ($event->x_root, 0, '$event->x_root');
 is ($event->y_root, 0, '$event->y_root');
 
 SKIP: {
-	skip "GdkScreen didn't exist until 2.2.x", 1
+	skip "GdkScreen is new in 2.2", 1
 		unless Gtk2->CHECK_VERSION (2, 2, 0);
 
 	my $screen = Gtk2::Gdk::Screen->get_default;
