@@ -1,3 +1,15 @@
+2003/09/15 16:02 muppetman
+
+	* Gtk2.pm: remove Gtk2::Dialog::Responses, add a bunch of missing
+	L<links>
+
+	* Makefile.PL, gtk-demo/changedisplay.pl, xs/GtkDialog.xs: use
+	gperl_signal_set_marshaller_for() to set a custom marshaller for
+	GtkDialog's response signal, so we can get the enum string values
+	for the response id in the response handler instead of negative
+	numbers.  removes the need for Gtk2::Dialog::Responses, so that
+	ugly wart is now gone as well.  Gtk2 now requires Glib 1.00rc2.
+
 2003/09/15 14:02 muppetman
 
 	the ones that got away...
