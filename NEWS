@@ -1,3 +1,15 @@
+Overview of changes in Gtk2 1.071
+=================================
+
+* Bind new API in:
+  - Gtk2::Accelerator
+  - Gtk2::Button
+  - Gtk2::Dialog
+  - Gtk2::Entry
+  - Gtk2::FileChooser
+  - Gtk2::FileFilter
+  - Gtk2::Image
+
 Overview of changes in Gtk2 1.070
 =================================
 
