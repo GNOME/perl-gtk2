@@ -91,7 +91,8 @@ gboolean
 gtk_file_selection_get_select_multiple (filesel)
 	GtkFileSelection * filesel
 
-GPerlFilename_own
+## gtk_file_selection_get_filename returns a statically allocated string
+GPerlFilename_const
 gtk_file_selection_get_filename (filesel)
 	GtkFileSelection * filesel
 
