@@ -59,6 +59,8 @@ SvGdkGeometryReal (SV *object, GdkWindowHints *hints)
 	   **win_gravity;
 
 	GdkGeometry *geometry = gperl_alloc_temp (sizeof (GdkGeometry));
+	if (hints)
+		*hints = 0;
 
 	if (object && SvOK (object) && SvROK (object) && SvTYPE (SvRV (object)) == SVt_PVHV) {
 		GTK2PERL_GEOMETRY_FETCH (min_width, "min_width", SvIV);
