@@ -24,6 +24,7 @@ examples/simple_menu.pl
 examples/simplelist.pl
 examples/socket.pl
 examples/testdnd.pl
+examples/thread_usage.pl
 examples/timeouttest.pl
 gdk.typemap
 gtk-demo/alphatest.png

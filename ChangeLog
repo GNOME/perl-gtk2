@@ -1,3 +1,8 @@
+2004/01/11 11:44 (-0500) rwmcfa1
+
+	* exmples/thread_usage.pl: initial import, example of the 'correct' way
+	to use threads and Gtk2.
+
 2004/01/11 00:56 (-0500) muppetman
 
 	* examples/color_list.pl: commentary and clean-up, and a little
