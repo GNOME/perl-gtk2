@@ -149,29 +149,32 @@ state (widget)
 
  ##define GTK_WIDGET_FLAGS(wid)		  (GTK_OBJECT_FLAGS (wid))
 
+=for apidoc
+=arg ... (__hide__)
+=cut
 gboolean
 get_flags (widget, ...)
 	GtkWidget * widget
     ALIAS:
-	Gtk2::Widget::toplevel         =  1
-	Gtk2::Widget::no_window        =  2
-	Gtk2::Widget::realized         =  3
-	Gtk2::Widget::mapped           =  4
-	Gtk2::Widget::visible          =  5
-	Gtk2::Widget::drawable         =  6
-	Gtk2::Widget::sensitive        =  7
-	Gtk2::Widget::parent_sensitive =  8
-	Gtk2::Widget::is_sensitive     =  9
-	Gtk2::Widget::can_focus        = 10
-	Gtk2::Widget::has_focus        = 11
-	Gtk2::Widget::has_grab         = 12
-	Gtk2::Widget::rc_style         = 13
-	Gtk2::Widget::composite_child  = 14
-	Gtk2::Widget::app_paintable    = 15
-	Gtk2::Widget::receives_default = 16
-	Gtk2::Widget::double_buffered  = 17
-	Gtk2::Widget::can_default      = 18
-	Gtk2::Widget::has_default      = 19
+	Gtk2::Widget::toplevel         =  0
+	Gtk2::Widget::no_window        =  1
+	Gtk2::Widget::realized         =  2
+	Gtk2::Widget::mapped           =  3
+	Gtk2::Widget::visible          =  4
+	Gtk2::Widget::drawable         =  5
+	Gtk2::Widget::sensitive        =  6
+	Gtk2::Widget::parent_sensitive =  7
+	Gtk2::Widget::is_sensitive     =  8
+	Gtk2::Widget::can_focus        =  9
+	Gtk2::Widget::has_focus        = 10
+	Gtk2::Widget::has_grab         = 11
+	Gtk2::Widget::rc_style         = 12
+	Gtk2::Widget::composite_child  = 13
+	Gtk2::Widget::app_paintable    = 14
+	Gtk2::Widget::receives_default = 15
+	Gtk2::Widget::double_buffered  = 16
+	Gtk2::Widget::can_default      = 17
+	Gtk2::Widget::has_default      = 18
     PREINIT:
 	gboolean value;
 	GtkWidgetFlags flag;

@@ -309,6 +309,9 @@ gtk_window_get_icon (window)
 
 
 ## void gtk_window_set_default_icon_list (GList *list)
+=for apidoc
+=signature $window->set_default_icon_list ($pixbuf1, ...)
+=cut
 void
 gtk_window_set_default_icon_list (class, pixbuf, ...)
     PREINIT:

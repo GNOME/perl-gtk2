@@ -1,3 +1,8 @@
+2003/11/24 11:27 (-0500) rwmcfa1
+
+	* xs/GtkCombo.xs, xs/GtkTextBuffer.xs, xs/GtkTextIter.xs,
+	xs/GtkTreeViewColumn.xs, xs/GtkWidget.xs, xs/GtkWindow.xs: doc updates
+
 2003/11/24 11:27 (-0500) muppetman
 
 	* MANIFEST: added GdkKeys.xs

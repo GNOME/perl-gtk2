@@ -71,8 +71,13 @@ gtk_text_buffer_insert_range_interactive (buffer, iter, start, end, default_edit
 	gboolean default_editable
 
 #### void gtk_text_buffer_insert_with_tags (GtkTextBuffer *buffer, GtkTextIter *iter, const gchar *text, gint len, GtkTextTag *first_tag, ...)
+=for apidoc
+=signature $buffer->insert_with_tags ($iter, $text, $tag1, ...)
+=arg $tag1 (Gtk2::TextTag)
+=arg ... (__hide__)
+=cut
 void
-gtk_text_buffer_insert_with_tags (buffer, iter, text, ...)
+gtk_text_buffer_insert_with_tags (buffer, iter, text, tag1, ...)
 	GtkTextBuffer *buffer
 	GtkTextIter *iter
 	const gchar *text
