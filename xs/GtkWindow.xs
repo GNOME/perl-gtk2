@@ -33,10 +33,11 @@ gtk_window_new (class, type=GTK_WINDOW_TOPLEVEL)
 
 ## void gtk_window_set_title (GtkWindow *window, const gchar *title)
 void
-gtk_window_set_title (window, title)
+gtk_window_set_title (window, title=NULL)
 	GtkWindow   * window
 	const gchar * title
 
+## TODO: the doc says don't use this, but not dep. should we remove?
 ## void gtk_window_set_wmclass (GtkWindow *window, const gchar *wmclass_name, const gchar *wmclass_class)
 void
 gtk_window_set_wmclass (window, wmclass_name, wmclass_class)
@@ -272,8 +273,9 @@ gtk_window_set_default_icon_from_file (class, filename)
 
 #endif
 
+## TODO: api doc doesn't say return can be null, but it can
 ## GdkPixbuf* gtk_window_get_icon (GtkWindow *window)
-GdkPixbuf *
+GdkPixbuf_ornull *
 gtk_window_get_icon (window)
 	GtkWindow * window
 
@@ -309,10 +311,16 @@ gboolean
 gtk_window_get_modal (window)
 	GtkWindow * window
 
-# TODO: GList not in typemap
 ## GList* gtk_window_list_toplevels (void)
-#GList *
-#gtk_window_list_toplevels ()
+void
+gtk_window_list_toplevels (class)
+	SV * class
+    PREINIT:
+	GList * toplvls;
+    PPCODE:
+	for( toplvls = gtk_window_list_toplevels(); toplvls; 
+	     toplvls = toplvls->next )
+		XPUSHs (sv_2mortal (newSVGtkWindow (toplvls->data)));
 
 ## void gtk_window_add_mnemonic (GtkWindow *window, guint keyval, GtkWidget *target)
 void
@@ -406,14 +414,6 @@ gtk_window_begin_move_drag (window, button, root_x, root_y, timestamp)
 	gint        root_y
 	guint32     timestamp
 
-## void gtk_window_set_policy (GtkWindow *window, gint allow_shrink, gint allow_grow, gint auto_shrink)
-void
-gtk_window_set_policy (window, allow_shrink, allow_grow, auto_shrink)
-	GtkWindow * window
-	gint        allow_shrink
-	gint        allow_grow
-	gint        auto_shrink
-
 ## void gtk_window_get_default_size (GtkWindow *window, gint *width, gint *height)
 void
 gtk_window_get_default_size (GtkWindow * window, OUTLIST gint width, OUTLIST gint height)
@@ -474,49 +474,10 @@ gtk_window_add_embedded_xid (window, xid)
 	GtkWindow * window
 	guint       xid
 
-## void _gtk_window_reposition (GtkWindow *window, gint x, gint y)
-#void
-#_gtk_window_reposition (window, x, y)
-#	GtkWindow * window
-#	gint        x
-#	gint        y
-
-## void _gtk_window_constrain_size (GtkWindow *window, gint width, gint height, gint *new_width, gint *new_height)
-#void
-#_gtk_window_constrain_size (window, width, height, new_width, new_height)
-#	GtkWindow * window
-#	gint        width
-#	gint        height
-#	gint      * new_width
-#	gint      * new_height
-
-## gboolean _gtk_window_activate_key (GtkWindow *window, GdkEventKey *event)
-#gboolean
-#_gtk_window_activate_key (window, event)
-#	GtkWindow   * window
-#	GdkEventKey * event
-
-## void _gtk_window_keys_foreach (GtkWindow *window, GtkWindowKeysForeachFunc func, gpointer func_data)
-#void
-#_gtk_window_keys_foreach (window, func, func_data)
-#	GtkWindow *window
-#	GtkWindowKeysForeachFunc func
-#	gpointer func_data
-
-
 ##void gtk_window_reshow_with_initial_size (GtkWindow *window)
 void
 gtk_window_reshow_with_initial_size (window)
 	GtkWindow * window
-
-# TODO: ?
-##GType gtk_window_group_get_type (void) G_GNUC_CONST
-#GType
-#gtk_window_group_get_type ()
-
-##void _gtk_window_internal_set_focus (GtkWindow *window, GtkWidget *focus)
-
-##gboolean _gtk_window_query_nonaccels (GtkWindow *window, guint accel_key, GdkModifierType accel_mods)
 
 #if GTK_CHECK_VERSION(2,2,0)
 
