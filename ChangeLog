@@ -1,3 +1,9 @@
+2003/07/22 17:31 rwmcfa1
+
+	* xs/Gtk2.pm: much discussed immproved handling of the create_item via
+	hash handling, now complains on bad keys. thanks to Joe Smith and Brett 
+	Kosinski for their input.
+
 2003/07/22 16:41 muppetman
 
 	* xs/GtkTreeModel.xs: more _ornulls
