@@ -219,6 +219,17 @@ separated by whitespace.  the fields should be:
                 class name should be mapped, e.g.
                 Gtk2::Widget
 
+As a special case, you can also use this same format to register error
+domains; in this case two of the four columns take on slightly different
+meanings:
+
+  domain macro     e.g., GDK_PIXBUF_ERROR
+  enum type macro  e.g., GDK_TYPE_PIXBUF_ERROR
+  base type        GError
+  package          name of the Perl package to which this
+                   class name should be mapped, e.g.,
+                   Gtk2::Gdk::Pixbuf::Error.
+
 =cut
 
 
@@ -274,18 +285,16 @@ sub parse_maps {
 		} elsif ($base eq 'GBoxed') {
 			gen_boxed_stuff ($typemacro, $classname, $package);
 			$seen{$base}++;
-		
-#		} elsif ($base eq 'GObject' or $base eq 'GtkObject') {
+
+		# we treat GInterfaces as GObjects for these purposes.
 		} elsif ($base eq 'GObject' or $base eq 'GtkObject'
 		         or $base eq 'GInterface') {
 			gen_object_stuff ($typemacro, $classname, $base, $package);
 			$seen{$base}++;
 
-#		} elsif ($base eq 'GInterface') {
-#			# what do we do with interfaces?
-#			#gen_interface_stuff ($typemacro, $classname, $base, $package);
-#			warn "$classname is a $base -- what do we do with interfaces?\n";
-#			$seen{$base}++;
+		} elsif ($base eq 'GError') {
+			gen_error_domain_stuff ($typemacro, $classname, $package);
+			$seen{$base}++;
 
 		} else {
 			warn "unhandled type $typemacro $classname $base $package\n";
@@ -437,6 +446,15 @@ gperl_register_object ($typemacro, \"$package\");
 
 	# close the header ifdef
 	$header[$#header] .= "#endif /* $typemacro */\n";
+}
+
+sub gen_error_domain_stuff {
+	my ($domain, $enum, $package) = @_;
+
+	push @boot, "#if defined($domain) /* && defined($enum) */
+gperl_register_error_domain ($domain, $enum, \"$package\");
+#endif /* $domain */
+";
 }
 
 1;
