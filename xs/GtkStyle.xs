@@ -45,7 +45,7 @@ stateless_member (style)
 	Gtk2::Style::white_gc = 7
     CODE:
 	switch (ix) {
-	    /* FIXME: is it correct to _copy these */
+	    /* FIXME: is it correct to _copy these? */
 	    case 1: RETVAL = newSVGdkColor_copy (&(style->black)); break;
 	    case 2: RETVAL = newSVGdkColor_copy (&(style->white)); break;
 	    case 3: RETVAL = newSVPangoFontDescription_copy (style->font_desc); break;
@@ -58,7 +58,7 @@ stateless_member (style)
     OUTPUT:
 	RETVAL
 
-## FIXME: is it correct to _copy these
+## FIXME: is it correct to _copy these?
 GdkColor_copy *
 state_color (style, state)
 	GtkStyle * style
@@ -181,16 +181,18 @@ gtk_style_lookup_icon_set (style, stock_id)
 	GtkStyle *style
 	const gchar *stock_id
 
-## ## GdkPixbuf* gtk_style_render_icon (GtkStyle *style, const GtkIconSource *source, GtkTextDirection direction, GtkStateType state, GtkIconSize size, GtkWidget *widget, const gchar *detail)
-##GdkPixbuf*
-##gtk_style_render_icon (style, source, direction, state, size, widget, detail)
-##	GtkStyle *style
-##	const GtkIconSource *source
-##	GtkTextDirection direction
-##	GtkStateType state
-##	GtkIconSize size
-##	GtkWidget *widget
-##	const gchar *detail
+ ## GdkPixbuf* gtk_style_render_icon (GtkStyle *style, const GtkIconSource *source, GtkTextDirection direction, GtkStateType state, GtkIconSize size, GtkWidget *widget, const gchar *detail)
+GdkPixbuf_noinc*
+gtk_style_render_icon (style, source, direction, state, size, widget, detail)
+	GtkStyle *style
+	GtkIconSource *source
+	GtkTextDirection direction
+	GtkStateType state
+	GtkIconSize size
+	GtkWidget *widget
+	const gchar *detail
+
+MODULE = Gtk2::Style	PACKAGE = Gtk2::Style	PREFIX = gtk_
 
  ## void gtk_draw_flat_box (GtkStyle *style, GdkWindow *window, GtkStateType state_type, GtkShadowType shadow_type, gint x, gint y, gint width, gint height)
 void
@@ -245,19 +247,34 @@ gtk_paint_shadow (style, window, state_type, shadow_type, area, widget, detail, 
 	gint width
 	gint height
 
-## ## void gtk_paint_polygon (GtkStyle *style, GdkWindow *window, GtkStateType state_type, GtkShadowType shadow_type, GdkRectangle *area, GtkWidget *widget, const gchar *detail, GdkPoint *points, gint npoints, gboolean fill)
-##void
-##gtk_paint_polygon (style, window, state_type, shadow_type, area, widget, detail, points, npoints, fill)
-##	GtkStyle *style
-##	GdkWindow *window
-##	GtkStateType state_type
-##	GtkShadowType shadow_type
-##	GdkRectangle *area
-##	GtkWidget *widget
-##	const gchar *detail
-##	GdkPoint *points
-##	gint npoints
-##	gboolean fill
+ ## void gtk_paint_polygon (GtkStyle *style, GdkWindow *window, GtkStateType state_type, GtkShadowType shadow_type, GdkRectangle *area, GtkWidget *widget, const gchar *detail, GdkPoint *points, gint npoints, gboolean fill)
+void
+gtk_paint_polygon (style, window, state_type, shadow_type, area, widget, detail, fill, x1, y1, ...)
+	GtkStyle *style
+	GdkWindow *window
+	GtkStateType state_type
+	GtkShadowType shadow_type
+	GdkRectangle *area
+	GtkWidget *widget
+	const gchar *detail
+	gboolean fill
+	gint x1
+	gint y1
+    PREINIT:
+	GdkPoint *points;
+	gint npoints, i;
+    CODE:
+#define first 8
+	npoints = (items - first) / 2;
+	points = g_new (GdkPoint, npoints);
+	for (i = 0 ; i < npoints ; i++) {
+		points[i].x = SvIV (ST (first + 2*i));
+		points[i].y = SvIV (ST (first + 2*i + 1));
+	}
+	gtk_paint_polygon (style, window, state_type, shadow_type,
+	                   area, widget, detail, points, npoints, fill);
+	g_free (points);
+#undef first
 
  ## void gtk_paint_arrow (GtkStyle *style, GdkWindow *window, GtkStateType state_type, GtkShadowType shadow_type, GdkRectangle *area, GtkWidget *widget, const gchar *detail, GtkArrowType arrow_type, gboolean fill, gint x, gint y, gint width, gint height)
 void
@@ -491,10 +508,8 @@ gtk_paint_resize_grip (style, window, state_type, area, widget, detail, edge, x,
 	gint width
 	gint height
 
+  # for boxed support, not needed
  ## void gtk_border_free ( GtkBorder *border_)
-void
-gtk_border_free (border_)
-	 GtkBorder *border_
-
+  # private
  ## void _gtk_style_init_for_settings (GtkStyle *style, GtkSettings *settings)
  ## void _gtk_draw_insertion_cursor (GtkWidget *widget, GdkDrawable *drawable, GdkGC *gc, GdkRectangle *location, GtkTextDirection direction, gboolean draw_arrow)

@@ -287,6 +287,15 @@ Note that C<< $colormap->free_colors (@colors) >> is used to deallocate
 colors allocated by alloc_color/alloc_colors, and has nothing to do with
 memory management.  therefore, you may need to call free_colors.
 
+=item Gtk2::Style::paint_polygon
+
+The list of coordinates for the vertices was moved to the end to use the
+argument stack.
+
+ $style->paint_polygon ($gdkwindow, $state_type, $shadow_type,
+                        $area, $widget, $detail, $fill,
+                        $x1, $y1, $x2, $y2, ...);
+
 =back
 
 =head1 SEE ALSO
