@@ -102,7 +102,9 @@ gchar_own * gtk_icon_theme_get_example_icon_name (GtkIconTheme *icon_theme);
 
 gboolean gtk_icon_theme_rescan_if_needed (GtkIconTheme *icon_theme);
 
-void gtk_icon_theme_add_builtin_icon (const gchar *icon_name, gint size, GdkPixbuf *pixbuf);
+void gtk_icon_theme_add_builtin_icon (class, const gchar *icon_name, gint size, GdkPixbuf *pixbuf);
+    C_ARGS:
+	icon_name, size, pixbuf
 
 MODULE = Gtk2::IconTheme	PACKAGE = Gtk2::IconInfo	PREFIX = gtk_icon_info_
 
