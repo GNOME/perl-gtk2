@@ -24,3 +24,6 @@ what about decorated window stuff?
 
 foreach callbacks (and possibly other types) need some doc on the callback
 api/params.
+
+*** for 2.5/6.x
+ gdkevents added GDK_OWNER_CHANGE
