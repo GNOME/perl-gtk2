@@ -4,6 +4,8 @@
 
 package Gtk2::Pango;
 
+our $VERSION = '0.01';
+
 use strict;
 require Exporter;
 

@@ -1,5 +1,7 @@
 package Gtk2::CodeGen;
 
+our $VERSION = '0.01';
+
 use strict;
 use warnings;
 use Carp;

@@ -4,6 +4,8 @@
 
 package Gtk2::Helper;
 
+our $VERSION = '0.01';
+
 use Carp;
 use strict;
 
