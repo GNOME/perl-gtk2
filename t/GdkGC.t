@@ -36,7 +36,11 @@ isa_ok($gc, "Gtk2::Gdk::GC");
 $gc = Gtk2::Gdk::GC -> new_with_values($window -> window(), $values);
 isa_ok($gc, "Gtk2::Gdk::GC");
 
-isa_ok($gc -> get_screen(), "Gtk2::Gdk::Screen");
+SKIP: {
+  skip "GdkScreen didn't appear until 2.2.0", 1
+    if Gtk2->check_version (2,2,0);
+  isa_ok($gc -> get_screen(), "Gtk2::Gdk::Screen");
+}
 
 my $pixmap = Gtk2::Gdk::Pixmap -> new($window -> window(), 10, 10, 8);
 my $rectangle = Gtk2::Gdk::Rectangle -> new(23, 42, 10, 10);
