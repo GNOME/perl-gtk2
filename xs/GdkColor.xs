@@ -56,14 +56,38 @@ gdk_colormap_get_system (class)
 ## success becomes an array of TRUE or FALSE corresponding to each input
 ## color, telling whether each one was successfully allocated.  the return
 ## value is the number that were NOT allocated.
- ##gint
- ##gdk_colormap_alloc_colors (colormap, colors, ncolors, writeable, best_match, success)
- ##	GdkColormap *colormap
- ##	GdkColor *colors
- ##	gint ncolors
- ##	gboolean writeable
- ##	gboolean best_match
- ##	gboolean *success
+void
+gdk_colormap_alloc_colors (colormap, writeable, best_match, ...)
+	GdkColormap *colormap
+	gboolean writeable
+	gboolean best_match
+    PREINIT:
+	gint ncolors, i;
+	GdkColor *colors = NULL;
+	GdkColor **argcolors = NULL; /* so we can modify the ones passed in */
+	gboolean *success = NULL;
+    PPCODE:
+#define first 3
+	ncolors = items - first;
+	if (ncolors < 1)
+		XSRETURN_EMPTY;
+	colors = g_new0 (GdkColor, ncolors);
+	argcolors = g_new0 (GdkColor*, ncolors);
+	success = g_new0 (gboolean, ncolors);
+	for (i = 0 ; i < ncolors ; i++) {
+		argcolors[i] = SvGdkColor (ST (first + i));
+		colors[i] = *(argcolors[i]);
+	}
+	gdk_colormap_alloc_colors (colormap, colors, ncolors, writeable,
+	                           best_match, success);
+	EXTEND (SP, ncolors);
+	for (i = 0 ; i < ncolors ; i++) {
+		*(argcolors[i]) = colors[i];
+		PUSHs (sv_2mortal (newSViv (success[i])));
+	}
+	g_free (colors);
+	g_free (success);
+#undef first
 
  ## gboolean gdk_colormap_alloc_color (GdkColormap *colormap, GdkColor *color, gboolean writeable, gboolean best_match)
 gboolean
@@ -73,19 +97,41 @@ gdk_colormap_alloc_color (colormap, color, writeable, best_match)
 	gboolean writeable
 	gboolean best_match
 
+ # this deallocates colors in the colormap, as allocated by alloc_color(s)
+ # above; it has nothing to do with memory management.  we do need this.
  ## void gdk_colormap_free_colors (GdkColormap *colormap, GdkColor *colors, gint ncolors)
- ##void
- ##gdk_colormap_free_colors (colormap, colors, ncolors)
- ##	GdkColormap *colormap
- ##	GdkColor *colors
- ##	gint ncolors
- ##
+void
+gdk_colormap_free_colors (colormap, ...)
+	GdkColormap *colormap
+    PREINIT:
+	GdkColor *colors;
+	gint ncolors, i;
+    CODE:
+#define first 1
+	ncolors = items - first;
+	if (ncolors < 1)
+		XSRETURN_EMPTY;
+	colors = g_new (GdkColor, ncolors);
+	for (i = 0; i < ncolors ; i++) {
+		GdkColor * c = (GdkColor*) SvGdkColor (ST (i + first));
+		colors[i] = *c;
+	}
+	gdk_colormap_free_colors (colormap, colors, ncolors);
+	g_free (colors);
+#undef first
+
  ## void gdk_colormap_query_color (GdkColormap *colormap, gulong pixel, GdkColor *result)
- ##void
- ##gdk_colormap_query_color (colormap, pixel, result)
- ##	GdkColormap *colormap
- ##	gulong pixel
- ##	GdkColor *result
+GdkColor_copy *
+gdk_colormap_query_color (colormap, pixel)
+	GdkColormap *colormap
+	gulong pixel
+    PREINIT:
+	GdkColor result;
+    CODE:
+	gdk_colormap_query_color (colormap, pixel, &result);	
+	RETVAL = &result;
+    OUTPUT:
+	RETVAL
 
 MODULE = Gtk2::Gdk::Color	PACKAGE = Gtk2::Gdk::Color	PREFIX = gdk_color_
 
@@ -181,5 +227,4 @@ gdk_color_blue (color)
 	RETVAL = color->blue;
     OUTPUT:
     	RETVAL
-
 

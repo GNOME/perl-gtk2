@@ -255,6 +255,21 @@ In scalar context, returns $iter; in list context, returns ($model, $iter).
 Returns @paths; model is not returned as documented in the C API.
 to get the model, try C<< $selection->get_tree_view->get_model >>.
 
+=item Gtk2::Gdk::Colormap::alloc_colors
+
+Whereas alloc_color only takes one color, alloc_colors takes an array of 
+colors; the colors are thus moved to the end on the vectorized version.
+alloc_colors returns a list containing a boolean status value for each
+color passed in, telling whether the color could be allocated.
+
+ # single
+ $gdkcolormap->alloc_color ($color, $writeable, $best_match)
+ @s = $gdkcolormap->alloc_colors ($writable, $best_match, @colors)
+
+Note that C<< $colormap->free_colors (@colors) >> is used to deallocate
+colors allocated by alloc_color/alloc_colors, and has nothing to do with
+memory management.  therefore, you may need to call free_colors.
+
 =back
 
 =head1 SEE ALSO
