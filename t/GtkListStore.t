@@ -187,35 +187,37 @@ SKIP: {
 
     Glib::Idle->add( sub {
 		SKIP: {
+			TODO: { local $TODO = "reorder changed in 2.3.5";
 			skip 'function only in version > 2.2', 5
 				unless Gtk2->CHECK_VERSION (2, 2, 0);
 			$store->reorder(4, 3, 2, 0, 1);
 			$iter = $store->get_iter_first;
 			ok ($store->iter_is_valid ($iter), 
 				'$store->iter_is_valid');
-			ok (eq_array ([$store->get ($iter), 
-				       $store->get ($store->iter_next($iter))],
-				      ['John Doe', 'Who am I', 32, 0,
-				       'John Doe', 'Who am I', 44, 1]), 
+			is_deeply ([$store->get ($iter), 
+				    $store->get ($store->iter_next($iter))],
+				   ['John Doe', 'Who am I', 32, 0,
+				    'John Doe', 'Who am I', 44, 1], 
 			       '$store->reorder worked');
 			$store->swap ($iter, $store->iter_next($iter));
 			$iter = $store->get_iter_first;
-			ok (eq_array ([$store->get ($iter), 
-				       $store->get ($store->iter_next($iter))],
-				      ['John Doe', 'Who am I', 44, 1,
-				       'John Doe', 'Who am I', 32, 0]), 
+			is_deeply ([$store->get ($iter), 
+				    $store->get ($store->iter_next($iter))],
+				   ['John Doe', 'Who am I', 44, 1,
+				    'John Doe', 'Who am I', 32, 0],
 			       '$store->swap worked');
 			$iter = $store->get_iter_first;
 			$store->move_before ($iter, undef);
-			ok (eq_array ([$store->get 
+			is_deeply ([$store->get 
 					($store->iter_nth_child(undef, 4))],
-				      ['John Doe', 'Who am I', 44, 1]), 
+				   ['John Doe', 'Who am I', 44, 1], 
 			       '$store->move_before worked');
 			$store->move_after ($iter, $store->get_iter_first);
-			ok (eq_array ([$store->get 
-					($store->iter_nth_child(undef, 1))],
-				      ['John Doe', 'Who am I', 44, 1]), 
+			is_deeply ([$store->get 
+				      ($store->iter_nth_child(undef, 1))],
+				   ['John Doe', 'Who am I', 44, 1], 
 			       '$store->move_after worked');
+			}
 		}
 		$store->clear;
 		ok ($store->iter_n_children == 0, 
