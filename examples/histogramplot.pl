@@ -151,7 +151,6 @@ sub INIT_INSTANCE {
 	$plot->{histogram}       = [ 0..255 ];
 	$plot->{pixmap}          = undef;
 	$plot->{th_gc}           = undef;
-	$plot->{focus_gc}        = undef;
 	$plot->{dragging}        = FALSE;
 	$plot->{continuous}      = FALSE;
 	$plot->{origin_layout}   = $plot->create_pango_layout ("0.0%");
@@ -284,13 +283,6 @@ sub draw_th_marker {
 		$plot->{th_gc} = Gtk2::Gdk::GC->new ($plot->{pixmap});
 		$plot->{th_gc}->copy ($plot->style->fg_gc ($plot->state));
 		$plot->{th_gc}->set_function ('invert');
-
-		my $bits = pack "bb", 0xaa, 0x55;
-		my $stipple = Gtk2::Gdk::Bitmap->create_from_data
-					($plot->{pixmap}, $bits, 8, 2);
-		$plot->{focus_gc} = Gtk2::Gdk::GC->new ($plot->{pixmap});
-		$plot->{focus_gc}->copy ($plot->style->fg_gc ($plot->state));
-		$plot->{focus_gc}->set_stipple ($stipple);
 	}
 	$w->draw_line ($plot->{th_gc},
 		       $threshold_screen, 0,
