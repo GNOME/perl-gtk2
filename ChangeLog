@@ -1,3 +1,15 @@
+2003/12/18 12:56 (-0500) rwmcfa1
+
+	* xs/GtkWidget.xs: implementation of some functions that weren't before
+	for various reasons.
+
+	* t/01.GtkWidget.t: phase two of widget testing, will probably break for 
+	some, but that's the price we must pay for thorough testing. there's 46
+	tests here, there will be well over 100 before it's done
+
+	* t/accel-group-map.t: test out some of widget's stuff that we need
+	accel stuff for.
+
 2003/12/18 12:56 (-0500) muppetman
 
 	* gtk2perl.h: previous change #undef'd the wrong symbols, resulted in

@@ -17,7 +17,7 @@ use Test::More;
 
 if (Gtk2->init_check)
 {
-	plan tests => 9;
+	plan tests => 11;
 }
 else
 {
@@ -60,6 +60,14 @@ $accel->connect_by_path ('<accel-map>/File/Save It',
 $win->add_accel_group ($accel);
 $accel->lock;
 $win->show_all;
+
+my $btn = Gtk2::Button->new;
+$btn->add_accelerator ('clicked', $accel, 64, ['control-mask'], []);
+ok ($btn->remove_accelerator ($accel, 64, ['control-mask']), 
+	'$btn->add_accelerator|$widget->remove_accelerator');
+$btn->set_accel_path ('<accel-map>/File/Save It', $accel);
+ok ($btn->remove_accelerator ($accel, 44, ['control-mask']), 
+	'$btn->set_accel_path|$widget->remove_accelerator');
 
 is (Gtk2::AccelGroups->from_object ($win), $accel,
 	'Gtk2->accel_groups_from_object');

@@ -469,7 +469,7 @@ gtk_widget_size_request (widget)
     OUTPUT:
 	RETVAL
 
-## GtkAllocation is not in typemap
+## TODO/FIXME: GtkAllocation is not in typemap
 ##void gtk_widget_size_allocate (GtkWidget * widget, GtkAllocation * allocation);
 
 ## function is only useful for widget implementations
@@ -575,8 +575,8 @@ gtk_widget_get_name (widget)
 	GtkWidget    *widget
 
  # gtk doc says only used for widget implementations
- #void                  gtk_widget_set_state              (GtkWidget    *widget,
- #							 GtkStateType  state);
+void 
+gtk_widget_set_state (GtkWidget * widget, GtkStateType state);
 
 void
 gtk_widget_set_sensitive (widget, sensitive)
@@ -591,10 +591,18 @@ void gtk_widget_set_redraw_on_allocate (GtkWidget *widget, gboolean redraw_on_al
 
  # gtk doc says useful only for impelemnting container sub classes, never to be
  # called by apps
- #void gtk_widget_set_parent (GtkWidget *widget, GtkWidget *parent);
- #void gtk_widget_set_parent_window (GtkWidget *widget, GdkWindow *parent_window);
- #void gtk_widget_set_child_visible (GtkWidget *widget, gboolean is_visible);
- #gboolean gtk_widget_get_child_visible (GtkWidget *widget);
+
+void 
+gtk_widget_set_parent (GtkWidget *widget, GtkWidget *parent);
+
+void 
+gtk_widget_set_parent_window (GtkWidget *widget, GdkWindow *parent_window);
+
+void 
+gtk_widget_set_child_visible (GtkWidget *widget, gboolean is_visible);
+
+gboolean 
+gtk_widget_get_child_visible (GtkWidget *widget);
 
 
  ## must allow NULL on return, in case somebody calls this on
