@@ -61,6 +61,10 @@ use Gtk2;
 # and obviously they'll need Test::More
 use Test::More;
 
+# encourage use of these constants in tests
+use constant TRUE => 1;
+use constant FALSE => 0;
+
 1;
 __END__
 
