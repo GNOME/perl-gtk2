@@ -195,11 +195,20 @@ GdkWindowState
 gdk_window_get_state (window)
 	GdkWindow *window
 
- ## GdkWindow* gdk_window_lookup (GdkNativeWindow anid)
- ##GdkWindow*
- ##gdk_window_lookup (anid)
- ##	GdkNativeWindow anid
- ##
+#ifndef GDK_MULTIHEAD_SAFE
+
+GdkWindow* gdk_window_foreign_new (SV * class, GdkNativeWindow anid);
+    C_ARGS:
+	anid
+
+GdkWindow* gdk_window_lookup (SV * class, GdkNativeWindow anid);
+    C_ARGS:
+	anid
+
+#endif
+ 
+ ##GdkWindow *gdk_window_foreign_new_for_display (GdkDisplay *display, GdkNativeWindow  anid);
+
  ## GdkWindow* gdk_window_lookup_for_display (GdkDisplay *display, GdkNativeWindow anid)
  ##GdkWindow*
  ##gdk_window_lookup_for_display (display, anid)
@@ -605,3 +614,9 @@ gdk_window_invalidate_rect (window, rectangle, invalidate_children)
  ##	gint *x_offset
  ##	gint *y_offset
 
+
+MODULE = Gtk2::Gdk::Window	PACKAGE = Gtk2::Gdk	PREFIX = gdk_
+
+GdkWindow *gdk_get_default_root_window (SV * class)
+    C_ARGS:
+	/*void*/
