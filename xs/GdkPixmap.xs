@@ -106,35 +106,53 @@ gdk_pixmap_colormap_create_from_xpm (class, drawable, colormap, transparent_colo
 	PUSHs (sv_2mortal (newSVGdkBitmap_noinc (mask)));
 
 ## ## GdkPixmap* gdk_pixmap_create_from_xpm_d (GdkDrawable *drawable, GdkBitmap **mask, GdkColor *transparent_color, gchar **data)
-##void
-##gdk_pixmap_create_from_xpm_d (class, drawable, transparent_color, data)
-##	SV * class
-##	GdkDrawable *drawable
-##	GdkColor_ornull *transparent_color
-##	gchar **data
-##    PREINIT:
-##	GdkBitmap * mask;
-##	GdkPixmap * pixmap;
-##    PPCODE:
-##	EXTEND (SP, 2);
-##	PUSHs (sv_2mortal (newSVGdkPixmap_noinc (pixmap)));
-##	PUSHs (sv_2mortal (newSVGdkBitmap_noinc (mask)));
+void
+gdk_pixmap_create_from_xpm_d (class, drawable, transparent_color, data, ...)
+	SV * class
+	GdkDrawable *drawable
+	GdkColor_ornull *transparent_color
+	SV * data
+    PREINIT:
+	GdkBitmap * mask = NULL;
+	GdkPixmap * pixmap = NULL;
+	char ** lines;
+	int i;
+    PPCODE:
+	lines = g_new (char*, items - 3);
+	for (i = 3 ; i < items ; i++)
+		lines[i-3] = SvPV_nolen (ST (i));
+	pixmap = gdk_pixmap_create_from_xpm_d (drawable, 
+	                                       GIMME == G_ARRAY ? &mask : NULL,
+					       transparent_color,
+					       lines);
+	g_free (lines);
+	if (pixmap) XPUSHs (sv_2mortal (newSVGdkPixmap_noinc (pixmap)));
+	if (mask)   XPUSHs (sv_2mortal (newSVGdkBitmap_noinc (mask)));
 
 ## ## GdkPixmap* gdk_pixmap_colormap_create_from_xpm_d (GdkDrawable *drawable, GdkColormap *colormap, GdkBitmap **mask, GdkColor *transparent_color, gchar **data)
-##void
-##gdk_pixmap_colormap_create_from_xpm_d (class, drawable, colormap, transparent_color, data)
-##	SV * class
-##	GdkDrawable_ornull *drawable
-##	GdkColormap_ornull *colormap
-##	GdkColor_ornull *transparent_color
-##	gchar **data
-##    PREINIT:
-##	GdkBitmap * mask;
-##	GdkPixmap * pixmap;
-##    PPCODE:
-##	EXTEND (SP, 2);
-##	PUSHs (sv_2mortal (newSVGdkPixmap_noinc (pixmap)));
-##	PUSHs (sv_2mortal (newSVGdkBitmap_noinc (mask)));
+void
+gdk_pixmap_colormap_create_from_xpm_d (class, drawable, colormap, transparent_color, data, ...)
+	SV * class
+	GdkDrawable_ornull *drawable
+	GdkColormap_ornull *colormap
+	GdkColor_ornull *transparent_color
+	SV * data
+    PREINIT:
+	GdkBitmap * mask = NULL;
+	GdkPixmap * pixmap = NULL;
+	char ** lines;
+	int i;
+    PPCODE:
+	lines = g_new (char*, items - 4);
+	for (i = 4 ; i < items ; i++)
+		lines[i-4] = SvPV_nolen (ST (i));
+	pixmap = gdk_pixmap_colormap_create_from_xpm_d (drawable, colormap,
+	                                       GIMME == G_ARRAY ? &mask : NULL,
+					       transparent_color,
+					       lines);
+	g_free (lines);
+	if (pixmap) XPUSHs (sv_2mortal (newSVGdkPixmap_noinc (pixmap)));
+	if (mask)   XPUSHs (sv_2mortal (newSVGdkBitmap_noinc (mask)));
 
 ## ## GdkPixmap* gdk_pixmap_lookup (GdkNativeWindow anid)
 ##GdkPixmap*
