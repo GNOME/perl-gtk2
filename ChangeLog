@@ -1,3 +1,9 @@
+2003/12/31 20:47 (+0100) kaffeetisch
+
+	* t/21.GtkContainer.t
+	* xs/GtkContainer.xs: Implement and test add_with_properties,
+	child_get, and child_set.
+
 2003/12/31 02:16 (-0500) muppetman
 
 	* xs/GdkPixbuf.xs, xs/GdkWindow.xs, xs/Gtk2.xs, xs/GtkStock.xs,

@@ -21,6 +21,19 @@
 
 #include "gtk2perl.h"
 
+static void
+init_child_property_value (GObject * object, 
+		           const char * name, 
+		           GValue * value)
+{
+	GParamSpec * pspec;
+	pspec = gtk_container_class_find_child_property (G_OBJECT_GET_CLASS (object), 
+	                                                 name);
+	if (!pspec)
+		croak ("property %s not found in object class %s",
+		       name, G_OBJECT_TYPE_NAME (object));
+	g_value_init (value, G_PARAM_SPEC_VALUE_TYPE (pspec));
+}
 
 static void
 gtk2perl_foreach_callback (GtkWidget * widget,
@@ -202,80 +215,123 @@ gtk_container_child_type (container)
     OUTPUT:
 	RETVAL
 
-# FIXME
-#  next we have a whole slew of functions you'd use for child properties
-#  and such.  any suggestions on how to use them?
  ## void gtk_container_class_install_child_property (GtkContainerClass *cclass, guint property_id, GParamSpec *pspec)
- ##void
- ##gtk_container_class_install_child_property (cclass, property_id, pspec)
- ##	GtkContainerClass *cclass
- ##	guint property_id
- ##	GParamSpec *pspec
- ##
  ## GParamSpec* gtk_container_class_find_child_property (GObjectClass *cclass, const gchar *property_name)
- ##GParamSpec*
- ##gtk_container_class_find_child_property (cclass, property_name)
- ##	GObjectClass *cclass
- ##	const gchar *property_name
- ##
+ ## GParamSpec** gtk_container_class_list_child_properties (GObjectClass *cclass, guint *n_properties)
+
+=for apidoc
+
+=for arg ... list of property name/value pairs
+
+=cut
  ## void gtk_container_add_with_properties (GtkContainer *container, GtkWidget *widget, const gchar *first_prop_name, ...)
- ##void
- ##gtk_container_add_with_properties (container, widget, first_prop_name, first_prop_name)
- ##	GtkContainer *container
- ##	GtkWidget *widget
- ##	const gchar *first_prop_name
- ##	...
- ##
- ## void gtk_container_child_set (GtkContainer *container, GtkWidget *child, const gchar *first_prop_name, ...)
- ##void
- ##gtk_container_child_set (container, child, first_prop_name, first_prop_name)
- ##	GtkContainer *container
- ##	GtkWidget *child
- ##	const gchar *first_prop_name
- ##	...
- ##
+void
+gtk_container_add_with_properties (container, widget, ...)
+	GtkContainer *container
+	GtkWidget *widget
+    PREINIT:
+	GValue value = {0,};
+	int i;
+    CODE:
+	g_object_ref (container);
+	g_object_ref (widget);
+	gtk_widget_freeze_child_notify (widget);
+
+	gtk_container_add (container, widget);
+
+	if (widget->parent) {
+		if (0 != ((items - 2) % 2))
+			croak ("add_with_properties expects name => value pairs "
+			       "(odd number of arguments detected)");
+		
+		for (i = 2; i < items; i += 2) {
+			char *name = SvPV_nolen (ST (i));
+			SV *newval = ST (i + 1);
+		
+			init_child_property_value (G_OBJECT (container), name, &value);
+			gperl_value_from_sv (&value, newval);
+		
+			gtk_container_child_set_property (container, widget, name, &value);
+		
+			g_value_unset (&value);
+		}
+	}
+
+	gtk_widget_thaw_child_notify (widget);
+	g_object_unref (widget);
+	g_object_unref (container);
+
+=for apidoc
+
+=for arg ... list of property names
+
+=cut
  ## void gtk_container_child_get_valist (GtkContainer *container, GtkWidget *child, const gchar *first_property_name, va_list var_args)
- ##void
- ##gtk_container_child_get_valist (container, child, first_property_name, var_args)
- ##	GtkContainer *container
- ##	GtkWidget *child
- ##	const gchar *first_property_name
- ##	va_list var_args
- ##
- ## void gtk_container_child_set_property (GtkContainer *container, GtkWidget *child, const gchar *property_name, const GValue *value)
- ##void
- ##gtk_container_child_set_property (container, child, property_name, value)
- ##	GtkContainer *container
- ##	GtkWidget *child
- ##	const gchar *property_name
- ##	const GValue *value
- ##
  ## void gtk_container_child_get_property (GtkContainer *container, GtkWidget *child, const gchar *property_name, GValue *value)
- ##void
- ##gtk_container_child_get_property (container, child, property_name, value)
- ##	GtkContainer *container
- ##	GtkWidget *child
- ##	const gchar *property_name
- ##	GValue *value
- ##
- ##void
- ##gtk_container_child_get (GtkContainer *container,
- ##	GtkWidget *child,
- ##	const gchar *first_prop_name,
- ##	...);
- ##
- ##void gtk_container_child_set_valist (GtkContainer *container,
- ##	GtkWidget *child,
- ##	const gchar *first_property_name,
- ##	va_list var_args);
- ##
+ ## void gtk_container_child_get (GtkContainer *container, GtkWidget *child, const gchar *first_prop_name, ...)
+void
+gtk_container_child_get (container, child, ...)
+	GtkContainer *container
+	GtkWidget *child
+    ALIAS:
+	Gtk2::Container::child_get_property = 1
+    PREINIT:
+	GValue value = {0,};
+	int i;
+    PPCODE:
+	PERL_UNUSED_VAR (ix);
+	EXTEND (SP, items-1);
+
+	for (i = 2; i < items; i++) {
+		char *name = SvPV_nolen (ST (i));
+		init_child_property_value (G_OBJECT (container), name, &value);
+
+		gtk_container_child_get_property (container, child, name, &value);
+
+		PUSHs (sv_2mortal (gperl_sv_from_value (&value)));
+		g_value_unset (&value);
+	}
+
+=for apidoc
+
+=for arg ... list of property name/value pairs
+
+=cut
+ ## void gtk_container_child_set_valist (GtkContainer *container, GtkWidget *child, const gchar *first_property_name, va_list var_args);
+ ## void gtk_container_child_set_property (GtkContainer *container, GtkWidget *child, const gchar *property_name, const GValue *value)
+ ## void gtk_container_child_set (GtkContainer *container, GtkWidget *child, const gchar *first_prop_name, ...)
+void
+gtk_container_child_set (container, child, ...)
+	GtkContainer *container
+	GtkWidget *child
+    ALIAS:
+	Gtk2::Container::child_set_property = 1
+    PREINIT:
+	GValue value = {0,};
+	int i;
+    CODE:
+	PERL_UNUSED_VAR (ix);
+
+	if (0 != ((items - 2) % 2))
+		croak ("set method expects name => value pairs "
+		       "(odd number of arguments detected)");
+
+	for (i = 2; i < items; i += 2) {
+		char *name = SvPV_nolen (ST (i));
+		SV *newval = ST (i + 1);
+
+		init_child_property_value (G_OBJECT (container), name, &value);
+		gperl_value_from_sv (&value, newval);
+
+		gtk_container_child_set_property (container, child, name, &value);
+
+		g_value_unset (&value);
+	}
+
 # works on all children, including the internal ones.
  ##void gtk_container_forall (GtkContainer *container,
  ##	GtkCallback callback,
  ##	gpointer callback_data);
- ##
- ##GParamSpec** gtk_container_class_list_child_properties (GObjectClass *cclass,
- ##	guint *n_properties);
 
 ##GtkType gtk_container_get_type (void) G_GNUC_CONST
 

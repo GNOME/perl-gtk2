@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 
-use Gtk2::TestHelper tests => 20;
+use Gtk2::TestHelper tests => 23;
 
 # we'll create some containers (windows and boxes are containers) and
 # mess around with some of the methods to make sure they do things.
@@ -55,11 +55,29 @@ $vbox->pack_start (Gtk2::Label->new ("one"), 1, 1, 0);
 
 is ($vbox->child_type, 'Gtk2::Widget', 'a box is always hungry');
 
+my $entry = Gtk2::Entry->new ();
+
 # let's dump in a few more quickly
 $vbox->pack_start (Gtk2::Button->new ("two"), 1, 1, 0);
 $vbox->pack_start (Gtk2::ToggleButton->new ("three"), 1, 1, 0);
 $vbox->pack_start (Gtk2::CheckButton->new ("four"), 1, 1, 0);
-$vbox->pack_start (Gtk2::Entry->new (), 1, 1, 0);
+$vbox->pack_start ($entry, 1, 1, 0);
+
+is_deeply ([$vbox->child_get ($entry, qw(expand fill pack-type padding position))],
+           [1, 1, "start", 0, 4]);
+
+$vbox->child_set ($entry, expand => 0, position => 2);
+$vbox->child_set_property ($entry, fill => 0);
+
+is_deeply ([$vbox->child_get_property ($entry, qw(expand fill pack-type padding position))],
+           [0, 0, "start", 0, 2]);
+
+my $label = Gtk2::Label->new ("Blub");
+
+$vbox->add_with_properties ($label, pack_type => "end", position => 4);
+is_deeply ([$vbox->child_get ($label, qw(pack-type position))],
+           ["end", 4]);
+$vbox->remove ($label);
 
 my @children = $vbox->get_children;
 is (scalar (@children), 5, 'we packed five children');
