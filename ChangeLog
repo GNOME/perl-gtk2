@@ -1,3 +1,10 @@
+2003/11/29 12:21 (-0500) muppetman
+
+	* xs/GtkMessageDialog.xs: gtk_message_dialog_new uses printf-like
+	semantics and does not offer a safe literal version.  pass the message
+	through "%s" to be safe, and allow Gtk2::MessageDialog->new to take
+	printf-like arguments to be nice.
+
 2003/11/29 11:23 (-0500) rwmcfa1
 
 	* MANIFEST: missing files added
