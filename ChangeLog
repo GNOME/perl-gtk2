@@ -1,3 +1,10 @@
+2004/03/01 02:24 (-0500) muppetman
+
+	* xs/GdkPixmap.xs: bad signature in pod
+
+	* xs/GtkCellRenderer.xs: hide deprecated warnings unless env var
+	GTK2PERL_DEBUG is set and true.
+
 2004/03/01 02:05 (-0500) muppetman
 
 	* t/GdkDnd.t: make the test not fail when the destination window
