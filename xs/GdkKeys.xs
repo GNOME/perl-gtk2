@@ -49,7 +49,7 @@ gdk_keymap_get_for_display (class, display)
 
 ##  gboolean gdk_keymap_translate_keyboard_state (GdkKeymap *keymap, guint hardware_keycode, GdkModifierType state, gint group, guint *keyval, gint *effective_group, gint *level, GdkModifierType *consumed_modifiers) 
 =for apidoc
-=for signature (keyval, effective_group,level, consumed_modifiers) = $keymap->translate_keyboard_state (hardware_keycode, state, group)
+=for signature (keyval, effective_group, level, consumed_modifiers) = $keymap->translate_keyboard_state (hardware_keycode, state, group)
 =cut
 void
 gdk_keymap_translate_keyboard_state (keymap, hardware_keycode, state, group)

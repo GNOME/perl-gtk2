@@ -243,6 +243,9 @@ pango_font_metrics_get_approximate_digit_width (metrics)
 
 MODULE = Gtk2::Pango::Font	PACKAGE = Gtk2::Pango::FontFamily	PREFIX = pango_font_family_
 
+BOOT:
+	gperl_object_set_no_warn_unreg_subclass (PANGO_TYPE_FONT_FAMILY, TRUE);
+
 ## void pango_font_family_list_faces (PangoFontFamily *family, PangoFontFace ***faces, int *n_faces)
 =for apidoc
 Lists the different font faces that make up family. The faces in a family
@@ -252,19 +255,17 @@ void
 pango_font_family_list_faces (family)
 	PangoFontFamily *family
     PREINIT:
-	PangoFontFace ** faces;
-	int 	         n_faces;
+	PangoFontFace ** faces = NULL;
+	int n_faces;
     PPCODE:
 	pango_font_family_list_faces(family, &faces, &n_faces);
-	if( n_faces < 1 || faces == NULL )
-		XSRETURN_EMPTY;
-	else
-	{
+	if (n_faces > 0) {
+		int i;
 		EXTEND(SP,n_faces);
-		for( ; n_faces >= 0; n_faces-- )
-			PUSHs(sv_2mortal(newSVPangoFontFace(faces[n_faces])));
+		for (i = 0 ; i < n_faces ; i++)
+			PUSHs(sv_2mortal(newSVPangoFontFace(faces[i])));
+		g_free (faces);
 	}
-	g_free(faces);
 
 MODULE = Gtk2::Pango::Font	PACKAGE = Gtk2::Pango::Font	PREFIX = pango_font_
 

@@ -17,8 +17,8 @@ SKIP: {
 
 my ($keyval, $group, $level, $mods) = $map -> translate_keyboard_state(10, [qw(shift-mask lock-mask)], 0);
 like($keyval, qr/^\d+$/);
-like($keyval, qr/^\d+$/);
-like($keyval, qr/^\d+$/);
+like($group, qr/^\d+$/);
+like($level, qr/^\d+$/);
 isa_ok($mods, "Gtk2::Gdk::ModifierType");
 
 ok(defined($map -> get_direction()));
