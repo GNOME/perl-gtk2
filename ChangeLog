@@ -1,3 +1,14 @@
+2003/11/21 01:09 (-0500) muppetman
+
+	* CodeGen.pm, gtk2perl.h, xs/GdkGC.xs, xs/GdkPixbuf.xs,
+	xs/GtkCellRenderer.xs, xs/GtkItemFactory.xs, xs/GtkNotebook.xs,
+	xs/GtkSelection.xs, xs/GtkTooltips.xs, xs/GtkTreeSortable.xs:
+	use SvOK() as a lighter test for definedness than SvTRUE().
+	generally just try to make these tests cheaper.
+
+	* xs/GtkTreeModel.xs: rearrange iter_next() to avoid leaking the
+	iter copy when there is no next node.
+
 2003/11/20 19:43 (-0500) rwmcfa1
 
 	* Makefile.PL: some of it, V should be in there even on win32.
