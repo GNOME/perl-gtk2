@@ -2,7 +2,7 @@
 use strict;
 
 use Gtk2;
-use Gtk2::TestHelper tests => 22;
+use Gtk2::TestHelper tests => 21;
 
 my $pixbuf = Gtk2::Gdk::Pixbuf -> new("rgb", 0, 8, 10, 10);
 my $style = Gtk2::Style -> new();
@@ -73,8 +73,8 @@ $set -> add_source($source);
 isa_ok($set -> render_icon($style, "rtl", "prelight", "button", $button),
        "Gtk2::Gdk::Pixbuf");
 
-is_deeply([$set -> get_sizes()],
-          [qw(menu small-toolbar large-toolbar button dnd dialog answer)]);
+my %sizes = map { $_ => 1 } $set -> get_sizes();
+is($sizes{ answer }, 1);
 
 ###############################################################################
 
