@@ -169,9 +169,6 @@ application menus
   use Gtk2 '-init';
   use Gtk2::SimpleMenu;
 
-  use constant TRUE  => 1;
-  use constant FALSE => 0;
-
   my $menu_tree = [
   	_File => {
 		item_type => '<Branch',
@@ -319,9 +316,7 @@ Perl(1), Glib(3pm), Gtk2(3pm), examples/simple_menu.pl.
 
 =head1 AUTHORS
 
- muppet <scott at asofyet dot org>
  Ross McFarland <rwmcfa1 at neces dot com>
- Gavin Brown <gavin dot brown at uk dot com>
 
 =head1 COPYRIGHT AND LICENSE
 
