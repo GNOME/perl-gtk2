@@ -353,6 +353,7 @@ sub POP { # this
 	my $model = $_[0]->{model};
 	my $index = $model->iter_n_children-1;
 	my $iter = $model->iter_nth_child(undef, $index);
+	return undef unless $iter;
 	my $ret = [ $model->get ($iter) ];
 	$model->remove($iter) if( $index >= 0 );
 	return $ret;
@@ -361,6 +362,7 @@ sub POP { # this
 sub SHIFT { # this
 	my $model = $_[0]->{model};
 	my $iter = $model->iter_nth_child(undef, 0);
+	return undef unless $iter;
 	my $ret = [ $model->get ($iter) ];
 	$model->remove($iter) if( $model->iter_n_children );
 	return $ret;
@@ -390,6 +392,7 @@ sub DELETE { # this, key
 	my $ret;
 	if ($_[1] < $model->iter_n_children (undef)) {
 		my $iter = $model->iter_nth_child (undef, $_[1]);
+		return undef unless $iter;
 		$ret = [ $model->get ($iter) ];
 		$model->remove ($iter);
 	}
