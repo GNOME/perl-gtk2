@@ -2,7 +2,7 @@
 use strict;
 
 use Gtk2;
-use Gtk2::TestHelper tests => 32;
+use Gtk2::TestHelper tests => 31;
 
 my $attributes = {
   title => "Bla",
@@ -20,6 +20,7 @@ my $attributes = {
 };
 
 my $attributes_small = {
+  title => "Bla",
   x => 23,
   "y" => 42,
   window_type => "toplevel"
@@ -75,8 +76,9 @@ $window -> lower();
 $window -> focus(time());
 $window -> register_dnd();
 
-$window -> begin_resize_drag("south-east", 1, 20, 20, 0);
-$window -> begin_move_drag(1, 20, 20, 0);
+# See t/GtkWindow.t for why these are disabled.
+# $window -> begin_resize_drag("south-east", 1, 20, 20, 0);
+# $window -> begin_move_drag(1, 20, 20, 0);
 
 # FIXME: separate .t?
 my $geometry = Gtk2::Gdk::Geometry -> new();
@@ -182,7 +184,7 @@ $window -> set_background(Gtk2::Gdk::Color -> new(255, 255, 255));
 $window -> set_cursor(Gtk2::Gdk::Cursor -> new("arrow"));
 
 Gtk2 -> main_iteration() while (Gtk2 -> events_pending());
-is_deeply([$window -> get_geometry()], [20, 20, 40, 40, 16]);
+is_deeply([($window -> get_geometry())[0..3]], [20, 20, 40, 40]);
 
 $window -> set_geometry_hints($geometry, $mask);
 $window -> set_geometry_hints($geometry_two);
@@ -229,7 +231,9 @@ $window -> set_role("Playa");
 $window -> set_group($window_three);
 
 $window -> set_decorations("all");
-is_deeply([$window -> get_decorations()], [1, "all"]);
+
+# We can't do that because not all WM's honor the decorations request.
+# is_deeply([$window -> get_decorations()], [1, "all"]);
 
 $window -> set_functions("all");
 

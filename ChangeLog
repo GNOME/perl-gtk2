@@ -1,5 +1,12 @@
 2003/01/04 21:33 (+0100) kaffeetisch [test-suite-branch]
 
+	* t/GdkWindow.t: Add a title field to an attributes hash to hush a
+	gdk warning.  Don't call begin_resize_drag and begin_move_drag.
+	Don't check the last return value of get_geometry (the depth) as
+	it may vary from machine to machine.  Don't call get_decorations
+	because many window managers don't honor the set_decorations
+	request.  Thanks to Ross for findind all of the above.
+
 	* xs/GtkFontSelection.xs: Rearrange the accessor aliases so that no
 	unneeded xsub is created.
 
