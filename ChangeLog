@@ -1,3 +1,11 @@
+2004/03/24 01:35 (+0100) kaffeetisch
+
+	* t/GtkFileChooser.t: Set select_multiple to FALSE again to make
+	the preview stuff work.
+
+	* t/GtkListStore.t: Change the values passed to reorder() to
+	something that works for all gtk+ versions.
+
 2004/03/22 11:02 (-0500) muppetman
 
 	* xs/GdkRgb.xs, xs/GdkTypes.xs, xs/GtkSelection.xs: use INT2PTR to
