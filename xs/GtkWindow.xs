@@ -209,11 +209,19 @@ gtk_window_set_icon_list (window, ...)
 		g_list_free(list);
 	}
 
-# TODO: GList not in typemap
-## GList* gtk_window_get_icon_list (GtkWindow *window)
-#GList *
-#gtk_window_get_icon_list (window)
-#	GtkWindow * window
+# GList* gtk_window_get_icon_list (GtkWindow *window)
+void
+gtk_window_get_icon_list (window)
+	GtkWindow * window
+    PREINIT:
+	GList * list, * i;
+    PPCODE:
+	list = gtk_window_get_icon_list (window);
+	if (!list)
+		XSRETURN_EMPTY;
+	for (i = list ; i != NULL ; i = i->next)
+		XPUSHs (sv_2mortal (newSVGdkPixbuf (i->data)));
+	g_list_free (list);
 
 ## void gtk_window_set_icon (GtkWindow *window, GdkPixbuf *icon)
 void
@@ -223,35 +231,28 @@ gtk_window_set_icon (window, icon)
 
 #if GTK_CHECK_VERSION(2,2,0)
 
-##gboolean gtk_window_set_icon_from_file (GtkWindow *window, const gchar *filename, GError **err)
-#void
-#gtk_window_set_icon_from_file (window, filename)
-#	GtkWindow     * window
-#	const gchar   * filename
-#    PREINIT:
-#	GError * err = NULL;
-#    CODE:
-##	if( !gtk_window_set_icon_from_file(window, filename, &err) )
-#	{
-#		SV * errmsg = newSVpv(err->message, &PL_na);
-#		g_error_free(err);
-#		croak("%s: %s", filename, SvPV_nolen(errmsg));
-#	}
+#gboolean gtk_window_set_icon_from_file (GtkWindow *window, const gchar *filename, GError **err)
+void
+gtk_window_set_icon_from_file (window, filename)
+	GtkWindow     * window
+	const gchar   * filename
+    PREINIT:
+	GError * err = NULL;
+    CODE:
+	if (!gtk_window_set_icon_from_file(window, filename, &err))
+		gperl_croak_gerror (filename, err);
 
-##gboolean gtk_window_set_default_icon_from_file (GtkWindow *window, const gchar *filename, GError **err)
-#void
-#gtk_window_set_default_icon_from_file (window, filename)
-#	GtkWindow     * window
-#	const gchar   * filename
-#    PREINIT:
-#	GError * err = NULL;
-#    CODE:
-##	if( !gtk_window_set_default_icon_from_file(window, filename, &err) )
-#	{
-#		SV * errmsg = newSVpv(err->message, &PL_na);
-#		g_error_free(err);
-#		croak("%s: %s", filename, SvPV_nolen(errmsg));
-#	}
+#gboolean gtk_window_set_default_icon_from_file (GtkWindow *window, const gchar *filename, GError **err)
+void
+gtk_window_set_default_icon_from_file (window, filename)
+	GtkWindow     * window
+	const gchar   * filename
+    PREINIT:
+	GError * err = NULL;
+    CODE:
+	if (!gtk_window_set_default_icon_from_file(window, filename, &err))
+		gperl_croak_gerror (filename, err);
+
 #endif
 
 ## GdkPixbuf* gtk_window_get_icon (GtkWindow *window)
@@ -259,16 +260,34 @@ GdkPixbuf *
 gtk_window_get_icon (window)
 	GtkWindow * window
 
-# TODO: GList not in typemap
-## void gtk_window_set_default_icon_list (GList *list)
-#void
-#gtk_window_set_default_icon_list (list)
-#	GList * list
 
-# TODO: GList not in typemap
+## void gtk_window_set_default_icon_list (GList *list)
+void
+gtk_window_set_default_icon_list (class, pixbuf, ...)
+	SV * class
+	SV * pixbuf
+    PREINIT:
+	int i;
+	GList * list = NULL;
+    CODE:
+	for (i = 1; i < items ; i++)
+		list = g_list_append (list, SvGdkPixbuf (ST (i)));
+	gtk_window_set_default_icon_list (list);
+	g_list_free (list);
+	
+
+
 ## GList* gtk_window_get_default_icon_list (void)
-#GList *
-#gtk_window_get_default_icon_list ()
+void
+gtk_window_get_default_icon_list (class)
+	SV * class
+    PREINIT:
+	GList * list, * tmp;
+    PPCODE:
+	list = gtk_window_get_default_icon_list ();
+	for (tmp = list ; tmp != NULL ; tmp = tmp->next)
+		XPUSHs (sv_2mortal (newSVGdkPixbuf (tmp->data)));
+	g_list_free (list);
 
 ## gboolean gtk_window_get_modal (GtkWindow *window)
 gboolean
