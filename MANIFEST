@@ -73,6 +73,7 @@ pm/SimpleList.pm
 pm/SimpleMenu.pm
 ppport.h
 t/00.Gtk2.t
+t/01.GtkWidget.t
 t/01.GtkWindow.t
 t/02.GtkButton.t
 t/03.GtkGammaCurve.t

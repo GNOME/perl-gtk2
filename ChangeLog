@@ -1,3 +1,14 @@
+2003/12/12 11:39 (-0500) muppetman
+
+	* xs/GtkWidget.xs: alias values in get_flags got changed, but the
+	switches on ix were not updated, leading to bugs whenever apps tried
+	to read or write flag values.  fixed.  renamed get_flags to
+	flags_handler (it's hidden from API docs), and created a new xsub
+	named flags (aliased to get_flags) as a binding for GTK_WIDGET_FLAGS.
+
+	A t/01.GtkWidget.t
+	* MANIFEST: new test, an attempt to catch future flags regressions.
+
 2003/12/11 18:01 (-0500) rwmcfa1
 
 	* tools/podifystockitems.pl: was doing Gtk2 '-init' no reason to and it
