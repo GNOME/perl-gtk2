@@ -126,7 +126,7 @@ SKIP: {
 }
 
 SKIP: {
-  skip("new stuff in 2.6", 2)
+  skip("new stuff in 2.6", 3)
     unless Gtk2->CHECK_VERSION (2, 6, 0);
 
   my ($iter, $trailing) = $view->get_iter_at_position (10, 20);

@@ -75,7 +75,7 @@ ok ($label->get_mnemonic_widget, '$label->get_mnemonic_widget, entry');
 $label->set_text_with_mnemonic ('_Urgs');
 
 SKIP: {
-	skip 'new 2.6 stuff', 5
+	skip 'new 2.6 stuff', 6
 		unless Gtk2->CHECK_VERSION (2, 6, 0);
 
 	$label->set_ellipsize ('middle');
@@ -100,5 +100,5 @@ SKIP: {
 
 __END__
 
-Copyright (C) 2003 by the gtk2-perl team (see the file AUTHORS for the
+Copyright (C) 2003-2005 by the gtk2-perl team (see the file AUTHORS for the
 full list).  See LICENSE for more information.
