@@ -27,6 +27,33 @@ is ($window->child_type, 'Gtk2::Widget', 'a window wants a widget');
 $window->add ($vbox);
 ok (1, 'added a widget to the window');
 
+$window->set_focus_child($vbox);
+ok(1);
+
+my $adjustment = Gtk2::Adjustment->new(0, 0, 100, 5, 10, 20);
+
+$window->set_focus_vadjustment($adjustment);
+is($window->get_focus_vadjustment, $adjustment);
+
+$window->set_focus_hadjustment($adjustment);
+is($window->get_focus_hadjustment, $adjustment);
+
+$window->resize_children;
+ok(1);
+
+$window->set_border_width(10);
+is($window->get_border_width, 10);
+
+SKIP: {
+	skip 'Gtk2::Gdk::Event->new is new in 2.2.0', 1
+		if Gtk2->check_version(2, 2, 0);
+
+	my $expose_event = Gtk2::Gdk::Event->new("expose");
+	$window->propagate_expose($vbox, $expose_event);
+
+	ok(1);
+}
+
 # child_type returns undef when no more children may be added
 #ok (!defined ($window->child_type),
  #   'child_type returns undef when the container is full');
@@ -57,6 +84,9 @@ is (scalar (@chain), 0, 'we have not set a focus chain');
 $vbox->set_focus_chain (@chain);
 eq_array( [$vbox->get_focus_chain], \@chain, 'focus chain took');
 
+$vbox->unset_focus_chain;
+is_deeply([$vbox->get_focus_chain], []);
+
 # togglebuttons suck.  wipe them out... all of them.
 my $nremoved = 0;
 $vbox->foreach (sub {
@@ -72,6 +102,12 @@ is (scalar (@children), 4, 'four children remain');
 is ($vbox->get_resize_mode, 'parent');
 $vbox->set_resize_mode ('queue');
 is ($vbox->get_resize_mode, 'queue');
+
+$vbox->check_resize;
+ok(1);
+
+$vbox->set_reallocate_redraws(1);
+ok(1);
 
 #$window->show_all;
 #Gtk2->main;

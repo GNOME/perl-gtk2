@@ -24,9 +24,21 @@
 MODULE = Gtk2::ColorSelectionDialog	PACKAGE = Gtk2::ColorSelectionDialog	PREFIX = gtk_color_selection_dialog_
 
 
-GtkWidget * colorsel (GtkColorSelectionDialog * dialog)
+GtkWidget *
+colorsel (dialog)
+	GtkColorSelectionDialog *dialog
+    ALIAS:
+	ok_button = 1
+	cancel_button = 2
+	help_button = 3
     CODE:
-	RETVAL = dialog->colorsel;
+	RETVAL = NULL;
+	switch (ix) {
+		case 0: RETVAL = dialog->colorsel; break;
+		case 1: RETVAL = dialog->ok_button; break;
+		case 2: RETVAL = dialog->cancel_button; break;
+		case 3: RETVAL = dialog->help_button; break;
+	}
     OUTPUT:
 	RETVAL
 
