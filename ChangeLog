@@ -1,3 +1,10 @@
+2004/02/05 22:54 (+0100) kaffeetisch
+
+	* t/GdkWindow.t: Test Gtk2::Gdk::Rectangle::new, x, y, width,
+	height and values.
+
+	* t/GtkFileChooser.t: Make strict-safe.
+
 2004/02/05 22:46 (+0100) kaffeetisch
 
 	* gtk2perl.h

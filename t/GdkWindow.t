@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 31;
+use Gtk2::TestHelper tests => 37;
 
 # $Header$
 
@@ -84,7 +84,8 @@ $window -> register_dnd();
 # $window -> begin_resize_drag("south-east", 1, 20, 20, 0);
 # $window -> begin_move_drag(1, 20, 20, 0);
 
-# FIXME: separate .t?
+# FIXME: separate .t for the GdkTypes.xs stuff?
+
 my $geometry = Gtk2::Gdk::Geometry -> new();
 isa_ok($geometry, "Gtk2::Gdk::Geometry");
 
@@ -139,6 +140,13 @@ is_deeply([$geometry -> constrain_size($mask, 22, 23)], [10, 20]);
 is_deeply([$geometry -> constrain_size(22, 23)], [10, 20]);
 
 my $rectangle = Gtk2::Gdk::Rectangle -> new(10, 10, 20, 20);
+isa_ok($rectangle, "Gtk2::Gdk::Rectangle");
+is($rectangle -> x(), 10);
+is($rectangle -> y(), 10);
+is($rectangle -> width(), 20);
+is($rectangle -> height(), 20);
+is_deeply([$rectangle -> values()], [10, 10, 20, 20]);
+
 my $region = Gtk2::Gdk::Region -> rectangle($rectangle);
 
 $window_two -> begin_paint_rect($rectangle);

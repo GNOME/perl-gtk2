@@ -48,7 +48,7 @@ $file_chooser->set_current_name ('something that may not exist');
 is ($file_chooser->get_filename, undef,
     'set current name to something that may not exist');
 
-my $filename = File::Spec->catfile ($cwd, 'gtk2perl.h');
+$filename = File::Spec->catfile ($cwd, 'gtk2perl.h');
 $file_chooser->set_filename ($filename);
 is ($file_chooser->get_filename, $filename,
     'set current name to something that does exist');
@@ -67,7 +67,7 @@ $file_chooser->set_select_multiple (TRUE);
 ok ($file_chooser->get_select_multiple, 'select multiple');
 
 $file_chooser->select_all;
-my @list = $file_chooser->get_filenames;
+@list = $file_chooser->get_filenames;
 ok (scalar (@list));
 $file_chooser->unselect_all;
 
