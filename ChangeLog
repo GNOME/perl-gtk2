@@ -1,3 +1,17 @@
+2004/03/01 02:05 (-0500) muppetman
+
+	* t/GdkDnd.t: make the test not fail when the destination window
+	doesn't exist.
+
+	* t/GdkEvent.t: some settings don't exist if you're not running
+	gnome, e.g., remote to non-gnome desktop; don't fail if the setting
+	isn't there.
+
+	* xs/GdkDnd.xs: if find_window returns no destination window, the
+	protocol is garbage; don't try to convert it to a protocol enum
+	value.  this is half of the fix for the bizarre test problem
+	were seeing in t/GdkDnd.t
+
 2004/03/01 04:51 (+0100) kaffeetisch
 
 	* t/GtkFileChooser.t: Rearrange some function calls to avoid
