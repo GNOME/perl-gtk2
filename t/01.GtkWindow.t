@@ -9,7 +9,7 @@
 
 #########################
 
-use Gtk2::TestHelper tests => 100;
+use Gtk2::TestHelper tests => 101;
 
 use constant TRUE => 1;
 use constant FALSE => 0;
@@ -188,6 +188,10 @@ ok( ! $win->get_icon );
 # doesn't have an icon ^
 ok( ! $win->get_icon_list );
 
+my $accel_group = Gtk2::AccelGroup->new;
+$win->add_accel_group ($accel_group);
+$win->remove_accel_group ($accel_group);
+
 Glib::Idle->add(sub {
 		$win2->show;
 
@@ -292,6 +296,13 @@ ok(1);
 
 Gtk2->main;
 ok(1);
+
+my $group = Gtk2::WindowGroup->new;
+isa_ok( $group, "Gtk2::WindowGroup" );
+
+$group->add_window ($win);
+$group->remove_window ($win);
+
 
 __END__
 

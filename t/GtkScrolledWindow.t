@@ -18,15 +18,14 @@ is($window -> get_vadjustment(), $adjustment);
 $window = Gtk2::ScrolledWindow -> new(undef, undef);
 isa_ok($window, "Gtk2::ScrolledWindow");
 
+my $label = Gtk2::Label -> new("Bla");
+$window -> add_with_viewport($label);
+
 $window = Gtk2::ScrolledWindow -> new($adjustment, $adjustment);
 isa_ok($window, "Gtk2::ScrolledWindow");
 
 $window -> set_policy("always", "automatic");
 is_deeply([$window -> get_policy()], ["always", "automatic"]);
-
-my $label = Gtk2::Label -> new("Bla");
-
-$window -> add_with_viewport($label);
 
 $window -> set_placement("bottom-right");
 is($window -> get_placement(), "bottom-right");

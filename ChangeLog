@@ -1,3 +1,26 @@
+2004/01/07 21:48 (+0100) kaffeetisch [test-suite-branch]
+
+	* MANIFEST
+	R t/text-iter-searches.t
+	A t/GtkTextIter.t: Rename.
+
+	* MANIFEST
+	A t/GtkRc.t
+	A t/GtkSizeGroup.t: New tests.
+	
+	* t/GdkColor.t: Protect get_screen with a SKIP block.
+
+	* MANIFEST
+	A t/GtkAccelMap.t
+	* t/GtkAccelGroup.t: Complete rework of accel-group-map.t.
+
+	* t/GtkScrolledWindow.t: Move the add_with_viewport test around to
+	avoid a strange segfault.
+
+	* t/00.Gtk2.t
+	* t/01.GtkWindow.t
+	* t/GtkWidget.t: Some new tests.
+
 2004/01/05 22:40 (+0100) kaffeetisch [test-suite-branch]
 
 	* MANIFEST

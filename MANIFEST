@@ -81,6 +81,7 @@ t/GdkRegion.t
 t/GdkWindow.t
 t/GtkAccelGroup.t
 t/GtkAccelLabel.t
+t/GtkAccelMap.t
 t/GtkAdjustment.t
 t/GtkAlignment.t
 t/GtkArrow.t
@@ -135,17 +136,20 @@ t/GtkProgressBar.t
 t/GtkRadioButton.t
 t/GtkRadioMenuItem.t
 t/GtkRange.t
+t/GtkRc.t
 t/GtkRuler.t
 t/GtkScale.t
 t/GtkScrolledWindow.t
 t/GtkSeparatorMenuItem.t
 t/GtkSimpleList.t
 t/GtkSimpleMenu.t
+t/GtkSizeGroup.t
 t/GtkSocket-GtkPlug.t
 t/GtkSpinButton.t
 t/GtkStatusBar.t
 t/GtkTable.t
 t/GtkTearoffMenuItem.t
+t/GtkTextIter.t
 t/GtkToggleButton.t
 t/GtkToolbar.t
 t/GtkTooltips.t
@@ -161,7 +165,6 @@ t/GtkVScale.t
 t/GtkVScrollbar.t
 t/GtkVSeparator.t
 t/GtkWidget.t
-t/text-iter-searches.t
 TODO
 tools/fetch_faq.pl
 tools/genkeysyms.pl

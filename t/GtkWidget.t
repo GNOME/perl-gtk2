@@ -1,4 +1,4 @@
-use Gtk2::TestHelper tests => 46;
+use Gtk2::TestHelper tests => 62;
 
 # we can't instantiate Gtk2::Widget, it's abstract.  use a DrawingArea instead.
 
@@ -26,6 +26,9 @@ $widget->unparent;
 is ($widget->get ('parent'), undef, '$widget->unparent');
 # TODO: how
 #$widget->set_parent_window (Gtk2::Widget->new ('Gtk2::Window'));
+
+is( $widget->get_parent, $win );
+is( $widget->parent, $win );
 
 $widget->show;
 ok ($widget->get ('visible'), '$widget->show');
@@ -149,6 +152,12 @@ $widget->set_default_direction ('ltr');
 is ($widget->get_default_direction, 'ltr', 
 	'$widget->set_default_direction|get_default_direction, ltr');
 
+Gtk2->grab_add ($widget);
+is( Gtk2->grab_get_current, $widget, 'grabbing worked' );
+Gtk2->grab_remove ($widget);
+
+$widget->realize;
+isa_ok( $widget->window, "Gtk2::Gdk::Window" );
 
 ## end item by item check
 
@@ -191,5 +200,21 @@ ok (!$widget->sensitive, '$widget->sensitive');
 
 print "flags $flags\n";
 
+is( $widget->allocation->x, -1 );
+is( $widget->allocation->y, -1 );
+is( $widget->allocation->width, 1 );
+is( $widget->allocation->height, 1 );
 
 $widget->destroy;
+
+my $requisition = Gtk2::Requisition->new;
+isa_ok( $requisition, "Gtk2::Requisition");
+is( $requisition->width (5), 0 );
+is( $requisition->height (5), 0 );
+is( $requisition->width, 5 );
+is( $requisition->height, 5 );
+
+$requisition = Gtk2::Requisition->new (5, 5);
+isa_ok( $requisition, "Gtk2::Requisition" );
+is( $requisition->width, 5 );
+is( $requisition->height, 5 );
