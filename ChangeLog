@@ -1,3 +1,7 @@
+2003/11/01 14:52 rwmcfa1
+
+	* xs/Button.xs: autopod doc added
+
 2003/10/30 22:10 rwmcfa1
 
 	* t/30.GtkCellRenderer.t: this test seems kinda flaky, it was counting 

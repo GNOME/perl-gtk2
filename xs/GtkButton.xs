@@ -23,6 +23,32 @@
 
 MODULE = Gtk2::Button	PACKAGE = Gtk2::Button	PREFIX = gtk_button_
 
+=head1 MNEMONICS
+
+If characters in label are preceded by an underscore, they are underlined. If
+you need a literal underscore character in a label, use '__' (two underscores).
+The first underlined character represents a keyboard accelerator called a
+mnemonic. Pressing Alt and that key activates the button.
+
+=cut
+
+=for apidoc Gtk2::Button::new 
+=signature widget = Gtk2::Button->new
+=signature widget = Gtk2::Button->new ($mnemonic)
+=arg label (__hide__)
+=arg mnemonic (string) used to label the widget, see L</MNEMONICS>
+=cut
+
+=for apidoc Gtk2::Button::new_with_mnemonic
+=signature widget = Gtk2::Button->new_with_mnemonic ($mnemonic)
+=arg mnemonic (string) used to label the widget, see L</MNEMONICS>
+=cut
+
+=for apidoc Gtk2::Button::new_with_label
+=signature widget = Gtk2::Button->new_with_label ($label)
+=arg label (string) used to label the widget
+=cut
+
 GtkWidget *
 gtk_button_news (class, label=NULL)
 	const gchar * label
@@ -41,6 +67,12 @@ gtk_button_news (class, label=NULL)
     OUTPUT:
 	RETVAL
 
+# TODO: find and/or create Gtk2::StockItems info/page
+=for apidoc
+
+=arg stock_id (string) creates a new button using the icon and text from the specified stock item, see L<Gtk2::StockItems>
+
+=cut
 GtkWidget *
 gtk_button_new_from_stock (class, stock_id)
 	const gchar * stock_id
