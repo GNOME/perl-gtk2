@@ -240,7 +240,7 @@ gtk_notebook_get_n_pages (notebook)
 	GtkNotebook * notebook
     CODE:
 #if GTK_CHECK_VERSION(2,2,0)
-	RETVAL = gtk_notebook_get_n_pages (notebook)
+        RETVAL = gtk_notebook_get_n_pages (notebook);
 #else
 	/* this wasn't defined before 2.2.0...  but it's really handy and
 	 * easy to implement, like so: */
