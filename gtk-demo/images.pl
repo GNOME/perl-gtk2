@@ -77,14 +77,8 @@ sub progressive_timeout {
   #
 
   if (defined $image_stream) {
-      use bytes;
       my $buf;
-      my $bytes_read = sysread ($image_stream, $buf, 256);
-      warn "\$bytes_read = $bytes_read   length(\$buf) = ".length($buf)."\n";
-#      warn "buf $buf\n";
-#      use Devel::Peek;
-#      Dump($buf);
-#      Dump($image_stream);
+      my $bytes_read = read ($image_stream, $buf, 512);
 
       # sysread returns undef on error
       if (not defined $bytes_read) {
@@ -105,7 +99,7 @@ sub progressive_timeout {
          return TRUE; # do NOT uninstall the timeout, we'll just start loading again
       }
 
-      eval { use bytes; $pixbuf_loader->write ($buf); };
+      eval { $pixbuf_loader->write ($buf) };
 
       if ($@) {
          error_popup ($window, "Failed to load image: $@");
@@ -156,7 +150,7 @@ sub progressive_timeout {
       if ($@) {
 	  $error_message = $@;
       } else {
-          open ($image_stream, $filename)
+          open $image_stream, "<:raw", $filename
 	    or $error_message = "Unable to open image file 'alphatest.png': $!";
       }
 
@@ -365,3 +359,6 @@ Gtk2->init;
 &do;
 $window->signal_connect (destroy => sub {Gtk2->main_quit; 1});
 Gtk2->main;
+
+1;
+

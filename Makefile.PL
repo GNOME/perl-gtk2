@@ -12,13 +12,11 @@ my $req_glib_ver = 0.24;
 
 # Writing a fake Makefile ensures that CPAN will pick up the correct
 # dependencies and install them.
-unless (eval "use ExtUtils::Depends; "
-           . "use Glib::PkgConfig; "
+unless (eval "use ExtUtils::Depends;"
+           . "use Glib::PkgConfig;"
            # just seeing if Glib is available isn't enough, make sure
            # it's recent enough, too 
-           . "use Glib; "
-           . "die \"\nGlib is too old: found Glib \$Glib::VERSION, but we "
-	      . "need $req_glib_ver\n\" if \$Glib::VERSION < $req_glib_ver;"
+           . "use Glib $req_glib_ver;"
            . "1") {
    warn "$@\n";
    WriteMakefile(

@@ -5,6 +5,8 @@
         * xs/GdkPixbufLoader.xs: the right way to access scalars is *not*
         SvPVX, but SvPV. Also removed "count" from ->write, since strings
         in perl are always counted and exposing this c-ism gives no benefit.
+        * Makefile.PL: change the glib-not-found error message to the perl
+        standard.
 
 2003/06/20 11:33 muppetman
 
@@ -12,7 +14,7 @@
 
 	* Makefile.PL: just seeing if Glib is available isn't enough, make
 	sure it's recent enough, too.  oh, and bump the required glib 
-	ersion while we're at it
+	version while we're at it
 
 2003/06/19 13:46 joered
 	* xs/GdkColor.xs: added accessors for GdkColor struct members.
