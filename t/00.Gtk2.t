@@ -2,6 +2,9 @@
 # $Header$
 #
 
+use strict;
+use warnings;
+
 #########################
 # Gtk2 Tests
 # 	- rm
@@ -33,6 +36,7 @@ SKIP:
 	Gtk2->init_add( sub { ok($_[0] eq 'foo'); }, 'foo' );
 	ok(1);
 
+	my $q1;
 	ok( $q1 = Gtk2->quit_add( 0, sub { Gtk2->quit_remove($q1); ok(1); } ) );
 	ok( Gtk2->quit_add( 0, sub { ok($_[0] eq 'bar'); }, 'bar' ) );
 

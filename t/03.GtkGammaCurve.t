@@ -2,6 +2,9 @@
 # $Header$
 #
 
+use strict;
+use warnings;
+
 #########################
 # GtkGammaCurve Tests
 # 	- rm
@@ -24,9 +27,9 @@ else
 
 #########################
 
-ok( $win = Gtk2::Window->new("toplevel") );
+ok( my $win = Gtk2::Window->new("toplevel") );
 
-ok( $gamma = Gtk2::GammaCurve->new() );
+ok( my $gamma = Gtk2::GammaCurve->new() );
 
 $win->add($gamma);
 

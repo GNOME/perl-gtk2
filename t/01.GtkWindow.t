@@ -2,6 +2,9 @@
 # $Header$
 #
 
+use strict;
+use warnings;
+
 #########################
 # GtkWindow Tests
 # 	- rm
@@ -27,7 +30,7 @@ else
 use constant TRUE => 1;
 use constant FALSE => 0;
 
-ok( $win = Gtk2::Window->new );
+ok( my $win = Gtk2::Window->new );
 ok( $win = Gtk2::Window->new('popup') );
 ok( $win = Gtk2::Window->new('toplevel') );
 
@@ -56,7 +59,7 @@ ok(1);
 # the window manager needn't honor our request, but the
 # widget should be holding the values and the bindings
 # should return them correctly.
-@s = $win->get_default_size;
+my @s = $win->get_default_size;
 ok( $s[0] == 640 && $s[1] == 480 );
 
 #$win->set_geometry_hints(...);
@@ -79,7 +82,7 @@ foreach (qw/none center mouse center-always center-on-parent/)
 $win->get_position;
 ok(1);
 
-ok( $win2 = Gtk2::Window->new );
+ok( my $win2 = Gtk2::Window->new );
 
 $win2->set_transient_for($win);
 ok(1);
@@ -91,7 +94,7 @@ ok(1);
 
 ok( $win2->get_destroy_with_parent );
 
-@toplvls = Gtk2::Window->list_toplevels;
+my @toplvls = Gtk2::Window->list_toplevels;
 is(scalar(@toplvls), 4);
 
 $win2->set_decorated(TRUE);
@@ -196,6 +199,7 @@ Glib::Idle->add(sub {
 
 		# gtk2.2 req
 		SKIP: {
+			my $reason;
 			if ($^O eq 'MSWin32') {
 				$reason = 'GdkScreen not available on win32';
 			} elsif ((Gtk2->get_version_info)[1] < 2) {

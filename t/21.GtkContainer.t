@@ -1,5 +1,8 @@
 #!/usr/bin/perl -w
 
+use strict;
+use warnings;
+
 use Test::More;
 use Gtk2;
 
@@ -41,10 +44,10 @@ $vbox->pack_start (Gtk2::ToggleButton->new ("three"), 1, 1, 0);
 $vbox->pack_start (Gtk2::CheckButton->new ("four"), 1, 1, 0);
 $vbox->pack_start (Gtk2::Entry->new (), 1, 1, 0);
 
-@children = $vbox->get_children;
+my @children = $vbox->get_children;
 is (scalar (@children), 5, 'we packed five children');
 
-@chain = $vbox->get_focus_chain;
+my @chain = $vbox->get_focus_chain;
 is (scalar (@chain), 0, 'we have not set a focus chain');
 
 # set focus chain to focusable children in reverse order
@@ -53,7 +56,7 @@ $vbox->set_focus_chain (@chain);
 eq_array( [$vbox->get_focus_chain], \@chain, 'focus chain took');
 
 # togglebuttons suck.  wipe them out... all of them.
-$nremoved = 0;
+my $nremoved = 0;
 $vbox->foreach (sub {
 	if ('Gtk2::ToggleButton' eq ref $_[0]) {
 		$vbox->remove ($_[0]);

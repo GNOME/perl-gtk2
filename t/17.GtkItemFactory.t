@@ -2,6 +2,9 @@
 # $Header$
 #
 
+use strict;
+use warnings;
+
 #########################
 # Gtk2::ItemFactory Tests
 # 	- rm

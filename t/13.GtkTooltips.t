@@ -2,6 +2,9 @@
 # $Header$
 #
 
+use strict;
+use warnings;
+
 #########################
 # GtkTooltips Tests
 # 	- rm
@@ -24,15 +27,15 @@ else
 
 #########################
 
-ok( $win = Gtk2::Window->new('toplevel') );
+ok( my $win = Gtk2::Window->new('toplevel') );
 $win->set_title('GtkTooltips.t Test Window');
 
-ok( $vbox = Gtk2::VBox->new(0, 5) );
+ok( my $vbox = Gtk2::VBox->new(0, 5) );
 $win->add($vbox);
 
-ok( $tips = Gtk2::Tooltips->new );
+ok( my $tips = Gtk2::Tooltips->new );
 
-ok( $btn = Gtk2::Button->new('Button 1') );
+ok( my $btn = Gtk2::Button->new('Button 1') );
 $vbox->pack_start($btn, 0, 0, 0);
 $tips->set_tip($btn, 'Tip 1', 'Vebose Tip 1');
 ok(1);

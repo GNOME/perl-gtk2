@@ -2,6 +2,9 @@
 # $Header$
 #
 
+use strict;
+use warnings;
+
 #########################
 # GtkStatusbar Tests
 # 	- rm
@@ -24,18 +27,18 @@ else
 
 #########################
 
-ok( $win = Gtk2::Window->new('toplevel') );
+ok( my $win = Gtk2::Window->new('toplevel') );
 $win->set_title('GtkStatusbar.t Test Window');
 $win->set_default_size(120,25);
 
-ok( $sts = Gtk2::Statusbar->new );
+ok( my $sts = Gtk2::Statusbar->new );
 $win->add($sts);
 
-ok( $sts_cid1 = $sts->get_context_id('Main') );
+ok( my $sts_cid1 = $sts->get_context_id('Main') );
 ok( $sts->push($sts_cid1, 'Ready 1-0') );
 ok( $sts->push($sts_cid1, 'Ready 1-1') );
 
-ok( $sts_cid2 = $sts->get_context_id('Not Main') );
+ok( my $sts_cid2 = $sts->get_context_id('Not Main') );
 ok( $sts->push($sts_cid2, 'Ready 2-0') );
 ok( $sts->push($sts_cid2, 'Ready 2-1') );
 

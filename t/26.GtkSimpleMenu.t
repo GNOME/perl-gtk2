@@ -2,6 +2,9 @@
 # $Header$
 #
 
+use strict;
+use warnings;
+
 #########################
 # GtkSimpleMenu Tests
 # 	- rm
@@ -154,7 +157,7 @@ ok( $menu->{accel_group} );
 ok( $menu->{entries} );
 ok( $menu->{menu_tree} );
 
-ok( $rdo = $menu->get_widget('/Tools/Radios/Radio 2') );
+ok( my $rdo = $menu->get_widget('/Tools/Radios/Radio 2') );
 $rdo->set_active(1);
 
 my $win = Gtk2::Window->new;

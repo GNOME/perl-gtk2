@@ -2,6 +2,9 @@
 # $Header$
 #
 
+use strict;
+use warnings;
+
 #########################
 # GtkToolbar Tests
 # 	- rm
@@ -24,14 +27,14 @@ else
 
 #########################
 
-ok( $dlg = Gtk2::Dialog->new('GtkToolbar.t Test Window', undef,
+ok( my $dlg = Gtk2::Dialog->new('GtkToolbar.t Test Window', undef,
 		[ ], 'gtk-quit', 1 ) );
 $dlg->set_default_size(600,300);
 
 # so pixmaps will work?
 $dlg->realize;
 
-ok( $tlbr = Gtk2::Toolbar->new );
+ok( my $tlbr = Gtk2::Toolbar->new );
 $dlg->vbox->pack_start($tlbr, 0, 0, 0);
 
 $tlbr->set_orientation('horizontal');
@@ -44,7 +47,7 @@ ok( $tlbr->insert_stock('gtk-open', 'Open Nothing', 'Verbose Open Nothing',
 
 $tlbr->append_space;
 
-ok( $quit_btn = $tlbr->append_item('Close', 'Closes this app', 'Private',
+ok( my $quit_btn = $tlbr->append_item('Close', 'Closes this app', 'Private',
 	Gtk2::Image->new_from_stock('gtk-quit', $tlbr->get_icon_size),
        	sub { Gtk2->main_quit; }) );
 
@@ -57,24 +60,24 @@ sub radio_event
 	1;
 }
 
-ok( $icons = $tlbr->append_element( 'radiobutton', undef, 'Icons',
+ok( my $icons = $tlbr->append_element( 'radiobutton', undef, 'Icons',
 	'Only Icons will be shown on the toolbar', 'Private',
 	Gtk2::Image->new_from_stock('gtk-go-up', $tlbr->get_icon_size),
 	\&radio_event, 'icons' ) );
 
-ok( $text = $tlbr->append_element( 'radiobutton', $icons, 'Text',
+ok( my $text = $tlbr->append_element( 'radiobutton', $icons, 'Text',
 	'Only Text will be shown on the toolbar', 'Private',
 	Gtk2::Image->new_from_stock('gtk-go-down', $tlbr->get_icon_size),
 	\&radio_event, 'text' ) );
 
-ok( $both = $tlbr->append_element( 'radiobutton', $icons, 'Icons & Text',
+ok( my $both = $tlbr->append_element( 'radiobutton', $icons, 'Icons & Text',
 	'Icons & Text will be shown on the toolbar', 'Private',
 	Gtk2::Image->new_from_stock('gtk-go-back', $tlbr->get_icon_size),
 	\&radio_event, 'both' ) );
 
 $tlbr->append_space;
 
-ok( $tips = $tlbr->append_element( 'togglebutton', undef, 'Tooltips',
+ok( my $tips = $tlbr->append_element( 'togglebutton', undef, 'Tooltips',
 	'A toggle button to turn on/off Tooltips', 'Private',
 	Gtk2::Image->new_from_stock('gtk-go-forward', $tlbr->get_icon_size),
 	sub {
@@ -85,7 +88,7 @@ ok( $tips = $tlbr->append_element( 'togglebutton', undef, 'Tooltips',
 
 $tlbr->append_space;
 
-ok( $size = $tlbr->append_element( 'togglebutton', undef, 'Icon Size',
+ok( my $size = $tlbr->append_element( 'togglebutton', undef, 'Icon Size',
 	'A toggle button to change the icon size', 'Private',
 	Gtk2::Image->new_from_stock('gtk-go-up', $tlbr->get_icon_size),
 	sub {
@@ -104,7 +107,7 @@ ok( $size = $tlbr->append_element( 'togglebutton', undef, 'Icon Size',
 
 $tlbr->append_space;
 
-ok( $entry = Gtk2::Entry->new );
+ok( my $entry = Gtk2::Entry->new );
 $tlbr->append_widget( $entry, 'This is just an entry', 'Private' );
 $entry->set_text('An Entry Widget');
 

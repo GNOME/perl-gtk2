@@ -2,6 +2,9 @@
 # $Header$
 #
 
+use strict;
+use warnings;
+
 #########################
 # GdkColor Tests
 # 	- muppet
@@ -32,7 +35,7 @@ my @colors = map {
 
 $cmap->alloc_color ($colors[0], 0, 1);
 ok ($colors[0]->pixel > 0, 'alloc_color allocated a color');
-@success = $cmap->alloc_colors (0, 1, @colors);
+my @success = $cmap->alloc_colors (0, 1, @colors);
 is (@success, @colors, 'same number of status values as input colors');
 ok ($colors[1]->pixel > 0, 'alloc_colors allocated a color');
 

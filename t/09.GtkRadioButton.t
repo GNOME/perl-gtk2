@@ -2,6 +2,9 @@
 # $Header$
 #
 
+use strict;
+use warnings;
+
 #########################
 # GtkRadioButton Tests
 # 	- rm
@@ -24,13 +27,14 @@ else
 
 #########################
 
-ok( $win = Gtk2::Window->new('toplevel') );
+ok( my $win = Gtk2::Window->new('toplevel') );
 $win->set_title('GtkRadioButton.t Test Window');
 $win->set_border_width(5);
 
-ok( $vbox = Gtk2::VBox->new(0, 5) );
+ok( my $vbox = Gtk2::VBox->new(0, 5) );
 $win->add($vbox);
 
+my $rdobtn;
 ok( $rdobtn = Gtk2::RadioButton->new() );
 $vbox->pack_start($rdobtn, 0, 0, 0);
 
@@ -51,6 +55,8 @@ $vbox->pack_start($rdobtn, 0, 0, 0);
 
 ok( scalar(@{$rdobtn->get_group}) == 3 );
 
+my $i;
+my @rdobtns;
 for( $i = 0; $i < 5; $i++ )
 {
 	$rdobtns[$i] = Gtk2::RadioButton->new(\@rdobtns, $i);

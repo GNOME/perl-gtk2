@@ -2,6 +2,9 @@
 # $Header
 #
 
+use strict;
+use warnings;
+
 #########################
 # GtkCombo Tests
 # 	- rm
@@ -24,11 +27,11 @@ else
 
 #########################
 
-ok( $win = Gtk2::Window->new() );
+ok( my $win = Gtk2::Window->new() );
 
 $win->set_title('GtkCombo.t Test Window');
 
-ok( $combo = Gtk2::Combo->new );
+ok( my $combo = Gtk2::Combo->new );
 $win->add($combo);
 
 $combo->set_popdown_strings( qw/str1 str2 str3 str4/ );

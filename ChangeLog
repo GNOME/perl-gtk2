@@ -1,3 +1,8 @@
+2003/09/11 11:01 rwmcfa1
+
+	* t/*.t: use strict and use warnings added and fixes made to allow
+	things to run with them.
+
 2003/09/10 15:04 rwmcfa1
 
 	* examples/socket.pl: make the same change in here that was made in 

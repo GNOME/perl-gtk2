@@ -2,6 +2,9 @@
 # $Header$
 #
 
+use strict;
+use warnings;
+
 #########################
 # GtkLabel Tests
 # 	- rm
@@ -24,10 +27,10 @@ else
 
 #########################
 
-ok( $win = Gtk2::Window->new() );
+ok( my $win = Gtk2::Window->new() );
 $win->set_border_width(10);
 
-ok( $label = Gtk2::Label->new("Hello World!") );
+ok( my $label = Gtk2::Label->new("Hello World!") );
 $win->add($label);
 
 ok( $label->get_text eq 'Hello World!' );

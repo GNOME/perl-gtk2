@@ -6,6 +6,9 @@
 # $Header$
 #
 
+use strict;
+use warnings;
+
 #########################
 
 use Gtk2;
@@ -23,18 +26,18 @@ else
 
 #########################
 
-ok( $win = Gtk2::Window->new );
+ok( my $win = Gtk2::Window->new );
 
-@cols = (
+my @cols = (
 		{ title => 'Author', type => 'Glib::String',  },
 		{ title => 'Work',   type => 'Glib::String',  },
 		{ title => 'Sold',   type => 'Glib::Uint',    },
 		{ title => 'Print',  type => 'Glib::Boolean', },
 	);
 
-ok( $store = Gtk2::ListStore->new( map {$_->{type}} @cols ) );
+ok( my $store = Gtk2::ListStore->new( map {$_->{type}} @cols ) );
 
-@data = (
+my @data = (
 	{ Author => 'John Doe', Work => 'Who am I', Sold => '32', Print => 0 },
 	{ Author => 'John Doe', Work => 'Who am I', Sold => '44', Print => 1 },
 );
@@ -49,10 +52,12 @@ foreach (@data)
 		3, $_->{Print} );
 }
 
-ok( $tree = Gtk2::TreeView->new_with_model($store) );
+ok( my $tree = Gtk2::TreeView->new_with_model($store) );
 $win->add($tree);
 
-$i = 0;
+my $renderer;
+my $column;
+my $i = 0;
 foreach (@cols)
 {
 	if( $_->{type} =~ /Glib::String/ )

@@ -2,6 +2,9 @@
 # $Header$
 #
 
+use strict;
+use warnings;
+
 #########################
 # GtkHandleBox Tests
 # 	- rm
@@ -24,10 +27,10 @@ else
 
 #########################
 
-ok( $win = Gtk2::Window->new('toplevel') );
+ok( my $win = Gtk2::Window->new('toplevel') );
 $win->set_title('GtkHandleBox.t Test Window');
 
-ok( $hb = Gtk2::HandleBox->new );
+ok( my $hb = Gtk2::HandleBox->new );
 $win->add($hb);
 
 $hb->add( Gtk2::Label->new('Just a test label') );

@@ -2,6 +2,9 @@
 # $Header$
 #
 
+use strict;
+use warnings;
+
 #########################
 # GtkNotbook Tests
 # 	- rm
@@ -26,7 +29,7 @@ else
 
 my $win = Gtk2::Window->new;
 
-ok( $nb = Gtk2::Notebook->new );
+ok( my $nb = Gtk2::Notebook->new );
 $win->add($nb);
 ok(1);
 

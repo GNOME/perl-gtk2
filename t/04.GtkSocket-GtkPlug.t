@@ -6,6 +6,8 @@
 # $Header$
 #
 
+use strict;
+use warnings;
 
 #########################
 
@@ -31,14 +33,14 @@ else
 
 #########################
 
-ok( $win = Gtk2::Window->new );
+ok( my $win = Gtk2::Window->new );
 
-ok( $socket = Gtk2::Socket->new );
+ok( my $socket = Gtk2::Socket->new );
 $win->add($socket);
 
-ok( $id = $socket->get_id );
+ok( my $id = $socket->get_id );
 
-$str = "$^X -Mblib -e '\$id = $id;\n\n".<<EOL;
+my $str = "$^X -Mblib -e '\$id = $id;\n\n".<<EOL;
 use Gtk2;
 
 Gtk2->init;
@@ -63,7 +65,10 @@ Glib::Timeout->add( 100, sub {
 Gtk2->main;'
 EOL
 
-$pid = fork;
+use strict;
+use warnings;
+
+my $pid = fork;
 if( $pid < 0 )
 {
 	die "fork failed, no use trying";
