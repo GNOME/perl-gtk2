@@ -1,3 +1,18 @@
+2003/12/28 22:43 (-0500) muppetman [unstable-2-3-x-branch]
+
+	* xs/GtkAction.xs, xs/GtkLabel.xs, xs/GtkUIManager.xs: allow
+	NULL where applicable
+
+	* xs/GtkActionGroup.xs, xs/GtkFileFilter.xs, xs/GtkItemFactory.xs,
+	xs/GtkRadioAction.xs, xs/GtkRadioButton.xs, xs/GtkRadioMenuItem.xs,
+	xs/GtkRadioToolButton.xs, xs/GtkTreeModelFilter.xs, xs/GtkTreeView.xs:
+	always check pointers for NULL before passing it to SvOK.  in some
+	cases this is overkill, but at this point i can't verify that
+	preconditions will be valid.
+
+	* xs/GtkClipboard.xs: new functions, request_targets and
+	wait_for_targets
+
 2003/12/23 01:40 (-0500) muppetman [unstable-2-3-x-branch]
 
 	A xs/GtkIconTheme.xs
