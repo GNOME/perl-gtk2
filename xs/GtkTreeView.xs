@@ -239,7 +239,6 @@ gtk_tree_view_insert_column (tree_view, column, position)
 	GtkTreeViewColumn *column
 	gint position
 
-### TODO
 ## gint gtk_tree_view_insert_column_with_attributes (GtkTreeView *tree_view, gint position, const gchar *title, GtkCellRenderer *cell, ...)
 ### this is implemented in GtkTreeViewColumn.xs so it can get access to
 ### a static helper function used to parse the stack for attributes.
@@ -650,6 +649,8 @@ gtk_tree_view_set_search_column (tree_view, column)
 	GtkTreeView *tree_view
 	gint column
 
+# there are issues of major badness with this.  if you come up with a
+# solution that won't be rickety and dangerous, go for it.
 #### GtkTreeViewSearchEqualFunc gtk_tree_view_get_search_equal_func (GtkTreeView *tree_view)
 ##GtkTreeViewSearchEqualFunc
 ##gtk_tree_view_get_search_equal_func (tree_view)

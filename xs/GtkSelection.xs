@@ -81,8 +81,10 @@ gtk2perl_read_gtk_target_entry (SV * sv,
 	}
 }
 
-MODULE = Gtk2::Selection	PACKAGE = Gtk2::TargetList	PREFIX = gtk_target_list_
-
+/*
+ * FIXME no typemap for GtkTargetList
+##MODULE = Gtk2::Selection	PACKAGE = Gtk2::TargetList	PREFIX = gtk_target_list_
+##
 ####  GtkTargetList *gtk_target_list_new (const GtkTargetEntry *targets, guint ntargets) 
 ##GtkTargetList *
 ##gtk_target_list_new (targets, ntargets)
@@ -130,6 +132,7 @@ MODULE = Gtk2::Selection	PACKAGE = Gtk2::TargetList	PREFIX = gtk_target_list_
 ##		XSRETURN_UNDEF;
 ##    OUTPUT:
 ##	RETVAL
+*/
 
 MODULE = Gtk2::Selection	PACKAGE = Gtk2::Selection	PREFIX = gtk_selection_
 
@@ -166,6 +169,7 @@ gtk_selection_add_target (widget, selection, target, info)
 	GdkAtom target
 	guint info
 
+# FIXME
 ####  void gtk_selection_add_targets (GtkWidget *widget, GdkAtom selection, const GtkTargetEntry *targets, guint ntargets) 
 ##void
 ##gtk_selection_add_targets (widget, selection, targets, ntargets)

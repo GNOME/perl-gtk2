@@ -95,11 +95,8 @@ gtk_stock_add (class, ...)
 	for (i = 1 ; i < items ; i++)
 		gtk_stock_add (SvGtkStockItem (ST (i)), 1);
 
+## you don't really ever get static memory from perl, so this is irrelevant.
 ###  void gtk_stock_add_static (const GtkStockItem *items, guint n_items) 
-#void
-#gtk_stock_add_static (items, n_items)
-#	const GtkStockItem *items
-#	guint n_items
 
 ##  gboolean gtk_stock_lookup (const gchar *stock_id, GtkStockItem *item) 
 SV *
@@ -131,13 +128,7 @@ gtk_stock_list_ids (class)
 	}
 	g_slist_free (ids);
 
+## Boxed type support
 ###  GtkStockItem *gtk_stock_item_copy (const GtkStockItem *item) 
-#GtkStockItem *
-#gtk_stock_item_copy (item)
-#	const GtkStockItem *item
-#
 ###  void gtk_stock_item_free (GtkStockItem *item) 
-#void
-#gtk_stock_item_free (item)
-#	GtkStockItem *item
 

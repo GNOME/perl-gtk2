@@ -404,18 +404,8 @@ gtk_tree_model_iter_parent (tree_model, child)
 	RETVAL
 
 #### void gtk_tree_model_ref_node (GtkTreeModel *tree_model, GtkTreeIter *iter)
-##void
-##gtk_tree_model_ref_node (tree_model, iter)
-##	GtkTreeModel *tree_model
-##	GtkTreeIter *iter
-##
 #### void gtk_tree_model_unref_node (GtkTreeModel *tree_model, GtkTreeIter *iter)
-##void
-##gtk_tree_model_unref_node (tree_model, iter)
-##	GtkTreeModel *tree_model
-##	GtkTreeIter *iter
 
-# FIXME this one is probably important
 ## void gtk_tree_model_get (GtkTreeModel *tree_model, GtkTreeIter *iter, ...)
 void
 gtk_tree_model_get (tree_model, iter, ...)
@@ -497,6 +487,7 @@ gtk_tree_model_row_deleted (tree_model, path)
 	GtkTreeModel *tree_model
 	GtkTreePath *path
 
+## FIXME how do we validate the input vector?
 #### void gtk_tree_model_rows_reordered (GtkTreeModel *tree_model, GtkTreePath *path, GtkTreeIter *iter, gint *new_order)
 ##void
 ##gtk_tree_model_rows_reordered (tree_model, path, iter, new_order)

@@ -36,7 +36,8 @@ gtk_list_new (class)
 	SV * class
     C_ARGS:
 
-## parameter order flipped on this function
+## parameter order flipped on this function so the item
+## list soaks up the rest of the arg stack
 ##  void gtk_list_insert_items (GtkList *list, GList *items, gint position) 
 void
 gtk_list_insert_items (list, position, list_item, ...)
