@@ -1,3 +1,15 @@
+2003/08/30 02:33 muppetman
+
+	changes made while listening to cheesy 80s scandinavian prog metal in
+	the middle of the night while everyone's asleep (oh, the nostalgia):
+
+	* AUTHORS, xs/GdkPixbuf.xs: patch from Anuradha Ratnaweera implements
+	Gtk2::Gdk::Pixbuf->new_from_xpm_data
+
+	* examples/timeouttest.pl: apparently this was broken for a long time.
+
+	* xs/Gtk2.xs: updated commentary.
+
 2003/08/28 23:17 muppetman
 
 	* Gtk2.pm, README, debian/changelog: updated for 0.96 release
