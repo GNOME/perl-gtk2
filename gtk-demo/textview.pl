@@ -16,14 +16,8 @@ use Carp;
 use constant FALSE => 0;
 use constant TRUE => 1;
 
-use constant  PANGO_WEIGHT_ULTRALIGHT => 200;
-use constant  PANGO_WEIGHT_LIGHT      => 300;
-use constant  PANGO_WEIGHT_NORMAL     => 400;
-use constant  PANGO_WEIGHT_BOLD       => 700;
-use constant  PANGO_WEIGHT_ULTRABOLD  => 800;
-use constant  PANGO_WEIGHT_HEAVY      => 900;
-
-#include "demo-common.h"
+# get the PANGO_WEIGHT_* constants
+use Gtk2::Pango;
 
 ##static void easter_egg_callback (GtkWidget *button, gpointer data);
 
@@ -31,8 +25,6 @@ use constant gray50_width => 2;
 use constant gray50_height => 2;
 my $gray50_bits = pack 'CC', 0x02, 0x01;
 
-#static void
-#create_tags (GtkTextBuffer *buffer)
 sub create_tags {
   my $buffer = shift;
   #GdkBitmap *stipple;
@@ -85,15 +77,15 @@ sub create_tags {
   $buffer->create_tag ("big_gap_after_line", pixels_below_lines => 30); 
   $buffer->create_tag ("double_spaced_line", pixels_inside_wrap => 10); 
   $buffer->create_tag ("not_editable", editable => FALSE); 
-  $buffer->create_tag ("word_wrap", wrap_mode => 'word'); # GTK_WRAP_WORD); 
-  $buffer->create_tag ("char_wrap", wrap_mode => 'char'); # GTK_WRAP_CHAR); 
-  $buffer->create_tag ("no_wrap", wrap_mode => 'none'); #GTK_WRAP_NONE); 
-  $buffer->create_tag ("center", justification => 'center'); #GTK_JUSTIFY_CENTER); 
-  $buffer->create_tag ("right_justify", justification => 'right'); #GTK_JUSTIFY_RIGHT); 
+  $buffer->create_tag ("word_wrap", wrap_mode => 'word');
+  $buffer->create_tag ("char_wrap", wrap_mode => 'char');
+  $buffer->create_tag ("no_wrap", wrap_mode => 'none');
+  $buffer->create_tag ("center", justification => 'center');
+  $buffer->create_tag ("right_justify", justification => 'right');
   $buffer->create_tag ("wide_margins", left_margin => 50, right_margin => 50); 
   $buffer->create_tag ("strikethrough", strikethrough => TRUE); 
-  $buffer->create_tag ("underline", underline => 'single'); #PANGO_UNDERLINE_SINGLE); 
-  $buffer->create_tag ("double_underline", underline => 'double'); #PANGO_UNDERLINE_DOUBLE);
+  $buffer->create_tag ("underline", underline => 'single');
+  $buffer->create_tag ("double_underline", underline => 'double');
 
   $buffer->create_tag ("superscript",
 			rise => 10 * Gtk2::Pango->scale, #PANGO_SCALE,	  # 10 pixels
@@ -114,8 +106,6 @@ sub create_tags {
 			);
 }
 
-#static void
-#insert_text (GtkTextBuffer *buffer)
 sub insert_text {
   my $buffer = shift;
 
@@ -268,12 +258,8 @@ sub insert_text {
 
   # Apply word_wrap tag to whole buffer
   $buffer->apply_tag_by_name ("word_wrap", $buffer->get_bounds);
-
-#  g_object_unref (pixbuf);
 }
 
-#static gboolean
-#find_anchor (GtkTextIter *iter)
 sub find_anchor {
   my $iter = shift;
   while ($iter->forward_char) {
@@ -282,8 +268,6 @@ sub find_anchor {
   return FALSE;
 }
 
-#static void
-#attach_widgets (GtkTextView *text_view)
 sub attach_widgets {
   my $text_view = shift;
   
@@ -307,13 +291,10 @@ sub attach_widgets {
           
           $widget = Gtk2::OptionMenu->new;
 
-          #my $menu_item = Gtk2::MenuItem->new_with_label ("Option 1");
           my $menu_item = Gtk2::MenuItem->new ("Option 1");
           $menu->append ($menu_item);
-          #$menu_item = Gtk2::MenuItem->new_with_label ("Option 2");
           $menu_item = Gtk2::MenuItem->new ("Option 2");
           $menu->append ($menu_item);
-          #$menu_item = Gtk2::MenuItem->new_with_label ("Option 3");
           $menu_item = Gtk2::MenuItem->new ("Option 3");
           $menu->append ($menu_item);
 
@@ -333,8 +314,6 @@ sub attach_widgets {
           $widget = Gtk2::Entry->new;
 
       } else {
-          #widget = NULL; /* avoids a compiler warning */
-          #g_assert_not_reached ();
 	  croak "shouldn't get here";
       }
 
@@ -372,13 +351,13 @@ sub do {
       my $buffer = $view1->get_buffer;
       my $view2 = Gtk2::TextView->new_with_buffer ($buffer);
       
-      my $sw = Gtk2::ScrolledWindow->new (undef, undef);
+      my $sw = Gtk2::ScrolledWindow->new;
       $sw->set_policy ('automatic', 'automatic');
       $vpaned->add1 ($sw);
 
       $sw->add ($view1);
 
-      $sw = Gtk2::ScrolledWindow->new (undef, undef);
+      $sw = Gtk2::ScrolledWindow->new;
       $sw->set_policy ('automatic', 'automatic');
       $vpaned->add2 ($sw);
 
@@ -447,8 +426,6 @@ sub easter_egg_callback {
   
   recursive_attach_view (0, $view, $anchor);
   
-  #g_object_unref (buffer);
-
   $tvee_window = Gtk2::Window->new ('toplevel');
   my $sw = Gtk2::ScrolledWindow->new (undef, undef);
   $sw->set_policy ('automatic', 'automatic');
@@ -456,8 +433,6 @@ sub easter_egg_callback {
   $tvee_window->add ($sw);
   $sw->add ($view);
 
-#  g_object_add_weak_pointer (G_OBJECT (window),
-#                             (gpointer *) &window);
   $tvee_window->signal_connect (destroy => sub {$tvee_window = undef; 1});
 
   $tvee_window->set_default_size (300, 400);
