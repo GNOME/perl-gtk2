@@ -378,6 +378,7 @@ sub gen_boxed_stuff {
 #endif /* $typemacro */
 ";
 	push @typemap, "$classname *	T_GPERL_GENERIC_WRAPPER";
+	push @typemap, "const $classname *	T_GPERL_GENERIC_WRAPPER";
 	push @typemap, "$classname\_ornull *	T_GPERL_GENERIC_WRAPPER";
 	push @typemap, "$classname\_own *	T_GPERL_GENERIC_WRAPPER";
 	push @typemap, "$classname\_copy *	T_GPERL_GENERIC_WRAPPER";

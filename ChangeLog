@@ -1,3 +1,8 @@
+2003/11/17 22:04 (+0100) kaffeetisch
+
+	* CodeGen.pm: Create INPUT typemaps for the 'const' equivalents of
+	GBoxed's, too.
+
 2003/11/17 12:51 (-0500) muppetman
 
 	* TODO: updated
