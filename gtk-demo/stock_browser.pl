@@ -116,7 +116,7 @@ sub selection_changed {
 #  warn "\n\nselection_changed  $selection";
   
   my $treeview = $selection->get_tree_view;
-  my $display = $treeview->get_data ("stock-display");
+  my $display = $treeview->{stock_display};
 
   my ($iter, $model) = $selection->get_selected;
   if ($iter) {
@@ -266,7 +266,7 @@ sub do {
          label_accel_label => Gtk2::Label->new,
          icon_image => Gtk2::Image->new_from_pixbuf (undef), # empty image
       };
-      $treeview->set_data ("stock-display", $display);
+      $treeview->{stock_display} = $display;
 
       $vbox->pack_start ($display->{type_label}, FALSE, FALSE, 0); 
       $vbox->pack_start ($display->{icon_image}, FALSE, FALSE, 0); 

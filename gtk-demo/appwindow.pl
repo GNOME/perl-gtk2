@@ -178,15 +178,12 @@ sub do {
       
       my $accel_group = Gtk2::AccelGroup->new;
       $window->add_accel_group ($accel_group);
-#      g_object_unref (accel_group);
       
       my $item_factory = Gtk2::ItemFactory->new ("Gtk2::MenuBar", "<main>", 
                                                  $accel_group);
 
       # Set up item factory to go away with the window
-#      g_object_ref (item_factory);
-#      gtk_object_sink (GTK_OBJECT (item_factory));
-      $window->set_data ("<main>", $item_factory);
+      $window->{'<main>'} = $item_factory;
 
       # create menu items
       $item_factory->create_items ($window, @menu_items);

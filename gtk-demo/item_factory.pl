@@ -59,7 +59,7 @@ sub do {
       my $accel_group = Gtk2::AccelGroup->new;
       my $item_factory = Gtk2::ItemFactory->new ('Gtk2::MenuBar', 
                                                  '<main>', $accel_group);
-      $window->set_data ("<main>", $item_factory);
+      $window->{"<main>"} = $item_factory;
       $window->add_accel_group ($accel_group);
       $window->set_title ("Item Factory");
       $window->set_border_width (0);

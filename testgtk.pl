@@ -22,9 +22,12 @@ warn Dumper(\@ARGV);
 #$window->show;
 
 $dialog = Gtk2::MessageDialog->new (undef, [], 'info', 'ok', 'hello world');
-print "dialog is $dialog".sprintf("%p",$$dialog)."\n";
 $dialog->show;
-$dialog->set_data ('private', 'foo');
+# this should croak
+eval {
+	$dialog->set_data ('private', 'foo');
+};
+$dialog->set_data (private => 42);
 print "data: ".$dialog->get_data ('private')."\n";
 $foo = $dialog->get_data ('private');
 print "$foo\n";
@@ -85,7 +88,8 @@ $dialog->set (message_type => 'error',
 	      border_width => 15,);
 print join("\n+", $dialog->get (qw/ message-type has-separator buttons border-width/))."\n";
 
-print Dumper($dialog->size_request);
+print Dumper($dialog->allocation);
+#print Dumper($dialog->size_request);
 
 Gtk2->main;
 
