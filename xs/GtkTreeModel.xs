@@ -352,7 +352,7 @@ gtk_tree_model_iter_next (tree_model, iter)
 GtkTreeIter_copy *
 gtk_tree_model_iter_children (tree_model, parent)
 	GtkTreeModel *tree_model
-	GtkTreeIter *parent
+	GtkTreeIter_ornull *parent
     PREINIT:
 	GtkTreeIter iter;
     CODE:
@@ -378,7 +378,7 @@ gtk_tree_model_iter_n_children (tree_model, iter)
 GtkTreeIter_copy *
 gtk_tree_model_iter_nth_child (tree_model, parent, n)
 	GtkTreeModel *tree_model
-	GtkTreeIter *parent
+	GtkTreeIter_ornull *parent
 	gint n
     PREINIT:
 	GtkTreeIter iter;
