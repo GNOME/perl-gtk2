@@ -1,3 +1,15 @@
+Overview of Changes in Gtk2 1.039
+=================================
+
+* Update Glib requirement to 1.039, remove the unstable nastygram, and
+  generally prep things for a stable series.  [muppet]
+* Track upstream API changes for the GtkFileChooser.  [muppet]
+* Miscellaneous documentation improvements.  [muppet, Torsten, Ross]
+* Allow undef for the text parameter of Gtk2::ProgressBar::set_text.  [Torsten]
+* Un-break Gtk2::Gdk::Pixbuf::get_pixels.  [muppet]
+* New example, color_snooper.pl
+* More tests.
+
 Overview of Changes in Gtk2 1.038
 =================================
 
