@@ -1,3 +1,18 @@
+2003/09/09 21:35 muppetman
+
+	* t/22.GtkListStore.t, t/23.GtkTreeStore.t, t/24.GtkTreeView.t,
+	 t/25.GtkTreeSelection.t: patch from torsten uses isa_ok() instead
+	 of is(ref(), ...) all over the place.
+
+2003/09/09 21:22 muppetman
+
+	* pm/Responses.pm, Gtk2.pm, Makefile.PL, gtk-demo/changedisplay.pl,
+	MANIFEST: tiny module adds named constants for the dialog responses,
+	with pod
+
+	* pm/Pango.pm: update the link in the see also section
+
+
 2003/09/09 19:52 rwmcfa1
 
 	* Makefile.PL: new rule to install examples/gtk-demo

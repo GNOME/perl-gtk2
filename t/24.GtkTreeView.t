@@ -2,7 +2,7 @@
 use strict;
 use Gtk2;
 use Test::More;
-		
+
 my @version_info = Gtk2 -> get_version_info();
 
 ###############################################################################
@@ -21,10 +21,10 @@ my $window = Gtk2::Window -> new("toplevel");
 
 my $model = Gtk2::TreeStore -> new("Glib::String", "Glib::Boolean");
 my $view = Gtk2::TreeView -> new();
-is(ref($view), "Gtk2::TreeView");
+isa_ok($view, "Gtk2::TreeView");
 
 $view -> set_model($model);
-is(ref($view -> get_model()), "Gtk2::TreeStore");
+isa_ok($view -> get_model(), "Gtk2::TreeStore");
 
 foreach (qw(bla blee bliii bloooo)) {
 	my $iter = $model -> append(undef);
@@ -59,7 +59,7 @@ $window -> show_all();
 ###############################################################################
 
 my $view_column = Gtk2::TreeViewColumn -> new();
-is(ref($view_column), "Gtk2::TreeViewColumn");
+isa_ok($view_column, "Gtk2::TreeViewColumn");
 
 $view_column -> set_spacing(23);
 is($view_column -> get_spacing(), 23);
@@ -88,7 +88,7 @@ $view_column -> set_title("Bla");
 is($view_column -> get_title(), "Bla");
 
 $view_column -> set_widget(Gtk2::Button -> new("Bla"));
-is(ref($view_column -> get_widget()), "Gtk2::Button");
+isa_ok($view_column -> get_widget(), "Gtk2::Button");
 
 $view_column -> set_alignment(1.0);
 is($view_column -> get_alignment(), 1.0);
@@ -115,7 +115,7 @@ SKIP: {
 ###############################################################################
 
 my $cell_renderer = Gtk2::CellRendererText -> new();
-is(ref($cell_renderer), "Gtk2::CellRendererText");
+isa_ok($cell_renderer, "Gtk2::CellRendererText");
 
 $view_column = Gtk2::TreeViewColumn -> new_with_attributes("Bla",
 							   $cell_renderer,
@@ -126,9 +126,9 @@ $cell_renderer -> set_fixed_height_from_font(-1);
 $view_column -> pack_start(Gtk2::CellRendererToggle -> new(), 1);
 $view_column -> pack_end(Gtk2::CellRendererPixbuf -> new(), 0);
 
-is(ref(($view_column -> get_cell_renderers())[0]), "Gtk2::CellRendererText");
-is(ref(($view_column -> get_cell_renderers())[1]), "Gtk2::CellRendererToggle");
-is(ref(($view_column -> get_cell_renderers())[2]), "Gtk2::CellRendererPixbuf");
+isa_ok(($view_column -> get_cell_renderers())[0], "Gtk2::CellRendererText");
+isa_ok(($view_column -> get_cell_renderers())[1], "Gtk2::CellRendererToggle");
+isa_ok(($view_column -> get_cell_renderers())[2], "Gtk2::CellRendererPixbuf");
 
 $view_column -> clear();
 is($view_column -> get_cell_renderers(), undef);
@@ -136,7 +136,7 @@ is($view_column -> get_cell_renderers(), undef);
 ###############################################################################
 
 $cell_renderer = Gtk2::CellRendererToggle -> new();
-is(ref($cell_renderer), "Gtk2::CellRendererToggle");
+isa_ok($cell_renderer, "Gtk2::CellRendererToggle");
 
 $view_column -> pack_start($cell_renderer, 1);
 
@@ -152,7 +152,7 @@ is($cell_renderer -> get_active(), 1);
 ###############################################################################
 
 $cell_renderer = Gtk2::CellRendererPixbuf -> new();
-is(ref($cell_renderer), "Gtk2::CellRendererPixbuf");
+isa_ok($cell_renderer, "Gtk2::CellRendererPixbuf");
 
 $view_column -> pack_start($cell_renderer, 1);
 
@@ -166,7 +166,7 @@ is($view_column -> get_clickable(), 1);
 
 $view_column -> signal_connect(clicked => sub {
 	my ($view_column) = @_;
-	is(ref($view_column), "Gtk2::TreeViewColumn");
+	isa_ok($view_column, "Gtk2::TreeViewColumn");
 });
 
 # xxx
@@ -197,10 +197,10 @@ SKIP: {
 	is($view -> get_expander_column(), $view_column_one);
 }
 
-is(ref($view -> get_cell_area(Gtk2::TreePath -> new("0:0"), $view_column_two)),
+isa_ok($view -> get_cell_area(Gtk2::TreePath -> new("0:0"), $view_column_two),
    "Gtk2::Gdk::Rectangle");
 
-is(ref($view -> get_background_area(Gtk2::TreePath -> new("0:0"), $view_column_two)),
+isa_ok($view -> get_background_area(Gtk2::TreePath -> new("0:0"), $view_column_two),
    "Gtk2::Gdk::Rectangle");
 
 $view -> set_cursor(Gtk2::TreePath -> new("1:0"), $view_column_one, 0);
@@ -219,8 +219,8 @@ is($view -> get_columns(), undef);
 
 ###############################################################################
 
-is(ref($view -> get_hadjustment()), "Gtk2::Adjustment");
-is(ref($view -> get_vadjustment()), "Gtk2::Adjustment");
+isa_ok($view -> get_hadjustment(), "Gtk2::Adjustment");
+isa_ok($view -> get_vadjustment(), "Gtk2::Adjustment");
 
 my $h_adjustment = Gtk2::Adjustment -> new(0, 0, 100, 5, 20, 40);
 my $v_adjustment = Gtk2::Adjustment -> new(0, 0, 100, 5, 20, 40);
@@ -248,9 +248,9 @@ is($view -> get_enable_search(), ""); # xxx
 $view -> set_search_column(1);
 is($view -> get_search_column(), 1);
 
-is(ref($view -> get_bin_window()), "Gtk2::Gdk::Window");
+isa_ok($view -> get_bin_window(), "Gtk2::Gdk::Window");
 
-is(ref($view -> get_visible_rect()), "Gtk2::Gdk::Rectangle");
+isa_ok($view -> get_visible_rect(), "Gtk2::Gdk::Rectangle");
 
 $view -> columns_autosize();
 
@@ -278,8 +278,8 @@ is($view -> row_expanded($path), 1);
 $view -> map_expanded_rows(sub {
 	my ($view, $path) = @_;
 
-	is(ref($view), "Gtk2::TreeView");
-	is(ref($path), "Gtk2::TreePath");
+	isa_ok($view, "Gtk2::TreeView");
+	isa_ok($path, "Gtk2::TreePath");
 
 	is($view -> row_expanded($path), 1);
 });
@@ -300,10 +300,10 @@ $view_column = Gtk2::TreeViewColumn -> new_with_attributes("Blab", $cell_rendere
 $view_column -> set_cell_data_func($cell_renderer, sub {
 	my ($view_column, $cell, $model, $iter) = @_;
 
-	is(ref($view_column), "Gtk2::TreeViewColumn");
-	is(ref($cell), "Gtk2::CellRendererToggle");
-	is(ref($model), "Gtk2::TreeStore");
-	is(ref($iter), "Gtk2::TreeIter");
+	isa_ok($view_column, "Gtk2::TreeViewColumn");
+	isa_ok($cell, "Gtk2::CellRendererToggle");
+	isa_ok($model, "Gtk2::TreeStore");
+	isa_ok($iter, "Gtk2::TreeIter");
 
 	SKIP: {
 		skip("focus_cell is new in 2.2.x", 2)

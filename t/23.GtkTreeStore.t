@@ -16,11 +16,11 @@ else {
 ###############################################################################
 
 my $model = Gtk2::TreeStore -> new("Glib::String", "Glib::Int");
-is(ref($model), "Gtk2::TreeStore");
+isa_ok($model, "Gtk2::TreeStore");
 
 foreach (qw(bla blee bliii bloooo)) {
 	my $iter = $model -> append(undef);
-	is(ref($iter), "Gtk2::TreeIter");
+	isa_ok($iter, "Gtk2::TreeIter");
 
 	$model -> set($iter,
 		      0 => $_,

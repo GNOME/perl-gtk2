@@ -33,7 +33,7 @@ foreach (qw(bla ble bli blo blu)) {
 ###############################################################################
 
 my $selection = $view -> get_selection();
-is(ref($selection), "Gtk2::TreeSelection");
+isa_ok($selection, "Gtk2::TreeSelection");
 
 $selection -> select_path(Gtk2::TreePath -> new_from_string(0));
 
@@ -44,21 +44,21 @@ ok($selection -> get_mode() eq "browse");
 
 ###############################################################################
 
-is(ref($selection -> get_tree_view()), "Gtk2::TreeView");
+isa_ok($selection -> get_tree_view(), "Gtk2::TreeView");
 
 ###############################################################################
 
 my ($tmp_model, $tmp_iter) = $selection -> get_selected();
-is(ref($tmp_model), "Gtk2::ListStore");
-is(ref($tmp_iter), "Gtk2::TreeIter");
+isa_ok($tmp_model, "Gtk2::ListStore");
+isa_ok($tmp_iter, "Gtk2::TreeIter");
 
 is($tmp_model -> get($tmp_iter, 0), "bla");
 
-is(ref($selection -> get_selected()), "Gtk2::TreeIter");
+isa_ok($selection -> get_selected(), "Gtk2::TreeIter");
 
 ###############################################################################
 
-is(ref($selection -> get_selected_rows()), "Gtk2::TreePath");
+isa_ok($selection -> get_selected_rows(), "Gtk2::TreePath");
 
 ###############################################################################
 
@@ -115,9 +115,9 @@ $selection -> unselect_all();
 $selection -> set_select_function(sub {
 	my ($selection, $model, $path, $selected) = @_;
 
-	is(ref($selection), "Gtk2::TreeSelection");
-	is(ref($model), "Gtk2::ListStore");
-	is(ref($path), "Gtk2::TreePath");
+	isa_ok($selection, "Gtk2::TreeSelection");
+	isa_ok($model, "Gtk2::ListStore");
+	isa_ok($path, "Gtk2::TreePath");
 
 	return 0;
 });
@@ -136,9 +136,9 @@ $selection -> selected_foreach(sub {
 
 	is($model -> get($iter, 0), "ble");
 
-	is(ref($model), "Gtk2::ListStore");
-	is(ref($path), "Gtk2::TreePath");
-	is(ref($iter), "Gtk2::TreeIter");
+	isa_ok($model, "Gtk2::ListStore");
+	isa_ok($path, "Gtk2::TreePath");
+	isa_ok($iter, "Gtk2::TreeIter");
 });
 
 ###############################################################################

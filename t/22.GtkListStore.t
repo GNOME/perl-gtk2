@@ -16,11 +16,11 @@ else {
 ###############################################################################
 
 my $model = Gtk2::ListStore -> new("Glib::String", "Glib::Int");
-is(ref($model), "Gtk2::ListStore");
+isa_ok($model, "Gtk2::ListStore");
 
 foreach (qw(bla blee bliii bloooo)) {
 	my $iter = $model -> append();
-	is(ref($iter), "Gtk2::TreeIter");
+	isa_ok($iter, "Gtk2::TreeIter");
 
 	$model -> set($iter,
 		      0 => $_,
@@ -51,7 +51,7 @@ is($flags -> [1], "list-only");
 my($path_one, $path_two);
 
 $path_one = Gtk2::TreePath -> new();
-is(ref($path_one), "Gtk2::TreePath");
+isa_ok($path_one, "Gtk2::TreePath");
 
 $path_one = Gtk2::TreePath -> new_from_string("0");
 is($path_one -> to_string(), "0");
@@ -71,7 +71,7 @@ SKIP: {
 	my ($ref_one, $ref_two, $ref_path);
 
 	$ref_one = Gtk2::TreeRowReference -> new($model, Gtk2::TreePath -> new_from_string("0"));
-	is(ref($ref_one), "Gtk2::TreeRowReference");
+	isa_ok($ref_one, "Gtk2::TreeRowReference");
 	is($ref_one -> valid(), 1);
 
 	$ref_path = $ref_one -> get_path();
@@ -86,7 +86,7 @@ SKIP: {
 my $iter;
 
 $iter = $model -> get_iter(Gtk2::TreePath -> new_from_string("0"));
-is(ref($iter), "Gtk2::TreeIter");
+isa_ok($iter, "Gtk2::TreeIter");
 is($model -> get_path($iter) -> to_string(), "0");
 
 $iter = $model -> get_iter_from_string("0");
@@ -110,9 +110,9 @@ SKIP: {
 $model -> foreach(sub {
 	my ($model, $path, $iter) = @_;
 
-	is(ref($model), "Gtk2::ListStore");
-	is(ref($path), "Gtk2::TreePath");
-	is(ref($iter), "Gtk2::TreeIter");
+	isa_ok($model, "Gtk2::ListStore");
+	isa_ok($path, "Gtk2::TreePath");
+	isa_ok($iter, "Gtk2::TreeIter");
 
 	return 1;
 });
