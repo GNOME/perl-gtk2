@@ -1,3 +1,10 @@
+2003/06/02 12:24 muppetman
+
+	* xs/GtkDialog.xs: allow enum strings as well as integers to
+	$dialog->response
+
+	* xs/GdkEvent.xs: remove unused parameters
+
 2003/06/01 22:52 muppetman
 
 	* xs/GtkAspectFrame.xs, GtkTreeSortable.xs: fixed package typos;
