@@ -23,7 +23,7 @@
 
 /*
 NOTE:
-GdkDrawable descends directly from GObject, so be sure to use GdkDrawable_own
+GdkDrawable descends directly from GObject, so be sure to use GdkDrawable_noinc
 for functions that return brand-new objects!  (i don't think there are any,
 but there are several functions in other modules returning GdkDrawable
 subclasses)
