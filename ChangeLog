@@ -1,3 +1,18 @@
+2003/09/31 19:59 muppetman
+
+	* CodeGen.pm, gdk.typemap: use Glib's new T_GPERL_GENERIC_WRAPPER to
+	cut out 2/3 of the typemap code.
+
+	* Gtk2.pm: don't set RTLD_GLOBAL on darwin, it generates a warning.
+
+	* Makefile.PL, README: we now require Glib 0.97 for 
+	T_GPERL_GENERIC_WRAPPER.
+
+	* gtk2perl.h, xs/GtkDnd.xs, xs/GtkSelection.xs, gtk.typemap: implement
+	GtkTargetList and several of the drag'n'drop APIs that depend on it.
+	done with custom code, as these are apparently somewhat internal
+	structures that don't have built-in boxed type support.
+
 2003/08/30 02:33 muppetman
 
 	changes made while listening to cheesy 80s scandinavian prog metal in
