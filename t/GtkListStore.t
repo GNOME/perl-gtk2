@@ -237,13 +237,20 @@ if ((Gtk2->get_version_info)[1] < 2) {
 	ok ($store->remove ($iter), '$store->remove 2');
 }
 
-ok (my $tree = Gtk2::TreeView->new_with_model($store), 'new treeview');
+SKIP: {
+    # on RH8 with 2.0.6, i get a crash from pango xft, complaining that
+    # there's no display.  xft does require an x server...  later versions
+    # don't use xft and appear to be fine without a display.
+    skip "can't create a treeview on 2.0.x without a display", 7
+    	if (Gtk2->get_version_info)[1] < 2 && not Gtk2->init_check;
 
-my $renderer;
-my $column;
-my $i = 0;
-foreach (@cols)
-{
+    ok (my $tree = Gtk2::TreeView->new_with_model($store), 'new treeview');
+
+    my $renderer;
+    my $column;
+    my $i = 0;
+    foreach (@cols)
+    {
 	if( $_->{type} =~ /Glib::String/ )
 	{
 		$renderer = Gtk2::CellRendererText->new;
@@ -266,9 +273,9 @@ foreach (@cols)
 		$tree->append_column($column);
 	}
 	$i++;
-}
+    }
 
-Glib::Idle->add( sub {
+    Glib::Idle->add( sub {
 		SKIP: {
 			skip 'function only in version > 2.2', 5
 				unless ((Gtk2->get_version_info)[1] >= 2);
@@ -307,7 +314,8 @@ Glib::Idle->add( sub {
 		0;
 	} );
 
-Gtk2->main;
+    Gtk2->main;
+}
 
 __END__
 
