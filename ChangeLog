@@ -1,3 +1,8 @@
+2004/01/05 21:48 (+0100) kaffeetisch [test-suite-branch]
+
+	R t/05.GtkListStore-etc.t
+	* t/GtkListStore.t: Merge both tests.
+
 2004/01/05 17:18 (+0100) kaffeetisch [test-suite-branch]
 
 	* t/GtkIconFactory.t: Initial import.
