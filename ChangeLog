@@ -1,4 +1,9 @@
-2003/07/08 16:23 muppetman
+2003/07/08 15:38 rwmcfa1
+
+	* xs/GdkWindow.xs: uncommented the freeze/thaw updates functions per
+	thierry vignaud's request.
+
+2003/07/08 14:23 muppetman
 
 	* CodeGen.om: massive POD update; use regex to find module name
 	instead of relying on people putting whitespace around the '='

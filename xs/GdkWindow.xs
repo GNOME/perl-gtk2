@@ -569,16 +569,17 @@ gdk_window_invalidate_rect (window, rectangle, invalidate_children)
  ##	gboolean (*child_func) (GdkWindow * gpointer)
  ##	gpointer user_data
  ##
- ## void gdk_window_freeze_updates (GdkWindow *window)
- ##void
- ##gdk_window_freeze_updates (window)
- ##	GdkWindow *window
- ##
- ## void gdk_window_thaw_updates (GdkWindow *window)
- ##void
- ##gdk_window_thaw_updates (window)
- ##	GdkWindow *window
- ##
+
+## void gdk_window_freeze_updates (GdkWindow *window)
+void
+gdk_window_freeze_updates (window)
+	GdkWindow * window
+ 
+## void gdk_window_thaw_updates (GdkWindow *window)
+void
+gdk_window_thaw_updates (window)
+	GdkWindow * window
+
  ## void gdk_window_process_all_updates (void)
  ##void
  ##gdk_window_process_all_updates (void)
