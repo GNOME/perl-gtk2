@@ -1,3 +1,8 @@
+2004/01/07 16:01 (-0500) muppetman
+
+	* xs/GdkTypes.xs: xsubpp doesn't like aliases with the same ix.
+	use different numbers and switch fall-through instead.
+
 2004/01/05 21:55 (-0500) rwmcfa1
 
 	* examples/color_list.pl: initial import, an example of how to colorize
