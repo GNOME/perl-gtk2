@@ -48,4 +48,14 @@ typedef GdkBitmap GdkBitmap_noinc;
 SV * newSVGdkBitmap (GdkBitmap * bitmap);
 SV * newSVGdkBitmap_noinc (GdkBitmap * bitmap);
 
+
+/*
+ * override the autogen stuff for GdkModifierType, so we can make sure
+ * that GDK_MODIFIER_MASK doesn't get in there and mess things up.
+ * (it has multiple bits set and therefore matches everything!)
+ */
+#undef newSVGdkModifierType
+SV * newSVGdkModiferType (GdkModifierType mods);
+
+
 #endif /* _GTK2PERL_H_ */

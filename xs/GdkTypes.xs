@@ -4,6 +4,25 @@
 
 #include "gtk2perl.h"
 
+/***  GAH!!  copied code!!!  crap...  ***/
+
+SV *
+newSVGdkModifierType (GdkModifierType val)
+{
+	GFlagsValue * vals = gtk_type_flags_get_values (GDK_TYPE_MODIFIER_TYPE);
+	AV * flags = newAV ();
+	while (vals && vals->value_nick && vals->value_name) {
+		if ((vals->value != GDK_MODIFIER_MASK) &&
+		    (vals->value & val))
+			av_push (flags, newSVpv (vals->value_nick, 0));
+		vals++;
+	}
+	return newRV_noinc ((SV*) flags);
+}
+
+
+
+
 #if 0
 
 ##MODULE = Gtk2::Gdk::Types	PACKAGE = Gtk2::Gdk::Point
