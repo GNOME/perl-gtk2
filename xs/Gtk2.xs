@@ -21,6 +21,34 @@
 
 #include "gtk2perl.h"
 
+static gboolean
+gtk2perl_init_add_callback_invoke (GPerlCallback * callback)
+{
+	GValue return_value = {0,};
+	gboolean retval;
+	g_value_init (&return_value, callback->return_type);
+	gperl_callback_invoke (callback, &return_value);
+	retval = g_value_get_boolean (&return_value);
+	g_value_unset (&return_value);
+
+	/* TODO: it seems that this will only be called once.
+	 * if that is not the case then this next line is very bad */
+	gperl_callback_destroy(callback);
+	
+	return retval;
+}
+
+static guint
+gtk2perl_quit_add_callback_invoke (GPerlCallback * callback)
+{
+	GValue return_value = {0,};
+	guint retval;
+	g_value_init (&return_value, callback->return_type);
+	gperl_callback_invoke (callback, &return_value);
+	retval = g_value_get_uint (&return_value);
+	g_value_unset (&return_value);
+	return retval;
+}
 
 MODULE = Gtk2		PACKAGE = Gtk2		PREFIX = gtk_
 
@@ -184,19 +212,48 @@ gtk_grab_remove	(class, widget)
     C_ARGS:
 	widget
 
- ##void	   gtk_init_add		   (GtkFunction	       function,
- ##				    gpointer	       data);
+void 
+gtk_init_add (class, function, data=NULL)
+	SV          * class
+	SV          * function
+	SV          * data
+    PREINIT:
+	GPerlCallback * real_callback;
+    CODE:
+	real_callback = gperl_callback_new(function, data, 
+				0, NULL, G_TYPE_BOOLEAN);
+	gtk_init_add((GtkFunction)gtk2perl_init_add_callback_invoke,
+		     real_callback);
+
+## guint gtk_quit_add
+## guint gtk_quit_add_full
+guint
+gtk_quit_add (class, main_level, function, data=NULL)
+	SV    * class
+	guint   main_level
+	SV    * function
+	SV    * data
+    PREINIT:
+    	GPerlCallback * real_callback;
+    CODE:
+	real_callback = gperl_callback_new(function, data, 
+				0, NULL, G_TYPE_UINT);
+	RETVAL = gtk_quit_add_full(main_level, 
+			  (GtkFunction)gtk2perl_quit_add_callback_invoke, 
+			  NULL, real_callback, 
+			  (GtkDestroyNotify)gperl_callback_destroy);
+    OUTPUT:
+	RETVAL
+
+void	   
+gtk_quit_remove (class, quit_handler_id)
+	SV    * class
+	guint   quit_handler_id
+    C_ARGS:
+    	quit_handler_id
+
  ##void	   gtk_quit_add_destroy	   (guint	       main_level,
  ##				    GtkObject	      *object);
- ##guint   gtk_quit_add		   (guint	       main_level,
- ##				    GtkFunction	       function,
- ##				    gpointer	       data);
- ##guint   gtk_quit_add_full	   (guint	       main_level,
- ##				    GtkFunction	       function,
- ##				    GtkCallbackMarshal marshal,
- ##				    gpointer	       data,
- ##				    GtkDestroyNotify   destroy);
- ##void	   gtk_quit_remove	   (guint	       quit_handler_id);
  ##void	   gtk_quit_remove_by_data (gpointer	       data);
 
 # these (timeout, idle, and input) are all deprecated in favor of the 
