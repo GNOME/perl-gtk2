@@ -134,13 +134,9 @@ gtk_tree_path_get_indices (path)
 	for (i = 0 ; i < depth ; i++)
 		PUSHs (sv_2mortal (newSViv (indices[i])));
 
-## perl developer need never know this exists
+## boxed wrapper stuff handled by Glib::Boxed
+## GtkTreePath * gtk_tree_path_copy (GtkTreePath *path)
 ## void gtk_tree_path_free (GtkTreePath *path)
-
-## C function returns a new copy of arg, so perl wrapper owns the object
-GtkTreePath_own *
-gtk_tree_path_copy (path)
-	GtkTreePath * path
 
 gint
 gtk_tree_path_compare (a, b)
@@ -200,14 +196,9 @@ gboolean
 gtk_tree_row_reference_valid (reference)
 	GtkTreeRowReference *reference
 
-#### a perl developer need never know this exists
+#### boxed wrapper stuff handled by Glib::Boxed
+#### GtkTreeRowReference* gtk_tree_row_reference_copy (GtkTreeRowReference *reference);
 #### void gtk_tree_row_reference_free (GtkTreeRowReference *reference)
-
-#if GTK_CHECK_VERSION(2,2,0)
-
-GtkTreeRowReference* gtk_tree_row_reference_copy (GtkTreeRowReference *reference);
-
-#endif /* 2.2.0 */
 
  ## i gather that you only need these if you created the row reference with
  ## gtk_tree_row_reference_new_proxy...  but they recommend you don't use

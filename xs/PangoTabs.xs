@@ -46,11 +46,8 @@ pango_tab_array_new (class, initial_size, positions_in_pixels, ...)
 	RETVAL
 
 
+ ## see Glib::Boxed
 ##  PangoTabArray *pango_tab_array_copy (PangoTabArray *src) 
-PangoTabArray_own *
-pango_tab_array_copy (src)
-	PangoTabArray *src
-
 ##  void pango_tab_array_free (PangoTabArray *tab_array) 
 
 ##  gint pango_tab_array_get_size (PangoTabArray *tab_array) 

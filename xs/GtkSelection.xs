@@ -325,11 +325,7 @@ gtk_selection_clear (widget, event)
 ##  gboolean _gtk_selection_notify (GtkWidget *widget, GdkEventSelection *event) 
 ##  gboolean _gtk_selection_property_notify (GtkWidget *widget, GdkEventProperty *event) 
 
- ## boxed wrapper support, export only _copy
+ ## boxed wrapper support, taken care of by Glib::Boxed
 ##  GtkSelectionData *gtk_selection_data_copy (GtkSelectionData *data) 
-GtkSelectionData_own *
-gtk_selection_data_copy (data)
-	GtkSelectionData *data
-
 ##  void gtk_selection_data_free (GtkSelectionData *data) 
 

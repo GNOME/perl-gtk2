@@ -181,13 +181,10 @@ gtk_icon_set_new_from_pixbuf (class, pixbuf)
     C_ARGS:
 	pixbuf
 
+ # these are done for you by the Glib bindings
 ###  GtkIconSet* gtk_icon_set_ref (GtkIconSet *icon_set) 
 ###  void gtk_icon_set_unref (GtkIconSet *icon_set) 
-
-##  GtkIconSet* gtk_icon_set_copy (GtkIconSet *icon_set) 
-GtkIconSet_own*
-gtk_icon_set_copy (icon_set)
-	GtkIconSet *icon_set
+###  GtkIconSet* gtk_icon_set_copy (GtkIconSet *icon_set) 
 
 #### apps should almost always use gtk_widget_render_icon
 ##  GdkPixbuf* gtk_icon_set_render_icon (GtkIconSet *icon_set, GtkStyle *style, GtkTextDirection direction, GtkStateType state, GtkIconSize size, GtkWidget *widget, const char *detail) 
@@ -233,15 +230,9 @@ gtk_icon_source_new (class)
     C_ARGS:
 	/*void*/
 
+ # these are done for you by the Glib::Boxed bindings
 ##  GtkIconSource* gtk_icon_source_copy (const GtkIconSource *source) 
-GtkIconSource_own *
-gtk_icon_source_copy (source)
-	GtkIconSource *source
-
 ##  void gtk_icon_source_free (GtkIconSource *source) 
-void
-gtk_icon_source_free (source)
-	GtkIconSource *source
 
 ##  void gtk_icon_source_set_filename (GtkIconSource *source, const gchar *filename) 
 void

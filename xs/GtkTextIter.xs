@@ -72,12 +72,9 @@ GtkTextBuffer*
 gtk_text_iter_get_buffer (iter)
 	GtkTextIter * iter
 
+ # boxed wrapper support taken care of by Glib::Boxed
 ## GtkTextIter* gtk_text_iter_copy (const GtkTextIter *iter);
-GtkTextIter_own*
-gtk_text_iter_copy (iter)
-	GtkTextIter *iter
-
-## perl doesn't need to know about gtk_text_iter_free
+## void gtk_text_iter_free (GtkTextIter *iter);
 
 ## gint gtk_text_iter_get_offset (const GtkTextIter *iter)
 gint
