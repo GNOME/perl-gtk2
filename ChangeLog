@@ -1,3 +1,9 @@
+2003/07/22 16:41 muppetman
+
+	* xs/GtkTreeModel.xs: more _ornulls
+
+	* AUTHORS: add thierry, who should've been in a couple weeks ago
+
 2003/07/21 07:36 rwmcfa1
 
 	* xs/GtkTreeModel.xs: Gtk2::TreeModel->get now returns an array of all
