@@ -133,7 +133,7 @@ gdk_screen_get_n_monitors (screen)
 	GdkScreen *screen
 
 ##  void gdk_screen_get_monitor_geometry (GdkScreen *screen, gint monitor_num, GdkRectangle *dest) 
-GdkRectangle_own *
+GdkRectangle_copy *
 gdk_screen_get_monitor_geometry (screen, monitor_num)
 	GdkScreen *screen
 	gint monitor_num

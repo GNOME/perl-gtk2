@@ -76,7 +76,7 @@ width (requisition, newval=NULL)
     OUTPUT:
 	RETVAL
 
-GtkRequisition_own*
+GtkRequisition_copy *
 new (class, width=0, height=0)
 	SV * class
 	gint width
