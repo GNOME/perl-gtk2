@@ -8,21 +8,70 @@ on the other hand, it's only used in one or two places, and is used only for
 looking at the width and height members, anyway.  so, we treat is specially
 here.
 
+however, we can't just have Gtk2::Allocation inherit from
+Gtk2::Gdk::Rectangle, because we really want Allocations to stay read-only,
+but GdkRectangles are handled specially as perl lists to make modifying and
+creating them easier.
+
+so, we have some special handling of GtkAllocation as an unregistered
+boxed type.
+
 since allocations are notoriously read-only, we specify that it's always a
 copy.
 */
 SV *
 newSVGtkAllocation (GtkAllocation * allocation)
 {
-	SV * sv;
-	sv = gperl_new_boxed_copy (allocation, GDK_TYPE_RECTANGLE);
+	SV * sv = gperl_new_boxed_copy (allocation, GDK_TYPE_RECTANGLE);
 	return sv_bless (sv, gv_stashpv ("Gtk2::Allocation", TRUE));
 }
+
+GtkAllocation *
+SvGtkAllocation (SV * sv)
+{
+	/* gperl_get_boxed_check verifies the wrapper's blessing, not the
+	 * contained object's actual GType.  since we re-blessed something
+	 * above, we have to check the wrapper's type ourselves and use
+	 * the real base class with gperl_get_boxed_check. */
+	if (!sv_derived_from (sv, "Gtk2::Allocation"))
+		croak ("variable is not of type Gtk2::Allocation");
+	return gperl_get_boxed_check (sv, G_TYPE_BOXED);
+}
+
 
 MODULE = Gtk2::Widget	PACKAGE = Gtk2::Allocation
 
 BOOT:
-	gperl_set_isa ("Gtk2::Allocation", "Gtk2::Gdk::Rectangle");
+	//gperl_set_isa ("Gtk2::Allocation", "Gtk2::Gdk::Rectangle");
+	gperl_set_isa ("Gtk2::Allocation", "G::Boxed");
+
+##gint
+##members (allocation)
+##	GtkAllocation * allocation
+#
+# no typemap for GtkAllocation.  wow, this sucks.
+
+gint
+members (a)
+	SV * a
+    ALIAS:
+	Gtk2::Allocation::x = 0
+	Gtk2::Allocation::y = 1
+	Gtk2::Allocation::width = 2
+	Gtk2::Allocation::height = 3
+    PREINIT:
+	GtkAllocation * allocation;
+    CODE:
+	allocation = SvGtkAllocation (a);
+	switch (ix) {
+		case 0: RETVAL = allocation->x; break;
+		case 1: RETVAL = allocation->y; break;
+		case 2: RETVAL = allocation->width; break;
+		case 3: RETVAL = allocation->height; break;
+		default: croak ("shouldn't reach this");
+	}
+    OUTPUT:
+	RETVAL
 
 MODULE = Gtk2::Widget	PACKAGE = Gtk2::Widget	PREFIX = gtk_widget_
 
@@ -375,8 +424,17 @@ gtk_widget_get_toplevel	(widget)
  # */
  #void         gtk_widget_set_colormap    (GtkWidget      *widget,
  #					 GdkColormap    *colormap);
- #
+
  #gint	     gtk_widget_get_events	(GtkWidget	*widget);
+GdkEventMask
+gtk_widget_get_events (widget)
+	GtkWidget	*widget
+	CODE:
+	RETVAL = gtk_widget_get_events (widget);
+	warn ("gtk_widget_get_events returned 0x%08x", RETVAL);
+	OUTPUT:
+	RETVAL
+
  #void	     gtk_widget_get_pointer	(GtkWidget	*widget,
  #					 gint		*x,
  #					 gint		*y);
