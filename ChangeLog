@@ -1,3 +1,8 @@
+2004/03/01 13:57 (-0500) rwmcfa1
+
+	* examples/file_chooser.pl: updated uri's to non-muppet specific 
+	directories so that example won't fail. it's uses $ENV{HOME} and /tmp/
+
 2004/03/01 19:55 (+0100) kaffeetisch
 
 	* t/GtkEntry.t

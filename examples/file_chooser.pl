@@ -31,8 +31,9 @@ $file_chooser->signal_connect (selection_changed => sub {
 	$file_chooser->set (preview_widget_active => $active);
 });
 
-$file_chooser->add_shortcut_folder ('/home/scott/gtk2-perl-xs');
-$file_chooser->add_shortcut_folder ('/var/www/html');
+$file_chooser->add_shortcut_folder ($ENV{HOME});
+$file_chooser->add_shortcut_folder ('/tmp');
+# this is probalby going to fail
 eval { $file_chooser->add_shortcut_folder_uri ('http://localhost/'); };
 
 while ('ok' eq $file_chooser->run) {
