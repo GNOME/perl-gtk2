@@ -139,7 +139,9 @@ t/GtkCalendar.t
 t/GtkCellEditable.t
 t/GtkCellLayout.t
 t/GtkCellRenderer.t
+t/GtkCellRendererCombo.t
 t/GtkCellRendererPixbuf.t
+t/GtkCellRendererProgress.t
 t/GtkCellRendererText.t
 t/GtkCellRendererToggle.t
 t/GtkCellView.t
@@ -162,6 +164,7 @@ t/GtkEntryCompletion.t
 t/GtkEventBox.t
 t/GtkExpander.t
 t/GtkFileChooser.t
+t/GtkFileChooserButton.t
 t/GtkFileChooserDialog.t
 t/GtkFileChooserWidget.t
 t/GtkFileFilter.t
@@ -195,6 +198,7 @@ t/GtkMenu.t
 t/GtkMenuBar.t
 t/GtkMenuItem.t
 t/GtkMenuShell.t
+t/GtkMenuToolButton.t
 t/GtkMessageDialog.t
 t/GtkMisc.t
 t/GtkNotebook.t
@@ -257,7 +261,7 @@ t/GtkVScrollbar.t
 t/GtkVSeparator.t
 t/GtkViewport.t
 t/GtkWidget.t
-t/PangoAttribute.t
+t/PangoAttributes.t
 t/PangoContext.t
 t/PangoFont.t
 t/PangoFontMap.t
