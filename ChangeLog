@@ -1,3 +1,9 @@
+2005/01/16 23:13 (-0400) muppetman
+
+	* xs/GtkTreeModelFilter.xs, t/GtkTreeModelFilter.t: Make sure that
+	$modelfilter->get resolves to Gtk2::TreeModel::get.  (Committed
+	the wrong changeset last night.)
+
 2005/01/16 02:34 (-0400) muppetman
 
 	* xs/GtkTreeModelFilter.xs, t/GtkTreeModelFilter.t: Set up @ISA 

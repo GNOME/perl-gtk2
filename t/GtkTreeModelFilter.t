@@ -1,7 +1,7 @@
 #!/usr/bin/perl -w
 use strict;
 use Gtk2::TestHelper
-  tests => 24,
+  tests => 23,
   noinit => 1,
   at_least_version => [2, 4, 0, "GtkTreeModelFilter is new in 2.4"];
 
@@ -16,13 +16,15 @@ $list -> set($list -> append(), 0 => 23);
 
 my $filter = Gtk2::TreeModelFilter -> new($list);
 isa_ok($filter, "Gtk2::TreeModelFilter");
+
+# make sure the GInterfaces are set up correctly
 isa_ok($filter, "Gtk2::TreeModel");
 isa_ok($filter, "Gtk2::TreeDragSource");
+is(Gtk2::TreeModelFilter->can('get'), Gtk2::TreeModel->can('get'),
+   ' $filter->get should be Gtk2::TreeModel::get');
 
 $filter = Gtk2::TreeModelFilter -> new($list, undef);
 isa_ok($filter, "Gtk2::TreeModelFilter");
-isa_ok($filter, "Gtk2::TreeModel");
-isa_ok($filter, "Gtk2::TreeDragSource");
 
 is($filter -> get_model(), $list);
 
