@@ -59,8 +59,8 @@ gtk_curve_get_vector (curve, veclen=32)
 	gfloat * vector;
     PPCODE:
 	if( veclen < 1 )
-		croak("ERROR: gtk_curve_get_vector: veclen must be greater "
-		      "zero");
+		croak("ERROR: Gtk2::Curve->get_vector: veclen must be greater "
+		      "than zero");
 	vector = g_new(gfloat, veclen);
 	gtk_curve_get_vector(curve, veclen, vector);
 	EXTEND(SP, veclen);
@@ -76,6 +76,9 @@ gtk_curve_set_vector (curve, ...)
 	int      veclen;
 	gfloat * vector;
     CODE:
+        if (items <= 1)
+        	croak ("ERROR: Gtk2::Curve->set_vector must be called with at "
+                       "least one value");
 	veclen = --items;
 	vector = g_new(gfloat, veclen);
 	for( ; items > 0; items-- )
