@@ -273,12 +273,6 @@ gtk_main_iteration_do (class, blocking)
     C_ARGS:
 	blocking
 
-gboolean
-gtk_main_iteration_do (class, blocking)
-	gboolean blocking
-    C_ARGS:
-	blocking
-
  ### gtk-perl implemented these as widget methods, but they are not widget
  ### methods.  they deal with the global grab setting.  this is bound to 
  ### be a FAQ.
