@@ -37,7 +37,7 @@ Glib::Idle->add(sub {
 		ok( eq_array( [ $win->get_frame_dimensions ],
 			[ 0, 0, 300, 500 ] ) );
 
-		ok( $_[0]->get_focus() == undef );
+		ok( !defined $_[0]->get_focus() );
 
 		$_[0]->activate_focus;
 
@@ -97,7 +97,7 @@ ok( $win->get_position );
 ok( $win->get_title eq 'GtkWindow.t Test Window' );
 
 # can fail b/c of get_title ???
-ok( $win2->get_transient_for->eq($win) );
+ok( $win2->get_transient_for == $win );
 
 # need a pixbuf
 #$win->set_icon($pixbuf);

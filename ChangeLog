@@ -9,6 +9,8 @@
         standard.
         * xs/GdkWindow.xs: enabled various non-deprecated methods I needed
         but weren't implemented yet, plus some rarely used ones.
+        * t/01.GtkWindow.t: compare references with == not eq, and
+        "$x == undef" is not the right way to tets defined'ness.
 
 2003/06/20 11:33 muppetman
 

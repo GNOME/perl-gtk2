@@ -254,10 +254,10 @@ gdk_window_begin_paint_rect (window, rectangle)
 	GdkRectangle *rectangle
 
  ## void gdk_window_begin_paint_region (GdkWindow *window, GdkRegion *region)
-void
-gdk_window_begin_paint_region (window, region)
-	GdkWindow *window
-	GdkRegion *region
+ ##void
+ ##gdk_window_begin_paint_region (window, region)
+ ##	GdkWindow *window
+ ##	GdkRegion *region
 
  ## void gdk_window_end_paint (GdkWindow *window)
 void
@@ -270,7 +270,7 @@ gdk_window_set_title (window, title)
 	GdkWindow *window
 	const gchar *title
 
- void gdk_window_set_role (GdkWindow *window, const gchar *role)
+ ## void gdk_window_set_role (GdkWindow *window, const gchar *role)
 void
 gdk_window_set_role (window, role)
 	GdkWindow *window
