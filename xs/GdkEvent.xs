@@ -658,15 +658,20 @@ GdkWindow_ornull *
 window (GdkEvent * event, GdkWindow_ornull * newvalue=NULL)
     CODE:
 	RETVAL = event->any.window;
+	if (RETVAL) g_object_ref (event->any.window);
+
 	if (items == 2 && newvalue != event->any.window)
 	{
 		if (event->any.window)
 			g_object_unref (event->any.window);
-		g_object_ref (newvalue);
+		if (newvalue)
+			g_object_ref (newvalue);
 		event->any.window = newvalue;
 	}
     OUTPUT:
 	RETVAL
+    CLEANUP:
+	if (RETVAL) g_object_unref (RETVAL);
 
 gint8
 send_event (GdkEvent * event, gint8 newvalue=0)
@@ -1102,15 +1107,20 @@ GdkWindow_ornull *
 subwindow (GdkEvent * event, GdkWindow_ornull * newvalue=NULL)
     CODE:
 	RETVAL = event->crossing.subwindow;
+	if (RETVAL) g_object_ref (RETVAL);
+
 	if (items == 2 && newvalue != event->crossing.subwindow)
 	{
 		if (event->crossing.subwindow)
 			g_object_unref (event->crossing.subwindow);
-		g_object_ref (newvalue);
+		if (newvalue)
+			g_object_ref (newvalue);
 		event->crossing.subwindow = newvalue;
 	}
     OUTPUT:
 	RETVAL
+    CLEANUP:
+	if (RETVAL) g_object_unref (RETVAL);
 
 GdkCrossingMode
 mode (GdkEvent * eventcrossing, GdkCrossingMode newvalue=0)
@@ -1568,12 +1578,15 @@ action (GdkEvent * eventsetting, GdkSettingAction newvalue=0)
     OUTPUT:
 	RETVAL
 
-char *
-name (GdkEvent * eventsetting, char * newvalue=NULL)
+char_ornull *
+name (GdkEvent * eventsetting, char_ornull * newvalue=NULL)
     CODE:
 	RETVAL = eventsetting->setting.name;
 	if (items == 2)
 	{
+		if (eventsetting->setting.name)
+			g_free (eventsetting->setting.name);
+
 		if (newvalue)
 			eventsetting->setting.name = g_strdup (newvalue);
 		else
@@ -1649,24 +1662,24 @@ BOOT:
  #//  gshort x_root, y_root; <- get_root_coords
  #};
 
-GdkDragContext *
-context (GdkEvent * eventdnd, GdkDragContext * newvalue=NULL)
+GdkDragContext_ornull *
+context (GdkEvent * eventdnd, GdkDragContext_ornull * newvalue=NULL)
     CODE:
 	RETVAL = eventdnd->dnd.context;
+	if (RETVAL) g_object_ref (RETVAL);
+
 	if (items == 2 && newvalue != eventdnd->dnd.context)
 	{
 		if (eventdnd->dnd.context)
 			g_object_unref (eventdnd->dnd.context);
 		if (newvalue)
-		{
-			eventdnd->dnd.context = newvalue;
 			g_object_ref (newvalue);
-		}
-		else
-			eventdnd->dnd.context = NULL;
+		eventdnd->dnd.context = newvalue;
 	}
     OUTPUT:
 	RETVAL
+    CLEANUP:
+	if (RETVAL) g_object_unref (RETVAL);
 
  #union _GdkEvent
  #{

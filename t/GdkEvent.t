@@ -7,7 +7,7 @@
 # 	- rm
 #########################
 
-use Gtk2::TestHelper tests => 96;
+use Gtk2::TestHelper tests => 100;
 use Data::Dumper;
 
 # Expose #######################################################################
@@ -107,6 +107,9 @@ my $window = Gtk2::Gdk::Window->new (undef, {
 $event->subwindow ($window);
 is ($event->subwindow, $window, '$crossing_event->window');
 
+$event->subwindow (undef);
+is ($event->subwindow, undef, '$crossing_event->window & undef');
+
 $event->mode ('grab');
 is ($event->mode, 'grab', '$crossing_event->mode');
 
@@ -144,6 +147,9 @@ SKIP: {
 
 $event->window ($window);
 is ($event->window, $window, '$event->window');
+
+$event->window (undef);
+is ($event->window, undef, '$event->window & undef');
 
 $event->send_event (3);
 is ($event->send_event, 3, '$event->send_event');
@@ -298,10 +304,13 @@ isa_ok ($event = Gtk2::Gdk::Event->new ('setting'),
 	'Gtk2::Gdk::Event::Setting', 'Gtk2::Gdk::Event->new setting');
 
 $event->action ('new');
-is ($event->action, 'new', '$property_event->action');
+is ($event->action, 'new', '$setting_event->action');
 
 $event->name ('a name');
-is ($event->name, 'a name', '$property_event->name');
+is ($event->name, 'a name', '$setting_event->name');
+
+$event->name (undef);
+is ($event->name, undef, '$setting_event->name & undef');
 
 # WindowState ##################################################################
 
@@ -309,10 +318,10 @@ isa_ok ($event = Gtk2::Gdk::Event->new ('window-state'),
 	'Gtk2::Gdk::Event::WindowState', 'Gtk2::Gdk::Event->new windowstate');
 
 $event->changed_mask ('maximized');
-is ($event->changed_mask, 'maximized', '$property_event->changed_mask');
+is ($event->changed_mask, 'maximized', '$windowstate_event->changed_mask');
 
 $event->new_window_state ('withdrawn');
-is ($event->new_window_state, 'withdrawn', '$property_event->new_window_state');
+is ($event->new_window_state, 'withdrawn', '$windowstate_event->new_window_state');
 
 # DND ##########################################################################
 
@@ -320,7 +329,10 @@ isa_ok ($event = Gtk2::Gdk::Event->new ('drag-enter'),
 	'Gtk2::Gdk::Event::DND', 'Gtk2::Gdk::Event->new dnd');
 
 $event->context (Gtk2::Gdk::DragContext->new);
-isa_ok ($event->context, 'Gtk2::Gdk::DragContext', '$property_event->context');
+isa_ok ($event->context, 'Gtk2::Gdk::DragContext', '$dnd_event->context');
+
+$event->context (undef);
+is ($event->context, undef, '$dnd_event->context & undef');
 
 # Selection ####################################################################
 

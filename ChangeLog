@@ -1,3 +1,12 @@
+2004/03/18 22:06
+
+	* t/GdkEvent.t
+	* xs/GdkEvent.xs: Prevent the return value of window() and
+	subwindow() from being destroyed and check for NULL before
+	unref()ing.  Allow undef to be passed to
+	Gtk2::Gdk::Event::Setting::name and
+	Gtk2::Gdk::Event::DND::context.
+
 2004/03/17 13:12 (-0500) rwmcfa1
 
 	* examples/dialog.pl: initial import, example of the two main ways to
