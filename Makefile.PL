@@ -58,6 +58,11 @@ Gtk2::CodeGen->write_boot;
 # hash of key names and values, %Gtk2::Gdk::Keysyms.
 system 'perl genkeysyms.pl > build/Keysyms.pm';
 
+#
+# since we've started down the dark path of breaking from standard 
+# MakeMaker, forever will it dominate our destiny; we must specify
+# install paths for the modules and man files by hand.
+#
 my %pm_files = (
 	'Gtk2.pm'          => '$(INST_LIBDIR)/Gtk2.pm',
 	'build/Keysyms.pm' => '$(INST_LIBDIR)/Gtk2/Gdk/Keysyms.pm',
@@ -68,13 +73,13 @@ my %pm_files = (
 	'api.pod'          => '$(INST_LIBDIR)/Gtk2/api.pod',
 );
 my %pod_files = (
-	'Gtk2.pm'          => '$(INST_MAN3DIR)/Gtk2.3pm',
-	'build/Keysyms.pm' => '$(INST_MAN3DIR)/Gtk2::Gdk::Keysyms.3pm',
-	'CodeGen.pm'       => '$(INST_MAN3DIR)/Gtk2::CodeGen.3pm',
-	'pm/Helper.pm'     => '$(INST_MAN3DIR)/Gtk2::Helper.3pm',
-	'pm/Pango.pm'      => '$(INST_MAN3DIR)/Gtk2::Pango.3pm',
-	'pm/SimpleList.pm' => '$(INST_MAN3DIR)/Gtk2::SimpleList.3pm',
-	'api.pod'          => '$(INST_MAN3DIR)/Gtk2::api.3pm',
+	'Gtk2.pm'          => '$(INST_MAN3DIR)/Gtk2.$(MAN3EXT)',
+	'build/Keysyms.pm' => '$(INST_MAN3DIR)/Gtk2::Gdk::Keysyms.$(MAN3EXT)',
+	'CodeGen.pm'       => '$(INST_MAN3DIR)/Gtk2::CodeGen.$(MAN3EXT)',
+	'pm/Helper.pm'     => '$(INST_MAN3DIR)/Gtk2::Helper.$(MAN3EXT)',
+	'pm/Pango.pm'      => '$(INST_MAN3DIR)/Gtk2::Pango.$(MAN3EXT)',
+	'pm/SimpleList.pm' => '$(INST_MAN3DIR)/Gtk2::SimpleList.$(MAN3EXT)',
+	'api.pod'          => '$(INST_MAN3DIR)/Gtk2::api.$(MAN3EXT)',
 );
 
 # now we're ready to start creating the makefile.
