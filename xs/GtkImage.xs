@@ -27,7 +27,7 @@ GtkWidget*
 gtk_image_new (class)
 	SV * class
     C_ARGS:
-
+	/*void*/
 
  ## GtkWidget* gtk_image_new_from_pixmap (GdkPixmap *pixmap, GdkBitmap *mask)
 GtkWidget*
@@ -39,10 +39,13 @@ gtk_image_new_from_pixmap (class, pixmap, mask)
 	pixmap, mask
 
  ## GtkWidget* gtk_image_new_from_image (GdkImage *image, GdkBitmap *mask)
- ##GtkWidget*
- ##gtk_image_new_from_image (image, mask)
- ##	GdkImage *image
- ##	GdkBitmap *mask
+GtkWidget*
+gtk_image_new_from_image (class, image, mask)
+	SV * class
+	GdkImage_ornull *image
+	GdkBitmap_ornull *mask
+    C_ARGS:
+	image, mask
 
 GtkWidget*
 gtk_image_new_from_file (class, filename)
@@ -66,17 +69,21 @@ gtk_image_new_from_stock (class, stock_id, size)
 	GtkIconSize size
     C_ARGS:
 	stock_id, size
-
+ 
  ## GtkWidget* gtk_image_new_from_icon_set (GtkIconSet *icon_set, GtkIconSize size)
- ##GtkWidget*
- ##gtk_image_new_from_icon_set (icon_set, size)
- ##	GtkIconSet *icon_set
- ##	GtkIconSize size
+GtkWidget*
+gtk_image_new_from_icon_set (class, icon_set, size)
+	SV * class
+	GtkIconSet *icon_set
+	GtkIconSize size
+    C_ARGS:
+	icon_set, size
 
  ## GtkWidget* gtk_image_new_from_animation (GdkPixbufAnimation *animation)
- ##GtkWidget*
- ##gtk_image_new_from_animation (animation)
- ##	GdkPixbufAnimation *animation
+GtkWidget*
+gtk_image_new_from_animation (SV * class, GdkPixbufAnimation *animation)
+    C_ARGS:
+	animation
 
  ## void gtk_image_set_from_pixmap (GtkImage *image, GdkPixmap *pixmap, GdkBitmap *mask)
 void
@@ -85,19 +92,17 @@ gtk_image_set_from_pixmap (image, pixmap, mask)
 	GdkPixmap_ornull * pixmap
 	GdkBitmap_ornull * mask
 
- ## void gtk_image_set_from_image (GtkImage *image, GdkImage *gdk_image, GdkBitmap *mask)
- ##void
- ##gtk_image_set_from_image (image, gdk_image, mask)
- ##	GtkImage *image
- ##	GdkImage *gdk_image
- ##	GdkBitmap *mask
+void
+gtk_image_set_from_image (image, gdk_image, mask)
+	GtkImage *image
+	GdkImage_ornull *gdk_image
+	GdkBitmap_ornull *mask
 
 void
 gtk_image_set_from_file (image, filename)
 	GtkImage *image
 	const gchar *filename
 
- ## void gtk_image_set_from_pixbuf (GtkImage *image, GdkPixbuf *pixbuf)
 void
 gtk_image_set_from_pixbuf (image, pixbuf)
 	GtkImage *image
@@ -109,20 +114,15 @@ gtk_image_set_from_stock (image, stock_id, size)
 	const gchar *stock_id
 	GtkIconSize size
 
- ## void gtk_image_set_from_icon_set (GtkImage *image, GtkIconSet *icon_set, GtkIconSize size)
- ##void
- ##gtk_image_set_from_icon_set (image, icon_set, size)
- ##	GtkImage *image
- ##	GtkIconSet *icon_set
- ##	GtkIconSize size
+void
+gtk_image_set_from_icon_set (image, icon_set, size)
+	GtkImage *image
+	GtkIconSet *icon_set
+	GtkIconSize size
 
- ## void gtk_image_set_from_animation (GtkImage *image, GdkPixbufAnimation *animation)
- ##void
- ##gtk_image_set_from_animation (image, animation)
- ##	GtkImage *image
- ##	GdkPixbufAnimation *animation
+void
+gtk_image_set_from_animation (GtkImage *image, GdkPixbufAnimation *animation)
 
- ## GtkImageType gtk_image_get_storage_type (GtkImage *image)
 GtkImageType
 gtk_image_get_storage_type (image)
 	GtkImage *image
@@ -131,13 +131,8 @@ gtk_image_get_storage_type (image)
 void gtk_image_get_pixmap (GtkImage *image, OUTLIST GdkPixmap * pixmap, OUTLIST GdkBitmap * mask)
 
  ## void gtk_image_get_image (GtkImage *image, GdkImage **gdk_image, GdkBitmap **mask)
- ##void
- ##gtk_image_get_image (image, gdk_image, mask)
- ##	GtkImage *image
- ##	GdkImage **gdk_image
- ##	GdkBitmap **mask
+void gtk_image_get_image (GtkImage *image, OUTLIST GdkImage *gdk_image, OUTLIST GdkBitmap *mask)
 
- ## GdkPixbuf* gtk_image_get_pixbuf (GtkImage *image)
 GdkPixbuf*
 gtk_image_get_pixbuf (image)
 	GtkImage *image
@@ -155,28 +150,11 @@ gtk_image_get_stock (image)
 	PUSHs (sv_2mortal (newSVGtkIconSize (size)));
 
  ## void gtk_image_get_icon_set (GtkImage *image, GtkIconSet **icon_set, GtkIconSize *size)
- ##void
- ##gtk_image_get_icon_set (image, icon_set, size)
- ##	GtkImage *image
- ##	GtkIconSet **icon_set
- ##	GtkIconSize *size
+void gtk_image_get_icon_set (GtkImage *image, OUTLIST GtkIconSet *icon_set, OUTLIST GtkIconSize size)
 
- ## GdkPixbufAnimation* gtk_image_get_animation (GtkImage *image)
- ##GdkPixbufAnimation*
- ##gtk_image_get_animation (image)
- ##	GtkImage *image
+GdkPixbufAnimation* gtk_image_get_animation (GtkImage *image)
 
+# deprecated
  ## void gtk_image_get (GtkImage *image, GdkImage **val, GdkBitmap **mask)
- ##void
- ##gtk_image_get (image, val, mask)
- ##	GtkImage *image
- ##	GdkImage **val
- ##	GdkBitmap **mask
-
-##void gtk_image_set (GtkImage *image, GdkImage *val, GdkBitmap *mask)
-#void
-#gtk_image_set (image, val, mask)
-#	GtkImage  * image
-#	GtkImage  * val
-#	GdkBitmap * mask
+ ##void gtk_image_set (GtkImage *image, GdkImage *val, GdkBitmap *mask)
 
