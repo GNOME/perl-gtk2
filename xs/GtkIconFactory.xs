@@ -194,17 +194,17 @@ gtk_icon_set_copy (icon_set)
 	GtkIconSet *icon_set
 
 #### apps should almost always use gtk_widget_render_icon
-###  GdkPixbuf* gtk_icon_set_render_icon (GtkIconSet *icon_set, GtkStyle *style, GtkTextDirection direction, GtkStateType state, GtkIconSize size, GtkWidget *widget, const char *detail) 
-#GdkPixbuf*
-#gtk_icon_set_render_icon (icon_set, style, direction, state, size, widget, detail)
-#	GtkIconSet *icon_set
-#	GtkStyle *style
-#	GtkTextDirection direction
-#	GtkStateType state
-#	GtkIconSize size
-#	GtkWidget *widget
-#	const char *detail
-#
+##  GdkPixbuf* gtk_icon_set_render_icon (GtkIconSet *icon_set, GtkStyle *style, GtkTextDirection direction, GtkStateType state, GtkIconSize size, GtkWidget *widget, const char *detail) 
+GdkPixbuf*
+gtk_icon_set_render_icon (icon_set, style, direction, state, size, widget, detail)
+	GtkIconSet *icon_set
+	GtkStyle_ornull *style
+	GtkTextDirection direction
+	GtkStateType state
+	GtkIconSize size
+	GtkWidget_ornull *widget
+	const char *detail
+
 ##  void gtk_icon_set_add_source (GtkIconSet *icon_set, const GtkIconSource *source) 
 void
 gtk_icon_set_add_source (icon_set, source)
