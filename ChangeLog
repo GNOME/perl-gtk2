@@ -1,3 +1,34 @@
+2005/01/29 23:15 (-0400) muppetman
+
+	Backport bugfixes from HEAD
+
+	* MANIFEST.SKIP: updated
+
+	* perl-Gtk2.spec.in: new scheme that addresses x86_64 problems
+	found by Carl Nygard
+
+	* examples/cellrenderer_date.pl examples/cellrenderer_spinbutton.pl:
+	Change package names to use custom prefixes, to avoid putting stuff
+	in the Gtk2 namespace
+
+	* t/GtkTreeView.t: use the correct property for the column
+
+	* t/PangoLayout.t: fix outdated skip message
+
+	* t/GdkDnd.t: adjust test to avoid failure with newer versions
+	of Test::More
+
+	* t/GtkComboBox.t, t/GtkComboBoxEntry.t, t/GtkSpinButton.t,
+	t/GtkTreeModelSort.t, xs/GtkComboBox.xs, xs/GtkComboBoxEntry.xs,
+	xs/GtkFileChooserWidget.xs, xs/GtkSpinButton.xs,
+	xs/GtkTreeModelFilter.xs, xs/GtkTreeModelSort.xs: add missing
+	interfaces to isa's and test for them
+
+	* xs/GtkClipboard.xs, t/GtkClipboard.t: modify the received funcs
+	to free the callback directly after it was invoked.  DO NOT own
+	the Clipboard object with _noinc, it's a singleton owned by
+	the display.
+
 2005/01/16 02:34 (-0400) muppetman
 
 	* xs/GtkTreeModelFilter.xs, t/GtkTreeModelFilter.t: Set up @ISA 
