@@ -13,6 +13,10 @@ $buffer -> insert($iter,
 my $anchor = Gtk2::TextChildAnchor -> new();
 isa_ok($anchor, "Gtk2::TextChildAnchor");
 
+# letting an anchor die without having inserted it into a buffer causes
+# very bad things to happen.  dispose of it nicely.
+$buffer->insert_child_anchor ($iter, $anchor);
+
 my $button = Gtk2::Button -> new("Bla");
 my $label = Gtk2::Label -> new("Bla");
 
