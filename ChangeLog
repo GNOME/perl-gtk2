@@ -1,5 +1,8 @@
 2004/02/02 23:34 (+0100) kaffeetisch
 
+	* t/GdkDrawable.t: Change the TODO into another block that gets
+	skipped if copy_to_image returns undef.
+
 	* t/GtkComboBox.t: Always skip the failing tests because it's
 	gtk+'s fault.  Needs to be changed once it's fixed.
 

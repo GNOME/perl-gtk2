@@ -2,6 +2,8 @@
 use strict;
 use Gtk2::TestHelper tests => 11;
 
+# $Header$
+
 my $window = Gtk2::Window -> new();
 $window -> show();
 
@@ -86,10 +88,12 @@ SKIP: {
   skip("copy_to_image is new in 2.3", 1)
     if (Gtk2 -> check_version(2, 3, 0));
 
-  TODO: {
-  local $TODO = 'seems to fail in some cases, returning empty';
-  isa_ok($win -> copy_to_image($image, 0, 0, 0, 0, 50, 50), "Gtk2::Gdk::Image");
-  }
+  my $image = $win -> copy_to_image($image, 0, 0, 0, 0, 50, 50);
+
+  skip ("copy_to_image returned undef", 1)
+    unless (defined($image));
+
+  isa_ok($image, "Gtk2::Gdk::Image");
 }
 
 __END__
