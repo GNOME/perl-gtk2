@@ -102,7 +102,7 @@ void
 gtk_tree_selection_get_selected_rows (selection)
 	GtkTreeSelection *selection
     PREINIT:
-	GtkTreeModel * model NULL;
+	GtkTreeModel * model = NULL;
 	GList * list, * i;
     PPCODE:
 	list = gtk_tree_selection_get_selected_rows (selection, &model);
