@@ -65,6 +65,7 @@ my %pm_files = (
 	'pm/Helper.pm'     => '$(INST_LIBDIR)/Gtk2/Helper.pm',
 	'pm/Pango.pm'      => '$(INST_LIBDIR)/Gtk2/Pango.pm',
 	'pm/SimpleList.pm' => '$(INST_LIBDIR)/Gtk2/SimpleList.pm',
+	'api.pod'          => '$(INST_LIBDIR)/Gtk2/api.pod',
 );
 my %pod_files = (
 	'Gtk2.pm'          => '$(INST_MAN3DIR)/Gtk2.3pm',
