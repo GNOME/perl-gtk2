@@ -1,3 +1,48 @@
+2003/11/08 01:52 (-0500) muppetman [unstable-2-3-x-branch]
+
+	M MANIFEST
+	A xs_files-2.3
+	M xs/GdkPixbuf.xs
+	M xs/GdkPixbufLoader.xs
+	A xs/GtkAction.xs
+	A xs/GtkActionGroup.xs
+	M xs/GtkAlignment.xs
+	M xs/GtkButton.xs
+	M xs/GtkButtonBox.xs
+	M xs/GtkCalendar.xs
+	A xs/GtkCellLayout.xs
+	M xs/GtkCheckMenuItem.xs
+	A xs/GtkColorButton.xs
+	A xs/GtkComboBox.xs
+	A xs/GtkComboBoxEntry.xs
+	M xs/GtkEntry.xs
+	A xs/GtkEntryCompletion.xs
+	M xs/GtkEventBox.xs
+	A xs/GtkExpander.xs
+	A xs/GtkFileChooser.xs
+	A xs/GtkFileChooserDialog.xs
+	A xs/GtkFileChooserWidget.xs
+	A xs/GtkFileFilter.xs
+	A xs/GtkFontButton.xs
+	M xs/GtkMenu.xs
+	M xs/GtkMessageDialog.xs
+	A xs/GtkRadioAction.xs
+	A xs/GtkRadioToolButton.xs
+	A xs/GtkSeparatorToolItem.xs
+	M xs/GtkTextBuffer.xs
+	M xs/GtkTextIter.xs
+	M xs/GtkTextView.xs
+	A xs/GtkToggleAction.xs
+	A xs/GtkToggleToolButton.xs
+	A xs/GtkToolButton.xs
+	A xs/GtkToolItem.xs
+	M xs/GtkToolbar.xs
+	M xs/GtkTreeViewColumn.xs
+	A xs/GtkUIManager.xs
+	M xs/GtkWidget.xs
+	M xs/GtkWindow.xs
+	support for gtk+-2.3.0 in 21 new files and lots of new methods.
+
 2003/11/08 01:20 (-0500) muppetman
 
 	* examples/cellrenderer_date.pl, examples/cellrenderer_popup.pl,

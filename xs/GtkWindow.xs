@@ -271,6 +271,14 @@ gtk_window_set_default_icon_from_file (class, filename)
 
 #endif
 
+#if GTK_CHECK_VERSION(2,3,0)
+
+void gtk_window_set_default_icon (class, GdkPixbuf * icon)
+    C_ARGS:
+	icon
+
+#endif
+
 ## TODO: api doc doesn't say return can be null, but it can
 ## GdkPixbuf* gtk_window_get_icon (GtkWindow *window)
 GdkPixbuf_ornull *
@@ -498,6 +506,14 @@ gtk_window_fullscreen (window)
 void
 gtk_window_unfullscreen (window)
 	GtkWindow * window
+
+#if GTK_CHECK_VERSION(2,3,0)
+
+void gtk_window_set_keep_above (GtkWindow *window, gboolean setting);
+
+void gtk_window_set_keep_below (GtkWindow *window, gboolean setting);
+
+#endif
 
 void
 gtk_window_set_skip_taskbar_hint (window, setting)

@@ -41,6 +41,22 @@ gdk_pixbuf_loader_new_with_type (image_type)
     OUTPUT:
 	RETVAL
 
+#if GTK_CHECK_VERSION(2,3,0)
+
+## GdkPixbufLoader * gdk_pixbuf_loader_new_with_mime_type (const char *mime_type, GError **error);
+GdkPixbufLoader_noinc *
+gdk_pixbuf_loader_new_with_mime_type (const char *mime_type)
+    PREINIT:
+	GError * error = NULL;
+    CODE:
+	RETVAL = gdk_pixbuf_loader_new_with_mime_type (mime_type, &error);
+	if (!RETVAL)
+		gperl_croak_gerror (NULL, error);
+    OUTPUT:
+	RETVAL
+
+#endif
+
 #if GTK_CHECK_VERSION(2,2,0)
 
 ##  void gdk_pixbuf_loader_set_size (GdkPixbufLoader *loader, int width, int height) 

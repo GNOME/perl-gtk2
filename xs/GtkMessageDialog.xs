@@ -30,7 +30,21 @@ gtk_message_dialog_new (class, parent, flags, type, buttons, message)
 	GtkDialogFlags flags
 	GtkMessageType type
 	GtkButtonsType buttons
-	char * message
+	gchar * message
     C_ARGS:
 	parent, flags, type, buttons, message
 
+
+#if GTK_CHECK_VERSION(2,3,0)
+
+GtkWidget *
+gtk_message_dialog_new_with_markup (class, parent, flags, type, buttons, message)
+	GtkWindow_ornull * parent
+	GtkDialogFlags flags
+	GtkMessageType type
+	GtkButtonsType buttons
+	gchar * message
+    C_ARGS:
+	parent, flags, type, buttons, message
+
+#endif

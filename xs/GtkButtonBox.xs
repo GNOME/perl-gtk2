@@ -34,6 +34,12 @@ gtk_button_box_set_layout (widget, layout_style)
 	GtkButtonBox      * widget
 	GtkButtonBoxStyle   layout_style
 
+#if GTK_CHECK_VERSION(2,3,0)
+
+gboolean gtk_button_box_get_child_secondary (GtkButtonBox * widget, GtkWidget * child)
+
+#endif
+
 ## void gtk_button_box_set_child_secondary (GtkButtonBox *widget, GtkWidget *child, gboolean is_secondary)
 void
 gtk_button_box_set_child_secondary (widget, child, is_secondary)

@@ -182,6 +182,23 @@ gdk_pixbuf_new_from_file (class, filename)
     OUTPUT:
 	RETVAL
 
+#if GTK_CHECK_VERSION(2,3,0)
+
+## GdkPixbuf *gdk_pixbuf_new_from_file_at_size (const char *filename, int width, int height, GError **error);
+GdkPixbuf_noinc *
+gdk_pixbuf_new_from_file_at_size (class, const char *filename, int width, int height)
+    PREINIT:
+	GError * error = NULL;
+    CODE:
+	RETVAL = gdk_pixbuf_new_from_file_at_size
+	                              (filename, width, height, &error);
+	if (!RETVAL)
+		gperl_croak_gerror (filename, error);
+    OUTPUT:
+	RETVAL
+
+#endif
+
 ###  GdkPixbuf *gdk_pixbuf_new_from_data (const guchar *data, GdkColorspace colorspace, gboolean has_alpha, int bits_per_sample, int width, int height, int rowstride, GdkPixbufDestroyNotify destroy_fn, gpointer destroy_fn_data) 
 GdkPixbuf_noinc *
 gdk_pixbuf_new_from_data (class, data, colorspace, has_alpha, bits_per_sample, width, height, rowstride)

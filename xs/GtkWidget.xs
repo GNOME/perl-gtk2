@@ -792,3 +792,13 @@ gtk_widget_get_display (widget)
 
 #endif
 
+
+#if GTK_CHECK_VERSION(2,3,0)
+
+void gtk_widget_set_no_show_all (GtkWidget *widget, gboolean no_show_all);
+
+gboolean gtk_widget_get_no_show_all (GtkWidget *widget);
+
+void gtk_widget_queue_resize_no_redraw (GtkWidget *widget);
+
+#endif

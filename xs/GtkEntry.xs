@@ -115,6 +115,18 @@ gtk_entry_get_layout (entry)
 void
 gtk_entry_get_layout_offsets (GtkEntry *entry, OUTLIST gint x, OUTLIST gint y)
 
+#if GTK_CHECK_VERSION(2,3,0)
+
+void gtk_entry_set_completion (GtkEntry *entry, GtkEntryCompletion *completion);
+
+GtkEntryCompletion *gtk_entry_get_completion (GtkEntry *entry);
+
+#endif
+
+##
+## hey, these are deprecated!  is that new as of 2.3.x?
+##
+
 void
 gtk_entry_append_text (entry, text)
 	GtkEntry    * entry

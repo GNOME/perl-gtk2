@@ -142,3 +142,11 @@ gtk_button_set_use_stock (button, use_stock)
 gboolean
 gtk_button_get_use_stock (button)
 	GtkButton * button
+
+#if GTK_CHECK_VERSION(2,3,0)
+
+void gtk_button_set_focus_on_click (GtkButton * button, gboolean focus_on_click)
+
+gboolean gtk_button_get_focus_on_click (GtkButton * button)
+
+#endif
