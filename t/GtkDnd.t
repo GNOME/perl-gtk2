@@ -63,7 +63,7 @@ $button -> drag_source_set_icon_stock("gtk-quit");
 
 SKIP: {
   skip("drag_source_[sg]et_target_list is new in 2.4", 0)
-    unless Gtk2->CHECK_VERSION (2, 3, 5); # FIXME 2.4
+    unless Gtk2->CHECK_VERSION (2, 4, 0);
 
   $list = $button -> drag_source_get_target_list();
   $button -> drag_source_set_target_list(undef);

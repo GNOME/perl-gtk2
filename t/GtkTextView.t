@@ -115,8 +115,8 @@ isa_ok($view -> get_tabs(), "Gtk2::Pango::TabArray");
 isa_ok($view -> get_default_attributes(), "Gtk2::TextAttributes");
 
 SKIP: {
-  skip("[sg]et_overwrite and [sg]et_accepts_tab are new in 2.3", 2)
-    unless Gtk2->CHECK_VERSION (2, 3, 0); # FIXME 2.4
+  skip("[sg]et_overwrite and [sg]et_accepts_tab are new in 2.4", 2)
+    unless Gtk2->CHECK_VERSION (2, 4, 0); # FIXME 2.4
 
   $view -> set_overwrite(1);
   is($view -> get_overwrite(), 1);

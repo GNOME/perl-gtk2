@@ -127,7 +127,7 @@ isa_ok ($pixbuf, 'Gtk2::Gdk::Pixbuf', 'new_from_file');
 
 SKIP: {
   skip "new_from_file_at_size is new in 2.4", 3
-    unless Gtk2->CHECK_VERSION(2,3,0); # FIXME 2.4
+    unless Gtk2->CHECK_VERSION(2,4,0);
 
   $pixbuf = Gtk2::Gdk::Pixbuf->new_from_file_at_size ($filename, 20, 25);
   isa_ok ($pixbuf, 'Gtk2::Gdk::Pixbuf', 'new_from_file_at_size');

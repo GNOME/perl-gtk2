@@ -16,8 +16,8 @@ $box -> pack_start_defaults($button);
 $box -> set_child_secondary($button, 1);
 
 SKIP: {
-  skip("get_child_secondary is new in 2.3", 1)
-    unless Gtk2->CHECK_VERSION (2, 3, 0); # FIXME 2.4
+  skip("get_child_secondary is new in 2.4", 1)
+    unless Gtk2->CHECK_VERSION (2, 4, 0);
 
   is($box -> get_child_secondary($button), 1);
 }

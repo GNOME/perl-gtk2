@@ -85,8 +85,8 @@ SKIP: {
 }
 
 SKIP: {
-  skip("copy_to_image is new in 2.3", 1)
-    unless Gtk2->CHECK_VERSION (2, 3, 0); # FIXME 2.4
+  skip("copy_to_image is new in 2.4", 1)
+    unless Gtk2->CHECK_VERSION (2, 4, 0);
 
   my $image = $win -> copy_to_image($image, 0, 0, 0, 0, 50, 50);
 

@@ -110,7 +110,7 @@ $style -> attach($window -> window());
 
 SKIP: {
   skip("draw_insertion_cursor is new in 2.4", 0)
-    unless (Gtk2 -> CHECK_VERSION(2, 3, 5)); # FIXME 2.4
+    unless (Gtk2 -> CHECK_VERSION(2, 4, 5));
 
   $window -> add($button);
   Gtk2 -> draw_insertion_cursor($button, $window -> window(), $rectangle, $rectangle, 1, "ltr", 1);

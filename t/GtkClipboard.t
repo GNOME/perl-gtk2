@@ -57,8 +57,8 @@ $clipboard->request_contents (Gtk2::Gdk->SELECTION_TYPE_STRING, sub {
 
 
 SKIP: {
-	skip 'request_targets and wait_for_targets are new in 2.3', 4
-		unless Gtk2->CHECK_VERSION (2, 3, 0); # FIXME 2.4
+	skip 'request_targets and wait_for_targets are new in 2.4', 4
+		unless Gtk2->CHECK_VERSION (2, 4, 0);
 
 	$clipboard->request_targets (sub {
 		is ($_[0], $clipboard);
