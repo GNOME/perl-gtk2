@@ -432,6 +432,9 @@ gtk_propagate_event (widget, event)
 
 MODULE = Gtk2		PACKAGE = Gtk2::Pango		PREFIX = pango_
 
+=for apidoc
+=for signature (major_version, minor_version, micro_version) = Gtk2::Pango->get_version_info
+=cut
 void
 pango_get_version_info (class)
     PPCODE:

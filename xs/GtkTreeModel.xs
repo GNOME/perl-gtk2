@@ -1001,6 +1001,9 @@ gtk_tree_model_foreach (model, func, user_data=NULL)
 	gperl_callback_destroy (callback);
 
 ## void gtk_tree_model_row_changed (GtkTreeModel *tree_model, GtkTreePath *path, GtkTreeIter *iter)
+=for apidoc
+Emits the "row_changed" signal on I<$tree_model>.
+=cut
 void
 gtk_tree_model_row_changed (tree_model, path, iter)
 	GtkTreeModel *tree_model
@@ -1008,6 +1011,9 @@ gtk_tree_model_row_changed (tree_model, path, iter)
 	GtkTreeIter *iter
 
 ## void gtk_tree_model_row_inserted (GtkTreeModel *tree_model, GtkTreePath *path, GtkTreeIter *iter)
+=for apidoc
+Emits the "row_inserted" signal on I<$tree_model>.
+=cut
 void
 gtk_tree_model_row_inserted (tree_model, path, iter)
 	GtkTreeModel *tree_model
@@ -1015,6 +1021,10 @@ gtk_tree_model_row_inserted (tree_model, path, iter)
 	GtkTreeIter *iter
 
 ## void gtk_tree_model_row_has_child_toggled (GtkTreeModel *tree_model, GtkTreePath *path, GtkTreeIter *iter)
+=for apidoc
+Emits the "row_has_child_toggled" signal on I<$tree_model>.  This should be
+called by models after the child state of a node changes.
+=cut
 void
 gtk_tree_model_row_has_child_toggled (tree_model, path, iter)
 	GtkTreeModel *tree_model
@@ -1022,12 +1032,26 @@ gtk_tree_model_row_has_child_toggled (tree_model, path, iter)
 	GtkTreeIter *iter
 
 ## void gtk_tree_model_row_deleted (GtkTreeModel *tree_model, GtkTreePath *path)
+=for apidoc
+Emits the "row_deleted" signal on I<$tree_model>.  This should be called by
+models after a row has been removed.  The location pointed to by I<$path>
+should be the removed row's old location.  It may not be a valid location
+anymore.
+=cut
 void
 gtk_tree_model_row_deleted (tree_model, path)
 	GtkTreeModel *tree_model
 	GtkTreePath *path
 
 #### void gtk_tree_model_rows_reordered (GtkTreeModel *tree_model, GtkTreePath *path, GtkTreeIter *iter, gint *new_order)
+=for apidoc
+=for arg path the tree node whose children have been reordered
+=for arg iter the tree node whose children have been reordered
+=for arg ... (integers) array of integers mapping the current position of each child to its old position before the re-ordering, i.e. $new_order[$newpos] = $oldpos.  There should be as many elements in this list as there are rows in I<$tree_model>.
+
+Emits the "rows-reordered" signal on I<$tree_model>/  This should be called
+by models with their rows have been reordered.
+=cut
 void
 gtk_tree_model_rows_reordered (tree_model, path, iter, ...)
 	GtkTreeModel *tree_model

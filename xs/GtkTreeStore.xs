@@ -64,6 +64,13 @@ GtkTreeStore *tree_store
 	                                 (GType*)(types->data));
 
 ## void gtk_tree_store_set (GtkTreeStore *tree_store, GtkTreeIter *iter, ...)
+=for apidoc Gtk2::TreeStore::set_value
+=for arg col1 (integer) the first column number
+=for arg val1 (scalar) the first value
+=for arg ... pairs of columns and values
+Alias for Gtk2::TreeStore::set().
+=cut
+
 =for apidoc
 =for arg col1 (integer) the first column number
 =for arg val1 (scalar) the first value
