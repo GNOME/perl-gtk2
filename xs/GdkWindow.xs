@@ -241,58 +241,59 @@ gdk_window_set_skip_pager_hint (window, skips_pager)
  ##	GdkGeometry *geometry
  ##	GdkWindowHints geom_mask
  ##
- ## void gdk_set_sm_client_id (const gchar *sm_client_id)
- ##void
- ##gdk_set_sm_client_id (sm_client_id)
- ##	const gchar *sm_client_id
- ##
+
+## void gdk_set_sm_client_id (const gchar *sm_client_id)
+void
+gdk_set_sm_client_id (sm_client_id)
+	const gchar *sm_client_id
+
  ## void gdk_window_begin_paint_rect (GdkWindow *window, GdkRectangle *rectangle)
- ##void
- ##gdk_window_begin_paint_rect (window, rectangle)
- ##	GdkWindow *window
- ##	GdkRectangle *rectangle
- ##
+void
+gdk_window_begin_paint_rect (window, rectangle)
+	GdkWindow *window
+	GdkRectangle *rectangle
+
  ## void gdk_window_begin_paint_region (GdkWindow *window, GdkRegion *region)
- ##void
- ##gdk_window_begin_paint_region (window, region)
- ##	GdkWindow *window
- ##	GdkRegion *region
- ##
+void
+gdk_window_begin_paint_region (window, region)
+	GdkWindow *window
+	GdkRegion *region
+
  ## void gdk_window_end_paint (GdkWindow *window)
- ##void
- ##gdk_window_end_paint (window)
- ##	GdkWindow *window
- ##
+void
+gdk_window_end_paint (window)
+	GdkWindow *window
+
  ## void gdk_window_set_title (GdkWindow *window, const gchar *title)
- ##void
- ##gdk_window_set_title (window, title)
- ##	GdkWindow *window
- ##	const gchar *title
- ##
- ## void gdk_window_set_role (GdkWindow *window, const gchar *role)
- ##void
- ##gdk_window_set_role (window, role)
- ##	GdkWindow *window
- ##	const gchar *role
- ##
+void
+gdk_window_set_title (window, title)
+	GdkWindow *window
+	const gchar *title
+
+ void gdk_window_set_role (GdkWindow *window, const gchar *role)
+void
+gdk_window_set_role (window, role)
+	GdkWindow *window
+	const gchar *role
+
  ## void gdk_window_set_transient_for (GdkWindow *window, GdkWindow *parent)
- ##void
- ##gdk_window_set_transient_for (window, parent)
- ##	GdkWindow *window
- ##	GdkWindow *parent
- ##
+void
+gdk_window_set_transient_for (window, parent)
+	GdkWindow *window
+	GdkWindow *parent
+
  ## void gdk_window_set_background (GdkWindow *window, GdkColor *color)
- ##void
- ##gdk_window_set_background (window, color)
- ##	GdkWindow *window
- ##	GdkColor *color
- ##
+void
+gdk_window_set_background (window, color)
+	GdkWindow *window
+	GdkColor *color
+
  ## void gdk_window_set_back_pixmap (GdkWindow *window, GdkPixmap *pixmap, gboolean parent_relative)
- ##void
- ##gdk_window_set_back_pixmap (window, pixmap, parent_relative)
- ##	GdkWindow *window
- ##	GdkPixmap *pixmap
- ##	gboolean parent_relative
+void
+gdk_window_set_back_pixmap (window, pixmap, parent_relative = 0)
+	GdkWindow *window
+	GdkPixmap *pixmap
+	gboolean parent_relative
 
  ## void gdk_window_set_cursor (GdkWindow *window, GdkCursor *cursor)
 void
