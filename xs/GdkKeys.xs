@@ -129,6 +129,16 @@ gdk_keymap_translate_keyboard_state (keymap, hardware_keycode, state, group)
 =for apidoc
 =for signature keys = $keymap->get_entries_for_keyval (keyval)
 Returns a list of I<GdkKeymapKey>s.
+
+Obtains a list of keycode/group/level combinations that will generate
+I<$keyval>.  Groups and levels are two kinds of keyboard mode; in general, the
+level determines whether the top or bottom symbol on a key is used, and the
+group determines whether the left or right symbol is used.  On US keyboards,
+the shift key changes the keyboard level, and there are no groups.  A group
+switch key might convert a keyboard between Hebrew to English modes, for
+example.  Gtk2::Gdk::Event::Key contains a group field that indicates
+the active keyboard group.  The level is computed from the modifier
+mask.
 =cut
 ##  gboolean gdk_keymap_get_entries_for_keyval (GdkKeymap *keymap, guint keyval, GdkKeymapKey **keys, gint *n_keys) 
 void
