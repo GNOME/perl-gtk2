@@ -1,3 +1,10 @@
+2003/09/19 00:53 muppetman
+
+	* Gtk2.pm, README, META.yml, debian/control, debian/changelog:
+	updated for the 1.00rc2 release.
+
+	* Makefile.PL: updated requirements
+
 2003/09/17 10:44 rwmcfa1
 
 	* Makefile.PL: ExtUtils::PkgConfig can now deal with version 

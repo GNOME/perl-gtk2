@@ -1,7 +1,7 @@
 Source: libgtk2-perl
 Section: perl
 Priority: optional
-Build-Depends: debhelper (>= 3.0.16), perl (>= 5.8.0-7), libglib-perl (>= 1.00rc1), libgtk2.0-dev
+Build-Depends: debhelper (>= 3.0.16), perl (>= 5.8.0-7), libglib-perl (>= 1.00rc2), libgtk2.0-dev, libextutils-depends-perl (>= 0.1), libextutils-pkgconfig-perl
 Maintainer: James Curbo <hannibal@adtrw.org>
 Standards-Version: 3.6.0
 

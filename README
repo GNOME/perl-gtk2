@@ -1,6 +1,6 @@
 # $Header$
 
-Gtk2 version 1.00rc1
+Gtk2 version 1.00rc2
 ====================
 
 Perl bindings to the 2.x series of the Gtk+ graphical user interface library.
@@ -56,11 +56,15 @@ DEPENDENCIES
 This module requires these other modules and libraries:
 
   perl >= 5.8.0
-  Glib >= 1.00rc1 (perl module)
+  Glib >= 1.00rc2 (perl module)
   GTK+ > 2.x (C library)
 
+In order to build it from source, you'll also need
 
-COPYRIGHT AND LICENCE
+  ExtUtils::Depends >= 0.1
+  ExtUtils::PkgConfig >= 1.00
+
+COPYRIGHT AND LICENSE
 
 Copyright (C) 2003 by the gtk2-perl team (see the file AUTHORS for a
 complete list)
