@@ -63,19 +63,32 @@ unless (eval "use ExtUtils::Depends;"
 require 'CodeGen.pm'; # other modules can should 'use Gtk2::CodeGen;' --
                       # we can't because it's not installed yet.
 
+# all the generated stuff will go into this subdir...
+mkdir 'build', 0777;
+
 my %pkgcfg = ExtUtils::PkgConfig->find ('gtk+-2.0 >= '.$build_reqs{'Gtk+'});
 
 # we know what version we're going to be built against now
 $runtime_reqs{'Gtk+'} = $pkgcfg{modversion};
 
-mkdir 'build', 0777;
+#
+# decide what files to use in the build based on the version we found.
+#
+my @gtk_version = split /\./, $pkgcfg{modversion};
+our @xs_files = ();
+my @lists = ('xs_files-2.0');
+push @lists, 'xs_files-2.2' if $gtk_version[1] >= 2;
+foreach my $filename (@lists) {
+	my @names = read_source_list_file ($filename);
+	print "$filename lists ".scalar(@names)." xs files\n";
+	push @xs_files, @names;
+}
 
 #
 # since we've started down the dark path of breaking from standard 
 # MakeMaker, forever will it dominate our destiny; we must specify
 # install paths for the modules and man files by hand.
 #
-our @xs_files = <xs/*.xs>;
 our %pm_files = (
 	'Gtk2.pm'          => '$(INST_LIBDIR)/Gtk2.pm',
 	'build/Keysyms.pm' => '$(INST_LIBDIR)/Gtk2/Gdk/Keysyms.pm',
@@ -125,7 +138,7 @@ Gtk2::CodeGen->parse_maps ('gtk2perl');
 # one more command generates code to boot all the various extra XS modules.
 # we need this because we have lots of XS files without corresponding PMs to
 # bootstrap them.
-Gtk2::CodeGen->write_boot;
+Gtk2::CodeGen->write_boot (xs_files => \@xs_files);
 
 # this one turns the long list of #defines in gdkkeysyms.h into a large
 # hash of key names and values, %Gtk2::Gdk::Keysyms.
@@ -165,23 +178,12 @@ WriteMakefile(
     ABSTRACT_FROM => 'Gtk2.pm', # retrieve abstract from module
     XSPROTOARG    => '-noprototypes',
     MAN3PODS      => \%pod_files,
-    # PREREQ see beginning of file
-    PREREQ_FATAL => 1,
-    PREREQ_PM    => {
-        'Glib'                => $build_reqs{'perl-Glib'},
-        'ExtUtils::Depends'   => $build_reqs{'perl-ExtUtils-Depends'},
-        'ExtUtils::PkgConfig' => $build_reqs{'perl-ExtUtils-PkgConfig'},
-    },
     FUNCLIST      => \@exports,
     DL_FUNCS      => { Gtk2 => [] },
     $gtk2->get_makefile_vars,
 );
 
-#
-# there's a bug in the MakeMaker output which results in .xs files in a
-# subdirectory being turned into .o files in this dir.  the bug is a missing
-# -o on the compiler command line.  this is a hackish fix for it.
-#
+
 package MY;
 
 sub postamble
@@ -205,6 +207,9 @@ install-\%: %
 	\@\$(MOD_INSTALL) ./tmp-\$+/ \\
 		\$(PREFIX)/share/doc/perl-\$(DISTNAME)/\$+
 	\@\$(RM_RF) tmp-\$+/
+
+# rebuild the makefile if the file lists change
+Makefile : ".join(" ", @main::lists)."
 ";
 }
 
@@ -233,4 +238,18 @@ sub find_extra_libs {
 		}, @INC);
 
 	return $retstring;
+}
+
+sub read_source_list_file {
+	my $filename = shift;
+	my @list = ();
+	open IN, $filename or die "can't read $filename: $!\n";
+	while (<IN>) {
+		s/#.*$//;		# eat comments
+		s/^\s*//;		# trim leading space
+		s/\s*$//;		# trim trailing space
+		push @list, $_ if $_;	# keep non-blanks
+	}
+	close IN;
+	return @list;
 }
