@@ -4,6 +4,15 @@
 
 #include "gtk2perl.h"
 
+
+static void
+gtk2perl_foreach_callback (GtkWidget * widget,
+                           GPerlCallback * callback)
+{
+	gperl_callback_invoke (callback, NULL, widget);
+}
+
+
 MODULE = Gtk2::Container	PACKAGE = Gtk2::Container	PREFIX = gtk_container_
 
 void
@@ -39,20 +48,24 @@ gtk_container_check_resize (container)
 	GtkContainer *container
 
  ## void gtk_container_foreach (GtkContainer *container, GtkCallback callback, gpointer callback_data)
- ##void
- ##gtk_container_foreach (container, callback, callback_data)
- ##	GtkContainer *container
- ##	GtkCallback callback
- ##	gpointer callback_data
+void
+gtk_container_foreach (container, callback, callback_data=NULL)
+	GtkContainer *container
+	SV * callback
+	SV * callback_data
+    PREINIT:
+	GPerlCallback * real_callback;
+	GType param_types [] = { GTK_TYPE_WIDGET };
+    CODE:
+	real_callback = gperl_callback_new (callback, callback_data,
+	                                    1, param_types, G_TYPE_NONE);
+	gtk_container_foreach (container, 
+	                       (GtkCallback)gtk2perl_foreach_callback,
+	                       real_callback);
+	gperl_callback_destroy (real_callback);
 
+ ## deprecated
  ## void gtk_container_foreach_full (GtkContainer *container, GtkCallback callback, GtkCallbackMarshal marshal, gpointer callback_data, GtkDestroyNotify notify)
- ##void
- ##gtk_container_foreach_full (container, callback, marshal, callback_data, notify)
- ##	GtkContainer *container
- ##	GtkCallback callback
- ##	GtkCallbackMarshal marshal
- ##	gpointer callback_data
- ##	GtkDestroyNotify notify
 
  ## GList* gtk_container_get_children (GtkContainer *container)
 void
