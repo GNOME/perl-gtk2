@@ -21,7 +21,7 @@ our @ISA = qw(Exporter DynaLoader);
 our @EXPORT_OK = ();
 our @EXPORT = qw();
 
-our $VERSION = '0.21';
+our $VERSION = '0.22';
 
 # this is critical -- tell dynaloader to load the module so that its 
 # symbols are available to all other modules.  without this, nobody
@@ -153,12 +153,13 @@ Glib::PkgConfig, and ExtUtils::Depends.
 
 The gtk2-perl team:
 
-muppet E<lt>scott at asofyet dot orgE<gt>
-Ross McFarland E<lt>rwmcfa1 at neces dot comE<gt>
-Jörn Reder E<lt>joern at zyn dot deE<gt>
-Göran Thyni E<lt>gthyni at kirra dot netE<gt>
-Chas Owens E<lt>alas at wilma dot widomaker dot comE<gt>
-Guillaume Cottenceau E<lt>gc at mandrakesoft dot comE<gt>
+ muppet E<lt>scott at asofyet dot orgE<gt>
+ Ross McFarland E<lt>rwmcfa1 at neces dot comE<gt>
+ Jörn Reder E<lt>joern at zyn dot deE<gt>
+ Göran Thyni E<lt>gthyni at kirra dot netE<gt>
+ Chas Owens E<lt>alas at wilma dot widomaker dot comE<gt>
+ Guillaume Cottenceau E<lt>gc at mandrakesoft dot comE<gt>
+ Marc Lehmann E<lt>pcg at goof dot comE<gt>
 
 =head1 COPYRIGHT AND LICENSE
 
