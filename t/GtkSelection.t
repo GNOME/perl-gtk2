@@ -1,10 +1,13 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 6;
+use Gtk2::TestHelper tests => 7;
 
 # $Header$
 
-my $list = Gtk2::TargetList -> new(
+my $list = Gtk2::TargetList -> new();
+isa_ok($list, "Gtk2::TargetList");
+
+$list = Gtk2::TargetList -> new(
   { target => "STRING", flags => "same-app", info => 23 },
   { target => "COMPOUND_TEXT", flags => ["same-app", "same-widget"], info => 42 }
 );

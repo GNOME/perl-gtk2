@@ -84,13 +84,18 @@ GtkTargetEntry * SvGtkTargetEntry (SV * sv);
 void gtk2perl_read_gtk_target_entry (SV * sv, GtkTargetEntry * entry);
 
 #define GTK2PERL_STACK_ITEMS_TO_TARGET_ENTRY_ARRAY(first, targets, ntargets) \
-	{							\
-	guint i;						\
-	ntargets = items - first;				\
-	targets = gperl_alloc_temp (sizeof (GtkTargetEntry) * ntargets); \
-	for (i = 0 ; i < ntargets ; i++)			\
-		gtk2perl_read_gtk_target_entry (ST (i + first),	\
-		                                targets + i);	\
+	{							        \
+	guint i;						        \
+	if (items <= first) {                                           \
+		ntargets = 0;                                           \
+		targets = NULL;                                         \
+	} else {                                                        \
+		ntargets = items - first;				\
+		targets = gperl_alloc_temp (sizeof (GtkTargetEntry) * ntargets); \
+		for (i = 0 ; i < ntargets ; i++)			\
+			gtk2perl_read_gtk_target_entry (ST (i + first),	\
+			                                targets + i);	\
+		}                                                       \
 	}
 
 /* 
