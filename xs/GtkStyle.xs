@@ -6,6 +6,15 @@
 
 MODULE = Gtk2::Style	PACKAGE = Gtk2::Style	PREFIX = gtk_style_
 
+BOOT:
+	/* theme engines can provide subclasses on GtkStyle which may have
+	 * any name they like, and will not be registered with the gperl
+	 * bindings type subsystem.  any time a user has the theme set to
+	 * anything other than the default, one of these unregistered
+	 * styles comes through.  set this to keep gperl_get_object from
+	 * spewing harmless and unavoidable warnings all over stderr. */
+	gperl_object_set_no_warn_unreg_subclass (GTK_TYPE_STYLE, TRUE);
+
 SV *
 stateless_member (style)
 	GtkStyle * style
