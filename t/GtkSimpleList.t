@@ -7,7 +7,7 @@
 # 	- rm
 #########################
 
-use Gtk2::TestHelper tests => 42;
+use Gtk2::TestHelper tests => 46;
 
 require_ok( 'Gtk2::SimpleList' );
 
@@ -137,28 +137,30 @@ Glib::Idle->add( sub
 			$ldata->[3][8] eq '<big>four</big>'
 		);
 
-		push @$ldata, [ 'pushed', 1, 0.1, undef ];
+		is (push (@$ldata, [ 'pushed', 1, 0.1, undef ]), 5);
 		ok( scalar(@$ldata) == 5 );
 		push @$ldata, [ 'pushed', 2, 0.2, undef ];
 		ok( scalar(@$ldata) == 6 );
 		push @$ldata, [ 'pushed', 3, 0.3, undef ];
 		ok( scalar(@$ldata) == 7 );
 
-		pop @$ldata;
+		ok (eq_array (pop @$ldata, ['pushed', 3, 0.3, 0, 
+					undef, undef, undef, undef, undef]));
 		ok( scalar(@$ldata) == 6 );
 		pop @$ldata;
 		ok( scalar(@$ldata) == 5 );
 		pop @$ldata;
 		ok( scalar(@$ldata) == 4 );
 
-		unshift @$ldata, [ 'unshifted', 1, 0.1, undef ];
+		is (unshift (@$ldata, [ 'unshifted', 1, 0.1, undef ]), 5);
 		ok( scalar(@$ldata) == 5 );
 		unshift @$ldata, [ 'unshifted', 2, 0.2, undef ];
 		ok( scalar(@$ldata) == 6 );
 		unshift @$ldata, [ 'unshifted', 3, 0.3, undef ];
 		ok( scalar(@$ldata) == 7 );
 
-		shift @$ldata;
+		ok (eq_array (shift @$ldata, ['unshifted', 3, 0.3, 0, 
+					undef, undef, undef, undef, undef]));
 		ok( scalar(@$ldata) == 6 );
 		shift @$ldata;
 		ok( scalar(@$ldata) == 5 );
