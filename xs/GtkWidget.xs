@@ -828,10 +828,13 @@ gtk_widget_get_clipboard (widget, selection=GDK_SELECTION_CLIPBOARD)
 	GdkAtom     selection
 
 
-#GdkDisplay* gtk_widget_get_display (GtkWidget *widget)
-GdkDisplay *
-gtk_widget_get_display (widget)
-	GtkWidget * widget
+GdkDisplay * gtk_widget_get_display (GtkWidget * widget)
+
+GdkWindow * gtk_widget_get_root_window (GtkWidget * widget)
+
+GdkScreen * gtk_widget_get_screen (GtkWidget * widget)
+
+gboolean gtk_widget_has_screen (GtkWidget * widget);
 
 #endif
 
