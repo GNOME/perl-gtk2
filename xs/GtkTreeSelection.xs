@@ -28,7 +28,7 @@ gtk_tree_selection_get_mode (selection)
 #	gpointer data
 #	GtkDestroyNotify destroy
 #
-## ???? i thought GObject took care of this
+## eh? i thought GObject took care of this 
 ### gpointer gtk_tree_selection_get_user_data (GtkTreeSelection *selection)
 #gpointer
 #gtk_tree_selection_get_user_data (selection)
@@ -40,11 +40,19 @@ gtk_tree_selection_get_tree_view (selection)
 	GtkTreeSelection *selection
 
 ### gboolean gtk_tree_selection_get_selected (GtkTreeSelection *selection, GtkTreeModel **model, GtkTreeIter *iter)
-#gboolean
-#gtk_tree_selection_get_selected (selection, model, iter)
-#	GtkTreeSelection *selection
-#	GtkTreeModel **model
-#	GtkTreeIter *iter
+void
+gtk_tree_selection_get_selected (selection)
+	GtkTreeSelection *selection
+    PREINIT:
+	GtkTreeModel * model;
+	GtkTreeIter iter = {0, };
+    PPCODE:
+	if (!gtk_tree_selection_get_selected (selection, &model, &iter))
+		XSRETURN_EMPTY;
+	EXTEND (SP, 2);
+	PUSHs (sv_2mortal (newSVGtkTreeIter_copy (&iter)));
+	PUSHs (sv_2mortal (newSVGtkTreeModel (model)));
+
 #
 ### GList * gtk_tree_selection_get_selected_rows (GtkTreeSelection *selection, GtkTreeModel **model)
 #GList *
