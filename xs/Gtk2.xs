@@ -172,25 +172,31 @@ void
 gtk_main (class)
 	SV * class
     C_ARGS:
+	/*void*/
 
 guint
 gtk_main_level (class)
 	SV * class
     C_ARGS:
+	/*void*/
 
 void
 gtk_main_quit (class)
 	SV * class
     C_ARGS:
+	/*void*/
 
 gboolean
 gtk_main_iteration (class)
 	SV * class
     C_ARGS:
+	/*void*/
 
+ ### gtk-perl implemented these as widget methods, but they are not widget
+ ### methods.  they deal with the global grab setting.  this is bound to 
+ ### be a FAQ.
 
- ## call as Gtk2->grab_add (widget)
- ## FIXME --- should this be widget->grab_add instead?
+ ## Gtk2->grab_add (widget)
 void
 gtk_grab_add (class, widget)
 	SV * class
@@ -202,9 +208,9 @@ GtkWidget_ornull *
 gtk_grab_get_current (class)
 	SV * class
     C_ARGS:
+	/*void*/
 
  ## Gtk2->grab_remove (widget)
- ## FIXME --- should this be widget->grab_remove instead?
 void
 gtk_grab_remove	(class, widget)
 	SV * class
