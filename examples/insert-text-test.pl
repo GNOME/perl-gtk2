@@ -36,4 +36,13 @@ and won\'t let you type a #.');
 $dialog->vbox->pack_start ($label, 1,1, 0);
 $label->show;
 
-$dialog->run;
+
+# while we're testing custom marshallers, connect to dialog's response
+# signal, which also has a custom marshaller.  if the blue smoke gets
+# out, then something i broken deep inside.
+$dialog->signal_connect (response => sub {
+	print Dumper(\@_);
+	Gtk2->main_quit;
+});
+$dialog->show;
+Gtk2->main;
