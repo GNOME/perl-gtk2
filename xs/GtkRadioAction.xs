@@ -12,7 +12,7 @@ gtk_radio_action_get_group (GtkRadioAction *action)
 	group = gtk_radio_action_get_group (action);
 	av = newAV ();
 	for (i = group ; i != NULL ; i = i->next)
-		av_push (av, newSVGtkRadioButton (i->data));
+		av_push (av, newSVGtkRadioAction (i->data));
 	XPUSHs (newRV_noinc ((SV*)av));
 
 ## void gtk_radio_action_set_group (GtkRadioAction *action, GSList *group);
