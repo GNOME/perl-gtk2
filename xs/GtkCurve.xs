@@ -53,16 +53,17 @@ gtk_curve_get_vector (curve, veclen=32)
 
 ## void gtk_curve_set_vector (GtkCurve *curve, int veclen, gfloat vector[])
 void
-gtk_curve_set_vector (curve, value0, ...)
+gtk_curve_set_vector (curve, ...)
 	GtkCurve * curve
     PREINIT:
-	gint     i;
+	int      veclen;
 	gfloat * vector;
     CODE:
-	vector = g_new(gfloat, items-1);
-	for( i = 1; i < items; i++ )
-		vector[i-1] = SvNV(ST(i));
-	gtk_curve_set_vector(curve, items-1, vector);
+	veclen = --items;
+	vector = g_new(gfloat, veclen);
+	for( ; items > 0; items-- )
+		vector[items-1] = SvNV(ST(items));
+	gtk_curve_set_vector(curve, veclen, vector);
 	g_free(vector);
 
 ## void gtk_curve_set_curve_type (GtkCurve *curve, GtkCurveType type)
