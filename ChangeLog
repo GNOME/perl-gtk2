@@ -242,7 +242,7 @@
 	called on the wrong thing. there was both a SV * class and GtkObject 
 	class, no longer the case
 
-========
+======== 1.0
 
 2003/10/10 00:13 muppetman
 
