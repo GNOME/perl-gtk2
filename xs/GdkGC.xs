@@ -4,7 +4,16 @@
 
 #include "gtk2perl.h"
 
+
 MODULE = Gtk2::Gdk::GC	PACKAGE = Gtk2::Gdk::GC	PREFIX = gdk_gc_
+
+BOOT:
+	/* the gdk backends override the public GdkGC with private,
+	 * back-end-specific types.  tell gperl_get_object not to 
+	 * complain about them.  */
+	gperl_object_set_no_warn_unreg_subclass (GDK_TYPE_GC, TRUE);
+
+
 
  ## taken care of by typemaps
  ## void gdk_gc_unref (GdkGC *gc)
