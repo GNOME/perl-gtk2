@@ -51,8 +51,14 @@ gtk_label_get_text (label)
 
 void gtk_label_set_attributes (GtkLabel * label, PangoAttrList * attrs)
 
-# can return NULL, but we don't have a boxed _ornull OUTPUT variant. :-/
-PangoAttrList * gtk_label_get_attributes    (GtkLabel      * label);
+PangoAttrList *
+gtk_label_get_attributes (GtkLabel * label)
+    CODE:
+	RETVAL = gtk_label_get_attributes (label);
+	if (!RETVAL)
+		XSRETURN_UNDEF;
+    OUTPUT:
+	RETVAL
 
 ### gtk_label_[gs]et_label ---- string includes any embedded stuff
 void
@@ -100,9 +106,9 @@ gtk_label_get_mnemonic_keyval (label)
 void
 gtk_label_set_mnemonic_widget (label, widget)
 	GtkLabel * label
-	GtkWidget * widget
+	GtkWidget_ornull * widget
 
-GtkWidget *
+GtkWidget_ornull *
 gtk_label_get_mnemonic_widget (label)
 	GtkLabel * label
 
