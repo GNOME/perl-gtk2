@@ -1,3 +1,8 @@
+2003/06/19 00:58 pcg
+
+	* Makefile.PL: write a fake Makefile using PREREQ when important
+        modules are missing, this ensures auto-installation within CPAN.
+
 2003/06/18 10:48 muppetman
 
 	* Gtk2.pm: catch undefined values to hush warnings

@@ -7,18 +7,20 @@ use strict;
 use ExtUtils::MakeMaker;
 use Cwd;
 
-# these two will be installed if Glib was successfully installed.  however,
-# for ExtUtils, the error message 'ExtUtils::Depends not found' doesn't very
-# clearly indicate that Glib isn't installed...
-#use ExtUtils::Depends;
-#use Glib::PkgConfig;
-eval "use ExtUtils::Depends;"
-   . "use Glib::PkgConfig; 1"
-	or die "$@\n"
-	     . "********************************************************\n"
-	     . "The Glib module must be installed before Gtk2.\n"
-	     . "Glib-Perl is available from the same place as Gtk2-Perl.\n"
-	     . "********************************************************\n";
+# Writing a fake Makefile ensures that CPAN will pick up the correct
+# dependencies and install them.
+unless (eval "use ExtUtils::Depends;"
+           . "use Glib::PkgConfig; 1") {
+   warn "$@\n";
+   WriteMakefile(
+         PREREQ_FATAL => 1,
+         PREREQ_PM    => {
+            Glib::              => 0.22, # keep this in sync
+            ExtUtils::Depends:: => 0.1,
+         },
+   );
+   exit 1; # not reached
+}
 
 require 'CodeGen.pm'; # other modules can just 'use Gtk2::CodeGen;' -- we
                       # can't because it's not installed yet.
@@ -74,9 +76,9 @@ $gtk2->save_config ('build/IFiles.pm');
 WriteMakefile(
     NAME          => 'Gtk2',
     VERSION_FROM  => 'Gtk2.pm', # finds $VERSION
-    PREREQ_PM     => {Glib => 0.22}, # e.g., Module::Name => 1.1
     ABSTRACT_FROM => 'Gtk2.pm', # retrieve abstract from module
     XSPROTOARG    => '-noprototypes',
+    # PREREQ see beginning of file
     $gtk2->get_makefile_vars,
 );
 
