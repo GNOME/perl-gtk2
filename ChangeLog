@@ -1,3 +1,19 @@
+2004/02/04 02:13 (-0500) muppetman
+
+	* xs/GtkCellRenderer.xs: re-vamp vfunc support for be more natural
+	and perlish.  use inheritable ALL_CAPS_METHODS instead of the
+	freakish and highly non-standard system used in the past.  the update
+	is rather ugly, because we still support the old way for
+	backwards-compatibility.  requires new code just added to Glib which
+	calls _INSTALL_OVERRIDES as part of Glib::Type::register_object.
+
+	* examples/cellrenderer_popup.pl, examples/cellrenderer_spinbutton.pl,
+	t/GtkCellRenderer.t: updated for new cellrenderer techniques
+
+	* examples/cellrenderer_date.pl: updated for new cellrenderer
+	techniques; also copied in some of torsten's experimental date
+	renderer code from odot.
+
 2004/02/04 02:16 (+0100) kaffeetisch
 
 	* t/PangoLayout.t: Skip the call to set_font_description with
