@@ -1,3 +1,14 @@
+2004/10/14 18:44 (-0400) rwmcfa1
+
+	merge from:
+		unstable-2-5-x-branch
+
+	* maps-2.6, xs_files-2.6, t/GtkAboutDialog.t, t/GtkCellView.t,
+	t/GtkIconView.t, xs/GtkAboutDialog.xs, xs/GtkCellView.xs,
+	xs/GtkIconView.xs: initial import new stuff in 2.5.x
+
+	* TODO: added a todo
+
 2004/10/14 15:20 (-0400) muppetman
 
 	* Makefile.PL: use PREREQ_PM in both WriteMakefile calls, so META.yml
