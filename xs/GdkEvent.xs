@@ -239,6 +239,22 @@ state (event)
     OUTPUT:
 	RETVAL
 
+=for apidoc Gtk2::Gdk::Event::get_coords
+=signature ($x, $y) = $event->get_coords
+=cut
+
+=for apidoc Gtk2::Gdk::Event::coords
+=signature ($x, $y) = $event->coords
+=cut
+
+=for apidoc Gtk2::Gdk::Event::x
+=signature integer = $event->x
+=cut
+
+=for apidoc Gtk2::Gdk::Event::y
+=signature integer = $event->y
+=cut
+
  ## gboolean gdk_event_get_coords (GdkEvent *event, gdouble *x_win, gdouble *y_win)
 void
 gdk_event_get_coords (event)
@@ -266,6 +282,22 @@ gdk_event_get_coords (event)
 			PUSHs (sv_2mortal (newSVnv (x)));
 			PUSHs (sv_2mortal (newSVnv (y)));
 	}
+
+=for apidoc Gtk2::Gdk::Event::get_root_coords
+=signature ($x_root, $y_root) = $event->get_root_coords
+=cut
+
+=for apidoc Gtk2::Gdk::Event::root_coords
+=signature ($x_root, $y_root) = $event->root_coords
+=cut
+
+=for apidoc Gtk2::Gdk::Event::x_root
+=signature integer = $event->x_root
+=cut
+
+=for apidoc Gtk2::Gdk::Event::y_root
+=signature integer = $event->y_root
+=cut
 
  ## gboolean gdk_event_get_root_coords (GdkEvent *event, gdouble *x_root, gdouble *y_root)
 void
@@ -419,6 +451,8 @@ MODULE = Gtk2::Gdk::Event	PACKAGE = Gtk2::Gdk::Event::Expose
 BOOT:
 	gperl_set_isa ("Gtk2::Gdk::Event::Expose", "Gtk2::Gdk::Event");
 
+=for object Gtk2::Gdk::Event
+=cut
 
  #struct _GdkEventExpose
  #{
@@ -430,6 +464,9 @@ BOOT:
  #  gint count; /* If non-zero, how many more events follow. */
  #};
 
+=for apidoc
+=signature $rectangle = $eventexpose->area
+=cut
 GdkRectangle*
 area (event)
 	GdkEvent * event
@@ -447,6 +484,9 @@ area (event)
 #    OUTPUT:
 #	RETVAL
 
+=for apidoc
+=signature integer = $eventexpose->count
+=cut
 gint
 count (event)
 	GdkEvent * event
@@ -460,6 +500,9 @@ MODULE = Gtk2::Gdk::Event	PACKAGE = Gtk2::Gdk::Event::NoExpose
 BOOT:
 	gperl_set_isa ("Gtk2::Gdk::Event::NoExpose", "Gtk2::Gdk::Event");
 
+=for object Gtk2::Gdk::Event
+=cut
+
  #struct _GdkEventNoExpose
  #{
  #//  GdkEventType type;  <- GdkEventAny
@@ -472,6 +515,9 @@ MODULE = Gtk2::Gdk::Event	PACKAGE = Gtk2::Gdk::Event::Visibility
 BOOT:
 	gperl_set_isa ("Gtk2::Gdk::Event::Visibility", "Gtk2::Gdk::Event");
 
+=for object Gtk2::Gdk::Event
+=cut
+
  #struct _GdkEventVisibility
  #{
  #//  GdkEventType type;  <- GdkEventAny
@@ -480,6 +526,9 @@ BOOT:
  #  GdkVisibilityState state;
  #};
 
+=for apidoc
+=signature $visibilitystate = $eventvisibility->state
+=cut
 # different return type, override Gtk2::Gdk::Event::state
 GdkVisibilityState
 state (event)
@@ -493,6 +542,9 @@ MODULE = Gtk2::Gdk::Event	PACKAGE = Gtk2::Gdk::Event::Motion
 
 BOOT:
 	gperl_set_isa ("Gtk2::Gdk::Event::Motion", "Gtk2::Gdk::Event");
+
+=for object Gtk2::Gdk::Event
+=cut
 
  #struct _GdkEventMotion
  #{
@@ -509,6 +561,9 @@ BOOT:
  #//  gdouble x_root, y_root; <- get_root_coords
  #};
 
+=for apidoc
+=signature unsigned = $eventmotion->is_hint
+=cut
 guint
 is_hint (event)
 	GdkEvent * event
@@ -517,10 +572,23 @@ is_hint (event)
     OUTPUT:
 	RETVAL
 
+=for apidoc
+=signature $device = $eventmotion->device
+=cut
+GdkDevice_ornull *
+device (GdkEvent * event)
+    CODE:
+	RETVAL = event->motion.device;
+    OUTPUT:
+	RETVAL
+
 MODULE = Gtk2::Gdk::Event	PACKAGE = Gtk2::Gdk::Event::Button
 
 BOOT:
 	gperl_set_isa ("Gtk2::Gdk::Event::Button", "Gtk2::Gdk::Event");
+
+=for object Gtk2::Gdk::Event
+=cut
 
  #struct _GdkEventButton
  #{
@@ -537,6 +605,9 @@ BOOT:
  #//  gdouble x_root, y_root; <- get_root_coords
  #};
 
+=for apidoc
+=signature unsigned = $eventbutton->button
+=cut
 guint
 button (event)
 	GdkEvent * event
@@ -545,10 +616,23 @@ button (event)
     OUTPUT:
 	RETVAL
 
+=for apidoc
+=signature $device = $eventbutton->device
+=cut
+GdkDevice_ornull *
+device (GdkEvent * event)
+    CODE:
+	RETVAL = event->motion.device;
+    OUTPUT:
+	RETVAL
+
 MODULE = Gtk2::Gdk::Event	PACKAGE = Gtk2::Gdk::Event::Scroll
 
 BOOT:
 	gperl_set_isa ("Gtk2::Gdk::Event::Scroll", "Gtk2::Gdk::Event");
+
+=for object Gtk2::Gdk::Event
+=cut
 
  #struct _GdkEventScroll
  #{
@@ -564,6 +648,9 @@ BOOT:
  #//  gdouble x_root, y_root; <- get_root_coords
  #};
 
+=for apidoc
+=signature $scrolldirection = $eventscroll->direction
+=cut
 GdkScrollDirection
 direction (event)
 	GdkEvent * event
@@ -572,11 +659,24 @@ direction (event)
     OUTPUT:
 	RETVAL
 
+=for apidoc
+=signature $device = $eventscroll->device
+=cut
+GdkDevice_ornull *
+device (GdkEvent * event)
+    CODE:
+	RETVAL = event->scroll.device;
+    OUTPUT:
+	RETVAL
+
 
 MODULE = Gtk2::Gdk::Event	PACKAGE = Gtk2::Gdk::Event::Key
 
 BOOT:
 	gperl_set_isa ("Gtk2::Gdk::Event::Key", "Gtk2::Gdk::Event");
+
+=for object Gtk2::Gdk::Event
+=cut
 
  #struct _GdkEventKey
  #{
@@ -592,6 +692,9 @@ BOOT:
  #  guint8 group;
  #};
 
+=for apidoc
+=signature unsigned = $eventkey->keyval
+=cut
 guint
 keyval (event)
 	GdkEvent * event
@@ -600,6 +703,9 @@ keyval (event)
     OUTPUT:
 	RETVAL
 
+=for apidoc
+=signature integer = $eventkey->length
+=cut
 gint
 length (event)
 	GdkEvent * event
@@ -608,6 +714,9 @@ length (event)
     OUTPUT:
 	RETVAL
 
+=for apidoc
+=signature string = $eventkey->string
+=cut
 gchar *
 string (event)
 	GdkEvent * event
@@ -620,6 +729,9 @@ MODULE = Gtk2::Gdk::Event	PACKAGE = Gtk2::Gdk::Event::Crossing
 
 BOOT:
 	gperl_set_isa ("Gtk2::Gdk::Event::Crossing", "Gtk2::Gdk::Event");
+
+=for object Gtk2::Gdk::Event
+=cut
 
  #struct _GdkEventCrossing
  #{
@@ -638,6 +750,9 @@ BOOT:
  #//  guint state; <- get_state
  #};
 
+=for apidoc
+=signature $crossingmode = $eventcrossing->mode
+=cut
 GdkCrossingMode
 mode (event)
 	GdkEvent * event
@@ -646,10 +761,33 @@ mode (event)
     OUTPUT:
 	RETVAL
 
+=for apidoc
+=signature $notifytype = $eventcrossing->detail
+=cut
+GdkNotifyType
+detail (GdkEvent * event)
+    CODE:
+	RETVAL = event->crossing.detail;
+    OUTPUT:
+	RETVAL
+
+=for apidoc
+=signature boolean = $eventcrossing->focus
+=cut
+gboolean
+focus (GdkEvent * event)
+    CODE:
+	RETVAL = event->crossing.focus;
+    OUTPUT:
+	RETVAL
+
 MODULE = Gtk2::Gdk::Event	PACKAGE = Gtk2::Gdk::Event::Focus
 
 BOOT:
 	gperl_set_isa ("Gtk2::Gdk::Event::Focus", "Gtk2::Gdk::Event");
+
+=for object Gtk2::Gdk::Event
+=cut
 
  #struct _GdkEventFocus
  #{
@@ -659,6 +797,9 @@ BOOT:
  #  gint16 in;
  #};
 
+=for apidoc
+=signature integer = $eventfocus->in
+=cut
 gint16
 in (event)
 	GdkEvent * event
@@ -672,6 +813,9 @@ MODULE = Gtk2::Gdk::Event	PACKAGE = Gtk2::Gdk::Event::Configure
 BOOT:
 	gperl_set_isa ("Gtk2::Gdk::Event::Configure", "Gtk2::Gdk::Event");
 
+=for object Gtk2::Gdk::Event
+=cut
+
  #struct _GdkEventConfigure
  #{
  #//  GdkEventType type;  <- GdkEventAny
@@ -681,6 +825,14 @@ BOOT:
  #  gint width;
  #  gint height;
  #};
+
+=for apidoc Gtk2::Gdk::Event::Configure::width
+=signature integer = $eventconfigure->width
+=cut
+
+=for apidoc Gtk2::Gdk::Event::Configure::height
+=signature integer = $eventconfigure->height
+=cut
 
 gint
 dim (event)
@@ -698,6 +850,9 @@ MODULE = Gtk2::Gdk::Event	PACKAGE = Gtk2::Gdk::Event::Property
 BOOT:
 	gperl_set_isa ("Gtk2::Gdk::Event::Property", "Gtk2::Gdk::Event");
 
+=for object Gtk2::Gdk::Event
+=cut
+
  #struct _GdkEventProperty
  #{
  #//  GdkEventType type;  <- GdkEventAny
@@ -712,6 +867,9 @@ MODULE = Gtk2::Gdk::Event	PACKAGE = Gtk2::Gdk::Event::Selection
 
 BOOT:
 	gperl_set_isa ("Gtk2::Gdk::Event::Selection", "Gtk2::Gdk::Event");
+
+=for object Gtk2::Gdk::Event
+=cut
 
  #struct _GdkEventSelection
  #{
@@ -730,6 +888,9 @@ MODULE = Gtk2::Gdk::Event	PACKAGE = Gtk2::Gdk::Event::Proximity
 BOOT:
 	gperl_set_isa ("Gtk2::Gdk::Event::Proximity", "Gtk2::Gdk::Event");
 
+=for object Gtk2::Gdk::Event
+=cut
+
  #/* This event type will be used pretty rarely. It only is important
  #   for XInput aware programs that are drawing their own cursor */
 
@@ -742,10 +903,23 @@ BOOT:
  #  GdkDevice *device;
  #};
 
+=for apidoc
+=signature $device = $eventproximity->device
+=cut
+GdkDevice_ornull *
+device (GdkEvent * event)
+    CODE:
+	RETVAL = event->motion.device;
+    OUTPUT:
+	RETVAL
+
 MODULE = Gtk2::Gdk::Event	PACKAGE = Gtk2::Gdk::Event::Client
 
 BOOT:
 	gperl_set_isa ("Gtk2::Gdk::Event::Client", "Gtk2::Gdk::Event");
+
+=for object Gtk2::Gdk::Event
+=cut
 
  #struct _GdkEventClient
  #{
@@ -766,6 +940,9 @@ MODULE = Gtk2::Gdk::Event	PACKAGE = Gtk2::Gdk::Event::Setting
 BOOT:
 	gperl_set_isa ("Gtk2::Gdk::Event::Setting", "Gtk2::Gdk::Event");
 
+=for object Gtk2::Gdk::Event
+=cut
+
  #struct _GdkEventSetting
  #{
  #//  GdkEventType type;  <- GdkEventAny
@@ -775,10 +952,33 @@ BOOT:
  #  char *name;
  #};
 
+=for apidoc
+=signature $settingaction = $eventsetting->action
+=cut
+GdkSettingAction
+action (GdkEvent * event)
+    CODE:
+	RETVAL = event->setting.action;
+    OUTPUT:
+	RETVAL
+
+=for apidoc
+=signature string = $eventsetting->name
+=cut
+char *
+name (GdkEvent * event)
+    CODE:
+	RETVAL = event->setting.name;
+    OUTPUT:
+	RETVAL
+
 MODULE = Gtk2::Gdk::Event	PACKAGE = Gtk2::Gdk::Event::WindowState
 
 BOOT:
 	gperl_set_isa ("Gtk2::Gdk::Event::WindowState", "Gtk2::Gdk::Event");
+
+=for object Gtk2::Gdk::Event
+=cut
 
  #struct _GdkEventWindowState
  #{
@@ -789,6 +989,9 @@ BOOT:
  #  GdkWindowState new_window_state;
  #};
 
+=for apidoc
+=signature $windowstate = $eventwindowstate->changed_mask
+=cut
 GdkWindowState
 changed_mask (event)
 	GdkEvent * event
@@ -797,6 +1000,9 @@ changed_mask (event)
     OUTPUT:
 	RETVAL
 
+=for apidoc
+=signature $windowstate = $eventwindowstate->new_window_state
+=cut
 GdkWindowState
 new_window_state (event)
 	GdkEvent * event
@@ -810,6 +1016,9 @@ MODULE = Gtk2::Gdk::Event	PACKAGE = Gtk2::Gdk::Event::DND
 BOOT:
 	gperl_set_isa ("Gtk2::Gdk::Event::DND", "Gtk2::Gdk::Event");
 
+=for object Gtk2::Gdk::Event
+=cut
+
  #/* Event types for DND */
 
  #struct _GdkEventDND {
@@ -822,6 +1031,9 @@ BOOT:
  #//  gshort x_root, y_root; <- get_root_coords
  #};
 
+=for apidoc
+=signature $dragcontext = $eventdnd->context
+=cut
 GdkDragContext *
 context (event)
 	GdkEvent * event
