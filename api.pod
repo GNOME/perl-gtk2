@@ -235,25 +235,42 @@ first parameter. All parameters after that are considered to be entries.
 
 Position and items parameters flipped order so that an open ended parameter
 list could be used. C<< $list->insert_items($position, $item1, $item2, ...) >>
-(Note that GtkList and GtkListItem are deprecated and only included b/c
+(Note that GtkList and GtkListItem are deprecated and only included because
 GtkCombo still makes use of them, they are subject to removal at any point so
-you should not utilize them unless absolutly necessary.)
+you should not utilize them unless absolutely necessary.)
 
-=item Gtk2::TreeModel->get
+=item Gtk2::TreeModel::get
 
 If no column idexes are passed all columns are returned as an array. This is a
-slight deviation from the C api that can be easily impelemented in the wrappers
+slight deviation from the C api that can be easily implemented in the wrappers
 and may be useful. If you don't know it's there it should in no way effect the
 behavior of the function.
 
 =item Gtk2::TreeSelection::get_selected
 
-In scalar context, returns $iter; in list context, returns ($model, $iter).
+Since most of the time you are interested only in the iter, this function
+behaves differently in scalar context than in list context:
+
+  ## scalar context
+  $iter = $tree_selection->get_selected;
+  ## list context
+  ($model, $iter) = $tree_selection->get_selected;
 
 =item Gtk2::TreeSelection::get_selected_rows
 
 Returns @paths; model is not returned as documented in the C API.
 to get the model, try C<< $selection->get_tree_view->get_model >>.
+
+=item Gtk2::Widget::path
+
+=item Gtk2::Widget::class_path
+
+In C, these functions return the length of the strings, the path string, and
+the reverse path string.  In perl, the string length is unnecessary, and has
+been omitted from the return list.
+
+ ($path, $path_reverse) = $widget->path;
+ ($path, $path_reverse) = $widget->class_path;
 
 =item Gtk2::Gdk::Colormap::alloc_colors
 

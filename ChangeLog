@@ -1,3 +1,28 @@
+2003/08/18 17:24 muppetman
+
+	* README: remove FIXME: we do have more docs, they're linked
+	from Gtk2.pm
+
+	* api.pod: updated.
+
+	* gtk-demo/changedisplay.pl: a few more tweaks.  it almost works.
+
+	* t/07.GtkBoxes.t: this is the most obvious place for tests for
+	widget tools, since this test plays with packing boxes and such.
+
+	* xs/GdkDisplay.xs: flesh out the get_window_at_pointer xsub, else
+	the changedisplay.pl demo says it can't do something with a CODE
+	reference.  (i don't understand...)
+
+	* xs/GdkWindow.xs: apparently $gdkwindow->get_user_data isn't the
+	same as GObject user data...
+
+	* xs/GtkWidget.xs: consolidating void $widget->method($void) methods
+	into one ALIASED xsub saved over 2K in the object file, even with
+	the other ten or so such methods implemented.  wow.
+	also implemented get_ancestor, is_ancestor gtk_widget_modify_style
+	gtk_widget_get_modifier_style gtk_widget_path gtk_widget_class_path.
+
 2003/08/18 11:54 muppetman
 
 	went for a complete audit of xs/*.xs, looking for FIXMEs and 
