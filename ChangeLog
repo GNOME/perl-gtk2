@@ -1,3 +1,10 @@
+2004/04/09 07:56 (-0400) muppetman
+
+	* gtk-demo/appwindow.pl: remove unsightly warnings
+ 
+	* gtk-demo/sizegroup.pl, gtk-demo/textview.pl: patch from Thierry
+	fixes my stupid syntax errors so gtk-demo works again.
+
 2004/04/09 00:30 (-0400) muppetman
 
 	* Gtk2.pm, NEWS, README: stable release 1.041
