@@ -1,3 +1,7 @@
+2003/08/20 14:27 muppetman
+
+	* t/22.GtkTreeSelection.t: new test, another patch from torsten
+
 2003/08/20 12:39 rwmcfa1
 
 	* api.pod: url of stock items strings added, thierry vignaud
