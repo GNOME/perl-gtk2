@@ -4,7 +4,7 @@
 
 use Gtk2::TestHelper
 	at_least_version => [2, 4, 0, "GtkFileChooser is new in 2.4"],
-	tests => 41;
+	tests => 42;
 use File::Spec;
 use Cwd;
 
@@ -55,6 +55,9 @@ is ($list[0], $filename, 'selected '.$filename);
 
 $file_chooser->set_select_multiple (TRUE);
 ok ($file_chooser->get_select_multiple, 'select multiple');
+
+$file_chooser->set_select_multiple (FALSE);
+ok (!$file_chooser->get_select_multiple, 'not select multiple');
 
 $file_chooser->select_all;
 @list = $file_chooser->get_filenames;
@@ -111,15 +114,11 @@ ok ($file_chooser->get_preview_widget_active);
 $file_chooser->set_use_preview_label (TRUE);
 is ($file_chooser->get_use_preview_label, TRUE);
 
-# FIXME i can't for the life of me get these to work in this test, although
-# they function perfectly well in examples/file_chooser.pl
-TODO: { local $TODO = "Don't understand this one";
 $file_chooser->set_current_folder ($cwd);
 $filename = File::Spec->catfile ($cwd, 'gtk2perl.h');
 ok ($file_chooser->select_filename ($filename));
 is ($file_chooser->get_preview_filename, $filename, 'get_preview_filename');
 is ($file_chooser->get_preview_uri, "file://".$filename, 'get_preview_uri');
-}
 
 
 # Extra widget
