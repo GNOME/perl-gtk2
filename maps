@@ -68,7 +68,6 @@ GTK_TYPE_OBJECT	GtkObject	GtkObject	Gtk2::Object
 GTK_TYPE_OPTION_MENU	GtkOptionMenu	GtkObject	Gtk2::OptionMenu
 GTK_TYPE_PANED	GtkPaned	GtkObject	Gtk2::Paned
 GTK_TYPE_PLUG	GtkPlug	GtkObject	Gtk2::Plug
-GTK_TYPE_PROGRESS	GtkProgress	GtkObject	Gtk2::Progress
 GTK_TYPE_PROGRESS_BAR	GtkProgressBar	GtkObject	Gtk2::ProgressBar
 GTK_TYPE_RADIO_BUTTON	GtkRadioButton	GtkObject	Gtk2::RadioButton
 GTK_TYPE_RADIO_MENU_ITEM	GtkRadioMenuItem	GtkObject	Gtk2::RadioMenuItem
