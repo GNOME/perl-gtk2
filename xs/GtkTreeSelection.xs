@@ -129,7 +129,8 @@ gtk_tree_selection_set_select_function (selection, func, data=NULL)
 						callback,
 						(GDestroyNotify) gperl_callback_destroy);
 
-## FIXME eh? i thought GObject took care of this 
+## FIXME this is a different user_data --- it's the user data that gets
+##       passed to the select function.  i don't understand why it is separate.
 ### gpointer gtk_tree_selection_get_user_data (GtkTreeSelection *selection)
 #gpointer
 #gtk_tree_selection_get_user_data (selection)

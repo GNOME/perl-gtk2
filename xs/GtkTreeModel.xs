@@ -430,8 +430,7 @@ FIXME FIXME say more here
 =cut
 
 ##
-## FIXME FIXME it would be nice for this section to *follow* the normal
-##             method listing, rather than precede it.
+## 
 ##
 
 =for position post_methods

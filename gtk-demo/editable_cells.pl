@@ -104,10 +104,6 @@ sub cell_edited {
 	$model->set ($iter, $column, $articles[$i]{number});
 
   } elsif ($column == COLUMN_PRODUCT) {
-        # FIXME does a string column not do automatic memory management?
-        #gtk_tree_model_get (model, &iter, column, &old_text, -1);
-	#g_free (old_text);
-
 	my $i = ($path->get_indices)[0];
 	$articles[$i]{product} = $new_text;
 

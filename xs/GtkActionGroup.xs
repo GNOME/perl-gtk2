@@ -306,7 +306,6 @@ gtk_action_group_add_actions (action_group, action_entries, user_data=NULL)
 		g_object_unref (action);
 	}
 
-## FIXME
 ##void gtk_action_group_add_toggle_actions (GtkActionGroup *action_group, GtkToggleActionEntry *entries, guint n_entries, gpointer user_data);
 ##void gtk_action_group_add_toggle_actions_full (GtkActionGroup *action_group, GtkToggleActionEntry *entries, guint n_entries, gpointer user_data, GDestroyNotify destroy);
 void
@@ -376,7 +375,6 @@ gtk_action_group_add_toggle_actions (action_group, toggle_action_entries, user_d
 		g_object_unref (action);
 	}
 
-## FIXME
 ##void gtk_action_group_add_radio_actions (GtkActionGroup *action_group, GtkRadioActionEntry *entries, guint n_entries, gint value, GCallback on_change, gpointer user_data);
 ##void gtk_action_group_add_radio_actions_full (GtkActionGroup *action_group, GtkRadioActionEntry *entries, guint n_entries, gint value, GCallback on_change, gpointer user_data, GDestroyNotify destroy);
 void
@@ -456,7 +454,12 @@ gtk_action_group_add_radio_actions (action_group, radio_action_entries, value, o
 		gperl_signal_connect (WRAPINSTANCE (first_action),
 		                      "changed", on_change, user_data, 0);
 
-## FIXME
+## NOTE: we had to implement the group adding API in xs so that we can
+##       properly destroy the user data and callbacks and such.  since we
+##       reimplement, we can't get to the translation function, its data,
+##       or the translation domain, which are held in the opaque private
+##       data object of the action group.  not the end of the world, but
+##       not great, either.  see #135740
 ##void gtk_action_group_set_translate_func (GtkActionGroup *action_group, GtkTranslateFunc func, gpointer data, GtkDestroyNotify notify);
 
 ##void gtk_action_group_set_translation_domain (GtkActionGroup *action_group, const gchar *domain); 
