@@ -103,7 +103,21 @@ gdk_display_get_core_pointer (display)
 void gdk_display_get_pointer (GdkDisplay *display, OUTLIST GdkScreen *screen, OUTLIST gint x, OUTLIST gint y, OUTLIST GdkModifierType mask) 
 
 ##  GdkWindow * gdk_display_get_window_at_pointer (GdkDisplay *display, gint *win_x, gint *win_y) 
-GdkWindow * gdk_display_get_window_at_pointer (GdkDisplay *display, OUTLIST gint win_x, OUTLIST gint win_y) 
+###GdkWindow * gdk_display_get_window_at_pointer (GdkDisplay *display, OUTLIST gint win_x, OUTLIST gint win_y) 
+void
+gdk_display_get_window_at_pointer (GdkDisplay *display) 
+    PREINIT:
+	GdkWindow * window;
+	gint win_x = 0, win_y = 0;
+    PPCODE:
+	window = gdk_display_get_window_at_pointer (display, &win_x, &win_y);
+	if (!window)
+		XSRETURN_EMPTY;
+	EXTEND (SP, 3);
+	PUSHs (sv_2mortal (newSVGdkWindow (window)));
+	PUSHs (sv_2mortal (newSViv (win_x)));
+	PUSHs (sv_2mortal (newSViv (win_y)));
+
 
  # API reference says this shouldn't be used by apps, and is only useful for
  # event recorders.  would a perl event recorder be usable?
