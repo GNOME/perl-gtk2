@@ -1,4 +1,4 @@
-2003/07/31 02:40 muppetman
+2003/07/31 20:00 muppetman
 
 	* Gtk2.pm: mention Gtk2::api and Gtk2::SimpleList manpages
 
@@ -6,11 +6,14 @@
 
 	* examples/simplelist.pl, pm/SimpleList.pm, t/19.GtkSimpleList.t: add
 	simple interfaces to editable text cells and index-based selection
-	handling; modify and clarify other pod
+	handling; modify and clarify other pod.
 
 	* xs/GtkTextView.xs: fixed get_iter_at_location to work correctly.
 
 	* gtk-demo/textview.pl: clean up some flotsam and jetsam
+
+	* CodeGen.pm: register GEnum and GFlags types with the bindings,
+	so they can be used as column types
 
 2003/07/29 22:06 rwmcfa1
 
