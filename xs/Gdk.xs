@@ -235,29 +235,24 @@ gdk_rectangle_union (src1, src2)
 
 MODULE = Gtk2::Gdk	PACKAGE = Gtk2::Gdk	PREFIX = gdk_
 
-###  gchar *gdk_wcstombs (const GdkWChar *src) 
-#gchar *
-#gdk_wcstombs (src)
-#	const GdkWChar *src
-
+### not bound, in favor of native perl support for unicode and utf8.
+##  gchar *gdk_wcstombs (const GdkWChar *src) 
 ##  gint gdk_mbstowcs (GdkWChar *dest, const gchar *src, gint dest_max) 
-#gint
-#gdk_mbstowcs (dest, src, dest_max)
-#	GdkWChar *dest
-#	const gchar *src
-#	gint dest_max
 
+# FIXME
 ###  gboolean gdk_event_send_client_message (GdkEvent *event, GdkNativeWindow winid) 
 #gboolean
 #gdk_event_send_client_message (event, winid)
 #	GdkEvent *event
 #	GdkNativeWindow winid
 #
+# FIXME
 ###  void gdk_event_send_clientmessage_toall (GdkEvent *event) 
 #void
 #gdk_event_send_clientmessage_toall (event)
 #	GdkEvent *event
 #
+# FIXME
 ###  gboolean gdk_event_send_client_message_for_display (GdkDisplay *display, GdkEvent *event, GdkNativeWindow winid) 
 #gboolean
 #gdk_event_send_client_message_for_display (display, event, winid)
@@ -265,18 +260,23 @@ MODULE = Gtk2::Gdk	PACKAGE = Gtk2::Gdk	PREFIX = gdk_
 #	GdkEvent *event
 #	GdkNativeWindow winid
 
+MODULE = Gtk2::Gdk	PACKAGE = Gtk2::Gdk::Threads	PREFIX = gdk_threads_
+
 ###  void gdk_threads_enter (void) 
-#void
-#gdk_threads_enter (void)
-#	void
-#
 ###  void gdk_threads_leave (void) 
-#void
-#gdk_threads_leave (void)
-#	void
-#
 ###  void gdk_threads_init (void) 
-#void
-#gdk_threads_init (void)
-#	void
-#
+
+void
+gdk_threads (SV * class)
+    ALIAS:
+	enter = 1
+	leave = 2
+    CODE:
+	switch (ix) {
+		case 0: gdk_threads_init (); break;
+		case 1: gdk_threads_enter (); break;
+		case 2: gdk_threads_leave (); break;
+	}
+
+
+MODULE = Gtk2::Gdk	PACKAGE = Gtk2::Gdk	PREFIX = gdk_
