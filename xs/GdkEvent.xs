@@ -316,12 +316,6 @@ axis (event, axis_use)
 
 #ifdef GDK_TYPE_SCREEN
 
-## void gdk_event_set_screen (GdkEvent *event, GdkScreen *screen)
-void
-gdk_event_set_screen (event, screen)
-	GdkEvent *event
-	GdkScreen *screen
-
 void
 gdk_event_set_screen (event, screen)
 	GdkEvent * event
