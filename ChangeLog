@@ -1,5 +1,11 @@
 2004/03/16 02:03 (-0500) muppetman
 
+	* xs/Gtk2.xs: Pod updates.  Doc Pango version stuff in
+	Gtk2::Pango::version to avoid clobbering the pod from the pure-perl
+	Gtk2::Pango module (the one that exports the pango constants).
+
+2004/03/16 02:03 (-0500) muppetman
+
 	* pm/TestHelper.pm, gtk-demo/textview.pl, examples/combo_box.pl,
 	gtk-demo/sizegroup.pl: use compile-time version info for version tests
 
