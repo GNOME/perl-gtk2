@@ -1,3 +1,7 @@
+2004/04/04 12:56 (-0500) rwmcfa1
+
+	* xs/Gtk2.xs: quite some warnings in the runtime version checking.
+
 2004/04/04 18:25 (+0100) kaffeetisch
 
 	* xs/GtkStyle.xs: Use a =for object directive to put
