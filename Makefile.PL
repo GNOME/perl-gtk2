@@ -1,5 +1,5 @@
-# Copyright (C) 2003 by the gtk2-perl team (see the file AUTHORS for the full
-# list)
+# Copyright (C) 2003-2004 by the gtk2-perl team (see the file AUTHORS for the
+# full list)
 # 
 # This library is free software; you can redistribute it and/or modify it under
 # the terms of the GNU Library General Public License as published by the Free
@@ -79,6 +79,12 @@ if ($target =~ /x11/) {
 	warn "congratulations, you're building on X11!\n";
 	push @xs_files, 'xs/GdkX11.xs';
 }
+
+#
+# retrieve pango's version
+#
+my %pkgcfg_pango = ExtUtils::PkgConfig->find ('pango');
+my @pango_version = split /\./, $pkgcfg_pango{modversion};
 
 #
 # create version macros for pango
@@ -162,11 +168,12 @@ if (grep /enable[-_]faq/i, @ARGV)
 #
 # all possible maps must be available at xsubpp time, as xsubpp processes
 # all code, even inside #ifdefs.
-my @maps = <maps-[0-9]\.[0-9]>;
-Gtk2::CodeGen->parse_maps ('gtk2perl', input => \@maps);
+Gtk2::CodeGen->parse_maps ('gtk2perl', input => [<maps-[0-9]\.[0-9]>,
+                                                 <maps_pango-[0-9]\.[0-9]>]);
 # but for enums.pod, we only want to document the stuff we can actually
 # query from this target library.
 our @used_maps = select_files_by_version ("maps", @gtk_version);
+our @used_maps_pango = select_files_by_version ("maps_pango", @pango_version);
 
 # one more command generates code to boot all the various extra XS modules.
 # we need this because we have lots of XS files without corresponding PMs to
@@ -256,8 +263,8 @@ sub MY::postamble
 # rebuild the makefile if the file lists change
 Makefile : ".join(" ", @xs_lists)."
 
-\$(INST_LIB)/\$(FULLEXT)/enums.pod : \$(BLIB_DONE) @used_maps tools/podifyenums.pl
-	\$(PERLRUNINST) -M\$(NAME) tools/podifyenums.pl \$(NAME) @used_maps > \$@
+\$(INST_LIB)/\$(FULLEXT)/enums.pod : \$(BLIB_DONE) @used_maps @used_maps_pango tools/podifyenums.pl
+	\$(PERLRUNINST) -M\$(NAME) tools/podifyenums.pl \$(NAME) @used_maps @used_maps_pango > \$@
 
 build/stock_items.podi: \$(BLIB_DONE) tools/podifystockitems.pl
 	\$(PERLRUNINST) -M\$(NAME) tools/podifystockitems.pl > \$@

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003 by the gtk2-perl team (see the file AUTHORS)
+ * Copyright (c) 2003-2004 by the gtk2-perl team (see the file AUTHORS)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -129,4 +129,18 @@ pango_context_get_base_dir (context)
 #	int length
 #	PangoAttrList *attrs
 #	PangoAttrIterator *cached_iter
-#
+
+#if PANGO_CHECK_VERSION (1, 5, 0) /* FIXME: 1.6 */
+
+##  PangoMatrix * pango_context_get_matrix (PangoContext *context)
+PangoMatrix *
+pango_context_get_matrix (context)
+	PangoContext *context
+
+##  void pango_context_set_matrix (PangoContext *context, PangoMatrix *matrix)
+void
+pango_context_set_matrix (context, matrix)
+	PangoContext *context
+	PangoMatrix *matrix
+
+#endif

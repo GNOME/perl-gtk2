@@ -1,3 +1,21 @@
+2004/07/07 21:08 (+0200) kaffeetisch
+
+	A t/PangoTypes.t
+	A xs/PangoTypes.xs
+	* MANIFEST
+	* gtk2perl.h
+	* xs_files-2.0: Bind and test stuff from pango-types.h, including
+	PangoMatrix.
+
+	* MANIFEST
+	* Makefile.PL
+	* maps-2.0
+	* maps_pango-1.0
+	* maps_pango-1.5: Use separate maps files for pango.
+
+	* t/PangoContext.t
+	* xs/PangoContext.xs: Bind and test [gs]et_matrix.
+
 2004/06/28 01:08 (-0400) muppetman
 
 	* Gtk2.pm, README, NEWS: unstable development release 1.051

@@ -147,3 +147,4 @@ xs/PangoFont.xs
 xs/PangoFontset.xs
 xs/PangoLayout.xs
 xs/PangoTabs.xs
+xs/PangoTypes.xs

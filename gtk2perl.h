@@ -1,7 +1,7 @@
 /*
  * 
- * Copyright (C) 2003 by the gtk2-perl team (see the file AUTHORS for the full
- * list)
+ * Copyright (C) 2003-2004 by the gtk2-perl team (see the file AUTHORS for the
+ * full list)
  * 
  * This library is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Library General Public License as published by
@@ -27,6 +27,8 @@
 #include <gperl.h>
 #include <gtk/gtk.h>
 
+#include "gtk2perl-versions.h"
+
 /* custom GType for GdkRegion */
 #ifndef GDK_TYPE_REGION
 # define GDK_TYPE_REGION (gtk2perl_gdk_region_get_type ())
@@ -39,8 +41,17 @@
   GType gtk2perl_pango_layout_iter_get_type (void) G_GNUC_CONST;
 #endif
 
+/* custom GType for PangoMatrix */
+#if PANGO_CHECK_VERSION (1, 5, 0) /* FIXME: it looks like 1.6 will ship with a
+				     GType for PangoMatrix, so this can
+				     probably be removed. */
+# ifndef PANGO_TYPE_MATRIX
+#   define PANGO_TYPE_MATRIX (gtk2perl_pango_matrix_get_type ())
+    GType gtk2perl_pango_matrix_get_type (void) G_GNUC_CONST;
+# endif
+#endif
+
 #include "gtk2perl-autogen.h"
-#include "gtk2perl-versions.h"
 
 #ifdef GDK_WINDOWING_WIN32 /* no plug/socket on win32 despite patches exist for years. */
 # undef GTK_TYPE_PLUG

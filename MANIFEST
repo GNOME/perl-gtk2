@@ -85,6 +85,8 @@ gtk2perl.h
 maps-2.0
 maps-2.2
 maps-2.4
+maps_pango-1.0
+maps_pango-1.5
 pango.typemap
 perl-Gtk2.spec.in
 pm/Helper.pm
@@ -255,6 +257,7 @@ t/PangoFont.t
 t/PangoFontset.t
 t/PangoLayout.t
 t/PangoTabs.t
+t/PangoTypes.t
 tools/fetch_faq.pl
 tools/genkeysyms.pl
 tools/genmaps.pl
@@ -426,6 +429,7 @@ xs/PangoFont.xs
 xs/PangoFontset.xs
 xs/PangoLayout.xs
 xs/PangoTabs.xs
+xs/PangoTypes.xs
 xs_files-2.0
 xs_files-2.2
 xs_files-2.4

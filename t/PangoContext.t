@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 9;
+use Gtk2::TestHelper tests => 10;
 
 # $Header$
 
@@ -29,7 +29,15 @@ isa_ok($context -> load_font($font), "Gtk2::Pango::Font");
 isa_ok($context -> load_fontset($font, $language), "Gtk2::Pango::Fontset");
 isa_ok($context -> get_metrics($font, $language), "Gtk2::Pango::FontMetrics");
 
+SKIP: {
+  skip("[sg]et_matrix are new in 1.6", 1)
+    unless (Gtk2::Pango -> CHECK_VERSION(1, 5, 0)); # FIXME: 1.6
+
+  $context -> set_matrix(Gtk2::Pango::Matrix -> new());
+  isa_ok($context -> get_matrix(), "Gtk2::Pango::Matrix");
+}
+
 __END__
 
-Copyright (C) 2003 by the gtk2-perl team (see the file AUTHORS for the
+Copyright (C) 2003-2004 by the gtk2-perl team (see the file AUTHORS for the
 full list).  See LICENSE for more information.
