@@ -1,3 +1,12 @@
+2005/02/16 23:30 (-0400) muppetman
+
+	* pm/SimpleList.pm: Catch undef iters gotten from requests for
+	non-existent entries.
+
+	* gtk2perl.h, xs/GtkPlug.xs, xs/GtkSocket.xs: invert the sense of
+	the tests around GtkPlug and GtkSocket; only include them on X11,
+	since that's the only platform on which they are supported.
+
 2005/02/10 22:30 (+0100) kaffeetisch
 
 	* t/GtkBox.t, t/GtkNotebook.t: Use TRUE and FALSE instead of 1 and
