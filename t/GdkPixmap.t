@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 4;
+use Gtk2::TestHelper tests => 5;
 
 # $Header$
 
@@ -8,7 +8,7 @@ my $window = Gtk2::Window -> new();
 $window -> realize();
 
 SKIP: {
-  skip("I need X11 for this", 4)
+  skip("I need X11 for this", 5)
     unless ($window -> window() -> can("get_xid"));
 
   my $xid = $window -> window() -> get_xid();
@@ -24,6 +24,12 @@ SKIP: {
 
     isa_ok(Gtk2::Gdk::Pixmap -> foreign_new_for_display($display, $xid), "Gtk2::Gdk::Pixmap");
     isa_ok(Gtk2::Gdk::Pixmap -> lookup_for_display($display, $xid), "Gtk2::Gdk::Pixmap");
+
+    ok (! Gtk2::Gdk::Pixmap->create_from_xpm ($window->window, undef,
+					      'non-existent.xpm'),
+	'asking for non-existent xpm returns undef');
+
+    # XXX missing tests for the rest of the GdkPixmap API.
   }
 }
 
