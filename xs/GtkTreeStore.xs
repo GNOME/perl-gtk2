@@ -64,7 +64,7 @@ gtk_tree_store_set (tree_store, iter, ...)
 	GtkTreeStore *tree_store
 	GtkTreeIter *iter
     PREINIT:
-	int i;
+	int i, ncols;
     CODE:
 	/* require at least one pair --- that means there needs to be
 	 * four items on the stack.  also require that the stack has an
@@ -74,6 +74,7 @@ gtk_tree_store_set (tree_store, iter, ...)
 		croak ("Usage: $treestore->set ($iter, column1, value1, column2, value2, ...)\n"
 		       "   there must be a value for every column number");
 	}
+	ncols = gtk_tree_model_get_n_columns (GTK_TREE_MODEL (tree_store));
 	for (i = 2 ; i < items ; i+= 2) {
 		gint column;
 		SV * sv;
@@ -83,20 +84,28 @@ gtk_tree_store_set (tree_store, iter, ...)
 			       "   the first value in each pair must be a column number");
 		column = SvIV (ST (i));
 
-		g_value_init (&gvalue,
-		              gtk_tree_model_get_column_type (GTK_TREE_MODEL (tree_store),
-							      column));
-		if (!gperl_value_from_sv (&gvalue, ST (i+1))) {
-			/* FIXME need a more useful error message here,
-			 *   as this could be triggered by somebody who
-			 *   doesn't know how the function works, and i
-			 *   doubt this message would clue him in */
-			croak ("failed to convert parameter %d from SV to GValue",
-			       i);
+		if (column >= 0 && column < ncols) {
+
+			g_value_init (&gvalue,
+			              gtk_tree_model_get_column_type
+			                          (GTK_TREE_MODEL (tree_store),
+			                           column));
+			if (!gperl_value_from_sv (&gvalue, ST (i+1))) {
+				/* FIXME need a more useful error message here,
+				 *   as this could be triggered by somebody who
+				 *   doesn't know how the function works, and i
+				 *   doubt this message would clue him in */
+				croak ("failed to convert parameter %d from SV to GValue",
+				       i);
+			}
+			gtk_tree_store_set_value (GTK_TREE_STORE (tree_store),
+			                          iter, column, &gvalue);
+			g_value_unset (&gvalue);
+
+		} else {
+			warn ("can't set value for column %d, model only has %d columns",
+			      column, ncols);
 		}
-		gtk_tree_store_set_value (GTK_TREE_STORE (tree_store),
-		                          iter, column, &gvalue);
-		g_value_unset (&gvalue);
 	}
 
 ### we're trying to hide things like GValue from the perl level!

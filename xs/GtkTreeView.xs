@@ -464,11 +464,12 @@ gtk_tree_view_get_path_at_pos (tree_view, x, y)
     PPCODE:
 	if (!gtk_tree_view_get_path_at_pos (tree_view, x, y, &path, &column, &cell_x, &cell_y))
 		XSRETURN_EMPTY;
-	EXTEND (SP, 4);
-	PUSHs (sv_2mortal (newSVGtkTreePath_own (path)));
-	PUSHs (sv_2mortal (newSVGtkTreeViewColumn (column)));
-	PUSHs (sv_2mortal (newSViv (cell_x)));
-	PUSHs (sv_2mortal (newSViv (cell_y)));
+	XPUSHs (sv_2mortal (newSVGtkTreePath_own (path)));
+	if (GIMME_V == G_ARRAY) {
+		XPUSHs (sv_2mortal (newSVGtkTreeViewColumn (column)));
+		XPUSHs (sv_2mortal (newSViv (cell_x)));
+		XPUSHs (sv_2mortal (newSViv (cell_y)));
+	}
 
 
 ### void gtk_tree_view_get_cell_area (GtkTreeView *tree_view, GtkTreePath *path, GtkTreeViewColumn *column, GdkRectangle *rect)

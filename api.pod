@@ -267,6 +267,11 @@ behaves differently in scalar context than in list context:
 Returns @paths; model is not returned as documented in the C API.
 to get the model, try C<< $selection->get_tree_view->get_model >>.
 
+=item Gtk2::TreeView::get_path_at_pos
+
+In scalar context, this returns only the path; in list context, it returns
+the path, column, cell_x, and cell_y.
+
 =item Gtk2::Widget::path
 
 =item Gtk2::Widget::class_path

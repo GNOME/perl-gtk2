@@ -1,3 +1,12 @@
+2003/09/07 15:57 muppetman
+
+	* api.pod, xs/GtkTreeView.xs: patch from torsten makes get_path_at_pos
+	return just the path in scalar context.
+
+	* xs/GtkTreeStore.xs, xs/GtkListStore.xs: trap invalid columns supplied
+	to $(tree|list)store->set at the binding level, because the error
+	message from gtk doesn't make much sense.  (torsten's idea)
+
 2003/09/06 19:23 rwmcfa1
 
 	* Makefile.PL: dist-rpms build target added
