@@ -1,3 +1,8 @@
+2004/07/17 18:19 (+0200) kaffeetisch
+
+	* xs/GtkTreeView.xs: In the POD for get_path_at_pos, escape all <
+	and >'s that should actually show up.
+
 2004/07/17 08:24 (-0400) muppetman (i really wish i was still asleep)
 
 	* xs/GdkProperty.xs: use STRLEN instead of int for the values that
