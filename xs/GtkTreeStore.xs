@@ -230,7 +230,7 @@ gtk_tree_store_iter_is_valid (tree_store, iter)
 =for arg ... of integer's, the new_order
 =cut
 void
-gtk_tree_store_reorder (tree_store, parent, new_order1, ...)
+gtk_tree_store_reorder (tree_store, parent, ...)
 	GtkTreeStore       * tree_store
 	GtkTreeIter_ornull * parent
    PREINIT:

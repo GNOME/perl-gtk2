@@ -172,7 +172,7 @@ gtk_drag_dest_set_target_list (widget, target_list)
 =for arg ... of Gtk2::TargetEntry's
 =cut
 void
-gtk_drag_source_set (widget, start_button_mask, actions, target1, ...)
+gtk_drag_source_set (widget, start_button_mask, actions, ...)
 	GtkWidget *widget
 	GdkModifierType start_button_mask
 	GdkDragAction actions

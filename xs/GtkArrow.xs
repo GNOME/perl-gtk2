@@ -23,6 +23,12 @@
 
 MODULE = Gtk2::Arrow	PACKAGE = Gtk2::Arrow	PREFIX = gtk_arrow_
 
+=for enum GtkArrowType
+=cut
+
+=for enum GtkShadowType
+=cut
+
 ## GtkWidget* gtk_arrow_new (GtkArrowType arrow_type, GtkShadowType shadow_type)
 GtkWidget *
 gtk_arrow_new (class, arrow_type, shadow_type)
@@ -31,6 +37,7 @@ gtk_arrow_new (class, arrow_type, shadow_type)
     C_ARGS:
 	arrow_type, shadow_type
 
+## TODO: what about gobject set?
 ## void gtk_arrow_set (GtkArrow *arrow, GtkArrowType arrow_type, GtkShadowType shadow_type)
 void
 gtk_arrow_set (arrow, arrow_type, shadow_type)

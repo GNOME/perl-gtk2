@@ -1,3 +1,14 @@
+2003/12/07 22:34 (-0500) rwmcfa1
+
+	* t/trivial-widgets.t: initial import
+
+ 	* MANIFEST: added t/trivial-widgets.t, and xs/GtkAccelMap.xs
+
+ 	* xs/GtkArrow.xs: doc the GtkArrowtype and GtkShadowType enums in pod
+ 
+	* xs/GtkDnd.xs, xs/GtkTreeStore.xs, xs/GtkTreeView.xs: removed a xxx1 
+	param
+
 2003/12/07 21:44 (-0500) muppetman
 
 	* xs/GtkPaned.xs: turn the child[12]_(resize|shrink) accessors into
