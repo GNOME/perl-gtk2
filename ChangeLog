@@ -5,7 +5,7 @@
 
 	* t/GtkTreeStore.t, t/GtkListStore.t: correct skip counts
 
-	* t/GdkProgressBar.t: use ok() for boolean tests, because false is
+	* t/GtkProgressBar.t: use ok() for boolean tests, because false is
 	sometimes '' and sometimes undef.
 
 2004/03/11 23:20 (-0500) muppetman
