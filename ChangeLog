@@ -1,4 +1,17 @@
-2003/09/21 20:19 rwmcfa1
+2003/09/30 20:19 rwmcfa1
+
+	* pm/SimpleList.pm: fixed bugs with push and unshift not taking arrays
+	for pushing, only first element was getting pushed. pointed out by
+	Bjarne Steinsbø
+
+	* examples/simplelist.pl: example of push/unshift array of arrays
+	
+	* t/19.GtkSimpleList.t: tests of push/unshift array of arrays
+
+	* xs/GtkClipboard.xs: removed an unused function destroy_data, quited 
+	some warnings in the same style as currently done.
+
+2003/09/28 20:19 rwmcfa1
 
 	* xs/GdkWindow.xs: bugs found in _for_display functions, not accepting 
 	class arguments.

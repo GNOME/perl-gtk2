@@ -100,6 +100,7 @@ foreach (
 		[ 'Delete', 'Delete the ~middle element from the list' ],
 		[ 'Empty', 'Delete all rows from the list with an empty array assignement' ],
 		[ 'Fill', 'Fill the list with data using an array assignment' ],
+		[ 'Many', 'Push and Unshift several data element onto the list' ],
 		[ 'Dump List', 'Dump list data to stdout' ],
 		[ 'Dump Sel', 'Dump index of selected item(s)' ],
 	)
@@ -230,6 +231,31 @@ sub btn_clicked
 		# in the simple list's data.
 
 		@{$slist->{data}} = (
+			[ 'one', 1, 1.1, 1, 'uno', undef, 'uno', 
+				[1, 2, 3] ],
+			[ 'two', 2, 2.2, 0, 'dos', undef, 'dos', 
+				[2, 3, 4] ],
+			[ 'three', 3, 3.3, 1, 'tres', undef, 'tres', 
+				[3, 4, 5] ],
+			[ 'four', 4, 4.4, 0, 'quatro', undef,  'quatro', 
+				[4, 5, 6] ],
+		);
+	}
+	elsif( $op eq 'Many' )
+	{
+		# can't use shorthand on this b/c we're replacing the ref
+		# in the simple list's data.
+		push @{$slist->{data}}, (
+			[ 'one', 1, 1.1, 1, 'uno', undef, 'uno', 
+				[1, 2, 3] ],
+			[ 'two', 2, 2.2, 0, 'dos', undef, 'dos', 
+				[2, 3, 4] ],
+			[ 'three', 3, 3.3, 1, 'tres', undef, 'tres', 
+				[3, 4, 5] ],
+			[ 'four', 4, 4.4, 0, 'quatro', undef,  'quatro', 
+				[4, 5, 6] ],
+		);
+		unshift @{$slist->{data}}, (
 			[ 'one', 1, 1.1, 1, 'uno', undef, 'uno', 
 				[1, 2, 3] ],
 			[ 'two', 2, 2.2, 0, 'dos', undef, 'dos', 

@@ -89,12 +89,6 @@ gtk2perl_clipboard_clear_func (GtkClipboard *clipboard,
 	gperl_callback_invoke (callback, NULL, clipboard, user_data_or_owner);
 }
 
-static void
-destroy_data (gpointer data)
-{
-	SvREFCNT_dec ((SV*)data);
-}
-
 #endif /* defined GTK_TYPE_CLIPBOARD */
 
 MODULE = Gtk2::Clipboard	PACKAGE = Gtk2::Clipboard	PREFIX = gtk_clipboard_
@@ -108,6 +102,8 @@ gtk_clipboard_get (class, selection)
 	GdkAtom selection
     C_ARGS:
 	selection
+    CLEANUP:
+	UNUSED (class);
 
 #if GTK_CHECK_VERSION(2,2,0)
 
@@ -119,6 +115,8 @@ gtk_clipboard_get_for_display (class, display, selection)
 	GdkAtom selection
     C_ARGS:
 	display, selection
+    CLEANUP:
+	UNUSED (class);
 
 ##  GdkDisplay *gtk_clipboard_get_display (GtkClipboard *clipboard) 
 GdkDisplay *

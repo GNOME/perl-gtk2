@@ -15,7 +15,7 @@ use Test::More;
 
 if( Gtk2->init_check )
 {
-	plan tests => 27;
+	plan tests => 28;
 	require_ok( 'Gtk2::SimpleList' );
 }
 else
@@ -230,6 +230,21 @@ Glib::Idle->add( sub
 
 		@{$list->{data}} = ();
 		ok( scalar(@$ldata) == 0 );
+		
+		push @{$list->{data}}, (
+			[ 'pushed', 1, 0.1, undef ],
+			[ 'pushed', 1, 0.1, undef ],
+			[ 'pushed', 1, 0.1, undef ],
+			[ 'pushed', 1, 0.1, undef ],
+		);
+		unshift @{$list->{data}}, (
+			[ 'unshifted', 1, 0.1, undef ],
+			[ 'unshifted', 1, 0.1, undef ],
+			[ 'unshifted', 1, 0.1, undef ],
+			[ 'unshifted', 1, 0.1, undef ],
+		);
+
+		is( scalar(@{$list->{data}}), 8 );
 
 		Gtk2->main_quit;
 		return 0;

@@ -328,13 +328,18 @@ sub FETCHSIZE {
 }
 
 sub PUSH { 
-	my $iter = $_[0]->{model}->append;
-	my @row;
-	tie @row, 'Gtk2::SimpleList::TiedRow', $_[0]->{model}, $iter;
-	if ('ARRAY' eq ref $_[1]) {
-		@row = @{$_[1]};
-	} else {
-		$row[0] = $_[1];
+	my $model = shift()->{model};
+	my $iter;
+	foreach (@_)
+	{
+		$iter = $model->append;
+		my @row;
+		tie @row, 'Gtk2::SimpleList::TiedRow', $model, $iter;
+		if ('ARRAY' eq ref $_) {
+			@row = @$_;
+		} else {
+			$row[0] = $_;
+		}
 	}
 	return 1;
 }
@@ -353,13 +358,18 @@ sub SHIFT {
 }
 
 sub UNSHIFT { 
-	my $iter = $_[0]->{model}->prepend;
-	my @row;
-	tie @row, 'Gtk2::SimpleList::TiedRow', $_[0]->{model}, $iter;
-	if ('ARRAY' eq ref $_[1]) {
-		@row = @{$_[1]};
-	} else {
-		$row[0] = $_[1];
+	my $model = shift()->{model};
+	my $iter;
+	foreach (@_)
+	{
+		$iter = $model->prepend;
+		my @row;
+		tie @row, 'Gtk2::SimpleList::TiedRow', $model, $iter;
+		if ('ARRAY' eq ref $_) {
+			@row = @$_;
+		} else {
+			$row[0] = $_;
+		}
 	}
 	return 1;
 }
