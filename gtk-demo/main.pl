@@ -36,6 +36,11 @@ my @child0 = (
   { title => "Tree Store",     filename => "tree_store.pl",     func => 'stub', },
 );
 
+my @child1 = (
+  { title => "Hypertext",       filename => "hypertext.pl",  func => 'stub', }, 
+  { title => "Multiple Views",  filename => "textview.pl",   func => 'stub', }, 
+);
+
 @testgtk_demos = (
   { title => "Application main window",     filename => "appwindow.pl",     func => 'stub', }, 
   { title => "Button Boxes",                filename => "button_box.pl",    func => 'stub', }, 
@@ -50,9 +55,15 @@ my @child0 = (
   { title => "Pixbufs",                     filename => "pixbufs.pl",       func => 'stub', }, 
   { title => "Size Groups",                 filename => "sizegroup.pl",     func => 'stub', }, 
   { title => "Stock Item and Icon Browser", filename => "stock_browser.pl", func => 'stub', }, 
-  { title => "Text Widget",                 filename => "textview.pl",      func => 'stub', }, 
-  { title => "Tree View", children => \@child0 },
+  { title => "Text Widget", children => \@child1 },
+  { title => "Tree View",   children => \@child0 },
 );
+
+push @testgtk_demos,
+  { title => "Entry Completion", filename => "entry_completion.pl", func => 'stub', },
+  { title => "UI Manager",       filename => "ui_manager.pl",       func => 'stub', }
+#####	if Gtk2->check_version (2, 4, 0);
+	if not Gtk2->check_version (2, 3, 0);
 
 # some globals.
 my $info_buffer;
@@ -105,27 +116,11 @@ sub demo_find_file {
 
 sub window_closed_cb {
 	my ($window, $cbdata) = @_;
-	# CallbackData *cbdata = data;
 
-	# GtkTreeIter iter;
-	# gtk_tree_model_get_iter (cbdata->model, &iter, cbdata->path);
 	my $iter = $cbdata->{model}->get_iter ($cbdata->{path});
-	# gtk_tree_model_get (GTK_TREE_MODEL (cbdata->model), &iter,
-	#		      ITALIC_COLUMN, &italic,
-	#		      -1);
 	my ($italic) = $cbdata->{model}->get ($iter, ITALIC_COLUMN);
-	if ($italic) {
-		# gtk_tree_store_set (GTK_TREE_STORE (cbdata->model), &iter,
-		#		      ITALIC_COLUMN, !italic,
-		#		      -1);
-		$cbdata->{model}->set ($iter, 
-				       ITALIC_COLUMN, !$italic);
-	}
-
-	# these should be handled by the unref on the $cbdata SV when
-	# the closure is invalidated.
-	# gtk_tree_path_free (cbdata->path);
-	# g_free (cbdata);
+	$cbdata->{model}->set ($iter, ITALIC_COLUMN, !$italic)
+		if $italic;
 }
 
 
@@ -354,8 +349,6 @@ parse_chars (gchar     *text,
 #
 sub fontify {
   my $text;
-#  gchar *start_ptr, *end_ptr;
-#  gchar *tag;
   my ($end_ptr, $tag);
 
   my $state = STATE_NORMAL;
@@ -520,7 +513,7 @@ sub row_activated_cb {
    if ($func) {
        # set this row italic to show that the demo is running...
        $model->set ($iter, ITALIC_COLUMN, !$italic);
-       my $window = $func->();
+       my $window = $func->($tree_view->get_toplevel);
        if ($window) {
           # unset the italics when the window closes.
 	  $window->signal_connect (destroy => \&window_closed_cb, 
@@ -573,8 +566,6 @@ sub create_text {
 
 sub create_tree {
 
-#  model = gtk_tree_store_new (NUM_COLUMNS, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_POINTER, G_TYPE_BOOLEAN);
-####   my $model = Gtk2::TreeStore->new ('Glib::String', 'Glib::String', 'Glib::Pointer', 'Glib::Boolean');
    my $model = Gtk2::TreeStore->new ('Glib::String', 'Glib::String', 'Glib::Scalar', 'Glib::Boolean');
    my $tree_view = Gtk2::TreeView->new;
    $tree_view->set_model ($model);
@@ -613,7 +604,7 @@ sub create_tree {
 
   $cell->set ('style' => 'italic');
   
- my $column = Gtk2::TreeViewColumn->new_with_attributes
+  my $column = Gtk2::TreeViewColumn->new_with_attributes
  					("Widget (double click for demo)",
                                         $cell,
                                         'text' => TITLE_COLUMN,

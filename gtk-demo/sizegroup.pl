@@ -31,19 +31,32 @@ my $window = undef;
 #
 sub create_option_menu {
   my @strings = @_;
-  my $menu = Gtk2::Menu->new;
+
+  if ((Gtk2->get_version_info)[1] > 2) {
+    my $combo_box = Gtk2::ComboBox->new_text;
+
+    foreach my $str (@strings) {
+      $combo_box->append_text ($str);
+    }
+    $combo_box->set_active (0);
+
+    return $combo_box;
+  } else {
+    # on older versions, Gtk2::ComboBox is not available.
+    my $menu = Gtk2::Menu->new;
  
-  foreach my $str (@strings) {
+    foreach my $str (@strings) {
       my $menu_item = Gtk2::MenuItem->new_with_label ($str);
       $menu_item->show;
 
       $menu->append ($menu_item);
+    }
+
+    my $option_menu = Gtk2::OptionMenu->new;
+    $option_menu->set_menu ($menu);
+
+    return $option_menu;
   }
-
-  my $option_menu = Gtk2::OptionMenu->new;
-  $option_menu->set_menu ($menu);
-
-  return $option_menu;
 }
 
 sub add_row {
