@@ -33,7 +33,7 @@ SV *
 newSVGtkIconSize (GtkIconSize size)
 {
 	/* crap.  there is no try.  do, or do not. */
-	//SV * sv = gperl_try_convert_back_enum (GTK_TYPE_ICON_SIZE, size);
+	/* SV * sv = gperl_try_convert_back_enum (GTK_TYPE_ICON_SIZE, size); */
 	SV * sv = gperl_convert_back_enum_pass_unknown (GTK_TYPE_ICON_SIZE,
 							size);
 	if (looks_like_number (sv)) {

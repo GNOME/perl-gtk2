@@ -22,7 +22,7 @@
 #include "../gtk2perl.h"
 #include "../ppport.h"
 
-//#define NOISY
+/* #define NOISY */
 
 #ifdef NOISY
 static void
@@ -149,7 +149,6 @@ new (class, object_class, ...)
 
 	RETVAL = g_object_newv (object_type, n_params, params);	
 
-    //cleanup: /* C label, not the XS keyword */
 	if (n_params) {
 		int i;
 		for (i = 0 ; i < n_params ; i++)

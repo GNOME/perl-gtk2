@@ -80,7 +80,7 @@ gtk_accel_group_connect (accel_group, accel_key, accel_mods, accel_flags, func)
 	 * is the right thing to do, but with it in there i get a critical
 	 * assertion failure from glib when i try to disconnect the closure,
 	 * saying that the refcount was zero somehow. */
-	//g_closure_unref (closure);
+	/* g_closure_unref (closure); */
 
 ## void gtk_accel_group_connect_by_path (GtkAccelGroup *accel_group, const gchar *accel_path, GClosure *closure)
 void

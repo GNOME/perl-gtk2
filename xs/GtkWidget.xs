@@ -49,7 +49,7 @@ void
 DESTROY (sv)
 	SV * sv
     CODE:
-	//warn ("Gtk2::Allocation::DESTROY");
+	/* warn ("Gtk2::Allocation::DESTROY"); */
 	g_boxed_free (GDK_TYPE_RECTANGLE, GUINT_TO_POINTER (SvIV (SvRV (sv))));
 
 

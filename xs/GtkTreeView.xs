@@ -141,7 +141,7 @@ gtk2perl_tree_view_destroy_count_func (GtkTreeView * tree_view,
 MODULE = Gtk2::TreeView	PACKAGE = Gtk2::TreeView	PREFIX = gtk_tree_view_
 
 BOOT:
-	//gperl_set_isa ("Gtk2::TreeView", "Gtk2::Atk::ImplementorIface");
+	/* gperl_set_isa ("Gtk2::TreeView", "Gtk2::Atk::ImplementorIface"); */
 
 ### FIXME what about constructor consolidations?:
 

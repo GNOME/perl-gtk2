@@ -89,7 +89,7 @@ gtk_list_store_set (list_store, iter, ...)
 			       "   the first value in each pair must be a column number");
 		column = SvIV (ST (i));
 
-		//warn ("  %d   %d   %s\n", i, column, SvPV_nolen (ST (i+1)));
+		/* warn ("  %d   %d   %s\n", i, column, SvPV_nolen (ST (i+1))); */
 
 		if (column >= 0 && column < ncols) {
 
