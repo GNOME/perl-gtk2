@@ -54,7 +54,7 @@ if( $pid < 0 )
 }
 if( $pid == 0 )
 {
-	exec(sprintf("perl plug.pl %d\n", $socket->get_id));
+	exec(sprintf("$^X plug.pl %d\n", $socket->get_id));
 }
 
 my $quitbtn = Gtk2::Button->new_from_stock('gtk-quit');

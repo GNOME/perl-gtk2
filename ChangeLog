@@ -1,3 +1,9 @@
+2003/09/10 15:04 rwmcfa1
+
+	* examples/socket.pl: make the same change in here that was made in 
+	the plug socket test way back when, use the perl socket is being run
+	with to run the plug script.
+
 2003/09/09 21:35 muppetman
 
 	* t/22.GtkListStore.t, t/23.GtkTreeStore.t, t/24.GtkTreeView.t,
