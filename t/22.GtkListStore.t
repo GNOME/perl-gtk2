@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 
-use Gtk2::TestHelper tests => 69;
+use Gtk2::TestHelper tests => 69, noinit => 1;
 
 ###############################################################################
 

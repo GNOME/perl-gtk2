@@ -20,7 +20,7 @@ sub import
 		plan skip_all => "not appliciable on win32";
 	}
 
-	if( Gtk2->init_check )
+	if( $opts{noinit} || Gtk2->init_check )
 	{
 		plan tests => $opts{tests};
 	}	
@@ -71,6 +71,10 @@ key snooper that causes all keyboard input to be ignored.
 =item tests
 
 The number of tests to be completed.
+
+=item noinit
+
+Do not call Gtk2->init_check, assume that it is not necessary.
 
 =item nowin32
 

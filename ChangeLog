@@ -1,3 +1,10 @@
+2003/12/29 20:05 (-0500) rwmcfa1
+
+	* pm/TestHelper.pm: allow init_check to be skipped.
+
+	* t/22.GtkListStore.t, t/23.GtkTreeStore.t: don't init_check with 
+	TestHelper.pm
+
 2003/12/29 16:32 (-0500) rwmcfa1
 
 	* t/ignore_keyboard.pl: deleted, functionality in TestHelper.pm
