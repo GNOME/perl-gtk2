@@ -109,7 +109,7 @@ sub motion_notify_event {
     $state = $event->state;
   }
 
-  if (grep (/button1-mask/, @$state) && defined $pixmap) {
+  if ($state >= "button1-mask" && defined $pixmap) {
     draw_brush ($widget, $x, $y);
   }
   
