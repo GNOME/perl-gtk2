@@ -15,7 +15,10 @@ extern void gtk2perl_tree_or_list_store_set (GObject * store, GtkTreeIter * iter
 MODULE = Gtk2::ListStore	PACKAGE = Gtk2::ListStore	PREFIX = gtk_list_store_
 
 BOOT:
-	gperl_set_isa ("Gtk2::ListStore", "Gtk2::TreeModel");
+	/* must prepend TreeModel in the hierarchy so that
+	 * Gtk2::TreeModel::get isn't masked by G::Object::get.
+	 * should we change the api to something unique, instead? */
+	gperl_prepend_isa ("Gtk2::ListStore", "Gtk2::TreeModel");
 	gperl_set_isa ("Gtk2::ListStore", "Gtk2::TreeDragSource");
 	gperl_set_isa ("Gtk2::ListStore", "Gtk2::TreeDragDest");
 	gperl_set_isa ("Gtk2::ListStore", "Gtk2::TreeSortable");
@@ -61,7 +64,6 @@ gtk_list_store_set (list_store, iter, ...)
 	/* require at least one pair --- that means there needs to be
 	 * four items on the stack.  also require that the stack has an
 	 * even number of items on it. */
-warn ("set ---- items : %d\n", items);
 	if (items < 4 || 0 != (items % 2)) {
 		/* caller didn't specify an even number of parameters... */
 		croak ("Usage: $liststore->set ($iter, column1, value1, column2, value2, ...)\n"
@@ -75,7 +77,6 @@ warn ("set ---- items : %d\n", items);
 			croak ("Usage: $liststore->set ($iter, column1, value1, column2, value2, ...)\n"
 			       "   the first value in each pair must be a column number");
 		column = SvIV (ST (i));
-		warn ("column %d\n", column);
 
 		g_value_init (&gvalue,
 		              gtk_tree_model_get_column_type (GTK_TREE_MODEL (list_store),
