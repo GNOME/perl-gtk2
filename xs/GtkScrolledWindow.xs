@@ -4,7 +4,7 @@ MODULE = Gtk2::ScrolledWindow	PACKAGE = Gtk2::ScrolledWindow	PREFIX = gtk_scroll
 
 ## GtkWidget* gtk_scrolled_window_new (GtkAdjustment *hadjustment, GtkAdjustment *vadjustment)
 GtkWidget *
-gtk_scrolled_window_new (class, hadjustment, vadjustment)
+gtk_scrolled_window_new (class, hadjustment=NULL, vadjustment=NULL)
 	SV                   * class
 	GtkAdjustment_ornull * hadjustment
 	GtkAdjustment_ornull * vadjustment

@@ -4,9 +4,9 @@ MODULE = Gtk2::HScale	PACKAGE = Gtk2::HScale	PREFIX = gtk_hscale_
 
 ## GtkWidget* gtk_hscale_new (GtkAdjustment *adjustment)
 GtkWidget *
-gtk_hscale_new (class, adjustment)
+gtk_hscale_new (class, adjustment=NULL)
 	SV            * class
-	GtkAdjustment * adjustment
+	GtkAdjustment_ornull * adjustment
     C_ARGS:
 	adjustment
 
