@@ -1,7 +1,5 @@
 #!/usr/bin/perl -w
 use strict;
-
-use Gtk2;
 use Gtk2::TestHelper tests => 5, noinit => 1;
 
 my $item_one = Gtk2::RadioMenuItem -> new();

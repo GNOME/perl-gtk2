@@ -101,6 +101,7 @@ t/GtkColorSelection.t
 t/GtkColorSelectionDialog.t
 t/GtkCombo.t
 t/GtkDialog.t
+t/GtkDnd.t
 t/GtkDrawingArea.t
 t/GtkEntry.t
 t/GtkEventBox.t

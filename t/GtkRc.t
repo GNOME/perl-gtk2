@@ -1,7 +1,5 @@
 #!/usr/bin/perl -w
 use strict;
-
-use Gtk2;
 use Gtk2::TestHelper tests => 36;
 
 my $button = Gtk2::Button -> new("Bla");

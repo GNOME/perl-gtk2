@@ -1,7 +1,5 @@
 #!/usr/bin/perl -w
 use strict;
-
-use Gtk2;
 use Gtk2::TestHelper tests => 2, noinit => 1;
 
 my $misc = Gtk2::Misc -> new(Gtk2::Label::);

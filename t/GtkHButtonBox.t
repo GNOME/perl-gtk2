@@ -1,7 +1,5 @@
 #!/usr/bin/perl -w
 use strict;
-
-use Gtk2;
 use Gtk2::TestHelper tests => 1, noinit => 1;
 
 my $box = Gtk2::HButtonBox -> new();

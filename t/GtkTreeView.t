@@ -1,7 +1,5 @@
 #!/usr/bin/perl -w
-
-###############################################################################
-
+use strict;
 use Gtk2::TestHelper tests => 166;
 
 my @version_info = Gtk2 -> get_version_info();

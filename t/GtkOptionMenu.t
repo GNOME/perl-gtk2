@@ -1,7 +1,5 @@
 #!/usr/bin/perl -w
 use strict;
-
-use Gtk2;
 use Gtk2::TestHelper tests => 3;
 
 my $option_menu = Gtk2::OptionMenu -> new();
