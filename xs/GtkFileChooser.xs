@@ -95,9 +95,23 @@ gboolean gtk_file_chooser_get_preview_widget_active (GtkFileChooser *chooser);
 
 
 
-char *gtk_file_chooser_get_preview_filename (GtkFileChooser *file_chooser);
+## char *gtk_file_chooser_get_preview_filename (GtkFileChooser *file_chooser);
+GPerlFilename_own gtk_file_chooser_get_preview_filename (GtkFileChooser *file_chooser);
+    CODE:
+	RETVAL = gtk_file_chooser_get_preview_filename (file_chooser);
+	if (!RETVAL)
+		XSRETURN_UNDEF;
+    OUTPUT:
+	RETVAL
 
-char *gtk_file_chooser_get_preview_uri (GtkFileChooser *file_chooser);
+## char *gtk_file_chooser_get_preview_uri (GtkFileChooser *file_chooser);
+gchar_own *gtk_file_chooser_get_preview_uri (GtkFileChooser *file_chooser);
+    CODE:
+	RETVAL = gtk_file_chooser_get_preview_uri (file_chooser);
+	if (!RETVAL)
+		XSRETURN_UNDEF;
+    OUTPUT:
+	RETVAL
 
 
 ## Extra widget

@@ -1,3 +1,13 @@
+2004/01/22 02:15 (-0500) muppetman
+
+	* xs/GtkFileChooser.xs, xs/GtkIconFactory.xs, xs/GtkTreeView.xs,
+	xs/PangoFont.xs: plugging more memory leaks
+
+	* xs/GtkRc.xs: invalid free bug was triggered by letting g_free() try
+	to free perl's garbage collected memory.  GtkRc wants to g_free() the
+	bg_pixmap_name and name in its destructor, so we must g_strdup them.
+	don't forget to free the old values.
+
 2004/01/22 00:46 (-0500) muppetman
 
 	* xs/GtkAccelGroup.xs, xs/GtkTextChildAnchor.xs, xs/GtkTreeModel.xs:

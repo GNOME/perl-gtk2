@@ -186,7 +186,7 @@ pango_font_description_better_match (desc, old_match, new_match)
 
 
 ##PangoFontDescription *pango_font_description_from_string (const char *str)
-PangoFontDescription *
+PangoFontDescription_own *
 pango_font_description_from_string (class, str)
 	const char * str
     C_ARGS:
@@ -196,11 +196,15 @@ pango_font_description_from_string (class, str)
 char *
 pango_font_description_to_string (desc)
 	PangoFontDescription *desc
+    CLEANUP:
+	g_free (RETVAL);
 
 ## char * pango_font_description_to_filename (const PangoFontDescription *desc)
 char *
 pango_font_description_to_filename (desc)
 	PangoFontDescription *desc
+    CLEANUP:
+	g_free (RETVAL);
 
 MODULE = Gtk2::Pango::Font	PACKAGE = Gtk2::Pango::FontMetrics	PREFIX = pango_font_metrics_
 

@@ -189,7 +189,7 @@ gtk_icon_set_new_from_pixbuf (class, pixbuf)
 
 #### apps should almost always use gtk_widget_render_icon
 ##  GdkPixbuf* gtk_icon_set_render_icon (GtkIconSet *icon_set, GtkStyle *style, GtkTextDirection direction, GtkStateType state, GtkIconSize size, GtkWidget *widget, const char *detail) 
-GdkPixbuf*
+GdkPixbuf_noinc*
 gtk_icon_set_render_icon (icon_set, style, direction, state, size, widget, detail=NULL)
 	GtkIconSet *icon_set
 	GtkStyle_ornull *style

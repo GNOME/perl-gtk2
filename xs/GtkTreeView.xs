@@ -441,17 +441,13 @@ void
 gtk_tree_view_get_cursor (tree_view)
 	GtkTreeView *tree_view
     PREINIT:
-	GtkTreePath *path;
-	GtkTreeViewColumn *focus_column;
+	GtkTreePath *path = NULL;
+	GtkTreeViewColumn *focus_column = NULL;
     PPCODE:
 	gtk_tree_view_get_cursor (tree_view, &path, &focus_column);
 	EXTEND (SP, 2);
-	PUSHs (sv_2mortal (path == NULL
-	                   ? &PL_sv_undef
-	                   : newSVGtkTreePath_copy (path)));
-	PUSHs (sv_2mortal (focus_column == NULL
-	                   ? &PL_sv_undef
-	                   : newSVGtkTreeViewColumn (focus_column)));
+	PUSHs (sv_2mortal (newSVGtkTreePath_own_ornull (path)));
+	PUSHs (sv_2mortal (newSVGtkTreeViewColumn_ornull (focus_column)));
 
 
 #### gboolean gtk_tree_view_get_path_at_pos (GtkTreeView *tree_view, gint x, gint y, GtkTreePath **path, GtkTreeViewColumn **column, gint *cell_x, gint *cell_y)
