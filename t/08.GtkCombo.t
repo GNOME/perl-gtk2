@@ -27,6 +27,8 @@ else
 
 #########################
 
+require './t/ignore_keyboard.pl';
+
 ok( my $win = Gtk2::Window->new() );
 
 $win->set_title('GtkCombo.t Test Window');

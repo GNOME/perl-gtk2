@@ -7,6 +7,8 @@ package Mup::CellRendererPopup;
 
 use Test::More;
 
+require './t/ignore_keyboard.pl';
+
 use Glib::Object::Subclass
 	Gtk2::CellRendererText::,
 	;

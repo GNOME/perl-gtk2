@@ -4,6 +4,8 @@ use_ok ('Gtk2');
 
 Gtk2->init;
 
+require './t/ignore_keyboard.pl';
+
 $model = Gtk2::TextBuffer->new;
 $model->insert ($model->get_start_iter, join " ", 'Lore ipsem dolor.  I think that is misspelled.'x80);
 

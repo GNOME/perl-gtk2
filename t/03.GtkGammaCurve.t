@@ -27,6 +27,8 @@ else
 
 #########################
 
+require './t/ignore_keyboard.pl';
+
 ok( my $win = Gtk2::Window->new("toplevel") );
 
 ok( my $gamma = Gtk2::GammaCurve->new() );

@@ -27,6 +27,8 @@ else
 
 #########################
 
+require './t/ignore_keyboard.pl';
+
 my $win = Gtk2::Window->new;
 
 ok( my $nb = Gtk2::Notebook->new );

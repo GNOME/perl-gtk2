@@ -1,3 +1,12 @@
+2003/11/29 11:23 (-0500) rwmcfa1
+
+	* MANIFEST: missing files added
+
+	* t/ignore_keyboard.pl: initial import
+
+	* t/*.t: use the new ignore_keyboard.pl stuff so that tests won't fail
+	if you accidentally type while they're going on.
+
 2003/11/29 11:23 (-0500) muppetman
 
 	* MANIFEST

@@ -12,6 +12,8 @@ if (Gtk2->init_check) {
 	plan (skip_all => "can't open display");
 }
 
+require './t/ignore_keyboard.pl';
+
 $basename = "Makefile.PL";
 
 $fs = Gtk2::FileSelection->new ('bogo');

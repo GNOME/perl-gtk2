@@ -27,6 +27,8 @@ else
 
 #########################
 
+require './t/ignore_keyboard.pl';
+
 Gtk2::SimpleList->add_column_type(
 	'ralacs', 	# think about it for a second...
 		type     => 'Glib::Scalar',
