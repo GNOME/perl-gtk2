@@ -100,7 +100,6 @@ t/23.GtkTreeStore.t
 t/24.GtkTreeView.t
 t/25.GtkTreeSelection.t
 t/26.GtkSimpleMenu.t
-testgtk.pl
 xs/Gdk.xs
 xs/GdkColor.xs
 xs/GdkCursor.xs
