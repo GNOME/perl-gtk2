@@ -22,29 +22,72 @@
 #include "../gtk2perl.h"
 #include "../ppport.h"
 
+//#define NOISY
+
+#ifdef NOISY
+static void
+destroy_notify (GtkObject * object)
+{
+	g_printerr ("destroy signal on %s(%p)[%d]\n",
+	            G_OBJECT_TYPE_NAME (object),
+	            object,
+		    G_OBJECT (object)->ref_count);
+}
+
+static void
+weak_ref (gpointer data, GObject * object)
+{
+	g_printerr ("weak ref on %s(%p)[%d]\n",
+	            G_OBJECT_TYPE_NAME (object),
+	            object,
+		    G_OBJECT (object)->ref_count);
+}
+#endif
+
 /*
  * see commentary in gtk2perl.h
  */
 SV *
 gtk2perl_new_gtkobject (GtkObject * object)
 {
-	SV * sv;
-	/* IMPORTANT: always ref the object! */
-	sv = gperl_new_object ((GObject*)object, FALSE);
-	if (object) {
-		/* see discussion in comment in gtk2perl.h for why
-		 * this is the right thing to do. */
-		gtk_object_sink (object);
-	}
-	return sv;
+#ifdef NOISY
+	warn ("gtk2perl_new_gtkobject (%s(%p)[%d])\n",
+	      G_OBJECT_TYPE_NAME (object),
+	      object,
+	      G_OBJECT (object)->ref_count);
+	g_signal_connect (object, "destroy", G_CALLBACK (destroy_notify), NULL);
+	g_object_weak_ref (object, weak_ref, NULL);
+#endif
+	/* always sink the object.  if it's not floating, then nothing
+	 * happens and we get a ref.  if it is floating, then the
+	 * floating ref gets removed and we're back to 1. */
+	return gperl_new_object (G_OBJECT (object), TRUE);
 }
 
+#ifdef NOISY
+static void
+gtk2perl_object_sink (GObject * object)
+{
+	warn ("gtk2perl_object_sink (%s(%p)[%d])  %s\n",
+	      G_OBJECT_TYPE_NAME (object),
+	      object,
+	      object->ref_count,
+	      GTK_OBJECT_FLOATING (object) ? "floating" : "");
+	gtk_object_sink ((GtkObject*)object);
+}
+#else
+# define gtk2perl_object_sink ((GPerlObjectSinkFunc)gtk_object_sink)
+#endif
 
 MODULE = Gtk2::Object	PACKAGE = Gtk2::Object	PREFIX = gtk_object_
 
+BOOT:
+	/* GtkObject uses a different method of ownership than GObject */
+	gperl_register_sink_func (GTK_TYPE_OBJECT, gtk2perl_object_sink);
+
+
  ## void gtk_object_sink	  (GtkObject *object);
- ## we don't need this to be exported to perl; gtk2perl_new_object
- ## always sinks objects.
+ ## we don't need this to be exported to perl, it's automagical
 
 
  # this is an explicit destroy --- NOT the auto destroy; Gtk2::Object
