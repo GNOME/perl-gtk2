@@ -1,3 +1,25 @@
+Overview of Changes in Gtk2 1.036
+=================================
+
+* Fix GdkDisplay test.  [Torsten]
+* Don't crash when when passing an empty list to Gtk2::TargetList.  [Torsten]
+* Register error domains for use with the new Glib::Error stuff.  [muppet]
+* Doc fixes.  [Ross]
+* Bind and test missing methods:
+  Gtk2::Gdk::Event::send_client_message
+  Gtk2::Gdk::Event::send_clientmessage_toall
+  Gtk2::Gdk::Event::send_client_message_for_display
+  Gtk2::Gdk::Event::Client::message_type
+  Gtk2::Gdk::Event::Client::data
+  Gtk2::Gdk::CHARS
+  Gtk2::Gdk::USHORTS
+  Gtk2::Gdk::ULONGS
+  Gtk2::CellRenderer::editing_canceled
+  Gtk2::Scale::get_layout
+  Gtk2::Scale::get_layout_offsets
+  [Torsten]
+* Miscellaneous test updates and fixes.  [Torsten]
+
 Overview of Changes in Gtk2 1.035
 =================================
 

@@ -1,3 +1,7 @@
+2004/02/20 01:38 (-0500) muppetman
+
+	* Gtk2.pm, README, Makefile.PL, NEWS: unstable release 1.036
+
 2004/02/19 13:47 (+0100) kaffeetisch
 
 	* t/GdkDisplay.t: Only test if get_name's return value is defined.
