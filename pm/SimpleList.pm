@@ -247,16 +247,16 @@ sub TIEARRAY {
 	}, $class;
 }
 
-sub FETCH {
+sub FETCH { # this, index
 	return $_[0]->{model}->get ($_[0]->{iter}, $_[1]);
 }
 
-sub STORE {
+sub STORE { # this, index, value
 	return $_[0]->{model}->set ($_[0]->{iter}, $_[1], $_[2])
 		if defined $_[2]; # allow 0, but not undef
 }
 
-sub FETCHSIZE {
+sub FETCHSIZE { # this
 	return $_[0]{model}->get_n_columns;
 }
 
@@ -264,8 +264,8 @@ sub EXISTS {
 	return( $_[1] < $_[0]{model}->get_n_columns );
 }
 
-sub EXTEND { }
-sub CLEAR { }
+sub EXTEND { } # can't change the length, ignore
+sub CLEAR { } # can't change the length, ignore
 
 sub new {
 	my ($class, $model, $iter) = @_;
@@ -308,7 +308,7 @@ sub TIEARRAY {
 	}, $class;
 }
 
-sub FETCH {
+sub FETCH { # this, index
 	my $iter = $_[0]->{model}->iter_nth_child (undef, $_[1]);
 	return undef unless defined $iter;
 	my @row;
@@ -316,7 +316,7 @@ sub FETCH {
 	return \@row;
 }
 
-sub STORE {
+sub STORE { # this, index, value
 	my $iter = $_[0]->{model}->iter_nth_child (undef, $_[1]);
 	$iter = $_[0]->{model}->insert ($_[1])
 		if not defined $iter;
@@ -330,11 +330,11 @@ sub STORE {
 	return 1;
 }
 
-sub FETCHSIZE { 
+sub FETCHSIZE { # this
 	return $_[0]->{model}->iter_n_children (undef);
 }
 
-sub PUSH { 
+sub PUSH { # this, list
 	my $model = shift()->{model};
 	my $iter;
 	foreach (@_)
@@ -351,20 +351,20 @@ sub PUSH {
 	return 1;
 }
 
-sub POP { 
+sub POP { # this
 	my $model = $_[0]->{model};
 	my $index = $model->iter_n_children-1;
 	$model->remove($model->iter_nth_child(undef, $index))
 		if( $index >= 0 );
 }
 
-sub SHIFT { 
+sub SHIFT { # this
 	my $model = $_[0]->{model};
 	$model->remove($model->iter_nth_child(undef, 0))
 		if( $model->iter_n_children );
 }
 
-sub UNSHIFT { 
+sub UNSHIFT { # this, list
 	my $model = shift()->{model};
 	my $iter;
 	foreach (@_)
@@ -381,7 +381,9 @@ sub UNSHIFT {
 	return 1;
 }
 
-sub DELETE { 
+# note: really, arrays aren't supposed to support the delete operator this
+#       way, but we don't want to break existing code.
+sub DELETE { # this, key
 	my $model = $_[0]->{model};
 	my $ret;
 	if ($_[1] < $model->iter_n_children (undef)) {
@@ -392,11 +394,12 @@ sub DELETE {
 	return $ret;
 }
 
-sub CLEAR { 
+sub CLEAR { # this
 	$_[0]->{model}->clear;
 }
 
-sub EXISTS { 
+# note: arrays aren't supposed to support exists, either.
+sub EXISTS { # this, key
 	return( $_[1] < $_[0]->{model}->iter_n_children );
 }
 
@@ -410,7 +413,7 @@ sub get_model {
 
 sub STORESIZE { carp "STORESIZE: operation not supported"; }
 
-sub SPLICE {
+sub SPLICE { # this, offset, length, list
 	my $self = shift;
 	# get the model and the number of rows	
 	my $model = $self->{model};
