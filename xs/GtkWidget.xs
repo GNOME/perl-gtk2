@@ -851,9 +851,13 @@ void gtk_widget_pop_composite_child (class_or_widget)
 #if GTK_CHECK_VERSION(2,2,0)
 
 =for apidoc style_get_property
+=for arg first_property_name (string)
+=for arg ... 0 or more additional property names
 An alias for style_get.
 =cut
 =for apidoc
+=for arg first_property_name (string)
+=for arg ... 0 or more additional property names
 Returns the values of the requested style properties.
 =cut
 void

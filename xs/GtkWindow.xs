@@ -338,6 +338,8 @@ gtk_window_get_icon (window)
 ## void gtk_window_set_default_icon_list (GList *list)
 =for apidoc
 =for signature $window->set_default_icon_list ($pixbuf1, ...)
+=for arg pixbuf (__hide__)
+=for arg pixbuf1 (GdkPixbuf)
 =cut
 void
 gtk_window_set_default_icon_list (class, pixbuf, ...)

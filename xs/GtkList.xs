@@ -79,7 +79,7 @@ gtk_list_append_items (list, ...)
 
 ##  void gtk_list_prepend_items (GtkList *list, GList *items) 
 =for apidoc
-=for arg list_item 
+=for arg list_item (GtkListItem)
 =for arg ... of Gtk2::ListItem's to be prepended
 =cut
 void
@@ -99,7 +99,7 @@ gtk_list_prepend_items (list, ...)
 
 ##  void gtk_list_remove_items (GtkList *list, GList *items) 
 =for apidoc
-=for arg list_item 
+=for arg list_item (GtkListItem)
 =for arg ... of Gtk2::ListItem's to be removed
 =cut
 void

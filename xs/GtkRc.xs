@@ -51,7 +51,7 @@ gtk_rc_get_default_files (class)
 ## void gtk_rc_set_default_files (gchar **filenames)
 =for apidoc
 =for signature Gtk2::Rc->set_default_files (file1, ...)
-=for arg file1 
+=for arg file1 (GPerlFilename)
 =for arg ... of strings, the rc files to be parsed
 Sets the list of files that GTK+ will read at the end of Gtk2->init.
 =cut
