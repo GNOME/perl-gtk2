@@ -1,3 +1,7 @@
+#
+# $Header$
+#
+
 use 5.008;
 use ExtUtils::MakeMaker;
 use Cwd;
