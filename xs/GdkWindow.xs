@@ -521,6 +521,12 @@ gdk_window_begin_move_drag (window, button, root_x, root_y, timestamp)
 	gint root_y
 	guint32 timestamp
 
+void
+gdk_window_invalidate_rect (window, rectangle, invalidate_children)
+	GdkWindow * window
+	GdkRectangle * rectangle
+	gboolean invalidate_children
+
  ## void gdk_window_invalidate_region (GdkWindow *window, GdkRegion *region, gboolean invalidate_children)
  ##void
  ##gdk_window_invalidate_region (window, region, invalidate_children)
