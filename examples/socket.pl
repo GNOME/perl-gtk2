@@ -27,8 +27,6 @@ use blib '../';
 use lib '../';
 use Gtk2;
 
-use POSIX ":sys_wait_h";
-
 use constant TRUE => 1;
 use constant FALSE => 0;
 
