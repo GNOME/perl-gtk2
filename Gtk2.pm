@@ -21,7 +21,7 @@ our @ISA = qw(Exporter DynaLoader);
 our @EXPORT_OK = ();
 our @EXPORT = qw();
 
-our $VERSION = '0.20';
+our $VERSION = '0.21';
 
 # this is critical -- tell dynaloader to load the module so that its 
 # symbols are available to all other modules.  without this, nobody
