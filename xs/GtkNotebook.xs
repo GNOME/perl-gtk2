@@ -31,50 +31,50 @@ gtk_notebook_new (class)
 
 ## void gtk_notebook_append_page (GtkNotebook *notebook, GtkWidget *child, GtkWidget *tab_label)
 void
-gtk_notebook_append_page (notebook, child, tab_label)
-	GtkNotebook * notebook
-	GtkWidget   * child
-	GtkWidget   * tab_label
+gtk_notebook_append_page (notebook, child, tab_label=NULL)
+	GtkNotebook      * notebook
+	GtkWidget        * child
+	GtkWidget_ornull * tab_label
 
 ## void gtk_notebook_append_page_menu (GtkNotebook *notebook, GtkWidget *child, GtkWidget *tab_label, GtkWidget *menu_label)
 void
 gtk_notebook_append_page_menu (notebook, child, tab_label, menu_label)
-	GtkNotebook * notebook
-	GtkWidget   * child
-	GtkWidget   * tab_label
-	GtkWidget   * menu_label
+	GtkNotebook      * notebook
+	GtkWidget        * child
+	GtkWidget_ornull * tab_label
+	GtkWidget_ornull * menu_label
 
 ## void gtk_notebook_prepend_page (GtkNotebook *notebook, GtkWidget *child, GtkWidget *tab_label)
 void
-gtk_notebook_prepend_page (notebook, child, tab_label)
-	GtkNotebook * notebook
-	GtkWidget   * child
-	GtkWidget   * tab_label
+gtk_notebook_prepend_page (notebook, child, tab_label=NULL)
+	GtkNotebook      * notebook
+	GtkWidget        * child
+	GtkWidget_ornull * tab_label
 
 ## void gtk_notebook_prepend_page_menu (GtkNotebook *notebook, GtkWidget *child, GtkWidget *tab_label, GtkWidget *menu_label)
 void
 gtk_notebook_prepend_page_menu (notebook, child, tab_label, menu_label)
-	GtkNotebook * notebook
-	GtkWidget   * child
-	GtkWidget   * tab_label
-	GtkWidget   * menu_label
+	GtkNotebook      * notebook
+	GtkWidget        * child
+	GtkWidget_ornull * tab_label
+	GtkWidget_ornull * menu_label
 
 ## void gtk_notebook_insert_page (GtkNotebook *notebook, GtkWidget *child, GtkWidget *tab_label, gint position)
 void
 gtk_notebook_insert_page (notebook, child, tab_label, position)
-	GtkNotebook * notebook
-	GtkWidget   * child
-	GtkWidget   * tab_label
-	gint          position
+	GtkNotebook      * notebook
+	GtkWidget        * child
+	GtkWidget_ornull * tab_label
+	gint               position
 
 ## void gtk_notebook_insert_page_menu (GtkNotebook *notebook, GtkWidget *child, GtkWidget *tab_label, GtkWidget *menu_label, gint position)
 void
 gtk_notebook_insert_page_menu (notebook, child, tab_label, menu_label, position)
-	GtkNotebook * notebook
-	GtkWidget   * child
-	GtkWidget   * tab_label
-	GtkWidget   * menu_label
-	gint          position
+	GtkNotebook      * notebook
+	GtkWidget        * child
+	GtkWidget_ornull * tab_label
+	GtkWidget_ornull * menu_label
+	gint               position
 
 ## void gtk_notebook_remove_page (GtkNotebook *notebook, gint page_num)
 void
@@ -83,7 +83,7 @@ gtk_notebook_remove_page (notebook, page_num)
 	gint          page_num
 
 ## GtkWidget* gtk_notebook_get_nth_page (GtkNotebook *notebook, gint page_num)
-GtkWidget *
+GtkWidget_ornull *
 gtk_notebook_get_nth_page (notebook, page_num)
 	GtkNotebook * notebook
 	gint          page_num
@@ -137,12 +137,6 @@ GtkPositionType
 gtk_notebook_get_tab_pos (notebook)
 	GtkNotebook * notebook
 
-## void gtk_notebook_set_homogeneous_tabs (GtkNotebook *notebook, gboolean homogeneous)
-void
-gtk_notebook_set_homogeneous_tabs (notebook, homogeneous)
-	GtkNotebook * notebook
-	gboolean      homogeneous
-
 ## void gtk_notebook_set_tab_border (GtkNotebook *notebook, guint border_width)
 void
 gtk_notebook_set_tab_border (notebook, border_width)
@@ -179,10 +173,10 @@ gtk_notebook_popup_disable (notebook)
 
 ## void gtk_notebook_set_tab_label (GtkNotebook *notebook, GtkWidget *child, GtkWidget *tab_label)
 void
-gtk_notebook_set_tab_label (notebook, child, tab_label)
-	GtkNotebook * notebook
-	GtkWidget   * child
-	GtkWidget   * tab_label
+gtk_notebook_set_tab_label (notebook, child, tab_label=NULL)
+	GtkNotebook      * notebook
+	GtkWidget        * child
+	GtkWidget_ornull * tab_label
 
 ## void gtk_notebook_set_tab_label_text (GtkNotebook *notebook, GtkWidget *child, const gchar *tab_text)
 void
@@ -192,17 +186,17 @@ gtk_notebook_set_tab_label_text (notebook, child, tab_text)
 	const gchar * tab_text
 
 ## GtkWidget * gtk_notebook_get_menu_label (GtkNotebook *notebook, GtkWidget *child)
-GtkWidget *
+GtkWidget_ornull *
 gtk_notebook_get_menu_label (notebook, child)
 	GtkNotebook * notebook
 	GtkWidget   * child
 
 ## void gtk_notebook_set_menu_label (GtkNotebook *notebook, GtkWidget *child, GtkWidget *menu_label)
 void
-gtk_notebook_set_menu_label (notebook, child, menu_label)
-	GtkNotebook * notebook
-	GtkWidget   * child
-	GtkWidget   * menu_label
+gtk_notebook_set_menu_label (notebook, child, menu_label=NULL)
+	GtkNotebook      * notebook
+	GtkWidget        * child
+	GtkWidget_ornull * menu_label
 
 ## void gtk_notebook_set_menu_label_text (GtkNotebook *notebook, GtkWidget *child, const gchar *menu_text)
 void
