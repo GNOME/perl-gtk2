@@ -237,7 +237,7 @@ sub MY::postamble
 		 . Glib::MakeHelper->postamble_clean ()
 	         . Glib::MakeHelper->postamble_docs_full (
 			DEPENDS => $gtk2,
-			DOCTYPES => 'doctypes'
+			DOCTYPES => 'doctypes',
 			COPYRIGHT => 'copyright.pod',
 	           )
 	         . Glib::MakeHelper->postamble_rpms (
