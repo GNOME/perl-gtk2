@@ -1,3 +1,11 @@
+2003/11/02 16:17 muppetman
+
+	* Gtk2.pm: undo my silly "atleast" version checks, and so something
+	more like what Exporter would do.  we don't use Exporter directly
+	because we're not an exporter, and we still need to watch for -init.
+
+	* Makefile.PL: Glib doesn't use the "atleast" check anymore, either.
+
 2003/11/02 02:12 muppetman
 
 	* xs/GtkButton.xs: after fixing the GenPod bug, it became apparent
