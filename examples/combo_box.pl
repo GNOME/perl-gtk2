@@ -9,7 +9,7 @@ Contrived example showing off the new ComboBox and Expander in gtk+-2.4.
 use Gtk2 -init;
 
 die "This example requires gtk+ 2.4.0, but Gtk2 has been compiled for "
-  . join (".", Gtk2->get_version_info)."\n"
+  . join (".", Gtk2->GET_VERSION_INFO)."\n"
 	unless Gtk2->CHECK_VERSION (2, 4, 0);
 
 $window = Gtk2::Window->new;
