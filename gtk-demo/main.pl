@@ -52,8 +52,7 @@ my @child1 = (
 push @testgtk_demos,
   { title => "Entry Completion", filename => "entry_completion.pl", func => 'stub', },
   { title => "UI Manager",       filename => "ui_manager.pl",       func => 'stub', }
-#####	if Gtk2->check_version (2, 4, 0);
-	if not Gtk2->check_version (2, 3, 0);
+	if Gtk2->CHECK_VERSION (2, 3, 0); # FIXME 2.4
 
 # some globals.
 my $info_buffer;

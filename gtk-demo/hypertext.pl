@@ -203,7 +203,7 @@ sub do {
       
       $window = Gtk2::Window->new;
       $window->set_screen ($do_widget->get_screen)
-        unless Gtk2->check_version (2, 2, 0);
+        if Gtk2->CHECK_VERSION (2, 2, 0);
       $window->set_default_size (450, 450);
       
       $window->signal_connect (destroy => sub {$window = undef});
