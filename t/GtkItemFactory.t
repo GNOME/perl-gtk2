@@ -89,6 +89,8 @@ $fac->set_translate_func(sub {
 
 	like( $path, qr(^/_Menu/) );
 	is( $data, "bla" );
+
+	"_Meenyoo"
 }, "bla");
 
 $fac->popup(10, 10, 1, 0, $fac);
