@@ -5,6 +5,12 @@ use warnings;
 use ExtUtils::PkgConfig;
 use Gtk2;
 
+# depending on the locale, we may be writing wide characters (translations
+# of strings from gtk+).  according to perldiag, we need to set an encoding
+# on our filehandles to avoid the "Wide character in %s" warnings.  since
+# we're printing stuff directly from gtk+, which is in utf8...
+binmode STDOUT, ':utf8';
+
 my @path = map { s/^-I//; $_ } grep /-I/, split /\s+/, 
 	{ExtUtils::PkgConfig->find ('gtk+-2.0')}->{cflags};
 print "\n";
