@@ -202,7 +202,7 @@ sub set_data_array
 	@{$_[0]->{data}} = @{$_[1]};
 }
 
-sub get_data_from_path
+sub get_row_data_from_path
 {
 	my ($self, $path) = @_;
 
@@ -499,7 +499,7 @@ Gtk2::SimpleList - A simple interface to Gtk2's complex MVC list widget
   $slist->set_rules_hint (TRUE);
   $slist->signal_connect (row_activated => sub {
           my ($sl, $path, $column) = @_;
-	  my $row_ref = $sl->get_data_from_path ($path);
+	  my $row_ref = $sl->get_row_data_from_path ($path);
 	  # $row_ref is now an array ref to the double-clicked row's data.
       });
 
@@ -619,7 +619,7 @@ data.
 
 Return the indices of the selected rows in the ListStore.
 
-=item $slist->get_data_from_path ($path)
+=item $slist->get_row_data_from_path ($path)
 
 =over
 
