@@ -1,3 +1,17 @@
+2003/12/12 11:39 (-0500) muppetman
+
+	* xs/GtkWidget.xs: alias values in get_flags got changed, but the
+	switches on ix were not updated, leading to bugs whenever apps tried
+	to read or write flag values.  fixed.  renamed get_flags to
+	flags_handler (it's hidden from API docs), and created a new xsub
+	named flags (aliased to get_flags) as a binding for GTK_WIDGET_FLAGS.
+
+	A t/01.GtkWidget.t
+	* MANIFEST: new test, an attempt to catch future flags regressions.
+
+	* MANIFEST: changelog says fetch_faq.pl was added to MANIFEST, but it
+	wasn't there.
+
 2003/12/11 22:16 (-0500) muppetman
 
 	* Gtk2.pm, README: stable release 1.020

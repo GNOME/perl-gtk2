@@ -24,6 +24,7 @@ examples/simple_menu.pl
 examples/socket.pl
 examples/testdnd.pl
 examples/timeouttest.pl
+fetch_faq.pl
 gdk.typemap
 genkeysyms.pl
 genmaps.pl
@@ -76,6 +77,7 @@ podifystockitems.pl
 ppport.h
 README
 t/00.Gtk2.t
+t/01.GtkWidget.t
 t/01.GtkWindow.t
 t/02.GtkButton.t
 t/03.GtkGammaCurve.t
