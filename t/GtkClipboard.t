@@ -1,5 +1,5 @@
 #!/usr/bin/perl -w
-use Gtk2::TestHelper tests => 62,
+use Gtk2::TestHelper tests => 64,
 	at_least_version => [2, 2, 0, "GtkClipboard didn't exist in 2.0.x"];
 
 # $Header$
@@ -23,19 +23,11 @@ SKIP: {
 $clipboard = Gtk2::Clipboard->get (Gtk2::Gdk->SELECTION_PRIMARY);
 isa_ok ($clipboard, 'Gtk2::Clipboard');
 
-my $text;
-#$text = $clipboard->wait_for_text;
-#if (defined $text) {
-#	$text =~ s/\r/\\r/gm;
-#	$text =~ s/\n/\\n/gm;
-#}
-#print Dumper( $clipboard->wait_for_text );
-
 my $expect = '0123456789abcdef';
 
 $clipboard->set_text ($expect);
 
-$text = $clipboard->wait_for_text;
+my $text = $clipboard->wait_for_text;
 is ($text, $expect);
 
 is ($clipboard->wait_is_text_available, 1);
@@ -84,6 +76,8 @@ sub get_func {
 	is ($_[2], 0);
 	ok ($_[3]);
 
+	# Tests for Gtk2::SelectionData:
+
 	$_[1]->set (Gtk2::Gdk->TARGET_STRING, 8, 'bla blub');
 
 	is( $_[1]->selection->name, 'PRIMARY');
@@ -105,6 +99,7 @@ sub get_func {
 	# warn $_[1]->targets_include_text;
 
 	$_[1]->set_text ($expect);
+	is ($_[1]->get_text, $expect);
 
 	is( $_[1]->data, $expect);
 	is( $_[1]->length, length ($expect));
@@ -167,5 +162,5 @@ $clipboard->clear;
 
 __END__
 
-Copyright (C) 2003 by the gtk2-perl team (see the file AUTHORS for the
+Copyright (C) 2003-2005 by the gtk2-perl team (see the file AUTHORS for the
 full list).  See LICENSE for more information.
