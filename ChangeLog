@@ -1,3 +1,7 @@
+2004/01/17 02:35 (-0500) muppetman
+
+	* t/GtkExpander.t: doesn't need init.
+
 2004/01/17 02:00 (-0500) muppetman
 
 	The Giant Merge of the 2.3.x branch into HEAD.
