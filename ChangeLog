@@ -1,3 +1,11 @@
+2003/06/20 11:33 muppetman
+
+	* Gtk2.pm, README: bump version for 0.24 release
+
+	* Makefile.PL: just seeing if Glib is available isn't enough, make
+	sure it's recent enough, too.  oh, and bump the required glib 
+	ersion while we're at it
+
 2003/06/19 13:46 joered
 	* xs/GdkColor.xs: added accessors for GdkColor struct members.
 
