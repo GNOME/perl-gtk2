@@ -1,3 +1,15 @@
+2004/01/22 00:32 (-0500) muppetman
+
+	* xs/GdkColor.xs: use initializers to keep valgrind happy.
+
+	* t/GdkColor.t: if we're testing that pixel is nonzero after
+	alloc_colors, test that it's zero before
+
+	* xs/GdkTypes.xs: always initialize the geometry hints
+
+	* xs/GdkWindow.xs: always initialize the attribute mask, regardless
+	of code path
+
 2004/01/21 21:42 (-0500) muppetman
 
 	* xs/GtkSelection.xs: free the value returned from 
