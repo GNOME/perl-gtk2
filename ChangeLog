@@ -1,3 +1,10 @@
+2005/01/05 23:16 (-0400) muppetman
+
+	* xs/GtkItemFactory.xs: an important part of one of kaffee's last
+	patchsets didn't make it in -- make gtk2perl_translate_func() and
+	gtk2perl_translate_func_create() no longer static, so they can
+	be used from GtkActionGroup.xs.
+
 2005/01/02 17:44 (+0100) kaffeetisch
 
 	* t/GdkRgb.t, xs/GdkRgb.xs: Bind and test

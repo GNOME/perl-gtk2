@@ -64,7 +64,7 @@ gtk2perl_item_factory_item_activate (gpointer    data,
 
 /* ------------------------------------------------------------------------- */
 
-static GPerlCallback *
+GPerlCallback *
 gtk2perl_translate_func_create (SV * func, SV * data)
 {
 	GType param_types[1];
@@ -73,7 +73,7 @@ gtk2perl_translate_func_create (SV * func, SV * data)
 				   param_types, G_TYPE_STRING);
 }
 
-static gchar *
+gchar *
 gtk2perl_translate_func (const gchar *path,
 			 gpointer data)
 {
