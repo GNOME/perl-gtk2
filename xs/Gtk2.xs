@@ -19,8 +19,7 @@
  * $Header$
  */
 
-#include "../gtk2perl.h"
-#include "../ppport.h"
+#include "gtk2perl.h"
 
 
 MODULE = Gtk2		PACKAGE = Gtk2		PREFIX = gtk_
