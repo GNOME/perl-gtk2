@@ -64,18 +64,17 @@ gtk_combo_set_popdown_strings (combo, ...)
 		g_list_free(strings);
 	}
 
-SV*
-gtk_combo_entry (combo)
+GtkWidget *
+members (combo)
 	GtkCombo * combo
+    ALIAS:
+	Gtk2::Combo::entry = 1
+	Gtk2::Combo::list  = 2
     CODE:
-	RETVAL = newSVGtkWidget (combo->entry);
+	switch (ix) {
+	    case 1: RETVAL = combo->entry; break;
+	    case 2: RETVAL = combo->list;  break;
+	}
     OUTPUT:
 	RETVAL
 
-SV*
-gtk_combo_list (combo)
-	GtkCombo * combo
-    CODE:
-	RETVAL = newSVGtkWidget (combo->list);
-    OUTPUT:
-	RETVAL
