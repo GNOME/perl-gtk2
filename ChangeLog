@@ -1,3 +1,9 @@
+2004/01/16 11:14 (-0500) rwmcfa1
+
+	* Makefile.PL: use the new BLIB_DONE var as a dep of the things that 
+	need to know that blib has the .so's. (see Glib commit at same time)
+	fixes problems with -j make options. 
+
 2004/01/16 02:00 (-0500) muppetman
 
 	release 1.030 (unstable)

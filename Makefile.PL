@@ -243,12 +243,11 @@ sub MY::postamble
 # rebuild the makefile if the file lists change
 Makefile : ".join(" ", @lists)."
 
-\$(INST_LIB)/\$(FULLEXT)/enums.pod : \$(BLIB_MOD_EXISTS) maps tools/podifyenums.pl
+\$(INST_LIB)/\$(FULLEXT)/enums.pod : \$(BLIB_DONE) maps tools/podifyenums.pl
 	\$(PERLRUNINST) -M\$(NAME) tools/podifyenums.pl \$(NAME) maps > \$@
 
-build/stock_items.podi: \$(BLIB_MOD_EXISTS) tools/podifystockitems.pl
-	\$(PERL) -I \$(INST_LIB) -I \$(INST_ARCHLIB) \\
-		tools/podifystockitems.pl > \$@
+build/stock_items.podi: \$(BLIB_DONE) tools/podifystockitems.pl
+	\$(PERLRUNINST) -M\$(NAME) tools/podifystockitems.pl > \$@
 
 build/FAQ.pod: tools/fetch_faq.pl
 	$^X \$<
