@@ -291,7 +291,7 @@ gtk_tree_view_get_columns (tree_view)
 	columns = gtk_tree_view_get_columns (tree_view);
 	if (!columns)
 		XSRETURN_EMPTY;
-	EXTEND (SP, g_list_length (columns));
+	EXTEND (SP, (int) g_list_length (columns));
 	for (i = columns ; i ; i = i->next)
 		PUSHs (sv_2mortal (newSVGtkTreeViewColumn (GTK_TREE_VIEW_COLUMN (i->data))));
 	g_list_free (columns);

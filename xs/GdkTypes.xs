@@ -55,6 +55,7 @@ SvGdkAtom (SV * sv)
                 return (GdkAtom) SvIV ((SV*)SvRV (sv));
         else
                 croak ("variable is not of type Gtk2::Gdk::Atom");
+	return (GdkAtom)NULL; /* not reached */
 }
 
 

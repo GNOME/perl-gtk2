@@ -176,7 +176,7 @@ gdk_gc_set_dashes (gc, dash_offset, ...)
 	dash_list = g_new(gint8, n);
 	g_printerr("n: %d\n", n);
 	for( ; items > 1; items-- )
-		dash_list[items-2] = SvIV(ST(items));
+		dash_list[items-2] = (gint8) SvIV(ST(items));
 	gdk_gc_set_dashes(gc, dash_offset, dash_list, n);
 	g_free(dash_list);
 

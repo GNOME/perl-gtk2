@@ -85,7 +85,7 @@ gtk_curve_set_vector (curve, ...)
 	veclen = --items;
 	vector = g_new(gfloat, veclen);
 	for( ; items > 0; items-- )
-		vector[items-1] = SvNV(ST(items));
+		vector[items-1] = (gfloat) SvNV(ST(items));
 	gtk_curve_set_vector(curve, veclen, vector);
 	g_free(vector);
 
