@@ -289,7 +289,7 @@ the gui for any reason.  If you want your program to fall back to some other
 interface, you want to use C<< Gtk2->init_check >> instead.
 =cut
 gboolean
-gtk_init (class)
+gtk_init (class=NULL)
     ALIAS:
 	Gtk2::init_check = 2
     PREINIT:
@@ -331,12 +331,15 @@ gtk_events_pending (class)
     C_ARGS:
 	/*void*/
 
- ##
- ##/* The following is the event func GTK+ registers with GDK
- ## * we expose it mainly to allow filtering of events between
- ## * GDK and GTK+.
- ## */
- ##void 	   gtk_main_do_event	   (GdkEvent           *event);
+## void gtk_main_do_event (GdkEvent *event);
+=for apidoc
+This is the event handler that GTK+ registers with GDK.  GTK+ exposes it to
+allow filtering of events between GDK and GTK+; it is rare that you would
+need this, except if you are using C<Gtk2::Gdk::Event::handler_set>.
+=cut
+void gtk_main_do_event (class, GdkEvent *event);
+    C_ARGS:
+	event
 
 void
 gtk_main (class)
@@ -349,7 +352,7 @@ gtk_main_level (class)
 	/*void*/
 
 void
-gtk_main_quit (class)
+gtk_main_quit (class=NULL)
     C_ARGS:
 	/*void*/
 
