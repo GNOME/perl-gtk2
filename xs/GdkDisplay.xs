@@ -91,6 +91,12 @@ void gdk_display_put_event (GdkDisplay *display, GdkEvent *event)
 
 void gdk_display_set_double_click_time (GdkDisplay *display, guint msec) 
 
+#if GTK_CHECK_VERSION(2, 3, 1)
+
+void gdk_display_set_double_click_distance (GdkDisplay *display, guint distance)
+
+#endif
+
 ##  GdkDisplay *gdk_display_get_default (void) 
 GdkDisplay_ornull *
 gdk_display_get_default (class)
@@ -132,3 +138,20 @@ gdk_display_get_window_at_pointer (GdkDisplay *display)
 ##  GdkDisplay *gdk_display_open_default_libgtk_only (void) 
 
 #endif /* >= 2.2.0 */
+
+#if GTK_CHECK_VERSION(2, 3, 1)
+
+gboolean gdk_display_supports_cursor_alpha (GdkDisplay * display)
+
+gboolean gdk_display_supports_cursor_color (GdkDisplay * display)
+
+guint gdk_display_get_default_cursor_size (GdkDisplay * display)
+
+## void gdk_display_get_maximal_cursor_size (GdkDisplay *display, guint *width, guint *height)
+void gdk_display_get_maximal_cursor_size (GdkDisplay *display, OUTLIST guint width, OUTLIST guint height)
+
+void gdk_display_flush (GdkDisplay *display)
+
+GdkWindow *gdk_display_get_default_group (GdkDisplay *display)
+
+#endif

@@ -435,6 +435,18 @@ gdk_window_set_icon_name (window, name)
 	GdkWindow *window
 	const gchar *name
 
+#if GTK_CHECK_VERSION (2, 3, 1)
+
+void gdk_window_set_accept_focus (GdkWindow *window, gboolean accept_focus)
+
+void gdk_window_set_keep_above (GdkWindow *window, gboolean setting)
+
+void gdk_window_set_keep_below (GdkWindow *window, gboolean setting)
+
+GdkWindow * gdk_window_get_group (GdkWindow * window)
+
+#endif
+
  ## void gdk_window_set_group (GdkWindow *window, GdkWindow *leader)
 void
 gdk_window_set_group (window, leader)
@@ -568,10 +580,10 @@ void
 gdk_window_thaw_updates (window)
 	GdkWindow * window
 
-void gdk_window_process_all_updates (GdkWindow *class_or_instance)
+void gdk_window_process_all_updates (class_or_instance)
     C_ARGS: /*void*/
 
-void gdk_window_set_debug_updates (GdkWindow *class_or_instance, gboolean enable)
+void gdk_window_set_debug_updates (class_or_instance, gboolean enable)
     C_ARGS: enable
 
  ## void gdk_window_process_updates (GdkWindow *window, gboolean update_children)
