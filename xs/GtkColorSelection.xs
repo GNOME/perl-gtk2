@@ -46,10 +46,16 @@ gtk_color_selection_set_current_alpha (colorsel, alpha)
 	guint16             alpha
 
 ## void gtk_color_selection_get_current_color (GtkColorSelection *colorsel, GdkColor *color)
-void
-gtk_color_selection_get_current_color (colorsel, color)
+GdkColor_copy *
+gtk_color_selection_get_current_color (colorsel)
 	GtkColorSelection * colorsel
-	GdkColor          * color
+    PREINIT:
+	GdkColor color;
+    CODE:
+	gtk_color_selection_get_current_color (colorsel, &color);
+	RETVAL = &color;
+    OUTPUT:
+	RETVAL
 
 # guint16 gtk_color_selection_get_current_alpha (GtkColorSelection *colorsel)
 guint16
@@ -69,10 +75,16 @@ gtk_color_selection_set_previous_alpha (colorsel, alpha)
 	guint16             alpha
 
 ## void gtk_color_selection_get_previous_color (GtkColorSelection *colorsel, GdkColor *color)
-void
-gtk_color_selection_get_previous_color (colorsel, color)
+GdkColor_copy *
+gtk_color_selection_get_previous_color (colorsel)
 	GtkColorSelection * colorsel
-	GdkColor          * color
+    PREINIT:
+	GdkColor color;
+    CODE:
+	gtk_color_selection_get_previous_color (colorsel, &color);
+	RETVAL = &color;
+    OUTPUT:
+	RETVAL
 
 # guint16 gtk_color_selection_get_previous_alpha (GtkColorSelection *colorsel)
 guint16
