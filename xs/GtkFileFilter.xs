@@ -111,7 +111,7 @@ void gtk_file_filter_add_pattern (GtkFileFilter *filter, const gchar *pattern);
 
 void gtk_file_filter_add_custom (GtkFileFilter *filter, GtkFileFilterFlags needed, SV * func, SV * data=NULL);
     PREINIT:
-	GType param_types[0];
+	GType param_types[1];
 	GPerlCallback * callback;
     CODE:
 	param_types[0] = GPERL_TYPE_SV;
