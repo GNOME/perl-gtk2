@@ -1,3 +1,10 @@
+2004/06/04 16:49 (-0400) muppetman
+
+	* xs/GtkCellLayout.xs, xs/GtkClipboard.xs, xs/GtkEntryCompletion.xs,
+	xs/GtkFileFilter.xs, xs/GtkItemFactory.xs, xs/GtkTreeModelFilter.xs,
+	xs/GtkTreeView.xs: more c89 initializer changes that the patch
+	missed (mostly 2.4 stuff)
+
 2004/06/04 13:52 (-0400) muppetman
 
 	* AUTHORS, xs/GdkEvent.xs, xs/GdkWindow.xs, xs/Gtk2.xs,

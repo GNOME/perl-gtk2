@@ -368,12 +368,11 @@ gtk_clipboard_wait_is_text_available (clipboard)
  ## void gtk_clipboard_request_targets (GtkClipboard *clipboard, GtkClipboardTargetsReceivedFunc  callback, gpointer user_data);
 void gtk_clipboard_request_targets (GtkClipboard *clipboard, SV * callback, SV * user_data=NULL)
     PREINIT:
-	GType param_types[] = {
-		GTK_TYPE_CLIPBOARD,
-		GPERL_TYPE_SV
-	};
+	GType param_types[2];
 	GPerlCallback * real_callback;
     CODE:
+	param_types[0] = GTK_TYPE_CLIPBOARD;
+	param_types[1] = GPERL_TYPE_SV;
 	real_callback = gperl_callback_new (callback, user_data,
 	                                    2, param_types, G_TYPE_NONE);
 	g_object_set_qdata_full (G_OBJECT (clipboard),
