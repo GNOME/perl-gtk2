@@ -23,6 +23,10 @@
 
 MODULE = Gtk2::ButtonBox	PACKAGE = Gtk2::ButtonBox	PREFIX = gtk_button_box_
 
+=for enum GtkButtonBoxStyle
+
+=cut
+
 ## GtkButtonBoxStyle gtk_button_box_get_layout (GtkButtonBox *widget)
 GtkButtonBoxStyle
 gtk_button_box_get_layout (widget)
