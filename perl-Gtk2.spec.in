@@ -36,7 +36,7 @@ make test
 rm -rf $RPM_BUILD_ROOT
 eval `perl '-V:installarchlib'`
 mkdir -p $RPM_BUILD_ROOT$installarchlib
-%makeinstall
+%makeinstall install-examples
 rm -f `find $RPM_BUILD_ROOT -type f -name perllocal.pod -o -name .packlist`
 
 [ -x %{_libdir}/rpm/brp-compress ] && %{_libdir}/rpm/brp-compress

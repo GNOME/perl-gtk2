@@ -149,6 +149,14 @@ sub postamble
 realclean ::
 	-rm -Rf build
 
+# the tmp-xxx stuff is just so that only the pl files get installed
+install-\%: %
+	\@\$(MKPATH) tmp-\$+/
+	\@\$(CP) \$+/*.* tmp-\$+/
+	\@\$(MOD_INSTALL) ./tmp-\$+/ \\
+		\$(PREFIX)/share/doc/perl-\$(DISTNAME)/\$+
+	\@\$(RM_RF) tmp-\$+/
+
 rpms/:
 	-mkdir @dirs
 

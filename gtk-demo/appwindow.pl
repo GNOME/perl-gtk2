@@ -111,7 +111,7 @@ sub register_stock_icons {
       if ($filename) {
           eval {
              $pixbuf = Gtk2::Gdk::Pixbuf->new_from_file (
-		     demo_find_file ($filename));
+		     main::demo_find_file ($filename));
 
 ##          GtkIconSet *icon_set;
 ##          GdkPixbuf *transparent;
