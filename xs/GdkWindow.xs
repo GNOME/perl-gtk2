@@ -525,7 +525,22 @@ gdk_window_get_frame_extents (window)
 Returns window_at_pointer, a Gtk2::Gdk::Window or undef, x and y, integers, and
 mask, a Gtk2::Gdk::ModifierType.
 =cut
-GdkWindow_ornull* gdk_window_get_pointer (GdkWindow *window, OUTLIST gint x, OUTLIST gint y, OUTLIST GdkModifierType mask)
+##GdkWindow_ornull* gdk_window_get_pointer (GdkWindow *window, OUTLIST gint x, OUTLIST gint y, OUTLIST GdkModifierType mask)
+void
+gdk_window_get_pointer (GdkWindow *window)
+    PREINIT:
+	GdkWindow       * win;
+	gint              x;
+	gint              y;
+	GdkModifierType   mask;
+    PPCODE:
+	win = gdk_window_get_pointer (window, &x, &y, &mask);
+	EXTEND (SP, 4);
+	PUSHs (sv_2mortal (newSVGdkWindow_ornull (win)));
+	PUSHs (sv_2mortal (newSViv (x)));
+	PUSHs (sv_2mortal (newSViv (y)));
+	PUSHs (sv_2mortal (newSVGdkModifierType (mask)));
+
 
  ## GdkWindow * gdk_window_get_parent (GdkWindow *window)
 GdkWindow *
