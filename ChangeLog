@@ -1,3 +1,9 @@
+2003/07/24 09:40 rwmcfa1
+
+	* t/01.GtkWindow.t: we aren't assured that a window will be the exact
+	size that we ask it to be, so setting and testing that it is isn't a 
+	good thing.
+
 2003/07/24 08:31 muppetman
 
 	* xs/GtkFileSelection.xs: get_selections was broken; simplified the
