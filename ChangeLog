@@ -1,3 +1,12 @@
+2003/12/05 12:53 (-0500) rwmcfa1
+
+	* t/accel-group-map.t: updated and more complete
+
+	* xs/GtkAccelGroup.xs: added a synopsis mainly showing that 
+	Gtk2::Window::add_accel_group is normally used. moved activate and
+	groups_from_object to the Gtk2 namespace and added class params for
+	them.
+
 2003/12/05 07:49 (-0500) rwmcfa1
 
 	* t/accel-group-map.t: initial import of accel group and accel map test

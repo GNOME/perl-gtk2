@@ -45,6 +45,16 @@ find_closure (GtkAccelKey * key,
 
 MODULE = Gtk2::AccelGroup	PACKAGE = Gtk2::AccelGroup	PREFIX = gtk_accel_group_
 
+=head1 SYNOPSIS
+
+  my $win = Gtk2::Window->new;
+  my $accel = Gtk2::AccelGroup->new;
+  $accel->connect (42, ['control-mask'], ['visible'], 
+                   sub { # do something });
+  $win->add_accel_group ($accel);
+
+=cut
+
 ## GtkAccelGroup* gtk_accel_group_new (void)
 GtkAccelGroup *
 gtk_accel_group_new (class)
@@ -124,28 +134,6 @@ gtk_accel_group_disconnect_key (accel_group, accel_key, accel_mods)
 	GtkAccelGroup   * accel_group
 	guint             accel_key
 	GdkModifierType   accel_mods
-
-## gboolean gtk_accel_groups_activate (GObject *object, guint accel_key, GdkModifierType accel_mods)
-gboolean
-gtk_accel_groups_activate (object, accel_key, accel_mods)
-	GObject         * object
-	guint             accel_key
-	GdkModifierType   accel_mods
-
-## GSList* gtk_accel_groups_from_object (GObject *object)
-=for apidoc
-Returns a list of Gtk2::AccelGroup's.
-=cut
-void
-gtk_accel_groups_from_object (object)
-	GObject * object
-    PREINIT:
-	GSList * groups, * i;
-    PPCODE:
-	groups = gtk_accel_groups_from_object (object);
-	for (i = groups ; i != NULL ; i = i->next)
-		XPUSHs (sv_2mortal (newSVGtkAccelGroup (i->data)));
-	/* according to the source, we should not free the list */
 
 # no typemap for GtkAccelKey, no boxed support, either
 ## GtkAccelKey* gtk_accel_group_find (GtkAccelGroup *accel_group, gboolean (*find_func) (GtkAccelKey *key, GClosure *closure, gpointer data), gpointer data)
@@ -240,4 +228,34 @@ gtk_accelerator_valid (keyval, modifiers)
 #	EXTEND(SP,n_entries);
 #	for( i = 0; i < n_entries; i++ )
 #		PUSHs(sv_2mortal(newSVGtkAccelGroupEntry(entries[i])));
+
+MODULE = Gtk2::AccelGroup	PACKAGE = Gtk2	PREFIX = gtk_
+
+=for object Gtk2::AccelGroup
+
+=cut
+
+## gboolean gtk_accel_groups_activate (GObject *object, guint accel_key, GdkModifierType accel_mods)
+gboolean
+gtk_accel_groups_activate (class, object, accel_key, accel_mods)
+	GObject         * object
+	guint             accel_key
+	GdkModifierType   accel_mods
+    C_ARGS:
+	object, accel_key, accel_mods
+
+## GSList* gtk_accel_groups_from_object (GObject *object)
+=for apidoc
+Returns a list of Gtk2::AccelGroup's.
+=cut
+void
+gtk_accel_groups_from_object (class, object)
+	GObject * object
+    PREINIT:
+	GSList * groups, * i;
+    PPCODE:
+	groups = gtk_accel_groups_from_object (object);
+	for (i = groups ; i != NULL ; i = i->next)
+		XPUSHs (sv_2mortal (newSVGtkAccelGroup (i->data)));
+	/* according to the source, we should not free the list */
 
