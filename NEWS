@@ -1,3 +1,16 @@
+Overview of Changes in Gtk2 1.052
+=================================
+
+* Require Glib 1.052.
+* Documentation fixes and improvements.  [Torsten, muppet]
+* Improvements and bugfixes in the cellrenderer examples.  [muppet, bug
+  report from Jens Wilke]
+* Minor bugfixes and warning suppression.  [muppet]
+* Gtk2::CodeGen improvements:  [Torsten]
+  - allow const modifier on boxed types.
+  - add newSV$classname\_ornull variant for boxed types.
+* Bind and test new API from Pango 1.5.x, including PangoMatrix.  [Torsten]
+
 Overview of Changes in Gtk2 1.051
 =================================
 

@@ -1,3 +1,9 @@
+2004/07/18 23:45 (-0400) muppetman
+
+	* README, NEWS, Gtk2.pm: unstable development release 1.052
+
+	* Makefile.PL, README: require Glib 1.052
+
 2004/07/17 18:19 (+0200) kaffeetisch
 
 	* xs/GtkTreeView.xs: In the POD for get_path_at_pos, escape all <
