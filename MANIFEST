@@ -192,6 +192,7 @@ xs/GtkHScale.xs
 xs/GtkHScrollbar.xs
 xs/GtkHSeparator.xs
 xs/GtkIconFactory.xs
+xs/GtkIconTheme.xs
 xs/GtkImageMenuItem.xs
 xs/GtkImage.xs
 xs/GtkInputDialog.xs
@@ -242,6 +243,7 @@ xs/GtkToggleButton.xs
 xs/GtkToolbar.xs
 xs/GtkTooltips.xs
 xs/GtkTreeDnd.xs
+xs/GtkTreeModelFilter.xs
 xs/GtkTreeModelSort.xs
 xs/GtkTreeModel.xs
 xs/GtkTreeSelection.xs
