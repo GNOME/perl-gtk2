@@ -121,4 +121,18 @@ GtkTargetList * SvGtkTargetList (SV * sv);
 SV * newSVGtkTargetEntry (GtkTargetEntry * entry);
 GtkTargetEntry * SvGtkTargetEntry (SV * sv);
 
+
+/*
+ * exported so Gnome2 can reuse it in wrappers.  other modules might want to
+ * do the same.  the callback for it needn't worry about param_types or
+ * return type, as this does all the marshaling by hand (the C function writes
+ * through the params, so we have to handle the stack specially).
+ */
+void gtk2perl_menu_position_func (GtkMenu       * menu,
+                                  gint          * x,
+                                  gint          * y,
+                                  gboolean      * push_in,
+                                  GPerlCallback * callback);
+
+
 #endif /* _GTK2PERL_H_ */
