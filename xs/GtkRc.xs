@@ -21,8 +21,6 @@
 
 #include "gtk2perl.h"
 
-/* TODO: this is very alpha and very un-understood. */
-
 MODULE = Gtk2::Rc	PACKAGE = Gtk2::Rc	PREFIX = gtk_rc_
 
 ## void _gtk_rc_init (void)
@@ -58,14 +56,21 @@ GtkStyle*
 gtk_rc_get_style (widget)
 	GtkWidget *widget
 
-# TODO: GType not in type map
 ## GtkStyle* gtk_rc_get_style_by_paths (GtkSettings *settings, const char *widget_path, const char *class_path, GType type)
-#GtkStyle*
-#gtk_rc_get_style_by_paths (settings, widget_path, class_path, type)
-#	GtkSettings *settings
-#	const char *widget_path
-#	const char *class_path
-#	GType type
+GtkStyle *
+gtk_rc_get_style_by_paths (settings, widget_path, class_path, package)
+	GtkSettings *settings
+	const char  * widget_path
+	const char  * class_path
+	SV          * package
+    PREINIT:
+	GType gtype = {0,};
+    CODE:
+	gtype = gperl_object_type_from_package (package);
+	RETVAL = gtk_rc_get_style_by_paths 
+			(settings, widget_path, class_path, gtype);
+    OUTPUT:
+	RETVAL
 
 ## gboolean gtk_rc_reparse_all_for_settings (GtkSettings *settings, gboolean force_load)
 gboolean
