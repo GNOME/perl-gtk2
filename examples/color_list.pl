@@ -19,7 +19,11 @@ use Gtk2 -init;
 use Gtk2::SimpleList;
 
 # in gtk+ 2.0.x, the cell renderers don't have the cell_background_gdk
-# property, so this test doesn't work right and spews messages.
+# property, so this test doesn't work right and spews messages.  object
+# properties require no extra binding glue, so if you've upgraded to 
+# gtk+ 2.2.x or newer after installing Gtk2-Perl, this test will magically
+# start to work.  thus, this is one of those rare times when we need to
+# use the lower-case runtime version check.
 my $msg = Gtk2->check_version (2,2,0);
 die "This example requires gtk+ 2.2.0, but we're linked against "
   . join (".", Gtk2->get_version_info)."\n"
