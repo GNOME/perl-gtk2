@@ -28,7 +28,7 @@ MODULE = Gtk2::Label	PACKAGE = Gtk2::Label	PREFIX = gtk_label_
 GtkWidget *
 gtk_label_new (class, str=NULL)
 	SV * class
-	const char * str
+	const gchar * str
     C_ARGS:
 	str
 
@@ -36,7 +36,7 @@ gtk_label_new (class, str=NULL)
 GtkWidget *
 gtk_label_new_with_mnemonic (class, str)
 	SV * class
-	const char * str
+	const gchar * str
     C_ARGS:
 	str
 
@@ -44,7 +44,7 @@ gtk_label_new_with_mnemonic (class, str)
 void
 gtk_label_set_text (label, str)
 	GtkLabel      * label
-	const char    * str
+	const gchar    * str
 
 const gchar *
 gtk_label_get_text (label)
