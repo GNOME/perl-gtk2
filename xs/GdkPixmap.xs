@@ -163,7 +163,7 @@ gdk_pixmap_create_from_xpm_d (class, drawable, transparent_color, data, ...)
 
 ## ## GdkPixmap* gdk_pixmap_colormap_create_from_xpm_d (GdkDrawable *drawable, GdkColormap *colormap, GdkBitmap **mask, GdkColor *transparent_color, gchar **data)
 =for apidoc
-=for signature ($pixmap, $mask) = Gtk2::Gdk::Pixmap->colormap_create_from_xpm_d ($drawable, $transparent_color, @xpm_data)
+=for signature ($pixmap, $mask) = Gtk2::Gdk::Pixmap->colormap_create_from_xpm_d ($drawable, $colormap, $transparent_color, @xpm_data)
 =for arg drawable may be undef if I<$colormap> is given
 =for arg colormap GdkColormap to use for the new image; may be undef if I<$drawable> is given.
 =for arg transparent_color color of pixels that are transparent in the input file.  if undef, a default is used.
