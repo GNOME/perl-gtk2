@@ -189,6 +189,9 @@ gdk_color_new (class, red, green, blue)
     PREINIT:
 	GdkColor c;
     CODE:
+	/* pixel==0 for unallocated color is not enforced by gdk, but
+	 * doing this hushes valgrind about using uninitialized values. */
+	c.pixel = 0;
 	c.red = red;
 	c.green = green;
 	c.blue = blue;
@@ -205,7 +208,7 @@ GdkColor_own *
 gdk_color_parse (class, spec)
 	const gchar *spec
     PREINIT:
-	GdkColor c;
+	GdkColor c = {0, 0, 0, 0}; /* initializers to hush valgrind */
     CODE:
 	RETVAL = gdk_color_copy (&c);
 	if (!gdk_color_parse (spec, RETVAL)) {
