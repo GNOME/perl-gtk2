@@ -1,6 +1,13 @@
-2004/01/08 22:10 (-0500) muppetman
+2004/01/08 23:10 (-0500) muppetman
 
 	* Gtk2.pm, README: stable (bugfix) release 1.022
+
+	* maps, gtk2perl.h: backport a fix from HEAD; the GType generated
+	for GtkTextSearchFlags changed on 2.3.0 -- this allows 1.022 to work
+	with gnome cvs (and eventually 2.4.0).
+
+	* t/00.Gtk2.t: backport from HEAD a workaround for test problems with
+	gtk+ > 2.2.x.
 
 2004/01/07 16:10 (-0500) muppetman
 
