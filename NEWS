@@ -1,3 +1,28 @@
+Overview of Changes in Gtk2 1.037
+=================================
+
+* Updated Glib requirement to 1.037.
+* Decided on a versioning scheme, implemented it, and applied it.
+  http://lists.gnome.org/archives/gtk-perl-list/2004-February/msg00085.html
+  New functions: Gtk2->CHECK_VERSION, Gtk2::MAJOR_VERSION, Gtk2::MINOR_VERSION,
+  Gtk2::MICRO_VERSION, Gtk2::major_version, Gtk2::minor_version,
+  Gtk2::micro_version.  Change Gtk2::Pango::check_version to
+  Gtk2::Pango::CHECK_VERSION.  [Ross, muppet]
+* New functions, tracking HEAD:
+  Gtk2::FileChooserDialog::new_with_backend.
+  Gtk2::RadioMenuItem::new_from_widget
+  Gtk2::RadioMenuItem::new_with_mnemonic_from_widget
+  Gtk2::RadioMenuItem::new_with_label_from_widget
+* Added to parse_maps the ability to generate error domain registrations;
+  use that for Gtk2's own error domains.  [muppet]
+* Use a weakref rather than object data to keep Tooltips objects alive.
+  [muppet, implementing yosh's suggestion]
+* Pod fixes and enhancements.  [Ross]
+* Fix up the license notifications in source files.  [Torsten]
+* Minor bugfixes, corrections, and cleanups.  [Torsten, Ross, muppet, Marc
+  Brockschmidt]
+* As always, more tests.  [Torsten]
+
 Overview of Changes in Gtk2 1.036
 =================================
 

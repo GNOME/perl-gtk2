@@ -31,7 +31,7 @@ use Glib;
 
 require DynaLoader;
 
-our $VERSION = '1.036';
+our $VERSION = '1.037';
 
 our @ISA = qw(DynaLoader);
 
@@ -170,7 +170,7 @@ The gtk2-perl team:
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2003 by the gtk2-perl team.
+Copyright 2003-2004 by the gtk2-perl team.
 
 This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Library General Public
