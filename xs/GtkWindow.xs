@@ -230,6 +230,20 @@ gtk_window_set_icon (window, icon)
 #		croak("%s: %s", filename, SvPV_nolen(errmsg));
 #	}
 
+##gboolean gtk_window_set_default_icon_from_file (GtkWindow *window, const gchar *filename, GError **err)
+#void
+#gtk_window_set_default_icon_from_file (window, filename)
+#	GtkWindow     * window
+#	const gchar   * filename
+#    PREINIT:
+#	GError * err = NULL;
+#    CODE:
+##	if( !gtk_window_set_default_icon_from_file(window, filename, &err) )
+#	{
+#		SV * errmsg = newSVpv(err->message, &PL_na);
+#		g_error_free(err);
+#		croak("%s: %s", filename, SvPV_nolen(errmsg));
+#	}
 #endif
 
 ## GdkPixbuf* gtk_window_get_icon (GtkWindow *window)
@@ -462,3 +476,72 @@ gtk_window_reshow_with_initial_size (window)
 
 ##gboolean _gtk_window_query_nonaccels (GtkWindow *window, guint accel_key, GdkModifierType accel_mods)
 
+##if GTK_CHECK_VERSION(2,2,0)
+#
+##void gtk_window_set_screen (GtkWindow *window, GdkScreen *screen)
+#void 
+#gtk_window_set_screen (window, screen)
+#	GtkWindow * window
+#	GdkScreen * screen
+#
+##GdkScreen * gtk_window_get_screen (GtkWindow *window)
+#GdkScreen * 
+#gtk_window_get_screen (window)
+#	GtkWindow * window
+
+#if GTK_CHECK_VERSION(2,2,0)
+
+void 
+gtk_window_fullscreen (window)
+	GtkWindow * window
+
+void 
+gtk_window_unfullscreen (window)
+	GtkWindow * window
+
+void
+gtk_window_set_skip_taskbar_hint (window, setting)
+	GtkWindow * window
+	gboolean    setting
+
+void
+gtk_window_set_skip_pager_hint (window, setting)
+	GtkWindow * window
+	gboolean    setting
+
+gboolean
+gtk_window_get_skip_taskbar_hint (window)
+	GtkWindow * window
+
+gboolean
+gtk_window_get_skip_pager_hint (window)
+	GtkWindow * window
+
+void gtk_window_set_auto_startup_notification (setting)
+	gboolean setting
+
+#endif
+ 
+ ## er... dunno about these.
+ ##
+ ##void
+ ##gtk_decorated_window_init (window)
+ ##	GtkWindow * window
+ ##
+ ##void
+ ##gtk_decorated_window_calculate_frame_size (window)
+ ##	GtkWindow * window
+ ##
+ ##void
+ ##gtk_decorated_window_set_title (window, title)
+ ##	GtkWindow   * window
+ ##	const gchar * title
+ ##
+ ##void
+ ##gtk_decorated_window_move_resize_window (window, x, y, width, height)
+ ##	GtkWindow   * window
+ ##	gint          x
+ ##	gint          y
+ ##	gint          width
+ ##	gint          height
+ ##
