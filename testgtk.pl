@@ -74,6 +74,19 @@ $window_position = $dialog->get ('window-position');
 print "   window-position: $window_position\n";
 $window_position = undef;
 
+
+print "  message-type: ".$dialog->get ('message-type')."\n";
+print " has-separator: ".$dialog->get ('has-separator')."\n";
+print "       buttons: ".$dialog->get ('buttons')."\n";
+print "  border-width: ".$dialog->get ('border-width')."\n";
+$dialog->set (message_type => 'error',
+              has_separator => 1,
+	      buttons => 'ok-cancel',
+	      border_width => 15,);
+print join("\n+", $dialog->get (qw/ message-type has-separator buttons border-width/))."\n";
+
+print Dumper($dialog->size_request);
+
 Gtk2->main;
 
 $dialog->destroy;

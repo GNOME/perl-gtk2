@@ -53,6 +53,14 @@ sub configure_event {
                            $widget->allocation->width,
                            $widget->allocation->height);
 
+#  warn "*****************************************************\n";
+#  use Devel::Peek;
+#  my ($foo, $bar);
+#  $foo = $widget->allocation;
+#  $bar = \$$foo;
+#  Dump ($widget->allocation);
+##  die;
+
   return TRUE;
 }
 
