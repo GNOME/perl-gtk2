@@ -1,3 +1,17 @@
+2003/08/18 03:56 muppetman
+
+	* TODO: updates
+
+	* xs/Gdk.xs: update some FIXMEs, implement the gdk_threads stuff
+
+	* xs/GdkColor.xs, api.pod, t/20.GdkColor.t: gdk_colormap_alloc_colors,
+	free_colors, and query_color
+
+	* xs/GdkDisplay.xs, xs/GdkDrawable.xs, xs/GdkPixbuf.xs,
+	xs/GdkPixbufLoader.xs, xs/GdkRgb.xs: update some FIXMEs
+
+	* xs/GdkEvent.xs, xs/GdkGC.xs: more missing functions and FIXMEs
+
 2003/08/15 18:06 rwmcfa1
 
 	* t/01.GtkWindow.t: fixed bug 'ok' -> 'is' causing really strange 
