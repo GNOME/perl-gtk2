@@ -1,7 +1,9 @@
 2004/01/05 21:48 (+0100) kaffeetisch [test-suite-branch]
 
+	R t/07.GtkBoxes.t
+	* t/GtkBox.t
 	R t/05.GtkListStore-etc.t
-	* t/GtkListStore.t: Merge both tests.
+	* t/GtkListStore.t: Merge tests.
 
 2004/01/05 17:18 (+0100) kaffeetisch [test-suite-branch]
 
