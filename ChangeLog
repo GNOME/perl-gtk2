@@ -1,3 +1,9 @@
+2003/07/15 08:29 rwmcfa1
+
+	* xs/GtkNotebook.xs: allowed NULL's, and defaulted to them, as 
+	appropriate for both parameters and return values in a lot of places,
+	one of which Thierry Vignaud pointed out.
+
 2003/07/14 22:30 muppetman
 
 	* xs/GtkTreeModel.xs: bugfix, can't _own_ornull something that wasn't
