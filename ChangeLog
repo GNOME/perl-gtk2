@@ -1,3 +1,22 @@
+2003/07/11 13:22 muppetman
+
+	* xs/GtkIconFactory.xs, gtk-demo/stock_browser.pl: make some fixes
+	to stock handling to make it more robust when local implementations
+	add custom stock items without icons or proper sizes; i don't know
+	what's up with redhat 9, but this makes the stock browser work there.
+
+2003/07/09 13:39 muppetman
+
+	* xs/GtkTreeSelection.xs, api.pod, gtk-demo/stock_browser.pl,
+	gtk-demo/editable_cells.pl: reverse order of return values on
+	$tree_selection->get_selected; now conforms to C API and old
+	gtk2-perl.  still returns $iter in scalar context.
+
+	* xs/GdkWindow.xs: add process_updates and process_all_updates,
+	convert hand-coded stuff to OUTLIST
+
+	* gtk-demo/tree_store.pl, gtk-demo/main.pl: cleanup
+
 2003/07/09 10:47 rwmcfa1
 
 	* xs/Gdk.xs: accept nulls for confine_to and cursor parameters of
