@@ -10,10 +10,6 @@
 
 package stock_browser;
 
-use blib '../../';
-use blib '../../G/';
-use blib '../';
-
 use constant TRUE => 1;
 use constant FALSE => 0;
 
@@ -56,8 +52,6 @@ sub create_model {
                id   => $id,
                item => $item ? $item : {}
        );
-
-#       print Dumper($item);
 
        # only show icons for stock IDs that have default icons
        my $icon_set = Gtk2::IconFactory->lookup_default ($info{id});
@@ -127,7 +121,6 @@ sub selection_changed {
   my ($iter, $model) = $selection->get_selected;
   if ($iter) {
       my ($info) = $model->get ($iter, 0);
-#print Dumper($info);
 
       if ($info->{small_icon} && $info->{item}{label}) {
         $display->{type_label}->set_text ("Icon and Item");
@@ -195,33 +188,23 @@ sub accel_set_func {
 sub label_set_func {
   my ($tree_column, $cell, $model, $iter) = @_;
   my ($info) = $model->get ($iter, 0);
-#  warn Dumper($info);
-  $cell->set (text => $info->{item}{label});
+  # items aren't required to have labels
+  $cell->set (text => $info->{item}{label} || '');
 }
-
-###sub set_text_func {
-###	my ($tree_column, $cell_renderer, $model, $iter, $which) = @_;
-###	warn Dumper(\@_);
-###	my ($info) = $model->get ($iter, 0);
-###	$cell->set (text => $info->{$which});
-###}
 
 
 sub do {
   if (!$window) {
-      ##my $window = Gtk2::Window->new ('toplevel');
       $window = Gtk2::Window->new;
       $window->set_title ("Stock Icons and Items");
       $window->set_default_size (-1, 500);
 
-#      $window->signal_connect (destroy => sub {$window = undef; 1});
-      $window->signal_connect (destroy => sub {Gtk2->main_quit; 1});
+      $window->signal_connect (destroy => sub {$window = undef; 1});
       $window->set_border_width (8);
 
       my $hbox = Gtk2::HBox->new (FALSE, 8);
       $window->add ($hbox);
 
-      ##my $sw = Gtk2::ScrolledWindow->new (undef, undef);
       my $sw = Gtk2::ScrolledWindow->new;
       $sw->set_policy ('never', 'automatic');
       $hbox->pack_start ($sw, FALSE, FALSE, 0);
@@ -277,10 +260,10 @@ sub do {
       $frame->add ($vbox);
 
       my $display = {
-         type_label => Gtk2::Label->new (''), #(undef),
-         macro_label => Gtk2::Label->new (''), #(undef),
-         id_label => Gtk2::Label->new (''), #(undef),
-         label_accel_label => Gtk2::Label->new (''), #(undef),
+         type_label => Gtk2::Label->new,
+         macro_label => Gtk2::Label->new,
+         id_label => Gtk2::Label->new,
+         label_accel_label => Gtk2::Label->new,
          icon_image => Gtk2::Image->new_from_pixbuf (undef), # empty image
       };
       $treeview->set_data ("stock-display", $display);
