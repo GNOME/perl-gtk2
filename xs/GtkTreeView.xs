@@ -39,7 +39,7 @@ MODULE = Gtk2::TreeView	PACKAGE = Gtk2::TreeView	PREFIX = gtk_tree_view_
 BOOT:
 	//gperl_set_isa ("Gtk2::TreeView", "Gtk2::Atk::ImplementorIface");
 
-### FIXME what about constructor consolidations?
+### FIXME what about constructor consolidations?:
 
 GtkWidget *
 gtk_tree_view_new (class, model=NULL)
@@ -219,7 +219,7 @@ gtk_tree_view_scroll_to_point (tree_view, tree_x, tree_y)
 	gint tree_y
 
 void
-gtk_tree_view_scroll_to_cell (tree_view, path, column, use_align, row_align, col_align)
+gtk_tree_view_scroll_to_cell (tree_view, path, column=NULL, use_align=FALSE, row_align=0.0, col_align=0.0)
 	GtkTreeView *tree_view
 	GtkTreePath_ornull *path
 	GtkTreeViewColumn_ornull *column
@@ -283,7 +283,7 @@ gtk_tree_view_get_reorderable (tree_view)
 	GtkTreeView *tree_view
 
 void
-gtk_tree_view_set_cursor (tree_view, path, focus_column, start_editing)
+gtk_tree_view_set_cursor (tree_view, path, focus_column=NULL, start_editing=FALSE)
 	GtkTreeView *tree_view
 	GtkTreePath *path
 	GtkTreeViewColumn_ornull *focus_column
