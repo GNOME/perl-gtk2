@@ -1,3 +1,58 @@
+Overview of Changes in Gtk2 1.050
+=================================
+
+* New unstable development branch.
+
+* Require Glib 1.050.
+* Code cleanup in XS, tests, and examples.  [Torsten, muppet, Ross]
+* Even yet still more test suite improvements.  [Torsten the Test Master]
+* Documentation improvements.  [Torsten, muppet, Marc Lehmann]
+* Allow the creation of anonymous marks.  [Marc Lehmann]
+* ABI cleanup -- remove private functions from ABI by marking them as static.
+  This has the possibility of breaking ABI compatibility; it *shouldn't*,
+  because nobody should be using these private functions outside of the Gtk2
+  module, but you never know what's going to happen when dealing with win32's
+  braindead linker.  If there are any bugs you think are related to this,
+  please report them immediately to the gtk-perl-list and we'll fix them
+  asap.  [Torsten]
+* Newly bound functions and such [Torsten unless otherwise noted]:
+  - gtk+'s GC pool (the GtkGC functions)
+  - Gtk2::Gdk::text_property_to_text_list, text_property_to_utf8_list,
+    string_to_compound_text, utf8_to_compound_text,
+    text_property_to_text_list_for_display,
+    text_property_to_utf8_list_for_display,
+    string_to_compound_text_for_display, utf8_to_compound_text_for_display,
+    and utf8_to_string_target.
+  - Gtk2::Gdk::draw_indexed_image.
+  - Gtk2::Pango::Font::get_glyph_extents.
+  - Gtk2::Pango::Rectangle and functions that use it,
+    Gtk2::Pango::Layout::index_to_pos, get_cursor_pos, get_extents,
+    and get_pixel_extents.
+  - Gtk2::Pango::LayoutIter and functions that use it,
+    Gtk2::Pango::Layout::get_iter, Gtk2::Pango::LayoutIter::get_index,
+    at_last_line, next_char, next_cluster, next_run, next_line, 
+    get_char_extents, get_cluster_extents, get_run_extents, get_line_extents,
+    get_layout_extents, get_line_yrange, and get_baseline.
+  - Gtk2::Pango::Fontset.
+  - Gtk2::Gdk::Visual.
+  - Gtk2::Pango::Context::list_families, Gtk2::Pango::FontFamily::get_name,
+    is_monospace, list_faces, Gtk2::Pango::FontFace::describe, get_face_name,
+    and list_sizes.  [muppet]
+  - Gtk2::Gdk::Input.
+  - Gtk2::Gdk::init, init_check, and parse_args.
+  - Add and test the ability to change the device with
+    Gtk2::Gdk::Event::Motion::device, Gtk2::Gdk::Event::Button::device,
+    Gtk2::Gdk::Event::Scroll::device, and Gtk2::Gdk::Event::Proximity::device.
+  - Gtk2::Gdk::Pixmap::lookup, lookup_for_display, foreign_new, and
+    foreign_new_for_display.
+  - Gtk2::TreeSelection::get_user_data.
+  - Gtk2::Gdk::Keymap::get_entries_for_keyval and get_entries_for_keycode.
+* Rework GdkKeymap handling to allow the methods to be called
+  properly.  [Torsten]
+* Allow easy access to the data of a SimpleList row when given a
+  path.  [Nathan Kurz]
+
+
 Overview of Changes in Gtk2 1.042
 =================================
 
