@@ -28,12 +28,14 @@ gtk2perl_tree_cell_data_func_create
 newSVGdkAtom
 newSVGdkBitmap
 newSVGdkBitmap_noinc
-newSVGtkAllocation
+newSVGdkGeometry
 newSVGtkIconSize
 newSVGtkTargetEntry
 newSVGtkTargetList
 newSVPangoLogAttr
 SvGdkAtom
+SvGdkGeometry
+SvGdkGeometryReal
 SvGtkIconSize
 SvGtkStockItem
 SvGtkTargetEntry
