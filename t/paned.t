@@ -1,3 +1,5 @@
+use strict;
+use warnings;
 use Test::More;
 use Gtk2;
 
@@ -42,6 +44,7 @@ $hframe->set_size_request (50,50);
 $vframe1->set_size_request (50,50);
 $vframe2->set_size_request (50,50);
 
+my $pad;
 if ((Gtk2->get_version_info)[1] < 2) {
 	# crap.  we didn't have a way to query style property information
 	# until 2.2, so we can't implement gtk_wigdet_style_get () here.
@@ -56,7 +59,7 @@ if ((Gtk2->get_version_info)[1] < 2) {
 }
 print "handle-size $pad\n";
 
-@windowprops = (
+my @windowprops = (
 	[ FALSE,  TRUE,   TRUE, FALSE,  300, 400 ],
 	[ FALSE,  TRUE,   TRUE, FALSE,  400, 300 ],
 	[ FALSE, FALSE,  FALSE, FALSE,  100, 100 ],
@@ -67,7 +70,7 @@ print "handle-size $pad\n";
 	[  TRUE, FALSE,  FALSE,  TRUE,  400, 300 ],
 	[  TRUE, FALSE,  FALSE,  TRUE,  100, 100 ],
 );
-@framesizes = (
+my @framesizes = (
 	[   4,   8+$pad,    4,   4,    4,   4 ],
 	[  50, 400+$pad,  250, 350,  250,  50 ],
 	[  50, 300+$pad,  350, 250,  350,  50 ],
@@ -81,10 +84,9 @@ print "handle-size $pad\n";
 );
 use Data::Dumper;
 
-$i;
+my $i = 0;
 
-Glib::Timeout->add (250, sub {
-#Glib::Timeout->add (1000, sub {
+$window->signal_connect (size_allocate => sub {
 	my ($w, $h);
 	my $this;
 
@@ -96,7 +98,7 @@ Glib::Timeout->add (250, sub {
 		($w, $h) = sizeof ($hframe);
 		is ($w, $this->[0]);
 		is ($h, $this->[1]);
-		@foo = ($w, $h);
+		my @foo = ($w, $h);
 
 		($w, $h) = sizeof ($vframe1);
 		is ($w, $this->[2]);

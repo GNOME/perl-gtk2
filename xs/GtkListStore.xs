@@ -69,6 +69,15 @@ gtk_list_store_set_column_types (list_store, ...)
 
 
 ## void gtk_list_store_set (GtkListStore *list_store, GtkTreeIter *iter, ...)
+=for apidoc Gtk2::ListStore::set_value
+=for signature $list_store->set_value ($iter, $col, $val)
+=for arg col (integer)
+=for arg val (scalar)
+=for arg col1 (__hide__)
+=for arg val1 (__hide__)
+=for arg ... (__hide__)
+=cut
+
 =for apidoc
 =for arg col1 (integer) the first column number
 =for arg val1 (scalar) the first value
@@ -78,9 +87,12 @@ void
 gtk_list_store_set (list_store, iter, col1, val1, ...)
 	GtkListStore *list_store
 	GtkTreeIter *iter
+    ALIAS:
+	Gtk2::ListStore::set_value = 1
     PREINIT:
 	int i, ncols;
     CODE:
+	PERL_UNUSED_VAR (ix);
 	/* require at least one pair --- that means there needs to be
 	 * four items on the stack.  also require that the stack has an
 	 * even number of items on it. */

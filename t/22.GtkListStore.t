@@ -1,18 +1,8 @@
 #!/usr/bin/perl -w
 use strict;
 use warnings;
-use Gtk2;
-use Test::More;
-
-###############################################################################
-
-if (Gtk2 -> init_check()) {
-	plan(tests => 65);
-}
-else {
-	plan(skip_all =>
-		'Gtk2->init_check failed, probably unable to open DISPLAY');
-}
+use Gtk2; # init/init_check not necessary, we do no gui stuff
+use Test::More tests => 69;
 
 ###############################################################################
 
@@ -150,7 +140,7 @@ is($model -> get($iter_model, 0), "blo");
 ###############################################################################
 
 SKIP: {
-	skip("swap, move_before, move_after and reorder are new in 2.2.x", 8)
+	skip("swap, move_before, move_after and reorder are new in 2.2.x", 10)
 		unless ((Gtk2 -> get_version_info())[1] >= 2);
 
 
@@ -170,7 +160,13 @@ SKIP: {
 
 	is($model -> get($model -> get_iter_from_string("1"), 0), "ble");
 
+	my $tag = $model->signal_connect("rows_reordered", sub {
+		my $new_order = $_[3];
+		isa_ok($new_order, "ARRAY", "new index order");
+		ok(eq_array($new_order, [3, 2, 1, 0]));
+	});
 	$model -> reorder(3, 2, 1, 0);
+	$model -> signal_handler_disconnect ($tag);
 
 	is($model -> get($model -> get_iter_from_string("0"), 0), "blo");
 	is($model -> get($model -> get_iter_from_string("1"), 0), "bli");
@@ -178,14 +174,17 @@ SKIP: {
 	is($model -> get($model -> get_iter_from_string("3"), 0), "bla");
 }
 
-###############################################################################
-
-Glib::Idle -> add(sub {
-	Gtk2 -> main_quit();
-	return 0;
+# but the rows_reordered method is always available.
+# give it a test-drive, too.
+my $tag = $model->signal_connect("rows_reordered", sub {
+	my $new_order = $_[3];
+	isa_ok($new_order, "ARRAY", "new index order");
+	ok(eq_array($new_order, [3, 2, 1, 0]));
 });
+$model->rows_reordered (Gtk2::TreePath->new, undef, 3, 2, 1, 0);
+$model->signal_handler_disconnect ($tag);
 
-Gtk2 -> main();
+###############################################################################
 
 __END__
 

@@ -221,6 +221,7 @@ colors (GtkRcStyle * style, GtkStateType state, GdkColor_ornull * newcolor=NULL)
 	text        = 2
 	base        = 3
     CODE:
+	RETVAL = NULL;
 	switch (ix) {
 	    case 0: RETVAL = &(style->fg[state]); break;
 	    case 1: RETVAL = &(style->bg[state]); break;

@@ -1,18 +1,8 @@
 #!/usr/bin/perl -w
 use strict;
 use warnings;
-use Gtk2;
-use Test::More;
-
-###############################################################################
-
-if (Gtk2 -> init_check()) {
-	plan(tests => 47);
-}
-else {
-	plan(skip_all =>
-		'Gtk2->init_check failed, probably unable to open DISPLAY');
-}
+use Gtk2; # no init/init_check necessary, we do no gui stuff
+use Test::More tests => 63;
 
 ###############################################################################
 
@@ -115,12 +105,62 @@ is($model -> get($iter_two, 0), "iiilbiiilb");
 
 ###############################################################################
 
-Glib::Idle -> add(sub {
-	Gtk2 -> main_quit();
-	return 0;
-});
+SKIP: {
+	skip("swap, move_before, move_after and reorder are new in 2.2.x", 14)
+		unless ((Gtk2 -> get_version_info())[1] >= 2);
 
-Gtk2 -> main();
+	is($model->get($model->get_iter_from_string("1:1"), 0), "bleeblee");
+	is($model->get($model->get_iter_from_string("1:2"), 0), "bleebleeblee");
+
+	$model -> swap($model -> get_iter_from_string("1:1"),
+		       $model -> get_iter_from_string("1:2"));
+
+	is($model->get($model->get_iter_from_string("1:1"), 0), "bleebleeblee");
+	is($model->get($model->get_iter_from_string("1:2"), 0), "bleeblee");
+
+	is($model -> get($model -> get_iter_from_string("0:0"), 0), "bla");
+
+	$model -> move_before($model -> get_iter_from_string("0:0"),
+			      $model -> get_iter_from_string("0:2"));
+
+	is($model -> get($model -> get_iter_from_string("0:1"), 0), "bla");
+
+	is($model -> get($model -> get_iter_from_string("2:2"), 0),
+	   "bliiibliiibliii");
+
+	$model -> move_after($model -> get_iter_from_string("2:2"),
+			     $model -> get_iter_from_string("2:0"));
+
+	is($model -> get($model -> get_iter_from_string("2:1"), 0),
+	   "bliiibliiibliii");
+
+	my $tag = $model -> signal_connect("rows_reordered", sub {
+		my $new_order = $_[3];
+		isa_ok($new_order, "ARRAY");
+		ok(eq_array($new_order, [3, 2, 1, 0]));
+		0;
+	});
+	$model -> reorder(undef, 3, 2, 1, 0);
+	$model -> signal_handler_disconnect ($tag);
+
+	is($model -> get($model -> get_iter_from_string("0:0"), 0), "bloooo");
+	is($model -> get($model -> get_iter_from_string("1:0"), 0), "bliii");
+	is($model -> get($model -> get_iter_from_string("2:0"), 0), "blee");
+	is($model -> get($model -> get_iter_from_string("3:0"), 0), "blabla");
+}
+
+# but the rows_reordered method is always available.
+# give it a test-drive, too.
+my $tag = $model -> signal_connect("rows_reordered", sub {
+	my $new_order = $_[3];
+	isa_ok($new_order, "ARRAY");
+	ok(eq_array($new_order, [3, 2, 1, 0]));
+	0;
+});
+$model->rows_reordered (Gtk2::TreePath->new, undef, 3, 2, 1, 0);
+$model -> signal_handler_disconnect ($tag);
+
+###############################################################################
 
 __END__
 

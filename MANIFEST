@@ -83,6 +83,7 @@ pm/SimpleMenu.pm
 ppport.h
 README
 t/00.Gtk2.t
+t/01.GtkWidget.t
 t/01.GtkWindow.t
 t/02.GtkButton.t
 t/03.GtkGammaCurve.t
@@ -118,7 +119,6 @@ t/ignore_keyboard.pl
 t/paned.t
 t/text-iter-searches.t
 t/trivial-widgets.t
-TODO
 tools/fetch_faq.pl
 tools/genkeysyms.pl
 tools/genmaps.pl
@@ -263,6 +263,7 @@ xs/PangoContext.xs
 xs/PangoFont.xs
 xs/PangoLayout.xs
 xs/PangoTabs.xs
+# stuff new in 2.3.x
 xs/GtkAction.xs
 xs/GtkActionGroup.xs
 xs/GtkCellLayout.xs

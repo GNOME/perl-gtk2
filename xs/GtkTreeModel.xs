@@ -7,6 +7,7 @@
  */
 
 #include "gtk2perl.h"
+#include <gperl_marshal.h>
 
 /* this is just an interface */
 
@@ -25,6 +26,66 @@ gtk2perl_tree_model_foreach_func (GtkTreeModel *model,
 	retval = g_value_get_boolean (&value);
 	g_value_unset (&value);
 	return retval;
+}
+
+static void
+gtk2perl_tree_model_rows_reordered_marshal (GClosure * closure,
+                                  	    GValue * return_value,
+                                  	    guint n_param_values,
+                                  	    const GValue * param_values,
+                                  	    gpointer invocation_hint,
+                                  	    gpointer marshal_data)
+{
+	AV * av;
+	gint * new_order;
+	GtkTreeModel * model;
+	GtkTreeIter * iter;
+	int n_children, i;
+	dGPERL_CLOSURE_MARSHAL_ARGS;
+
+	GPERL_CLOSURE_MARSHAL_INIT (closure, marshal_data);
+
+	PERL_UNUSED_VAR (return_value);
+	PERL_UNUSED_VAR (n_param_values);
+	PERL_UNUSED_VAR (invocation_hint);
+
+	ENTER;
+	SAVETMPS;
+
+	PUSHMARK (SP);
+
+	/* instance */
+	GPERL_CLOSURE_MARSHAL_PUSH_INSTANCE (param_values);
+	model = SvGtkTreeModel(instance);
+
+	/* treepath */
+	XPUSHs (sv_2mortal (gperl_sv_from_value (param_values+1)));
+
+	/* treeiter */
+	XPUSHs (sv_2mortal (gperl_sv_from_value (param_values+2)));
+	iter = g_value_get_boxed (param_values+2);
+
+	/* gint * new_order */
+	new_order = g_value_get_pointer (param_values+3);
+	n_children = gtk_tree_model_iter_n_children (model, iter);
+	av = newAV ();
+	av_extend (av, n_children-1);
+	for (i = 0; i < n_children; i++)
+		av_store (av, i, newSViv (new_order[i]));
+	XPUSHs (sv_2mortal (newRV_noinc ((SV*)av)));
+
+	GPERL_CLOSURE_MARSHAL_PUSH_DATA;
+
+	PUTBACK;
+
+	GPERL_CLOSURE_MARSHAL_CALL (G_DISCARD);
+
+	/*
+	 * clean up 
+	 */
+
+	FREETMPS;
+	LEAVE;
 }
 
 
@@ -224,6 +285,10 @@ gtk_tree_row_reference_valid (reference)
 
 MODULE = Gtk2::TreeModel	PACKAGE = Gtk2::TreeModel	PREFIX = gtk_tree_model_
 
+BOOT:
+	gperl_signal_set_marshaller_for (GTK_TYPE_TREE_MODEL, "rows_reordered",
+	                                 gtk2perl_tree_model_rows_reordered_marshal);
+
 =for flags GtkTreeModelFlags
 =cut
 
@@ -338,7 +403,7 @@ If you specify no column indices, it returns the values for all of the
 columns, otherwise, returns just those columns' values (in order).
 
 This overrides overrides Glib::Object's C<get>, so you'll want to use
-C<< $object->get_property >> to set object properties.
+C<< $object->get_property >> to get object properties.
 
 =cut
 void
@@ -350,6 +415,7 @@ gtk_tree_model_get (tree_model, iter, ...)
     PREINIT:
 	int i;
     PPCODE:
+	PERL_UNUSED_VAR (ix);
 	/* if column id's were passed, just return those columns */
 	if( items > 2 )
 	{
@@ -507,12 +573,24 @@ gtk_tree_model_row_deleted (tree_model, path)
 	GtkTreeModel *tree_model
 	GtkTreePath *path
 
-## FIXME how do we validate the input vector?
 #### void gtk_tree_model_rows_reordered (GtkTreeModel *tree_model, GtkTreePath *path, GtkTreeIter *iter, gint *new_order)
-##void
-##gtk_tree_model_rows_reordered (tree_model, path, iter, new_order)
-##	GtkTreeModel *tree_model
-##	GtkTreePath *path
-##	GtkTreeIter *iter
-##	gint *new_order
-##
+void
+gtk_tree_model_rows_reordered (tree_model, path, iter, ...)
+	GtkTreeModel *tree_model
+	GtkTreePath *path
+	GtkTreeIter_ornull *iter
+    PREINIT:
+	gint *new_order;
+	int n, i;
+    CODE:
+	n = gtk_tree_model_iter_n_children (tree_model, iter);
+	if (items - 3 != n)
+		croak ("rows_reordered expects a list of as many indices"
+		       " as the selected node of the model has children\n"
+		       "   got %d, expected %d", items - 3, n);
+	new_order = g_new (gint, n);
+	for (i = 0 ; i < n ; i++)
+		new_order[i] = SvIV (ST (3+i));
+	gtk_tree_model_rows_reordered (tree_model, path, iter, new_order);
+	g_free (new_order);
+

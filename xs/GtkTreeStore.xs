@@ -238,6 +238,7 @@ gtk_tree_store_reorder (tree_store, parent, ...)
 	GNode * level;
 	GNode * node;
 	int     length = 0;
+	int     i;
    CODE:
 	if( !parent )
 		level = ((GNode*)(tree_store->root))->children;
@@ -253,10 +254,9 @@ gtk_tree_store_reorder (tree_store, parent, ...)
 	if( (items-2) != length )
 		croak("xs: gtk_tree_store_reorder: wrong number of "
 		      "positions passed");
-	items--;
-	new_order = (gint*)g_new(gint, items);
-	for( ; items > 1; items-- )
-		new_order[items-1] = SvIV(ST(items));
+	new_order = (gint*)g_new(gint, length);
+	for (i = 0 ; i < length ; i++)
+		new_order[i] = SvIV (ST (i+2));
 	gtk_tree_store_reorder(tree_store, parent, new_order);
 	g_free(new_order);
 

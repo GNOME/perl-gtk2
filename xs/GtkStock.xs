@@ -85,6 +85,22 @@ SvGtkStockItem (SV * sv)
 
 MODULE = Gtk2::Stock	PACKAGE = Gtk2::Stock	PREFIX = gtk_stock_
 
+=head1 Gtk2::StockItem
+
+When a Gtk2::StockItem is returned from a function or required as a parameter a
+hash reference with the following key/value pairs will be in the
+required/returned.
+
+  {
+      stock_id => (string),
+      label => (string),
+      modifier => (Gtk2::Gdk::ModifierType),
+      keyval => (integer),
+      translation_domain => (string),
+  }
+
+=cut
+
 =for include build/stock_items.podi
 =cut
 
@@ -104,6 +120,9 @@ gtk_stock_add (class, ...)
 ###  void gtk_stock_add_static (const GtkStockItem *items, guint n_items) 
 
 ##  gboolean gtk_stock_lookup (const gchar *stock_id, GtkStockItem *item) 
+=for apidoc
+Returns a hash reference, a L<Gtk2::StockItem>.
+=cut
 SV *
 gtk_stock_lookup (class, stock_id)
 	const gchar *stock_id

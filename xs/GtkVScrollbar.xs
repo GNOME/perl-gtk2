@@ -31,6 +31,8 @@ gtk_vscrollbar_new (class, adjustment=NULL)
 	Gtk2::VScrollBar::new = 1
     C_ARGS:
 	adjustment
+    CLEANUP:
+	PERL_UNUSED_VAR (ix);
 
 =for apidoc Gtk2::VScrollBar::new
 

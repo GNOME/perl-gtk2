@@ -25,8 +25,8 @@
 MODULE = Gtk2::MessageDialog	PACKAGE = Gtk2::MessageDialog	PREFIX = gtk_message_dialog_
 
 =for apidoc
-=for arg format a printf format specifier
-=for arg ... arguments for I<$format>
+=for args format a printf format specifier
+=for args ... arguments for I<$format>
 Create a new Gtk2::Dialog with a simple message.  It will also include an
 icon, as determined by I<$type>.  If you need buttons not available through
 Gtk2::ButtonsType, use 'none' and add buttons with C<< $dialog->add_buttons >>.
@@ -37,18 +37,15 @@ gtk_message_dialog_new (class, parent, flags, type, buttons, format, ...)
 	GtkDialogFlags flags
 	GtkMessageType type
 	GtkButtonsType buttons
-	gchar_ornull * format
+	guchar * format
     PREINIT:
-	gchar * msg = NULL;
 	SV * message;
     CODE:
-	/* if there is no format, pretend there are no further args. */
-	if (format) {
-		SV * message = newSV (0);
-		sv_vsetpvfn (message, format, SvLEN (ST (5)),
-		             NULL, &(ST (6)), items - 6, Null(bool*));
-	}
-	RETVAL = gtk_message_dialog_new (parent, flags, type, buttons, "%s", msg);
+	message = newSV (0);
+	sv_vsetpvfn (message, format, SvLEN (ST (5)),
+	             NULL, &(ST (6)), items - 6, Null(bool*));
+	RETVAL = gtk_message_dialog_new (parent, flags, type, buttons,
+	                                 "%s", SvGChar (message));
     OUTPUT:
 	RETVAL
 

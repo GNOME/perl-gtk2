@@ -3,7 +3,7 @@
 use strict;
 use warnings;
 use ExtUtils::PkgConfig;
-use Gtk2 '-init';
+use Gtk2;
 
 my @path = map { s/^-I//; $_ } grep /-I/, split /\s+/, 
 	{ExtUtils::PkgConfig->find ('gtk+-2.0')}->{cflags};
