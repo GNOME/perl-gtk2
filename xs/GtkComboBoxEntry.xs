@@ -4,6 +4,21 @@ MODULE = Gtk2::ComboBoxEntry	PACKAGE = Gtk2::ComboBoxEntry	PREFIX = gtk_combo_bo
 
  ## GtkWidget *gtk_combo_box_entry_new (void);
  ## GtkWidget *gtk_combo_box_entry_new_with_model (GtkTreeModel *model, gint text_column);
+=for apidoc new_with_model
+=for signature $entry = Gtk2::ComboBoxEntry->new_with_model ($model, $text_column)
+=for arg model (GtkTreeModel)
+=for arg text_column (int)
+=for arg ... (__hide__)
+Alias for new, with two arguments.
+=cut
+
+=for apidoc
+=for signature $entry = Gtk2::ComboBoxEntry->new
+=for signature $entry = Gtk2::ComboBoxEntry->new ($model, $text_column)
+=for arg model (GtkTreeModel)
+=for arg text_column (int)
+=for arg ... (__hide__)
+=cut
 GtkWidget *
 gtk_combo_box_entry_new (class, ...)
     ALIAS:
