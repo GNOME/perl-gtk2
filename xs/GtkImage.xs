@@ -28,9 +28,12 @@ gtk_image_new_from_file (class, filename)
 	filename
 
  ## GtkWidget* gtk_image_new_from_pixbuf (GdkPixbuf *pixbuf)
- ##GtkWidget*
- ##gtk_image_new_from_pixbuf (pixbuf)
- ##	GdkPixbuf *pixbuf
+GtkWidget*
+gtk_image_new_from_pixbuf (class, pixbuf)
+	SV * class
+	GdkPixbuf_ornull * pixbuf
+    C_ARGS:
+	pixbuf
 
 GtkWidget*
 gtk_image_new_from_stock (class, stock_id, size)
@@ -71,10 +74,10 @@ gtk_image_set_from_file (image, filename)
 	const gchar *filename
 
  ## void gtk_image_set_from_pixbuf (GtkImage *image, GdkPixbuf *pixbuf)
- ##void
- ##gtk_image_set_from_pixbuf (image, pixbuf)
- ##	GtkImage *image
- ##	GdkPixbuf *pixbuf
+void
+gtk_image_set_from_pixbuf (image, pixbuf)
+	GtkImage *image
+	GdkPixbuf_ornull *pixbuf
 
 void
 gtk_image_set_from_stock (image, stock_id, size)
