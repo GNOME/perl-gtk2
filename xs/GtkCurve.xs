@@ -72,4 +72,10 @@ void
 gtk_curve_set_curve_type (curve, type)
 	GtkCurve     * curve
 	GtkCurveType   type
+    CODE:
+	/* there's a bug in gtk2 that causes a core dump if set_curve_type is
+	 * called before the widget is realized, they won't fix it so i'll
+         * catch and prevent it here. */
+	g_return_if_fail(GTK_WIDGET_REALIZED(curve));
+	gtk_curve_set_curve_type(curve, type);
 
