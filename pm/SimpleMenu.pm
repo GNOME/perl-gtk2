@@ -8,7 +8,8 @@ use strict;
 use warnings;
 use Carp;
 use Gtk2;
-use base 'Gtk2::ItemFactory';
+
+our @ISA = qw(Gtk2::ItemFactory);
 
 our $VERSION = 0.50;
 
