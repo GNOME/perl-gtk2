@@ -1,3 +1,16 @@
+2004/02/29 05:09 (-0500) muppetman
+
+	* t/GtkWidget.t: skip style_get on 2.0.x; we can't implement style_get
+	without gtk_widget_class_find_style_property, which wasn't added until
+	2.2.0.
+
+	* t/GtkIconFactory.t: skip Gtk2::IconSize::lookup_for_settings on
+	2.0.x.
+
+	* t/GtkRc.t: Gtk2::Rc::reparse_all_for_settings seems to return
+	something different values on different machines/versions/etc.
+	just verify that we don't crash, don't check the value.
+
 2004/02/29 04:37 (-0500) muppetman
 
 	* Makefile.PL, xs_files-2.0: only build xs/GdkX11.xs when linking\
