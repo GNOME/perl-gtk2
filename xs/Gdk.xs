@@ -22,23 +22,23 @@
 
 MODULE = Gtk2::Gdk	PACKAGE = Gtk2::Gdk	PREFIX = gdk_
 
-###  void gdk_parse_args (gint *argc, gchar ***argv) 
-#void
-#gdk_parse_args (argc, argv)
-#	gint *argc
-#	gchar ***argv
-#
 ###  void gdk_init (gint *argc, gchar ***argv) 
 #void
 #gdk_init (argc, argv)
 #	gint *argc
 #	gchar ***argv
 
-#if GTK_CHECK_VERSION(2,2,0)
-
 ###  gboolean gdk_init_check (gint *argc, gchar ***argv) 
 #gboolean
 #gdk_init_check (argc, argv)
+#	gint *argc
+#	gchar ***argv
+
+#if GTK_CHECK_VERSION(2,2,0)
+
+###  void gdk_parse_args (gint *argc, gchar ***argv) 
+#void
+#gdk_parse_args (argc, argv)
 #	gint *argc
 #	gchar ***argv
 
@@ -62,7 +62,7 @@ gdk_set_locale (class)
 
 ## allow NULL to remove the property
 void
-gdk_set_sm_client_id (class, sm_client_id)
+gdk_set_sm_client_id (class, sm_client_id=NULL)
 	const gchar_ornull * sm_client_id
     C_ARGS:
 	sm_client_id

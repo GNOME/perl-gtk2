@@ -44,9 +44,8 @@ black (style)
 	Gtk2::Style::white_gc = 6
     CODE:
 	switch (ix) {
-	    /* FIXME: is it correct to _copy these? */
-	    case 0: RETVAL = newSVGdkColor_copy (&(style->black)); break;
-	    case 1: RETVAL = newSVGdkColor_copy (&(style->white)); break;
+	    case 0: RETVAL = newSVGdkColor (&(style->black)); break;
+	    case 1: RETVAL = newSVGdkColor (&(style->white)); break;
 	    case 2: RETVAL = newSVPangoFontDescription_copy (style->font_desc); break;
 	    case 3: RETVAL = newSViv (style->xthickness); break;
 	    case 4: RETVAL = newSViv (style->ythickness); break;
@@ -57,8 +56,7 @@ black (style)
     OUTPUT:
 	RETVAL
 
-## FIXME: is it correct to _copy these?
-GdkColor_copy *
+GdkColor *
 fg (style, state)
 	GtkStyle * style
 	GtkStateType state
@@ -137,11 +135,23 @@ GtkStyle_noinc*
 gtk_style_copy (style)
 	GtkStyle *style
 
+gboolean
+gtk_style_attached (style)
+	GtkStyle *style
+    CODE:
+	RETVAL = GTK_STYLE_ATTACHED (style);
+    OUTPUT:
+	RETVAL
+
  ## GtkStyle* gtk_style_attach (GtkStyle *style, GdkWindow *window)
-GtkStyle_noinc*
+GtkStyle *
 gtk_style_attach (style, window)
 	GtkStyle *style
 	GdkWindow *window
+    CLEANUP:
+	if (RETVAL != style)
+		/* claim ownership of new object */
+		g_object_unref (RETVAL);
 
  ## void gtk_style_detach (GtkStyle *style)
 void

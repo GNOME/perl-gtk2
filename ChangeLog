@@ -1,8 +1,20 @@
+2004/01/20 23:20 (+0100) kaffeetisch
+
+	* t/GtkMessageDialog.t: Fix skip count.
+
+	* xs/Gdk.xs: Make sm_client_id default to NULL in
+	set_sm_client_id.
+
+	* xs/GtkStyle.xs: Don't _copy the values in the color accessors.
+	Bind GTK_STYLE_ATTACHED as Gtk2::Style::attached.  Fix
+	Gtk2::Style::attach.
+
 2004/01/20 22:58 (+0100) kaffeetisch
 
 	A t/Gdk.t
 	A t/GdkDisplay.t
 	A t/GdkDisplayManager.t
+	A t/GtkStyle.t
 	* MANIFEST: New tests.
 
 2004/01/20 21:33 (+0100) kaffeetisch
