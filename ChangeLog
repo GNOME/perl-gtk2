@@ -10,6 +10,8 @@
 
 	* Makefile.PL: require Glib >= 0.20
 
+	* README: updated
+
 2003/05/17 09:06 rwmcfa1
 
 	* Glade/*: first pass at GladeXML added
