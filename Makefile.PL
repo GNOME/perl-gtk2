@@ -53,7 +53,8 @@ $gtk2->set_inc ($pkgcfg{cflags} . ' -I./build ');
 $gtk2->set_libs ($pkgcfg{libs});
 $gtk2->add_pm ('Gtk2.pm'          => '$(INST_LIBDIR)/Gtk2.pm',
                'build/Keysyms.pm' => '$(INST_LIBDIR)/Gtk2/Gdk/Keysyms.pm',
-               'CodeGen.pm'       => '$(INST_LIBDIR)/Gtk2/CodeGen.pm',);
+               'CodeGen.pm'       => '$(INST_LIBDIR)/Gtk2/CodeGen.pm',
+	       'pm/Helper.pm'	  => '$(INST_LIBDIR)/Gtk2/Helper.pm');
 $gtk2->add_xs (<xs/*.xs>);
 $gtk2->add_typemaps (map {cwd().'/'.$_} 'gdk.typemap', 'build/gtk2perl.typemap');
 $gtk2->add_headers ('gtk2perl.h');

@@ -40,35 +40,6 @@ bootstrap Gtk2 $VERSION;
 
 # Preloaded methods go here.
 
-#
-# a little bit of API redirection.
-#
-# these are supposed to be deprecated in favor of the GLib versions, and
-# in general the deprecated stuff is to be left completely out of gtk2-perl;
-# but these APIs are much more sensible than the corresponding GLib versions,
-# and held over from versions past, so i've put sugar for them here.
-#
-
-sub timeout_add {
-	shift; # lose the class
-	return G::Timeout->add (@_);
-}
-
-sub idle_add {
-	shift; # lose the class
-	return G::Idle->add (@_);
-}
-
-sub input_add { # FIXME the call signature here isn't exactly the same ---
-		# gtk_input_add's arguments aren't 1:1 with g_io_add_watch!
-	shift; # lose the class
-	return G::IO->add_watch (@_);
-}
-
-sub timeout_remove { G::Source->remove ($_[1]); }
-sub idle_remove { G::Source->remove ($_[1]); }
-sub input_remove { G::Source->remove ($_[1]); }
-
 package Gtk2::ItemFactory;
 
 sub create_item {
