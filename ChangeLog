@@ -1,3 +1,7 @@
+2003/07/07 23:03 rwmcfa1
+
+	* t/17.GtkItemFactory.t: added test for item factory
+
 2003/07/06 17:30 muppetman
 
 	* xs/Gtk2.xs: gtk_set_locale().
