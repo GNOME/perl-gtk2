@@ -66,7 +66,7 @@ $combo_box->set_active (1);
 is ($combo_box->get_active, 1, 'set and get active');
 
 SKIP: {
-	skip "new api in gtk+ 2.6", 8
+	skip "new api in gtk+ 2.6", 11
 		unless Gtk2->CHECK_VERSION (2, 6, 0);
 
 	my $active_path = Gtk2::TreePath->new_from_string
@@ -110,5 +110,5 @@ SKIP: {
 
 __END__
 
-Copyright (C) 2003 by the gtk2-perl team (see the file AUTHORS for the
+Copyright (C) 2003-2005 by the gtk2-perl team (see the file AUTHORS for the
 full list).  See LICENSE for more information.
