@@ -7,7 +7,7 @@
 # 	- rm
 #########################
 
-use Gtk2::TestHelper tests => 9;
+use Gtk2::TestHelper tests => 10;
 
 ok( my $tips = Gtk2::Tooltips->new );
 
@@ -17,12 +17,20 @@ ok(1);
 
 ok( $btn = Gtk2::Button->new('Button 2') );
 $tips->set_tip($btn, 'Tip 2', 'Vebose Tip 2');
-ok( (Gtk2::Tooltips->data_get($btn))->{tip_text} eq 'Tip 2' );
+
+is_deeply( Gtk2::Tooltips->data_get($btn),
+           { tooltips => $tips,
+             widget => $btn,
+             tip_text => 'Tip 2',
+             tip_private => 'Vebose Tip 2' } );
 
 ok( $btn = Gtk2::Button->new('Button 3') );
 $tips->set_tip($btn, 'This is a really long, really big tooltip which doesn\'t '
 	.'tell you anything worth knowning. There\'s no private tip either',
 	undef);
+ok(1);
+
+$tips->force_window;
 ok(1);
 
 $tips->disable;
