@@ -105,6 +105,8 @@ t/25.GtkTreeSelection.t
 t/26.GtkSimpleMenu.t
 t/27.GtkClipboard.t
 t/30.GtkCellRenderer.t
+t/file-selection.t
+t/text-iter-searches.t
 xs/Gdk.xs
 xs/GdkColor.xs
 xs/GdkCursor.xs
