@@ -1,26 +1,40 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 5, noinit => 1;
+use Gtk2::TestHelper tests => 9, noinit => 1;
 
 # $Header$
 
 my $item_one = Gtk2::RadioMenuItem -> new();
 isa_ok($item_one, "Gtk2::RadioMenuItem");
 
-my $item_two = Gtk2::RadioMenuItem -> new("_Bla");
+my $item_two = Gtk2::RadioMenuItem -> new($item_one);
 isa_ok($item_two, "Gtk2::RadioMenuItem");
 
-my $item_three = Gtk2::RadioMenuItem -> new_with_label("Bla");
+my $item_three = Gtk2::RadioMenuItem -> new_with_label([], "Bla");
 isa_ok($item_three, "Gtk2::RadioMenuItem");
 
-my $item_four = Gtk2::RadioMenuItem -> new_with_mnemonic("Bla");
+my $item_four = Gtk2::RadioMenuItem -> new_with_mnemonic([$item_one, $item_two], "_Bla");
 isa_ok($item_four, "Gtk2::RadioMenuItem");
 
-$item_two -> set_group($item_one);
 $item_three -> set_group($item_one);
-$item_four -> set_group($item_one);
 
 is_deeply($item_one -> get_group(), [$item_one, $item_two, $item_three, $item_four]);
+
+SKIP: {
+  skip("the from_widget's are new in 2.4", 4)
+    if (Gtk2 -> check_version(2, 3, 3)); # FIXME 2.4
+
+  my $item_five = Gtk2::RadioMenuItem -> new_from_widget($item_one);
+  isa_ok($item_five, "Gtk2::RadioMenuItem");
+
+  my $item_six = Gtk2::RadioMenuItem -> new_with_label_from_widget($item_two, "Bla");
+  isa_ok($item_six, "Gtk2::RadioMenuItem");
+
+  my $item_seven = Gtk2::RadioMenuItem -> new_with_mnemonic_from_widget($item_three, "_Bla");
+  isa_ok($item_seven, "Gtk2::RadioMenuItem");
+
+  is_deeply($item_one -> get_group(), [$item_one, $item_two, $item_three, $item_four, $item_five, $item_six, $item_seven]);
+}
 
 __END__
 

@@ -1,3 +1,9 @@
+2004/02/21 16:18 (+0100) kaffeetisch
+
+	* t/GtkRadioMenuItem.t
+	* xs/GtkRadioMenuItem.xs: Bind and test new_from_widget,
+	new_with_mnemonic_from_widget, and new_with_label_from_widget.
+
 2004/02/20 22:32 (+0100) kaffeetisch
 
 	* t/GtkIconTheme.t: Test lookup_icon, load_icon, add_builtin_icon

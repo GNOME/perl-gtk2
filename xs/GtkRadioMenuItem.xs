@@ -61,6 +61,28 @@ gtk_radio_menu_item_new (class, member_or_listref=NULL, label=NULL)
     OUTPUT:
 	RETVAL
 
+# FIXME 2.4
+#if GTK_CHECK_VERSION (2, 3, 3)
+
+GtkWidget *
+gtk_radio_menu_item_new_from_widget (class, group, label=NULL)
+	GtkRadioMenuItem * group
+	const gchar      * label
+    ALIAS:
+	Gtk2::RadioMenuItem::new_with_mnemonic_from_widget = 1
+	Gtk2::RadioMenuItem::new_with_label_from_widget = 2
+    CODE:
+	if (label) {
+		if (ix == 2)
+			RETVAL = gtk_radio_menu_item_new_with_label_from_widget (group, label);
+		else
+			RETVAL = gtk_radio_menu_item_new_with_mnemonic_from_widget (group, label);
+	} else
+		RETVAL = gtk_radio_menu_item_new_from_widget (group);
+    OUTPUT:
+	RETVAL
+
+#endif
 
 # GSList * gtk_radio_menu_item_get_group (GtkRadioMenuItem *radio_menu_item)
 =for apidoc
