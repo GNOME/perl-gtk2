@@ -12,11 +12,6 @@ Makefile.PL
 README
 TODO
 api.pod
-debian/changelog
-debian/compat
-debian/control
-debian/copyright
-debian/rules
 devel.pod
 examples/accel_groups.pl
 examples/buttonbox.pl
