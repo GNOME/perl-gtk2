@@ -65,4 +65,5 @@ void gtk_cell_layout_set_cell_data_func (GtkCellLayout *cell_layout, GtkCellRend
 
 void gtk_cell_layout_clear_attributes (GtkCellLayout *cell_layout, GtkCellRenderer *cell);
 
+void gtk_cell_layout_reorder (GtkCellLayout *cell_layout, GtkCellRenderer *cell, gint position)
 
