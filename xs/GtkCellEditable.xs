@@ -34,8 +34,7 @@ this is an interface
 
 #define CALL(name)	\
 	PUTBACK;				\
-	call_method (name, G_VOID|G_DISCARD);	\
-	SPAGAIN;
+	call_method (name, G_VOID|G_DISCARD);
 
 #define FINISH	\
 	FREETMPS;	\

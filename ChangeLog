@@ -1,3 +1,8 @@
+2004/02/26 23:29 (+0100) kaffeetisch
+
+	* xs/GtkCellEditable.xs (CALL): Don't call SPAGAIN since we're not
+	accessing the stack again.
+
 2004/02/16 18:21 (+0100) kaffeetisch
 
 	* t/GtkIconTheme.t: Skip some tests if we can't find an icon.
