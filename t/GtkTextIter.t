@@ -1,9 +1,16 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 70, noinit => 1;
+use Gtk2::TestHelper tests => 82, noinit => 1;
+
+# $Header$
 
 my $model = Gtk2::TextBuffer->new;
-$model->insert ($model->get_start_iter, join " ", "Lore ipsem dolor.  I think that is misspelled.\n"x80);
+my $tag = $model->create_tag ("indent", indent => 5);
+
+$model->insert_with_tags (
+  $model->get_start_iter,
+  join " ", "Lore ipsem dolor.  I think that is misspelled.\n" x 80,
+  $tag);
 
 my $iter = $model->get_iter_at_offset (10);
 
@@ -34,24 +41,22 @@ is ($iter->in_range ($left, $right), 1);
 my $mark_one = $model->create_mark ("bla", $iter, 1);
 my $mark_two = $model->create_mark ("blub", $iter, 1);
 
-my @marks = $iter->get_marks;
-is ($marks[1], $mark_one);
-is ($marks[0], $mark_two);
+is_deeply ([$iter->get_marks], [$mark_one, $mark_two]);
 
+ok (!$iter->begins_tag ($tag));
+ok (!$iter->ends_tag ($tag));
+ok (!$iter->toggles_tag ($tag));
+
+# FIXME:
 # warn $iter->get_toggled_tags(0);
 # warn $iter->get_toggled_tags(1);
 # warn $iter->get_child_anchor;
-# warn $iter->begins_tag (...);
-# warn $iter->ends_tag (...);
-# warn $iter->toggles_tag (...);
-# warn $iter->has_tag (...);
+# warn $iter->has_tag ($tag);
 # warn $iter->get_tags;
 # warn $iter->get_pixbuf
 # warn $iter->get_attributes;
-isa_ok ($iter->get_language, "Gtk2::Pango::Language");
 
-# warn $iter->forward_to_tag_toggle;
-# warn $iter->backward_to_tag_toggle;
+isa_ok ($iter->get_language, "Gtk2::Pango::Language");
 
 is ($iter->editable (1), 1);
 is ($iter->can_insert (1), 1);
@@ -147,6 +152,20 @@ ok ($iter->backward_cursor_position);
 ok ($iter->forward_cursor_positions (5));
 ok ($iter->backward_cursor_positions (5));
 
+SKIP: {
+  skip "stuff new in 2.3", 8
+    if Gtk2->check_version (2, 3, 0);
+
+  ok ($iter->forward_visible_word_ends (1));
+  ok ($iter->backward_visible_word_starts (1));
+  ok ($iter->forward_visible_word_end);
+  ok ($iter->backward_visible_word_start);
+  ok ($iter->forward_visible_cursor_position);
+  ok ($iter->backward_visible_cursor_position);
+  ok ($iter->forward_visible_cursor_positions (1));
+  ok ($iter->backward_visible_cursor_positions (1));
+}
+
 $iter->forward_to_end;
 is ($iter->is_end, 1);
 
@@ -155,6 +174,9 @@ ok (!$iter->is_start);
 
 is ($iter->equal ($iter), 1);
 is ($iter->compare ($iter), 0);
+
+ok (!$iter->forward_to_tag_toggle ($tag));
+ok (!$iter->backward_to_tag_toggle ($tag));
 
 __END__
 

@@ -1,3 +1,12 @@
+2004/02/02 22:30 (+0100) kaffeetisch
+
+	* t/GtkTextIter.t: Test begins_tag, ends_tag, toggles_tag,
+	forward_to_tag_toggle, backward_to_tag_toggle and all the stuff
+	introduced in 2.4.
+
+	* t/GtkTextView.t: Test scroll_to_mark, scroll_mark_onscreen,
+	move_mark_onscreen.
+
 2004/02/01 01:12 (+0100) kaffeetisch
 
 	* t/GtkTextView.t: Test [sg]et_overwrite and [sg]et_accepts_tab.

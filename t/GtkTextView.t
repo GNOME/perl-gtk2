@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 41;
+use Gtk2::TestHelper tests => 42;
 
 # $Header$
 
@@ -24,11 +24,12 @@ $view -> realize();
 $view -> set_buffer($buffer);
 is($view -> get_buffer(), $buffer);
 
-# $view -> sroll_to_mark(...);
-# $view -> scroll_mark_onscreen(...);
-# $view -> move_mark_onscreen(...);
-
 my $iter = $buffer -> get_iter_at_offset(1000);
+my $mark = $buffer -> create_mark("bla", $iter, 1);
+
+$view -> scroll_to_mark($mark, 0.23, 1, 0.5, 0.5);
+$view -> scroll_mark_onscreen($mark);
+ok(!$view -> move_mark_onscreen($mark));
 
 is($view -> scroll_to_iter($iter, 0.23, 1, 0.5, 0.5), 1);
 is($view -> place_cursor_onscreen(), 1);
