@@ -20,7 +20,6 @@ use Glib qw(TRUE FALSE);
 use Gtk2;
 use strict;
 
-#include "demo-common.h"
 chdir '../gtk-demo';
 
 use constant FRAME_DELAY => 50;
@@ -37,8 +36,6 @@ my @image_names = (
   "gnome-gsame.png",
   "gnu-keys.png"
 );
-
-#define N_IMAGES G_N_ELEMENTS (image_names)
 
 # demo window
 my $window = undef;
@@ -65,20 +62,16 @@ sub load_pixbufs {
   # so you can run gtk-demo without installing GTK, then looks
   # in the location where the file is installed.
   #
-##  my $filename = demo_find_file (BACKGROUND_NAME);
-  my $filename = BACKGROUND_NAME;
+  my $filename = main::demo_find_file (BACKGROUND_NAME);
 
-  $background = Gtk2::Gdk::Pixbuf->new_from_file (
-	  main::demo_find_file ($filename));
+  $background = Gtk2::Gdk::Pixbuf->new_from_file ($filename);
 
   $back_width = $background->get_width;
   $back_height = $background->get_height;
 
   foreach my $i (@image_names) {
-      my $filename = $i;
-#      my $filename = demo_find_file ($i);
       push @images, Gtk2::Gdk::Pixbuf->new_from_file (
-	      		main::demo_find_file ($filename));
+	      		main::demo_find_file ($i));
   }
 
   return TRUE;
@@ -113,11 +106,6 @@ my $frame_num = 0;
 
 # Timeout handler to regenerate the frame
 sub timeout {
-  #double f;
-  #int i;
-  #double xmid, ymid;
-  #double radius;
-
   $background->copy_area (0, 0, $back_width, $back_height, $frame, 0, 0);
 
   my $f = ($frame_num % CYCLE_LEN) / CYCLE_LEN;
@@ -128,13 +116,6 @@ sub timeout {
   my $radius = MIN ($xmid, $ymid) / 2.0;
 
   for (my $i = 0; $i < @images; $i++) {
-      #double ang;
-      #int xpos, ypos;
-      #int iw, ih;
-      #double r;
-      #GdkRectangle r1, r2, dest;
-      #double k;
-
       my $ang = 2.0 * G_PI * $i / @images - $f * 2.0 * G_PI;
 
       my $iw = $images[$i]->get_width;

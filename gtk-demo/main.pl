@@ -82,20 +82,8 @@ use constant NUM_COLUMNS     => 4;
 sub demo_find_file {
 	my $base = shift;
 
-	#  if (g_file_test (base, G_FILE_TEST_EXISTS))
-	#    return g_strdup (base);
 	return $base if -e $base;
 
-	#{
-	# char *filename = g_build_filename (DEMOCODEDIR, base, NULL);
-	# if (!g_file_test (filename, G_FILE_TEST_EXISTS))
-	#{
-	#  g_set_error (err, G_FILE_ERROR, G_FILE_ERROR_NOENT,
-	#	       "Cannot find demo data file \"%s\"", base);
-	#  g_free (filename);
-	#  return NULL;
-#	use File::Spec;
-#	my $filename = File::Spec->catfile (DEMOCODEDIR, $base);
 	my $filename = $PROGDIR.$base;
 	croak "Cannot find demo data file $base ($filename)\n"
 		unless -e $filename;
@@ -398,9 +386,7 @@ sub load_file {
   open IN, $full_filename
       or warn("cannot open $full_filename: $!\n"), return;
 
-#  gtk_text_buffer_get_iter_at_offset (info_buffer, &start, 0);
   my $start = $info_buffer->get_iter_at_offset (0);
-#  while (read_line (file, buffer)) {
   while (<IN>) {
        if ($state == 0) {
          # Reading title
@@ -626,8 +612,6 @@ sub setup_default_icon {
     Gtk2::Window->set_default_icon_list ($transparent);
   }
 }
-
-#main (int argc, char **argv)
 
 Gtk2->init;
 

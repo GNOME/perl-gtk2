@@ -108,7 +108,6 @@ sub insert_text {
   # in the location where the file is installed.
   
   # croaks if it can't find the file
-###  my $filename = demo_find_file ("gtk-logo-rgb.gif", undef);
   my $filename = "gtk-logo-rgb.gif";
   my $pixbuf;
   eval {
@@ -120,7 +119,6 @@ sub insert_text {
   }
 
   my $scaled = $pixbuf->scale_simple (32, 32, 'bilinear');
-  #g_object_unref (pixbuf);
   $pixbuf = $scaled;
   
   # get start of buffer; each insertion will revalidate the
@@ -305,8 +303,7 @@ sub attach_widgets {
           $widget->set_size_request (70, -1);
 
       } elsif ($i == 3) {
-	  ##my $filename = demo_find_file ("floppybuddy.gif", undef);
-	  my $filename = "floppybuddy.gif";
+	  my $filename = main::demo_find_file ("floppybuddy.gif");
 	  $widget = Gtk2::Image->new_from_file ($filename);
 
       } elsif ($i == 4) {

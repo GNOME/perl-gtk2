@@ -96,7 +96,6 @@ sub register_stock_icons {
       # Add our custom icon factory to the list of defaults
       my $factory = Gtk2::IconFactory->new;
       $factory->add_default;
-##      Gtk2::IconFactory->add_default ($factory);
 
       #
       # demo_find_file() looks in the the current directory first,
@@ -111,23 +110,15 @@ sub register_stock_icons {
              $pixbuf = Gtk2::Gdk::Pixbuf->new_from_file (
 		     main::demo_find_file ($filename));
 
-##          GtkIconSet *icon_set;
-##          GdkPixbuf *transparent;
-
              # The gtk-logo-rgb icon has a white background, make it transparent
              my $transparent = $pixbuf->add_alpha (TRUE, 0xff, 0xff, 0xff);
           
              my $icon_set = Gtk2::IconSet->new_from_pixbuf ($transparent);
              $factory->add ("demo-gtk-logo", $icon_set);
-#             gtk_icon_set_unref (icon_set);
-#             g_object_unref (pixbuf);
-#             g_object_unref (transparent);
           };
           warn "failed to load GTK logo for toolbar"
               if $@;
       }
-#      /* Drop our reference to the factory, GTK will hold a reference. */
-#      g_object_unref (factory);
       # $factory goes out of scope here, but GTK will hold a reference on it.
   }
 }

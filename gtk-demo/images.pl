@@ -123,7 +123,6 @@ sub progressive_timeout {
 	  if ($@) {
 	     error_popup ($window, "Failed to load image: $@");
 
-	     ##g_object_unref (pixbuf_loader);
 	     $pixbuf_loader = undef;
 	      
 	     $load_timeout = 0;
@@ -131,7 +130,6 @@ sub progressive_timeout {
 	     return FALSE; # uninstall the timeout
 	  }
 	  
-	  ##g_object_unref (pixbuf_loader);
 	  $pixbuf_loader = undef;
      }
   } else {
@@ -143,9 +141,7 @@ sub progressive_timeout {
       # in the location where the file is installed.
       #
       my $filename;
-###      eval { $filename = demo_find_file ("alphatest.png"); };
-      $filename = main::demo_find_file ("alphatest.png");
-#      $filename = "background.jpg";
+      eval { $filename = main::demo_find_file ("alphatest.png"); };
       if ($@) {
 	  $error_message = $@;
       } else {
@@ -163,7 +159,6 @@ sub progressive_timeout {
 
       if ($pixbuf_loader) {
 	  $pixbuf_loader->close;
-	  ##g_object_unref (pixbuf_loader);
 	  $pixbuf_loader = undef;
       }
       
@@ -203,7 +198,6 @@ sub cleanup_callback {
   
   if ($pixbuf_loader) {
       $pixbuf_loader->close;
-      ##g_object_unref (pixbuf_loader);
       $pixbuf_loader = undef;
   }
 
@@ -260,10 +254,8 @@ sub do {
       #
       my $pixbuf = undef;
       eval {
-        my $filename = "gtk-logo-rgb.gif";
-        ##my $filename = demo_find_file ("gtk-logo-rgb.gif");
-        $pixbuf = Gtk2::Gdk::Pixbuf->new_from_file (
-		main::demo_find_file ($filename));
+        $pixbuf = Gtk2::Gdk::Pixbuf->new_from_file
+		(main::demo_find_file ('gtk-logo-rgb.gif'));
       };
 
       if ($@) {
@@ -300,11 +292,9 @@ sub do {
 
       my $filename;
       eval {
-##          $filename = demo_find_file ("floppybuddy.gif");
           $filename = main::demo_find_file ("floppybuddy.gif");
       };
       $image = Gtk2::Image->new_from_file ($filename);
-      ##g_free (filename);
 
       $frame->add ($image);
       
@@ -336,7 +326,6 @@ sub do {
       start_progressive_loading ($image);
 
       # Sensitivity control
-###      my $button = Gtk2::ToggleButton->new_with_mnemonic ("_Insensitive");
       my $button = Gtk2::ToggleButton->new ("_Insensitive");
       $vbox->pack_start ($button, FALSE, FALSE, 0);
 
