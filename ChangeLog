@@ -1,3 +1,11 @@
+2003/12/07 16:19 (-0500) rwmcfa1
+
+	* pm/SimpleList.pm: DELETE fixed, SPLICE implemented for simplelist.
+
+	* t/19.SimpleList.t: test all of the splice stuff
+
+	* examples/simplelist.pl: (muppet) test the new splice stuff
+
 2003/12/06 01:30 (-0500) rwmcfa1
 
  	* xs/GtkAccelGroup.xs: Gtk2-> functions moved under Gtk2::AccellGroups

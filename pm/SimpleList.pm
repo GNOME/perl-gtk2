@@ -278,8 +278,8 @@ sub POP { croak "pop called on a TiedRow, but you can't change its size"; }
 sub PUSH { croak "push called on a TiedRow, but you can't change its size"; }
 sub SHIFT { croak "shift called on a TiedRow, but you can't change its size"; }
 sub UNSHIFT { croak "unshift called on a TiedRow, but you can't change its size"; }
-sub SPLICE { croak "splice called on a TiedRow, but you can't change it's size"; }
-sub DELETE { croak "delete called on a TiedRow, but you can't change it's size"; }
+sub SPLICE { croak "splice called on a TiedRow, but you can't change its size"; }
+#sub DELETE { croak "delete called on a TiedRow, but you can't change its size"; }
 sub STORESIZE { carp "STORESIZE operation not supported"; }
 
 
@@ -383,8 +383,13 @@ sub UNSHIFT {
 
 sub DELETE { 
 	my $model = $_[0]->{model};
-	$model->remove($model->iter_nth_child(undef, $_[1]))
-		if( $_[1] < $model->iter_n_children );
+	my $ret;
+	if ($_[1] < $model->iter_n_children (undef)) {
+		my $iter = $model->iter_nth_child (undef, $_[1]);
+		$ret = [ $model->get ($iter) ];
+		$model->remove ($iter);
+	}
+	return $ret;
 }
 
 sub CLEAR { 
@@ -406,20 +411,43 @@ sub get_model {
 sub STORESIZE { carp "STORESIZE: operation not supported"; }
 
 sub SPLICE {
-	if ($_[2] == 0 && 'ARRAY' eq ref($_[3])) {
-		my $iter = $_[0]->{model}->insert($_[1]);
-		my @row;
-		tie @row, 'Gtk2::SimpleList::TiedRow', $_[0]->{model}, $iter;
-		if ('ARRAY' eq ref $_[3]) {
-			@row = @{$_[3]};
-		} else {
-			$row[0] = $_[3];
-		}
-		return 1;
+	my $self = shift;
+	# get the model and the number of rows	
+	my $model = $self->{model};
+	# get the offset
+	my $offset = shift || 0;
+	# if offset is neg, invert it
+	$offset = $model->iter_n_children (undef) + $offset if ($offset < 0);
+	# get the number of elements to remove
+	my $length = shift;
+	# if len was undef, not just false, calculate it
+	$length = $self->FETCHSIZE() - $offset unless (defined ($length));
+	# get any elements we need to insert into their place
+	my @list = @_;
+	
+	# place to store any returns
+	my @ret = ();
 
-	} else {
-		carp "SPLICE: operation not fully supported";
+	# remove the desired elements
+	for (my $i = $offset; $i < $offset+$length; $i++)
+	{
+		# things will be shifting forward, so always delete at offset
+		push @ret, $self->DELETE ($offset);
 	}
+
+	# insert the passed list at offset in reverse order, so the will
+	# be in the correct order
+	foreach (reverse @list)
+	{
+		# insert a new row
+		$model->insert ($offset);
+		# and put the data in it
+		$self->STORE ($offset, $_);
+	}
+	
+	# return deleted rows in array context, the last row otherwise
+	# if nothing deleted return empty
+	return (@ret ? (wantarray ? @ret : $ret[-1]) : ());
 }
 
 1;
