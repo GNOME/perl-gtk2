@@ -20,6 +20,8 @@
 # $Header$
 #
 
+our $PROGDIR = $0;
+$PROGDIR =~ s/main.pl$//;
 
 use strict;
 use Carp;
@@ -109,10 +111,10 @@ sub demo_find_file {
 	#	       "Cannot find demo data file \"%s\"", base);
 	#  g_free (filename);
 	#  return NULL;
-	use File::Spec;
+#	use File::Spec;
 #	my $filename = File::Spec->catfile (DEMOCODEDIR, $base);
-	my $filename = $base;
-	croak "Cannot find demo data file $base\n"
+	my $filename = $PROGDIR.$base;
+	croak "Cannot find demo data file $base ($filename)\n"
 		unless -e $filename;
 
 	return $filename;
@@ -524,8 +526,9 @@ sub row_activated_cb {
    # pointer again.  it's a kind of hackish lazy loading mechanism.
    # don't try this at home.
    if ('CODE' ne ref $func) {
-       require $filename;
        my $pkg = $filename;
+       $filename = demo_find_file($filename);
+       require $filename;
        $pkg =~ s/\.pl$//;
        eval '$model->set ($iter, FUNC_COLUMN, \&'.$pkg.'::do);';
        ($func) = $model->get ($iter, FUNC_COLUMN);

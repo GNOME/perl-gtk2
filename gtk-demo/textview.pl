@@ -114,7 +114,8 @@ sub insert_text {
   my $filename = "gtk-logo-rgb.gif";
   my $pixbuf;
   eval {
-     $pixbuf = Gtk2::Gdk::Pixbuf->new_from_file ($filename);
+     $pixbuf = Gtk2::Gdk::Pixbuf->new_from_file (
+	     	main::demo_find_file ($filename));
   };
   if ($@) {
       die "caught exception from Gtk2::Gdk::Pixbuf->new_from_file --- $@";

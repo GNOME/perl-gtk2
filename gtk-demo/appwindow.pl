@@ -110,7 +110,8 @@ sub register_stock_icons {
       my $filename = "gtk-logo-rgb.gif";
       if ($filename) {
           eval {
-             $pixbuf = Gtk2::Gdk::Pixbuf->new_from_file ($filename);
+             $pixbuf = Gtk2::Gdk::Pixbuf->new_from_file (
+		     demo_find_file ($filename));
 
 ##          GtkIconSet *icon_set;
 ##          GdkPixbuf *transparent;

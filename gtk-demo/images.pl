@@ -145,7 +145,7 @@ sub progressive_timeout {
       #
       my $filename;
 ###      eval { $filename = demo_find_file ("alphatest.png"); };
-      $filename = "alphatest.png";
+      $filename = main::demo_find_file ("alphatest.png");
 #      $filename = "background.jpg";
       if ($@) {
 	  $error_message = $@;
@@ -263,7 +263,8 @@ sub do {
       eval {
         my $filename = "gtk-logo-rgb.gif";
         ##my $filename = demo_find_file ("gtk-logo-rgb.gif");
-        $pixbuf = Gtk2::Gdk::Pixbuf->new_from_file ($filename);
+        $pixbuf = Gtk2::Gdk::Pixbuf->new_from_file (
+		main::demo_find_file ($filename));
       };
 
       if ($@) {
@@ -301,7 +302,7 @@ sub do {
       my $filename;
       eval {
 ##          $filename = demo_find_file ("floppybuddy.gif");
-          $filename = "floppybuddy.gif";
+          $filename = main::demo_find_file ("floppybuddy.gif");
       };
       $image = Gtk2::Image->new_from_file ($filename);
       ##g_free (filename);

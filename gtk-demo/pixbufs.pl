@@ -69,7 +69,8 @@ sub load_pixbufs {
 ##  my $filename = demo_find_file (BACKGROUND_NAME);
   my $filename = BACKGROUND_NAME;
 
-  $background = Gtk2::Gdk::Pixbuf->new_from_file ($filename);
+  $background = Gtk2::Gdk::Pixbuf->new_from_file (
+	  main::demo_find_file ($filename));
 
   $back_width = $background->get_width;
   $back_height = $background->get_height;
@@ -77,7 +78,8 @@ sub load_pixbufs {
   foreach my $i (@image_names) {
       my $filename = $i;
 #      my $filename = demo_find_file ($i);
-      push @images, Gtk2::Gdk::Pixbuf->new_from_file ($filename);
+      push @images, Gtk2::Gdk::Pixbuf->new_from_file (
+	      		main::demo_find_file ($filename));
   }
 
   return TRUE;
