@@ -42,22 +42,22 @@ my @items = (
 		'<Branch>',
 	],
 	[
-		'/_Menu/Run Galeon',
-		undef,
-		\&callback,
-		1,
-		'<StockItem>',
-		'gtk-execute'
+		'/_Menu/Run _Galeon',	# menu path
+		'<ctrl>G',		# accel, see $accel_groups
+		\&callback,		# callback func
+		1,			# callback id
+		'<StockItem>',		# type
+		'gtk-execute'		# extra, in this case stock id
 	],
 	[
-		'/_Menu/Run Terminal',
-		undef,
+		'/_Menu/Run _Terminal',
+		'<ctrl>T',
 		sub { print STDERR "you found the magic menu item\n"; },
 		2,
 		'<StockItem>',
 		'gtk-execute'
 	],	[
-		'/_Menu/Run GIMP',
+		'/_Menu/Run GIM_P',
 		undef,
 		\&callback,
 		3,
@@ -65,14 +65,14 @@ my @items = (
 		'gtk-execute'
 	],
 	[
-		'/_Menu/Editors',
+		'/_Menu/_Editors',
 		undef,
 		undef,
 		undef,
 		'<Branch>',
 	],
 	[
-		'/_Menu/Editors/Run Gedit',
+		'/_Menu/Editors/Run _Gedit',
 		undef,
 		\&callback,
 		4,
@@ -80,7 +80,7 @@ my @items = (
 		'gtk-execute'
 	],
 	[
-		'/_Menu/Editors/Run Emacs',
+		'/_Menu/Editors/Run _Emacs',
 		undef,
 		\&callback,
 		5,
@@ -88,8 +88,8 @@ my @items = (
 		'gtk-execute'
 	],
 	[
-		'/_Menu/Editors/Run nipples',
-		undef,
+		'/_Menu/Editors/Run _nipples',
+		'<ctrl>n',
 		\&callback,
 		6,
 		'<StockItem>',
@@ -103,13 +103,22 @@ sub callback
 	print STDERR Dumper( @_ );
 }
 
-my $factory = Gtk2::ItemFactory->new('Gtk2::MenuBar', '<main>', undef);
+# create an accel group to catch our item's accelerators
+my $accel_group = Gtk2::AccelGroup->new;
 
+# create the factory, passing the accel_group
+my $factory = Gtk2::ItemFactory->new('Gtk2::MenuBar', '<main>', $accel_group);
+
+# pass the items, creating them.
 $factory->create_items('foo', @items);
 
+# get the root of the menu, widget, out of the factory
 my $menu = $factory->get_widget('<main>');
 
 $window->add($menu);
+
+# add the accel group to the window so they can be caught.
+$window->add_accel_group($accel_group);
 
 $window->show_all;
 
