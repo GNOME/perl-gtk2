@@ -1,3 +1,8 @@
+2003/07/24 16:37 muppetman
+
+	* xs/GtkFileSelection.xs: add g_filename_(from|to)_utf8 to 
+	gtk_file_selection_(get|set)_filename.
+
 2003/07/24 09:40 rwmcfa1
 
 	* t/01.GtkWindow.t: we aren't assured that a window will be the exact

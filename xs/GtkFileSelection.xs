@@ -63,6 +63,12 @@ void
 gtk_file_selection_set_filename (filesel, filename)
 	GtkFileSelection * filesel
 	const gchar      * filename
+    PREINIT:
+	gchar * opsysname;
+    CODE:
+	opsysname = g_filename_from_utf8 (filename, -1, NULL, NULL, NULL);
+	gtk_file_selection_set_filename (filesel, opsysname);
+	g_free (opsysname);
 
 ## void gtk_file_selection_complete (GtkFileSelection *filesel, const gchar *pattern)
 void
@@ -91,10 +97,14 @@ gboolean
 gtk_file_selection_get_select_multiple (filesel)
 	GtkFileSelection * filesel
 
-# G_CONST_RETURN
-const gchar *
+gchar_own *
 gtk_file_selection_get_filename (filesel)
 	GtkFileSelection * filesel
+    CODE:
+	RETVAL = g_filename_to_utf8 (gtk_file_selection_get_filename (filesel),
+	                             -1, NULL, NULL, NULL);
+    OUTPUT:
+	RETVAL
 
 void
 gtk_file_selection_get_selections (filesel)
