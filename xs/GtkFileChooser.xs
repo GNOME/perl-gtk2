@@ -36,9 +36,9 @@ void gtk_file_chooser_set_current_name (GtkFileChooser *chooser, const gchar *na
 
 gchar_own * gtk_file_chooser_get_filename (GtkFileChooser *chooser);
 
-void gtk_file_chooser_set_filename (GtkFileChooser *chooser, const char *filename);
+gboolean gtk_file_chooser_set_filename (GtkFileChooser *chooser, const char *filename);
 
-void gtk_file_chooser_select_filename (GtkFileChooser *chooser, const char *filename);
+gboolean gtk_file_chooser_select_filename (GtkFileChooser *chooser, const char *filename);
 
 void gtk_file_chooser_unselect_filename (GtkFileChooser *chooser, const char *filename);
 
@@ -57,7 +57,7 @@ void gtk_file_chooser_get_filenames (GtkFileChooser *chooser);
 	}
 	g_slist_free (names);
 
-void gtk_file_chooser_set_current_folder (GtkFileChooser *chooser, const gchar *filename);
+gboolean gtk_file_chooser_set_current_folder (GtkFileChooser *chooser, const gchar *filename);
 
 gchar_own *gtk_file_chooser_get_current_folder (GtkFileChooser *chooser);
 
@@ -67,9 +67,9 @@ gchar_own *gtk_file_chooser_get_current_folder (GtkFileChooser *chooser);
 ##
 gchar_own * gtk_file_chooser_get_uri (GtkFileChooser *chooser);
 
-void gtk_file_chooser_set_uri (GtkFileChooser *chooser, const char *uri);
+gboolean gtk_file_chooser_set_uri (GtkFileChooser *chooser, const char *uri);
 
-void gtk_file_chooser_select_uri (GtkFileChooser *chooser, const char *uri);
+gboolean gtk_file_chooser_select_uri (GtkFileChooser *chooser, const char *uri);
 
 void gtk_file_chooser_unselect_uri (GtkFileChooser *chooser, const char *uri);
 
@@ -86,7 +86,7 @@ void gtk_file_chooser_get_uris (GtkFileChooser *chooser);
 
 
 
-void gtk_file_chooser_set_current_folder_uri (GtkFileChooser *chooser, const gchar *uri);
+gboolean gtk_file_chooser_set_current_folder_uri (GtkFileChooser *chooser, const gchar *uri);
 
 gchar_own *gtk_file_chooser_get_current_folder_uri (GtkFileChooser *chooser);
 

@@ -5,7 +5,7 @@
 use Gtk2::TestHelper
 	# FIXME 2.4
 	at_least_version => [2, 3, 0, "GtkFileChooser is new in 2.4"],
-	tests => 30;
+	tests => 37;
 use File::Spec;
 use Cwd;
 
@@ -39,14 +39,16 @@ is ($file_chooser->get_filename,
 $file_chooser->set_action ('open');
 is ($file_chooser->get_action, 'open', 'change action to open');
 
+#ok (!$file_chooser->set_filename ('/something bogus'));
 $filename = File::Spec->catfile ($cwd, 'gtk2perl.h');
-$file_chooser->set_filename ($filename);
-TODO: { local $TODO = "the file chooser is a bit unstable in 2.5.3";
+ok ($file_chooser->set_filename ($filename),
+    'set filename to something that exists');
 is ($file_chooser->get_filename, $filename,
     'set current name to something that does exist');
-}
 
-$file_chooser->select_filename ($filename);
+
+#ok (!$file_chooser->select_filename ('/something bogus'));
+ok ($file_chooser->select_filename ($filename));
 is ($file_chooser->get_filename, $filename, 'select something');
 my @list = $file_chooser->get_filenames;
 is (scalar (@list), 1, 'selected one thing');
@@ -60,11 +62,13 @@ $file_chooser->select_all;
 ok (scalar (@list));
 $file_chooser->unselect_all;
 
+$filename = File::Spec->catfile ($cwd, 'nonexistent');
+ok (!$file_chooser->set_current_folder ($filename),
+    'set_current_folder fails when the folder does not exist');
+
 $filename = File::Spec->catfile ($cwd, 't');
-$file_chooser->set_current_folder ($filename);
-TODO: { local $TODO = "the file chooser is a bit unstable in 2.5.3";
+ok ($file_chooser->set_current_folder ($filename));
 is ($file_chooser->get_current_folder, $filename);
-}
 
 $file_chooser->set_current_folder ($cwd);
 is ($file_chooser->get_current_folder, $cwd);
@@ -73,23 +77,22 @@ is ($file_chooser->get_current_folder, $cwd);
 
 ## URI manipulation
 ##
-my $uri = Glib::filename_to_uri (File::Spec->rel2abs ($0), undef);
-$file_chooser->set_uri ($uri);
-TODO: { local $TODO = "the file chooser is a bit unstable in 2.5.3";
-is ($file_chooser->get_uri, $uri);
-}
+#ok (!$file_chooser->set_uri (Glib::filename_to_uri ('/bogus', undef)));
+#ok (!$file_chooser->select_uri (Glib::filename_to_uri ('/bogus', undef)));
 
-$file_chooser->select_uri ($uri);
+my $uri = Glib::filename_to_uri (File::Spec->rel2abs ($0), undef);
+ok ($file_chooser->set_uri ($uri));
+is ($file_chooser->get_uri, $uri);
+
+ok ($file_chooser->select_uri ($uri));
 
 @list = $file_chooser->get_uris;
 ok (scalar (@list), 'selected a uri');
 
 $file_chooser->unselect_uri ($uri);
 
-TODO: { local $TODO = "the file chooser is a bit unstable in 2.5.3";
-$file_chooser->set_current_folder_uri ($uri);
+ok ($file_chooser->set_current_folder_uri ($uri));
 is ($file_chooser->get_current_folder_uri, $uri);
-}
 
 
 ## Preview widget
