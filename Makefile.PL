@@ -110,11 +110,6 @@ our %pod_files = (
 	'pm/SimpleMenu.pm' => '$(INST_MAN3DIR)/Gtk2::SimpleMenu.$(MAN3EXT)',
 	'api.pod'          => '$(INST_MAN3DIR)/Gtk2::api.$(MAN3EXT)',
 	'devel.pod'        => '$(INST_MAN3DIR)/Gtk2::devel.$(MAN3EXT)',
-);
-
-unless (grep /disable[-_]apidoc/i, @ARGV)
-{
-	print STDERR "Including ApiDoc pod.\n";
 	# we will be installing a whole slew of pod files, generated directly
 	# from the xs source -- but to have them installed and manified
 	# properly, we have to know their names at Makefile.PL time.
@@ -122,12 +117,9 @@ unless (grep /disable[-_]apidoc/i, @ARGV)
 	# basically means that if you create a new package name in the xs
 	# code, you'll need to re-run Makefile.PL.  you already need to
 	# re-run to pick up new XS files, so that's not such a big deal. 
-	%pod_files = ( 
-		%pod_files, 
-		Glib::MakeHelper->do_pod_files (@xs_files),
-	);
-}
-	
+	Glib::MakeHelper->do_pod_files (@xs_files),
+);
+
 if (grep /enable[-_]faq/i, @ARGV)
 {
 	print STDERR "Including FAQ in pod, retrieved from Gtk2-Perl site.\n";
