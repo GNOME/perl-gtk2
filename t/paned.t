@@ -81,7 +81,7 @@ print "handle-size $pad\n";
 );
 use Data::Dumper;
 
-$i;
+$i = 0;
 
 Glib::Timeout->add (250, sub {
 #Glib::Timeout->add (1000, sub {
