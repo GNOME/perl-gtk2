@@ -7,7 +7,8 @@
 # 	- rm
 #########################
 
-use Gtk2::TestHelper tests => 42;
+use strict;
+use Gtk2::TestHelper tests => 50;
 
 my @actions_used = (qw/1 0 0 0 0 0/);
 my @items = (
@@ -51,7 +52,7 @@ my @items = (
 		sub {
 			my ($data, $action, $widget) = @_;
 
-			is( $data, 44 );
+			isa_ok( $data, 'HASH' );
 			isa_ok( $widget, "Gtk2::MenuItem" );
 
 			my $tmp_fac = Gtk2::ItemFactory->popup_data_from_widget($widget);
@@ -76,13 +77,18 @@ my @items = (
 
 sub callback
 {
-	shift;
-	$actions_used[shift]++;
+	my ($data, $action, $item) = @_;
+	isa_ok ($data, 'HASH', 'callback data');
+	$actions_used[$action]++;
+	isa_ok ($item, 'Gtk2::MenuItem');
 }
 
 ok( my $fac = Gtk2::ItemFactory->new('Gtk2::Menu', '<main>', undef) );
 
-$fac->create_items(44, @items);
+my $item = pop @items;
+$fac->create_items({foo=>'bar'}, @items);
+$fac->create_item ($item, {foo=>'bar'});
+push @items, $item;
 
 $fac->set_translate_func(sub {
 	my ($path, $data) = @_;

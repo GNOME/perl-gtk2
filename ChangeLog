@@ -1,3 +1,13 @@
+2004/09/01 21:14 (-0400) muppetman
+
+	* xs/GtkItemFactory.xs: fix bug in handling of the callback data
+	sv in gtk2perl_item_factory_create_item_helper() that allowed callback
+	user data to disappear or point to the wrong value by the time the
+	callback was invoked.
+
+	* t/GtkItemFactory.t:  beef up the unit test to verify that
+	complex callback data gets the proper lifetime.
+
 2004/08/29 14:27 (-0400) muppetman
 
 	* README, NEWS, Gtk2.pm: unstable development release 1.055
