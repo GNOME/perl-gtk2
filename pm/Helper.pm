@@ -4,18 +4,18 @@
 
 package Gtk2::Helper;
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 use Carp;
 use strict;
 
-use Gtk2;
+use Glib;
 
 sub add_watch {
 	shift; # lose the class
 	my ($fd, $cond, $callback, $data) = @_;
 
-	# map 'read' and 'write' to GIO enums
+	# map 'in' and 'out' to GIO enums
 	$cond = $cond eq 'in'  ? 'G_IO_IN'  :
 		$cond eq 'out' ? 'G_IO_OUT' :
 		croak "Invalid condition flag. Expecting: 'in' / 'out'";
@@ -54,7 +54,7 @@ Gtk2::Helper - Convenience functions for the Gtk2 module
 
   use Gtk2::Helper;
 
-  # Handle I/O watchers easily
+  # Handle I/O watchers easily, like Gtk 1.x did
   $tag = Gtk2::Helper->add_watch ( $fd, $cond, $callback, $data )
   $rc  = Gtk2::Helper->remove_watch ( $tag )
 
@@ -91,6 +91,13 @@ A subroutine reference or closure, which is called, if you can safely
 operate on the filehandle, without the risk of blocking your application,
 because the filehandle is not ready for reading resp. writing.
 
+But aware: you should not use Perl's builtin read and write functions here
+because these operate always with buffered I/O. Use low level sysread() and
+syswrite() instead. Otherwise Perl may read more data into its internal
+buffer as your callback actually consumes. But Glib won't call the callback
+on data which is already in Perl's buffer, only when events on the
+the underlying Unix file descriptor occur.
+
 The callback subroutine should return always true. Two signal
 watchers are connected internally (the I/O watcher, and a HUP
 watcher, which is called on eof() or other exceptions). Returning
@@ -99,6 +106,11 @@ automatically. Because we have two watchers internally, only one
 of them is removed, but probably not both. So always return true
 and use Gtk2::Helper->remove_watch to disable a watcher, which was
 installed with Gtk2::Helper->add_watch.
+
+(Gtk2::Helper could circumvent this by wrapping your callback
+with a closure returning always true. But why adding another level
+of indirection if writing a simple "1;" at the end of your callback
+solves this problem? ;)
 
 =item $data
 
@@ -115,11 +127,11 @@ remove the watcher.
 B<Example:>
 
   # open a pipe to a ls command
+  use FileHandle;
   my $fh = FileHandle->new;
-  open ($fh, "ls -l |")
-  	or die "can't fork";
+  open ($fh, "ls -l |") or die "can't fork";
 
-  # install the watcher for this pipe
+  # install a read watcher for this pipe
   my $tag;
   $tag = Gtk2::Helper->add_watch ( $fh->fileno, 'in', sub {
     watcher_callback( $fh, $tag );
@@ -128,18 +140,19 @@ B<Example:>
   sub watcher_callback {
       my ($fh, $tag) = @_;
 
-      # check if the connected pipe is closed
-      if ( eof($fh) ) {
+      # we safely can read a chunk into $buffer
+      my $buffer;
+
+      if ( not sysread($fh, $buffer, 4096) ) {
+        # obviously the connected pipe was closed
         Gtk2::Helper->remove_watch ($tag)
 	    or die "couldn't remove watcher";
 	close($fh);
 	return 1;
       }
 
-      # we safely can read one line
-      my $line = <$fh>;
-      
-      # do something with $line ...
+      # do something with $buffer ...
+      print $buffer;
 
       # *always* return true
       return 1;
