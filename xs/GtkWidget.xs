@@ -478,10 +478,9 @@ gtk_widget_get_colormap	(widget)
 GdkEventMask
 gtk_widget_get_events (widget)
 	GtkWidget	*widget
-	CODE:
+    CODE:
 	RETVAL = gtk_widget_get_events (widget);
-	warn ("gtk_widget_get_events returned 0x%08x", RETVAL);
-	OUTPUT:
+    OUTPUT:
 	RETVAL
 
  #void	     gtk_widget_get_pointer	(GtkWidget	*widget,
