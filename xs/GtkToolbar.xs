@@ -57,7 +57,7 @@ gtk2perl_toolbar_insert_internal (GtkToolbar * toolbar,
 				  WhichInsert which,
 				  WhichOp op)
 {
-	GtkWidget * w;
+	GtkWidget * w = NULL;
 	const char * real_tooltip_text = NULL;
 	const char * real_tooltip_private_text = NULL;
 
