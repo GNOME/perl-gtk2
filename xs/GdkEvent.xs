@@ -166,25 +166,23 @@ gboolean
 gdk_events_pending (class)
 	SV * class
     C_ARGS:
+	/*void*/
 
-
-# ## GdkEvent* gdk_event_get (void)
-### caller must free
+ ## GdkEvent* gdk_event_get (void)
+ ## GdkEvent* gdk_event_peek (void)
+## caller must free
 #GdkEvent_ornull *
-#gdk_event_get (class)
-#	SV * class
-#    C_ARGS:
-#
-#
-# ## GdkEvent* gdk_event_peek (void)
-### caller must free
-#GdkEvent_ornull*
-#gdk_event_peek (class)
-#	SV * class
-#    C_ARGS:
-#
+GdkEvent*
+gdk_event_get (class)
+	SV * class
+    ALIAS:
+	get = 0
+	peek = 1
+    C_ARGS:
+	/*void*/
 
  ## GdkEvent* gdk_event_get_graphics_expose (GdkWindow *window)
+#GdkEvent_ornull *
 GdkEvent*
 gdk_event_get_graphics_expose (window)
 	GdkWindow *window
@@ -216,10 +214,8 @@ GdkEvent*
 gdk_event_copy (event)
 	GdkEvent *event
 
+ # automatic
  ## void gdk_event_free (GdkEvent *event)
- ##void
- ##gdk_event_free (event)
- ##	GdkEvent *event
 
  ## guint32 gdk_event_get_time (GdkEvent *event)
 guint
@@ -310,34 +306,21 @@ axis (event, axis_use)
     OUTPUT:
 	RETVAL
 
-
+ # FIXME needs a callback... do we really want this from perl?
  ## void gdk_event_handler_set (GdkEventFunc func, gpointer data, GDestroyNotify notify)
  ##void
  ##gdk_event_handler_set (func, data, notify)
  ##	GdkEventFunc func
  ##	gpointer data
  ##	GDestroyNotify notify
- ##
- ## void gdk_event_set_screen (GdkEvent *event, GdkScreen *screen)
- ##void
- ##gdk_event_set_screen (event, screen)
- ##	GdkEvent *event
- ##	GdkScreen *screen
- ##
- ##void
- ##gdk_set_show_events (class, show_events)
- ##	SV * class
- ##	gboolean show_events
- ##    C_ARGS:
- ##	show_events
- ##
- ##gboolean
- ##gdk_get_show_events (class)
- ##	SV * class
- ##    C_ARGS:
- ##
 
-#if GTK_CHECK_VERSION(2,2,0)
+#ifdef GDK_TYPE_SCREEN
+
+## void gdk_event_set_screen (GdkEvent *event, GdkScreen *screen)
+void
+gdk_event_set_screen (event, screen)
+	GdkEvent *event
+	GdkScreen *screen
 
 void
 gdk_event_set_screen (event, screen)
@@ -348,20 +331,7 @@ GdkScreen *
 gdk_event_get_screen (event)
 	GdkEvent * event
 
-#endif
-
- ## void gdk_add_client_message_filter (GdkAtom message_type, GdkFilterFunc func, gpointer data)
- ##void
- ##gdk_add_client_message_filter (message_type, func, data)
- ##	GdkAtom message_type
- ##	GdkFilterFunc func
- ##	gpointer data
- ##
- ## gboolean gdk_setting_get (const gchar *name, GValue *value)
- ##gboolean
- ##gdk_setting_get (name, value)
- ##	const gchar *name
- ##	GValue *value
+#endif /* have GdkScreen */
 
  ## since we're overriding the package names, Glib::Boxed::DESTROY won't
  ## be able to find the right destructor, because these new names don't
@@ -417,11 +387,6 @@ DESTROY (sv)
 ##   Scroll: A mouse wheel was scrolled either up or down.
 
 
-##MODULE = Gtk2::Gdk::Event	PACKAGE = Gtk2::Gdk::Event::Any
-##
-##BOOT:
-##	gperl_set_isa ("Gtk2::Gdk::Event::Any", "Gtk2::Gdk::Event");
-
  # struct _GdkEventAny
  # {
  #   GdkEventType type;
@@ -456,7 +421,6 @@ send_event (event)
 MODULE = Gtk2::Gdk::Event	PACKAGE = Gtk2::Gdk::Event::Expose
 
 BOOT:
-	//gperl_set_isa ("Gtk2::Gdk::Event::Expose", "Gtk2::Gdk::Event::Any");
 	gperl_set_isa ("Gtk2::Gdk::Event::Expose", "Gtk2::Gdk::Event");
 
 
@@ -478,6 +442,7 @@ area (event)
     OUTPUT:
 	RETVAL
 
+ # FIXME need GdkRegion
 #GdkRegion_copy*
 #region (event)
 #	GdkEvent * event
@@ -497,7 +462,6 @@ count (event)
 MODULE = Gtk2::Gdk::Event	PACKAGE = Gtk2::Gdk::Event::NoExpose
 
 BOOT:
-	//gperl_set_isa ("Gtk2::Gdk::Event::NoExpose", "Gtk2::Gdk::Event::Any");
 	gperl_set_isa ("Gtk2::Gdk::Event::NoExpose", "Gtk2::Gdk::Event");
 
  #struct _GdkEventNoExpose
@@ -510,7 +474,6 @@ BOOT:
 MODULE = Gtk2::Gdk::Event	PACKAGE = Gtk2::Gdk::Event::Visibility
 
 BOOT:
-	//gperl_set_isa ("Gtk2::Gdk::Event::Visibility", "Gtk2::Gdk::Event::Any");
 	gperl_set_isa ("Gtk2::Gdk::Event::Visibility", "Gtk2::Gdk::Event");
 
  #struct _GdkEventVisibility
@@ -533,7 +496,6 @@ state (event)
 MODULE = Gtk2::Gdk::Event	PACKAGE = Gtk2::Gdk::Event::Motion
 
 BOOT:
-	//gperl_set_isa ("Gtk2::Gdk::Event::Motion", "Gtk2::Gdk::Event::Any");
 	gperl_set_isa ("Gtk2::Gdk::Event::Motion", "Gtk2::Gdk::Event");
 
  #struct _GdkEventMotion
@@ -562,7 +524,6 @@ is_hint (event)
 MODULE = Gtk2::Gdk::Event	PACKAGE = Gtk2::Gdk::Event::Button
 
 BOOT:
-	//gperl_set_isa ("Gtk2::Gdk::Event::Button", "Gtk2::Gdk::Event::Any");
 	gperl_set_isa ("Gtk2::Gdk::Event::Button", "Gtk2::Gdk::Event");
 
  #struct _GdkEventButton
@@ -591,7 +552,6 @@ button (event)
 MODULE = Gtk2::Gdk::Event	PACKAGE = Gtk2::Gdk::Event::Scroll
 
 BOOT:
-	//gperl_set_isa ("Gtk2::Gdk::Event::Scroll", "Gtk2::Gdk::Event::Any");
 	gperl_set_isa ("Gtk2::Gdk::Event::Scroll", "Gtk2::Gdk::Event");
 
  #struct _GdkEventScroll
@@ -620,7 +580,6 @@ direction (event)
 MODULE = Gtk2::Gdk::Event	PACKAGE = Gtk2::Gdk::Event::Key
 
 BOOT:
-	//gperl_set_isa ("Gtk2::Gdk::Event::Key", "Gtk2::Gdk::Event::Any");
 	gperl_set_isa ("Gtk2::Gdk::Event::Key", "Gtk2::Gdk::Event");
 
  #struct _GdkEventKey
@@ -664,7 +623,6 @@ string (event)
 MODULE = Gtk2::Gdk::Event	PACKAGE = Gtk2::Gdk::Event::Crossing
 
 BOOT:
-	//gperl_set_isa ("Gtk2::Gdk::Event::Crossing", "Gtk2::Gdk::Event::Any");
 	gperl_set_isa ("Gtk2::Gdk::Event::Crossing", "Gtk2::Gdk::Event");
 
  #struct _GdkEventCrossing
@@ -695,7 +653,6 @@ mode (event)
 MODULE = Gtk2::Gdk::Event	PACKAGE = Gtk2::Gdk::Event::Focus
 
 BOOT:
-	//gperl_set_isa ("Gtk2::Gdk::Event::Focus", "Gtk2::Gdk::Event::Any");
 	gperl_set_isa ("Gtk2::Gdk::Event::Focus", "Gtk2::Gdk::Event");
 
  #struct _GdkEventFocus
@@ -717,7 +674,6 @@ in (event)
 MODULE = Gtk2::Gdk::Event	PACKAGE = Gtk2::Gdk::Event::Configure
 
 BOOT:
-	//gperl_set_isa ("Gtk2::Gdk::Event::Configure", "Gtk2::Gdk::Event::Any");
 	gperl_set_isa ("Gtk2::Gdk::Event::Configure", "Gtk2::Gdk::Event");
 
  #struct _GdkEventConfigure
@@ -744,7 +700,6 @@ dim (event)
 MODULE = Gtk2::Gdk::Event	PACKAGE = Gtk2::Gdk::Event::Property
 
 BOOT:
-	//gperl_set_isa ("Gtk2::Gdk::Event::Property", "Gtk2::Gdk::Event::Any");
 	gperl_set_isa ("Gtk2::Gdk::Event::Property", "Gtk2::Gdk::Event");
 
  #struct _GdkEventProperty
@@ -760,7 +715,6 @@ BOOT:
 MODULE = Gtk2::Gdk::Event	PACKAGE = Gtk2::Gdk::Event::Selection
 
 BOOT:
-	//gperl_set_isa ("Gtk2::Gdk::Event::Selection", "Gtk2::Gdk::Event::Any");
 	gperl_set_isa ("Gtk2::Gdk::Event::Selection", "Gtk2::Gdk::Event");
 
  #struct _GdkEventSelection
@@ -778,7 +732,6 @@ BOOT:
 MODULE = Gtk2::Gdk::Event	PACKAGE = Gtk2::Gdk::Event::Proximity
 
 BOOT:
-	//gperl_set_isa ("Gtk2::Gdk::Event::Proximity", "Gtk2::Gdk::Event::Any");
 	gperl_set_isa ("Gtk2::Gdk::Event::Proximity", "Gtk2::Gdk::Event");
 
  #/* This event type will be used pretty rarely. It only is important
@@ -796,7 +749,6 @@ BOOT:
 MODULE = Gtk2::Gdk::Event	PACKAGE = Gtk2::Gdk::Event::Client
 
 BOOT:
-	//gperl_set_isa ("Gtk2::Gdk::Event::Client", "Gtk2::Gdk::Event::Any");
 	gperl_set_isa ("Gtk2::Gdk::Event::Client", "Gtk2::Gdk::Event");
 
  #struct _GdkEventClient
@@ -816,7 +768,6 @@ BOOT:
 MODULE = Gtk2::Gdk::Event	PACKAGE = Gtk2::Gdk::Event::Setting
 
 BOOT:
-	//gperl_set_isa ("Gtk2::Gdk::Event::Setting", "Gtk2::Gdk::Event::Any");
 	gperl_set_isa ("Gtk2::Gdk::Event::Setting", "Gtk2::Gdk::Event");
 
  #struct _GdkEventSetting
@@ -831,7 +782,6 @@ BOOT:
 MODULE = Gtk2::Gdk::Event	PACKAGE = Gtk2::Gdk::Event::WindowState
 
 BOOT:
-	//gperl_set_isa ("Gtk2::Gdk::Event::WindowState", "Gtk2::Gdk::Event::Any");
 	gperl_set_isa ("Gtk2::Gdk::Event::WindowState", "Gtk2::Gdk::Event");
 
  #struct _GdkEventWindowState
@@ -862,7 +812,6 @@ new_window_state (event)
 MODULE = Gtk2::Gdk::Event	PACKAGE = Gtk2::Gdk::Event::DND
 
 BOOT:
-	//gperl_set_isa ("Gtk2::Gdk::Event::DND", "Gtk2::Gdk::Event::Any");
 	gperl_set_isa ("Gtk2::Gdk::Event::DND", "Gtk2::Gdk::Event");
 
  #/* Event types for DND */
@@ -908,3 +857,47 @@ context (event)
  #  GdkEventSetting           setting;
  #};
 
+
+MODULE = Gtk2::Gdk::Event	PACKAGE = Gtk2::Gdk	PREFIX = gdk_
+
+# these are of limited usefulness, as you must have compiled GTK+ 
+# with debugging turned on.
+
+void
+gdk_set_show_events (class, show_events)
+	SV * class
+	gboolean show_events
+    C_ARGS:
+	show_events
+
+gboolean
+gdk_get_show_events (class)
+	SV * class
+    C_ARGS:
+	/*void*/
+
+ # FIXME needs a callback
+ ## void gdk_add_client_message_filter (GdkAtom message_type, GdkFilterFunc func, gpointer data)
+ ##void
+ ##gdk_add_client_message_filter (message_type, func, data)
+ ##	GdkAtom message_type
+ ##	GdkFilterFunc func
+ ##	gpointer data
+
+ ## gboolean gdk_setting_get (const gchar *name, GValue *value)
+SV *
+gdk_setting_get (class, name)
+	SV * class
+	const gchar *name
+    PREINIT:
+	GValue value = {0,};
+    CODE:
+	g_value_init (&value, G_TYPE_INT);
+	if (!gdk_setting_get (name, &value))
+		XSRETURN_UNDEF;
+	RETVAL = gperl_sv_from_value (&value);
+	g_value_unset (&value);
+    OUTPUT:
+	RETVAL
+
+MODULE = Gtk2::Gdk::Event	PACKAGE = Gtk2::Gdk::Event	PREFIX = gdk_event_
