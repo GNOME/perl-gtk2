@@ -1,3 +1,12 @@
+2004/03/03 00:04 (-0500) muppetman
+
+	* Gtk2.pm, README, NEWS: beta release 1.038
+
+	* Makefile.PL: require Glib 1.038
+ 
+	* t/GtkFileChooser.t, t/GtkListStore.t: disable some tests that
+	broke with gtk+ 2.3.5
+
 2004/03/02 23:35 (-0500) muppetman
  
 	* t/GdkEvent.t, xs/GdkEvent.xs: implement and test setters for
