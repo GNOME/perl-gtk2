@@ -6,6 +6,8 @@
 
 	* examples/cellrenderer_popup.pl: bump version check to 1.040
 
+	* t/GtkTreeModelIface.t: disable the TODO failures.
+
 2004/03/24 01:35 (+0100) kaffeetisch
 
 	* t/GtkFileChooser.t: Set select_multiple to FALSE again to make
