@@ -1,9 +1,19 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 11, noinit => 1;
+use Test::More;
+use Gtk2;
 
 Gtk2::Gdk::Threads -> init();
-Gtk2 -> init();
+
+if (Gtk2->init_check )
+{
+	plan test => 11;
+}
+else
+{	
+	plan skip_all => 'Gtk2->init_check failed, probably unable to '
+		. 'open DISPLAY';
+}
 
 Gtk2::Gdk::Threads -> enter();
 Gtk2::Gdk::Threads -> leave();
