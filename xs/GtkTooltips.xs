@@ -52,14 +52,13 @@ gtk_tooltips_set_tip (tooltips, widget, tip_text, tip_private=NULL)
 	if (tip_private && SvOK (tip_private))
 		real_tip_private = SvGChar (tip_private);
 	gtk_tooltips_set_tip (tooltips, widget, tip_text, real_tip_private);
-	/* work around a (bug|questionable behavior) in Gtk+, wherein the
-	 * widget on which you set a tooltip does not hold a reference on
-	 * the tooltips object.  we'll just stash a reference to the object
-	 * in the widget's user data, so that the object will live at least
-	 * as long as the widget. */
+	/* gtk+'s widgets do not hold a reference on the tooltips object,
+	 * as you might expect; in fact, it's the other way around.
+	 * let's use a weakref on the widget to keep the tooltips object
+	 * alive as long as the widget is alive. */
 	g_object_ref (G_OBJECT (tooltips));
-	g_object_set_data_full (G_OBJECT (widget), "_gtk2perl_tooltips_stash",
-	                        tooltips, (GDestroyNotify)g_object_unref);
+	g_object_weak_ref (G_OBJECT (widget),
+	                   (GWeakNotify)g_object_unref, tooltips);
 
 ## GtkTooltipsData* gtk_tooltips_data_get (GtkWidget *widget)
 =for apidoc
