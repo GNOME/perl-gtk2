@@ -32,7 +32,7 @@ use Cwd;
 our %build_reqs = (
 	'perl-ExtUtils-Depends'   => '0.2',
 	'perl-ExtUtils-PkgConfig' => '1.03',
-	'perl-Glib'               => '1.053',
+	'perl-Glib'               => '1.055',
 	'Gtk+'                    => '2.0.0',
 );
 
