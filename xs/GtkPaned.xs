@@ -6,6 +6,27 @@
 
 MODULE = Gtk2::Paned	PACKAGE = Gtk2::Paned	PREFIX = gtk_paned_
 
+SV *
+member (GtkPaned * paned)
+    ALIAS:
+	Gtk2::Paned::child1 = 1
+	Gtk2::Paned::child1_resize = 2
+	Gtk2::Paned::child1_shrink = 3
+	Gtk2::Paned::child2 = 4
+	Gtk2::Paned::child2_resize = 5
+	Gtk2::Paned::child2_shrink = 6
+    CODE:
+	switch (ix) {
+		case 1: RETVAL = newSVGtkWidget (paned->child1); break;
+		case 2: RETVAL = newSViv (paned->child1_resize); break;
+		case 3: RETVAL = newSViv (paned->child1_shrink); break;
+		case 4: RETVAL = newSVGtkWidget (paned->child2); break;
+		case 5: RETVAL = newSViv (paned->child2_resize); break;
+		case 6: RETVAL = newSViv (paned->child2_shrink); break;
+	}
+    OUTPUT:
+	RETVAL
+
 ## void gtk_paned_add1 (GtkPaned *paned, GtkWidget *child)
 void
 gtk_paned_add1 (paned, child)
