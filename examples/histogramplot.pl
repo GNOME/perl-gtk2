@@ -2,13 +2,14 @@
 
 # $Header$
 #
-# Copyright (c) 2002 by muppet, ported to gtk2-perl 2003 by muppet
+# Copyright (c) 2002 by muppet, ported from C to gtk2-perl 2003 by muppet
 
 package Histogram::Plot;
 
 use Gtk2;
 use warnings;
 use strict;
+use Data::Dumper;
 
 use constant FALSE => 0;
 use constant TRUE => 1;
@@ -21,133 +22,182 @@ use constant DRAG_PAD => 2;
 
 sub screen_to_threshold {
 	my ($plot, $sx) = @_;
-	my $data = $plot->get_data ('data');
-	my $val = ($sx - $data->{chartleft}) * 256 / $data->{chartwidth};
+	my $val = ($sx - $plot->{chartleft}) * 256 / $plot->{chartwidth};
 	return $val < 0 ? 0 : $val > 255 ? 255 : $val;
 }
 sub threshold_to_screen {
-	my $data = $_[0]->get_data ('data');
-	$_[1] / 256.0 * $data->{chartwidth} + $data->{chartleft}
+	$_[1] / 256.0 * $_[0]->{chartwidth} + $_[0]->{chartleft}
 }
 
-####static GtkDrawingAreaClass * parent_class = NULL;
-my $threshold_changed_signal = 0;
 
-#Glib::Type->register ("Gtk2::DrawingArea", __PACKAGE__);
-
-Glib::Type->register ("Gtk2::DrawingArea", __PACKAGE__,
+#
+# Glib::Objects are special; they're not normal perl objects (although
+# the bindings go out of their way to make them act like it).
+#
+# if you just want to add a new function for yourself to a Gtk2::DrawingArea,
+# the stuff we're about to get into is not strictly necessary; you could just
+# re-bless the object reference into the decendent class and add an @ISA for
+# it, like normal perl.
+#
+# however, adding signals, properties, or virtual function overrides to a
+# GObject-based class requires fiddling with a GObjectClass structure
+# specific to that subclass.  if you added a new property to a re-blessed
+# Glib::Object, *all* instances of that reblessed object's GObject parent
+# would have the new property!  that's because you didn't create a new
+# GObjectClass for that new subclass.
+#
+# in order to create a new type to which you can add signals and properties,
+# and which will be indistinguishable from "normal" GObjects at the C level
+# (which means you can pass it to other gtk functions), you need to 
+# register your subclass with the Glib::Type subsystem.
+#
+# here, we're registering the current package as a new subclass of
+# Gtk2::DrawingArea, and in the process adding a signal and a few
+# object properties.
+#
+use Glib::Object::Subclass
+	'Gtk2::DrawingArea',
 	signals => {
 		threshold_changed => {
 			flags       => [qw/run-first/],
-#			return_type => 'none', # void return
+			return_type => undef, # void return
 			param_types => [], # instance and data are automatic
 		},
 	},
-	properties => {
-	},
-);
+	properties => [
+		Glib::ParamSpec->double ('threshold',
+		                         'Threshold',
+		                         'Diving line between above and below',
+		                          0.0, 255.0, 127.0,
+		                         [qw/readable writable/]),
+		Glib::ParamSpec->boxed ('histogram',
+		                        'Histogram Data',
+		                        'Array reference containing histogram data',
+		                        'Glib::Scalar',
+		                        [qw/readable writable/]),
+		Glib::ParamSpec->boolean ('continuous',
+		                          'Continuous updates',
+		                          'Emit the threshold_changed signal on every mouse event during drag, rather than just on release',
+		                          FALSE,
+		                          [qw/readable writable/]),
+	],
+;
 
-sub INSTANCE_INIT {
+#
+# at the lowest level, new Glib::Objects are created by Glib::Object::new.
+# this function creates the instance and calls the instance initializers
+# for all classes in the object's lineage, from the parent to the descendant.
+# if there's any setup you would need to do in a constructor, it goes here.
+#
+sub INIT_INSTANCE {
 	my $plot = shift;
-	#warn "INSTANCE_INIT $plot";
+	warn "INIT_INSTANCE $plot";
 
-	$plot->set_data(data => {
-		threshold       => 0,
-		histogram       => [ 0..255 ],
-		pixmap          => undef,
-		th_gc           => undef,
-		dragging        => FALSE,
-		origin_layout   => $plot->create_pango_layout ("0.0%"),
-		maxval_layout   => $plot->create_pango_layout ("100.0%"),
-		current_layout  => $plot->create_pango_layout ("0"),
-		maxscale_layout => $plot->create_pango_layout ("255"),
-		minscale_layout => $plot->create_pango_layout ("0"),
-		max             => 0,
+	$plot->{threshold}       = 0;
+	$plot->{histogram}       = [ 0..255 ];
+	$plot->{pixmap}          = undef;
+	$plot->{th_gc}           = undef;
+	$plot->{dragging}        = FALSE;
+	$plot->{continuous}      = FALSE;
+	$plot->{origin_layout}   = $plot->create_pango_layout ("0.0%");
+	$plot->{maxval_layout}   = $plot->create_pango_layout ("100.0%");
+	$plot->{current_layout}  = $plot->create_pango_layout ("0");
+	$plot->{maxscale_layout} = $plot->create_pango_layout ("255");
+	$plot->{minscale_layout} = $plot->create_pango_layout ("0");
+	$plot->{max}             = 0;
 
-		chartwidth      => 0,
-		chartleft       => 0,
-		bottom          => 0,
-		height          => 0,
-	});
+	$plot->{chartwidth}      = 0;
+	$plot->{chartleft}       = 0;
+	$plot->{bottom}          = 0;
+	$plot->{height}          = 0;
+
+	$plot->set_events ([qw/exposure-mask
+			       leave-notify-mask
+			       button-press-mask
+			       button-release-mask
+			       pointer-motion-mask
+			       pointer-motion-hint-mask/]);
+
+	# we don't have proper virtual overrides yet.
+	# so, you need to connect to the signal of the base class.
+	# yes, i know this doesn't work if the method you need to override
+	# doesn't have a signal associated with it.
+	$plot->signal_connect (expose_event => \&expose_event);
+	$plot->signal_connect (configure_event => \&configure_event);
+	$plot->signal_connect (motion_notify_event => \&motion_notify_event);
+	$plot->signal_connect (button_press_event => \&button_press_event);
+	$plot->signal_connect (button_release_event => \&button_release_event);
+	$plot->signal_connect (size_request => \&size_request);
 }
 
-sub member : lvalue { $_[0]->get_data ('data')->{$_[1]} }
 
-sub threshold : lvalue { $_[0]->member ('threshold') }
-sub histogram : lvalue { $_[0]->member ('histogram') }
-sub pixmap : lvalue { $_[0]->member ('pixmap') }
-sub th_gc : lvalue { $_[0]->member ('th_gc') }
-sub dragging : lvalue { $_[0]->member ('dragging') }
-sub origin_layout : lvalue { $_[0]->member ('origin_layout') }
-sub maxval_layout : lvalue { $_[0]->member ('maxval_layout') }
-sub current_layout : lvalue { $_[0]->member ('current_layout') }
-sub maxscale_layout : lvalue { $_[0]->member ('maxscale_layout') }
-sub minscale_layout : lvalue { $_[0]->member ('minscale_layout') }
-sub max : lvalue { $_[0]->member ('max') }
-
-=out
-
-sub histogram_plot_finalize {
-	my $plot = shift;
-
-	HistogramPlot * plot;
-
-	if (plot->pixmap) {
-		g_object_unref (G_OBJECT (plot->pixmap));
-		plot->pixmap = NULL;
+#
+# whenever anybody tries to get the value of a gobject property belonging
+# to this class, this function will be called.  note that this call
+# signature is different from the C version -- here we return the requested
+# value.
+#
+sub GET_PROPERTY {
+	my ($plot, $pspec) = @_;
+	if ($pspec->get_name eq 'threshold') {
+		return $plot->{threshold};
+	} elsif ($pspec->get_name eq 'histogram') {
+		return $plot->{histogram};
+	} elsif ($pspec->get_name eq 'continuous') {
+		return $plot->{continuous};
 	}
-	if (plot->th_gc) {
-		g_object_unref (G_OBJECT (plot->th_gc));
-		plot->th_gc = NULL;
-	}
-	if (plot->origin_layout) {
-		g_object_unref (G_OBJECT (plot->origin_layout));
-		g_object_unref (G_OBJECT (plot->maxval_layout));
-		g_object_unref (G_OBJECT (plot->current_layout));
-		g_object_unref (G_OBJECT (plot->maxscale_layout));
-		g_object_unref (G_OBJECT (plot->minscale_layout));
-		plot->origin_layout = NULL;
-	}
-
-	G_OBJECT_CLASS (parent_class)->finalize (object);
 }
 
-=cut
+#
+# whenever anybody tries to set the value of a gobject property belonging
+# to this class, this function will be called.  the provided Glib::Object::Base
+# method just stores the value in a hash key, but here we need to do other
+# bits of work when a value is changed.
+#
+# note that this one also is changed from the C call signature; the order
+# of the arguments has been swizzled to be more consistent with GET_PROPERTY.
+#
+sub SET_PROPERTY {
+	my ($plot, $pspec, $newval) = @_;
+	if ($pspec->get_name eq 'threshold') {
+		$plot->set_plot_data ($newval, ());
+	} elsif ($pspec->get_name eq 'histogram') {
+		$plot->set_plot_data (undef, @$newval);
+	} elsif ($pspec->get_name eq 'continuous') {
+		$plot->{continuous} = $newval;
+	}
+}
 
 
 sub calc_dims {
 	my $plot = shift;
 
-	my $data = $plot->get_data ('data');
-
-	my $context = $data->{origin_layout}->get_context;
+	my $context = $plot->{origin_layout}->get_context;
 	my $fontdesc = $context->get_font_description;
 	my $metrics = $context->get_metrics ($fontdesc, undef);
 
-	$data->{textwidth} = 5 * $metrics->get_approximate_digit_width
+	$plot->{textwidth} = 5 * $metrics->get_approximate_digit_width
 			   / Gtk2::Pango->scale; #PANGO_SCALE;
-	$data->{textheight} = ($metrics->get_descent + $metrics->get_ascent)
+	$plot->{textheight} = ($metrics->get_descent + $metrics->get_ascent)
 		            / Gtk2::Pango->scale; #PANGO_SCALE;
 	
 	#pango_font_metrics_unref (metrics);
 	
-	$data->{chartleft} = $data->{textwidth} + 2;
-	$data->{chartwidth} = $plot->allocation->width - $data->{chartleft};
-	$data->{bottom} = $plot->allocation->height - $data->{textheight} - 3;
-	$data->{height} = $data->{bottom};
+	$plot->{chartleft} = $plot->{textwidth} + 2;
+	$plot->{chartwidth} = $plot->allocation->width - $plot->{chartleft};
+	$plot->{bottom} = $plot->allocation->height - $plot->{textheight} - 3;
+	$plot->{height} = $plot->{bottom};
 }
 
 
 # FIXME this virtual override doesn't get called, because the C function
 #       pointer in the parent class' class structure has not been altered.
+#  so, we have to connect to this as a signal.
 sub size_request {
 	my ($plot, $requisition) = @_;
 
-	my $data = $plot->get_data ('data');
-	$requisition->width = $data->{textwidth} + 2 + MIN_CHART_WIDTH;
-	$requisition->height = $data->{textheight} + MIN_CHART_HEIGHT;
-
-##	return $requisition;
+	$requisition->width ($plot->{textwidth} + 2 + MIN_CHART_WIDTH);
+	$requisition->height ($plot->{textheight} + MIN_CHART_HEIGHT);
 }
 
 
@@ -155,7 +205,7 @@ sub expose_event {
 	my ($plot, $event) = @_;
 
 	$plot->window->draw_drawable ($plot->style->fg_gc($plot->state),
-				      $plot->pixmap,
+				      $plot->{pixmap},
 				      $event->area->x, $event->area->y,
 				      $event->area->x, $event->area->y,
 				      $event->area->width, $event->area->height);
@@ -165,13 +215,10 @@ sub expose_event {
 sub configure_event {
 	my ($plot, $event) = @_;
 
-#	if ($plot->pixmap)
-#		g_object_unref (G_OBJECT (plot->pixmap));
-
-	$plot->pixmap = Gtk2::Gdk::Pixmap->new ($plot->window,
-					        $plot->allocation->width,
-					        $plot->allocation->height,
-						-1); # same depth as window
+	$plot->{pixmap} = Gtk2::Gdk::Pixmap->new ($plot->window,
+	                                          $plot->allocation->width,
+	                                          $plot->allocation->height,
+	                                          -1); # same depth as window
 
 	# update dims
 	$plot->calc_dims;
@@ -184,35 +231,33 @@ sub configure_event {
 sub draw_th_marker {
 	my ($plot, $w, $draw_text) = @_;
 
-	my $data = $plot->get_data ('data');
-
-	if ( ! $data->{th_gc} ) {
-		$data->{th_gc} = Gtk2::Gdk::GC->new ($data->{pixmap});
-		$data->{th_gc}->copy ($plot->style->fg_gc ($plot->state));
-		$data->{th_gc}->set_function ('invert');
+	if (!$plot->{th_gc}) {
+		$plot->{th_gc} = Gtk2::Gdk::GC->new ($plot->{pixmap});
+		$plot->{th_gc}->copy ($plot->style->fg_gc ($plot->state));
+		$plot->{th_gc}->set_function ('invert');
 	}
-	$w->draw_line ($data->{th_gc},
-		       $plot->threshold_to_screen ($data->{threshold}), 0,
-		       $plot->threshold_to_screen ($data->{threshold}), $data->{bottom});
+	$w->draw_line ($plot->{th_gc},
+		       $plot->threshold_to_screen ($plot->{threshold}), 0,
+		       $plot->threshold_to_screen ($plot->{threshold}), $plot->{bottom});
 
-	$data->{current_layout}->set_text (sprintf '%d', $data->{threshold});
-	my ($textwidth, $textheight) = $data->{current_layout}->get_pixel_size;
-	$data->{marker_textwidth} = $textwidth;
+	$plot->{current_layout}->set_text (sprintf '%d', $plot->{threshold});
+	my ($textwidth, $textheight) = $plot->{current_layout}->get_pixel_size;
+	$plot->{marker_textwidth} = $textwidth;
 
 	# erase text
 	$w->draw_rectangle ($plot->style->bg_gc($plot->state), 
 			    TRUE,
-			    $plot->threshold_to_screen ($data->{threshold})
-			    	- $data->{marker_textwidth} - 1,
-			    $data->{bottom} + 1,
-			    $data->{marker_textwidth} + 1,
+			    $plot->threshold_to_screen ($plot->{threshold})
+			    	- $plot->{marker_textwidth} - 1,
+			    $plot->{bottom} + 1,
+			    $plot->{marker_textwidth} + 1,
 			    $textheight);
 
-	$w->draw_layout ($plot->th_gc, 
-			 $plot->threshold_to_screen ($data->{threshold})
-				 	- $data->{marker_textwidth},
-				 $data->{bottom} + 1,
-				 $data->{current_layout})
+	$w->draw_layout ($plot->{th_gc}, 
+			 $plot->threshold_to_screen ($plot->{threshold})
+				 	- $plot->{marker_textwidth},
+				 $plot->{bottom} + 1,
+				 $plot->{current_layout})
 		if $draw_text;
 }
 
@@ -223,12 +268,10 @@ sub draw_th_marker {
 sub marker_hit {
 	my ($plot, $screen_x, $screen_y) = @_;
 
-	my $data = $plot->get_data ('data');
-
-	my $screen_th = $plot->threshold_to_screen ($data->{threshold});
-	if ($screen_y > $data->{bottom}) {
+	my $screen_th = $plot->threshold_to_screen ($plot->{threshold});
+	if ($screen_y > $plot->{bottom}) {
 		# check for hit on text
-		if ($screen_x > $screen_th - $data->{marker_textwidth} &&
+		if ($screen_x > $screen_th - $plot->{marker_textwidth} &&
 		    $screen_x <= $screen_th) {
 			return $screen_th;
 		}
@@ -245,29 +288,27 @@ sub marker_hit {
 sub button_press_event {
 	my ($plot, $event) = @_;
 
-	my $data = $plot->get_data ('data');
-
 	return FALSE
-		if ($event->button != 1 || $data->{pixmap} == undef);
+		if ($event->button != 1 || not defined $plot->{pixmap});
 
 	my $sx = $plot->marker_hit ($event->x, $event->y);
 	return FALSE
 		unless defined $sx;
 
 	# erase the previous threshold line from the pixmap...
-	$data->{threshold_back} = $data->{threshold};
-	$plot->draw_th_marker ($data->{pixmap}, FALSE);
+	$plot->{threshold_back} = $plot->{threshold};
+	$plot->draw_th_marker ($plot->{pixmap}, FALSE);
 	$plot->window->draw_drawable ($plot->style->fg_gc($plot->state),
-				      $data->{pixmap},
-			$plot->threshold_to_screen ($data->{threshold}) - $data->{marker_textwidth}, 0,
-			$plot->threshold_to_screen ($data->{threshold}) - $data->{marker_textwidth}, 0,
-			$data->{marker_textwidth} + 1, $plot->allocation->height);
+				      $plot->{pixmap},
+			$plot->threshold_to_screen ($plot->{threshold}) - $plot->{marker_textwidth}, 0,
+			$plot->threshold_to_screen ($plot->{threshold}) - $plot->{marker_textwidth}, 0,
+			$plot->{marker_textwidth} + 1, $plot->allocation->height);
 	# and draw the new one on the window.
 	$plot->draw_th_marker ($plot->window, TRUE);
-	$data->{dragging} = TRUE;
+	$plot->{dragging} = TRUE;
 
 	$drag_info{offset_x} = 
-		$plot->threshold_to_screen ($data->{threshold}) - $event->x;
+		$plot->threshold_to_screen ($plot->{threshold}) - $event->x;
 
 	return TRUE;
 }
@@ -275,29 +316,28 @@ sub button_press_event {
 sub button_release_event {
 	my ($plot, $event) = @_;
 
-	my $data = $plot->get_data ('data');
-
 	return FALSE
 		if ($event->button != 1 
-		    || !$data->{dragging}
-		    || $data->{pixmap} == undef);
+		    || !$plot->{dragging}
+		    || not defined $plot->{pixmap});
 
 	# erase the previous threshold line from the window...
 	$plot->draw_th_marker ($plot->window, FALSE);
-	$data->{threshold} = 
+	$plot->{threshold} = 
 		$plot->screen_to_threshold ($event->x + $drag_info{offset_x});
 	# and draw the new one on the pixmap.
-	$plot->draw_th_marker ($data->{pixmap}, TRUE);
+	$plot->draw_th_marker ($plot->{pixmap}, TRUE);
 	$plot->window->draw_drawable ($plot->style->fg_gc ($plot->state),
-				      $data->{pixmap},
+				      $plot->{pixmap},
 				      0, 0, 0, 0,
 				      $plot->allocation->width,
 				      $plot->allocation->height);
-	$data->{dragging} = FALSE;
+	$plot->{dragging} = FALSE;
 
 	# let any listeners know that if the threshold has changed
 	$plot->signal_emit ("threshold-changed")
-		if $data->{threshold_back} != $plot->threshold;
+		if $plot->{threshold_back} != $plot->{threshold}
+		   and not $plot->{continuous};
 
 	return TRUE;
 }
@@ -318,11 +358,11 @@ sub motion_notify_event {
 	}
 	#warn "x $x y $y state $state\n";
 
-	if ($plot->dragging) {
+	if ($plot->{dragging}) {
 		return FALSE
 			##if (!(state & GDK_BUTTON1_MASK) ||
 			if (!(grep /button1-mask/, @$state) ||
-			    $plot->pixmap == undef);
+			    not defined $plot->{pixmap});
 		
 		$plot->draw_th_marker ($plot->window, FALSE);
 		
@@ -333,8 +373,11 @@ sub motion_notify_event {
 		$x = $plot->threshold_to_screen (0) if $t < 0;
 		$x = $plot->threshold_to_screen (255) if $t > 255;
 		
-		$plot->threshold = $plot->screen_to_threshold ($x);
+		$plot->{threshold} = $plot->screen_to_threshold ($x);
 		$plot->draw_th_marker ($plot->window, TRUE);
+
+		$plot->signal_emit ("threshold-changed")
+			if $plot->{continuous};
 
 	} else {
 		my $c = undef;
@@ -356,52 +399,48 @@ sub histogram_draw {
 	my $plot = shift;
 	my $gc = $plot->style->fg_gc ($plot->state);
 
-	my $data = $plot->get_data ('data');
-#	use Data::Dumper;
-#	print Dumper($data);
-
 	# erase (the hard way)
-	$plot->pixmap->draw_rectangle ($plot->style->bg_gc ($plot->state),
-	                               TRUE, 0, 0,
-				       $plot->allocation->width,
-				       $plot->allocation->height);
+	$plot->{pixmap}->draw_rectangle ($plot->style->bg_gc ($plot->state),
+	                                 TRUE, 0, 0,
+	                                 $plot->allocation->width,
+	                                 $plot->allocation->height);
 
-	if ($data->{max} != 0) {
+	if ($plot->{max} != 0 && scalar(@{$plot->{histogram}})) {
 		##GdkPoint points[256+2];
-		my @hist = @{ $data->{histogram} };
+		my @hist = @{ $plot->{histogram} };
 		my @points = ();
 		for (my $i = 0; $i < 256; $i++) {
 			push @points,
-				$i/256.0 * $data->{chartwidth} + $data->{chartleft},
-				$data->{bottom} - $data->{height} * $hist[$i] / $data->{max};
+				$i/256.0 * $plot->{chartwidth} + $plot->{chartleft},
+				$plot->{bottom} - $plot->{height} * $hist[$i] / $plot->{max};
 		}
-		$data->{pixmap}->draw_polygon ($gc, TRUE, @points,
-		              $plot->allocation->width, $data->{bottom} + 1,
-		              $data->{chartleft}, $data->{bottom} + 1);
+		$plot->{pixmap}->draw_polygon ($gc, TRUE, @points,
+		              $plot->allocation->width, $plot->{bottom} + 1,
+		              $plot->{chartleft}, $plot->{bottom} + 1);
 	}
 	# mark threshold
 	# should draw this after the scale...
-	draw_th_marker ($plot, $data->{pixmap}, TRUE);
+	draw_th_marker ($plot, $plot->{pixmap}, TRUE);
 	# the annotations
-	$data->{pixmap}->draw_line ($gc, 0, 0, $data->{chartleft}, 0);
-	$data->{pixmap}->draw_line ($gc, 0, $data->{bottom},
-				  $data->{chartleft}, $data->{bottom});
-	$data->{pixmap}->draw_line ($gc, $data->{chartleft}, $data->{bottom}, 
-				  $data->{chartleft},
-				  $data->{bottom} + $data->{textheight} + 1);
-	$data->{pixmap}->draw_line ($gc,
-		       $plot->allocation->width - 1, $data->{bottom},
-		       $plot->allocation->width - 1, $data->{bottom} + $data->{textheight} + 1);
-	$data->{pixmap}->draw_layout ($gc,
-			 $data->{chartleft} - (1 + $data->{textwidth}),
-			 1, $plot->maxval_layout);
-	$data->{pixmap}->draw_layout ($gc,
-			 $data->{chartleft} - (1 + $data->{textwidth}),
-			 $data->{bottom} - 1 - $data->{textheight}, 
-			 $data->{origin_layout});
-	$data->{pixmap}->draw_layout ($gc,
-			 $data->{chartleft} + 2, $data->{bottom} + 1,
-			 $data->{minscale_layout});
+	$plot->{pixmap}->draw_line ($gc, 0, 0, $plot->{chartleft}, 0);
+	$plot->{pixmap}->draw_line ($gc, 0, $plot->{bottom},
+				    $plot->{chartleft}, $plot->{bottom});
+	$plot->{pixmap}->draw_line ($gc, $plot->{chartleft}, $plot->{bottom}, 
+				    $plot->{chartleft},
+				    $plot->{bottom} + $plot->{textheight} + 1);
+	$plot->{pixmap}->draw_line ($gc,
+		       $plot->allocation->width - 1, $plot->{bottom},
+		       $plot->allocation->width - 1, $plot->{bottom} + $plot->{textheight} + 1);
+	$plot->{pixmap}->draw_layout ($gc,
+			 $plot->{chartleft} - (1 + $plot->{textwidth}),
+			 1, $plot->{maxval_layout});
+	$plot->{pixmap}->draw_layout ($gc,
+			 $plot->{chartleft} - (1 + $plot->{textwidth}),
+			 $plot->{bottom} - 1 - $plot->{textheight}, 
+			 $plot->{origin_layout});
+	$plot->{pixmap}->draw_layout ($gc,
+			 $plot->{chartleft} + 2, $plot->{bottom} + 1,
+			 $plot->{minscale_layout});
 }
 
 #####
@@ -411,27 +450,9 @@ sub histogram_draw {
 ##
 ## @return pointer to the HistogramPlot.
 ###
-sub new {
-	my $class = shift;
-	#my $plot = Glib::Object->_new ('Histogram::Plot');
-	my $plot = Gtk2::Widget->new ('Histogram::Plot');
-	#print "$plot\n";
-
-	$plot->signal_connect (expose_event => \&expose_event);
-	$plot->signal_connect (configure_event => \&configure_event);
-	$plot->signal_connect (motion_notify_event => \&motion_notify_event);
-	$plot->signal_connect (button_press_event => \&button_press_event);
-	$plot->signal_connect (button_release_event => \&button_release_event);
-
-	$plot->set_events ([qw/exposure-mask
-			       leave-notify-mask
-			       button-press-mask
-			       button-release-mask
-			       pointer-motion-mask
-			       pointer-motion-hint-mask/]);
-
-	return $plot;
-}
+#sub new {
+#	return Glib::Object::new (@_);
+#}
 
 ###
 ## @brief create a new histogram plot with a given dataset
@@ -463,7 +484,7 @@ sub update {
 	my $plot = shift;
 	# if the pixmap doesn't exist, we haven't been put on screen yet.
 	# don't bother drawing anything.
-	if ($plot->pixmap) {
+	if ($plot->{pixmap}) {
 		$plot->histogram_draw;
 		$plot->queue_draw;
 	}
@@ -483,8 +504,9 @@ sub set_plot_data {
 	my ($plot, $threshold, @hist) = @_;
 	#warn "$plot->set_plot_data";
 
-	$plot->threshold = $threshold if defined $threshold;
-	#$plot->set_data (threshold => $threshold) if defined $threshold;
+	###print Dumper($plot);
+
+	$plot->{threshold} = $threshold if defined $threshold;
 
 	if (@hist) {
 		my $total = 0;
@@ -494,12 +516,10 @@ sub set_plot_data {
 			$max = $hist[$i]
 				if $hist[$i] > $max;
 		}
-		$plot->max = $max;
-		#$plot->set_data (max => $max);
-		$plot->histogram = \@hist;
-		#$plot->set_data (histogram => \@hist);
-		$plot->maxval_layout->set_text 
-			( sprintf "%4.1f%%", (100.0 * $plot->max) / $total );
+		$plot->{max} = $max;
+		$plot->{histogram} = \@hist;
+		$plot->{maxval_layout}->set_text 
+			( sprintf "%4.1f%%", (100.0 * $plot->{max}) / $total );
 	}
 
 
@@ -520,7 +540,7 @@ sub set_plot_data {
 ###
 sub get_plot_data {
 	my $plot;
-	return $plot->threshold, @{ $plot->histogram };
+	return $plot->{threshold}, @{ $plot->{histogram} };
 }
 
 
@@ -529,25 +549,64 @@ sub do_threshold_changed {
 }
 
 
-
+##########################################################################
 package main;
 
-use Gtk2;
+use Gtk2 qw/-init -locale/;
+use constant TRUE => 1;
+use constant FALSE => 0;
 
-Gtk2->init;
+#Gtk2->init;
 
 
 my $window = Gtk2::Window->new;
 $window->signal_connect (delete_event => sub { Gtk2->main_quit; 1 });
 
-my $plot = Histogram::Plot->new_with_data (127,
-                                  map { sin $_/256*3.1415 } (0..255));
+my $vbox = Gtk2::VBox->new;
+$window->add ($vbox);
+$window->set_border_width (6);
 
-$window->add ($plot);
+#
+# a nicely framed histogram plot with some cheesy data
+#
+my $plot = Histogram::Plot->new (
+	threshold => 64,
+	histogram => [ map { sin $_/256*3.1415 } (0..255) ]
+);
 
+my $frame = Gtk2::Frame->new;
+$vbox->pack_start ($frame, TRUE, TRUE, 0);
+$frame->add ($plot);
+$frame->set_shadow_type ('in');
+
+#
+# a way to manipulate one of the properties...
+#
+my $check = Gtk2::CheckButton->new ("Continuous");
+$vbox->pack_start ($check, FALSE, FALSE, 0);
+$check->set_active ($plot->get ('continuous'));
+$check->signal_connect (toggled => sub {
+		$plot->set (continuous => $check->get_active);
+		1;
+		});
+
+#
+# do something fun when the threshold changes.
+#
+my $label = Gtk2::Label->new (sprintf "threshold: %.1f",
+                                       $plot->get ('threshold'));
+$vbox->pack_start ($label, FALSE, FALSE, 0);
+
+$plot->signal_connect (threshold_changed => sub {
+	$label->set_text (sprintf 'threshold: %d', $plot->get('threshold'));
+	});
+
+#
+# all systems go!
+#
 $window->show_all;
-
-use Data::Dumper;
-$plot->signal_connect (threshold_changed => sub { print Dumper(\@_); }, $window);
-
 Gtk2->main;
+
+# explicit clean up makes us see various messages on a debug build.
+undef $plot;
+undef $window;
