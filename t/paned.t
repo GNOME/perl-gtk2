@@ -1,5 +1,5 @@
 
-use Gtk2::TestHelper tests => 54;
+use Gtk2::TestHelper tests => 55;
 
 use constant TRUE => 1;
 use constant FALSE => 0;
@@ -22,8 +22,17 @@ $window->add ($hpaned);
 $hpaned->add ($hframe);
 $hpaned->pack2 ($vpaned, TRUE, FALSE);
 
+$vpaned->add1 ($vframe1);
+$vpaned->add2 ($vframe2);
+
+$vpaned->remove ($vframe1);
+$vpaned->remove ($vframe2);
+
 $vpaned->pack1 ($vframe1, TRUE, FALSE);
 $vpaned->pack2 ($vframe2, FALSE, FALSE);
+
+$vpaned->set_position (23);
+is ($vpaned->get_position, 23);
 
 print "hpaned 1 -> ".$hpaned->child1_resize."\n";
 print "hpaned 2 -> ".$hpaned->child2_resize."\n";

@@ -25,7 +25,7 @@ MODULE = Gtk2::Layout	PACKAGE = Gtk2::Layout	PREFIX = gtk_layout_
 
 ## GtkWidget* gtk_layout_new (GtkAdjustment *hadjustment, GtkAdjustment *vadjustment)
 GtkWidget *
-gtk_layout_new (class, hadjustment, vadjustment)
+gtk_layout_new (class, hadjustment=NULL, vadjustment=NULL)
 	GtkAdjustment_ornull * hadjustment
 	GtkAdjustment_ornull * vadjustment
     C_ARGS:

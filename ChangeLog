@@ -1,3 +1,18 @@
+2004/02/02 02:13 (+0100) kaffeetisch
+
+	* t/16.GtkMenu-etc.t: Test [sg]et_accel_group, set_accel_path,
+	[sg]et_title, [sg]et_tearoff_state, reposition, attach_to_widget,
+	get_attach_widget, detach, set_screen, [sg]et_active, and popdown.
+
+	* t/paned.t: Test add1, add2, and [sg]et_position.
+
+	* xs/GtkLayout.xs: Provide defaults for the hadjustment and
+	vadjustment arguments to new.
+
+	* xs/GtkMenu.xs: Implement attach_to_widget.
+
+	* xs/GtkMenuShell.xs: Implement select_first.
+
 2003/12/31 20:47 (+0100) kaffeetisch
 
 	* t/21.GtkContainer.t

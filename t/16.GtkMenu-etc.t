@@ -7,7 +7,7 @@
 # 	- rm
 #########################
 
-use Gtk2::TestHelper tests => 31;
+use Gtk2::TestHelper tests => 56;
 
 ok( my $win = Gtk2::Window->new('toplevel') );
 $win->set_title('GtkMenu-etc.t Test Window');
@@ -18,10 +18,45 @@ $win->add($vbox);
 ok( my $menubar = Gtk2::MenuBar->new );
 $vbox->pack_start($menubar, 0, 0, 0);
 
-my ($num, $menu, $menuitem, $rootmenu, $optmenu);
+my ($num, $menu, $accelgroup, $button, $menuitem, $rootmenu, $optmenu);
 foreach $num (qw/1 2 3/)
 {
 	ok( $menu = Gtk2::Menu->new );
+
+	$accelgroup = Gtk2::AccelGroup->new;
+
+	$menu->set_accel_group ($accelgroup);
+	is ($menu->get_accel_group, $accelgroup);
+
+	$menu->set_accel_path ("<gtk2perl>/main/menu");
+
+	$menu->set_title ("gtk2perl bla");
+	is ($menu->get_title, "gtk2perl bla");
+
+	$menu->set_tearoff_state (0);
+	ok (!$menu->get_tearoff_state);
+
+	$menu->reposition;
+
+	$button = Gtk2::Button->new ("Bla");
+
+	$menu->attach_to_widget ($button, sub {
+		my ($callback_button, $callback_menu) = @_;
+
+		is ($callback_button, $button);
+		is ($callback_menu, $menu);
+	});
+
+	is ($menu->get_attach_widget, $button);
+	$menu->detach;
+
+	SKIP: {
+		skip "set_screen is new in 2.2", 0
+			if Gtk2->check_version (2, 2, 0);
+
+		$menu->set_screen (Gtk2::Gdk::Screen->get_default);
+	}
+
 	$menuitem = undef;
 	foreach (qw/One Two Three Four/)
 	{
@@ -30,6 +65,9 @@ foreach $num (qw/1 2 3/)
 	}
 	ok( $rootmenu = Gtk2::MenuItem->new('_Root Menu '.$num) );
 	$menu->reorder_child($menuitem, 1);
+
+	$menu->set_active (1);
+	is ($menu->get_active, $menuitem);
 
 	if( $num == 1 )
 	{
@@ -57,8 +95,20 @@ ok( $optmenu = Gtk2::OptionMenu->new );
 $vbox->pack_start($optmenu, 0, 0, 0);
 $optmenu->set_menu($menu);
 
+my $position_callback = sub {
+	my ($menu, $x, $y, $data) = @_;
+
+	isa_ok ($menu, "Gtk2::Menu");
+	like ($x, qr/^\d+$/);
+	like ($y, qr/^\d+$/);
+	is ($data, "bla");
+
+	return (10, 10);
+};
+
 Glib::Idle->add( sub {
-		$menu->popup(undef, undef, undef, undef, 1, 0);
+		$menu->popup(undef, undef, $position_callback, "bla", 1, 0);
+		$menu->popdown;
 		ok(1);
 		Gtk2->main_quit;
 		0;

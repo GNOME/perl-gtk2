@@ -74,7 +74,29 @@ gtk2perl_menu_position_func (GtkMenu * menu,
 	LEAVE;
 }
 
+GPerlCallback *
+gtk2perl_menu_detach_func_create (SV *func, SV *data)
+{
+	GType param_types [] = {
+		GTK_TYPE_WIDGET,
+		GTK_TYPE_MENU
+	};
+	return gperl_callback_new (func, data, G_N_ELEMENTS (param_types),
+				   param_types, 0);
+}
 
+void
+gtk2perl_menu_detach_func (GtkWidget *attach_widget,
+                           GtkMenu *menu)
+{
+	GPerlCallback *callback;
+
+	callback = g_object_get_data (G_OBJECT (attach_widget),
+	                              "__gtk2perl_menu_detach_func__");
+
+	if (callback)
+		gperl_callback_invoke (callback, NULL, attach_widget, menu);
+}
 
 MODULE = Gtk2::Menu	PACKAGE = Gtk2::Menu	PREFIX = gtk_menu_
 
@@ -145,10 +167,24 @@ gtk_menu_set_accel_path (menu, accel_path)
 	GtkMenu *menu
 	const gchar *accel_path
 
-# FIXME nbeeds a callback
- ##void	   gtk_menu_attach_to_widget	  (GtkMenu	       *menu,
- ##					   GtkWidget	       *attach_widget,
- ##					   GtkMenuDetachFunc	detacher);
+void
+gtk_menu_attach_to_widget (menu, attach_widget, detacher)
+	GtkMenu *menu
+	GtkWidget *attach_widget
+	SV *detacher
+    PREINIT:
+	GPerlCallback *callback;
+    CODE:
+	callback = gtk2perl_menu_detach_func_create (detacher, NULL);
+
+	g_object_set_data_full (G_OBJECT (attach_widget),
+	                        "__gtk2perl_menu_detach_func__",
+			        callback,
+	                        (GDestroyNotify) gperl_callback_destroy);
+
+	gtk_menu_attach_to_widget (menu,
+	                           attach_widget,
+	                           gtk2perl_menu_detach_func);
 
 void
 gtk_menu_detach (menu)
