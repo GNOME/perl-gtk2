@@ -30,6 +30,23 @@ Gtk2::SimpleList->add_column_type(
 		} 
 	);
 
+# add a new type of column that sums up an array reference
+Gtk2::SimpleList->add_column_type(
+	'sum_of_array',
+		type     => 'Glib::Scalar',      
+		renderer => 'Text',   
+		attr     => sub {
+			my ($tree_column, $cell, $model, $iter, $i) = @_;
+			my $sum = 0;
+			my $info = $model->get ($iter, $i);
+			foreach (@$info)
+			{
+				$sum += $_;
+			}
+			$cell->set (text => $sum);
+		} 
+	);
+
 my $win = Gtk2::Window->new;
 $win->set_title('19.GtkSimpleList.t test');
 $win->set_default_size(450, 350);
@@ -49,6 +66,7 @@ ok( my $list = Gtk2::SimpleList->new(
 			'Scalar Field'  => 'scalar',
 			'Pixbuf Field'  => 'pixbuf',
 			'Ralacs Field'  => 'ralacs',
+			'Sum of Array'  => 'sum_of_array',
 		) );
 $sw->add($list);
 
@@ -69,10 +87,10 @@ my $undef;
 my $scalar = 'scalar';
 
 @{$list->{data}} = (
-	[ 'one', 1, 1.1, 1, undef, $pixbuf, undef ],
-	[ 'two', 2, 2.2, 0, undef, undef, $scalar ],
-	[ 'three', 3, 3.3, 1, $scalar, $pixbuf, undef ],
-	[ 'four', 4, 4.4, 0, $scalar, $undef, $scalar ],
+	[ 'one', 1, 1.1, 1, undef, $pixbuf, undef, [0, 1, 2] ],
+	[ 'two', 2, 2.2, 0, undef, undef, $scalar, [1, 2, 3] ],
+	[ 'three', 3, 3.3, 1, $scalar, $pixbuf, undef, [2, 3, 4] ],
+	[ 'four', 4, 4.4, 0, $scalar, $undef, $scalar, [3, 4, 5] ],
 );
 ok( scalar(@{$list->{data}}) == 4 );
 
@@ -114,9 +132,13 @@ Glib::Idle->add( sub
 			$ldata->[0][5] == $pixbuf and
 			$ldata->[1][5] == undef and
 			$ldata->[2][5] == $pixbuf and
-			$ldata->[3][5] == $undef
+			$ldata->[3][5] == $undef and
+			eq_array($ldata->[0][7], [0, 1, 2]) and
+			eq_array($ldata->[1][7], [1, 2, 3]) and
+			eq_array($ldata->[2][7], [2, 3, 4]) and
+			eq_array($ldata->[3][7], [3, 4, 5])
 		);
-		
+
 		push @$ldata, [ 'pushed', 1, 0.1, undef ];
 		ok( scalar(@$ldata) == 5 );
 		push @$ldata, [ 'pushed', 2, 0.2, undef ];
@@ -162,7 +184,19 @@ Glib::Idle->add( sub
 			$ldata->[0][3] == 1 and
 			$ldata->[1][3] == 0 and
 			$ldata->[2][3] == 1 and
-			$ldata->[3][3] == 0
+			$ldata->[3][3] == 0 and
+			$ldata->[0][4] == undef and
+			$ldata->[1][4] == undef and
+			$ldata->[2][4] == $scalar and
+			$ldata->[3][4] == $scalar and
+			$ldata->[0][5] == $pixbuf and
+			$ldata->[1][5] == undef and
+			$ldata->[2][5] == $pixbuf and
+			$ldata->[3][5] == $undef and
+			eq_array($ldata->[0][7], [0, 1, 2]) and
+			eq_array($ldata->[1][7], [1, 2, 3]) and
+			eq_array($ldata->[2][7], [2, 3, 4]) and
+			eq_array($ldata->[3][7], [3, 4, 5])
 		);
 
 		$ldata->[1][0] = 'getting deleted';

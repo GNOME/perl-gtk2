@@ -13,16 +13,33 @@ Gtk2::SimpleList->add_column_type(
 		renderer => 'Text',   
 		attr     => sub {
 			my ($tree_column, $cell, $model, $iter, $i) = @_;
-			my ($info) = $model->get ($iter, $i);
+			my $info = $model->get ($iter, $i);
 			$info = join('',reverse(split('', $info || '' )));
-			$cell->set (text => $info );
+			$cell->set (text => $info);
+		} 
+	);
+
+# add a new type of column that sums up an array reference
+Gtk2::SimpleList->add_column_type(
+	'sum_of_array',
+		type     => 'Glib::Scalar',      
+		renderer => 'Text',   
+		attr     => sub {
+			my ($tree_column, $cell, $model, $iter, $i) = @_;
+			my $sum = 0;
+			my $info = $model->get ($iter, $i);
+			foreach (@$info)
+			{
+				$sum += $_;
+			}
+			$cell->set (text => $sum);
 		} 
 	);
 
 my $win = Gtk2::Window->new;
 $win->set_title ('Gtk2::SimpleList exapmle');
 $win->set_border_width (6);
-$win->set_default_size (650, 600);
+$win->set_default_size (700, 600);
 $win->signal_connect (delete_event => sub { Gtk2->main_quit; });
 
 my $hbox = Gtk2::HBox->new (0, 6);
@@ -41,6 +58,7 @@ my $slist = Gtk2::SimpleList->new (
 			'Scalar Field'  => 'scalar',
 			'Pixbuf Field'  => 'pixbuf',
 			'Ralacs Field'  => 'ralacs',
+			'Sum of Array'  => 'sum_of_array',
 	);
 $scwin->add ($slist);
 
@@ -95,7 +113,8 @@ sub btn_clicked
 	if( $op eq 'Push' )
 	{
 		push @$dslist, [ 'pushed', 5, 5.5, 0, 'scalar pushed', 
-			$pixbufs[rand($#pixbufs+1)], 'scalar pushed' ];
+			$pixbufs[rand($#pixbufs+1)], 'scalar pushed', 
+			[5, 6, 7] ];
 	}
 	elsif( $op eq 'Pop' )
 	{
@@ -104,7 +123,8 @@ sub btn_clicked
 	elsif( $op eq 'Unshift' )
 	{
 		unshift @$dslist, [ 'unshifted', 6, 6.6, 1, 'scalar unshifted', 
-			$pixbufs[rand($#pixbufs+1)], 'scalar unshifted' ];
+			$pixbufs[rand($#pixbufs+1)], 'scalar unshifted',
+			[6, 7, 8] ];
 	}
 	elsif( $op eq 'Shift' )
 	{
@@ -113,7 +133,8 @@ sub btn_clicked
 	elsif( $op eq 'Change 1' )
 	{
 		$dslist->[0] = [ 'changed1', 7, 7.7, 0, 'scalar changed1', 
-			$pixbufs[rand($#pixbufs+1)], 'scalar changed1' ];
+			$pixbufs[rand($#pixbufs+1)], 'scalar changed1',
+			[7, 8, 9] ];
 	}
 	elsif( $op eq 'Change 2' )
 	{
@@ -124,6 +145,7 @@ sub btn_clicked
 		$dslist->[0][4] = 'scalar changed2';
 		$dslist->[0][5] = $pixbufs[rand($#pixbufs+1)];
 		$dslist->[0][6] = 'scalar changed2';
+		$dslist->[0][7] = [8, 9, 10];
 	}
 	elsif( $op eq 'Change 3' )
 	{
@@ -146,77 +168,20 @@ sub btn_clicked
 		# can't use shorthand on this b/c we're replacing the ref
 		# in the simple list's data.
 
-# TODO: the next to last undef's should be changed to scalars once that's
-# working and the last undefs should be pixbuf's of some sort
 		@{$slist->{data}} = (
-			[ 'one', 1, 1.1, 1, 'uno', undef, 'uno' ],
-			[ 'two', 2, 2.2, 0, 'dos', undef, 'dos' ],
-			[ 'three', 3, 3.3, 1, 'tres', undef, 'tres' ],
-			[ 'four', 4, 4.4, 0, 'quatro', undef,  'quatro' ],
+			[ 'one', 1, 1.1, 1, 'uno', undef, 'uno', 
+				[1, 2, 3] ],
+			[ 'two', 2, 2.2, 0, 'dos', undef, 'dos', 
+				[2, 3, 4] ],
+			[ 'three', 3, 3.3, 1, 'tres', undef, 'tres', 
+				[3, 4, 5] ],
+			[ 'four', 4, 4.4, 0, 'quatro', undef,  'quatro', 
+				[4, 5, 6] ],
 		);
 	}
 
 	1;
 }
-
-#my $count = 0;
-#Glib::Timeout->add( 1000, sub
-#	{
-#		if( $count < 3 )
-#		{
-#			push @{$list->{data}}, [ 'more', $count++, 0 ];
-#		}
-#		elsif( $count < 6 )
-#		{
-#			shift @{$list->{data}};
-#			$count++;
-#		}
-#		elsif( $count < 9 )
-#		{
-#			unshift @{$list->{data}}, [ 'another', $count++, 0 ];
-#		}
-#		elsif( $count < 12 )
-#		{
-#			pop @{$list->{data}};
-#			$count++;
-#		}
-#		elsif( $count < 13 )
-#		{
-#			$list->{data}[1][0] = 'getting deleted';
-#			$count++;
-#		}
-#		elsif( $count < 14 )
-#		{
-#			$list->{data}[1] = [ 'right now', -1, 1 ];
-#			$count++;
-#		}
-#		elsif( $count < 15 )
-#		{
-#			$list->{data}[1] = 'bye';
-#			$count++;
-#		}
-#		elsif( $count < 16 )
-#		{
-#			delete $list->{data}[1];
-#			$count++;
-#		}
-#		elsif( $count < 17 )
-#		{
-#			warn "exists failed" 
-#				unless( exists($list->{data}[0]) );
-#			$count++;
-#		}
-#		elsif( $count < 18 )
-#		{
-#			@{$list->{data}} = ();
-#			$count++;
-#		}
-#		else
-#		{
-#			return 0;
-#		}
-#		1;
-#	} );
 
 $win->show_all;
 Gtk2->main;
