@@ -1,3 +1,6 @@
+2003/06/19 13:46 joered
+	* xs/GdkColor.xs: added accessors for GdkColor struct members.
+
 2003/06/19 00:58 pcg
 
 	* Makefile.PL: write a fake Makefile using PREREQ when important

@@ -147,3 +147,39 @@ gdk_color_equal (colora, colorb)
  ## deprecated
  ## void gdk_colors_free (GdkColormap *colormap, gulong *pixels, gint npixels, gulong planes)
 
+
+## accessors for struct members
+
+guint32
+gdk_color_pixel (color)
+	GdkColor *color
+    CODE:
+	RETVAL = color->pixel;
+    OUTPUT:
+    	RETVAL
+
+guint16
+gdk_color_red (color)
+	GdkColor *color
+   CODE:
+	RETVAL = color->red;
+    OUTPUT:
+    	RETVAL
+
+guint16
+gdk_color_green (color)
+	GdkColor *color
+    CODE:
+	RETVAL = color->green;
+    OUTPUT:
+    	RETVAL
+
+guint16
+gdk_color_blue (color)
+	GdkColor *color
+    CODE:
+	RETVAL = color->blue;
+    OUTPUT:
+    	RETVAL
+
+
