@@ -150,4 +150,9 @@ void gtk_button_set_focus_on_click (GtkButton * button, gboolean focus_on_click)
 
 gboolean gtk_button_get_focus_on_click (GtkButton * button)
 
+void gtk_button_set_alignment (GtkButton * button, gfloat xalign, gfloat yalign)
+
+ ## void gtk_button_get_alignment (GtkButton *button, gfloat *xalign, gfloat *yalign)
+void gtk_button_get_alignment (GtkButton *button, OUTLIST gfloat xalign, OUTLIST gfloat yalign)
+
 #endif
