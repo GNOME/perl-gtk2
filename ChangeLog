@@ -1,4 +1,11 @@
-2004/04/08 19:44 (-0500) rwmcfa1
+2004/04/08 23:58 (-0400) muppetman
+
+	* xs/GdkColor.xs, xs/GdkEvent.xs, xs/GdkGC.xs, xs/GdkScreen.xs,
+	xs/GdkWindow.xs, xs/GtkTextBuffer.xs, AUTHORS: modified and extended
+	a patch from Cory Omand to use explicit version checks to protect
+	ourselves when building against unstable gtk+.
+
+2004/04/08 19:44 (-0400) rwmcfa1
 
 	* pm/SimpleList.pm: STORE apparently returns the stored value, we were
 	returning 1. this makes it work like normal arrays. and the splce 

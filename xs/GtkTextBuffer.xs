@@ -437,7 +437,7 @@ gtk_text_buffer_set_modified (buffer, setting)
 	GtkTextBuffer *buffer
 	gboolean setting
 
-#ifdef GTK_TYPE_CLIPBOARD
+#if GTK_CHECK_VERSION(2,2,0)
 
 ## void gtk_text_buffer_add_selection_clipboard (GtkTextBuffer *buffer, GtkClipboard *clipboard)
 void
