@@ -9,7 +9,42 @@
 this is a GtkObject subclass.  no variants are necessary.
 */
 
-// typedef void (* GtkTreeCellDataFunc) (GtkTreeViewColumn *tree_column, GtkCellRenderer *cell, GtkTreeModel *tree_model, GtkTreeIter *iter, gpointer data)
+/*
+this is also used from gtk_tree_view_insert_column_with_cell_data_func.
+*/
+
+GPerlCallback *
+gtk2perl_tree_cell_data_func_create (SV * func, SV * data)
+{
+	GType param_types [] = {
+		GTK_TYPE_TREE_VIEW_COLUMN,
+		GTK_TYPE_CELL_RENDERER,
+		GTK_TYPE_TREE_MODEL,
+		GTK_TYPE_TREE_ITER
+	};
+	return gperl_callback_new (func, data, 
+	                           G_N_ELEMENTS (param_types), param_types,
+	                           0);
+}
+
+/*
+ * GPerlCallback handler for GtkTreeCellDataFunc.
+ */
+void
+gtk2perl_tree_cell_data_func (GtkTreeViewColumn * tree_column,
+                              GtkCellRenderer * cell,
+                              GtkTreeModel * tree_model,
+                              GtkTreeIter * iter,
+                              gpointer data)
+{
+	gperl_callback_invoke ((GPerlCallback*)data, NULL,
+	                       tree_column, cell, tree_model, iter);
+}
+
+
+
+
+
 
 #define check_stack_for_attributes(first) (0 == ((items - (first)) % 2))
 
@@ -99,13 +134,21 @@ gtk_tree_view_column_set_attributes (tree_column, cell_renderer, ...)
 	set_attributes_from_arg_stack (tree_column, cell_renderer, 2);
 
 #### void gtk_tree_view_column_set_cell_data_func (GtkTreeViewColumn *tree_column, GtkCellRenderer *cell_renderer, GtkTreeCellDataFunc func, gpointer func_data, GtkDestroyNotify destroy)
-##void
-##gtk_tree_view_column_set_cell_data_func (tree_column, cell_renderer, func, func_data, destroy)
-##	GtkTreeViewColumn *tree_column
-##	GtkCellRenderer *cell_renderer
-##	GtkTreeCellDataFunc func
-##	gpointer func_data
-##	GtkDestroyNotify destroy
+void
+gtk_tree_view_column_set_cell_data_func (tree_column, cell_renderer, func, data=NULL)
+	GtkTreeViewColumn *tree_column
+	GtkCellRenderer *cell_renderer
+	SV * func
+	SV * data
+    PREINIT:
+	GPerlCallback * callback;
+    CODE:
+	callback = gtk2perl_tree_cell_data_func_create (func, data);
+	gtk_tree_view_column_set_cell_data_func (tree_column, cell_renderer,
+	                                         gtk2perl_tree_cell_data_func,
+	                                         callback,
+	                                         (GDestroyNotify)
+						    gperl_callback_destroy);
 
 void
 gtk_tree_view_column_clear_attributes (tree_column, cell_renderer)
