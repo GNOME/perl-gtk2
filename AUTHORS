@@ -25,6 +25,7 @@ Cory Omand           Cory.Omand at sun dot com
 Jason Stirling       jasons at postoffice dot utas dot edu dot au
 Albert Chin          china at thewrittenword dot com
 Zach Bean            zb at forty2 dot com
+Aristotle Pagaltzis  pagaltzis at gmx dot de
 
 several important bits of gtk2-perl were heavily inspired by pygtk, gtk-perl,
 and a good read-through of the gtk+ source code, so credit goes to those guys

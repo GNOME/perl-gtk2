@@ -229,12 +229,12 @@ The bindings do automatic memory management. You should never need to use these.
 
 =item gtk_idle_remove    => Glib::Source->remove
 
-=item gtk_input_add      => Glib::IOChannel->add_watch
+=item gtk_input_add      => Glib::IO->add_watch
 
 =item gtk_input_remove   => Glib::Source->remove
 
 The gtk_* functions are deprecated in favor of the g_* ones.  Gtk2::Helper
-has a wrapper for Glib::IOChannel->add_watch which makes it behave more
+has a wrapper for Glib::IO->add_watch which makes it behave more
 like gtk_input_add.
 
 =item gtk_accel_group_from_accel_closure => no replacement
