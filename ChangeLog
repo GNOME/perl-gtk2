@@ -1,4 +1,11 @@
-2003/09/31 19:59 muppetman
+2003/09/03 18:37 rwmcfa1
+
+	* pm/SimpleMenu.pm: pod doc added, no longer keep entries and menu_tree
+	around unless we're asked to.
+
+	* t/26.GtkSimpleMenu.t: inital import
+
+2003/08/31 19:59 muppetman
 
 	* CodeGen.pm, gdk.typemap: use Glib's new T_GPERL_GENERIC_WRAPPER to
 	cut out 2/3 of the typemap code.

@@ -398,7 +398,7 @@ Gtk2::SimpleList - A simple interface to Gtk2's complex MVC list widget
 
 =head1 SYNOPSIS
 
-  use Gtk2 -init;
+  use Gtk2 '-init';
   use Gtk2::SimpleList;
 
   use constant TRUE  => 1;

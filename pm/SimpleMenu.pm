@@ -48,6 +48,9 @@ sub new
 	# the window, if they so choose
 	$self->{accel_group} = $accel_group;
 
+	delete $self->{entries} unless( $self->{keep_entries} );
+	delete $self->{menu_tree} unless( $self->{keep_menu_tree} );
+
 	return $self;
 }
 
@@ -153,3 +156,188 @@ sub parse
 }
 
 1;
+__END__
+# documentation is a good thing.
+
+=head1 NAME
+
+Gtk2::SimpleMenu - A simple interface to Gtk2's ItemFactory for creating
+application menus
+
+=head1 SYNOPSIS
+
+  use Gtk2 '-init';
+  use Gtk2::SimpleMenu;
+
+  use constant TRUE  => 1;
+  use constant FALSE => 0;
+
+  my $menu_tree = [
+  	_File => {
+		item_type => '<Branch',
+		children => [
+			_New => {
+				callback => \&new_cb,
+				callback_action => 0,
+				accelerator => '<ctrl>N',
+			},
+			_Save => {
+				callback_action => 1,
+				accelerator => '<ctrl>S',
+			},
+			_Exec => {
+				item_type => '<StockItem>',
+				callback_action => 2,
+				extra_data => 'gtk-execute',
+			},
+			_Quit => {
+				callback => sub { Gtk2->main_quit; },
+				callback_action => 3,
+				accelerator => '<ctrl>Q',
+			},
+		],
+	},
+	_Mode => {
+		_First => {
+			item_type => '<RadioItem>',
+			callback => \&mode_callback,
+			callback_action => 4,
+			groupid => 1,
+		}
+		_Second => {
+			item_type => '<RadioItem>',
+			callback => \&mode_callback,
+			callback_action => 5,
+			groupid => 1,
+		}
+		_Third => {
+			item_type => '<RadioItem>',
+			callback => \&mode_callback,
+			callback_action => 6,
+			groupid => 1,
+		}
+	}
+	_Help => {
+		children => [
+			_Tearoff => {
+				item_type => '<Tearoff>',
+			},
+			_CheckItem => {
+				item_type => '<CheckItem>',
+				callback_action => 7,
+			},
+			Separator => {
+				item_type => '<Separator>',
+			},
+			_Contents => {
+				callback_action => 8, 
+			},
+			_About => {
+				callback_action => 9, 
+			},
+		]
+	}
+  ];
+
+  my $menu = Gtk2::SimpleMenu->new (
+  		menu_tree => $menu_tree,
+		default_callback => \&default_callback,
+		user_data => 'user_data',
+	);
+
+  # an example of how to get to the menuitems.
+  $menu->get_widget('/File/Save')->activate;
+	
+  $container->add ($menu->{widget});
+
+=head1 ABSTRACT
+
+SimpleMenu is an interface for creating application menubars in as simple a
+manner as possible. Its main benifit is that the menu is specified as a tree,
+which is the natural representation of such a menu.
+
+=head1 DESCRIPTION
+
+SimpleMenu aims to simplify the design and management of a complex application
+menu bar by allow the structure to be specified as a multi-rooted tree. Much
+the same functionality is provided by Gtk2::ItemFactory, but the data provided
+as input is a 1-D array and the hierarchy of the menu is controled entierly by
+the path componenets. This is not ideal when languages such as perl provide for
+simple nested data structures.
+
+Another advantage of the SimpleMenu widget is that it simplifies the creation
+and use of accelerators.
+
+SimpleMenu is a child of Gtk2::ItemFactory, so that it may be treated as such.
+Any method that can be called on a ItemFactory can be called on a SimpleMenu.
+
+=head1 OBJECT HIERARCHY
+
+ Glib::Object
+ +--- Gtk2::Object
+      +--- Gtk2::ItemFactory
+           +--- Gtk2::SimpleMenu
+
+=head1 FUNCTIONS
+
+=over
+
+=item $menu = Gtk2::SimpleMenu->new (menu_tree => $menu_tree, ...)
+
+Creates a new Gtk2::SimpleMenu object with the specified tree. Optionally key
+value paris providing a default_callback and user_data can be provided as well.
+Affter creating the menu object all of the subsequent widgets will have been
+created and are ready for use.
+
+=back
+
+=head1 MEMBER VARIABLES
+
+=over
+
+=item $menu->{widget}
+
+The Gtk2::MenuBar root of the SimpleMenu. This is what should be added to the
+widget which will contain the SimpleMenu.
+
+  $container->add ($menu->{widget});
+
+=item $menu->{accel_group}
+
+The Gtk2::AccellGroup created by the menu tree. Normally accell_group would be
+added to the main window of an application, but this is only necessary if
+accelerators are being used in the menu tree's items. 
+
+  $win->add_accel_group ($menu->{accel_group});
+
+=back
+
+=head1 SEE ALSO
+
+Perl(1), Glib(3pm), Gtk2(3pm), examples/simple_menu.pl.
+
+=head1 AUTHORS
+
+ muppet <scott at asofyet dot org>
+ Ross McFarland <rwmcfa1 at neces dot com>
+ Gavin Brown <gavin dot brown at uk dot com>
+
+=head1 COPYRIGHT AND LICENSE
+
+Copyright 2003 by the Gtk2-Perl team.
+
+This library is free software; you can redistribute it and/or modify it under
+the terms of the GNU Library General Public License as published by the Free
+Software Foundation; either version 2 of the License, or (at your option) any
+later version.
+
+This library is distributed in the hope that it will be useful, but WITHOUT ANY
+WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+PARTICULAR PURPOSE.  See the GNU Library General Public License for more
+details.
+
+You should have received a copy of the GNU Library General Public License along
+with this library; if not, write to the Free Software Foundation, Inc., 59
+Temple Place - Suite 330, Boston, MA  02111-1307  USA.
+
+=cut
