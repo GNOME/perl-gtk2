@@ -75,8 +75,8 @@ foreach (@cols)
 
 $win->show_all;
 
-#G::Idle->add( sub {
-#		Gtk2->main_quit;
-#	} );
+G::Idle->add( sub {
+		Gtk2->main_quit;
+	} );
 
 Gtk2->main;
