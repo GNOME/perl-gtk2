@@ -1,3 +1,8 @@
+2003/08/20 04:20 muppetman
+
+	* TODO, examples/accel_groups.pl, xs/GtkAccelGroup.xs, api.pod:
+	implemented a bunch of the GtkAccelGroup stuff, with an example.
+
 2003/08/20 01:45 muppetman
 
 	* xs/GtkTreeSelection.xs: patch from Torsten Schoenfeld implements

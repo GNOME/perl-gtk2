@@ -33,9 +33,6 @@ no typemap (and therefore no bindings) for
 	PangoLayoutLine
 	PangoLayoutIter
 
-a bunch of functions are missing from GtkAccelGroup because they want 
-GClosures; these would have to be mapped to CVs, of course.
-
 many functions missing from GtkRc; no methods bound for GtkRcStyle
 
 gdk_thread_init is supposed to be called before gtk_init.
