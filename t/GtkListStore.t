@@ -56,7 +56,7 @@ is($model -> get($iter_model, 0), "blo");
 ###############################################################################
 
 SKIP: {
-	skip("swap, move_before, move_after and reorder are new in 2.2.x", 10)
+	skip("swap, move_before, move_after and reorder are new in 2.2.x", 11)
 		unless Gtk2->CHECK_VERSION (2, 2, 0);
 
 
