@@ -1,3 +1,11 @@
+2004/04/06 18:59 (+0200) kaffeetisch
+
+	Merge from the stable-1-04 branch:
+
+	* t/GtkTreeView.t
+	* xs/GtkTreeView.xs: Allow undef for the path and column arguments
+	of get_cell_area and get_background_area.
+
 2004/04/05 09:50 (-0400) muppetman
 
 	* xs/GtkTreeStore.xs: patch from Thierry Vignaud corrects indentation

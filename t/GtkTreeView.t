@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 122;
+use Gtk2::TestHelper tests => 126;
 
 # $Header$
 
@@ -193,11 +193,15 @@ SKIP: {
 	is($view -> get_expander_column(), $view_column_one);
 }
 
-isa_ok($view -> get_cell_area(Gtk2::TreePath -> new("0:0"), $view_column_two),
-   "Gtk2::Gdk::Rectangle");
+my $path = Gtk2::TreePath -> new("0:0");
 
-isa_ok($view -> get_background_area(Gtk2::TreePath -> new("0:0"), $view_column_two),
-   "Gtk2::Gdk::Rectangle");
+isa_ok($view -> get_cell_area($path, $view_column_two), "Gtk2::Gdk::Rectangle");
+isa_ok($view -> get_cell_area(undef, $view_column_two), "Gtk2::Gdk::Rectangle");
+isa_ok($view -> get_cell_area($path, undef), "Gtk2::Gdk::Rectangle");
+
+isa_ok($view -> get_background_area($path, $view_column_two), "Gtk2::Gdk::Rectangle");
+isa_ok($view -> get_background_area(undef, $view_column_two), "Gtk2::Gdk::Rectangle");
+isa_ok($view -> get_background_area($path, undef), "Gtk2::Gdk::Rectangle");
 
 $view -> set_cursor(Gtk2::TreePath -> new("1:0"), $view_column_one, 0);
 is(($view -> get_cursor())[0] -> to_string(), "1:0");
@@ -252,7 +256,7 @@ $view -> columns_autosize();
 
 ###############################################################################
 
-my $path = Gtk2::TreePath -> new("1:1");
+$path = Gtk2::TreePath -> new("1:1");
 
 $view -> expand_all();
 is($view -> row_expanded($path), 1);
