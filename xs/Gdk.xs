@@ -60,10 +60,10 @@ gdk_set_locale (class)
 	/* void */
 	
 
-## FIXME should allow NULL to remove the property
+## allow NULL to remove the property
 void
 gdk_set_sm_client_id (class, sm_client_id)
-	const gchar * sm_client_id
+	const gchar_ornull * sm_client_id
     C_ARGS:
 	sm_client_id
 

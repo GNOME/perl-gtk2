@@ -24,10 +24,9 @@
 MODULE = Gtk2::TextTag	PACKAGE = Gtk2::TextTag	PREFIX = gtk_text_tag_
 
 
-#### FIXME name may be NULL... need a gchar_ornull typemap
 GtkTextTag_noinc *
-gtk_text_tag_new (class, name)
-	const gchar * name
+gtk_text_tag_new (class, name=NULL)
+	const gchar_ornull * name
     C_ARGS:
 	name
 

@@ -248,17 +248,18 @@ gtk_text_buffer_remove_all_tags (buffer, start, end)
 ##                                             const gchar *tag_name,
 ##                                             const gchar *first_property_name,
 ##                                             ...);
-## FIXME tag_name may be NULL, how do we tell perl that?:
+## tag_name may be NULL.
 ## The returned tag is owned by the buffer's tag table!  do not use _noinc!
 GtkTextTag *
 gtk_text_buffer_create_tag (buffer, tag_name, ...)
 	GtkTextBuffer * buffer
-	const gchar * tag_name
+	const gchar_ornull * tag_name
     PREINIT:
 	GtkTextTagTable * tag_table;
 	int i;
     CODE:
-	/* FIXME test the number of stack items! */
+	if ((items - 2) % 2)
+		croak ("expecting tag name followed by name=>value pairs");
 	/*
 	 * since we can't really pass on the varargs call from perl to C,
 	 * we'll have to reimplement this convenience function ourselves.
