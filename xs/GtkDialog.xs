@@ -100,7 +100,7 @@ gtk2perl_dialog_response_marshal (GClosure * closure,
 
 MODULE = Gtk2::Dialog	PACKAGE = Gtk2::Dialog	PREFIX = gtk_dialog_
 
-=pod position=DESCRIPTION
+=for position DESCRIPTION
 
 =head1 DESCRIPTION
 

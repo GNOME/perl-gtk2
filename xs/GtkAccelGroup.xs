@@ -45,7 +45,7 @@ find_closure (GtkAccelKey * key,
 
 MODULE = Gtk2::AccelGroup	PACKAGE = Gtk2::AccelGroup	PREFIX = gtk_accel_group_
 
-=pod position=SYNOPSIS
+=for position SYNOPSIS
 
 =head1 SYNOPSIS
 

@@ -417,7 +417,7 @@ MODULE = Gtk2::TreeModel	PACKAGE = Gtk2::TreeModel
 =for flags GtkTreeModelFlags
 =cut
 
-=pod position=DESCRIPTION
+=for position DESCRIPTION
 
 =head1 DESCRIPTION
 
@@ -434,7 +434,7 @@ FIXME FIXME say more here
 ##             method listing, rather than precede it.
 ##
 
-=pod position=post_methods
+=for position post_methods
 
 =head1 CREATING A CUSTOM TREE MODEL
 

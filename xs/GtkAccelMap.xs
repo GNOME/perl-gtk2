@@ -19,7 +19,7 @@ gtk2perl_gtk_accel_map_foreach (GPerlCallback *callback,
 
 MODULE = Gtk2::AccelMap PACKAGE = Gtk2::AccelMap PREFIX = gtk_accel_map_
 
-=pod position=post_methods
+=for position post_methods
 
 =head1 FOREACH CALLBACK
 

@@ -279,7 +279,7 @@ MODULE = Gtk2::CellRenderer	PACKAGE = Gtk2::CellRenderer	PREFIX = gtk_cell_rende
 
 =cut
 
-=pod position=DESCRIPTION
+=for position DESCRIPTION
 
 =head1 DESCRIPTION
 
@@ -294,7 +294,7 @@ is measured with C<get_size>, and then renderered with C<render>.
 
 =cut
 
-=pod position=post_enums
+=for position post_enums
 
 =head1 DERIVING NEW CELL RENDERERS
 

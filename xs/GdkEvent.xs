@@ -492,7 +492,7 @@ send_event (GdkEvent * event, gint8 newvalue=0)
 
 MODULE = Gtk2::Gdk::Event	PACKAGE = Gtk2::Gdk::Event::Expose
 
-=pod position=post_hierarchy
+=for position post_hierarchy
 
 =head1 HIERARCHY
 
@@ -557,7 +557,7 @@ count (GdkEvent * eventexpose, guint newvalue=0)
 
 MODULE = Gtk2::Gdk::Event	PACKAGE = Gtk2::Gdk::Event::NoExpose
 
-=pod position=post_hierarchy
+=for position post_hierarchy
 
 =head1 HIERARCHY
 
@@ -578,7 +578,7 @@ BOOT:
 
 MODULE = Gtk2::Gdk::Event	PACKAGE = Gtk2::Gdk::Event::Visibility
 
-=pod position=post_hierarchy
+=for position post_hierarchy
 
 =head1 HIERARCHY
 
@@ -610,7 +610,7 @@ state (GdkEvent * eventvisibility, GdkVisibilityState newvalue=0)
 
 MODULE = Gtk2::Gdk::Event	PACKAGE = Gtk2::Gdk::Event::Motion
 
-=pod position=post_hierarchy
+=for position post_hierarchy
 
 =head1 HIERARCHY
 
@@ -674,7 +674,7 @@ y (GdkEvent * event, gdouble newvalue=0.0)
 
 MODULE = Gtk2::Gdk::Event	PACKAGE = Gtk2::Gdk::Event::Button
 
-=pod position=post_hierarchy
+=for position post_hierarchy
 
 =head1 HIERARCHY
 
@@ -738,7 +738,7 @@ y (GdkEvent * event, gdouble newvalue=0.0)
 
 MODULE = Gtk2::Gdk::Event	PACKAGE = Gtk2::Gdk::Event::Scroll
 
-=pod position=post_hierarchy
+=for position post_hierarchy
 
 =head1 HIERARCHY
 
@@ -801,7 +801,7 @@ y (GdkEvent * event, gdouble newvalue=0.0)
 
 MODULE = Gtk2::Gdk::Event	PACKAGE = Gtk2::Gdk::Event::Key
 
-=pod position=post_hierarchy
+=for position post_hierarchy
 
 =head1 HIERARCHY
 
@@ -882,7 +882,7 @@ group (GdkEvent * eventkey, guint8 newvalue=0)
 
 MODULE = Gtk2::Gdk::Event	PACKAGE = Gtk2::Gdk::Event::Crossing
 
-=pod position=post_hierarchy
+=for position post_hierarchy
 
 =head1 HIERARCHY
 
@@ -972,7 +972,7 @@ y (GdkEvent * event, gdouble newvalue=0.0)
 
 MODULE = Gtk2::Gdk::Event	PACKAGE = Gtk2::Gdk::Event::Focus
 
-=pod position=post_hierarchy
+=for position post_hierarchy
 
 =head1 HIERARCHY
 
@@ -1003,7 +1003,7 @@ in (GdkEvent * eventfocus, gint16 newvalue=0)
 
 MODULE = Gtk2::Gdk::Event	PACKAGE = Gtk2::Gdk::Event::Configure
 
-=pod position=post_hierarchy
+=for position post_hierarchy
 
 =head1 HIERARCHY
 
@@ -1073,7 +1073,7 @@ y (GdkEvent * event, gint newvalue=0)
 
 MODULE = Gtk2::Gdk::Event	PACKAGE = Gtk2::Gdk::Event::Property
 
-=pod position=post_hierarchy
+=for position post_hierarchy
 
 =head1 HIERARCHY
 
@@ -1115,7 +1115,7 @@ state (GdkEvent * eventproperty, guint newvalue=0)
 
 MODULE = Gtk2::Gdk::Event	PACKAGE = Gtk2::Gdk::Event::Selection
 
-=pod position=post_hierarchy
+=for position post_hierarchy
 
 =head1 HIERARCHY
 
@@ -1177,7 +1177,7 @@ requestor (GdkEvent * eventselection, GdkNativeWindow newvalue=0)
 
 MODULE = Gtk2::Gdk::Event	PACKAGE = Gtk2::Gdk::Event::Proximity
 
-=pod position=post_hierarchy
+=for position post_hierarchy
 
 =head1 HIERARCHY
 
@@ -1211,7 +1211,7 @@ device (GdkEvent * eventproximity)
 
 MODULE = Gtk2::Gdk::Event	PACKAGE = Gtk2::Gdk::Event::Client
 
-=pod position=post_hierarchy
+=for position post_hierarchy
 
 =head1 HIERARCHY
 
@@ -1346,7 +1346,7 @@ data (GdkEvent * eventclient, ...)
 
 MODULE = Gtk2::Gdk::Event	PACKAGE = Gtk2::Gdk::Event::Setting
 
-=pod position=post_hierarchy
+=for position post_hierarchy
 
 =head1 HIERARCHY
 
@@ -1392,7 +1392,7 @@ name (GdkEvent * eventsetting, char * newvalue=NULL)
 
 MODULE = Gtk2::Gdk::Event	PACKAGE = Gtk2::Gdk::Event::WindowState
 
-=pod position=post_hierarchy
+=for position post_hierarchy
 
 =head1 HIERARCHY
 
@@ -1433,7 +1433,7 @@ new_window_state (GdkEvent * eventwindowstate, GdkWindowState newvalue=0)
 
 MODULE = Gtk2::Gdk::Event	PACKAGE = Gtk2::Gdk::Event::DND
 
-=pod position=post_hierarchy
+=for position post_hierarchy
 
 =head1 HIERARCHY
 

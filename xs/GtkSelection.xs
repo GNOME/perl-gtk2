@@ -103,7 +103,7 @@ SvGtkTargetList (SV * sv)
 
 MODULE = Gtk2::Selection	PACKAGE = Gtk2::TargetEntry
 
-=pod position=SYNOPSIS
+=for position SYNOPSIS
 
 =head1 SYNOPSIS
 
@@ -119,7 +119,7 @@ MODULE = Gtk2::Selection	PACKAGE = Gtk2::TargetEntry
 
 =cut
 
-=pod position=DESCRIPTION
+=for position DESCRIPTION
 
 =head1 DESCRIPTION
 

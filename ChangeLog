@@ -1,3 +1,10 @@
+2004/02/25 19:38 (-0500) rwmcfa1
+
+	* xs/GdkColor.xs xs/GdkEvent.xs xs/GtkAccelGroup.xs xs/GtkAccelMap.xs
+	xs/GtkCellRenderer.xs xs/GtkDialog.xs xs/GtkSelection.xs
+	xs/GtkTreeModel.xs: =pod position=<pos> -> =for position <pos> 
+	some pod parsers don't like text after =pod.
+
 2004/02/25 15:45 (-0500) rwmcfa1
 
 	* xs/GdkColor.xs, xs/GdkEvent.xs, xs/GtkAccelGroup.xs,
