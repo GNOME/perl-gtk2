@@ -23,7 +23,60 @@
 
 /* descended directly from GObject */
 
-// typedef void (* GtkTreeSelectionForeachFunc) (GtkTreeModel *model, GtkTreePath *path, GtkTreeIter *iter, gpointer data)
+static GPerlCallback *
+gtk2perl_tree_selection_func_create (SV * func, SV * data)
+{
+	GType param_types [] = {
+		GTK_TYPE_TREE_SELECTION,
+		GTK_TYPE_TREE_MODEL,
+		GTK_TYPE_TREE_PATH,
+		G_TYPE_BOOLEAN
+	};
+	return gperl_callback_new (func, data, G_N_ELEMENTS (param_types),
+				   param_types, G_TYPE_BOOLEAN);
+}
+
+static gboolean
+gtk2perl_tree_selection_func (GtkTreeSelection * selection,
+			      GtkTreeModel * model,
+			      GtkTreePath * path,
+			      gboolean path_currently_selected,
+			      gpointer data)
+{
+	GPerlCallback * callback = (GPerlCallback*)data;
+	GValue value = {0,};
+	gboolean retval;
+
+	g_value_init (&value, callback->return_type);
+	gperl_callback_invoke (callback, &value, selection, model, path,
+			       path_currently_selected);
+	retval = g_value_get_boolean (&value);
+	g_value_unset (&value);
+
+	return retval;
+}
+
+
+static GPerlCallback *
+gtk2perl_tree_selection_foreach_func_create (SV * func, SV * data)
+{
+	GType param_types [] = {
+		GTK_TYPE_TREE_MODEL,
+		GTK_TYPE_TREE_PATH,
+		GTK_TYPE_TREE_ITER
+	};
+	return gperl_callback_new (func, data, G_N_ELEMENTS (param_types),
+				   param_types, 0);
+}
+
+static void
+gtk2perl_tree_selection_foreach_func (GtkTreeModel * model,
+				      GtkTreePath * path,
+				      GtkTreeIter * iter,
+				      gpointer data)
+{
+	gperl_callback_invoke ((GPerlCallback*)data, NULL, model, path, iter);
+}
 
 #if !GTK_CHECK_VERSION(2,2,0)
 /* selected_foreach callbacks to implement get_selected_rows and 
@@ -61,16 +114,22 @@ GtkSelectionMode
 gtk_tree_selection_get_mode (selection)
 	GtkTreeSelection *selection
 
-## FIXME needs callbacks
 ### void gtk_tree_selection_set_select_function (GtkTreeSelection *selection, GtkTreeSelectionFunc func, gpointer data, GtkDestroyNotify destroy)
-#void
-#gtk_tree_selection_set_select_function (selection, func, data, destroy)
-#	GtkTreeSelection *selection
-#	GtkTreeSelectionFunc func
-#	gpointer data
-#	GtkDestroyNotify destroy
-#
-## eh? i thought GObject took care of this 
+void
+gtk_tree_selection_set_select_function (selection, func, data=NULL)
+	GtkTreeSelection *selection
+	SV * func
+	SV * data
+    PREINIT:
+	GPerlCallback * callback;
+    CODE:
+	callback = gtk2perl_tree_selection_func_create (func, data);
+	gtk_tree_selection_set_select_function (selection,
+						gtk2perl_tree_selection_func,
+						callback,
+						(GDestroyNotify) gperl_callback_destroy);
+
+## FIXME eh? i thought GObject took care of this 
 ### gpointer gtk_tree_selection_get_user_data (GtkTreeSelection *selection)
 #gpointer
 #gtk_tree_selection_get_user_data (selection)
@@ -152,13 +211,20 @@ gtk_tree_selection_count_selected_rows (selection)
 
 #endif /* 2.2.0 */
 
-
 ### void gtk_tree_selection_selected_foreach (GtkTreeSelection *selection, GtkTreeSelectionForeachFunc func, gpointer data)
-#void
-#gtk_tree_selection_selected_foreach (selection, func, data)
-#	GtkTreeSelection *selection
-#	GtkTreeSelectionForeachFunc func
-#	gpointer data
+void
+gtk_tree_selection_selected_foreach (selection, func, data=NULL)
+	GtkTreeSelection *selection
+	SV * func
+	SV * data
+    PREINIT:
+	GPerlCallback * callback;
+    CODE:
+	callback = gtk2perl_tree_selection_foreach_func_create (func, data);
+	gtk_tree_selection_selected_foreach (selection,
+					     gtk2perl_tree_selection_foreach_func,
+					     callback);
+	gperl_callback_destroy (callback);
 
 ## void gtk_tree_selection_select_path (GtkTreeSelection *selection, GtkTreePath *path)
 void
