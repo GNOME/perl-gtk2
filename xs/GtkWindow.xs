@@ -23,6 +23,12 @@
 
 MODULE = Gtk2::Window	PACKAGE = Gtk2::Window	PREFIX = gtk_window_
 
+=for enum GtkWindowPosition
+=cut
+
+=for enum GtkWindowType
+=cut
+
 ## GtkWidget* gtk_window_new (GtkWindowType type)
 GtkWidget *
 gtk_window_new (class, type=GTK_WINDOW_TOPLEVEL)

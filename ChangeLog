@@ -1,3 +1,7 @@
+2003/11/21 10:43 (-0500) muppetman
+
+	* xs/GtkWindow.xs: add some enums to Gtk2::Window's doc.
+
 2003/11/21 02:16 (-0500) muppetman
 
 	* Gtk2.pm, README, Makefile.PL: update requirements to Glib 1.012,
