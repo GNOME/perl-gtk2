@@ -69,8 +69,11 @@ allocation (widget)
 GtkStyle*
 style (widget)
 	GtkWidget * widget
+    ALIAS:
+	Gtk2::Widget::style = 1
+	Gtk2::Widget::get_style = 2
     CODE:
-	RETVAL = widget->style;
+	RETVAL = gtk_widget_get_style(widget);
     OUTPUT:
 	RETVAL
 
