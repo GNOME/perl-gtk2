@@ -1,3 +1,11 @@
+/*
+ * Copyright (c) 2003 by the gtk2-perl team (see the file AUTHORS)
+ *
+ * Licensed under the LGPL, see LICENSE file for more information.
+ *
+ * $Header$
+ */
+
 #include "gtk2perl.h"
  
 MODULE = Gtk2::ColorButton	PACKAGE = Gtk2::ColorButton	PREFIX = gtk_color_button_

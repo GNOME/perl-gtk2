@@ -170,3 +170,8 @@ is_deeply ([$file_chooser->list_shortcut_folder_uris], ["file://" . $cwd, "file:
 
 $file_chooser->remove_shortcut_folder ($cwd);
 $file_chooser->remove_shortcut_folder_uri ($cwd);
+
+__END__
+
+Copyright (C) 2003 by the gtk2-perl team (see the file AUTHORS for the
+full list).  See LICENSE for more information.

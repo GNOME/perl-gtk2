@@ -19,3 +19,7 @@ ok ($button->get_active);
 $button->set_active (FALSE);
 ok (!$button->get_active);
 
+__END__
+
+Copyright (C) 2003 by the gtk2-perl team (see the file AUTHORS for the
+full list).  See LICENSE for more information.

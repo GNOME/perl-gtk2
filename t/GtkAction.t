@@ -59,3 +59,7 @@ $action->set_accel_path ('<Action>/');
 $action->set_accel_group (undef);
 $action->set_accel_group (Gtk2::AccelGroup->new);
 
+__END__
+
+Copyright (C) 2003 by the gtk2-perl team (see the file AUTHORS for the
+full list).  See LICENSE for more information.

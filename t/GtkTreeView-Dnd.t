@@ -59,3 +59,8 @@ $view->signal_connect (drag_data_received => sub {
 $win->add ($view);
 $win->show_all;
 Gtk2->main;
+
+__END__
+
+Copyright (C) 2003 by the gtk2-perl team (see the file AUTHORS for the
+full list).  See LICENSE for more information.

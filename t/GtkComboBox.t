@@ -64,3 +64,8 @@ $combo_box->set_column_span_column (0);
 
 $combo_box->set_active (1);
 is ($combo_box->get_active, 1);
+
+__END__
+
+Copyright (C) 2003 by the gtk2-perl team (see the file AUTHORS for the
+full list).  See LICENSE for more information.

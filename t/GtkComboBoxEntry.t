@@ -39,3 +39,8 @@ $entry_box->get_child->set_text ('whee');
 #
 #$dlg->show_all;
 #$dlg->run;
+
+__END__
+
+Copyright (C) 2003 by the gtk2-perl team (see the file AUTHORS for the
+full list).  See LICENSE for more information.

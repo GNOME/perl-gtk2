@@ -47,4 +47,7 @@ $completion->complete;
 
 $completion->delete_action (0);
 
+__END__
 
+Copyright (C) 2003 by the gtk2-perl team (see the file AUTHORS for the
+full list).  See LICENSE for more information.

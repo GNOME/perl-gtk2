@@ -50,4 +50,7 @@ ok ($fbn->get_show_size);
 $fbn->set_font_name ("sans");
 like ($fbn->get_font_name, qr/sans/i);
 
+__END__
 
+Copyright (C) 2003 by the gtk2-perl team (see the file AUTHORS for the
+full list).  See LICENSE for more information.

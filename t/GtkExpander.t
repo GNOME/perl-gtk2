@@ -53,3 +53,7 @@ my $label = Gtk2::Label->new ('foo');
 $expander->set_label_widget ($label);
 is ($expander->get_label_widget, $label);
 
+__END__
+
+Copyright (C) 2003 by the gtk2-perl team (see the file AUTHORS for the
+full list).  See LICENSE for more information.

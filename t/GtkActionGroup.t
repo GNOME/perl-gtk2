@@ -91,3 +91,8 @@ is (@list, 7);
 $action_group->add_radio_actions (\@color_entries, COLOR_GREEN, \&on_change);
 @list = $action_group->list_actions;
 is (@list, 10);
+
+__END__
+
+Copyright (C) 2003 by the gtk2-perl team (see the file AUTHORS for the
+full list).  See LICENSE for more information.

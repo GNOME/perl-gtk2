@@ -69,3 +69,7 @@ $tool_item->set_proxy_menu_item ("menu_item_id", $menu_item);
 is ($tool_item->retrieve_proxy_menu_item, $menu_item);
 is ($tool_item->get_proxy_menu_item ("menu_item_id"), $menu_item);
 
+__END__
+
+Copyright (C) 2003 by the gtk2-perl team (see the file AUTHORS for the
+full list).  See LICENSE for more information.

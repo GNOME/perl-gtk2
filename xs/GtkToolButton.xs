@@ -1,3 +1,11 @@
+/*
+ * Copyright (c) 2003 by the gtk2-perl team (see the file AUTHORS)
+ *
+ * Licensed under the LGPL, see LICENSE file for more information.
+ *
+ * $Header$
+ */
+
 #include "gtk2perl.h"
 
 MODULE = Gtk2::ToolButton PACKAGE = Gtk2::ToolButton PREFIX = gtk_tool_button_

@@ -29,3 +29,8 @@ is ($actions[0]->get_current_value, 3);
 $actions[3]->set_active (TRUE);
 ok (!$actions[0]->get_active);
 ok ($actions[3]->get_active);
+
+__END__
+
+Copyright (C) 2003 by the gtk2-perl team (see the file AUTHORS for the
+full list).  See LICENSE for more information.

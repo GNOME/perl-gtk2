@@ -53,3 +53,8 @@ is ($tool_button->get_label_widget, $label_widget);
 
 $tool_button->set_label_widget (undef);
 is ($tool_button->get_label_widget, undef);
+
+__END__
+
+Copyright (C) 2003 by the gtk2-perl team (see the file AUTHORS for the
+full list).  See LICENSE for more information.

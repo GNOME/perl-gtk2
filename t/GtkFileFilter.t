@@ -41,3 +41,8 @@ $file_filter->add_custom (['filename', 'mime-type'], \&filter_func);
 ok ($file_filter->get_needed >= ['filename', 'mime-type']);
 
 ok (!$file_filter->filter ($filter_info));
+
+__END__
+
+Copyright (C) 2003 by the gtk2-perl team (see the file AUTHORS for the
+full list).  See LICENSE for more information.
