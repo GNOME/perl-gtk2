@@ -1,19 +1,21 @@
 use warnings;
 use Glib::GenPod;
 
-if ($ARGV[1]) {
-	open IN, $ARGV[1] or die "can't read $ARGV[1]: $!\n";
-} else {
-	*IN = *STDIN;
-}
+my $NAME = shift @ARGV;
+
+#if ($ARGV[1]) {
+#	open IN, $ARGV[1] or die "can't read $ARGV[1]: $!\n";
+#} else {
+#	*IN = *STDIN;
+#}
 
 print "=head1 NAME
 
-$ARGV[0]\::enums - enumeration and flag values for $ARGV[0]
+$NAME\::enums - enumeration and flag values for $NAME
 
 =head1 DESCRIPTION
 
-Just a listing of all enum and flags types defined for $ARGV[0], in one place
+Just a listing of all enum and flags types defined for $NAME, in one place
 for convenience.  For more information, see the description of flags and
 enums in L<Glib>.
 
@@ -22,7 +24,7 @@ enums in L<Glib>.
 ";
 
 
-while (<IN>) {
+while (<>) {
 	s/#.*//;
 	(undef, $cname, $base, undef) = split;
 	next unless $cname;
@@ -56,7 +58,8 @@ L<Glib>, L<Glib::Flags>
 =head1 AUTHOR
 
 Generated ".scalar(localtime)." by $0, using Gtk2 compiled against GTK+
-version ".join (".", Gtk2->get_version_info).".
+version ".join (".", Gtk2->get_version_info # FIXME FIXME
+                                           ).".
 
 =cut
 ";
