@@ -59,6 +59,9 @@ void gdk_display_sync (GdkDisplay *display)
 void gdk_display_close (GdkDisplay *display) 
 
 ##  GList * gdk_display_list_devices (GdkDisplay *display) 
+=forapi
+Returns a list of Gtk2::Gdk::Devices
+=cut
 void
 gdk_display_list_devices (display)
 	GdkDisplay *display
@@ -104,6 +107,9 @@ void gdk_display_get_pointer (GdkDisplay *display, OUTLIST GdkScreen *screen, OU
 
 ##  GdkWindow * gdk_display_get_window_at_pointer (GdkDisplay *display, gint *win_x, gint *win_y) 
 ###GdkWindow * gdk_display_get_window_at_pointer (GdkDisplay *display, OUTLIST gint win_x, OUTLIST gint win_y) 
+=for apidoc
+=for signature (window, win_x, win_y) = $display->get_window_at_pointer ($display)
+=cut
 void
 gdk_display_get_window_at_pointer (GdkDisplay *display) 
     PREINIT:

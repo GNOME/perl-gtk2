@@ -25,6 +25,8 @@ else
 		'Gtk2->init_check failed, probably unable to open DISPLAY';
 }
 
+require './t/ignore_keyboard.pl';
+
 my $cmap = Gtk2::Gdk::Colormap->get_system;
 ok ($cmap, 'system colormap');
 

@@ -104,6 +104,9 @@ gtk_icon_factory_lookup_default (class, stock_id)
 MODULE = Gtk2::IconFactory	PACKAGE = Gtk2::IconSize	PREFIX = gtk_icon_size_
 
 ##  gboolean gtk_icon_size_lookup (GtkIconSize size, gint *width, gint *height) 
+=for apidoc
+=for signature (width, height) = Gtk2::IconSize->lookup ($size)
+=cut
 void
 gtk_icon_size_lookup (class, size)
 	GtkIconSize size
@@ -120,6 +123,9 @@ gtk_icon_size_lookup (class, size)
 #if GTK_CHECK_VERSION(2,2,0)
 
 ##  gboolean gtk_icon_size_lookup_for_settings (GtkSettings *settings, GtkIconSize size, gint *width, gint *height) 
+=for apidoc
+=for signature (width, height) = Gtk2::IconSize->lookup_for_settings ($settings, $size)
+=cut
 void
 gtk_icon_size_lookup_for_settings (class, settings, size, width, height)
 	GtkSettings *settings
@@ -175,13 +181,10 @@ gtk_icon_set_new_from_pixbuf (class, pixbuf)
     C_ARGS:
 	pixbuf
 
+ # these are done for you by the Glib bindings
 ###  GtkIconSet* gtk_icon_set_ref (GtkIconSet *icon_set) 
 ###  void gtk_icon_set_unref (GtkIconSet *icon_set) 
-
-##  GtkIconSet* gtk_icon_set_copy (GtkIconSet *icon_set) 
-GtkIconSet_own*
-gtk_icon_set_copy (icon_set)
-	GtkIconSet *icon_set
+###  GtkIconSet* gtk_icon_set_copy (GtkIconSet *icon_set) 
 
 #### apps should almost always use gtk_widget_render_icon
 ##  GdkPixbuf* gtk_icon_set_render_icon (GtkIconSet *icon_set, GtkStyle *style, GtkTextDirection direction, GtkStateType state, GtkIconSize size, GtkWidget *widget, const char *detail) 
@@ -202,6 +205,9 @@ gtk_icon_set_add_source (icon_set, source)
 	GtkIconSource *source
 
 ##  void gtk_icon_set_get_sizes (GtkIconSet *icon_set, GtkIconSize **sizes, gint *n_sizes) 
+=for apidoc
+Returns a list of Gtk2::IconSize's.
+=cut
 void
 gtk_icon_set_get_sizes (icon_set)
 	GtkIconSet *icon_set
@@ -224,23 +230,17 @@ gtk_icon_source_new (class)
     C_ARGS:
 	/*void*/
 
+ # these are done for you by the Glib::Boxed bindings
 ##  GtkIconSource* gtk_icon_source_copy (const GtkIconSource *source) 
-GtkIconSource_own *
-gtk_icon_source_copy (source)
-	GtkIconSource *source
-
 ##  void gtk_icon_source_free (GtkIconSource *source) 
-void
-gtk_icon_source_free (source)
-	GtkIconSource *source
 
 ##  void gtk_icon_source_set_filename (GtkIconSource *source, const gchar *filename) 
 void
 gtk_icon_source_set_filename (source, filename)
 	GtkIconSource *source
-	const gchar *filename
+	GPerlFilename filename
 
-const gchar *
+GPerlFilename_const
 gtk_icon_source_get_filename (source)
 	GtkIconSource *source
 

@@ -48,6 +48,9 @@ gdk_display_manager_set_default_display (display_manager, display)
 	GdkDisplay *display
 
 ##  GSList * gdk_display_manager_list_displays (GdkDisplayManager *display_manager) 
+=for apidoc
+Returns a list of Gtk2::Gdk::Display's.
+=cut
 void
 gdk_display_manager_list_displays (display_manager)
 	GdkDisplayManager *display_manager

@@ -20,7 +20,7 @@
  */
 
 #include "gtk2perl.h"
-
+#include <gperl_marshal.h>
 
 
 /*
@@ -38,8 +38,10 @@ gtk2perl_menu_position_func (GtkMenu * menu,
                              gboolean * push_in,
                              GPerlCallback * callback)
 {
-	dSP;
 	int n;
+	dGPERL_CALLBACK_MARSHAL_SP;
+
+	GPERL_CALLBACK_MARSHAL_INIT (callback);
 
 	ENTER;
 	SAVETMPS;
@@ -59,7 +61,7 @@ gtk2perl_menu_position_func (GtkMenu * menu,
 
 	SPAGAIN;
 
-	if (n < 2)
+	if (n < 2 || n > 3)
 		croak ("menu position callback must return two integers (x, and y) or three integers (x, y, and push_in)");
 
 	/* POPi takes things off the *end* of the stack! */
@@ -67,6 +69,7 @@ gtk2perl_menu_position_func (GtkMenu * menu,
 	if (n > 1) *y = POPi;
 	if (n > 0) *x = POPi;
 
+	PUTBACK;
 	FREETMPS;
 	LEAVE;
 }

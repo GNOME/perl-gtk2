@@ -1,20 +1,7 @@
 /*
  * Copyright (c) 2003 by the gtk2-perl team (see the file AUTHORS)
  *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Library General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Library General Public License for more details.
- *
- * You should have received a copy of the GNU Library General Public
- * License along with this library; if not, write to the 
- * Free Software Foundation, Inc., 59 Temple Place - Suite 330, 
- * Boston, MA  02111-1307  USA.
+ * Licensed under the LGPL, see LICENSE file for more information.
  *
  * $Header$
  */
@@ -22,6 +9,31 @@
 #include "gtk2perl.h"
 
 MODULE = Gtk2::Calendar	PACKAGE = Gtk2::Calendar	PREFIX = gtk_calendar_
+
+=for apidoc num_marked_dates
+=for signature $widget->num_marked_dates ($value)
+=for signature value = $widget->num_marked_dates
+=cut
+
+=for apidoc marked_date
+=for signature $widget->marked_date ($value)
+=for signature value = $widget->marked_date
+=cut
+
+=for apidoc year
+=for signature $widget->year ($value)
+=for signature value = $widget->year
+=cut
+
+=for apidoc month
+=for signature $widget->month ($value)
+=for signature value = $widget->month
+=cut
+
+=for apidoc selected_day
+=for signature $widget->selected_day ($value)
+=for signature value = $widget->selected_day
+=cut
 
 void
 members (cal)
@@ -95,15 +107,21 @@ gtk_calendar_clear_marks (calendar)
 
 ## void gtk_calendar_set_display_options (GtkCalendar *calendar, GtkCalendarDisplayOptions flags)
 ## void gtk_calendar_display_options (GtkCalendar *calendar, GtkCalendarDisplayOptions flags)
+=for apidoc display_options
+The old name for C<set_display_options>.
+=cut
+
 void
 gtk_calendar_set_display_options (calendar, flags)
 	GtkCalendar               * calendar
 	GtkCalendarDisplayOptions   flags
+    ALIAS:
+	display_options = 1
     CODE:
 #if GTK_CHECK_VERSION(2,3,0)
 	gtk_calendar_set_display_options (calendar, flags);
 #else
-	calendar->display_flags = flags;
+	gtk_calendar_display_options (calendar, flags);
 #endif
 
 GtkCalendarDisplayOptions

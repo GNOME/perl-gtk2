@@ -16,6 +16,8 @@ else {
 
 ###############################################################################
 
+require './t/ignore_keyboard.pl';
+
 my $model = Gtk2::ListStore -> new("Glib::String");
 my $view = Gtk2::TreeView -> new($model);
 

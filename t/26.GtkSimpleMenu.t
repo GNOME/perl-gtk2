@@ -24,8 +24,9 @@ else
 		'Gtk2->init_check failed, probably unable to open DISPLAY';
 }
 
-
 #########################
+
+require './t/ignore_keyboard.pl';
 
 use Data::Dumper;
 

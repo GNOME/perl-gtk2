@@ -42,6 +42,10 @@ gdk_window_get_window_type (window)
 	GdkWindow *window
 
  ## GdkWindow* gdk_window_at_pointer (gint *win_x, gint *win_y)
+=for apidoc
+=for signature (window, win_x, win_y) = Gtk2::Gdk::Window->at_pointer
+Returns window, a Gtk2::Gdk::Window and win_x and win_y, integers.
+=cut
 void
 gdk_window_at_pointer (class)
     PREINIT:
@@ -176,6 +180,8 @@ gdk_window_scroll (window, dx, dy)
 	gint dx
 	gint dy
 
+void gdk_window_shape_combine_mask (GdkWindow * window, GdkBitmap * mask, gint x, gint y);
+
   ## FIXME needs typemap for GdkRegion
  ## void gdk_window_shape_combine_region (GdkWindow *window, GdkRegion *shape_region, gint offset_x, gint offset_y)
  ##void
@@ -247,14 +253,12 @@ gdk_window_set_skip_pager_hint (window, skips_pager)
 
 #endif
 
-# FIXME need typemap for GdkGeometry
- ## void gdk_window_set_geometry_hints (GdkWindow *window, GdkGeometry *geometry, GdkWindowHints geom_mask)
- ##void
- ##gdk_window_set_geometry_hints (window, geometry, geom_mask)
- ##	GdkWindow *window
- ##	GdkGeometry *geometry
- ##	GdkWindowHints geom_mask
- ##
+## void gdk_window_set_geometry_hints (GdkWindow *window, GdkGeometry *geometry, GdkWindowHints geom_mask)
+void
+gdk_window_set_geometry_hints (window, geometry, geom_mask)
+	GdkWindow *window
+	GdkGeometry *geometry
+	GdkWindowHints geom_mask
 
 ## void gdk_set_sm_client_id (const gchar *sm_client_id)
 void
@@ -355,6 +359,11 @@ void gdk_window_get_root_origin (GdkWindow *window, OUTLIST gint x, OUTLIST gint
   ## and my hand-coded stuff below, but the inline stuff barfs all over
   ## itself at runtime.  can't quite figure it out.
 ###GdkWindow_ornull* gdk_window_get_pointer (GdkWindow *window, OUTLIST gint x, OUTLIST gint y, OUTLIST GdkModifierType mask)
+=for apidoc
+=for signature (window_at_pointer, x, y, mask) = $window->get_pointer
+Returns window_at_pointer, a Gtk2::Gdk::Window or undef, x and y, integers, and
+mask, a Gtk2::Gdk::ModifierType.
+=cut
 void
 gdk_window_get_pointer (window)
 	GdkWindow * window
@@ -569,23 +578,6 @@ void gdk_window_set_debug_updates (GdkWindow *class_or_instance, gboolean enable
 void
 gdk_window_process_updates (GdkWindow * window, gboolean update_children)
 
-# FIXME needs typemap for GdkGeometry
- ## ## void gdk_window_constrain_size (GdkGeometry *geometry, guint flags, gint width, gint height, gint *new_width, gint *new_height)
- ##void
- ##gdk_window_constrain_size (geometry, flags, width, height)
- ##	GdkGeometry *geometry
- ##	guint flags
- ##	gint width
- ##	gint height
- ##    PREINIT:
- ##	gint new_width;
- ##	gint new_height;
- ##    PPCODE:
- ##	gdk_window_constrain_size (geometry, flags, width, height, &new_width, &new_height);
- ##	EXTEND (SP, 2);
- ##	PUSHs (sv_2mortal (mewSViv (new_width)));
- ##	PUSHs (sv_2mortal (mewSViv (new_height)));
- ##
  ## void gdk_window_get_internal_paint_info (GdkWindow *window, GdkDrawable **real_drawable, gint *x_offset, gint *y_offset)
  ##void
  ##gdk_window_get_internal_paint_info (window, real_drawable, x_offset, y_offset)

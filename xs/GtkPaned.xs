@@ -23,55 +23,111 @@
 
 MODULE = Gtk2::Paned	PACKAGE = Gtk2::Paned	PREFIX = gtk_paned_
 
-SV *
-member (GtkPaned * paned)
+=for object
+
+Gtk2::Paned is the base class for widgets with two panes, arranged either
+horizontally (Gtk2::HPaned) or vertically (Gtk2::VPaned).  Child widgets are
+added to the panes of the widget with C<< $paned->pack1 >> and
+C<< $paned->pack2 >>.  The division beween the two children is set by default
+from the size requests of the children, but it can be adjusted by the user. 
+
+A paned widget draws a separator between the two child widgets and a small
+handle that the user can drag to adjust the division.  It does not draw any
+relief around the children or around the separator.  Often, it is useful to put
+each child inside a Gtk2::Frame with the shadow type set to 'in' so that the
+gutter appears as a ridge. 
+
+Each child has two options that can be set, resize and shrink.  If resize is
+true, then when the Gtk2::Paned is resized, that child will expand or shrink
+along with the paned widget.  If shrink is true, then when that child can be
+made smaller than its requisition by the user.  Setting shrink to FALSE allows
+the application to set a minimum size.  If resize is false for both children,
+then this is treated as if resize is true for both children. 
+
+The application can set the position of the slider as if it were set by the
+user, by calling C<< $paned->set_position >>. 
+
+=cut
+
+void gtk_paned_add1 (GtkPaned *paned, GtkWidget *child)
+
+void gtk_paned_add2 (GtkPaned *paned, GtkWidget *child)
+
+void gtk_paned_pack1 (GtkPaned *paned, GtkWidget *child, gboolean resize, gboolean shrink)
+
+void gtk_paned_pack2 (GtkPaned *paned, GtkWidget *child, gboolean resize, gboolean shrink)
+
+GtkWidget *
+child1 (GtkPaned * paned)
     ALIAS:
-	Gtk2::Paned::child1 = 1
-	Gtk2::Paned::child1_resize = 2
-	Gtk2::Paned::child1_shrink = 3
-	Gtk2::Paned::child2 = 4
-	Gtk2::Paned::child2_resize = 5
-	Gtk2::Paned::child2_shrink = 6
+	Gtk2::Paned::child2 = 1
     CODE:
 	RETVAL = NULL;
 	switch (ix) {
-		case 1: RETVAL = newSVGtkWidget (paned->child1); break;
-		case 2: RETVAL = newSViv (paned->child1_resize); break;
-		case 3: RETVAL = newSViv (paned->child1_shrink); break;
-		case 4: RETVAL = newSVGtkWidget (paned->child2); break;
-		case 5: RETVAL = newSViv (paned->child2_resize); break;
-		case 6: RETVAL = newSViv (paned->child2_shrink); break;
+		case 0: RETVAL = paned->child1; break;
+		case 1: RETVAL = paned->child2; break;
 	}
     OUTPUT:
 	RETVAL
 
-## void gtk_paned_add1 (GtkPaned *paned, GtkWidget *child)
-void
-gtk_paned_add1 (paned, child)
-	GtkPaned  * paned
-	GtkWidget * child
+=for apidoc Gtk2::Paned::child1_resize
+=for signature boolean = $paned->child1_resize
+=for signature $paned->child1_resize (newval)
+=for arg newval (gboolean)
+C<child1_resize> determines whether the first child should expand when 
+I<$paned> is resized.
+=cut
 
-## void gtk_paned_add2 (GtkPaned *paned, GtkWidget *child)
-void
-gtk_paned_add2 (paned, child)
-	GtkPaned  * paned
-	GtkWidget * child
+=for apidoc Gtk2::Paned::child1_shrink
+=for signature boolean = $paned->child1_shrink
+=for signature $paned->child1_shrink (newval)
+=for arg newval (gboolean)
+C<child1_shrink> determines whether the first child may be made smaller
+than its requisition.
+=cut
 
-## void gtk_paned_pack1 (GtkPaned *paned, GtkWidget *child, gboolean resize, gboolean shrink)
-void
-gtk_paned_pack1 (paned, child, resize, shrink)
-	GtkPaned  * paned
-	GtkWidget * child
-	gboolean    resize
-	gboolean    shrink
+=for apidoc Gtk2::Paned::child2_resize
+=for signature boolean = $paned->child2_resize
+=for signature $paned->child2_resize (newval)
+=for arg newval (gboolean)
+C<child2_resize> determines whether the second child should expand when 
+I<$paned> is resized.
+=cut
 
-## void gtk_paned_pack2 (GtkPaned *paned, GtkWidget *child, gboolean resize, gboolean shrink)
-void
-gtk_paned_pack2 (paned, child, resize, shrink)
-	GtkPaned  * paned
-	GtkWidget * child
-	gboolean    resize
-	gboolean    shrink
+=for apidoc Gtk2::Paned::child2_shrink
+=for signature boolean = $paned->child2_shrink
+=for signature $paned->child2_shrink (newval)
+=for arg newval (gboolean)
+C<child2_shrink> determines whether the second child may be made smaller
+than its requisition.
+=cut
+
+gboolean
+bool_member (GtkPaned * paned, SV * newval=NULL)
+    ALIAS:
+	Gtk2::Paned::child1_resize = 0
+	Gtk2::Paned::child1_shrink = 1
+	Gtk2::Paned::child2_resize = 2
+	Gtk2::Paned::child2_shrink = 3
+    CODE:
+	RETVAL = NULL;
+	switch (ix) {
+		case 0: RETVAL = paned->child1_resize; break;
+		case 1: RETVAL = paned->child1_shrink; break;
+		case 2: RETVAL = paned->child2_resize; break;
+		case 3: RETVAL = paned->child2_shrink; break;
+	}
+	if (newval) {
+		gboolean newbool = SvIV (newval);
+		switch (ix) {
+			case 0: paned->child1_resize = newbool; break;
+			case 1: paned->child1_shrink = newbool; break;
+			case 2: paned->child2_resize = newbool; break;
+			case 3: paned->child2_shrink = newbool; break;
+		}
+	}
+    OUTPUT:
+	RETVAL
 
 ## gint gtk_paned_get_position (GtkPaned *paned)
 gint

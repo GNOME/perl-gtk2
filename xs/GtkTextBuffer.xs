@@ -71,6 +71,9 @@ gtk_text_buffer_insert_range_interactive (buffer, iter, start, end, default_edit
 	gboolean default_editable
 
 #### void gtk_text_buffer_insert_with_tags (GtkTextBuffer *buffer, GtkTextIter *iter, const gchar *text, gint len, GtkTextTag *first_tag, ...)
+=for apidoc
+=for arg ... of Gtk2::TextTag's
+=cut
 void
 gtk_text_buffer_insert_with_tags (buffer, iter, text, ...)
 	GtkTextBuffer *buffer
@@ -91,6 +94,9 @@ gtk_text_buffer_insert_with_tags (buffer, iter, text, ...)
  
 
 ## void gtk_text_buffer_insert_with_tags_by_name (GtkTextBuffer *buffer, GtkTextIter *iter, const gchar *text, gint len, const gchar *first_tag_name, ...)
+=for apidoc
+=for arg ... of strings, tag names
+=cut
 void
 gtk_text_buffer_insert_with_tags_by_name (buffer, iter, text, ...)
 	GtkTextBuffer *buffer
@@ -257,8 +263,13 @@ gtk_text_buffer_remove_all_tags (buffer, start, end)
 ##                                             ...);
 ## tag_name may be NULL.
 ## The returned tag is owned by the buffer's tag table!  do not use _noinc!
+=for apidoc
+=for arg property_name1 (string) the first property name
+=for arg property_value1 (string) the first property value
+=for arg ... pairs of names and values
+=cut
 GtkTextTag *
-gtk_text_buffer_create_tag (buffer, tag_name, ...)
+gtk_text_buffer_create_tag (buffer, tag_name, property_name1, property_value1, ...)
 	GtkTextBuffer * buffer
 	const gchar_ornull * tag_name
     PREINIT:
@@ -373,6 +384,11 @@ gtk_text_buffer_get_start_iter (buffer)
 
 
 #### void gtk_text_buffer_get_bounds (GtkTextBuffer *buffer, GtkTextIter *start, GtkTextIter *end)
+=for apidoc
+=for signature (start, end) = $buffer->get_bounds
+Retrieves the first and last iterators in the buffer, i.e. the entire buffer
+lies within the range (start,end).
+=cut
 void
 gtk_text_buffer_get_bounds (buffer)
 	GtkTextBuffer *buffer
@@ -461,6 +477,13 @@ gtk_text_buffer_paste_clipboard (buffer, clipboard, override_location, default_e
 
 ## gboolean gtk_text_buffer_get_selection_bounds (GtkTextBuffer *buffer, GtkTextIter *start, GtkTextIter *end)
 ## returns empty list if there is no selection
+=for apidoc
+=for signature (start, end) = $buffer->get_selection_bounds
+Returns start and end if some text is selected, empty otherwise; places the
+bounds of the selection in start and end (if the selection has length 0, then
+start and end are filled in with the same value). start and end will be in
+ascending order.  
+=cut
 void
 gtk_text_buffer_get_selection_bounds (buffer)
 	GtkTextBuffer *buffer

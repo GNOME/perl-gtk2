@@ -23,29 +23,32 @@
 
 MODULE = Gtk2::Pango::Font	PACKAGE = Gtk2::Pango
 
+=for object Gtk2::Pango::FontDescription
+=cut
+
 ### some constants...
 double
 constant (class)
     ALIAS:
-	Gtk2::Pango::scale          = 1
-	Gtk2::Pango::scale_xx_small = 2
-	Gtk2::Pango::scale_x_small  = 3
-	Gtk2::Pango::scale_small    = 4
-	Gtk2::Pango::scale_medium   = 5
-	Gtk2::Pango::scale_large    = 6
-	Gtk2::Pango::scale_x_large  = 7
-	Gtk2::Pango::scale_xx_large = 8
+	Gtk2::Pango::scale          = 0
+	Gtk2::Pango::scale_xx_small = 1
+	Gtk2::Pango::scale_x_small  = 2
+	Gtk2::Pango::scale_small    = 3
+	Gtk2::Pango::scale_medium   = 4
+	Gtk2::Pango::scale_large    = 5
+	Gtk2::Pango::scale_x_large  = 6
+	Gtk2::Pango::scale_xx_large = 7
     CODE:
 	RETVAL = 0.0;
 	switch (ix) {
-		case 1: RETVAL = (double)PANGO_SCALE; break;
-		case 2: RETVAL = PANGO_SCALE_XX_SMALL; break;
-		case 3: RETVAL = PANGO_SCALE_X_SMALL; break;
-		case 4: RETVAL = PANGO_SCALE_SMALL; break;
-		case 5: RETVAL = PANGO_SCALE_MEDIUM; break;
-		case 6: RETVAL = PANGO_SCALE_LARGE; break;
-		case 7: RETVAL = PANGO_SCALE_X_LARGE; break;
-		case 8: RETVAL = PANGO_SCALE_XX_LARGE; break;
+		case 0: RETVAL = (double)PANGO_SCALE; break;
+		case 1: RETVAL = PANGO_SCALE_XX_SMALL; break;
+		case 2: RETVAL = PANGO_SCALE_X_SMALL; break;
+		case 3: RETVAL = PANGO_SCALE_SMALL; break;
+		case 4: RETVAL = PANGO_SCALE_MEDIUM; break;
+		case 5: RETVAL = PANGO_SCALE_LARGE; break;
+		case 6: RETVAL = PANGO_SCALE_X_LARGE; break;
+		case 7: RETVAL = PANGO_SCALE_XX_LARGE; break;
 	}
     OUTPUT:
 	RETVAL
@@ -234,6 +237,10 @@ pango_font_get_metrics (font, language)
 MODULE = Gtk2::Pango::Font	PACKAGE = Gtk2::Pango::FontFamily	PREFIX = pango_font_family_
 
 ## void pango_font_family_list_faces (PangoFontFamily *family, PangoFontFace ***faces, int *n_faces)
+=for apidoc
+Lists the different font faces that make up family. The faces in a family
+share a common design, but differ in slant, weight, width and other aspects.
+=cut
 void
 pango_font_family_list_faces (family)
 	PangoFontFamily *family

@@ -67,6 +67,9 @@ gtk_combo_set_item_string (combo, item, item_value)
 	gchar    * item_value
 
 ##void gtk_combo_set_popdown_strings (GtkCombo* combo, GList *strings)
+=for apidoc
+=for arg ... of strings
+=cut
 void
 gtk_combo_set_popdown_strings (combo, ...)
 	GtkCombo * combo
@@ -85,13 +88,13 @@ GtkWidget *
 members (combo)
 	GtkCombo * combo
     ALIAS:
-	Gtk2::Combo::entry = 1
-	Gtk2::Combo::list  = 2
+	Gtk2::Combo::entry = 0
+	Gtk2::Combo::list  = 1
     CODE:
 	RETVAL = NULL;
 	switch (ix) {
-	    case 1: RETVAL = combo->entry; break;
-	    case 2: RETVAL = combo->list;  break;
+	    case 0: RETVAL = combo->entry; break;
+	    case 1: RETVAL = combo->list;  break;
 	}
     OUTPUT:
 	RETVAL

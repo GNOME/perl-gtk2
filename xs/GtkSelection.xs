@@ -94,7 +94,7 @@ newSVGtkTargetList (GtkTargetList * list)
 GtkTargetList *
 SvGtkTargetList (SV * sv)
 {
-	if (!SvTRUE (sv) || !SvROK (sv) ||
+	if (!sv || !SvROK (sv) ||
 	    !sv_derived_from (sv, "Gtk2::TargetList"))
 		croak ("variable is not of type Gtk2::TargetList");
 	return (GtkTargetList*) SvUV (SvRV (sv));
@@ -109,6 +109,9 @@ DESTROY (SV * list)
 	gtk_target_list_unref (SvGtkTargetList (list));
 
 ##  GtkTargetList *gtk_target_list_new (const GtkTargetEntry *targets, guint ntargets) 
+=for apidoc
+=for arg ... of Gtk2::TargetEntry's
+=cut
 GtkTargetList *
 gtk_target_list_new (class, ...)
     PREINIT:
@@ -136,8 +139,11 @@ gtk_target_list_add (list, target, flags, info)
 	guint info
 
 ##  void gtk_target_list_add_table (GtkTargetList *list, const GtkTargetEntry *targets, guint ntargets) 
+=for apidoc
+=for arg ... of Gtk2::TargetEntry's
+=cut
 void
-gtk_target_list_add_table (GtkTargetList * list, target, ...)
+gtk_target_list_add_table (GtkTargetList * list, ...)
     PREINIT:
 	GtkTargetEntry *targets;
 	guint ntargets;
@@ -201,8 +207,11 @@ gtk_selection_add_target (widget, selection, target, info)
 	guint info
 
 ##  void gtk_selection_add_targets (GtkWidget *widget, GdkAtom selection, const GtkTargetEntry *targets, guint ntargets) 
+=for apidoc
+=for arg ... of Gtk2::TargetEntry's
+=cut
 void
-gtk_selection_add_targets (widget, selection, target, ...)
+gtk_selection_add_targets (widget, selection, ...)
 	GtkWidget *widget
 	GdkAtom selection
     PREINIT:
@@ -233,24 +242,24 @@ SV *
 members (d)
 	GtkSelectionData * d
     ALIAS:
-	Gtk2::SelectionData::selection = 1
-	Gtk2::SelectionData::target    = 2
-	Gtk2::SelectionData::type      = 3
-	Gtk2::SelectionData::format    = 4
-	Gtk2::SelectionData::data      = 5
-	Gtk2::SelectionData::length    = 6
-	Gtk2::SelectionData::display   = 7
+	Gtk2::SelectionData::selection = 0
+	Gtk2::SelectionData::target    = 1
+	Gtk2::SelectionData::type      = 2
+	Gtk2::SelectionData::format    = 3
+	Gtk2::SelectionData::data      = 4
+	Gtk2::SelectionData::length    = 5
+	Gtk2::SelectionData::display   = 6
     CODE:
 	RETVAL = NULL;
 	switch (ix) {
-	    case 1: RETVAL = newSVGdkAtom (d->selection); break;
-	    case 2: RETVAL = newSVGdkAtom (d->target); break;
-	    case 3: RETVAL = newSVGdkAtom (d->type); break;
-	    case 4: RETVAL = newSViv (d->format); break;
-	    case 5: RETVAL = newSVpv (d->data, d->length); break;
-	    case 6: RETVAL = newSViv (d->length); break;
+	    case 0: RETVAL = newSVGdkAtom (d->selection); break;
+	    case 1: RETVAL = newSVGdkAtom (d->target); break;
+	    case 2: RETVAL = newSVGdkAtom (d->type); break;
+	    case 3: RETVAL = newSViv (d->format); break;
+	    case 4: RETVAL = newSVpv (d->data, d->length); break;
+	    case 5: RETVAL = newSViv (d->length); break;
 #if GTK_CHECK_VERSION(2,2,0)
-	    case 7: RETVAL = newSVGdkDisplay (d->display); break;
+	    case 6: RETVAL = newSVGdkDisplay (d->display); break;
 #endif
 	}
     OUTPUT:
@@ -279,6 +288,13 @@ gtk_selection_data_get_text (selection_data)
 	GtkSelectionData *selection_data
 
 ##  gboolean gtk_selection_data_get_targets (GtkSelectionData *selection_data, GdkAtom **targets, gint *n_atoms) 
+=for apidoc
+Gets the contents of selection_data as an array of targets. This can be used to
+interpret the results of getting the standard TARGETS target that is always
+supplied for any selection.
+
+Returns a list of GdkAtoms, the targets.
+=cut
 void
 gtk_selection_data_get_targets (selection_data)
 	GtkSelectionData *selection_data
@@ -318,11 +334,7 @@ gtk_selection_clear (widget, event)
 ##  gboolean _gtk_selection_notify (GtkWidget *widget, GdkEventSelection *event) 
 ##  gboolean _gtk_selection_property_notify (GtkWidget *widget, GdkEventProperty *event) 
 
- ## boxed wrapper support, export only _copy
+ ## boxed wrapper support, taken care of by Glib::Boxed
 ##  GtkSelectionData *gtk_selection_data_copy (GtkSelectionData *data) 
-GtkSelectionData_own *
-gtk_selection_data_copy (data)
-	GtkSelectionData *data
-
 ##  void gtk_selection_data_free (GtkSelectionData *data) 
 

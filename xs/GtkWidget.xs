@@ -1,20 +1,7 @@
 /*
  * Copyright (c) 2003 by the gtk2-perl team (see the file AUTHORS)
  *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Library General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Library General Public License for more details.
- *
- * You should have received a copy of the GNU Library General Public
- * License along with this library; if not, write to the
- * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
- * Boston, MA  02111-1307  USA.
+ * Licensed under the LGPL, see LICENSE file for more information.
  *
  * $Header$
  */
@@ -105,6 +92,12 @@ window (widget)
     OUTPUT:
 	RETVAL
 
+=for apidoc
+=for signature allocation = $widget->allocation
+Returns I<$widget>'s current allocated size as a read-only rectangle
+(re-blessed as a Gtk2::Allocation); the allocated size is not necessarily
+the same as the requested size.
+=cut
 SV *
 allocation (widget)
 	GtkWidget * widget
@@ -118,8 +111,8 @@ GtkStyle*
 style (widget)
 	GtkWidget * widget
     ALIAS:
-	Gtk2::Widget::style = 1
-	Gtk2::Widget::get_style = 2
+	Gtk2::Widget::style = 0
+	Gtk2::Widget::get_style = 1
     CODE:
 	PERL_UNUSED_VAR (ix);
 	RETVAL = gtk_widget_get_style(widget);
@@ -143,29 +136,124 @@ state (widget)
 
  ##define GTK_WIDGET_FLAGS(wid)		  (GTK_OBJECT_FLAGS (wid))
 
+=for apidoc Gtk2::Widget::toplevel
+=for signature $widget->toplevel ($value)
+=for signature boolean = $widget->toplevel
+=cut
+
+=for apidoc Gtk2::Widget::no_window
+=for signature $widget->no_window ($boolean)
+=for signature boolean = $widget->no_window
+=cut
+
+=for apidoc Gtk2::Widget::realized
+=for signature $widget->realized ($boolean)
+=for signature boolean = $widget->realized
+=cut
+
+=for apidoc Gtk2::Widget::mapped
+=for signature $widget->mapped ($boolean)
+=for signature boolean = $widget->mapped
+=cut
+
+=for apidoc Gtk2::Widget::visible
+=for signature $widget->visible ($boolean)
+=for signature boolean = $widget->visible
+=cut
+
+=for apidoc Gtk2::Widget::drawable
+=for signature $widget->drawable ($boolean)
+=for signature boolean = $widget->drawable
+=cut
+
+=for apidoc Gtk2::Widget::sensitive
+=for signature $widget->sensitive ($boolean)
+=for signature boolean = $widget->sensitive
+=cut
+
+=for apidoc Gtk2::Widget::parent_sensitive
+=for signature $widget->parent_sensitive ($boolean)
+=for signature boolean = $widget->parent_sensitive
+=cut
+
+=for apidoc Gtk2::Widget::is_sensitive
+=for signature $widget->is_sensitive ($boolean)
+=for signature boolean = $widget->is_sensitive
+=cut
+
+=for apidoc Gtk2::Widget::can_focus
+=for signature $widget->can_focus ($boolean)
+=for signature boolean = $widget->can_focus
+=cut
+
+=for apidoc Gtk2::Widget::has_focus
+=for signature $widget->has_focus ($boolean)
+=for signature boolean = $widget->has_focus
+=cut
+
+=for apidoc Gtk2::Widget::has_grab
+=for signature $widget->has_grab ($boolean)
+=for signature boolean = $widget->has_grab
+=cut
+
+=for apidoc Gtk2::Widget::rc_style
+=for signature $widget->rc_style ($boolean)
+=for signature boolean = $widget->rc_style
+=cut
+
+=for apidoc Gtk2::Widget::composite_child
+=for signature $widget->composite_child ($boolean)
+=for signature boolean = $widget->composite_child
+=cut
+
+=for apidoc Gtk2::Widget::app_paintable
+=for signature $widget->app_paintable ($boolean)
+=for signature boolean = $widget->app_paintable
+=cut
+
+=for apidoc Gtk2::Widget::receives_default
+=for signature $widget->receives_default ($boolean)
+=for signature boolean = $widget->receives_default
+=cut
+
+=for apidoc Gtk2::Widget::double_buffered
+=for signature $widget->double_buffered ($boolean)
+=for signature boolean = $widget->double_buffered
+=cut
+
+=for apidoc Gtk2::Widget::can_default
+=for signature $widget->can_default ($boolean)
+=for signature boolean = $widget->can_default
+=cut
+
+=for apidoc Gtk2::Widget::has_default
+=for signature $widget->has_default ($boolean)
+=for signature boolean = $widget->has_default
+=cut
+
 gboolean
 get_flags (widget, ...)
 	GtkWidget * widget
     ALIAS:
-	Gtk2::Widget::toplevel         =  1
-	Gtk2::Widget::no_window        =  2
-	Gtk2::Widget::realized         =  3
-	Gtk2::Widget::mapped           =  4
-	Gtk2::Widget::visible          =  5
-	Gtk2::Widget::drawable         =  6
-	Gtk2::Widget::sensitive        =  7
-	Gtk2::Widget::parent_sensitive =  8
-	Gtk2::Widget::is_sensitive     =  9
-	Gtk2::Widget::can_focus        = 10
-	Gtk2::Widget::has_focus        = 11
-	Gtk2::Widget::has_grab         = 12
-	Gtk2::Widget::rc_style         = 13
-	Gtk2::Widget::composite_child  = 14
-	Gtk2::Widget::app_paintable    = 15
-	Gtk2::Widget::receives_default = 16
-	Gtk2::Widget::double_buffered  = 17
-	Gtk2::Widget::can_default      = 18
-	Gtk2::Widget::has_default      = 19
+	Gtk2::Widget::toplevel         =  0
+	Gtk2::Widget::no_window        =  1
+	Gtk2::Widget::realized         =  2
+	Gtk2::Widget::mapped           =  3
+	Gtk2::Widget::visible          =  4
+	Gtk2::Widget::drawable         =  5
+	Gtk2::Widget::sensitive        =  6
+	Gtk2::Widget::parent_sensitive =  7
+	Gtk2::Widget::is_sensitive     =  8
+	Gtk2::Widget::can_focus        =  9
+	Gtk2::Widget::has_focus        = 10
+	Gtk2::Widget::has_grab         = 11
+	Gtk2::Widget::rc_style         = 12
+	Gtk2::Widget::composite_child  = 13
+	Gtk2::Widget::app_paintable    = 14
+	Gtk2::Widget::receives_default = 15
+	Gtk2::Widget::double_buffered  = 16
+	Gtk2::Widget::can_default      = 17
+	Gtk2::Widget::has_default      = 18
     PREINIT:
 	gboolean value;
 	GtkWidgetFlags flag;
@@ -395,8 +483,16 @@ gtk_widget_mnemonic_activate   (widget, group_cycling)
 	gboolean    group_cycling
 
  # gtk docs say rarely used, suggest other ways
- #gboolean   gtk_widget_event		  (GtkWidget	       *widget,
- #					   GdkEvent	       *event);
+=for apidoc
+This rarely-used function emits an event signal on I<$widget>.  Don't use
+this to synthesize events; use C<< Gtk2->main_do_event >> instead.  Don't
+synthesize expose events; use C<< $gdkwindow->invalidate_rect >> instead.
+Basically, the main use for this in gtk2-perl will be to pass motion
+notify events to rulers from other widgets.
+=cut
+gboolean gtk_widget_event (GtkWidget * widget, GdkEvent	*event);
+
+ # gtk docs say rarely used, suggest other ways
  #gint       gtk_widget_send_expose         (GtkWidget           *widget,
  #					   GdkEvent            *event);
 
@@ -415,6 +511,9 @@ gtk_widget_reparent (widget, new_parent)
 	GtkWidget * widget
 	GtkWidget * new_parent
 
+=for apidoc
+Returns undef if I<$widget> and I<$area> do not intersect.
+=cut
 GdkRectangle_copy *
 gtk_widget_intersect (widget, area)
 	GtkWidget    * widget
@@ -491,6 +590,22 @@ gtk_widget_set_size_request (widget, width=-1, height=-1)
 	gint width
 	gint height
 
+=for apidoc
+This function is typically used when implementing a GtkContainer subclass.
+Obtains the preferred size of a widget. The container uses this information to
+arrange its child widgets and decide what size allocations to give them with
+size_allocate ().
+
+You can also call this function from an application, with some caveats. Most
+notably, getting a size request requires the widget to be associated with a
+screen, because font information may be needed. Multihead-aware applications
+should keep this in mind.
+
+Also remember that the size request is not necessarily the size a widget will
+actually be allocated.
+
+See also L<get_child_requisition ()|requisistion = $widget-E<gt>get_child_requisition>
+=cut
 void
 gtk_widget_get_size_request (widget)
 	GtkWidget * widget
@@ -575,6 +690,11 @@ gtk_widget_get_pointer (GtkWidget *widget, OUTLIST gint x, OUTLIST gint y);
 gboolean gtk_widget_is_ancestor (GtkWidget *widget, GtkWidget *ancestor);
 
  #gboolean gtk_widget_translate_coordinates (GtkWidget *src_widget, GtkWidget *dest_widget, gint src_x, gint src_y, gint *dest_x, gint *dest_y);
+=for apidoc
+=for signature (dst_x, dst_y) = $src_widget->translate_coordinates ($dest_widget, $src_x, $src_y)
+Returns an empty list if either widget is not realized or if they do not share
+a common ancestor.
+=cut
 void
 gtk_widget_translate_coordinates (GtkWidget *src_widget, GtkWidget *dest_widget, gint src_x, gint src_y)
     PREINIT:
@@ -679,8 +799,35 @@ void gtk_widget_pop_composite_child (SV *class_or_widget)
  #void gtk_widget_style_get          (GtkWidget	     *widget,
  #				    const gchar    *first_property_name,
  #				    ...);
- #
- #
+### gtk_widget_class_find_style_property isn't available until 2.2.0, so we
+### can't implement gtk_widget_style_get and friends until 2.2.0, because
+### we have to be able to query the property's pspec to know what type of
+### GValue to send it.
+
+#if GTK_CHECK_VERSION(2,2,0)
+
+void
+style_get (GtkWidget * widget, first_property_name, ...)
+    ALIAS:
+	style_get_property = 1
+    PREINIT:
+	int i;
+    PPCODE:
+	EXTEND (SP, items - 1);
+	for (i = 1 ; i < items ; i++) {
+		GValue value = {0, };
+		gchar * name = SvGChar (ST (i));
+		GParamSpec * pspec;
+		pspec = gtk_widget_class_find_style_property
+		                         (GTK_WIDGET_GET_CLASS (widget), name);
+		g_value_init (&value, G_PARAM_SPEC_VALUE_TYPE (pspec));
+		gtk_widget_style_get_property (widget, name, &value);
+		PUSHs (sv_2mortal (gperl_sv_from_value (&value)));
+		g_value_unset (&value);
+	}
+
+#endif
+
  #/* Set certain default values to be used at widget creation time.
  # */
 
@@ -720,10 +867,7 @@ gtk_widget_get_default_direction (class);
 
  #/* Counterpart to gdk_window_shape_combine_mask.
  # */
- #void	     gtk_widget_shape_combine_mask (GtkWidget *widget,
- #					    GdkBitmap *shape_mask,
- #					    gint       offset_x,
- #					    gint       offset_y);
+void gtk_widget_shape_combine_mask (GtkWidget *widget, GdkBitmap *shape_mask, gint offset_x, gint offset_y);
 
 
 
@@ -732,6 +876,14 @@ gtk_widget_get_default_direction (class);
  # void gtk_widget_class_path (GtkWidget *widget, guint *path_length, gchar **path, gchar **path_reversed);
  ## both changed to ($path, $path_reversed) = $widget->(path|class_path);
  ## returns the path_reversed straight from C, no matter how nonsensical...
+=for apidoc Gtk2::Widget::path
+=for signature (path, path_reversed) = $widget->path
+=cut
+
+=for apidoc class_path
+=for signature (path, path_reversed) = $widget->class_path
+=cut
+
 void
 gtk_widget_path (GtkWidget *widget)
     ALIAS:
@@ -785,10 +937,13 @@ gtk_widget_get_clipboard (widget, selection=GDK_SELECTION_CLIPBOARD)
 	GdkAtom     selection
 
 
-#GdkDisplay* gtk_widget_get_display (GtkWidget *widget)
-GdkDisplay *
-gtk_widget_get_display (widget)
-	GtkWidget * widget
+GdkDisplay * gtk_widget_get_display (GtkWidget * widget)
+
+GdkWindow * gtk_widget_get_root_window (GtkWidget * widget)
+
+GdkScreen * gtk_widget_get_screen (GtkWidget * widget)
+
+gboolean gtk_widget_has_screen (GtkWidget * widget);
 
 #endif
 

@@ -90,11 +90,14 @@ gdk_pixmap_create_from_data (class, drawable, data, width, height, depth, fg, bg
 	drawable, data, width, height, depth, fg, bg
 
  ## GdkPixmap* gdk_pixmap_create_from_xpm (GdkDrawable *drawable, GdkBitmap **mask, GdkColor *transparent_color, const gchar *filename)
+=for apidoc
+=for signature (pixmap, mask) = Gtk2::Gdk::Pixmap->create_from_xpm ($drawable, $transparent_color, $filename)
+=cut
 void
 gdk_pixmap_create_from_xpm (class, drawable, transparent_color, filename)
 	GdkDrawable *drawable
 	GdkColor_ornull *transparent_color
-	const gchar *filename
+	GPerlFilename filename
     PREINIT:
 	GdkPixmap * pixmap;
 	GdkBitmap * mask;
@@ -106,12 +109,15 @@ gdk_pixmap_create_from_xpm (class, drawable, transparent_color, filename)
 	PUSHs (sv_2mortal (newSVGdkBitmap_noinc (mask)));
 
  ## GdkPixmap* gdk_pixmap_colormap_create_from_xpm (GdkDrawable *drawable, GdkColormap *colormap, GdkBitmap **mask, GdkColor *transparent_color, const gchar *filename)
+=for apidoc
+=for signature (pixmap, mask) = Gtk2::Gdk::Pixmap->colormap_create_from_xpm ($drawable, $colormap, $transparent_color, $filename)
+=cut
 void
 gdk_pixmap_colormap_create_from_xpm (class, drawable, colormap, transparent_color, filename)
 	GdkDrawable *drawable
 	GdkColormap *colormap
 	GdkColor_ornull *transparent_color
-	const gchar *filename
+	GPerlFilename filename
     PREINIT:
 	GdkPixmap * pixmap;
 	GdkBitmap * mask;
@@ -123,6 +129,17 @@ gdk_pixmap_colormap_create_from_xpm (class, drawable, colormap, transparent_colo
 	PUSHs (sv_2mortal (newSVGdkBitmap_noinc (mask)));
 
 ## ## GdkPixmap* gdk_pixmap_create_from_xpm_d (GdkDrawable *drawable, GdkBitmap **mask, GdkColor *transparent_color, gchar **data)
+=for apidoc
+=for signature ($pixmap, $mask) = Gtk2::Gdk::Pixmap->create_from_xpm_d ($drawable, $transparent_color, @xpm_data)
+=for arg drawable used to determine the colormap and visual of the image.
+=for arg transparent_color color of pixels that are transparent in the input file.  if undef, a default is used.
+=for arg data (__hide__)
+=for arg ... of strings, xpm data
+
+Create a pixmap from the provided xpm data, usually included in the program as
+an inline image.  See C<new_from_xpm_data> in L<Gtk2::Gdk::Pixbuf> for a 
+description of the format of this data.
+=cut
 void
 gdk_pixmap_create_from_xpm_d (class, drawable, transparent_color, data, ...)
 	GdkDrawable *drawable
@@ -145,6 +162,17 @@ gdk_pixmap_create_from_xpm_d (class, drawable, transparent_color, data, ...)
 	if (mask)   XPUSHs (sv_2mortal (newSVGdkBitmap_noinc (mask)));
 
 ## ## GdkPixmap* gdk_pixmap_colormap_create_from_xpm_d (GdkDrawable *drawable, GdkColormap *colormap, GdkBitmap **mask, GdkColor *transparent_color, gchar **data)
+=for apidoc
+=for signature ($pixmap, $mask) = Gtk2::Gdk::Pixmap->colormap_create_from_xpm_d ($drawable, $transparent_color, @xpm_data)
+=for arg drawable may be undef if I<$colormap> is given
+=for arg colormap GdkColormap to use for the new image; may be undef if I<$drawable> is given.
+=for arg transparent_color color of pixels that are transparent in the input file.  if undef, a default is used.
+=for arg data (__hide__)
+=for arg ... of strings, xpm data
+
+Create a pixmap from the provided xpm data, using a specific colormap.
+See C<create_from_xpm_d>.
+=cut
 void
 gdk_pixmap_colormap_create_from_xpm_d (class, drawable, colormap, transparent_color, data, ...)
 	GdkDrawable_ornull *drawable

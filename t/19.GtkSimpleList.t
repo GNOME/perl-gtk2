@@ -15,7 +15,7 @@ use Test::More;
 
 if( Gtk2->init_check )
 {
-	plan tests => 36;
+	plan tests => 42;
 	require_ok( 'Gtk2::SimpleList' );
 }
 else
@@ -26,6 +26,8 @@ else
 
 
 #########################
+
+#require './t/ignore_keyboard.pl';
 
 Gtk2::SimpleList->add_column_type(
 	'ralacs', 	# think about it for a second...
@@ -233,18 +235,75 @@ Glib::Idle->add( sub
 		
 		push @{$list->{data}}, (
 			[ 'pushed', 1, 0.1, undef ],
-			[ 'pushed', 1, 0.1, undef ],
-			[ 'pushed', 1, 0.1, undef ],
-			[ 'pushed', 1, 0.1, undef ],
+			[ 'pushed', 2, 0.1, undef ],
+			[ 'pushed', 3, 0.1, undef ],
+			[ 'pushed', 4, 0.1, undef ],
 		);
 		unshift @{$list->{data}}, (
 			[ 'unshifted', 1, 0.1, undef ],
-			[ 'unshifted', 1, 0.1, undef ],
-			[ 'unshifted', 1, 0.1, undef ],
-			[ 'unshifted', 1, 0.1, undef ],
+			[ 'unshifted', 2, 0.1, undef ],
+			[ 'unshifted', 3, 0.1, undef ],
+			[ 'unshifted', 4, 0.1, undef ],
 		);
 
 		is( scalar(@{$list->{data}}), 8 );
+
+		my @ret;
+		
+		@ret = splice @{$list->{data}}, 2, 2,
+				[ 'spliced', 1, 0.1, undef ],
+				[ 'spliced', 2, 0.1, undef ];
+		ok (eq_array (\@ret, 
+			[ [ 'unshifted', 2, '0.1', 0, 
+			    undef, undef, undef, undef ],
+			  [ 'unshifted', 1, '0.1', 0, 
+			    undef, undef, undef, undef ] ]), 'splice @, 2, 2 @');
+		
+		@ret = splice @{$list->{data}}, -2, 1,
+			[ 'negspliced', 1, 0.1, undef ],
+			[ 'negspliced', 2, 0.1, undef ],
+			[ 'negspliced', 3, 0.1, undef ];
+		ok (eq_array (\@ret, 
+			[ [ 'pushed', 3, '0.1', 0, 
+			    undef, undef, undef, undef ] ]), 'splice @, -2, 1 @');
+
+		@ret = splice @{$list->{data}}, 8;
+		ok (eq_array (\@ret, 
+			[ [ 'negspliced', 3, '0.1', 0, 
+			    undef, undef, undef, undef ],
+			  [ 'pushed', 4, '0.1', 0, 
+			    undef, undef, undef, undef ] ]), 'splice @, 8');
+
+		@ret = splice @{$list->{data}}, -2;
+		ok (eq_array (\@ret, 
+			[ [ 'negspliced', 1, '0.1', 0, 
+			    undef, undef, undef, undef ],
+			  [ 'negspliced', 2, '0.1', 0, 
+			    undef, undef, undef, undef ] ]), 'splice @, -2');
+		
+		@ret = splice @{$list->{data}}, -2, 0, 
+			[ 'norem', 1, 0.1, undef ],
+			[ 'norem', 2, 0.1, undef ];
+		ok (eq_array (\@ret, []), 'splice @, -2, 0, @');
+
+		@ret = splice @{$list->{data}};
+		ok (eq_array (\@ret, 
+			[ [ 'unshifted', 4, 0.1, 0,
+			    undef, undef, undef, undef ],
+			  [ 'unshifted', 3, 0.1, 0,
+			    undef, undef, undef, undef ],
+			  [ 'spliced', 1, 0.1, 0,
+			    undef, undef, undef, undef ],
+			  [ 'spliced', 2, 0.1, 0,
+			    undef, undef, undef, undef ],
+			  [ 'norem', 1, 0.1, 0,
+			    undef, undef, undef, undef ],
+			  [ 'norem', 2, 0.1, 0,
+			    undef, undef, undef, undef ],
+			  [ 'pushed', 1, 0.1, 0,
+			    undef, undef, undef, undef ],
+			  [ 'pushed', 2, 0.1, 0,
+			    undef, undef, undef, undef ] ]), 'splice @');
 
 		Gtk2->main_quit;
 		return 0;

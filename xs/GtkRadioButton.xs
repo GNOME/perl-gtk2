@@ -108,6 +108,9 @@ gtk_radio_button_set_group (radio_button, member_or_listref)
 	gtk_radio_button_set_group(radio_button, group);
 
 # GSList * gtk_radio_button_get_group (GtkRadioButton *radio_button)
+=for apidoc
+=for signature @group = $radio_button->get_group
+=cut
 void
 gtk_radio_button_get_group (radio_button)
 	GtkRadioButton * radio_button

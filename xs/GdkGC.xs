@@ -170,7 +170,7 @@ gdk_gc_new (class, GdkDrawable * drawable, SV * values=NULL)
     ALIAS:
 	new_with_values = 1
     CODE:
-	if (values && SvTRUE (values)) {
+	if (values && SvOK (values)) {
 		GdkGCValuesMask m;
 		GdkGCValues v;
 		read_gcvalues_from_sv (values, &v, &m);
@@ -303,6 +303,13 @@ gdk_gc_set_line_attributes (gc, line_width, line_style, cap_style, join_style)
 	GdkJoinStyle join_style
 
  ## void gdk_gc_set_dashes (GdkGC *gc, gint dash_offset, gint8 dash_list[], gint n)
+=for apidoc
+=for arg ... of integers, the length of the dash segments
+Sets the way dashed-lines are drawn. Lines will be drawn with alternating on
+and off segments of the lengths specified in list of dashes. The manner in
+which the on and off segments are drawn is determined by the line_style value
+of the GC.
+=cut
 void
 gdk_gc_set_dashes (gc, dash_offset, ...)
 	GdkGC * gc

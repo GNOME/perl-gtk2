@@ -380,7 +380,7 @@ sub gen_boxed_stuff {
   /* GBoxed $classname */
   typedef $classname $classname\_ornull;
 # define Sv$classname(sv)	(gperl_get_boxed_check ((sv), $typemacro))
-# define Sv$classname\_ornull(sv)	(((sv) && SvTRUE (sv)) ? Sv$classname (sv) : NULL)
+# define Sv$classname\_ornull(sv)	(((sv) && SvOK (sv)) ? Sv$classname (sv) : NULL)
   typedef $classname $classname\_own;
   typedef $classname $classname\_copy;
   typedef $classname $classname\_own_ornull;
@@ -391,6 +391,7 @@ sub gen_boxed_stuff {
 #endif /* $typemacro */
 ";
 	push @typemap, "$classname *	T_GPERL_GENERIC_WRAPPER";
+	push @typemap, "const $classname *	T_GPERL_GENERIC_WRAPPER";
 	push @typemap, "$classname\_ornull *	T_GPERL_GENERIC_WRAPPER";
 	push @typemap, "$classname\_own *	T_GPERL_GENERIC_WRAPPER";
 	push @typemap, "$classname\_copy *	T_GPERL_GENERIC_WRAPPER";
@@ -413,7 +414,7 @@ sub gen_object_stuff {
 # define Sv$classname(sv)	(($classname*)gperl_get_object_check (sv, $typemacro))
 # define newSV$classname(val)	($get_wrapper)
   typedef $classname $classname\_ornull;
-# define Sv$classname\_ornull(sv)	(((sv) && SvTRUE (sv)) ? Sv$classname(sv) : NULL)
+# define Sv$classname\_ornull(sv)	(((sv) && SvOK (sv)) ? Sv$classname(sv) : NULL)
 # define newSV$classname\_ornull(val)	(((val) == NULL) ? &PL_sv_undef : $get_wrapper)
 ";
 

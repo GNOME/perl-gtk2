@@ -202,11 +202,12 @@ gtk2perl_cell_renderer_activate (GtkCellRenderer      * cell,
 		XPUSHs (sv_2mortal (newSVGtkCellRendererState (flags)));
 
 		PUTBACK;
-		call_sv ((SV*) GvCV (*slot), G_SCALAR|G_DISCARD);
+		call_sv ((SV*) GvCV (*slot), G_SCALAR);
 		SPAGAIN;
 
 		retval = POPi;
 
+		PUTBACK;
 		FREETMPS;
 		LEAVE;
 	}
@@ -251,10 +252,11 @@ gtk2perl_cell_renderer_start_editing (GtkCellRenderer      * cell,
 		SPAGAIN;
 
 		sv = POPs;
-		editable = SvTRUE (sv)
+		editable = SvOK (sv)
 		         ? GTK_CELL_EDITABLE (SvGObject (sv))
 		         : NULL;
 
+		PUTBACK;
 		FREETMPS;
 		LEAVE;
 	}
@@ -335,6 +337,9 @@ your cell renderer implementation!
 =cut
 
 ## void gtk_cell_renderer_get_size (GtkCellRenderer *cell, GtkWidget *widget, GdkRectangle *cell_area, gint *x_offset, gint *y_offset, gint *width, gint *height)
+=for apidoc
+=signature (cell_area, x_offset, y_offset, width, height) = $cell->renderer_get_size ($widget)
+=cut
 void
 gtk_cell_renderer_get_size (cell, widget)
 	GtkCellRenderer * cell

@@ -7,7 +7,7 @@ use Test::More;
 ###############################################################################
 
 if (Gtk2 -> init_check()) {
-	plan(tests => 64);
+	plan(tests => 65);
 }
 else {
 	plan(skip_all =>
@@ -15,6 +15,8 @@ else {
 }
 
 ###############################################################################
+
+require './t/ignore_keyboard.pl';
 
 my $model = Gtk2::ListStore -> new("Glib::String", "Glib::Int");
 isa_ok($model, "Gtk2::ListStore");
@@ -96,14 +98,15 @@ is($model -> get_path($iter) -> to_string(), "0");
 $iter = $model -> get_iter_first();
 is($model -> get_path($iter) -> to_string(), "0");
 
-$model -> iter_next($iter);
-is($model -> get_path($iter) -> to_string(), "1");
+my $next = $model -> iter_next($iter);
+is($model -> get_path($iter) -> to_string(), "0");
+is($model -> get_path($next) -> to_string(), "1");
 
 SKIP: {
 	skip("get_string_from_iter is new in 2.2.x", 1)
 		unless ((Gtk2 -> get_version_info())[1] >= 2);
 
-	is($model -> get_string_from_iter($iter), "1");
+	is($model -> get_string_from_iter($iter), "0");
 }
 
 ###############################################################################

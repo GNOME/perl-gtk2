@@ -11,6 +11,8 @@ if (2 > (Gtk2->get_version_info)[1]) {
 	plan (tests => 22);
 }
 
+require './t/ignore_keyboard.pl';
+
 my $clipboard = Gtk2::Clipboard->get (Gtk2::Gdk->SELECTION_PRIMARY);
 
 print Dumper( $clipboard );

@@ -72,11 +72,7 @@ pango_layout_get_attributes (layout)
 
 ##  void pango_layout_set_text (PangoLayout *layout, const char *text, int length) 
 void
-pango_layout_set_text (layout, text)
-	PangoLayout *layout
-	const gchar *text
-    C_ARGS:
-	layout, text, -1
+pango_layout_set_text (PangoLayout *layout, const gchar_length *text, int length(text))
 
 ##  const char * pango_layout_get_text (PangoLayout *layout);
 const gchar *
@@ -85,23 +81,11 @@ pango_layout_get_text (layout)
 
 ##  void pango_layout_set_markup (PangoLayout *layout, const char *markup, int length) 
 void
-pango_layout_set_markup (layout, markup)
-	PangoLayout *layout
-	const gchar *markup
-    C_ARGS:
-	layout, markup, -1
+pango_layout_set_markup (PangoLayout * layout, const gchar_length * markup, int length(markup))
 
-# FIXME
-###  void pango_layout_set_markup_with_accel (PangoLayout *layout, const char *markup, int length, gunichar accel_marker, gunichar *accel_char) 
-#void
-#pango_layout_set_markup_with_accel (layout, markup, length, accel_marker, accel_char)
-#	PangoLayout *layout
-#	const gchar *markup
-#	int length
-#	gunichar accel_marker
-#	gunichar *accel_char
-#    C_ARGS:
-#	layout, markup, -1, accel_marker, accel_char
+##  void pango_layout_set_markup_with_accel (PangoLayout *layout, const char *markup, int length, gunichar accel_marker, gunichar *accel_char) 
+void
+pango_layout_set_markup_with_accel (PangoLayout * layout, const char * markup, int length(markup), gunichar accel_marker, OUTLIST gunichar accel_char)
 
 ##  void pango_layout_set_font_description (PangoLayout *layout, const PangoFontDescription *desc) 
 void
@@ -119,19 +103,19 @@ int
 int_getters (layout)
 	PangoLayout * layout
     ALIAS:
-	Gtk2::Pango::Layout::get_width = 1
-	Gtk2::Pango::Layout::get_indent = 2
-	Gtk2::Pango::Layout::get_spacing = 3
-	Gtk2::Pango::Layout::get_justify = 4
-	Gtk2::Pango::Layout::get_single_paragraph_mode = 5
+	Gtk2::Pango::Layout::get_width = 0
+	Gtk2::Pango::Layout::get_indent = 1
+	Gtk2::Pango::Layout::get_spacing = 2
+	Gtk2::Pango::Layout::get_justify = 3
+	Gtk2::Pango::Layout::get_single_paragraph_mode = 4
     CODE:
 	RETVAL = 0;
 	switch (ix) {
-		case 1: RETVAL = pango_layout_get_width (layout); break;
-		case 2: RETVAL = pango_layout_get_indent (layout); break;
-		case 3: RETVAL = pango_layout_get_spacing (layout); break;
-		case 4: RETVAL = pango_layout_get_justify (layout); break;
-		case 5: RETVAL = pango_layout_get_single_paragraph_mode (layout); break;
+		case 0: RETVAL = pango_layout_get_width (layout); break;
+		case 1: RETVAL = pango_layout_get_indent (layout); break;
+		case 2: RETVAL = pango_layout_get_spacing (layout); break;
+		case 3: RETVAL = pango_layout_get_justify (layout); break;
+		case 4: RETVAL = pango_layout_get_single_paragraph_mode (layout); break;
 	}
    OUTPUT:
 	RETVAL
@@ -146,18 +130,18 @@ int_setters (layout, newval)
 	PangoLayout * layout
 	int newval
     ALIAS:
-	Gtk2::Pango::Layout::set_width = 1
-	Gtk2::Pango::Layout::set_indent = 2
-	Gtk2::Pango::Layout::set_spacing = 3
-	Gtk2::Pango::Layout::set_justify = 4
-	Gtk2::Pango::Layout::set_single_paragraph_mode = 5
+	Gtk2::Pango::Layout::set_width = 0
+	Gtk2::Pango::Layout::set_indent = 1
+	Gtk2::Pango::Layout::set_spacing = 2
+	Gtk2::Pango::Layout::set_justify = 3
+	Gtk2::Pango::Layout::set_single_paragraph_mode = 4
     CODE:
 	switch (ix) {
-		case 1: pango_layout_set_width (layout, newval); break;
-		case 2: pango_layout_set_indent (layout, newval); break;
-		case 3: pango_layout_set_spacing (layout, newval); break;
-		case 4: pango_layout_set_justify (layout, newval); break;
-		case 5: pango_layout_set_single_paragraph_mode (layout, newval); break;
+		case 0: pango_layout_set_width (layout, newval); break;
+		case 1: pango_layout_set_indent (layout, newval); break;
+		case 2: pango_layout_set_spacing (layout, newval); break;
+		case 3: pango_layout_set_justify (layout, newval); break;
+		case 4: pango_layout_set_single_paragraph_mode (layout, newval); break;
 	}
 
 
@@ -202,6 +186,9 @@ pango_layout_context_changed (layout)
 	PangoLayout *layout
 
 ##  void pango_layout_get_log_attrs (PangoLayout *layout, PangoLogAttr **attrs, gint *n_attrs) 
+=for apidoc
+Returns a list of Gtk2::Pango::LogAttr's
+=cut
 void
 pango_layout_get_log_attrs (layout)
 	PangoLayout * layout
@@ -229,6 +216,9 @@ pango_layout_get_log_attrs (layout)
 void pango_layout_move_cursor_visually (PangoLayout *layout, gboolean strong, int old_index, int old_trailing, int direction, OUTLIST int new_index, OUTLIST int new_trailing) 
 
 ##  gboolean pango_layout_xy_to_index (PangoLayout *layout, int x, int y, int *index_, int *trailing) 
+=for apidoc
+=for signature (index, trailing) = $layout->xy_to_index ($x, $y)
+=cut
 void
 pango_layout_xy_to_index (layout, x, y)
 	PangoLayout *layout

@@ -50,6 +50,9 @@ gtk_curve_set_range (curve, min_x, max_x, min_y, max_y)
 	gfloat     max_y
 
 ## void gtk_curve_get_vector (GtkCurve *curve, int veclen, gfloat vector[])
+=for apidoc
+Returns a list of real numbers, the curve's vector.
+=cut
 void
 gtk_curve_get_vector (curve, veclen=32)
 	GtkCurve * curve
@@ -70,6 +73,9 @@ gtk_curve_get_vector (curve, veclen=32)
 	g_free(vector);
 
 ## void gtk_curve_set_vector (GtkCurve *curve, int veclen, gfloat vector[])
+=for apidoc
+=for arg ... of float's, the points of the curve
+=cut
 void
 gtk_curve_set_vector (curve, ...)
 	GtkCurve * curve

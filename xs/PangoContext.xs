@@ -22,17 +22,15 @@
 
 MODULE = Gtk2::Pango::Context	PACKAGE = Gtk2::Pango::Context	PREFIX = pango_context_
 
+ ## applications have no cause to use pango_context_new() -- it is intended
+ ## to be used by backends.  i seriously doubt anyone would want to write a
+ ## pango backend in Perl, unless they want something that's really slow.
+ ## higher-level APIs are used to create contexts appropriate for the desired
+ ## backend, e.g. $gtkwidget->create_pango_context.
 ##  PangoContext *pango_context_new (void) 
-PangoContext_noinc *
-pango_context_new (class)
-    C_ARGS:
-	/*void*/
 
+ ## same thing goes for pango_context_set_font_map.
 ##  void pango_context_set_font_map (PangoContext *context, PangoFontMap *font_map) 
-void
-pango_context_set_font_map (context, font_map)
-	PangoContext *context
-	PangoFontMap *font_map
 
 ## FIXME
 ###  void pango_context_list_families (PangoContext *context, PangoFontFamily ***families, int *n_families) 

@@ -18,6 +18,8 @@ else {
 
 ###############################################################################
 
+require './t/ignore_keyboard.pl';
+
 my $window = Gtk2::Window -> new("toplevel");
 
 my $model = Gtk2::TreeStore -> new("Glib::String", "Glib::Boolean");

@@ -85,7 +85,13 @@ SvGtkStockItem (SV * sv)
 
 MODULE = Gtk2::Stock	PACKAGE = Gtk2::Stock	PREFIX = gtk_stock_
 
+=for include build/stock_items.podi
+=cut
+
 ###  void gtk_stock_add (const GtkStockItem *items, guint n_items) 
+=for apidoc
+=for arg ... of Gtk2::StockItem's to be added
+=cut
 void
 gtk_stock_add (class, ...)
     PREINIT:
@@ -113,6 +119,9 @@ gtk_stock_lookup (class, stock_id)
 	RETVAL
 
 ##  GSList* gtk_stock_list_ids (void) 
+=for apidoc
+Returns a list of strings, the stock-ids.
+=cut
 void
 gtk_stock_list_ids (class)
     PREINIT:

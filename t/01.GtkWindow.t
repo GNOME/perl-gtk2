@@ -27,6 +27,8 @@ else
 
 #########################
 
+require './t/ignore_keyboard.pl';
+
 use constant TRUE => 1;
 use constant FALSE => 0;
 

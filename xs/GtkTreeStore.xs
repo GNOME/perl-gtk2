@@ -33,6 +33,9 @@ BOOT:
 	gperl_set_isa ("Gtk2::TreeStore", "Gtk2::TreeSortable");
 
 ## GtkTreeStore* gtk_tree_store_new (gint n_columns, ...);
+=for apidoc
+=for arg ... of strings, package names 
+=cut
 GtkTreeStore_noinc*
 gtk_tree_store_new (class, ...)
     PREINIT:
@@ -47,6 +50,9 @@ gtk_tree_store_new (class, ...)
 
 # for initializing GtkTreeStores derived in perl.
 ## void gtk_tree_store_set_column_types (GtkTreeStore *tree_store, gint n_columns, GType *types)
+=for apidoc
+=for arg ... of strings, package names
+=cut
 void
 gtk_tree_store_set_column_types (tree_store, ...)
 GtkTreeStore *tree_store
@@ -58,8 +64,13 @@ GtkTreeStore *tree_store
 	                                 (GType*)(types->data));
 
 ## void gtk_tree_store_set (GtkTreeStore *tree_store, GtkTreeIter *iter, ...)
+=for apidoc
+=for arg col1 (integer) the first column number
+=for arg val1 (scalar) the first value
+=for arg ... pairs of columns and values
+=cut
 void
-gtk_tree_store_set (tree_store, iter, ...)
+gtk_tree_store_set (tree_store, iter, col1, val1, ...)
 	GtkTreeStore *tree_store
 	GtkTreeIter *iter
     PREINIT:
@@ -151,12 +162,12 @@ gtk_tree_store_insert_before (tree_store, parent, sibling)
 	GtkTreeIter_ornull * parent
 	GtkTreeIter_ornull * sibling
     ALIAS:
-	Gtk2::TreeStore::insert_before = 1
-	Gtk2::TreeStore::insert_after  = 2
+	Gtk2::TreeStore::insert_before = 0
+	Gtk2::TreeStore::insert_after  = 1
     PREINIT:
 	GtkTreeIter iter;
     CODE:
-	if (ix == 1)
+	if (ix == 0)
 		gtk_tree_store_insert_before (tree_store, &iter,
 		                              parent, sibling);
 	else
@@ -173,12 +184,12 @@ gtk_tree_store_prepend (tree_store, parent)
 	GtkTreeStore *tree_store
 	GtkTreeIter_ornull *parent
     ALIAS:
-	Gtk2::TreeStore::prepend = 1
-	Gtk2::TreeStore::append  = 2
+	Gtk2::TreeStore::prepend = 0
+	Gtk2::TreeStore::append  = 1
     PREINIT:
 	GtkTreeIter iter;
     CODE:
-	if (ix == 1)
+	if (ix == 0)
 		gtk_tree_store_prepend (tree_store, &iter, parent);
 	else
 		gtk_tree_store_append (tree_store, &iter, parent);
@@ -215,8 +226,11 @@ gtk_tree_store_iter_is_valid (tree_store, iter)
 
 # TODO: definitely needs testing
 #### void gtk_tree_store_reorder (GtkTreeStore *tree_store, GtkTreeIter *parent, gint *new_order)
+=for apidoc
+=for arg ... of integer's, the new_order
+=cut
 void
-gtk_tree_store_reorder (tree_store, parent, new_order)
+gtk_tree_store_reorder (tree_store, parent, ...)
 	GtkTreeStore       * tree_store
 	GtkTreeIter_ornull * parent
    PREINIT:

@@ -144,6 +144,9 @@ gdk_event_unwrap (GType gtype, const char * package, SV * sv)
 
 MODULE = Gtk2::Gdk::Event	PACKAGE = Gtk2::Gdk::Event	PREFIX = gdk_event_
 
+=for enum GdkEventType
+=cut
+
 BOOT:
 	/* GdkEvent is a polymorphic structure, whose actual package
 	 * depends on the type member's value.  instead of trying to make
@@ -240,19 +243,19 @@ state (event)
 	RETVAL
 
 =for apidoc Gtk2::Gdk::Event::get_coords
-=signature ($x, $y) = $event->get_coords
+=for signature ($x, $y) = $event->get_coords
 =cut
 
 =for apidoc Gtk2::Gdk::Event::coords
-=signature ($x, $y) = $event->coords
+=for signature ($x, $y) = $event->coords
 =cut
 
 =for apidoc Gtk2::Gdk::Event::x
-=signature integer = $event->x
+=for signature integer = $event->x
 =cut
 
 =for apidoc Gtk2::Gdk::Event::y
-=signature integer = $event->y
+=for signature integer = $event->y
 =cut
 
  ## gboolean gdk_event_get_coords (GdkEvent *event, gdouble *x_win, gdouble *y_win)
@@ -284,19 +287,19 @@ gdk_event_get_coords (event)
 	}
 
 =for apidoc Gtk2::Gdk::Event::get_root_coords
-=signature ($x_root, $y_root) = $event->get_root_coords
+=for signature ($x_root, $y_root) = $event->get_root_coords
 =cut
 
 =for apidoc Gtk2::Gdk::Event::root_coords
-=signature ($x_root, $y_root) = $event->root_coords
+=for signature ($x_root, $y_root) = $event->root_coords
 =cut
 
 =for apidoc Gtk2::Gdk::Event::x_root
-=signature integer = $event->x_root
+=for signature integer = $event->x_root
 =cut
 
 =for apidoc Gtk2::Gdk::Event::y_root
-=signature integer = $event->y_root
+=for signature integer = $event->y_root
 =cut
 
  ## gboolean gdk_event_get_root_coords (GdkEvent *event, gdouble *x_root, gdouble *y_root)

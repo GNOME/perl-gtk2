@@ -27,6 +27,8 @@ else
 
 #########################
 
+require './t/ignore_keyboard.pl';
+
 ok( my $dlg = Gtk2::Dialog->new('GtkToolbar.t Test Window', undef,
 		[ ], 'gtk-quit', 1 ) );
 $dlg->set_default_size(600,300);

@@ -27,6 +27,8 @@ else
 		'Gtk2->init_check failed, probably unable to open DISPLAY';
 }
 
+require './t/ignore_keyboard.pl';
+
 my $win = Gtk2::Window->new;
 $win->set_title('02.Gtkbutton.t');
 

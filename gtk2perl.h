@@ -55,7 +55,7 @@ custom handling for GdkBitmaps, since there are no typemacros for them.
 /* GObject derivative GdkBitmap */
 #define SvGdkBitmap(sv)       ((GdkBitmap*)gperl_get_object_check (sv, GDK_TYPE_DRAWABLE))
 typedef GdkBitmap GdkBitmap_ornull;
-#define SvGdkBitmap_ornull(sv)        (((sv) == &PL_sv_undef) ? NULL : SvGdkBitmap(sv))
+#define SvGdkBitmap_ornull(sv)        (((sv) && SvOK (sv)) ? SvGdkBitmap(sv) : NULL)
 typedef GdkBitmap GdkBitmap_noinc;
 /* these are real functions, rather than macros, because there's some extra
  * work involved in making sure it's blessed into Gtk2::Gdk::Bitmap when no
@@ -119,7 +119,7 @@ typedef GtkTargetList GtkTargetList_ornull;
 SV * newSVGtkTargetList (GtkTargetList * list);
 #define newSVGtkTargetList_ornull(list)	((list) ? newSVGtkTargetList (list) : &PL_sv_undef)
 GtkTargetList * SvGtkTargetList (SV * sv);
-#define SvGtkTargetList_ornull(sv)	(SvTRUE (sv) ? SvGtkTargetList (sv) : NULL)
+#define SvGtkTargetList_ornull(sv)	(((sv) && SvOK (sv)) ? SvGtkTargetList (sv) : NULL)
 
 SV * newSVGtkTargetEntry (GtkTargetEntry * entry);
 GtkTargetEntry * SvGtkTargetEntry (SV * sv);

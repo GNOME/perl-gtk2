@@ -11,6 +11,7 @@ xs/GdkDnd.xs
 xs/GdkDrawable.xs
 xs/GdkEvent.xs
 xs/GdkGC.xs
+xs/GdkKeys.xs
 xs/GdkPixbuf.xs
 xs/GdkPixbufLoader.xs
 xs/GdkPixmap.xs
@@ -26,6 +27,7 @@ xs/GdkX11.xs # FIXME this should only be built when using the X11 backend
 xs/Gtk2.xs
 xs/GtkAccelGroup.xs
 xs/GtkAccelLabel.xs
+xs/GtkAccelMap.xs
 xs/GtkAdjustment.xs
 xs/GtkAlignment.xs
 xs/GtkArrow.xs

@@ -36,6 +36,9 @@ BOOT:
 
 
 ## GtkListStore* gtk_list_store_new (gint n_columns, ...);
+=for apidoc
+=for arg ... of strings
+=cut
 GtkListStore_noinc*
 gtk_list_store_new (class, ...)
     PREINIT:
@@ -50,6 +53,9 @@ gtk_list_store_new (class, ...)
 
 # for initializing GListStores derived in perl
 ## void gtk_list_store_set_column_types (GtkListStore *list_store, gint n_columns, GType *types)
+=for apidoc
+=for arg ... of strings
+=cut
 void
 gtk_list_store_set_column_types (list_store, ...)
 	GtkListStore *list_store
@@ -63,8 +69,13 @@ gtk_list_store_set_column_types (list_store, ...)
 
 
 ## void gtk_list_store_set (GtkListStore *list_store, GtkTreeIter *iter, ...)
+=for apidoc
+=for arg col1 (integer) the first column number
+=for arg val1 (scalar) the first value
+=for arg ... pairs of column numbers and values
+=cut
 void
-gtk_list_store_set (list_store, iter, ...)
+gtk_list_store_set (list_store, iter, col1, val1, ...)
 	GtkListStore *list_store
 	GtkTreeIter *iter
     PREINIT:
@@ -158,12 +169,12 @@ gtk_list_store_insert_before (list_store, sibling)
 	GtkListStore       * list_store
 	GtkTreeIter_ornull * sibling
     ALIAS:
-	Gtk2::ListStore::insert_before = 1
-	Gtk2::ListStore::insert_after  = 2
+	Gtk2::ListStore::insert_before = 0
+	Gtk2::ListStore::insert_after  = 1
     PREINIT:
 	GtkTreeIter iter;
     CODE:
-	if (ix == 1)
+	if (ix == 0)
 		gtk_list_store_insert_before (list_store, &iter, sibling);
 	else
 		gtk_list_store_insert_after (list_store, &iter, sibling);
@@ -178,12 +189,12 @@ GtkTreeIter_copy *
 gtk_list_store_prepend (list_store)
 	GtkListStore *list_store
     ALIAS:
-	Gtk2::ListStore::prepend = 1
-	Gtk2::ListStore::append  = 2
+	Gtk2::ListStore::prepend = 0
+	Gtk2::ListStore::append  = 1
     PREINIT:
 	GtkTreeIter iter;
     CODE:
-	if (ix == 1)
+	if (ix == 0)
 		gtk_list_store_prepend (list_store, &iter);
 	else
 		gtk_list_store_append (list_store, &iter);
@@ -206,6 +217,13 @@ gtk_list_store_iter_is_valid (list_store, iter)
 	GtkTreeIter *iter
 
 ## void gtk_list_store_reorder (GtkListStore *store, gint *new_order)
+=for apidoc
+=for arg ... of integers the reordered posistions
+Reorders store to follow the order indicated by new_order. Note that this
+function only works with unsorted stores.
+
+A list of position should be passed, one for each item in the list.
+=cut
 void
 gtk_list_store_reorder (store, ...)
 	GtkListStore * store

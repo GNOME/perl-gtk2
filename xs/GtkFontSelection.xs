@@ -69,15 +69,15 @@ GtkWidget *
 members_get (fsd)
 	GtkFontSelectionDialog * fsd
     ALIAS:
-	Gtk2::FontSelectionDialog::ok_button = 1
-	Gtk2::FontSelectionDialog::apply_button = 2
-	Gtk2::FontSelectionDialog::cancel_button = 3
+	Gtk2::FontSelectionDialog::ok_button = 0
+	Gtk2::FontSelectionDialog::apply_button = 1
+	Gtk2::FontSelectionDialog::cancel_button = 2
     CODE:
 	switch(ix)
 	{
-		case 1:	RETVAL = fsd->ok_button; break;
-		case 2:	RETVAL = fsd->apply_button; break;
-		case 3:	RETVAL = fsd->cancel_button; break;
+		case 0:	RETVAL = fsd->ok_button; break;
+		case 1:	RETVAL = fsd->apply_button; break;
+		case 2:	RETVAL = fsd->cancel_button; break;
 		default: croak("unhandled case in members_get - shouldn't happen");
 	}
     OUTPUT:

@@ -114,6 +114,9 @@ gtk_color_selection_is_adjusting (colorsel)
 	GtkColorSelection * colorsel
 
 ## gboolean gtk_color_selection_palette_from_string (const gchar *str, GdkColor **colors, gint *n_colors)
+=for apidoc
+Returns a list of Gtk2::Gdk::color's.
+=cut
 void
 gtk_color_selection_palette_from_string (class, string)
 	gchar * string
@@ -131,7 +134,11 @@ gtk_color_selection_palette_from_string (class, string)
 	g_free (colors);
 
 ## gchar* gtk_color_selection_palette_to_string (const GdkColor *colors, gint n_colors)
-
+=for apidoc
+=for signature (string) = Gtk::ColorSelection->palette_to_string (...)
+=for arg ... of Gtk2::Gdk::Color's for the palette
+Encodes a palette as a string, useful for persistent storage.
+=cut
 SV *
 gtk_color_selection_palette_to_string (class, ...)
     PREINIT:

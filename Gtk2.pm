@@ -31,7 +31,7 @@ use Glib;
 
 require DynaLoader;
 
-our $VERSION = '1.01';
+our $VERSION = '1.030';
 
 our @ISA = qw(DynaLoader);
 
@@ -128,9 +128,11 @@ sub create_item {
 	}
 
 	# we have this funky perl wrapper for the XS function entirely for
-	# this line right here --- strip underscores from the possibly unicode
-	# path, for use with gtk_item_factory_get_widget.
-	($cleanpath = $path) =~ s/_//g;
+	# those three lines right here --- strip underscores from the possibly
+	# unicode path, for use with gtk_item_factory_get_widget.
+	$cleanpath = $path;
+	$cleanpath =~ s/_(?!_+)//g;
+	$cleanpath =~ s/_+/_/g;
 
 	# the rest of the work happens in XS
 	$factory->_create_item ($path, $accelerator || '',
@@ -226,7 +228,7 @@ for Gtk2.
 
 Gtk2 also provides code to make it relatively painless to create perl
 wrappers for other GLib/Gtk-based libraries.  See L<Gtk2::CodeGen>,
-L<Glib::PkgConfig>, and L<ExtUtils::Depends>.  If you're writing bindings,
+L<ExtUtils::PkgConfig>, and L<ExtUtils::Depends>.  If you're writing bindings,
 you'll probably also be interested in L<Gtk2::devel>, which is a supplement
 to L<Glib::devel> and L<Glib::xsapi>.  The Binding Howto, at
 http://gtk2-perl.sourceforge.net/doc/binding_howto.pod.html, ties it all
@@ -236,13 +238,14 @@ together.
 
 The gtk2-perl team:
 
- muppet E<lt>scott at asofyet dot orgE<gt>
- Ross McFarland E<lt>rwmcfa1 at neces dot comE<gt>
- Jörn Reder E<lt>joern at zyn dot deE<gt>
- Göran Thyni E<lt>gthyni at kirra dot netE<gt>
- Chas Owens E<lt>alas at wilma dot widomaker dot comE<gt>
- Guillaume Cottenceau E<lt>gc at mandrakesoft dot comE<gt>
- Marc Lehmann E<lt>pcg at goof dot comE<gt>
+ muppet <scott at asofyet dot org>
+ Ross McFarland <rwmcfa1 at neces dot com>
+ Torsten Schoenfeld <kaffeetisch at web dot de>
+ Marc Lehmann <pcg at goof dot com>
+ Göran Thyni <gthyni at kirra dot net>
+ Jörn Reder <joern at zyn dot de>
+ Chas Owens <alas at wilma dot widomaker dot com>
+ Guillaume Cottenceau <gc at mandrakesoft dot com>
 
 =head1 COPYRIGHT AND LICENSE
 

@@ -1,6 +1,5 @@
-#
-# $Header$
-#
+$Header$
+
 
 turn examples/colorselectiontest.pl into a proper t/* test
 give a better name to the entry point for gtk-demo
@@ -12,20 +11,10 @@ there are plenty of unbound apis, either because of lack of interest or
 do string columns in GtkTreeModels do automatic memory management?
 if not, do we need to automate it?  are we safe with sv strings?
 
-gdk_pixbuf_render_pixmap_and_mask_for_colormap
-gdk_pixbuf_render_pixmap_and_mask
-gdk_pixbuf_new_from_data <- how would we do that?
-
-gtk_key_snooper_install/remove
-
 no typemap (and therefore no bindings) for
 	GdkRegion
-	GdkPixbufFormat
 	GdkRgbCmap
-	GdkGeometry
-	gunichar
 	GScanner
-	GtkTargetList (GtkSelection.xs)
 	PangoGlyph
 	PangoEngineShape
 	PangoCoverage

@@ -1,3 +1,24 @@
+2003/12/08 02:12 (-0500) muppetman [unstable-2-3-x-branch]
+
+	merge a lot of stuff from HEAD, and update some other things since the
+	merge broke a lot.
+
+	A examples/combo_box.pl
+	A examples/file_chooser.pl
+	* MANIFEST: new examples for some of the new widgets
+
+	* (too numerous to list): updated from HEAD
+
+	* xs/GtkComboBox.xs, xs/GtkComboBoxEntry.xs, xs/GtkMessageDialog,
+	xs/GtkToolItem.xs, xs/GtkToolbar.xs: fixes for APIs that have
+	changed on the 2.3.x series...  synced with cvs as of today.
+
+	* xs/GtkRadioToolButton.xs: implemented the group stuff
+
+	* xs/GtkWidget.xs: implement gtk_widget_style_get_property()
+
+	* t/paned.t: more generic testing
+
 2003/11/08 02:12 (-0500) muppetman [unstable-2-3-x-branch]
 
 	can't compile without all the type mappings.  i didn't do this
@@ -308,7 +329,7 @@
 	called on the wrong thing. there was both a SV * class and GtkObject 
 	class, no longer the case
 
-========
+======== 1.0
 
 2003/10/10 00:13 muppetman
 

@@ -49,7 +49,7 @@ gtk_tooltips_set_tip (tooltips, widget, tip_text, tip_private=NULL)
     PREINIT:
 	const gchar * real_tip_private = NULL;
     CODE:
-	if (tip_private && SvTRUE (tip_private))
+	if (tip_private && SvOK (tip_private))
 		real_tip_private = SvGChar (tip_private);
 	gtk_tooltips_set_tip (tooltips, widget, tip_text, real_tip_private);
 	/* work around a (bug|questionable behavior) in Gtk+, wherein the
@@ -62,6 +62,18 @@ gtk_tooltips_set_tip (tooltips, widget, tip_text, tip_private=NULL)
 	                        tooltips, (GDestroyNotify)g_object_unref);
 
 ## GtkTooltipsData* gtk_tooltips_data_get (GtkWidget *widget)
+=for apidoc
+=for signature hash = $tooltips->data_get ($widget)
+Returns a hash with the keys: tooptips, widget, tip_text, and tip_private.
+
+tooltips is the GtkTooltips group that this tooltip belongs to. widget is the
+GtkWidget that this tooltip data is associated with. tip_text is a string
+containing the tooltip message itself.
+
+tip_private is a string that is not shown as the default tooltip. Instead, this
+message may be more informative and go towards forming a context-sensitive help
+system for your application.
+=cut
 void
 gtk_tooltips_data_get (class, widget)
 	GtkWidget * widget

@@ -39,8 +39,11 @@ gtk_list_new (class)
 ## parameter order flipped on this function so the item
 ## list soaks up the rest of the arg stack
 ##  void gtk_list_insert_items (GtkList *list, GList *items, gint position) 
+=for apidoc
+=for arg ... of Gtk2::ListItem's to be inserted
+=cut
 void
-gtk_list_insert_items (list, position, list_item, ...)
+gtk_list_insert_items (list, position, ...)
 	GtkList       * list
 	gint            position
     PREINIT:
@@ -56,8 +59,11 @@ gtk_list_insert_items (list, position, list_item, ...)
 	}
 
 ##  void gtk_list_append_items (GtkList *list, GList *items) 
+=for apidoc
+=for arg ... of Gtk2::ListItem's to be appended
+=cut
 void
-gtk_list_append_items (list, list_item, ...)
+gtk_list_append_items (list, ...)
 	GtkList       * list
     PREINIT:
 	GList * list_items = NULL;
@@ -72,8 +78,12 @@ gtk_list_append_items (list, list_item, ...)
 	}
 
 ##  void gtk_list_prepend_items (GtkList *list, GList *items) 
+=for apidoc
+=for arg list_item 
+=for arg ... of Gtk2::ListItem's to be prepended
+=cut
 void
-gtk_list_prepend_items (list, list_item, ...)
+gtk_list_prepend_items (list, ...)
 	GtkList       * list
     PREINIT:
 	GList * list_items = NULL;
@@ -88,8 +98,12 @@ gtk_list_prepend_items (list, list_item, ...)
 	}
 
 ##  void gtk_list_remove_items (GtkList *list, GList *items) 
+=for apidoc
+=for arg list_item 
+=for arg ... of Gtk2::ListItem's to be removed
+=cut
 void
-gtk_list_remove_items (list, list_item, ...)
+gtk_list_remove_items (list, ...)
 	GtkList       * list
     PREINIT:
 	GList * list_items = NULL;

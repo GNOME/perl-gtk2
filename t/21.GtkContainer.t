@@ -12,6 +12,8 @@ if (Gtk2->init_check) {
 	plan skip_all => 'no display';
 }
 
+require './t/ignore_keyboard.pl';
+
 # we'll create some containers (windows and boxes are containers) and
 # mess around with some of the methods to make sure they do things.
 

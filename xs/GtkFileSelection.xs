@@ -62,13 +62,7 @@ gtk_file_selection_new (class, title)
 void
 gtk_file_selection_set_filename (filesel, filename)
 	GtkFileSelection * filesel
-	const gchar      * filename
-    PREINIT:
-	gchar * opsysname;
-    CODE:
-	opsysname = g_filename_from_utf8 (filename, -1, NULL, NULL, NULL);
-	gtk_file_selection_set_filename (filesel, opsysname);
-	g_free (opsysname);
+	GPerlFilename filename
 
 ## void gtk_file_selection_complete (GtkFileSelection *filesel, const gchar *pattern)
 void
@@ -97,15 +91,14 @@ gboolean
 gtk_file_selection_get_select_multiple (filesel)
 	GtkFileSelection * filesel
 
-gchar_own *
+## gtk_file_selection_get_filename returns a statically allocated string
+GPerlFilename_const
 gtk_file_selection_get_filename (filesel)
 	GtkFileSelection * filesel
-    CODE:
-	RETVAL = g_filename_to_utf8 (gtk_file_selection_get_filename (filesel),
-	                             -1, NULL, NULL, NULL);
-    OUTPUT:
-	RETVAL
 
+=for apidoc
+Returns the list of file name(s) selected.
+=cut
 void
 gtk_file_selection_get_selections (filesel)
 	GtkFileSelection * filesel
@@ -115,7 +108,6 @@ gtk_file_selection_get_selections (filesel)
     PPCODE:
 	rets = gtk_file_selection_get_selections(filesel);
 	for (i = 0; rets[i] != NULL; i++)
-		XPUSHs (sv_2mortal (newSVGChar (
-			g_filename_to_utf8 (rets[i], -1, NULL, NULL, NULL))));
+		XPUSHs (sv_2mortal (gperl_sv_from_filename (rets[i])));
 	g_strfreev(rets);
 

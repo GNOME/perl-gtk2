@@ -105,17 +105,17 @@ gdk_flush (class)
 gint
 screendims (class)
     ALIAS:
-	Gtk2::Gdk::screen_width = 1
-	Gtk2::Gdk::screen_height = 2
-	Gtk2::Gdk::screen_width_mm = 3
-	Gtk2::Gdk::screen_height_mm = 4
+	Gtk2::Gdk::screen_width = 0
+	Gtk2::Gdk::screen_height = 1
+	Gtk2::Gdk::screen_width_mm = 2
+	Gtk2::Gdk::screen_height_mm = 3
     CODE:
 	RETVAL = 0;
 	switch (ix) {
-		case 1: RETVAL = gdk_screen_width (); break;
-		case 2: RETVAL = gdk_screen_height (); break;
-		case 3: RETVAL = gdk_screen_width_mm (); break;
-		case 4: RETVAL = gdk_screen_height_mm (); break;
+		case 0: RETVAL = gdk_screen_width (); break;
+		case 1: RETVAL = gdk_screen_height (); break;
+		case 2: RETVAL = gdk_screen_width_mm (); break;
+		case 3: RETVAL = gdk_screen_height_mm (); break;
 	}
     OUTPUT:
 	RETVAL
@@ -255,7 +255,7 @@ MODULE = Gtk2::Gdk	PACKAGE = Gtk2::Gdk::Threads	PREFIX = gdk_threads_
 ###  void gdk_threads_init (void) 
 
 void
-gdk_threads (class)
+gdk_threads_init (class)
     ALIAS:
 	enter = 1
 	leave = 2

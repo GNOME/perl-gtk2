@@ -23,6 +23,12 @@
 
 MODULE = Gtk2::Window	PACKAGE = Gtk2::Window	PREFIX = gtk_window_
 
+=for enum GtkWindowPosition
+=cut
+
+=for enum GtkWindowType
+=cut
+
 ## GtkWidget* gtk_window_new (GtkWindowType type)
 GtkWidget *
 gtk_window_new (class, type=GTK_WINDOW_TOPLEVEL)
@@ -173,14 +179,13 @@ GdkGravity
 gtk_window_get_gravity (window)
 	GtkWindow * window
 
-# TODO: GDkGeometry not in typemap
 ## void gtk_window_set_geometry_hints (GtkWindow *window, GtkWidget *geometry_widget, GdkGeometry *geometry, GdkWindowHints geom_mask)
-#void
-#gtk_window_set_geometry_hints (window, geometry_widget, geometry, geom_mask)
-#	GtkWindow      * window
-#	GtkWidget      * geometry_widget
-#	GdkGeometry    * geometry
-#	GdkWindowHints   geom_mask
+void
+gtk_window_set_geometry_hints (window, geometry_widget, geometry, geom_mask)
+	GtkWindow      * window
+	GtkWidget      * geometry_widget
+	GdkGeometry    * geometry
+	GdkWindowHints   geom_mask
 
 ## gboolean gtk_window_get_has_frame (GtkWindow *window)
 gboolean
@@ -212,12 +217,31 @@ gtk_window_get_decorated (window)
 	GtkWindow * window
 
 ## void gtk_window_set_icon_list (GtkWindow *window, GList *list)
+=for apidoc
+=for arg ... of Gtk2::Gdk::Pixbuf's
+Sets up the icon representing a Gtk2::Window. The icon is used when the window
+is minimized (also known as iconified). Some window managers or desktop
+environments may also place it in the window frame, or display it in other
+contexts.
+
+L<set_icon_list ()|$window-E<gt>set_icon_list> allows you to pass in the same icon in several
+hand-drawn sizes. The list should contain the natural sizes your icon is
+available in; that is, don't scale the image before passing it to GTK+.
+Scaling is postponed until the last minute, when the desired final size is
+known, to allow best quality.
+
+By passing several sizes, you may improve the final image quality of the icon,
+by reducing or eliminating automatic image scaling.
+
+Recommended sizes to provide: 16x16, 32x32, 48x48 at minimum, and larger
+images (64x64, 128x128) if you have them. 
+=cut
 void
 gtk_window_set_icon_list (window, ...)
 	GtkWindow * window
     PREINIT:
 	GList * list = NULL;
-    PPCODE:
+    CODE:
 	for( items--; items > 0; items-- )
 		list = g_list_prepend(list, SvGdkPixbuf(ST(items)));
 	if( list )
@@ -227,6 +251,9 @@ gtk_window_set_icon_list (window, ...)
 	}
 
 # GList* gtk_window_get_icon_list (GtkWindow *window)
+=for apidoc
+Retrieves the list of icons set by L<set_icon_list ()|$window-E<gt>set_icon_list>.
+=cut
 void
 gtk_window_get_icon_list (window)
 	GtkWindow * window
@@ -252,22 +279,25 @@ gtk_window_set_icon (window, icon)
 void
 gtk_window_set_icon_from_file (window, filename)
 	GtkWindow     * window
-	const gchar   * filename
+	GPerlFilename filename
     PREINIT:
-	GError * err = NULL;
+        GError *error = NULL;
     CODE:
-	if (!gtk_window_set_icon_from_file(window, filename, &err))
-		gperl_croak_gerror (filename, err);
+	gtk_window_set_icon_from_file(window, filename, &error);
+        if (error)
+		gperl_croak_gerror (filename, error);
 
 #gboolean gtk_window_set_default_icon_from_file (GtkWindow *window, const gchar *filename, GError **err)
 void
-gtk_window_set_default_icon_from_file (class, filename)
-	const gchar   * filename
+gtk_window_set_default_icon_from_file (class_or_instance, filename)
+        SV *class_or_instance
+	GPerlFilename filename
     PREINIT:
-	GError * err = NULL;
+        GError *error = NULL;
     CODE:
-	if (!gtk_window_set_default_icon_from_file(filename, &err))
-		gperl_croak_gerror (filename, err);
+	gtk_window_set_default_icon_from_file(filename, &error);
+        if (error)
+		gperl_croak_gerror (filename, error);
 
 #endif
 
@@ -287,6 +317,9 @@ gtk_window_get_icon (window)
 
 
 ## void gtk_window_set_default_icon_list (GList *list)
+=for apidoc
+=for signature $window->set_default_icon_list ($pixbuf1, ...)
+=cut
 void
 gtk_window_set_default_icon_list (class, pixbuf, ...)
     PREINIT:
@@ -299,6 +332,9 @@ gtk_window_set_default_icon_list (class, pixbuf, ...)
 	g_list_free (list);
 
 ## GList* gtk_window_get_default_icon_list (void)
+=for apidoc
+Gets the value set by L<$window-E<gt>set_default_icon_list>.
+=cut
 void
 gtk_window_get_default_icon_list (class)
     PREINIT:
@@ -315,6 +351,9 @@ gtk_window_get_modal (window)
 	GtkWindow * window
 
 ## GList* gtk_window_list_toplevels (void)
+=for apidoc
+Returns a list of all existing toplevel windows. 
+=cut
 void
 gtk_window_list_toplevels (class)
     PREINIT:

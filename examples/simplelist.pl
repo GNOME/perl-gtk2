@@ -94,6 +94,10 @@ foreach (
 		[ 'Pop', 'Pop a row off of the list' ],
 		[ 'Unshift', 'Unshift a row onto the list' ],
 		[ 'Shift', 'Shift a row off of the list' ],
+		[ 'Splice 1', 'splice @data, 2, 2, (5 new items)' ],
+		[ 'Splice 2', 'splice @data, 2, 0, (5 new items)' ],
+		[ 'Splice 3', 'splice @data, 2, 2' ],
+		[ 'Splice 4', 'splice @data, 2' ],
 		[ 'Change 1', 'Change all of the columns of row 1 with an array ref assignment' ],
 		[ 'Change 2', 'Change all of the columns of row 1 with array element assignments' ],
 		[ 'Change 3', 'Change the first column of row 1 with a scalar assignment, most useful with single column lists' ],
@@ -211,6 +215,22 @@ sub btn_clicked
 	{
 		# this is most useful if you've got a 1 column list
 		$dslist->[0] = 'changed3';
+	}
+	elsif ($op eq 'Splice 1')
+	{
+		splice @$dslist, 2, 2, (1..5),
+	}
+	elsif ($op eq 'Splice 2')
+	{
+		splice @$dslist, 2, 0, (1..5)
+	}
+	elsif ($op eq 'Splice 3')
+	{
+		splice @$dslist, 2, 2;
+	}
+	elsif ($op eq 'Splice 4')
+	{
+		splice @$dslist, 2;
 	}
 	elsif( $op eq 'Delete' )
 	{

@@ -64,6 +64,9 @@ gtk_radio_menu_item_news (class, member_or_listref=NULL, label=NULL)
 
 
 # GSList * gtk_radio_menu_item_get_group (GtkRadioMenuItem *radio_menu_item)
+=for apidoc
+Returns a list of Gtk2::RadioMenuItems, the group.
+=cut
 void
 gtk_radio_menu_item_get_group (radio_menu_item)
 	GtkRadioMenuItem * radio_menu_item

@@ -36,23 +36,23 @@ SV *
 stateless_member (style)
 	GtkStyle * style
     ALIAS:
-	Gtk2::Style::black = 1
-	Gtk2::Style::white = 2
-	Gtk2::Style::font_desc = 3
-	Gtk2::Style::xthickness = 4
-	Gtk2::Style::ythickness = 5
-	Gtk2::Style::black_gc = 6
-	Gtk2::Style::white_gc = 7
+	Gtk2::Style::black = 0
+	Gtk2::Style::white = 1
+	Gtk2::Style::font_desc = 2
+	Gtk2::Style::xthickness = 3
+	Gtk2::Style::ythickness = 4
+	Gtk2::Style::black_gc = 5
+	Gtk2::Style::white_gc = 6
     CODE:
 	switch (ix) {
 	    /* FIXME: is it correct to _copy these? */
-	    case 1: RETVAL = newSVGdkColor_copy (&(style->black)); break;
-	    case 2: RETVAL = newSVGdkColor_copy (&(style->white)); break;
-	    case 3: RETVAL = newSVPangoFontDescription_copy (style->font_desc); break;
-	    case 4: RETVAL = newSViv (style->xthickness); break;
-	    case 5: RETVAL = newSViv (style->ythickness); break;
-	    case 6: RETVAL = newSVGdkGC (style->black_gc); break;
-	    case 7: RETVAL = newSVGdkGC (style->white_gc); break;
+	    case 0: RETVAL = newSVGdkColor_copy (&(style->black)); break;
+	    case 1: RETVAL = newSVGdkColor_copy (&(style->white)); break;
+	    case 2: RETVAL = newSVPangoFontDescription_copy (style->font_desc); break;
+	    case 3: RETVAL = newSViv (style->xthickness); break;
+	    case 4: RETVAL = newSViv (style->ythickness); break;
+	    case 5: RETVAL = newSVGdkGC (style->black_gc); break;
+	    case 6: RETVAL = newSVGdkGC (style->white_gc); break;
 	    default: croak ("augh! unhandled stateless style member");
 	}
     OUTPUT:
@@ -64,24 +64,24 @@ state_color (style, state)
 	GtkStyle * style
 	GtkStateType state
     ALIAS:
-	Gtk2::Style::fg = 1
-	Gtk2::Style::bg = 2
-	Gtk2::Style::light = 3
-	Gtk2::Style::dark = 4
-	Gtk2::Style::mid = 5
-	Gtk2::Style::text = 6
-	Gtk2::Style::base = 7
-	Gtk2::Style::text_aa = 8
+	Gtk2::Style::fg = 0
+	Gtk2::Style::bg = 1
+	Gtk2::Style::light = 2
+	Gtk2::Style::dark = 3
+	Gtk2::Style::mid = 4
+	Gtk2::Style::text = 5
+	Gtk2::Style::base = 6
+	Gtk2::Style::text_aa = 7
     CODE:
 	switch (ix) {
-	    case 1: RETVAL = &(style->fg[state]); break;
-	    case 2: RETVAL = &(style->bg[state]); break;
-	    case 3: RETVAL = &(style->light[state]); break;
-	    case 4: RETVAL = &(style->dark[state]); break;
-	    case 5: RETVAL = &(style->mid[state]); break;
-	    case 6: RETVAL = &(style->text[state]); break;
-	    case 7: RETVAL = &(style->base[state]); break;
-	    case 8: RETVAL = &(style->text_aa[state]); break;
+	    case 0: RETVAL = &(style->fg[state]); break;
+	    case 1: RETVAL = &(style->bg[state]); break;
+	    case 2: RETVAL = &(style->light[state]); break;
+	    case 3: RETVAL = &(style->dark[state]); break;
+	    case 4: RETVAL = &(style->mid[state]); break;
+	    case 5: RETVAL = &(style->text[state]); break;
+	    case 6: RETVAL = &(style->base[state]); break;
+	    case 7: RETVAL = &(style->text_aa[state]); break;
 	    default: croak ("augh! unhandled style state color");
 	}
     OUTPUT:
@@ -93,24 +93,24 @@ state_gc (style, state)
 	GtkStyle * style
 	GtkStateType state
     ALIAS:
-	Gtk2::Style::fg_gc = 1
-	Gtk2::Style::bg_gc = 2
-	Gtk2::Style::light_gc = 3
-	Gtk2::Style::dark_gc = 4
-	Gtk2::Style::mid_gc = 5
-	Gtk2::Style::text_gc = 6
-	Gtk2::Style::base_gc = 7
-	Gtk2::Style::text_aa_gc = 8
+	Gtk2::Style::fg_gc = 0
+	Gtk2::Style::bg_gc = 1
+	Gtk2::Style::light_gc = 2
+	Gtk2::Style::dark_gc = 3
+	Gtk2::Style::mid_gc = 4
+	Gtk2::Style::text_gc = 5
+	Gtk2::Style::base_gc = 6
+	Gtk2::Style::text_aa_gc = 7
     CODE:
 	switch (ix) {
-	    case 1: RETVAL = style->fg_gc[state]; break;
-	    case 2: RETVAL = style->bg_gc[state]; break;
-	    case 3: RETVAL = style->light_gc[state]; break;
-	    case 4: RETVAL = style->dark_gc[state]; break;
-	    case 5: RETVAL = style->mid_gc[state]; break;
-	    case 6: RETVAL = style->text_gc[state]; break;
-	    case 7: RETVAL = style->base_gc[state]; break;
-	    case 8: RETVAL = style->text_aa_gc[state]; break;
+	    case 0: RETVAL = style->fg_gc[state]; break;
+	    case 1: RETVAL = style->bg_gc[state]; break;
+	    case 2: RETVAL = style->light_gc[state]; break;
+	    case 3: RETVAL = style->dark_gc[state]; break;
+	    case 4: RETVAL = style->mid_gc[state]; break;
+	    case 5: RETVAL = style->text_gc[state]; break;
+	    case 6: RETVAL = style->base_gc[state]; break;
+	    case 7: RETVAL = style->text_aa_gc[state]; break;
 	    default: croak ("augh! unhandled style state color");
 	}
     OUTPUT:
@@ -251,6 +251,11 @@ gtk_paint_shadow (style, window, state_type, shadow_type, area, widget, detail, 
 	gint height
 
  ## void gtk_paint_polygon (GtkStyle *style, GdkWindow *window, GtkStateType state_type, GtkShadowType shadow_type, GdkRectangle *area, GtkWidget *widget, const gchar *detail, GdkPoint *points, gint npoints, gboolean fill)
+=for apidoc
+=for arg x1 (gint) x coordinate of the first vertex
+=for arg y1 (gint) y coordinate of the first vertex
+=for arg ... pairs of x and y coordinates
+=cut
 void
 gtk_paint_polygon (style, window, state_type, shadow_type, area, widget, detail, fill, x1, y1, ...)
 	GtkStyle *style

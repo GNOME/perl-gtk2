@@ -85,6 +85,9 @@ gtk_container_foreach (container, callback, callback_data=NULL)
  ## gtk_container_foreach_full
 
  ## GList* gtk_container_get_children (GtkContainer *container)
+=for apidoc
+Returns a list of Gtk2::Widget's, the children of the container.
+=cut
 void
 gtk_container_get_children (container)
 	GtkContainer *container
@@ -105,13 +108,23 @@ gtk_container_get_children (container)
  ##	GdkEventExpose *event
 
  ## void gtk_container_set_focus_chain (GtkContainer *container, GList *focusable_widgets)
+=for apidoc
+=for arg ... of Gtk2::Widget's, the focus chain
+Sets a focus chain, overriding the one computed automatically by GTK+.
+
+In principle each widget in the chain should be a descendant of the container,
+but this is not enforced by this method, since it's allowed to set the focus
+chain before you pack the widgets, or have a widget in the chain that isn't
+always packed. The necessary checks are done when the focus chain is actually
+traversed.
+=cut
 void
-gtk_container_set_focus_chain (container, widget1, ...)
+gtk_container_set_focus_chain (container, ...)
 	GtkContainer *container
     PREINIT:
 	GList *focusable_widgets = NULL;
 	int i;
-    PPCODE:
+    CODE:
 	for (i = items - 1 ; i > 0 ; i--)
 		focusable_widgets = g_list_prepend (focusable_widgets,
 		                                    SvGtkWidget (ST (i)));
@@ -119,6 +132,9 @@ gtk_container_set_focus_chain (container, widget1, ...)
 	g_list_free (focusable_widgets);
  
  ## gboolean gtk_container_get_focus_chain (GtkContainer *container, GList **focusable_widgets)
+=for apidoc
+Returns a list of Gtk2::Widgets, the focus chain.
+=cut
 void
 gtk_container_get_focus_chain (container)
 	GtkContainer *container

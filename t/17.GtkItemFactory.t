@@ -27,6 +27,8 @@ else
 
 #########################
 
+require './t/ignore_keyboard.pl';
+
 my @actions_used = (qw/1 0 0 0 0/);
 my @items = (
 	[
