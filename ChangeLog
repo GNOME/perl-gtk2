@@ -1,3 +1,32 @@
+2004/11/29 21:01 (+0100) kaffeetisch
+
+	* xs/GtkAboutDialog.xs: Various const-ness fixes.
+
+	* t/GtkAccelGroup.t, xs/GtkAccelGroup.xs: Bind and test
+	gtk_accelerator_get_label.
+
+	* t/GtkButton.t, xs/GtkButton.xs: Bind and test
+	gtk_button_set_image, gtk_button_get_image.
+
+	* t/GtkDialog.t, xs/GtkDialog.xs: Bind and test
+	gtk_dialog_set_alternative_button_order.
+
+	* t/GtkEntry.t, xs/GtkEntry.xs: Bind and test
+	gtk_entry_layout_index_to_text_index,
+	gtk_entry_text_index_to_layout_index.
+
+	* t/GtkFileChooser.t, xs/GtkFileChooser.xs: Bind and test
+	gtk_file_chooser_set_show_hidden,
+	gtk_file_chooser_get_show_hidden.
+
+	* t/GtkFileFilter.t, xs/GtkFileFilter.xs: Bind and test
+	gtk_file_filter_add_pixbuf_formats.
+
+	* t/GtkImage.t, xs/GtkImage.xs: Bind and test
+	gtk_image_new_from_icon_name, gtk_image_set_from_icon_name,
+	gtk_image_get_icon_name, gtk_image_set_pixel_size,
+	gtk_image_get_pixel_size.
+
 2004/11/01 21:38 (+0100) kaffeetisch
 
 	* Makefile.PL: Depend on Glib 1.070.

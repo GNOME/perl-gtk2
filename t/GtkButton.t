@@ -9,7 +9,7 @@
 
 #########################
 
-use Gtk2::TestHelper tests => 36;
+use Gtk2::TestHelper tests => 38;
 
 ok( my $button = Gtk2::Button->new("Not Yet") );
 ok(1);
@@ -89,6 +89,19 @@ $button->enter; ok(1);
 $button->leave; ok(1);
 $button->clicked; ok(1);
 $button3->clicked; ok(1);
+
+SKIP: {
+	skip("[sg]et_image are new in 2.6", 2)
+		unless Gtk2->CHECK_VERSION (2, 5, 6); # FIXME: 2.6
+
+	my $widget = Gtk2::Label->new ("Bla");
+
+	$button->set_image ($widget);
+	is ($button->get_image, $widget);
+
+	$button->set_image (undef);
+	is ($button->get_image, undef);
+}
 
 __END__
 

@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 13;
+use Gtk2::TestHelper tests => 15;
 
 # $Header$
 
@@ -50,6 +50,14 @@ SKIP: {
 
   $entry -> set_alignment(0.23);
   is(int($entry -> get_alignment() * 100) / 100, 0.23);
+}
+
+SKIP: {
+  skip("layout_index_to_text_index and text_index_to_layout_index are new in 2.6", 2)
+    unless Gtk2->CHECK_VERSION (2, 5, 2); # FIXME: 2.6
+
+  is($entry -> layout_index_to_text_index(1), 1);
+  is($entry -> text_index_to_layout_index(1), 1);
 }
 
 __END__

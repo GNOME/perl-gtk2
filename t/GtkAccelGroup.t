@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 12;
+use Gtk2::TestHelper tests => 13;
 
 # $Header$
 
@@ -46,6 +46,13 @@ SKIP: {
 
   ok (not ($group->disconnect_key (42, qw/shift-mask/)),
       'second disconnect_key shift-mask should fail');
+}
+
+SKIP: {
+  skip 'get_label is new in 2.6', 1
+    unless Gtk2->CHECK_VERSION (2, 5, 4); # FIXME: 2.6
+
+  is(Gtk2::Accelerator -> get_label($key, $mask), 'Shift+KP Enter');
 }
 
 is($group -> disconnect($closure), 1);

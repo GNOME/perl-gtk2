@@ -8,7 +8,7 @@
 #########################
 
 use Data::Dumper;
-use Gtk2::TestHelper tests => 41;
+use Gtk2::TestHelper tests => 45;
 
 # get some things ready to use below ###########################################
 
@@ -176,6 +176,21 @@ SKIP:
 	$img->set_from_animation ($animation);
 	isa_ok ($img->get_animation, 'Gtk2::Gdk::PixbufAnimation', 
 		'set_from_animation get_animationf');
+}
+
+SKIP: {
+	skip 'new stuff in 2.6', 4
+		unless Gtk2->CHECK_VERSION (2, 5, 4); # FIXME: 2.6
+
+	$img = Gtk2::Image->new_from_icon_name ('gtk-ok', 'button');
+	isa_ok ($img, 'Gtk2::Image');
+	is_deeply ([$img->get_icon_name], ['gtk-ok', 'button']);
+
+	$img->set_from_icon_name ('gtk-cancel', 'menu');
+	is_deeply ([$img->get_icon_name], ['gtk-cancel', 'menu']);
+
+	$img->set_pixel_size (23);
+	is ($img->get_pixel_size, 23);
 }
 
 __END__

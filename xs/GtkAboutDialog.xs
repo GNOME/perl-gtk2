@@ -79,12 +79,12 @@ void gtk_about_dialog_set_website_label (GtkAboutDialog * about, const gchar * w
 			(outof)[i] = SvPV_nolen (ST (1 + i));	\
 	}
 
-##gchar ** gtk_about_dialog_get_authors (GtkAboutDialog * about);
+##const gchar * const * gtk_about_dialog_get_authors (GtkAboutDialog * about);
 void
 gtk_about_dialog_get_authors (GtkAboutDialog * about)
     PREINIT:
 	gint     i;
-	gchar ** authors = NULL;
+	const gchar * const * authors = NULL;
     PPCODE:
 	authors = gtk_about_dialog_get_authors (about);
 	GETTER (authors);
@@ -98,18 +98,18 @@ gtk_about_dialog_set_authors (about, author1, ...)
 	GtkAboutDialog * about
     PREINIT:
 	gint    i;
-	char ** authors;
+	gchar ** authors;
     CODE:
 	SETTER (authors);
-	gtk_about_dialog_set_authors (about, authors);
+	gtk_about_dialog_set_authors (about, (const gchar **) authors);
 	g_free (authors);
 
-##gchar ** gtk_about_dialog_get_documenters (GtkAboutDialog * about);
+##const gchar * const * gtk_about_dialog_get_documenters (GtkAboutDialog * about);
 void
 gtk_about_dialog_get_documenters (GtkAboutDialog * about)
     PREINIT:
 	gint     i;
-	gchar ** documenters = NULL;
+	const gchar * const * documenters = NULL;
     PPCODE:
 	documenters = gtk_about_dialog_get_documenters (about);
 	GETTER (documenters);
@@ -123,18 +123,18 @@ gtk_about_dialog_set_documenters (about, documenter1, ...)
 	GtkAboutDialog * about
     PREINIT:
 	gint    i;
-	char ** documenters;
+	gchar ** documenters;
     CODE:
 	SETTER (documenters);
-	gtk_about_dialog_set_documenters (about, documenters);
+	gtk_about_dialog_set_documenters (about, (const gchar **) documenters);
 	g_free (documenters);
 
-##gchar ** gtk_about_dialog_get_artists (GtkAboutDialog * about);
+##const gchar * const * gtk_about_dialog_get_artists (GtkAboutDialog * about);
 void
 gtk_about_dialog_get_artists (GtkAboutDialog * about)
     PREINIT:
 	gint     i;
-	gchar ** artists = NULL;
+	const gchar * const * artists = NULL;
     PPCODE:
 	artists = gtk_about_dialog_get_artists (about);
 	GETTER (artists);
@@ -148,10 +148,10 @@ gtk_about_dialog_set_artists (about, artist1, ...);
 	GtkAboutDialog * about
     PREINIT:
 	gint    i;
-	char ** artists;
+	gchar ** artists;
     CODE:
 	SETTER (artists);
-	gtk_about_dialog_set_artists (about, artists);
+	gtk_about_dialog_set_artists (about, (const gchar **) artists);
 	g_free (artists);
 
 const gchar * gtk_about_dialog_get_translator_credits (GtkAboutDialog * about);

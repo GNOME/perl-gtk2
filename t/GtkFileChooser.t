@@ -4,7 +4,7 @@
 
 use Gtk2::TestHelper
 	at_least_version => [2, 4, 0, "GtkFileChooser is new in 2.4"],
-	tests => 42;
+	tests => 43;
 use File::Spec;
 use Cwd;
 
@@ -163,6 +163,14 @@ is (scalar (@list), 0, 'unselected everything');
 
 $file_chooser->remove_shortcut_folder ($cwd);
 $file_chooser->remove_shortcut_folder_uri ($cwd);
+
+SKIP: {
+	skip("[sg]et_show_hidden are new in 2.6", 1)
+		unless Gtk2->CHECK_VERSION (2, 5, 6); # FIXME: 2.6
+
+	$file_chooser->set_show_hidden (TRUE);
+	is ($file_chooser->get_show_hidden, TRUE);
+}
 
 __END__
 

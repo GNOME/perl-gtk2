@@ -41,6 +41,13 @@ ok ($file_filter->get_needed >= ['filename', 'mime-type']);
 
 ok (!$file_filter->filter ($filter_info));
 
+SKIP: {
+	skip 'add_pixbuf_formats is new in 2.6', 0
+		unless Gtk2->CHECK_VERSION (2, 5, 5); # FIXME: 2.6
+
+	$file_filter->add_pixbuf_formats;
+}
+
 __END__
 
 Copyright (C) 2003 by the gtk2-perl team (see the file AUTHORS for the

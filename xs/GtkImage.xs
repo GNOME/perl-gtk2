@@ -155,3 +155,22 @@ GdkPixbufAnimation* gtk_image_get_animation (GtkImage *image)
  ## void gtk_image_get (GtkImage *image, GdkImage **val, GdkBitmap **mask)
  ##void gtk_image_set (GtkImage *image, GdkImage *val, GdkBitmap *mask)
 
+#if GTK_CHECK_VERSION (2, 5, 4) /* FIXME: 2.6 */
+
+##  GtkWidget * gtk_image_new_from_icon_name (const gchar *icon_name, GtkIconSize size)
+GtkWidget *
+gtk_image_new_from_icon_name (class, icon_name, size)
+	const gchar *icon_name
+	GtkIconSize size
+    C_ARGS:
+	icon_name, size
+
+void gtk_image_set_from_icon_name (GtkImage *image, const gchar *icon_name, GtkIconSize size)
+
+void gtk_image_get_icon_name (GtkImage *image, OUTLIST const gchar *icon_name, OUTLIST GtkIconSize size)
+
+void gtk_image_set_pixel_size (GtkImage *image, gint pixel_size)
+
+gint gtk_image_get_pixel_size (GtkImage *image)
+
+#endif

@@ -159,3 +159,10 @@ gtk_entry_set_editable (entry, editable)
 	GtkEntry * entry
 	gboolean   editable
 
+#if GTK_CHECK_VERSION(2,5,2) /* FIXME: 2.6 */
+
+gint gtk_entry_layout_index_to_text_index (GtkEntry *entry, gint layout_index)
+
+gint gtk_entry_text_index_to_layout_index (GtkEntry *entry, gint text_index)
+
+#endif

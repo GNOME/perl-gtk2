@@ -65,6 +65,14 @@ ok(1);
 $btn3->clicked;
 ok(1);
 
+SKIP: {
+	skip 'set_alternative_button_order is new in 2.6', 0
+		unless Gtk2->CHECK_VERSION (2, 5, 4); # FIXME: 2.6
+
+	$d3->set_alternative_button_order (2, 3);
+	$d3->set_alternative_button_order;
+}
+
 __END__
 
 Copyright (C) 2003 by the gtk2-perl team (see the file AUTHORS for the

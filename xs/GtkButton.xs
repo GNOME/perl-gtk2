@@ -166,3 +166,11 @@ void gtk_button_get_alignment (GtkButton *button, OUTLIST gfloat xalign, OUTLIST
 ##	PUSHs (sv_2mortal (newSVnv (yalign)));
 
 #endif
+
+#if GTK_CHECK_VERSION(2,5,6) /* FIXME: 2.6 */
+
+void gtk_button_set_image (GtkButton *button, GtkWidget_ornull *image)
+
+GtkWidget_ornull * gtk_button_get_image (GtkButton *button)
+
+#endif
