@@ -26,7 +26,7 @@ typedef struct {
 	const char * sv_str;
 } FindClosureData;
 
-gboolean
+static gboolean
 find_closure (GtkAccelKey * key,
               GClosure * closure,
 	      gpointer data)

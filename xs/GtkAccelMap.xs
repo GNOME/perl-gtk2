@@ -8,7 +8,7 @@
 
 #include "gtk2perl.h"
 
-void
+static void
 gtk2perl_gtk_accel_map_foreach (GPerlCallback *callback, 
 				const gchar *accel_path, guint accel_key, 
 				GdkModifierType accel_mods, gboolean changed)

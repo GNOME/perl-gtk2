@@ -31,7 +31,7 @@
  * this one's easy, though.
  */
 
-void
+static void
 gtk2perl_menu_position_func (GtkMenu * menu,
                              gint * x,
                              gint * y,
@@ -74,7 +74,7 @@ gtk2perl_menu_position_func (GtkMenu * menu,
 	LEAVE;
 }
 
-GPerlCallback *
+static GPerlCallback *
 gtk2perl_menu_detach_func_create (SV *func, SV *data)
 {
 	GType param_types [] = {
@@ -85,7 +85,7 @@ gtk2perl_menu_detach_func_create (SV *func, SV *data)
 				   param_types, 0);
 }
 
-void
+static void
 gtk2perl_menu_detach_func (GtkWidget *attach_widget,
                            GtkMenu *menu)
 {

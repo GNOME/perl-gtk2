@@ -117,7 +117,7 @@ gtk2perl_tree_view_search_equal_func (GtkTreeModel * model,
 #if 0
 /* see commentary above gtk_tree_view_set_destroy_count_func() for details on
  * why this is commented out. */
-GPerlCallback *
+static GPerlCallback *
 gtk2perl_tree_view_destroy_count_func_create (SV * func, SV *data)
 {
 	GType param_types [] = {
@@ -128,7 +128,7 @@ gtk2perl_tree_view_destroy_count_func_create (SV * func, SV *data)
 	return gperl_callback_new (func, data, G_N_ELEMENTS(param_types), param_types, 0);
 }
 
-void
+static void
 gtk2perl_tree_view_destroy_count_func (GtkTreeView * tree_view,
 				       GtkTreePath * path,
 				       gint children,
