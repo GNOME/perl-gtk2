@@ -1,3 +1,12 @@
+2003/11/12 01:57 pcg
+
+        * xs/GdkPixbuf.xs, xs/GtkWindow.xs, xs/GtkImage.xs, xs/GtkRc.xs,
+        xs/GtkIconFactory.xs, xs/GdkPixmap.xs: use GPerlFilename and
+        gperl_filename_from_sv on behalf of the user, so filenames work
+        the same as in other parts of gtk/glib (and sometimes unlike perl,
+        but it's the only way to load locale-encoded files).
+        * xs/GtkFileSelection.xs: convert to use new typemap entries.
+
 2003/11/11 00:36 (-0500) muppetman
 
 	* MANIFEST, debian/*: remove the debian packaging files, since having

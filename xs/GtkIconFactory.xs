@@ -238,9 +238,9 @@ gtk_icon_source_free (source)
 void
 gtk_icon_source_set_filename (source, filename)
 	GtkIconSource *source
-	const gchar *filename
+	GPerlFilename filename
 
-const gchar *
+GPerlFilename
 gtk_icon_source_get_filename (source)
 	GtkIconSource *source
 

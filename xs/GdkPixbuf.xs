@@ -183,9 +183,9 @@ gdk_pixbuf_new_subpixbuf (src_pixbuf, src_x, src_y, width, height)
 ##  GdkPixbuf *gdk_pixbuf_new_from_file (const char *filename, GError **error) 
 GdkPixbuf_noinc *
 gdk_pixbuf_new_from_file (class, filename)
-	const char *filename
+	GPerlFilename filename
     PREINIT:
-	GError * error = NULL;
+        GError *error = NULL;
     CODE:
 	RETVAL = gdk_pixbuf_new_from_file (filename, &error);
 	if (!RETVAL)
@@ -277,10 +277,10 @@ gdk_pixbuf_fill (pixbuf, pixel)
 void
 gdk_pixbuf_save (pixbuf, filename, type, ...)
 	GdkPixbuf *pixbuf
-	const char *filename
-	const char *type
+	GPerlFilename filename
+	gchar *type
     PREINIT:
-	GError * error= NULL;
+	GError * error = NULL;
 	char ** option_keys = NULL;
 	char ** option_vals = NULL;
 	int i, nkeys;
@@ -419,7 +419,7 @@ MODULE = Gtk2::Gdk::Pixbuf	PACKAGE = Gtk2::Gdk::PixbufAnimation	PREFIX = gdk_pix
 ##  GdkPixbufAnimation *gdk_pixbuf_animation_new_from_file (const char *filename, GError **error) 
 GdkPixbufAnimation_noinc *
 gdk_pixbuf_animation_new_from_file (class, filename)
-	char *filename
+	GPerlFilename filename
     PREINIT:
 	GError * error = NULL;
     CODE:

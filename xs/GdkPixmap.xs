@@ -94,7 +94,7 @@ void
 gdk_pixmap_create_from_xpm (class, drawable, transparent_color, filename)
 	GdkDrawable *drawable
 	GdkColor_ornull *transparent_color
-	const gchar *filename
+	GPerlFilename filename
     PREINIT:
 	GdkPixmap * pixmap;
 	GdkBitmap * mask;
@@ -111,7 +111,7 @@ gdk_pixmap_colormap_create_from_xpm (class, drawable, colormap, transparent_colo
 	GdkDrawable *drawable
 	GdkColormap *colormap
 	GdkColor_ornull *transparent_color
-	const gchar *filename
+	GPerlFilename filename
     PREINIT:
 	GdkPixmap * pixmap;
 	GdkBitmap * mask;

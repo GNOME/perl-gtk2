@@ -252,22 +252,25 @@ gtk_window_set_icon (window, icon)
 void
 gtk_window_set_icon_from_file (window, filename)
 	GtkWindow     * window
-	const gchar   * filename
+	GPerlFilename filename
     PREINIT:
-	GError * err = NULL;
+        GError *error = NULL;
     CODE:
-	if (!gtk_window_set_icon_from_file(window, filename, &err))
-		gperl_croak_gerror (filename, err);
+	gtk_window_set_icon_from_file(window, filename, &error);
+        if (error)
+		gperl_croak_gerror (filename, error);
 
 #gboolean gtk_window_set_default_icon_from_file (GtkWindow *window, const gchar *filename, GError **err)
 void
-gtk_window_set_default_icon_from_file (class, filename)
-	const gchar   * filename
+gtk_window_set_default_icon_from_file (class_or_instance, filename)
+        SV *class_or_instance
+	GPerlFilename filename
     PREINIT:
-	GError * err = NULL;
+        GError *error = NULL;
     CODE:
-	if (!gtk_window_set_default_icon_from_file(filename, &err))
-		gperl_croak_gerror (filename, err);
+	gtk_window_set_default_icon_from_file(filename, &error);
+        if (error)
+		gperl_croak_gerror (filename, error);
 
 #endif
 

@@ -30,7 +30,7 @@ MODULE = Gtk2::Rc	PACKAGE = Gtk2::Rc	PREFIX = gtk_rc_
 ## void gtk_rc_add_default_file (const gchar *filename)
 void
 gtk_rc_add_default_file (class, filename)
-	const gchar * filename
+	GPerlFilename filename
     C_ARGS:
 	filename
 
@@ -42,7 +42,7 @@ gtk_rc_set_default_files (class, ...)
     CODE:
 	filenames = g_new0(gchar*, items);
 	for( items--; items > 0; items-- )
-		filenames[items] = SvGChar(ST(items));
+		filenames[items] = gperl_filename_from_sv (ST(items));
 	gtk_rc_set_default_files(filenames);
 	g_free(filenames);
 	
@@ -78,7 +78,7 @@ gtk_rc_reparse_all_for_settings (settings, force_load)
 ## void gtk_rc_parse (const gchar *filename)
 void
 gtk_rc_parse (class, filename)
-	const gchar * filename
+	GPerlFilename filename
     C_ARGS:
 	filename
 
