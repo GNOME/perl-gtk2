@@ -38,43 +38,25 @@ gtk_tree_store_new (class, ...)
 	SV * class
     PREINIT:
 	GArray * typearray;
-	int i;
     CODE:
-	typearray = g_array_new (FALSE, FALSE, sizeof (GType));
-#define first 1
-	g_array_set_size (typearray, items - first);
-
-	for (i = first ; i < items ; i++) {
-		char * package = SvPV_nolen (ST (i));
-		/* look up GType by package name. */
-		GType t = gperl_type_from_package (package);
-		if (t == 0) {
-			g_array_free (typearray, TRUE);
-			croak ("package %s is not registered with GPerl",
-			       package);
-			g_assert ("not reached");
-		}
-		g_array_index (typearray, GType, i-first) = t;
-	}
+	GTK2PERL_STACK_ITEMS_TO_GTYPE_ARRAY (typearray, 1, items-1);
 	RETVAL = gtk_tree_store_newv (typearray->len, (GType*)(typearray->data));
 	g_array_free (typearray, TRUE);
-#undef first
     OUTPUT:
 	RETVAL
 
 
-# for derived GObjects.  there's currently no way to derive an object
-# from perl, so this isn't needed yet.
+# for initializing GtkTreeStores derived in perl.
 ## void gtk_tree_store_set_column_types (GtkTreeStore *tree_store, gint n_columns, GType *types)
-#void
-#gtk_tree_store_set_column_types (tree_store, ...)
-#	GtkTreeStore *tree_store
-##    PREINIT:
-##	GArray * types;
-##    CODE:
-##	types = gtk2perl_tree_store_stack_items_to_gtype_array_or_croak (1);
-##	gtk_tree_store_set_column_types (list_store, types->len,
-##	                                 (GType*)(types->data));
+void
+gtk_tree_store_set_column_types (tree_store, ...)
+GtkTreeStore *tree_store
+    PREINIT:
+	GArray * types;
+    CODE:
+	GTK2PERL_STACK_ITEMS_TO_GTYPE_ARRAY (types, 1, items-1);
+	gtk_tree_store_set_column_types (tree_store, types->len,
+	                                 (GType*)(types->data));
 
 ## void gtk_tree_store_set (GtkTreeStore *tree_store, GtkTreeIter *iter, ...)
 void

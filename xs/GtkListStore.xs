@@ -41,43 +41,26 @@ gtk_list_store_new (class, ...)
 	SV * class
     PREINIT:
 	GArray * typearray;
-	int i;
     CODE:
-#define first 1
-	typearray = g_array_new (FALSE, FALSE, sizeof (GType));
-	g_array_set_size (typearray, items - first);
-
-	for (i = first ; i < items ; i++) {
-		char * package = SvPV_nolen (ST (i));
-		/* look up GType by package name. */
-		GType t = gperl_type_from_package (package);
-		if (t == 0) {
-			g_array_free (typearray, TRUE);
-			croak ("package %s is not registered with GPerl",
-			       package);
-			g_assert ("not reached");
-		}
-		g_array_index (typearray, GType, i-first) = t;
-	}
+	GTK2PERL_STACK_ITEMS_TO_GTYPE_ARRAY (typearray, 1, items-1);
 	RETVAL = gtk_list_store_newv (typearray->len, (GType*)typearray->data);
 	g_array_free (typearray, TRUE);
-#undef first
     OUTPUT:
 	RETVAL
 
 
-# for derived GObjects.  there's currently no way to derive an object
-# from perl, so this isn't needed yet.
+# for initializing GListStores derived in perl
 ## void gtk_list_store_set_column_types (GtkListStore *list_store, gint n_columns, GType *types)
-##void
-##gtk_list_store_set_column_types (list_store, ...)
-##	GtkListStore *list_store
-##    PREINIT:
-##	GArray * types;
-##    CODE:
-##	types = gtk2perl_tree_store_stack_items_to_gtype_array_or_croak (1);
-##	gtk_list_store_set_column_types (list_store, types->len,
-##	                                 (GType*)(types->data));
+void
+gtk_list_store_set_column_types (list_store, ...)
+	GtkListStore *list_store
+    PREINIT:
+	GArray * typearray;
+    CODE:
+	GTK2PERL_STACK_ITEMS_TO_GTYPE_ARRAY (typearray, 1, items-1);
+	gtk_list_store_set_column_types (list_store, typearray->len,
+	                                 (GType*)(typearray->data));
+	g_array_free (typearray, TRUE);
 
 
 ## void gtk_list_store_set (GtkListStore *list_store, GtkTreeIter *iter, ...)
@@ -162,7 +145,6 @@ gtk_list_store_insert (list_store, position)
 
 ## void gtk_list_store_insert_before (GtkListStore *list_store, GtkTreeIter *iter, GtkTreeIter *sibling)
 ## void gtk_list_store_insert_after (GtkListStore *list_store, GtkTreeIter *iter, GtkTreeIter *sibling)
-
 GtkTreeIter_copy *
 gtk_list_store_insert_before (list_store, sibling)
 	GtkListStore       * list_store
