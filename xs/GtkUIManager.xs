@@ -48,7 +48,7 @@ guint gtk_ui_manager_add_ui_from_file (GtkUIManager *self, const gchar *filename
     OUTPUT:
 	RETVAL
 
-void gtk_ui_manager_add_ui (GtkUIManager *self, guint merge_id, const gchar *path, const gchar *name, const gchar *action, GtkUIManagerItemType type, gboolean top);
+void gtk_ui_manager_add_ui (GtkUIManager *self, guint merge_id, const gchar *path, const gchar *name, const gchar_ornull *action, GtkUIManagerItemType type, gboolean top);
 
 void gtk_ui_manager_remove_ui (GtkUIManager *self, guint merge_id);
 
