@@ -3,11 +3,12 @@ The Gtk2-Perl Team - contact us at gtk-perl-list@lists.gnome.org
 ================================================================
 muppet                   scott at asofyet dot org
 Ross McFarland           rwmcfa1 at neces dot com
+Torsten Schoenfeld       kaffeetisch at web dot de
+Marc Lehmann             pcg at goof dot com
 Goran Thyni              goran at kirra dot net
 Joern Reder              joern at zyn dot de
 Chas Owens               alas at wilma dot widomaker dot com
 Guillaume Cottenceau     gc at mandrakesoft dot com
-Marc Lehmann             pcg at goof dot com
 
 Contributors - the people who sent us patches
 =============================================
@@ -15,7 +16,6 @@ René Seindal         rene at seindal dot dk
 Tom Hargreaves       hex at freezone dot co dot uk
 Thierry Vignaud      tvignaud at mandrakesoft dot com
 James Curbo          hannibal at adtrw dot org
-Torsten Schoenfeld   kaffeetisch at web dot de
 Dr. Michael Langner  langner at fiz-chemie dot de
 Anuradha Ratnaweera  Aratnaweera at virtusa dot com
 

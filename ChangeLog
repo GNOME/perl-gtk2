@@ -1,3 +1,14 @@
+2003/09/21 11:18 muppetman
+
+	* AUTHORS: torsten's officially on the team now.
+
+2003/09/18 23:10 muppetman
+
+	* pm/SimpleList.pm: added new_from_widget(), which allows glade users
+	to use SimpleLists.  this basically just re-blesses the treeview that
+	comes in, which means it won't work if we ever change SimpleList to be
+	a proper Glib::Object subclass.
+
 2003/09/19 00:53 muppetman
 
 	* Gtk2.pm, README, META.yml, debian/control, debian/changelog:
