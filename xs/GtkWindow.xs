@@ -316,11 +316,14 @@ void
 gtk_window_list_toplevels (class)
 	SV * class
     PREINIT:
-	GList * toplvls;
+	GList * toplvls, * i;
     PPCODE:
-	for( toplvls = gtk_window_list_toplevels(); toplvls; 
-	     toplvls = toplvls->next )
-		XPUSHs (sv_2mortal (newSVGtkWindow (toplvls->data)));
+	toplvls = gtk_window_list_toplevels ();
+	for (i = toplvls; i != NULL; i = i->next)
+		XPUSHs (sv_2mortal (newSVGtkWindow (i->data)));
+	/* documentation doesn't mention it, but according to the source,
+	 * it's on us to free this! */
+	g_list_free (toplvls);
 
 ## void gtk_window_add_mnemonic (GtkWindow *window, guint keyval, GtkWidget *target)
 void
