@@ -62,7 +62,7 @@ gtk_rc_get_style_by_paths (settings, widget_path, class_path, package)
 	GtkSettings *settings
 	const char  * widget_path
 	const char  * class_path
-	SV          * package
+	const char  * package
     PREINIT:
 	GType gtype = {0,};
     CODE:
