@@ -87,8 +87,15 @@ sub find_toplevel_at_pointer {
   #
   if ($pointer_window) {
 ##### FIXME we'll need something like Gtk::Widget->new_from_pointer for this
-    my $widget = $pointer_window->get_user_data;
-    return $widget ? $widget->get_toplevel : undef;
+#    my $widget = $pointer_window->get_user_data;
+#    return $widget ? $widget->get_toplevel : undef;
+    my $ptr = $pointer_window->get_user_data;
+    if ($ptr) {
+      my $widget = Glib::Object->new_from_pointer ($ptr);
+      return $widget ? $widget->get_toplevel : undef;
+    } else {
+      return undef;
+    }
   } else {
     return undef;
   }
@@ -199,16 +206,14 @@ sub fill_screens {
       
       for (my $i = 0; $i < $n_screens; $i++) {
 	  my $screen = $info->{current_display}->get_screen ($i);
-	  GtkTreeIter iter;
 	  
 	  my $iter = $info->{screen_model}->append;
 	  $info->{screen_model}->set ($iter,
 				      SCREEN_COLUMN_NUMBER, $i,
 				      SCREEN_COLUMN_SCREEN, $screen);
 
-	  if ($i == 0) {
-	    $info->{selection}->select_iter ($iter);
-	  }
+	  $info->{screen_selection}->select_iter ($iter)
+              if $i == 0;
       }
   }
 }
@@ -219,7 +224,7 @@ sub fill_screens {
 # "Change" button was clicked, we destroy the dialog.
 #
 sub response_cb {
-  my ($dialog, $response_id, $info);
+  my ($dialog, $response_id, $info) = @_;
 
   if ($response_id eq 'ok') {
     query_change_display ($info);
@@ -249,7 +254,7 @@ sub open_display_cb {
     Gtk2::Label->new ("Please enter the name of\nthe new display\n");
 
   $dialog->vbox->add ($dialog_label);
-  $dialog->vbox->add ($dialog_label, $display_entry);
+  $dialog->vbox->add ($display_entry);
 
   $display_entry->grab_focus;
   $dialog->child->show_all;
@@ -437,9 +442,7 @@ sub display_closed_cb {
       my ($tmp_display) =
             $info->{display_model}->get ($iter,  DISPLAY_COLUMN_DISPLAY);
 
-##### FIXME can we overload operator == on GObjects?
-#      if ($tmp_display == $display) {
-      if ($tmp_display->eq($display)) {
+      if ($tmp_display == $display) {
 	  $info->{display_model}->remove ($iter);
 	  last;
       }
@@ -481,7 +484,6 @@ sub display_opened_cb {
 sub initialize_displays {
   my $info = shift;
   my $manager = Gtk2::Gdk::DisplayManager->get;
-##  GSList *tmp_list;
 
   foreach my $display ($manager->list_displays) {
     add_display ($info, $display);
@@ -500,18 +502,15 @@ sub destroy_info {
 
   my $manager = Gtk2::Gdk::DisplayManager->get;
   my @displays = $manager->list_displays;
-#  GSList *tmp_list;
 
+# FIXME
   $manager->signal_handlers_disconnect_by_func (\&display_opened_cb, $info);
 
   foreach my $display ($manager->list_displays) {
+# FIXME
     $display->signal_handlers_disconnect_by_func (\&display_closed_cb, $info);
   }
   
-#  g_slist_free (tmp_list);
-
-#  g_object_unref (info->size_group);
-#  g_free (info);
   $info = undef;
 }
 
