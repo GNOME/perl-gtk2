@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2003 by the gtk2-perl team (see the file AUTHORS for a
+ * Copyright (C) 2003-2005 by the gtk2-perl team (see the file AUTHORS for a
  * full list)
  *
  * This library is free software; you can redistribute it and/or
@@ -61,6 +61,11 @@ gtk2perl_tree_model_filter_modify_func (GtkTreeModel *model,
 
 MODULE = Gtk2::TreeModelFilter	PACKAGE = Gtk2::TreeModelFilter	PREFIX = gtk_tree_model_filter_
 
+BOOT:
+	/* TreeModel needs to be first in @ISA so that Gtk2::TreeModel::get
+	 * is found before Glib::Object::get(). */
+	gperl_prepend_isa ("Gtk2::TreeModelFilter", "Gtk2::TreeModel");
+	gperl_set_isa ("Gtk2::TreeModel", "Gtk2::TreeDragSource");
 
  ## GtkTreeModel *gtk_tree_model_filter_new (GtkTreeModel *child_model, GtkTreePath *root);
 GtkTreeModel *gtk_tree_model_filter_new (class, GtkTreeModel *child_model, GtkTreePath_ornull *root=NULL);
