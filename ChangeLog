@@ -1,3 +1,7 @@
+2003/11/14 04:06 pcg
+
+	* xs/GdkTypes.xs: fix constrain_size name.
+
 2003/11/13 21:26 (-0500) muppetman
 
 	* xs/GdkWindow.xs, xs/GtkWidget.xs: genfirstpass appears to have

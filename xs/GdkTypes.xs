@@ -202,7 +202,7 @@ gravity (GdkGeometry *geometry, GdkGravity newvalue = 0)
 ## need to document it...
 ## ## void gdk_window_constrain_size (GdkGeometry *geometry, guint flags, gint width, gint height, gint *new_width, gint *new_height)
 void
-gdk_window_constrain_size (geometry, flags, width, height)
+constrain_size (geometry, flags, width, height)
 	GdkGeometry *geometry
 	GdkWindowHints flags
 	gint width
