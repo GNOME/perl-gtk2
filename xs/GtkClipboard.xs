@@ -48,12 +48,12 @@ gtk2perl_clipboard_received_func (GtkClipboard *clipboard,
                                   GtkSelectionData *selection_data,
                                   gpointer data)
 {
-	PERL_UNUSED_VAR (data);
-
 	GPerlCallback * callback = (GPerlCallback*)
 			g_object_get_qdata (G_OBJECT (clipboard),
 			                    clipboard_received_quark());
 	gperl_callback_invoke (callback, NULL, clipboard, selection_data);
+
+	PERL_UNUSED_VAR (data);
 }
 
 static void
@@ -61,12 +61,12 @@ gtk2perl_clipboard_text_received_func (GtkClipboard *clipboard,
                                        const gchar *text,
                                        gpointer data)
 {
-	PERL_UNUSED_VAR (data);
-
 	GPerlCallback * callback = (GPerlCallback*)
 			g_object_get_qdata (G_OBJECT (clipboard),
 			                    clipboard_text_received_quark());
 	gperl_callback_invoke (callback, NULL, clipboard, text);
+
+	PERL_UNUSED_VAR (data);
 }
 
 static void

@@ -1,3 +1,9 @@
+2003/11/07 11:53 (+0100) kaffeetisch
+
+	* xs/GtkClipboard.xs: Two other places where PERL_UNUSED_VAR was called
+	before variables are declared.  Fix necessary to make it compile on
+	FreeBSD.
+
 2003/11/06 16:53 (-0500) muppetman
 
 	* Gtk2.pm: link to the generated pods.
