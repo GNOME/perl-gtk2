@@ -76,7 +76,7 @@ ok( $win2 = Gtk2::Window->new );
 $win2->set_transient_for($win);
 ok(1);
 
-ok( $win2->get_transient_for, $win );
+is( $win2->get_transient_for, $win );
 
 $win2->set_destroy_with_parent(TRUE);
 ok(1);

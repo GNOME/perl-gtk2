@@ -1,3 +1,9 @@
+2003/08/15 18:06 rwmcfa1
+
+	* t/01.GtkWindow.t: fixed bug 'ok' -> 'is' causing really strange 
+	makemaker warnings. didn't have anything to do with libs. bad muppet,
+	no cookie for you...
+
 2003/08/15 09:35 muppetman
 
 	* pm/SimpleList.pm, AUTHORS: patch from Dr. Michael Langner,
