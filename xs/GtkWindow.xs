@@ -194,12 +194,20 @@ gboolean
 gtk_window_get_decorated (window)
 	GtkWindow * window
 
-# TODO: GList not in typemap
 ## void gtk_window_set_icon_list (GtkWindow *window, GList *list)
-#void
-#gtk_window_set_icon_list (window, list)
-#	GtkWindow * window
-#	GList     * list
+void
+gtk_window_set_icon_list (window, ...)
+	GtkWindow * window
+    PREINIT:
+	GList * list = NULL;
+    PPCODE:
+	for( items--; items > 0; items-- )
+		list = g_list_prepend(list, SvGdkPixbuf(ST(items)));
+	if( list )
+	{
+		gtk_window_set_icon_list(window, list);
+		g_list_free(list);
+	}
 
 # TODO: GList not in typemap
 ## GList* gtk_window_get_icon_list (GtkWindow *window)
