@@ -65,6 +65,16 @@ gtk_menu_shell_activate_item (menu_shell, menu_item, force_deactivate)
 	GtkWidget    * menu_item
 	gboolean       force_deactivate
 
+#if GTK_CHECK_VERSION(2, 3, 0)
+
+void gtk_menu_shell_select_first (GtkMenuShell *menu_shell, gboolean search_sensitive)
+
+void gtk_menu_shell_cancel (GtkMenuShell *menu_shell);
+
+#endif
+
 # __PRIVATE__
 ## void _gtk_menu_shell_select_first (GtkMenuShell *menu_shell, gboolean search_sensitive)
+## void _gtk_menu_shell_select_last (GtkMenuShell *menu_shell, gboolean search_sensitive)
 ## void _gtk_menu_shell_activate (GtkMenuShell *menu_shell)
+## gint _gtk_menu_shell_get_popup_delay (GtkMenuShell *menu_shell)
