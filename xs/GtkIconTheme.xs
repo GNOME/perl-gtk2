@@ -114,6 +114,26 @@ void gtk_icon_theme_add_builtin_icon (class, const gchar *icon_name, gint size, 
     C_ARGS:
 	icon_name, size, pixbuf
 
+#if GTK_CHECK_VERSION (2, 5, 0) /* FIXME: 2.6 */
+
+ ## gint * gtk_icon_theme_get_icon_sizes (GtkIconTheme *icon_theme, const gchar *icon_name);
+void
+gtk_icon_theme_get_icon_sizes (GtkIconTheme *icon_theme, const gchar *icon_name);
+    PREINIT:
+	gint *result = NULL, *shadow = NULL;
+	gint size;
+    PPCODE:
+	shadow = result = gtk_icon_theme_get_icon_sizes (icon_theme, icon_name);
+	if (result) {
+		/* The list is 0-terminated, so we loop over it until we get a
+		   0. */
+		while (0 != (size = *(result++)))
+			XPUSHs (sv_2mortal (newSViv (size)));
+		g_free (shadow);
+	}
+
+#endif
+
 MODULE = Gtk2::IconTheme	PACKAGE = Gtk2::IconInfo	PREFIX = gtk_icon_info_
 
  ## don't need to bind these -- they are automagical

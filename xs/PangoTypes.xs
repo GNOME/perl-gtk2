@@ -23,12 +23,16 @@
 
 MODULE = Gtk2::Pango::Types	PACKAGE = Gtk2::Pango	PREFIX = pango_
 
+#if PANGO_CHECK_VERSION (1, 4, 0)
+
 ##  PangoDirection pango_find_base_dir (const gchar *text, gint length)
 PangoDirection
 pango_find_base_dir (class, text)
 	const gchar *text
     C_ARGS:
 	text, strlen (text)
+
+#endif
 
 MODULE = Gtk2::Pango::Types	PACKAGE = Gtk2::Pango::Language	PREFIX = pango_language_
 

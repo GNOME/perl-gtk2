@@ -12,7 +12,7 @@
 
 #########################
 
-use Gtk2::TestHelper tests => 22;
+use Gtk2::TestHelper tests => 25;
 
 my $win = Gtk2::Window->new;
 
@@ -65,10 +65,30 @@ ok ($label->get_line_wrap, '$label->(set|get)_line_wrap');
 ok (eq_array ([$label->get_layout_offsets],  [0, 0]), 
 	'$label-get_layout_offsets');
 
+isa_ok ($label->get_layout, 'Gtk2::Pango::Layout');
+
 is ($label->get_mnemonic_widget, undef, '$label->get_mnemonic_widget, undef');
 my $entry = Gtk2::Entry->new;
 $label->set_mnemonic_widget ($entry);
 ok ($label->get_mnemonic_widget, '$label->get_mnemonic_widget, entry');
+
+$label->set_text_with_mnemonic ('_Urgs');
+
+SKIP: {
+	skip 'new 2.6 stuff', 1
+		unless Gtk2->CHECK_VERSION (2, 5, 2); # FIXME: 2.6
+
+	$label->set_ellipsize ('middle');
+	is ($label->get_ellipsize, 'middle');
+}
+
+SKIP: {
+	skip 'new 2.6 stuff', 1
+		unless Gtk2->CHECK_VERSION (2, 5, 4); # FIXME: 2.6
+
+	$label->set_width_chars (23);
+	is ($label->get_width_chars, 23);
+}
 
 1;
 

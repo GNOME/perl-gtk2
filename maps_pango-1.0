@@ -51,4 +51,3 @@ PANGO_TYPE_WEIGHT	PangoWeight	GEnum	Gtk2::Pango::Weight
 PANGO_TYPE_WRAP_MODE	PangoWrapMode	GEnum	Gtk2::Pango::WrapMode
 
 PANGO_TYPE_LAYOUT_ITER	PangoLayoutIter	GBoxed	Gtk2::Pango::LayoutIter
-PANGO_TYPE_SCRIPT_ITER	PangoScriptIter	GBoxed	Gtk2::Pango::ScriptIter

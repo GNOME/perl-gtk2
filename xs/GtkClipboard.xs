@@ -129,7 +129,7 @@ MODULE = Gtk2::Clipboard	PACKAGE = Gtk2::Clipboard	PREFIX = gtk_clipboard_
 #ifdef GTK_TYPE_CLIPBOARD
 
 ##  GtkClipboard *gtk_clipboard_get (GdkAtom selection) 
-GtkClipboard_noinc *
+GtkClipboard *
 gtk_clipboard_get (class, selection)
 	GdkAtom selection
     C_ARGS:
@@ -138,7 +138,7 @@ gtk_clipboard_get (class, selection)
 #if GTK_CHECK_VERSION(2,2,0)
 
 ##  GtkClipboard *gtk_clipboard_get_for_display (GdkDisplay *display, GdkAtom selection) 
-GtkClipboard_noinc *
+GtkClipboard *
 gtk_clipboard_get_for_display (class, display, selection)
 	GdkDisplay *display
 	GdkAtom selection

@@ -42,9 +42,11 @@
 #endif
 
 /* custom GType for PangoScriptIter */
-#ifndef PANGO_TYPE_SCRIPT_ITER
-# define PANGO_TYPE_SCRIPT_ITER (gtk2perl_pango_script_iter_get_type ())
-  GType gtk2perl_pango_script_iter_get_type (void) G_GNUC_CONST;
+#if PANGO_CHECK_VERSION (1, 4, 0)
+# ifndef PANGO_TYPE_SCRIPT_ITER
+#  define PANGO_TYPE_SCRIPT_ITER (gtk2perl_pango_script_iter_get_type ())
+   GType gtk2perl_pango_script_iter_get_type (void) G_GNUC_CONST;
+# endif
 #endif
 
 #include "gtk2perl-autogen.h"

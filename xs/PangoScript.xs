@@ -23,6 +23,8 @@
 
 /* ------------------------------------------------------------------------- */
 
+#if PANGO_CHECK_VERSION (1, 4, 0)
+
 GType
 gtk2perl_pango_script_iter_get_type (void)
 {
@@ -34,9 +36,16 @@ gtk2perl_pango_script_iter_get_type (void)
 	return t;
 }
 
+#endif
+
 /* ------------------------------------------------------------------------- */
 
 MODULE = Gtk2::Pango::Script	PACKAGE = Gtk2::Pango::Script	PREFIX = pango_script_
+
+BOOT:
+	PERL_UNUSED_VAR (file);
+
+#if PANGO_CHECK_VERSION (1, 4, 0)
 
 ##  PangoScript pango_script_for_unichar (gunichar ch)
 PangoScript
@@ -102,3 +111,5 @@ gboolean
 pango_language_includes_script (language, script)
 	PangoLanguage *language
 	PangoScript script
+
+#endif /* 1.4.0 */

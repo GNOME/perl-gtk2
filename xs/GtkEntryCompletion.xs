@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003 by the gtk2-perl team (see the file AUTHORS)
+ * Copyright (c) 2003-2004 by the gtk2-perl team (see the file AUTHORS)
  *
  * Licensed under the LGPL, see LICENSE file for more information.
  *
@@ -88,4 +88,18 @@ void gtk_entry_completion_delete_action (GtkEntryCompletion *completion, gint in
 ##
 void gtk_entry_completion_set_text_column (GtkEntryCompletion *completion, gint column);
 
+#if GTK_CHECK_VERSION (2, 5, 0) /* FIXME: 2.6 */
 
+gint gtk_entry_completion_get_text_column (GtkEntryCompletion *completion);
+
+void gtk_entry_completion_insert_prefix (GtkEntryCompletion *completion);
+
+void gtk_entry_completion_set_inline_completion (GtkEntryCompletion *completion, gboolean inline_completion);
+
+gboolean gtk_entry_completion_get_inline_completion (GtkEntryCompletion *completion);
+
+void gtk_entry_completion_set_popup_completion (GtkEntryCompletion *completion, gboolean popup_completion);
+
+gboolean gtk_entry_completion_get_popup_completion (GtkEntryCompletion *completion);
+
+#endif

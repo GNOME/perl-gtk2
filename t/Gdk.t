@@ -71,7 +71,7 @@ my $result = Gtk2::Gdk -> pointer_grab($window -> window(),
                                        Gtk2::Gdk::Cursor -> new("arrow"),
                                        0);
 
-like($result, qr/^(?:success|already-grabbed)$/);
+like($result, qr/^(?:success|already-grabbed|not-viewable)$/);
 like(Gtk2::Gdk -> pointer_is_grabbed(), qr/^(?:1|)$/);
 
 Gtk2::Gdk -> pointer_ungrab(0);
@@ -79,7 +79,7 @@ Gtk2::Gdk -> pointer_ungrab(0);
 # Gtk2::Gdk -> set_double_click_time(20);
 
 $result = Gtk2::Gdk -> keyboard_grab($window -> window(), 1, 0);
-like($result, qr/^(?:success|already-grabbed)$/);
+like($result, qr/^(?:success|already-grabbed|not-viewable)$/);
 Gtk2::Gdk -> keyboard_ungrab(0);
 
 Gtk2::Gdk -> error_trap_push();

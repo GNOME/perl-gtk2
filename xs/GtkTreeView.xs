@@ -136,7 +136,9 @@ gtk2perl_tree_view_destroy_count_func (GtkTreeView * tree_view,
 
 #if GTK_CHECK_VERSION (2, 5, 2) /* FIXME 2.6.0 */
 
-static GPerlCallback *
+/* Also used in GtkComboBox.xs. */
+
+GPerlCallback *
 gtk2perl_tree_view_row_separator_func_create (SV * func, SV * data)
 {
 	GType param_types[2];
@@ -146,7 +148,7 @@ gtk2perl_tree_view_row_separator_func_create (SV * func, SV * data)
 				   param_types, G_TYPE_BOOLEAN);
 }
 
-static gboolean
+gboolean
 gtk2perl_tree_view_row_separator_func (GtkTreeModel      *model,
 				       GtkTreeIter       *iter,
 				       gpointer           data)

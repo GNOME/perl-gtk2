@@ -1,3 +1,55 @@
+2004/10/25 20:26 (+0200) kaffeetisch
+
+	* maps_pango-1.5, maps_pango-1.6: Rename the maps file.
+
+	* t/Gdk.t: Account for the new grab result "not-viewable".
+
+	* t/GtkIconView.t: Add a "FIXME: 2.6" comment.
+
+	* t/GtkListStore.t: Reenable this test since the bug that caused
+	the issues has been fixed.
+
+	* t/GtkAboutDialog.t, xs/GtkAboutDialog.xs: Bind and test
+	gtk_about_dialog_get_logo_icon_name,
+	gtk_about_dialog_set_logo_icon_name,
+	gtk_about_dialog_set_email_hook, gtk_about_dialog_set_url_hook.
+	Add some parameter descriptions.
+
+	* t/GtkCellView.t, xs/GtkCellView.xs: Bind and test
+	gtk_cell_view_set_value, gtk_cell_view_set_values,
+	gtk_cell_view_get_size_of_row.
+
+	* xs/GtkClipboard.xs: Don't use the _noinc typemaps with
+	gtk_clipboard_get and gtk_clipboard_get_for_display since we don't
+	actually own the returned clipboards.
+
+	* t/GtkEntryCompletion.t, xs/GtkEntryCompletion.xs: Bind and test
+	gtk_entry_completion_get_text_column,
+	gtk_entry_completion_insert_prefix,
+	gtk_entry_completion_set_inline_completion,
+	gtk_entry_completion_get_inline_completion,
+	gtk_entry_completion_set_popup_completion,
+	gtk_entry_completion_get_popup_completion.
+
+	* t/GtkIconTheme.t, xs/GtkIconTheme.xs: Bind and test
+	gtk_icon_theme_get_icon_sizes.  Move the search path modifying
+	tests to the end to make this test finally work.
+
+	* t/GtkLabel.t, xs/GtkLabel.xs: Bind and test
+	gtk_label_set_ellipsize, gtk_label_get_ellipsize,
+	gtk_label_set_width_chars, gtk_label_get_width_chars.
+
+	* t/GtkComboBox.t, xs/GtkComboBox.xs, xs/GtkTreeView.xs: Bind and
+	test gtk_combo_box_popup, gtk_combo_box_popdown,
+	gtk_combo_box_get_wrap_width, gtk_combo_box_get_row_span_column,
+	gtk_combo_box_get_column_span_column,
+	gtk_combo_box_set_row_separator_func.
+
+	* gtk2perl.h, maps_pango-1.0, maps_pango_1.4, t/PangoTypes.t,
+	t/PangoScrip.t, xs/PangoTypes.xs, xs/PangoScript.xs: Protect
+	pango_find_base_dir and all of PangoScript with 1.4.0 version
+	guards.
+
 2004/10/24 11:55 (-0400) rwmcfa1
 
 	* MANIFEST, MANIFEST.SKIP: updates

@@ -4,7 +4,12 @@ use Gtk2::TestHelper tests => 48, noinit => 1;
 
 # $Header$
 
+SKIP: {
+  skip("find_base_dir is new in 1.4", 1)
+    unless (Gtk2::Pango -> CHECK_VERSION(1, 4, 0));
+
 is(Gtk2::Pango -> find_base_dir("urgs"), "ltr");
+}
 
 my $language = Gtk2::Pango::Language -> from_string("de_DE");
 isa_ok($language, "Gtk2::Pango::Language");
