@@ -57,7 +57,7 @@ G::Idle->add(sub {
 		$_[0]->unmaximize;
 
 		# gtk2.2 req
-		if( ${Gtk2->check_version( 2, 2, 0 )}[1] >= 2 )
+		if( (Gtk2->get_version_info)[1] >= 2 )
 		{
 			$_[0]->fullscreen;
 			$_[0]->unfullscreen;
