@@ -1,3 +1,9 @@
+2004/01/10 17:04 (+0100) kaffeetisch
+
+	* t/GdkWindow.t
+	* xs/GdkWindow.t: Don't initialize mask to 0, but *mask.  The mask
+	creation should work correctly now.
+
 2004/01/10 04:09 (-0500) muppetman
 
 	* t/01.GtkWindow.t: correct the skip count for 2.0.x

@@ -20,9 +20,9 @@ my $attributes = {
 };
 
 my $attributes_small = {
-  title => "Bla",
-  x => 23,
-  "y" => 42,
+  width => 20,
+  height => 20,
+  wclass => "output",
   window_type => "toplevel"
 };
 
@@ -60,7 +60,7 @@ SKIP: {
 
 is($window -> get_state(), "withdrawn");
 
-is_deeply([$window -> get_position()], [0, 0]);
+is_deeply([$window -> get_position()], [10, 10]);
 
 $window -> move(20, 20);
 $window -> resize(40, 40);
