@@ -52,6 +52,45 @@ DESTROY (sv)
 	//warn ("Gtk2::Allocation::DESTROY");
 	g_boxed_free (GDK_TYPE_RECTANGLE, GUINT_TO_POINTER (SvIV (SvRV (sv))));
 
+
+MODULE = Gtk2::Widget	PACKAGE = Gtk2::Requisition
+
+gint
+width (requisition, newval=NULL)
+	GtkRequisition * requisition
+	SV * newval
+    ALIAS:
+	width = 0
+	height = 1
+    CODE:
+	switch (ix) {
+		case 0:
+			RETVAL = requisition->width;
+			if (newval) requisition->width = SvIV (newval);
+			break;
+		case 1:
+			RETVAL = requisition->height;
+			if (newval) requisition->height = SvIV (newval);
+			break;
+	}
+    OUTPUT:
+	RETVAL
+
+GtkRequisition_own*
+new (class, width=0, height=0)
+	SV * class
+	gint width
+	gint height
+    PREINIT:
+	GtkRequisition req;
+    CODE:
+	req.width = width;
+	req.height = height;
+	RETVAL = &req;
+    OUTPUT:
+	RETVAL
+
+
 MODULE = Gtk2::Widget	PACKAGE = Gtk2::Widget	PREFIX = gtk_widget_
 
  ## access to important struct members:
