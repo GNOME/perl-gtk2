@@ -1,3 +1,9 @@
+2003/07/21 07:36 rwmcfa1
+
+	* xs/GtkTreeModel.xs: Gtk2::TreeModel->get now returns an array of all
+	of the columns when no column id's are passed, documented in api.pod,
+	shouldn't affect anything normal documented api
+
 2003/07/18 12:00 muppetman
 
 	* xs/GtkTreeSortable.xs: implemented the missing sort callbacks.
