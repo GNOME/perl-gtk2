@@ -1,3 +1,10 @@
+2004/02/04 19:20 (+0100) kaffeetisch
+
+	* t/GtkCellRenderer.t: Make strict-safe.  Use different counters
+	for the compatability and the new stuff.
+
+	* xs/GtkCellRenderer.xs: Hush a compiler warning.
+
 2004/02/04 02:13 (-0500) muppetman
 
 	* xs/GtkCellRenderer.xs: re-vamp vfunc support for be more natural

@@ -413,6 +413,7 @@ _INSTALL_OVERRIDES (const char * package)
 	GType gtype;
 	GtkCellRendererClass * class;
     CODE:
+	PERL_UNUSED_VAR (ix);
 	//warn ("%s %s", ix == 1 ? "_install_overrides" : "_INSTALL_OVERRIDES",
 	//               package);
 	gtype = gperl_object_type_from_package (package);
