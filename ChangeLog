@@ -1,4 +1,9 @@
-2003/12/15 20:44 (-0500) muppetman
+2003/12/15 23:11 (-0500) rwmcfa1
+
+	* xs/GtkList.xs: checks on non-null list should of been list_items, 
+	minor bug, but a bug nontheless.
+
+2003/12/15 20:44 (-0500) rwmcfa1
 
 	* Makefile.PL: added pure_all as a dep on a few things
 
