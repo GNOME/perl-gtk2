@@ -1,20 +1,5 @@
 #include "gtk2perl.h"
 
-#ifdef GTK_TYPE_FILE_FILTER
-
-static gboolean
-gtk2perl_file_filter_func (const GtkFileFilterInfo *filter_info,
-                           gpointer                 data)
-{
-	GPerlCallback * callback = (GPerlCallback*) data;
-	GValue value = {0,};
-	gboolean retval;
-	g_value_init (&value, G_TYPE_BOOLEAN);
-	gperl_callback_invoke (callback, &value, filter_info);
-	retval = g_value_get_boolean (&value);
-	g_value_unset (&value);
-	return retval;
-}
 
 /*
 struct _GtkFileFilterInfo
@@ -28,11 +13,71 @@ struct _GtkFileFilterInfo
 };
 */
 
-#endif /* GTK_TYPE_FILE_FILTER */
+static SV *
+newSVGtkFileFilterInfo (const GtkFileFilterInfo * info)
+{
+	HV * hv;
+
+	if (!info)
+		return &PL_sv_undef;
+
+	hv = newHV ();
+
+	hv_store (hv, "contains", 8, newSVGtkFileFilterFlags (info->contains), 0);
+	hv_store (hv, "filename", 8, gperl_sv_from_filename (info->filename), 0);
+	hv_store (hv, "uri", 3, newSVpv (info->uri, PL_na), 0);
+	hv_store (hv, "display_name", 12, newSVGChar (info->display_name), 0);
+	hv_store (hv, "mime_type", 9, newSVGChar (info->mime_type), 0);
+
+	return newRV_noinc ((SV*) hv);
+}
+
+static GtkFileFilterInfo *
+SvGtkFileFilterInfo (SV * sv)
+{
+	HV * hv;
+	SV ** svp;
+	GtkFileFilterInfo * info;
+
+	if (!SvOK (sv) || !SvROK (sv) || SvTYPE (SvRV (sv)) != SVt_PVHV)
+		croak ("invalid file filter info - expecting a hash reference");
+
+	hv = (HV*) SvRV (sv);
+
+	info = gperl_alloc_temp (sizeof (GtkFileFilterInfo));
+
+	if ((svp = hv_fetch (hv, "contains", 8, 0)))
+		info->contains = SvGtkFileFilterFlags (*svp);
+	if ((svp = hv_fetch (hv, "filename", 8, 0)))
+		info->filename = gperl_filename_from_sv (*svp);
+	if ((svp = hv_fetch (hv, "uri", 3, 0)))
+		info->uri = SvPV_nolen (*svp);
+	if ((svp = hv_fetch (hv, "display_name", 12, 0)))
+		info->display_name = SvGChar (*svp);
+	if ((svp = hv_fetch (hv, "mime_type", 9, 0)))
+		info->mime_type = SvGChar (*svp);
+
+	return info;
+}
+
+static gboolean
+gtk2perl_file_filter_func (const GtkFileFilterInfo *filter_info,
+                           gpointer                 data)
+{
+	GPerlCallback * callback = (GPerlCallback*) data;
+	GValue value = {0,};
+	gboolean retval;
+	SV * sv;
+	g_value_init (&value, G_TYPE_BOOLEAN);
+	sv = newSVGtkFileFilterInfo (filter_info);
+	gperl_callback_invoke (callback, &value, sv);
+	retval = g_value_get_boolean (&value);
+	SvREFCNT_dec (sv);
+	g_value_unset (&value);
+	return retval;
+}
 
 MODULE = Gtk2::FileFilter	PACKAGE = Gtk2::FileFilter	PREFIX = gtk_file_filter_
-
-#ifdef GTK_TYPE_FILE_FILTER
 
 GtkFileFilter * gtk_file_filter_new (class);
     C_ARGS:
@@ -48,12 +93,10 @@ void gtk_file_filter_add_pattern (GtkFileFilter *filter, const gchar *pattern);
 
  ### /* there appears to be no boxed type support for GtkFileFilterInfo */
 
-#ifdef GTK_TYPE_FILE_FILTER_INFO
-
 void gtk_file_filter_add_custom (GtkFileFilter *filter, GtkFileFilterFlags needed, SV * func, SV * data);
     PREINIT:
 	GType param_types[] = {
-		GTK_TYPE_FILE_FILTER_INFO
+		GPERL_TYPE_SV
 	};
 	GPerlCallback * callback;
     CODE:
@@ -62,15 +105,9 @@ void gtk_file_filter_add_custom (GtkFileFilter *filter, GtkFileFilterFlags neede
 	                            gtk2perl_file_filter_func, callback,
 	                            (GDestroyNotify)gperl_callback_destroy);
 
-#endif
-
 GtkFileFilterFlags gtk_file_filter_get_needed (GtkFileFilter *filter);
 
-#ifdef GTK_TYPE_FILE_FILTER_INFO
-
 ###gboolean gtk_file_filter_filter (GtkFileFilter *filter, const GtkFileFilterInfo *filter_info);
-gboolean gtk_file_filter_filter (GtkFileFilter *filter, GtkFileFilterInfo *filter_info);
-
-#endif
-
-#endif
+gboolean gtk_file_filter_filter (GtkFileFilter *filter, SV *filter_info);
+    C_ARGS:
+	filter, SvGtkFileFilterInfo (filter_info)
