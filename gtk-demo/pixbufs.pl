@@ -16,15 +16,13 @@
 
 package pixbufs;
 
-use blib '..';
-use blib '../..';
-use blib '../../G';
 use constant FALSE => 0;
 use constant TRUE => 1;
 use Gtk2;
 use strict;
 
 #include "demo-common.h"
+chdir '../gtk-demo';
 
 use constant FRAME_DELAY => 50;
 
@@ -89,21 +87,17 @@ sub load_pixbufs {
 sub expose_cb {
   my ($widget, $event) = @_;
 
-  my $rowstride = $frame->get_rowstride;
-
-#  guchar *pixels;
-#  pixels = gdk_pixbuf_get_pixels (frame) + rowstride * event->area.y + event->area.x * 3;
-  my $pixels = $frame->get_pixels;
-
-  $widget->window->draw_rgb_image_dithalign ($widget->style->black_gc,
-#				$event->area->[0], $event->area->[1],
-#				$event->area->[2], $event->area->[3],
-				$event->area->{x}, $event->area->{y},
-				$event->area->{width}, $event->area->{height},
-				'normal',
-				$pixels, $rowstride,
-#				$event->area->[0], $event->area->[1]);
-				$event->area->{x}, $event->area->{y});
+  # the C code that this replaces used gdk_pixbuf_get_pixels and
+  # gdk_draw_rgb_image_dithalign, with pointer math to find the
+  # correct index in the image data; that doesn't work well with
+  # perl scalars, and besides, the GdkPixbuf method render_to_drawable
+  # exists for this very purpose.
+  $frame->render_to_drawable ($widget->window, $widget->style->black_gc,
+                              $event->area->x, $event->area->y,
+                              $event->area->x, $event->area->y,
+                              $event->area->width, $event->area->height,
+			      'normal',
+                              $event->area->x, $event->area->y);
 
   return TRUE;
 }
@@ -158,26 +152,26 @@ sub timeout {
       #r1.y = ypos;
       #r1.width = iw * k;
       #r1.height = ih * k;
-      my @r1 = ($xpos, $ypos, $iw * $k, $ih * $k);
-#      my $r1 = Gtk2::Gdk::Rectangle->new ($xpos, $ypos, $iw * $k, $ih * $k);
+#      my @r1 = ($xpos, $ypos, $iw * $k, $ih * $k);
+      my $r1 = Gtk2::Gdk::Rectangle->new ($xpos, $ypos, $iw * $k, $ih * $k);
 
       #r2.x = 0;
       #r2.y = 0;
       #r2.width = back_width;
       #r2.height = back_height;
-      my @r2 = (0, 0, $back_width, $back_height);
-#      my $r2 = Gtk2::Gdk::Rectangle->new (0, 0, $back_width, $back_height);
+#      my @r2 = (0, 0, $back_width, $back_height);
+      my $r2 = Gtk2::Gdk::Rectangle->new (0, 0, $back_width, $back_height);
 
       #if (gdk_rectangle_intersect (&r1, &r2, &dest))
 ##      my $dest = Gtk2::Gdk::Rectangle->intersect (\@r1, \@r2);
-##      my $dest = $r1->intersect ($r2);
-      my $dest = Gtk2::Gdk::Rectangle::intersect (\@r1, \@r2);
+      my $dest = $r1->intersect ($r2);
+##      my $dest = Gtk2::Gdk::Rectangle::intersect (\@r1, \@r2);
       if ($dest) {
 	$images[$i]->composite ($frame,
 #			        $dest->[0], $dest->[1], # dest.x, dest.y,
 #			        $dest->[2], $dest->[3], # dest.width, dest.height,
-			        $dest->{x}, $dest->{y},
-			        $dest->{width}, $dest->{height},
+			        $dest->x, $dest->y,
+			        $dest->width, $dest->height,
 			        $xpos, $ypos,
 			        $k, $k,
 			        'nearest',
