@@ -45,7 +45,7 @@ our %runtime_reqs = (
 # dependencies and install them.
 unless (eval "use ExtUtils::Depends;"
            . "use ExtUtils::PkgConfig;"
-	   . "use Glib atleast => $build_reqs{'perl-Glib'};"
+	   . "use Glib '$build_reqs{'perl-Glib'}';"
            . "use Glib::MakeHelper;" # for do_pod_files()
            . "1") {
    warn "$@\n";
