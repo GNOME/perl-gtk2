@@ -4,12 +4,6 @@
 
 #include "gtk2perl.h"
 
-/*
- * TODO: actually test this stuff, mainly the vector set/get functions.
- *	i have no clue whether or not the code will core dump, much less work.
- *	-rm
- */
-
 MODULE = Gtk2::Curve	PACKAGE = Gtk2::Curve	PREFIX = gtk_curve_
 
 ## GtkWidget* gtk_curve_new (void)
