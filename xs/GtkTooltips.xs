@@ -22,12 +22,6 @@ void
 gtk_tooltips_disable (tooltips)
 	GtkTooltips * tooltips
 
-## void gtk_tooltips_set_delay (GtkTooltips *tooltips, guint delay)
-void
-gtk_tooltips_set_delay (tooltips, delay)
-	GtkTooltips * tooltips
-	guint         delay
-
 ## void gtk_tooltips_set_tip (GtkTooltips *tooltips, GtkWidget *widget, const gchar *tip_text, const gchar *tip_private)
 void
 gtk_tooltips_set_tip (tooltips, widget, tip_text, tip_private)
@@ -36,11 +30,24 @@ gtk_tooltips_set_tip (tooltips, widget, tip_text, tip_private)
 	const gchar * tip_text
 	const gchar * tip_private
 
-# TODO: GtkTooltipsData * not in typemap
 ## GtkTooltipsData* gtk_tooltips_data_get (GtkWidget *widget)
-#GtkTooltipsData *
-#gtk_tooltips_data_get (widget)
-#	GtkWidget * widget
+void
+gtk_tooltips_data_get (class, widget)
+	SV        * class
+	GtkWidget * widget
+    PREINIT:
+	GtkTooltipsData * ret = NULL;
+	HV              * hv;
+    PPCODE:
+	ret = gtk_tooltips_data_get(widget);
+	if( !ret )
+		XSRETURN_UNDEF;
+	hv = newHV();
+	hv_store(hv, "tooltips", 8, newSVGtkTooltips(ret->tooltips),0);
+	hv_store(hv, "widget", 6, newSVGtkWidget(GTK_WIDGET(ret->widget)),0);
+	hv_store(hv, "tip_text", 8, newSVpv(ret->tip_text, PL_na),0);
+	hv_store(hv, "tip_private", 11, newSVpv(ret->tip_private, PL_na),0);
+	XPUSHs(sv_2mortal(newRV_noinc((SV*)hv)));
 
 ## void gtk_tooltips_force_window (GtkTooltips *tooltips)
 void
