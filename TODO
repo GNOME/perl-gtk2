@@ -10,14 +10,11 @@ there are plenty of unbound apis, either because of lack of interest or
 no typemap (and therefore no bindings) for
 	GdkRgbCmap
 	GScanner <- i'd consider this to be internal
-	PangoGlyph
 	PangoEngineShape
 	PangoCoverage
-	PangoRectangle
 	PangoLayoutLine
-	PangoLayoutIter
 
-gdk_thread_init is supposed to be called before gtk_init.
+gdk_threads_init is supposed to be called before gtk_init.
 probably should have another import option, -thread-init,
 to avoid *always* enabling thread safety, since it will
 be rare to have a multi-threaded perl gtk program until
