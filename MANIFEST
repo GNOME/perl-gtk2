@@ -99,6 +99,7 @@ t/GdkWindow.t
 t/GtkAccelGroup.t
 t/GtkAccelLabel.t
 t/GtkAccelMap.t
+t/GtkAction.t
 t/GtkActionGroup.t
 t/GtkAdjustment.t
 t/GtkAlignment.t
@@ -119,6 +120,7 @@ t/GtkColorSelection.t
 t/GtkColorSelectionDialog.t
 t/GtkCombo.t
 t/GtkComboBox.t
+t/GtkComboBoxEntry.t
 t/GtkCurve.t
 t/GtkDialog.t
 t/GtkDnd.t
@@ -129,6 +131,7 @@ t/GtkEventBox.t
 t/GtkExpander.t
 t/GtkFileChooserDialog.t
 t/GtkFileChooserWidget.t
+t/GtkFileFilter.t
 t/GtkFileSelection.t
 t/GtkFixed.t
 t/GtkFontButton.t
