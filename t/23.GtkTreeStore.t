@@ -104,7 +104,7 @@ is($model -> get($iter_two, 0), "iiilbiiilb");
 ###############################################################################
 
 SKIP: {
-	skip("swap, move_before, move_after and reorder are new in 2.2.x", 8)
+	skip("swap, move_before, move_after and reorder are new in 2.2.x", 14)
 		unless ((Gtk2 -> get_version_info())[1] >= 2);
 
 	is($model->get($model->get_iter_from_string("1:1"), 0), "bleeblee");
@@ -159,13 +159,6 @@ $model->rows_reordered (Gtk2::TreePath->new, undef, 3, 2, 1, 0);
 $model -> signal_handler_disconnect ($tag);
 
 ###############################################################################
-
-Glib::Idle -> add(sub {
-	Gtk2 -> main_quit();
-	return 0;
-});
-
-Gtk2 -> main();
 
 __END__
 

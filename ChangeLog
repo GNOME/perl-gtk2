@@ -1,4 +1,12 @@
-2003/12/14 17:16 (-0500) muppetman
+2003/12/15 13:44 (-0500) muppetman
+
+	* t/22.GtkListStore.t, t/23.GtkTreeStore.t: on GTK+ 2.0.x, gtk_main()
+	and friends appear to assume that gtk_init() has been called.  a plain
+	GMainLoop would not do this, but these tests actually have no need for
+	the main loop + idle hack in the first place.  also correct the skip
+	count.
+
+2003/12/15 13:25 (-0500) muppetman
 
 	* xs/GtkTreeModel.xs, AUTHORS: patch from Roderich Schupp implements
 	a custom marshaler for the rows-reordered signal.  applied with small

@@ -184,13 +184,6 @@ $model->signal_handler_disconnect ($tag);
 
 ###############################################################################
 
-Glib::Idle -> add(sub {
-	Gtk2 -> main_quit();
-	return 0;
-});
-
-Gtk2 -> main();
-
 __END__
 
 Copyright (C) 2003 by the gtk2-perl team (see the file AUTHORS for the
