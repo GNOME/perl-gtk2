@@ -558,6 +558,12 @@ gtk_cell_renderer_editing_canceled (cell)
 
 #endif
 
+#if GTK_CHECK_VERSION (2, 6, 0)
+
+void gtk_cell_renderer_stop_editing (GtkCellRenderer *cell, gboolean canceled)
+
+#endif
+
 ##
 ## Modify the underlying GObjectClass structure for the given package
 ## to call Perl methods as virtual overrides for the get_size, render, 

@@ -136,6 +136,13 @@ SKIP: {
 	$renderer->editing_canceled;
 }
 
+SKIP: {
+	skip "stop_editing is new in 2.6", 0
+		unless Gtk2->CHECK_VERSION (2, 6, 0);
+
+	$renderer->stop_editing (FALSE);
+}
+
 ##########################################################################
 
 run_main {
