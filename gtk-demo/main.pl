@@ -547,7 +547,6 @@ sub selection_cb {
   my ($selection, $model) = @_;
 
   my $iter = $selection->get_selected;
-##  my ($iter, undef) = $selection->get_selected;
   return unless defined $iter;
 
   my ($name) = $model->get ($iter, FILENAME_COLUMN);

@@ -188,8 +188,6 @@ sub item_toggled {
    my ($cell, $path_str, $model) = @_;
    my $path = Gtk2::TreePath->new_from_string ($path_str);
 
-#  gint *column;
-
    my $column = $cell->get_data ("column");
    warn ("column is $column\n");
 
