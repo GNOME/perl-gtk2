@@ -258,8 +258,11 @@ gtk_quit_remove (class, quit_handler_id)
     C_ARGS:
     	quit_handler_id
 
- ##void	   gtk_quit_add_destroy	   (guint	       main_level,
- ##				    GtkObject	      *object);
+## void gtk_quit_add_destroy (guint main_level, GtkObject *object);
+void gtk_quit_add_destroy (SV * class, guint main_level, GtkObject *object)
+    C_ARGS:
+	main_level, object
+
  ##void	   gtk_quit_remove_by_data (gpointer	       data);
 
 # these (timeout, idle, and input) are all deprecated in favor of the 
@@ -294,13 +297,36 @@ gtk_quit_remove (class, quit_handler_id)
  ##				    GtkDestroyNotify   destroy);
  ##void	   gtk_input_remove	   (guint	       input_handler_id);
 
-
+# FIXME there's no way to keep this from leaking the callback.
  ##guint   gtk_key_snooper_install (GtkKeySnoopFunc snooper,
  ##				    gpointer	    func_data);
+# FIXME pointless without key snooper install
  ##void	   gtk_key_snooper_remove  (guint	    snooper_handler_id);
- ##
+
  ##GdkEvent*       gtk_get_current_event       (void);
+GdkEvent_own_ornull*
+gtk_get_current_event (SV * class)
+    C_ARGS:
+	/*void*/
+
  ##guint32         gtk_get_current_event_time  (void);
+guint32 gtk_get_current_event_time (SV * class);
+    C_ARGS:
+	/*void*/
+
  ##gboolean        gtk_get_current_event_state (GdkModifierType *state);
- ##
+GdkModifierType gtk_get_current_event_state (SV * class)
+    CODE:
+	if (!gtk_get_current_event_state (&RETVAL))
+		XSRETURN_UNDEF;
+    OUTPUT:
+	RETVAL
+
  ##GtkWidget* gtk_get_event_widget	   (GdkEvent	   *event);
+GtkWidget_ornull *
+gtk_get_event_widget (SV * class, GdkEvent_ornull * event)
+    C_ARGS:
+	event
+
+ ## the docs say you shouldn't need this outside implementing gtk itself.
+ ##void gtk_propagate_event (GtkWidget * widget, GdkEvent * event);
