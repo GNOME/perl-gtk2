@@ -335,21 +335,21 @@ gtk_tree_view_column_get_sort_order (tree_column)
 ##	gint *y_offset
 ##	gint *width
 ##	gint *height
-##
-# FIXME
+
 #### gboolean gtk_tree_view_column_cell_is_visible (GtkTreeViewColumn *tree_column)
-##gboolean
-##gtk_tree_view_column_cell_is_visible (tree_column)
-##	GtkTreeViewColumn *tree_column
-##
-# FIXME don't want to return the boolean
+gboolean
+gtk_tree_view_column_cell_is_visible (tree_column)
+	GtkTreeViewColumn *tree_column
+
+### not documented as such, but this doesn't appear to exist in 2.0.6
+
+#if GTK_CHECK_VERSION(2,2,0)
+
 #### gboolean gtk_tree_view_column_cell_get_position (GtkTreeViewColumn *tree_column, GtkCellRenderer *cell_renderer, gint *start_pos, gint *width)
-##gboolean
-##gtk_tree_view_column_cell_get_position (tree_column, cell_renderer, start_pos, width)
-##	GtkTreeViewColumn *tree_column
-##	GtkCellRenderer *cell_renderer
-##	gint *start_pos
-##	gint *width
+void
+gtk_tree_view_column_cell_get_position (GtkTreeViewColumn *tree_column, GtkCellRenderer *cell_renderer, OUTLIST gint start_pos, OUTLIST gint width)
+
+#endif
 
 #if GTK_CHECK_VERSION(2,2,0)
 

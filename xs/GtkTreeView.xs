@@ -304,6 +304,10 @@ gtk_tree_view_set_expander_column (tree_view, column)
 	GtkTreeView *tree_view
 	GtkTreeViewColumn_ornull *column
 
+GtkTreeViewColumn_ornull *
+gtk_tree_view_get_expander_column (tree_view)
+	GtkTreeView *tree_view
+
 #### void gtk_tree_view_set_column_drag_function (GtkTreeView *tree_view, GtkTreeViewColumnDropFunc func, gpointer user_data, GtkDestroyNotify destroy)
 void
 gtk_tree_view_set_column_drag_function (tree_view, func, data=NULL)
