@@ -1,3 +1,8 @@
+2004/01/26 21:35 (+0100) kaffeetisch
+
+	* t/GdkWindow.t: Use a parent window for calls that seem to
+	require one.
+
 2004/01/25 23:47 (-0500) muppetman
 
 	* t/GdkGC.t: skip GdkScreen-related stuff on 2.0.x

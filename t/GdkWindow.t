@@ -202,8 +202,8 @@ SKIP: {
   skip("set_skip_taskbar_hint and set_skip_pager_hint are new in 2.2.0", 0)
     if (Gtk2 -> check_version(2, 2, 0));
 
-  $window -> set_skip_taskbar_hint(0);
-  $window -> set_skip_pager_hint(0);
+  $window_three -> set_skip_taskbar_hint(0);
+  $window_three -> set_skip_pager_hint(0);
 }
 
 is_deeply([$window -> get_root_origin()], [20, 20]);
@@ -226,11 +226,11 @@ is($window_three -> peek_children(), $window);
 $window -> set_events("button-press-mask");
 isa_ok($window -> get_events(), "Gtk2::Gdk::EventMask");
 
-$window -> set_icon(undef, undef, undef);
+$window_three -> set_icon(undef, undef, undef);
 $window -> set_icon_name("Wheeee");
 $window -> set_transient_for($window_three);
 $window -> set_role("Playa");
-$window -> set_group($window_three);
+$window_three -> set_group($window_three);
 
 $window -> set_decorations("all");
 
