@@ -197,13 +197,16 @@ gtk_style_render_icon (style, source, direction, state, size, widget, detail)
 
 MODULE = Gtk2::Style	PACKAGE = Gtk2::Style	PREFIX = gtk_
 
- ## void gtk_draw_flat_box (GtkStyle *style, GdkWindow *window, GtkStateType state_type, GtkShadowType shadow_type, gint x, gint y, gint width, gint height)
+ ## void gtk_paint_flat_box (GtkStyle *style, GdkWindow *window, GtkStateType state_type, GtkShadowType shadow_type, GdkRectangle *area, GtkWidget *widget, const gchar *detail, gint x, gint y, gint width, gint height)
 void
-gtk_draw_flat_box (style, window, state_type, shadow_type, x, y, width, height)
+gtk_paint_flat_box (style, window, state_type, shadow_type, area, widget, detail, x, y, width, height)
 	GtkStyle *style
 	GdkWindow *window
 	GtkStateType state_type
 	GtkShadowType shadow_type
+	GdkRectangle *area
+	GtkWidget *widget
+	const gchar *detail
 	gint x
 	gint y
 	gint width
