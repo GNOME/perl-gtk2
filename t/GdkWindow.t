@@ -12,7 +12,9 @@ my $attributes = {
   width => 20,
   height => 20,
   wclass => "output",
-  visual => Gtk2::Gdk::Screen -> get_default() -> get_system_visual(),
+  (!Gtk2->check_version (2,2,0)
+   ? (visual => Gtk2::Gdk::Screen -> get_default() -> get_system_visual())
+   : ()),
   colormap => Gtk2::Gdk::Colormap -> get_system(),
   window_type => "toplevel",
   cursor => Gtk2::Gdk::Cursor -> new("arrow"),
