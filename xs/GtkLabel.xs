@@ -50,10 +50,10 @@ const gchar *
 gtk_label_get_text (label)
 	GtkLabel      * label
 
- #void gtk_label_set_attributes    (GtkLabel      * label,
- #                                  PangoAttrList * attrs)
- #
- #PangoAttrList * gtk_label_get_attributes    (GtkLabel      * label);
+void gtk_label_set_attributes (GtkLabel * label, PangoAttrList * attrs)
+
+# can return NULL, but we don't have a boxed _ornull OUTPUT variant. :-/
+PangoAttrList * gtk_label_get_attributes    (GtkLabel      * label);
 
 ### gtk_label_[gs]et_label ---- string includes any embedded stuff
 void
