@@ -5,7 +5,7 @@
 	through "%s" to be safe, and allow Gtk2::MessageDialog->new to take
 	printf-like arguments to be nice.
 
-2003/11/29 11:23 (-0500) rwmcfa1
+2003/11/29 12:14 (-0500) rwmcfa1
 
 	* MANIFEST: missing files added
 
