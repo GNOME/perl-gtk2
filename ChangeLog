@@ -1,3 +1,8 @@
+2003/11/17 10:33 (-0500) muppetman
+
+	* xs/GdkDrawable.xs: wrong PREFIX resulted in wrong method name for
+	gdk_drawable_get_image().  bug report from dosmodi gergely.
+
 2003/11/17 07:10 (-0500) rwmcfa1
 
 	* Makefile.PL: xs_files-2.3 shouldn't be involved outside of the 2.3 

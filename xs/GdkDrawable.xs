@@ -279,6 +279,9 @@ gdk_draw_layout_with_colors (drawable, gc, x, y, layout, foreground, background)
 	GdkColor *foreground
 	GdkColor *background
 
+
+MODULE = Gtk2::Gdk::Drawable	PACKAGE = Gtk2::Gdk::Drawable	PREFIX = gdk_drawable_
+
  ## GdkImage* gdk_drawable_get_image (GdkDrawable *drawable, gint x, gint y, gint width, gint height)
 GdkImage*
 gdk_drawable_get_image (drawable, x, y, width, height)
@@ -287,4 +290,5 @@ gdk_drawable_get_image (drawable, x, y, width, height)
 	gint y
 	gint width
 	gint height
+
 
