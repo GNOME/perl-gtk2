@@ -19,6 +19,8 @@
 #
 
 use 5.008;
+use strict;
+use warnings;
 use ExtUtils::MakeMaker;
 use File::Spec;
 use Cwd;
@@ -48,9 +50,9 @@ unless (eval "use ExtUtils::Depends;"
    WriteMakefile(
          PREREQ_FATAL => 1,
          PREREQ_PM    => {
-            Glib::                => $build_reqs{'perl-Glib'},
-            ExtUtils::Depends::   => $build_reqs{'perl-ExtUtils-Depends'},
-            ExtUtils::PkgConfig:: => $build_reqs{'perl-ExtUtils-PkgConfig'},
+            'Glib'                => $build_reqs{'perl-Glib'},
+            'ExtUtils::Depends'   => $build_reqs{'perl-ExtUtils-Depends'},
+            'ExtUtils::PkgConfig' => $build_reqs{'perl-ExtUtils-PkgConfig'},
          },
    );
    exit 1; # not reached
@@ -65,6 +67,38 @@ my %pkgcfg = ExtUtils::PkgConfig->find ('gtk+-2.0 >= '.$build_reqs{'Gtk+'});
 $runtime_reqs{'Gtk+'} = $pkgcfg{modversion};
 
 mkdir 'build', 0777;
+
+#
+# since we've started down the dark path of breaking from standard 
+# MakeMaker, forever will it dominate our destiny; we must specify
+# install paths for the modules and man files by hand.
+#
+our %pm_files = (
+	'Gtk2.pm'          => '$(INST_LIBDIR)/Gtk2.pm',
+	'build/Keysyms.pm' => '$(INST_LIBDIR)/Gtk2/Gdk/Keysyms.pm',
+	'CodeGen.pm'       => '$(INST_LIBDIR)/Gtk2/CodeGen.pm',
+	'pm/Helper.pm'     => '$(INST_LIBDIR)/Gtk2/Helper.pm',
+	'pm/Pango.pm'      => '$(INST_LIBDIR)/Gtk2/Pango.pm',
+	'pm/SimpleList.pm' => '$(INST_LIBDIR)/Gtk2/SimpleList.pm',
+	'pm/SimpleMenu.pm' => '$(INST_LIBDIR)/Gtk2/SimpleMenu.pm',
+	'api.pod'          => '$(INST_LIBDIR)/Gtk2/api.pod',
+	'devel.pod'        => '$(INST_LIBDIR)/Gtk2/devel.pod',
+);
+our %pod_files = (
+	'Gtk2.pm'          => '$(INST_MAN3DIR)/Gtk2.$(MAN3EXT)',
+	'build/Keysyms.pm' => '$(INST_MAN3DIR)/Gtk2::Gdk::Keysyms.$(MAN3EXT)',
+	'CodeGen.pm'       => '$(INST_MAN3DIR)/Gtk2::CodeGen.$(MAN3EXT)',
+	'pm/Helper.pm'     => '$(INST_MAN3DIR)/Gtk2::Helper.$(MAN3EXT)',
+	'pm/Pango.pm'      => '$(INST_MAN3DIR)/Gtk2::Pango.$(MAN3EXT)',
+	'pm/SimpleList.pm' => '$(INST_MAN3DIR)/Gtk2::SimpleList.$(MAN3EXT)',
+	'pm/SimpleMenu.pm' => '$(INST_MAN3DIR)/Gtk2::SimpleMenu.$(MAN3EXT)',
+	'api.pod'          => '$(INST_MAN3DIR)/Gtk2::api.$(MAN3EXT)',
+	'devel.pod'        => '$(INST_MAN3DIR)/Gtk2::devel.$(MAN3EXT)',
+);
+our @xs_files = <xs/*.xs>;
+
+use Glib::MakeHelper;
+do_pod_files (@xs_files);
 
 #
 # autogeneration
@@ -88,34 +122,6 @@ Gtk2::CodeGen->write_boot;
 # hash of key names and values, %Gtk2::Gdk::Keysyms.
 system "$^X genkeysyms.pl >\"build/Keysyms.pm\""; # the "" are essential for command.com
 
-#
-# since we've started down the dark path of breaking from standard 
-# MakeMaker, forever will it dominate our destiny; we must specify
-# install paths for the modules and man files by hand.
-#
-my %pm_files = (
-	'Gtk2.pm'          => '$(INST_LIBDIR)/Gtk2.pm',
-	'build/Keysyms.pm' => '$(INST_LIBDIR)/Gtk2/Gdk/Keysyms.pm',
-	'CodeGen.pm'       => '$(INST_LIBDIR)/Gtk2/CodeGen.pm',
-	'pm/Helper.pm'     => '$(INST_LIBDIR)/Gtk2/Helper.pm',
-	'pm/Pango.pm'      => '$(INST_LIBDIR)/Gtk2/Pango.pm',
-	'pm/SimpleList.pm' => '$(INST_LIBDIR)/Gtk2/SimpleList.pm',
-	'pm/SimpleMenu.pm' => '$(INST_LIBDIR)/Gtk2/SimpleMenu.pm',
-	'api.pod'          => '$(INST_LIBDIR)/Gtk2/api.pod',
-	'devel.pod'        => '$(INST_LIBDIR)/Gtk2/devel.pod',
-);
-my %pod_files = (
-	'Gtk2.pm'          => '$(INST_MAN3DIR)/Gtk2.$(MAN3EXT)',
-	'build/Keysyms.pm' => '$(INST_MAN3DIR)/Gtk2::Gdk::Keysyms.$(MAN3EXT)',
-	'CodeGen.pm'       => '$(INST_MAN3DIR)/Gtk2::CodeGen.$(MAN3EXT)',
-	'pm/Helper.pm'     => '$(INST_MAN3DIR)/Gtk2::Helper.$(MAN3EXT)',
-	'pm/Pango.pm'      => '$(INST_MAN3DIR)/Gtk2::Pango.$(MAN3EXT)',
-	'pm/SimpleList.pm' => '$(INST_MAN3DIR)/Gtk2::SimpleList.$(MAN3EXT)',
-	'pm/SimpleMenu.pm' => '$(INST_MAN3DIR)/Gtk2::SimpleMenu.$(MAN3EXT)',
-	'api.pod'          => '$(INST_MAN3DIR)/Gtk2::api.$(MAN3EXT)',
-	'devel.pod'        => '$(INST_MAN3DIR)/Gtk2::devel.$(MAN3EXT)',
-);
-our @xs_files = <xs/*.xs>;
 
 # now we're ready to start creating the makefile.
 # we need to use ExtUtils::Depends to get relevant information out of
@@ -141,6 +147,7 @@ $gtk2->install (qw(gtk2perl.h build/gtk2perl-autogen.h));
 $gtk2->save_config ('build/IFiles.pm');
 
 # exports list needed for win32, unused on others
+our @exports;
 require 'Gtk2.exports';
 
 WriteMakefile(
@@ -152,9 +159,9 @@ WriteMakefile(
     # PREREQ see beginning of file
     PREREQ_FATAL => 1,
     PREREQ_PM    => {
-        Glib::                => $build_reqs{'perl-Glib'},
-        ExtUtils::Depends::   => $build_reqs{'perl-ExtUtils-Depends'},
-        ExtUtils::PkgConfig:: => $build_reqs{'perl-ExtUtils-PkgConfig'},
+        'Glib'                => $build_reqs{'perl-Glib'},
+        'ExtUtils::Depends'   => $build_reqs{'perl-ExtUtils-Depends'},
+        'ExtUtils::PkgConfig' => $build_reqs{'perl-ExtUtils-PkgConfig'},
     },
     FUNCLIST      => \@exports,
     DL_FUNCS      => { Gtk2 => [] },
@@ -167,43 +174,22 @@ WriteMakefile(
 # -o on the compiler command line.  this is a hackish fix for it.
 #
 package MY;
-use Cwd;
-
-sub const_cccmd {
-	my $inherited = shift->SUPER::const_cccmd (@_);
-	$inherited .= ' -o $@';
-	$inherited;
-}
 
 sub postamble
 {
-	# don't do any of this hand-coded install stuff on windows.
-	return '' if $^O eq 'MSWin32';
-
-	my @dirs = qw{rpms rpms/BUILD rpms/RPMS rpms/SOURCES
-		      rpms/SPECS rpms/SRPMS};
-	my $cwd = getcwd();
-
-	my %subs = (
-		'VERSION' => '$(VERSION)',
-		'SOURCE' => '$(DISTNAME)-$(VERSION).tar.gz',
-		'GTK_RUN' => $runtime_reqs{'Gtk+'},
-		'GTK' => $build_reqs{'Gtk+'},
-		'PERL_EXTUTILS_DEPENDS' => 
-			$build_reqs{'perl-ExtUtils-Depends'},
-		'PERL_EXTUTILS_PKGCONFIG' => 
-			$build_reqs{'perl-ExtUtils-PkgConfig'},
-		'PERL_GLIB' => $build_reqs{'perl-Glib'},
-	);
-	
-	my $substitute = '$(PERL) -npe \''.join('; ', map {
-			"s/\\\@$_\\\@/$subs{$_}/g";
-		} keys %subs).'\'';
-
-	"
-realclean ::
-	-\$(RM_RF) build perl-\$(DISTNAME).spec
-
+	use Glib::MakeHelper;
+	return postamble_clean ()
+	      .postamble_docs ()
+	      .postamble_rpms (
+			'GTK_RUN' => $runtime_reqs{'Gtk+'},
+			'GTK' => $build_reqs{'Gtk+'},
+			'PERL_EXTUTILS_DEPENDS' => 
+				$build_reqs{'perl-ExtUtils-Depends'},
+			'PERL_EXTUTILS_PKGCONFIG' => 
+				$build_reqs{'perl-ExtUtils-PkgConfig'},
+			'PERL_GLIB' => $build_reqs{'perl-Glib'},
+		)
+	      ."
 # the tmp-xxx stuff is just so that only the pl files get installed
 install-\%: %
 	\@\$(MKPATH) tmp-\$+/
@@ -211,35 +197,7 @@ install-\%: %
 	\@\$(MOD_INSTALL) ./tmp-\$+/ \\
 		\$(PREFIX)/share/doc/perl-\$(DISTNAME)/\$+
 	\@\$(RM_RF) tmp-\$+/
-
-rpms/:
-	-mkdir @dirs
-
-SUBSTITUTE=$substitute
-
-perl-\$(DISTNAME).spec: perl-\$(DISTNAME).spec.in \$(VERSION_FROM) Makefile
-	\$(SUBSTITUTE) \$< > \$@
-
-dist-rpms: Makefile dist perl-\$(DISTNAME).spec rpms/
-	cp \$(DISTNAME)-\$(VERSION).tar.gz rpms/SOURCES/
-	rpmbuild -ba --define \"_topdir $cwd/rpms\" perl-\$(DISTNAME).spec
-
-# documentation stuff
-build/\$(NAME).doc.pl: @main::xs_files
-	$^X -I \$(INST_LIB) -I \$(INST_ARCHLIB) -MGlib::ParseXSDoc \\
-		-e 'xsdocparse (".join(", ", map {"\"$_\""} @main::xs_files)
-		               .")' > \$@
-
-build/xsapi.pod: build/\$(NAME).doc.pl apidoc.pl
-	$^X apidoc.pl xsapi.pod.head xsapi.pod.foot build/\$(NAME).doc.pl > \$@
-
-pod: all build/\$(NAME).doc.pl
-	$^X -I \$(INST_LIB) -I \$(INST_ARCHLIB) -MGlib::GenPod -M\$(NAME) \\
-		-e \"xsdoc2pod('build/\$(NAME).doc.pl', '\$(INST_LIB)/\$(NAME)', 'build/podindex')\"
-	$^X -e 'print \"\\n=head1 NAME\\n\\n\$(NAME) Pod Index\\n\\n=head1 FILES\\n\\n\"' \\
-		> \$(INST_LIB)/\$(NAME)/docindex.pod
-	$^X -nae 'print \" \$\$F[1]\\n\";' < build/podindex >> \$(INST_LIB)/\$(NAME)/docindex.pod
-"
+";
 }
 
 

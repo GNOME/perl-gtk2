@@ -21,6 +21,9 @@ devel.pod
 examples/accel_groups.pl
 examples/buttonbox.pl
 examples/calendar.pl
+examples/cellrenderer_date.pl
+examples/cellrenderer_popup.pl
+examples/cellrenderer_spinbutton.pl
 examples/colorselectiontest.pl
 examples/histogramplot.pl
 examples/item_factory_demo.pl
@@ -102,6 +105,7 @@ t/24.GtkTreeView.t
 t/25.GtkTreeSelection.t
 t/26.GtkSimpleMenu.t
 t/27.GtkClipboard.t
+t/30.GtkCellRenderer.t
 xs/Gdk.xs
 xs/GdkColor.xs
 xs/GdkCursor.xs

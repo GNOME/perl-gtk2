@@ -1,3 +1,12 @@
+2003/10/28 16:47 rwmcfa1
+
+	* Gtk2/MANIFEST: missing files added
+
+	* Gtk2/Makefile.PL: updates to new system, MakeHelper. use strict and 
+	use warnings safe now
+
+	* Gtk2/xs/Gtk2.xs: put things in an appropriate doc object
+
 2003/10/27 19:38 muppetman
 
 	* Makefile.PL: documentation generation experimentation
