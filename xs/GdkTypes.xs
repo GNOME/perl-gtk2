@@ -62,13 +62,11 @@ new (class, x, y, width, height)
 	RETVAL
 
 gint
-members (rectangle)
-	GdkRectangle * rectangle
+x (GdkRectangle *rectangle, SV *newvalue = 0)
     ALIAS:
-	Gtk2::Gdk::Rectangle::x = 0
-	Gtk2::Gdk::Rectangle::y = 1
-	Gtk2::Gdk::Rectangle::width = 2
-	Gtk2::Gdk::Rectangle::height = 3
+	y = 1
+	width = 2
+	height = 3
     CODE:
 	RETVAL = 0;
 	switch (ix) {
@@ -77,6 +75,14 @@ members (rectangle)
 		case 2: RETVAL = rectangle->width; break;
 		case 3: RETVAL = rectangle->height; break;
 	}
+        if (newvalue) {
+                switch (ix) {
+                        case 0: rectangle->x      = SvIV (newvalue); break;
+                        case 1: rectangle->y      = SvIV (newvalue); break;
+                        case 2: rectangle->width  = SvIV (newvalue); break;
+                        case 3: rectangle->height = SvIV (newvalue); break;
+                }
+        }
     OUTPUT:
 	RETVAL
 

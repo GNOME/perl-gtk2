@@ -1,3 +1,8 @@
+2003/11/12 16:05 pcg
+
+	* xs/GdkTypes.xs: change acessor methods to mutators for
+        Gtk2::Gdk:Rectangle.
+
 2003/11/11 23:00 (-0500) muppetman
 
 	* xs/PangoFont.xs: put the docs for the constants into the
