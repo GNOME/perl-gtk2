@@ -17,7 +17,7 @@ use Test::More;
 
 if( Gtk2->init_check )
 {
-	plan tests => 102;
+	plan tests => 100;
 }
 else
 {
@@ -262,11 +262,12 @@ Glib::Idle->add(sub {
 			$win->unfullscreen;
 		}
 
-		$win->begin_resize_drag("south-east", 1, 23, 42, 0);
-		ok(1);
-
-		$win->begin_move_drag(1, 23, 42, 0);
-		ok(1);
+		# Commented out because there seems to be no way to finish the
+		# drags.  We'd be getting stale pointer grabs otherwise.
+		# $win->begin_resize_drag("south-east", 1, 23, 42, 0);
+		# ok(1);
+		# $win->begin_move_drag(1, 23, 42, 0);
+		# ok(1);
 
 		$win->move(100, 100);
 

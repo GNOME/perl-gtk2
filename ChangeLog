@@ -1,3 +1,7 @@
+2003/12/29 00:23 (-0500) muppetman [unstable-2-3-x-branch]
+
+	* t/01.GtkWindow.t: don't test the untestable
+
 2003/12/28 23:27 (-0500) muppetman [unstable-2-3-x-branch]
 
 	* maps-2.0: this file is called maps in HEAD, this merge (typemap
