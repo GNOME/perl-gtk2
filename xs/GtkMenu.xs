@@ -31,7 +31,9 @@
  * this one's easy, though.
  */
 
-static void
+/* this is public so that other extensions which use GtkMenuPosFunc (e.g.
+ * libgnomeui) don't need to reimplement it. */
+void
 gtk2perl_menu_position_func (GtkMenu * menu,
                              gint * x,
                              gint * y,

@@ -1,5 +1,10 @@
 2004/03/20 22:52 (-0500) muppetman
 
+	* xs/GtkMenu.xs: un-hide gtk2perl_menu_pos_func, which is indeed
+	a public symbol.
+
+2004/03/20 22:52 (-0500) muppetman
+
 	A examples/dialog.pl
 	M MANIFEST
 	  add dialog examples from stable
