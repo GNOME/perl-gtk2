@@ -1,3 +1,8 @@
+2003/08/06 23:19 rwmcfa1
+
+	* Makefile.PL: .pm -> .3pm copy and past bug corrected, spotted by 
+	James Curbo
+
 2003/08/06 12:57 muppetman
 
 	* xs/GtkWindow.xs: plug a memleak in list_toplevels
