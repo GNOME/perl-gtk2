@@ -1,3 +1,16 @@
+2003/08/15 09:35 muppetman
+
+	* pm/SimpleList.pm, AUTHORS: patch from Dr. Michael Langner,
+	allowing 0 to be a value in the tied list, implementing the SPLICE
+	operation, and adding a new column type, 'hidden'.  many thanks!
+
+	* debian/*: patch from James Curbo adding maintainence files for
+	debian packages.
+
+	* devel.pod, Makefile.PL: more docs
+
+	* Gtk2.pm, README: updated for 0.94 release
+
 2003/08/14 22:43 muppetman
 
 	busy day, busy day...
