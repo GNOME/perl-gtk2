@@ -103,7 +103,7 @@ my $position_callback = sub {
 		$menu->set_monitor(0);
 	}
 
-	return (10, 10);
+	return (50, 50);
 };
 
 $menu->popup(undef, undef, $position_callback, "bla", 1, 0);
