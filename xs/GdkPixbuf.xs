@@ -741,5 +741,6 @@ gdk_pixbuf_get_formats (class=NULL)
 		XPUSHs (sv_2mortal (newRV_noinc ((SV*) hv)));
 	}
 	g_slist_free (formats);
+	PERL_UNUSED_VAR (ax);
 
 #endif /* >= 2.2.0 */

@@ -173,6 +173,7 @@ gdk_window_at_pointer (class)
 	PUSHs (sv_2mortal (newSVGdkWindow (window)));
 	PUSHs (sv_2mortal (newSViv (win_x)));
 	PUSHs (sv_2mortal (newSViv (win_y)));
+	PERL_UNUSED_VAR (ax);
 
  ## void gdk_window_show (GdkWindow *window)
 void
@@ -639,6 +640,7 @@ gdk_window_get_toplevels (class)
 		XPUSHs (sv_2mortal (newSVGdkWindow (i->data)));
 
 	g_list_free (windows);
+	PERL_UNUSED_VAR (ax);
 
  ## void gdk_window_iconify (GdkWindow *window)
 void

@@ -359,6 +359,7 @@ gtk_window_get_default_icon_list (class)
 	for (tmp = list ; tmp != NULL ; tmp = tmp->next)
 		XPUSHs (sv_2mortal (newSVGdkPixbuf (tmp->data)));
 	g_list_free (list);
+	PERL_UNUSED_VAR (ax);
 
 ## gboolean gtk_window_get_modal (GtkWindow *window)
 gboolean
@@ -380,6 +381,7 @@ gtk_window_list_toplevels (class)
 	/* documentation doesn't mention it, but according to the source,
 	 * it's on us to free this! */
 	g_list_free (toplvls);
+	PERL_UNUSED_VAR (ax);
 
 ## void gtk_window_add_mnemonic (GtkWindow *window, guint keyval, GtkWidget *target)
 void

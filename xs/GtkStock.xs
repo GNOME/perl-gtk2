@@ -152,6 +152,7 @@ gtk_stock_list_ids (class)
 		g_free (i->data);
 	}
 	g_slist_free (ids);
+	PERL_UNUSED_VAR (ax);
 
 ## Boxed type support
 ###  GtkStockItem *gtk_stock_item_copy (const GtkStockItem *item) 

@@ -135,6 +135,7 @@ gtk_get_version_info (class)
 	PUSHs(sv_2mortal(newSViv(gtk_major_version)));
 	PUSHs(sv_2mortal(newSViv(gtk_minor_version)));
 	PUSHs(sv_2mortal(newSViv(gtk_micro_version)));
+	PERL_UNUSED_VAR (ax);
 
 gchar * 
 gtk_check_version (class, required_major, required_minor, required_micro)
