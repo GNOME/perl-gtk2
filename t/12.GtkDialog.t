@@ -56,6 +56,9 @@ ok( $d2->get_has_separator == 1 );
 $d2->set_has_separator(0);
 ok( $d2->get_has_separator == 0 );
 $d2->add_buttons('gtk-cancel', 2, 'gtk-quit', 3, 'Last Button', 4);
+$d2->add_action_widget(Gtk2::Button->new("Uhh"), 5);
+$d2->set_default_response(4);
+$d2->set_response_sensitive(4, 1);
 $d2->signal_connect( response => sub {
 		ok( $_[1] == 1 );
 		1;

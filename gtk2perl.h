@@ -26,6 +26,11 @@
 
 #include <gperl.h>
 #include <gtk/gtk.h>
+
+/* custom GType for GdkRegion */
+#define GDK_TYPE_REGION (gtk2perl_gdk_region_get_type ())
+GType gtk2perl_gdk_region_get_type (void) G_GNUC_CONST;
+
 #include "gtk2perl-autogen.h"
 
 #ifdef GDK_WINDOWING_WIN32 /* no plug/socket on win32 despite patches exist for years. */
@@ -124,7 +129,6 @@ GtkTargetList * SvGtkTargetList (SV * sv);
 SV * newSVGtkTargetEntry (GtkTargetEntry * entry);
 GtkTargetEntry * SvGtkTargetEntry (SV * sv);
 
-
 /*
  * exported so Gnome2 can reuse it in wrappers.  other modules might want to
  * do the same.  the callback for it needn't worry about param_types or
@@ -149,5 +153,10 @@ void gtk2perl_menu_position_func (GtkMenu       * menu,
 # define SvGtkTextSearchFlags(sv)	(gperl_convert_enum (GTK_TYPE_TEXT_SEARCH_FLAGS, sv))
 # define newSVGtkTextSearchFlags(val)	(gperl_convert_back_enum (GTK_TYPE_TEXT_SEARCH_FLAGS, val))
 #endif
+
+/* object handling for GdkGeometry */
+SV * newSVGdkGeometry (GdkGeometry *geometry);
+GdkGeometry * SvGdkGeometry (SV *object);
+GdkGeometry * SvGdkGeometryReal (SV *object, GdkWindowHints *hints);
 
 #endif /* _GTK2PERL_H_ */

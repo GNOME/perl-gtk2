@@ -14,6 +14,7 @@ TODO
 api.pod
 devel.pod
 examples/accel_groups.pl
+examples/adding_stock_icons.pl
 examples/buttonbox.pl
 examples/calendar.pl
 examples/cellrenderer_date.pl
@@ -68,10 +69,6 @@ gtk-demo/stock_browser.pl
 gtk-demo/textview.pl
 gtk-demo/tree_store.pl
 gtk.typemap
-LICENSE
-Makefile.PL
-MANIFEST
-MANIFEST.SKIP
 maps-2.0
 maps-2.2
 maps-2.3
@@ -81,7 +78,6 @@ pm/Pango.pm
 pm/SimpleList.pm
 pm/SimpleMenu.pm
 ppport.h
-README
 t/00.Gtk2.t
 t/01.GtkWidget.t
 t/01.GtkWindow.t

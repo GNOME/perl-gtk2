@@ -39,8 +39,8 @@ gtk_window_new (class, type=GTK_WINDOW_TOPLEVEL)
 ## void gtk_window_set_title (GtkWindow *window, const gchar *title)
 void
 gtk_window_set_title (window, title=NULL)
-	GtkWindow   * window
-	const gchar * title
+	GtkWindow          * window
+	const gchar_ornull * title
 
 ## TODO: the doc says don't use this, but not dep. should we remove?
 ## void gtk_window_set_wmclass (GtkWindow *window, const gchar *wmclass_name, const gchar *wmclass_class)
@@ -91,7 +91,7 @@ gtk_window_get_focus (window)
 
 ## void gtk_window_set_focus (GtkWindow *window, GtkWidget *focus)
 void
-gtk_window_set_focus (window, focus)
+gtk_window_set_focus (window, focus=NULL)
 	GtkWindow        * window
 	GtkWidget_ornull * focus
 
@@ -187,13 +187,37 @@ GdkGravity
 gtk_window_get_gravity (window)
 	GtkWindow * window
 
+=for apidoc
+
+=for signature $window->set_geometry_hints ($geometry_widget, $geometry)
+=for signature $window->set_geometry_hints ($geometry_widget, $geometry, $geom_mask)
+
+=for arg geometry (Gtk2::Gdk::Geometry)
+=for arg geom_mask (Gtk2::Gdk::WindowHints) optional, usually inferred from I<$geometry>
+
+The geom_mask argument, describing which fields in the geometry are valid, is
+optional.  If omitted it will be inferred from the geometry itself.
+
+=cut
 ## void gtk_window_set_geometry_hints (GtkWindow *window, GtkWidget *geometry_widget, GdkGeometry *geometry, GdkWindowHints geom_mask)
 void
-gtk_window_set_geometry_hints (window, geometry_widget, geometry, geom_mask)
-	GtkWindow      * window
-	GtkWidget      * geometry_widget
-	GdkGeometry    * geometry
-	GdkWindowHints   geom_mask
+gtk_window_set_geometry_hints (window, geometry_widget, geometry_ref, geom_mask_sv=NULL)
+	GtkWindow * window
+	GtkWidget * geometry_widget
+	SV        * geometry_ref
+	SV        * geom_mask_sv
+    PREINIT:
+	GdkGeometry *geometry;
+	GdkWindowHints geom_mask;
+    CODE:
+	if (! (geom_mask_sv && SvOK (geom_mask_sv))) {
+		geometry = SvGdkGeometryReal (geometry_ref, &geom_mask);
+	} else {
+		geometry = SvGdkGeometry (geometry_ref);
+		geom_mask = SvGdkWindowHints (geom_mask_sv);
+	}
+
+	gtk_window_set_geometry_hints (window, geometry_widget, geometry, geom_mask);
 
 ## gboolean gtk_window_get_has_frame (GtkWindow *window)
 gboolean
@@ -583,8 +607,11 @@ gboolean
 gtk_window_get_skip_pager_hint (window)
 	GtkWindow * window
 
-void gtk_window_set_auto_startup_notification (setting)
+void
+gtk_window_set_auto_startup_notification (class, setting)
 	gboolean setting
+    C_ARGS:
+	setting
 
 #endif
 

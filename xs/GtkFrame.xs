@@ -25,21 +25,14 @@ MODULE = Gtk2::Frame	PACKAGE = Gtk2::Frame	PREFIX = gtk_frame_
 
 GtkWidget*
 gtk_frame_new (class, label=NULL)
-	SV * label
-    CODE:
-	RETVAL = gtk_frame_new ((!label || label == &PL_sv_undef)
-	                         ? NULL : SvGChar (label));
-    OUTPUT:
-	RETVAL
+	gchar_ornull *label
+    C_ARGS:
+	label
 
 void
-gtk_frame_set_label (frame, label)
+gtk_frame_set_label (frame, label=NULL)
 	GtkFrame *frame
-	SV * label
-    CODE:
-	/* label may be undef */
-	gtk_frame_set_label (frame, ((!label || label == &PL_sv_undef)
-	                             ? NULL : SvGChar (label)));
+	gchar_ornull *label
 
 void
 gtk_frame_set_label_widget (frame, label_widget)

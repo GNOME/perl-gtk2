@@ -21,15 +21,131 @@
 
 #include "gtk2perl.h"
 
+/* ------------------------------------------------------------------------- */
+
+SV *
+newSVGdkWindowAttr (GdkWindowAttr *attr)
+{
+	HV *object = newHV ();
+
+	if (attr && attr->x && attr->y) {
+		hv_store (object, "title", 5, newSVGChar (attr->title), 0);
+		hv_store (object, "event_mask", 10, newSVGdkEventMask (attr->event_mask), 0);
+		hv_store (object, "x", 1, newSViv (attr->x), 0);
+		hv_store (object, "y", 1, newSViv (attr->y), 0);
+		hv_store (object, "width", 5, newSViv (attr->width), 0);
+		hv_store (object, "height", 6, newSViv (attr->height), 0);
+		hv_store (object, "wclass", 6, newSVGdkWindowClass (attr->wclass), 0);
+		hv_store (object, "visual", 6, newSVGdkVisual (attr->visual), 0);
+		hv_store (object, "colormap", 8, newSVGdkColormap (attr->colormap), 0);
+		hv_store (object, "window_type", 11, newSVGdkWindowType (attr->window_type), 0);
+		hv_store (object, "cursor", 6, newSVGdkCursor (attr->cursor), 0);
+		hv_store (object, "wmclass_name", 12, newSVGChar (attr->wmclass_name), 0);
+		hv_store (object, "wmclass_class", 13, newSVGChar (attr->wmclass_class), 0);
+		hv_store (object, "override_redirect", 17, newSVuv (attr->override_redirect), 0);
+	}
+
+	return sv_bless (newRV_noinc ((SV *) object),
+	                 gv_stashpv ("Gtk2::Gdk::Window::Attr", 1));
+}
+
+#define GTK2PERL_WINDOW_ATTR_FETCH(member, key, type) \
+	member = hv_fetch (hv, key, strlen (key), FALSE); \
+	if (member) attr->member = type (*member);
+
+GdkWindowAttr *
+SvGdkWindowAttrReal (SV *object, GdkWindowAttributesType *mask)
+{
+	HV *hv = (HV *) SvRV (object);
+	SV **title, **event_mask, **x, **y, **width, **height, **wclass,
+	   **visual, **colormap, **window_type, **cursor, **wmclass_name,
+	   **wmclass_class, **override_redirect;
+
+	GdkWindowAttr *attr = gperl_alloc_temp (sizeof (GdkWindowAttr));
+
+	if (object && SvOK (object) && SvROK (object) && SvTYPE (SvRV (object)) == SVt_PVHV) {
+		GTK2PERL_WINDOW_ATTR_FETCH (title, "title", SvGChar);
+		GTK2PERL_WINDOW_ATTR_FETCH (event_mask, "event_mask", SvGdkEventMask);
+		GTK2PERL_WINDOW_ATTR_FETCH (x, "x", SvIV);
+		GTK2PERL_WINDOW_ATTR_FETCH (y, "y", SvIV);
+		GTK2PERL_WINDOW_ATTR_FETCH (width, "width", SvIV);
+		GTK2PERL_WINDOW_ATTR_FETCH (height, "height", SvIV);
+		GTK2PERL_WINDOW_ATTR_FETCH (wclass, "wclass", SvGdkWindowClass);
+		GTK2PERL_WINDOW_ATTR_FETCH (visual, "visual", SvGdkVisual);
+		GTK2PERL_WINDOW_ATTR_FETCH (colormap, "colormap", SvGdkColormap);
+		GTK2PERL_WINDOW_ATTR_FETCH (window_type, "window_type", SvGdkWindowType);
+		GTK2PERL_WINDOW_ATTR_FETCH (cursor, "cursor", SvGdkCursor);
+		GTK2PERL_WINDOW_ATTR_FETCH (wmclass_name, "wmclass_name", SvGChar);
+		GTK2PERL_WINDOW_ATTR_FETCH (wmclass_class, "wmclass_class", SvGChar);
+		GTK2PERL_WINDOW_ATTR_FETCH (override_redirect, "override_redirect", SvUV);
+
+		if (mask) {
+			if (title) *mask |= GDK_WA_TITLE;
+			if (x) *mask |= GDK_WA_X;
+			if (y) *mask |= GDK_WA_Y;
+			if (wmclass_name && wmclass_class) *mask |= GDK_WA_WMCLASS;
+			if (visual) *mask |= GDK_WA_VISUAL;
+			if (colormap) *mask |= GDK_WA_COLORMAP;
+			if (cursor) *mask |= GDK_WA_CURSOR;
+			if (override_redirect) *mask |= GDK_WA_NOREDIR;
+		}
+	}
+
+	return attr;
+}
+
+GdkWindowAttr *
+SvGdkWindowAttr (SV *object)
+{
+	return SvGdkWindowAttrReal (object, NULL);
+}
+
+/* ------------------------------------------------------------------------- */
+
+static GPerlCallback *
+gtk2perl_gdk_window_invalidate_maybe_recurse_func_create (SV * func, SV * data)
+{
+	GType param_types [] = {
+		GDK_TYPE_WINDOW,
+	};
+	return gperl_callback_new (func, data, G_N_ELEMENTS (param_types),
+				   param_types, G_TYPE_BOOLEAN);
+}
+
+static gboolean
+gtk2perl_gdk_window_invalidate_maybe_recurse_func (GdkWindow *window,
+			                           gpointer data)
+{
+	GPerlCallback * callback = (GPerlCallback*)data;
+	GValue value = {0,};
+	gboolean retval;
+
+	g_value_init (&value, callback->return_type);
+	gperl_callback_invoke (callback, &value, window);
+	retval = g_value_get_boolean (&value);
+	g_value_unset (&value);
+
+	return retval;
+}
+
+/* ------------------------------------------------------------------------- */
+
 MODULE = Gtk2::Gdk::Window	PACKAGE = Gtk2::Gdk::Window	PREFIX = gdk_window_
 
-# FIXME need typemap for GdkWindowAttr
+# FIXME: this leaks.
  ## GdkWindow* gdk_window_new (GdkWindow *parent, GdkWindowAttr *attributes, gint attributes_mask)
- ##GdkWindow*
- ##gdk_window_new (parent, attributes, attributes_mask)
- ##	GdkWindow *parent
- ##	GdkWindowAttr *attributes
- ##	gint attributes_mask
+GdkWindow_noinc *
+gdk_window_new (class, parent, attributes_ref)
+	GdkWindow_ornull *parent
+	SV *attributes_ref
+    PREINIT:
+	GdkWindowAttr *attributes;
+	GdkWindowAttributesType attributes_mask;
+    CODE:
+	attributes = SvGdkWindowAttrReal (attributes_ref, &attributes_mask);
+	RETVAL = gdk_window_new (parent, attributes, attributes_mask);
+    OUTPUT:
+	RETVAL
 
  ## void gdk_window_destroy (GdkWindow *window)
 void
@@ -148,8 +264,14 @@ gdk_window_focus (window, timestamp)
 	GdkWindow *window
 	guint32 timestamp
 
-  ## use object data instead
+ ## use object data instead
  ## void gdk_window_set_user_data (GdkWindow *window, gpointer user_data)
+void
+gdk_window_set_user_data (window, user_data)
+	GdkWindow *window
+	gulong user_data
+    C_ARGS:
+	window, (gpointer) user_data
 
  ## void gdk_window_set_override_redirect (GdkWindow *window, gboolean override_redirect)
 void
@@ -161,7 +283,7 @@ gdk_window_set_override_redirect (window, override_redirect)
  ## void gdk_window_add_filter (GdkWindow *window, GdkFilterFunc function, gpointer data)
  ##void
  ##gdk_window_add_filter (window, function, data)
- ##	GdkWindow *window
+ ##	GdkWindow_ornull *window
  ##	GdkFilterFunc function
  ##	gpointer data
 
@@ -169,7 +291,7 @@ gdk_window_set_override_redirect (window, override_redirect)
  ## void gdk_window_remove_filter (GdkWindow *window, GdkFilterFunc function, gpointer data)
  ##void
  ##gdk_window_remove_filter (window, function, data)
- ##	GdkWindow *window
+ ##	GdkWindow_ornull *window
  ##	GdkFilterFunc function
  ##	gpointer data
 
@@ -182,14 +304,34 @@ gdk_window_scroll (window, dx, dy)
 
 void gdk_window_shape_combine_mask (GdkWindow * window, GdkBitmap * mask, gint x, gint y);
 
-  ## FIXME needs typemap for GdkRegion
  ## void gdk_window_shape_combine_region (GdkWindow *window, GdkRegion *shape_region, gint offset_x, gint offset_y)
- ##void
- ##gdk_window_shape_combine_region (window, shape_region, offset_x, offset_y)
- ##	GdkWindow *window
- ##	GdkRegion *shape_region
- ##	gint offset_x
- ##	gint offset_y
+void
+gdk_window_shape_combine_region (window, shape_region, offset_x, offset_y)
+	GdkWindow *window
+	GdkRegion *shape_region
+	gint offset_x
+	gint offset_y
+
+ ## void gdk_window_set_child_shapes (GdkWindow *window)
+void
+gdk_window_set_child_shapes (window)
+	GdkWindow *window
+
+ ## void gdk_window_merge_child_shapes (GdkWindow *window)
+void
+gdk_window_merge_child_shapes (window)
+	GdkWindow *window
+
+ ## gboolean gdk_window_set_static_gravities (GdkWindow *window, gboolean use_static)
+gboolean
+gdk_window_set_static_gravities (window, use_static)
+	GdkWindow *window
+	gboolean use_static
+
+ ## gboolean gdk_window_is_visible (GdkWindow *window)
+gboolean
+gdk_window_is_visible (window)
+	GdkWindow *window
 
  ## gboolean gdk_window_is_viewable (GdkWindow *window)
 gboolean
@@ -253,12 +395,36 @@ gdk_window_set_skip_pager_hint (window, skips_pager)
 
 #endif
 
+=for apidoc
+
+=for signature $window->set_geometry_hints ($geometry)
+=for signature $window->set_geometry_hints ($geometry, $geom_mask)
+
+=for arg geometry (Gtk2::Gdk::Geometry)
+=for arg geom_mask (Gtk2::Gdk::WindowHints) optional, usually inferred from I<$geometry>
+
+The geom_mask argument, describing which fields in the geometry are valid, is
+optional.  If omitted it will be inferred from the geometry itself.
+
+=cut
 ## void gdk_window_set_geometry_hints (GdkWindow *window, GdkGeometry *geometry, GdkWindowHints geom_mask)
 void
-gdk_window_set_geometry_hints (window, geometry, geom_mask)
+gdk_window_set_geometry_hints (window, geometry_ref, geom_mask_sv=NULL)
 	GdkWindow *window
-	GdkGeometry *geometry
-	GdkWindowHints geom_mask
+	SV *geometry_ref
+	SV *geom_mask_sv
+    PREINIT:
+	GdkGeometry *geometry;
+	GdkWindowHints geom_mask;
+    CODE:
+	if (! (geom_mask_sv && SvOK (geom_mask_sv))) {
+		geometry = SvGdkGeometryReal (geometry_ref, &geom_mask);
+	} else {
+		geometry = SvGdkGeometry (geometry_ref);
+		geom_mask = SvGdkWindowHints (geom_mask_sv);
+	}
+
+	gdk_window_set_geometry_hints (window, geometry, geom_mask);
 
 ## void gdk_set_sm_client_id (const gchar *sm_client_id)
 void
@@ -271,12 +437,11 @@ gdk_window_begin_paint_rect (window, rectangle)
 	GdkWindow *window
 	GdkRectangle *rectangle
 
-  ## FIXME needs typemap for GdkRegion
  ## void gdk_window_begin_paint_region (GdkWindow *window, GdkRegion *region)
- ##void
- ##gdk_window_begin_paint_region (window, region)
- ##	GdkWindow *window
- ##	GdkRegion *region
+void
+gdk_window_begin_paint_region (window, region)
+	GdkWindow *window
+	GdkRegion *region
 
  ## void gdk_window_end_paint (GdkWindow *window)
 void
@@ -321,7 +486,6 @@ gdk_window_set_cursor (window, cursor)
 	GdkCursor_ornull * cursor
 
  ## void gdk_window_get_user_data (GdkWindow *window, gpointer *data)
-## TODO: verify and check this
 gulong
 gdk_window_get_user_data (window)
 	GdkWindow * window
@@ -330,7 +494,7 @@ gdk_window_get_user_data (window)
 	if( !RETVAL )
 		XSRETURN_UNDEF;
     OUTPUT:
-    	RETVAL
+	RETVAL
 
  ## void gdk_window_get_geometry (GdkWindow *window, gint *x, gint *y, gint *width, gint *height, gint *depth)
 void gdk_window_get_geometry (GdkWindow *window, OUTLIST gint x, OUTLIST gint y, OUTLIST gint width, OUTLIST gint height, OUTLIST gint depth)
@@ -345,62 +509,60 @@ void gdk_window_get_origin (GdkWindow *window, OUTLIST gint x, OUTLIST gint y)
  ## void gdk_window_get_root_origin (GdkWindow *window, gint *x, gint *y)
 void gdk_window_get_root_origin (GdkWindow *window, OUTLIST gint x, OUTLIST gint y)
 
-# FIXME
  ## void gdk_window_get_frame_extents (GdkWindow *window, GdkRectangle *rect)
- ##void
- ##gdk_window_get_frame_extents (window, rect)
- ##	GdkWindow *window
- ##	GdkRectangle *rect
+GdkRectangle *
+gdk_window_get_frame_extents (window)
+	GdkWindow *window
+    CODE:
+	RETVAL = g_new0 (GdkRectangle, 1);
+	gdk_window_get_frame_extents (window, RETVAL);
+    OUTPUT:
+	RETVAL
 
- ## GdkWindow* gdk_window_get_pointer (GdkWindow *window, gint *x, gint *y, GdkModifierType *mask)
- ## perl call signature:
- ## (window_ornull, x, y, mask) = $GdkWindow->get_pointer
-  ## i really don't see the difference between the inline OUTLIST format
-  ## and my hand-coded stuff below, but the inline stuff barfs all over
-  ## itself at runtime.  can't quite figure it out.
-###GdkWindow_ornull* gdk_window_get_pointer (GdkWindow *window, OUTLIST gint x, OUTLIST gint y, OUTLIST GdkModifierType mask)
 =for apidoc
 =for signature (window_at_pointer, x, y, mask) = $window->get_pointer
 Returns window_at_pointer, a Gtk2::Gdk::Window or undef, x and y, integers, and
 mask, a Gtk2::Gdk::ModifierType.
 =cut
-void
-gdk_window_get_pointer (window)
-	GdkWindow * window
-    PREINIT:
-	GdkWindow * window_at_pointer;
-	gint x, y;
-	GdkModifierType mask;
-    PPCODE:
-	window_at_pointer = gdk_window_get_pointer (window, &x, &y, &mask);
-	EXTEND (SP, 4);
-	PUSHs (sv_2mortal (newSVGdkWindow_ornull (window_at_pointer)));
-	PUSHs (sv_2mortal (newSViv (x)));
-	PUSHs (sv_2mortal (newSViv (y)));
-	PUSHs (sv_2mortal (newSVGdkModifierType (mask)));
+GdkWindow_ornull* gdk_window_get_pointer (GdkWindow *window, OUTLIST gint x, OUTLIST gint y, OUTLIST GdkModifierType mask)
 
-# FIXME
  ## GdkWindow * gdk_window_get_parent (GdkWindow *window)
- ##GdkWindow *
- ##gdk_window_get_parent (window)
- ##	GdkWindow *window
+GdkWindow *
+gdk_window_get_parent (window)
+	GdkWindow *window
 
  ## GdkWindow * gdk_window_get_toplevel (GdkWindow *window)
 GdkWindow *
 gdk_window_get_toplevel (window)
 	GdkWindow *window
 
-# FIXME
  ## GList * gdk_window_get_children (GdkWindow *window)
- ##GList *
- ##gdk_window_get_children (window)
- ##	GdkWindow *window
- ##
-# FIXME
+void
+gdk_window_get_children (window)
+	GdkWindow *window
+    PREINIT:
+	GList *windows = NULL, *i;
+    PPCODE:
+	windows = gdk_window_get_children (window);
+
+	for (i = windows; i != NULL; i = i->next)
+		XPUSHs (sv_2mortal (newSVGdkWindow (i->data)));
+
+	g_list_free (windows);
+
  ## GList * gdk_window_peek_children (GdkWindow *window)
- ##GList *
- ##gdk_window_peek_children (window)
- ##	GdkWindow *window
+void
+gdk_window_peek_children (window)
+	GdkWindow *window
+    PREINIT:
+	GList *windows = NULL, *i;
+    PPCODE:
+	windows = gdk_window_peek_children (window);
+
+	for (i = windows; i != NULL; i = i->next)
+		XPUSHs (sv_2mortal (newSVGdkWindow (i->data)));
+
+	g_list_free (windows);
 
  ## GdkEventMask gdk_window_get_events (GdkWindow *window)
 GdkEventMask
@@ -413,21 +575,31 @@ gdk_window_set_events (window, event_mask)
 	GdkWindow *window
 	GdkEventMask event_mask
 
-# FIXME
- ## void gdk_window_set_icon_list (GdkWindow *window, GList *pixbufs)
- ##void
- ##gdk_window_set_icon_list (window, pixbufs)
- ##	GdkWindow *window
- ##	GList *pixbufs
+=for apidoc
 
-# FIXME
+=for arg ... of GdkPixbuf's
+
+=cut
+ ## void gdk_window_set_icon_list (GdkWindow *window, GList *pixbufs)
+void
+gdk_window_set_icon_list (window, ...)
+	GdkWindow *window
+    PREINIT:
+	int i;
+	GList *pixbufs = NULL;
+    CODE:
+	for (i = 1; i < items; i++)
+		pixbufs = g_list_append (pixbufs, SvGdkPixbuf (ST (i)));
+	gdk_window_set_icon_list (window, pixbufs);
+	g_list_free (pixbufs);
+
  ## void gdk_window_set_icon (GdkWindow *window, GdkWindow *icon_window, GdkPixmap *pixmap, GdkBitmap *mask)
- ##void
- ##gdk_window_set_icon (window, icon_window, pixmap, mask)
- ##	GdkWindow *window
- ##	GdkWindow *icon_window
- ##	GdkPixmap *pixmap
- ##	GdkBitmap *mask
+void
+gdk_window_set_icon (window, icon_window, pixmap, mask)
+	GdkWindow *window
+	GdkWindow_ornull *icon_window
+	GdkPixmap_ornull *pixmap
+	GdkBitmap_ornull *mask
 
  ## void gdk_window_set_icon_name (GdkWindow *window, const gchar *name)
 void
@@ -459,12 +631,7 @@ gdk_window_set_decorations (window, decorations)
 	GdkWindow *window
 	GdkWMDecoration decorations
 
-# FIXME
- ## gboolean gdk_window_get_decorations (GdkWindow *window, GdkWMDecoration *decorations)
- ##gboolean
- ##gdk_window_get_decorations (window, decorations)
- ##	GdkWindow *window
- ##	GdkWMDecoration *decorations
+gboolean gdk_window_get_decorations (GdkWindow *window, OUTLIST GdkWMDecoration decorations)
 
  ## void gdk_window_set_functions (GdkWindow *window, GdkWMFunction functions)
 void
@@ -472,11 +639,18 @@ gdk_window_set_functions (window, functions)
 	GdkWindow *window
 	GdkWMFunction functions
 
-# FIXME
  ## GList * gdk_window_get_toplevels (void)
- ##GList *
- ##gdk_window_get_toplevels (void)
- ##	void
+void
+gdk_window_get_toplevels (class)
+    PREINIT:
+	GList *windows = NULL, *i;
+    PPCODE:
+	windows = gdk_window_get_toplevels ();
+
+	for (i = windows; i != NULL; i = i->next)
+		XPUSHs (sv_2mortal (newSVGdkWindow (i->data)));
+
+	g_list_free (windows);
 
  ## void gdk_window_iconify (GdkWindow *window)
 void
@@ -552,23 +726,34 @@ gdk_window_invalidate_rect (window, rectangle, invalidate_children)
 	GdkRectangle * rectangle
 	gboolean invalidate_children
 
-# FIXME needs typemap for GdkRegion
  ## void gdk_window_invalidate_region (GdkWindow *window, GdkRegion *region, gboolean invalidate_children)
- ##void
- ##gdk_window_invalidate_region (window, region, invalidate_children)
- ##	GdkWindow *window
- ##	GdkRegion *region
- ##	gboolean invalidate_children
- ##
-# FIXME needs typemap for GdkRegion
+void
+gdk_window_invalidate_region (window, region, invalidate_children)
+	GdkWindow *window
+	GdkRegion *region
+	gboolean invalidate_children
+
  ## void gdk_window_invalidate_maybe_recurse (GdkWindow *window, GdkRegion *region, gboolean (*child_func) (GdkWindow *, gpointer), gpointer user_data)
- ##void
- ##gdk_window_invalidate_maybe_recurse (window, region, w, G, user_data)
- ##	GdkWindow *window
- ##	GdkRegion *region
- ##	gboolean (*child_func) (GdkWindow * gpointer)
- ##	gpointer user_data
- ##
+void
+gdk_window_invalidate_maybe_recurse (window, region, func, data=NULL)
+	GdkWindow *window
+	GdkRegion *region
+	SV *func
+	SV *data
+    PREINIT:
+	GPerlCallback *callback;
+    CODE:
+	callback = gtk2perl_gdk_window_invalidate_maybe_recurse_func_create (func, data);
+	gdk_window_invalidate_maybe_recurse (window,
+	                                     region,
+	                                     gtk2perl_gdk_window_invalidate_maybe_recurse_func,
+	                                     callback);
+	gperl_callback_destroy (callback);
+
+ ## GdkRegion* gdk_window_get_update_area (GdkWindow *window)
+GdkRegion_own_ornull *
+gdk_window_get_update_area (window)
+	GdkWindow *window
 
 ## void gdk_window_freeze_updates (GdkWindow *window)
 void
@@ -591,12 +776,7 @@ void
 gdk_window_process_updates (GdkWindow * window, gboolean update_children)
 
  ## void gdk_window_get_internal_paint_info (GdkWindow *window, GdkDrawable **real_drawable, gint *x_offset, gint *y_offset)
- ##void
- ##gdk_window_get_internal_paint_info (window, real_drawable, x_offset, y_offset)
- ##	GdkWindow *window
- ##	GdkDrawable **real_drawable
- ##	gint *x_offset
- ##	gint *y_offset
+void gdk_window_get_internal_paint_info (GdkWindow *window, OUTLIST GdkDrawable *real_drawable, OUTLIST gint x_offset, OUTLIST gint y_offset)
 
 
 MODULE = Gtk2::Gdk::Window	PACKAGE = Gtk2::Gdk	PREFIX = gdk_

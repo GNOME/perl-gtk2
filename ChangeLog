@@ -1,3 +1,29 @@
+2003/12/28 23:20 (-0500) muppetman [unstable-2-3-x-branch]
+
+	update from HEAD.
+
+	A examples/adding_stock_items.pl
+	M MANIFEST
+	M gdk.typemap
+	M gtk2perl.h
+	M t/01.GtkWindow.t
+	M t/12.GtkDialog.t
+	M t/21.GtkContainer.t
+	M t/22.GtkListStore.t
+	M t/23.GtkTreeStore.t
+	M xs/GdkEvent.xs
+	M xs/GdkGC.xs
+	M xs/GdkRegion.xs
+	M xs/GdkTypes.xs
+	M xs/GdkWindow.xs
+	M xs/GtkColorSelectionDialog.xs
+	M xs/GtkContainer.xs
+	M xs/GtkFileSelection.xs
+	M xs/GtkFrame.xs
+	M xs/GtkImageMenuItem.xs
+	M xs/GtkMenuItem.xs
+	M xs/GtkWindow.xs
+
 2003/12/28 22:43 (-0500) muppetman [unstable-2-3-x-branch]
 
 	* xs/GtkAction.xs, xs/GtkLabel.xs, xs/GtkUIManager.xs: allow

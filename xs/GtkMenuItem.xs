@@ -66,12 +66,14 @@ void
 gtk_menu_item_activate (menu_item)
 	GtkMenuItem *menu_item
 
+ # FIXME
  ## void gtk_menu_item_toggle_size_request (GtkMenuItem *menu_item, gint *requisition)
  ##void
  ##gtk_menu_item_toggle_size_request (menu_item, requisition)
  ##	GtkMenuItem *menu_item
  ##	gint *requisition
 
+ # FIXME
  ## void gtk_menu_item_toggle_size_allocate (GtkMenuItem *menu_item, gint allocation)
  ##void
  ##gtk_menu_item_toggle_size_allocate (menu_item, allocation)
@@ -87,10 +89,9 @@ gboolean
 gtk_menu_item_get_right_justified (menu_item)
 	GtkMenuItem *menu_item
 
- ## void gtk_menu_item_set_accel_path (GtkMenuItem *menu_item, const gchar *accel_path)
- ##void
- ##gtk_menu_item_set_accel_path (menu_item, accel_path)
- ##	GtkMenuItem *menu_item
- ##	const gchar *accel_path
+void
+gtk_menu_item_set_accel_path (menu_item, accel_path)
+	GtkMenuItem *menu_item
+	const gchar *accel_path
 
  ##void _gtk_menu_item_refresh_accel_path (GtkMenuItem *menu_item, const gchar *prefix, GtkAccelGroup *accel_group, gboolean group_changed)

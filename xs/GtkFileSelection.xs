@@ -23,31 +23,55 @@
 
 MODULE = Gtk2::FileSelection	PACKAGE = Gtk2::FileSelection	PREFIX = gtk_file_selection_
 
-
 GtkWidget *
-member_widget (fs)
+dir_list (fs)
 	GtkFileSelection* fs
     ALIAS:
-	Gtk2::FileSelection::ok_button       = 0
-	Gtk2::FileSelection::cancel_button   = 1
-	Gtk2::FileSelection::dir_list        = 2
-	Gtk2::FileSelection::file_list       = 3
-	Gtk2::FileSelection::selection_entry = 4
-	Gtk2::FileSelection::selection_text  = 5
-	Gtk2::FileSelection::main_vbox       = 6
-	Gtk2::FileSelection::help_button     = 7
+	Gtk2::FileSelection::file_list        = 1
+	Gtk2::FileSelection::selection_entry  = 2
+	Gtk2::FileSelection::selection_text   = 3
+	Gtk2::FileSelection::main_vbox        = 4
+	Gtk2::FileSelection::ok_button        = 5
+	Gtk2::FileSelection::cancel_button    = 6
+	Gtk2::FileSelection::help_button      = 7
+	Gtk2::FileSelection::history_pulldown = 8
+	Gtk2::FileSelection::history_menu     = 9
+	Gtk2::FileSelection::fileop_dialog    = 10
+	Gtk2::FileSelection::fileop_entry     = 11
+	Gtk2::FileSelection::fileop_c_dir     = 12
+	Gtk2::FileSelection::fileop_del_file  = 13
+	Gtk2::FileSelection::fileop_ren_file  = 14
+	Gtk2::FileSelection::button_area      = 15
+	Gtk2::FileSelection::action_area      = 16
     CODE:
 	RETVAL = NULL;
 	switch (ix) {
-		case 0: RETVAL = fs->ok_button;       break;
-		case 1: RETVAL = fs->cancel_button;   break;
-		case 2: RETVAL = fs->dir_list;        break;
-		case 3: RETVAL = fs->file_list;       break;
-		case 4: RETVAL = fs->selection_entry; break;
-		case 5: RETVAL = fs->selection_text;  break;
-		case 6: RETVAL = fs->main_vbox;       break;
-		case 7: RETVAL = fs->help_button;     break;
+		case  0: RETVAL = fs->dir_list;         break;
+		case  1: RETVAL = fs->file_list;        break;
+		case  2: RETVAL = fs->selection_entry;  break;
+		case  3: RETVAL = fs->selection_text;   break;
+		case  4: RETVAL = fs->main_vbox;        break;
+		case  5: RETVAL = fs->ok_button;        break;
+		case  6: RETVAL = fs->cancel_button;    break;
+		case  7: RETVAL = fs->help_button;      break;
+		case  8: RETVAL = fs->history_pulldown; break;
+		case  9: RETVAL = fs->history_menu;     break;
+		case 10: RETVAL = fs->fileop_dialog;    break;
+		case 11: RETVAL = fs->fileop_entry;     break;
+		case 12: RETVAL = fs->fileop_c_dir;     break;
+		case 13: RETVAL = fs->fileop_del_file;  break;
+		case 14: RETVAL = fs->fileop_ren_file;  break;
+		case 15: RETVAL = fs->button_area;      break;
+		case 16: RETVAL = fs->action_area;      break;
 	}
+    OUTPUT:
+	RETVAL
+
+gchar *
+fileop_file (fs)
+	GtkFileSelection* fs
+    CODE:
+	RETVAL = fs->fileop_file;
     OUTPUT:
 	RETVAL
 

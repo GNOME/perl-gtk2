@@ -19,149 +19,236 @@
  * $Header$
  */
 #include "gtk2perl.h"
+#include "gperl_marshal.h"
 
-MODULE = Gtk2::Gdk::Region	PACKAGE = Gtk2::Gdk::Region	PREFIX = gtk_region_
+/* ------------------------------------------------------------------------- */
 
-#### GdkRegion is not in the typemap!!
-#
-#
-###  GdkRegion *gdk_region_new (void) 
-#GdkRegion_own *
-#gdk_region_new (class)
-#    C_ARGS:
-#	/* void */
-#	
-#
-###  GdkRegion *gdk_region_polygon (GdkPoint *points, gint npoints, GdkFillRule fill_rule) 
-#GdkRegion_own *
-#gdk_region_polygon (points, npoints, fill_rule)
-#	GdkPoint *points
-#	gint npoints
-#	GdkFillRule fill_rule
-#
-###  GdkRegion *gdk_region_copy (GdkRegion *region) 
-#GdkRegion_own *
-#gdk_region_copy (region)
-#	GdkRegion *region
-#
-###  GdkRegion *gdk_region_rectangle (GdkRectangle *rectangle) 
-#GdkRegion_own *
-#gdk_region_rectangle (rectangle)
-#	GdkRectangle *rectangle
-#
-###  void gdk_region_destroy (GdkRegion *region) 
-##void
-##gdk_region_destroy (region)
-##	GdkRegion *region
-#
-###  void gdk_region_get_clipbox (GdkRegion *region, GdkRectangle *rectangle) 
-#GdkRectangle *
-#gdk_region_get_clipbox (region)
-#	GdkRegion *region
-#    PREINIT:
-#	GdkRectangle rectangle;
-#    CODE:
-#	gdk_region_get_clipbox (region, &rectangle);
-#	RETVAL = &rectangle;
-#    OUTPUT:
-#	RETVAL
-#
-###  void gdk_region_get_rectangles (GdkRegion *region, GdkRectangle **rectangles, gint *n_rectangles) 
-#void
-#gdk_region_get_rectangles (region)
-#	GdkRegion *region
-#    PREINIT:
-#	GdkRectangle *rectangles = NULL;
-#	gint n_rectangles;
-#	int i;
-#    PPCODE:
-#	gdk_region_get_rectangles (region, &rectangles, &n_rectangles);
-#	EXTEND (SP, n_rectangles);
-#	for (i = 0 ; i < n_rectangles ; i++)
-#		PUSHs (sv_2mortal (newSVGdkRectangle (rectangles + i)));
-#	g_free (rectangles);
-#
-###  gboolean gdk_region_empty (GdkRegion *region) 
-#gboolean
-#gdk_region_empty (region)
-#	GdkRegion *region
-#
-###  gboolean gdk_region_equal (GdkRegion *region1, GdkRegion *region2) 
-#gboolean
-#gdk_region_equal (region1, region2)
-#	GdkRegion *region1
-#	GdkRegion *region2
-#
-###  gboolean gdk_region_point_in (GdkRegion *region, int x, int y) 
-#gboolean
-#gdk_region_point_in (region, x, y)
-#	GdkRegion *region
-#	int x
-#	int y
-#
-###  GdkOverlapType gdk_region_rect_in (GdkRegion *region, GdkRectangle *rect) 
-#GdkOverlapType
-#gdk_region_rect_in (region, rect)
-#	GdkRegion *region
-#	GdkRectangle *rect
-#
-###  void gdk_region_offset (GdkRegion *region, gint dx, gint dy) 
-#void
-#gdk_region_offset (region, dx, dy)
-#	GdkRegion *region
-#	gint dx
-#	gint dy
-#
-###  void gdk_region_shrink (GdkRegion *region, gint dx, gint dy) 
-#void
-#gdk_region_shrink (region, dx, dy)
-#	GdkRegion *region
-#	gint dx
-#	gint dy
-#
-###  void gdk_region_union_with_rect (GdkRegion *region, GdkRectangle *rect) 
-#void
-#gdk_region_union_with_rect (region, rect)
-#	GdkRegion *region
-#	GdkRectangle *rect
-#
-###  void gdk_region_intersect (GdkRegion *source1, GdkRegion *source2) 
-#void
-#gdk_region_intersect (source1, source2)
-#	GdkRegion *source1
-#	GdkRegion *source2
-#
-###  void gdk_region_union (GdkRegion *source1, GdkRegion *source2) 
-#void
-#gdk_region_union (source1, source2)
-#	GdkRegion *source1
-#	GdkRegion *source2
-#
-###  void gdk_region_subtract (GdkRegion *source1, GdkRegion *source2) 
-#void
-#gdk_region_subtract (source1, source2)
-#	GdkRegion *source1
-#	GdkRegion *source2
-#
-###  void gdk_region_xor (GdkRegion *source1, GdkRegion *source2) 
-#void
-#gdk_region_xor (source1, source2)
-#	GdkRegion *source1
-#	GdkRegion *source2
-#
-####  void gdk_region_spans_intersect_foreach (GdkRegion *region, GdkSpan *spans, int n_spans, gboolean sorted, GdkSpanFunc function, gpointer data) 
-##void
-##gdk_region_spans_intersect_foreach (region, spans, n_spans, sorted, function, data=NULL)
-##	GdkRegion *region
-##	GdkSpan *spans
-##	int n_spans
-##	gboolean sorted
-##	SV * function
-##	SV * data
-##    PREINIT:
-##	GPerlCallback * callback;
-##    CODE:
-##	if (!function || function == &PL_sv_undef)
-##		croak ("bad function ref");
-##	callback = gperl_callback_new (function, data,
-#
+GType
+gtk2perl_gdk_region_get_type (void)
+{
+	static GType t = 0;
+	if (!t)
+		t = g_boxed_type_register_static ("GdkRegion",
+		      (GBoxedCopyFunc) gdk_region_copy,
+		      (GBoxedFreeFunc) gdk_region_destroy);
+	return t;
+}
+
+/* ------------------------------------------------------------------------- */
+
+static void
+gtk2perl_gdk_span_func (GdkSpan *span,
+                        GPerlCallback *callback)
+{
+	dGPERL_CALLBACK_MARSHAL_SP;
+	GPERL_CALLBACK_MARSHAL_INIT (callback);
+
+	ENTER;
+	SAVETMPS;
+
+	PUSHMARK (SP);
+
+	EXTEND (SP, 3);
+	PUSHs (sv_2mortal (newSViv (span->x)));
+	PUSHs (sv_2mortal (newSViv (span->y)));
+	PUSHs (sv_2mortal (newSViv (span->width)));
+	if (callback->data)
+		XPUSHs (sv_2mortal (newSVsv (callback->data)));
+
+	PUTBACK;
+
+	call_sv (callback->func, G_DISCARD);
+
+	FREETMPS;
+	LEAVE;
+}
+
+/* ------------------------------------------------------------------------- */
+
+MODULE = Gtk2::Gdk::Region	PACKAGE = Gtk2::Gdk::Region	PREFIX = gdk_region_
+
+##  GdkRegion *gdk_region_new (void) 
+GdkRegion_own *
+gdk_region_new (class)
+    C_ARGS:
+	/* void */
+
+##  GdkRegion *gdk_region_polygon (GdkPoint *points, gint npoints, GdkFillRule fill_rule) 
+GdkRegion_own *
+gdk_region_polygon (class, points_ref, fill_rule)
+	SV * points_ref
+	GdkFillRule fill_rule
+    PREINIT:
+	GdkPoint *points = NULL;
+	gint npoints, i;
+	AV *array;
+	SV **value;
+    CODE:
+	if (! (SvRV (points_ref) && SvTYPE (SvRV (points_ref)) == SVt_PVAV))
+		croak ("point list has to be a reference to an array");
+
+	array = (AV *) SvRV (points_ref);
+	npoints = (av_len (array) + 1) / 2;
+	points = g_new0 (GdkPoint, npoints);
+
+	for (i = 0; i < npoints; i++) {
+		if ((value = av_fetch (array, 2*i, 0)) && SvOK (*value))
+			points[i].x = SvIV (*value);
+		if ((value = av_fetch (array, 2*i + 1, 0)) && SvOK (*value))
+			points[i].y = SvIV (*value);
+	}
+
+	RETVAL = gdk_region_polygon (points, npoints, fill_rule);
+
+	g_free (points);
+    OUTPUT:
+	RETVAL
+
+##  GdkRegion *gdk_region_copy (GdkRegion *region) 
+
+##  GdkRegion *gdk_region_rectangle (GdkRectangle *rectangle) 
+GdkRegion_own *
+gdk_region_rectangle (class, rectangle)
+	GdkRectangle *rectangle
+    C_ARGS:
+	rectangle
+
+##  void gdk_region_destroy (GdkRegion *region) 
+
+##  void gdk_region_get_clipbox (GdkRegion *region, GdkRectangle *rectangle) 
+GdkRectangle *
+gdk_region_get_clipbox (region)
+	GdkRegion *region
+    PREINIT:
+	GdkRectangle rectangle;
+    CODE:
+	gdk_region_get_clipbox (region, &rectangle);
+	RETVAL = &rectangle;
+    OUTPUT:
+	RETVAL
+
+##  void gdk_region_get_rectangles (GdkRegion *region, GdkRectangle **rectangles, gint *n_rectangles) 
+void
+gdk_region_get_rectangles (region)
+	GdkRegion *region
+    PREINIT:
+	GdkRectangle *rectangles = NULL;
+	gint n_rectangles;
+	int i;
+    PPCODE:
+	gdk_region_get_rectangles (region, &rectangles, &n_rectangles);
+	EXTEND (SP, n_rectangles);
+	for (i = 0 ; i < n_rectangles ; i++)
+		PUSHs (sv_2mortal (newSVGdkRectangle (rectangles + i)));
+	g_free (rectangles);
+
+##  gboolean gdk_region_empty (GdkRegion *region) 
+gboolean
+gdk_region_empty (region)
+	GdkRegion *region
+
+##  gboolean gdk_region_equal (GdkRegion *region1, GdkRegion *region2) 
+gboolean
+gdk_region_equal (region1, region2)
+	GdkRegion *region1
+	GdkRegion *region2
+
+##  gboolean gdk_region_point_in (GdkRegion *region, int x, int y) 
+gboolean
+gdk_region_point_in (region, x, y)
+	GdkRegion *region
+	int x
+	int y
+
+##  GdkOverlapType gdk_region_rect_in (GdkRegion *region, GdkRectangle *rect) 
+GdkOverlapType
+gdk_region_rect_in (region, rect)
+	GdkRegion *region
+	GdkRectangle *rect
+
+##  void gdk_region_offset (GdkRegion *region, gint dx, gint dy) 
+void
+gdk_region_offset (region, dx, dy)
+	GdkRegion *region
+	gint dx
+	gint dy
+
+##  void gdk_region_shrink (GdkRegion *region, gint dx, gint dy) 
+void
+gdk_region_shrink (region, dx, dy)
+	GdkRegion *region
+	gint dx
+	gint dy
+
+##  void gdk_region_union_with_rect (GdkRegion *region, GdkRectangle *rect) 
+void
+gdk_region_union_with_rect (region, rect)
+	GdkRegion *region
+	GdkRectangle *rect
+
+##  void gdk_region_intersect (GdkRegion *source1, GdkRegion *source2) 
+void
+gdk_region_intersect (source1, source2)
+	GdkRegion *source1
+	GdkRegion *source2
+
+##  void gdk_region_union (GdkRegion *source1, GdkRegion *source2) 
+void
+gdk_region_union (source1, source2)
+	GdkRegion *source1
+	GdkRegion *source2
+
+##  void gdk_region_subtract (GdkRegion *source1, GdkRegion *source2) 
+void
+gdk_region_subtract (source1, source2)
+	GdkRegion *source1
+	GdkRegion *source2
+
+##  void gdk_region_xor (GdkRegion *source1, GdkRegion *source2) 
+void
+gdk_region_xor (source1, source2)
+	GdkRegion *source1
+	GdkRegion *source2
+
+##  void gdk_region_spans_intersect_foreach (GdkRegion *region, GdkSpan *spans, int n_spans, gboolean sorted, GdkSpanFunc function, gpointer data) 
+void
+gdk_region_spans_intersect_foreach (region, spans_ref, sorted, func, data=NULL)
+	GdkRegion *region
+	SV * spans_ref
+	gboolean sorted
+	SV * func
+	SV * data
+    PREINIT:
+	GdkSpan *spans = NULL;
+	int n_spans, i;
+	AV *array;
+	SV **value;
+	GPerlCallback * callback;
+    CODE:
+	if (! (SvRV (spans_ref) && SvTYPE (SvRV (spans_ref)) == SVt_PVAV))
+		croak ("span list has to be a reference to an array of GdkPoint's");
+
+	array = (AV *) SvRV (spans_ref);
+	n_spans = (av_len (array) + 1) / 3;
+	spans = g_new0 (GdkSpan, n_spans);
+
+	for (i = 0; i < n_spans; i++) {
+		if ((value = av_fetch (array, 3*i, 0)) && SvOK (*value))
+			spans[i].x = SvIV (*value);
+		if ((value = av_fetch (array, 3*i + 1, 0)) && SvOK (*value))
+			spans[i].y = SvIV (*value);
+		if ((value = av_fetch (array, 3*i + 2, 0)) && SvOK (*value))
+			spans[i].width = SvIV (*value);
+	}
+
+	callback = gperl_callback_new (func, data, 0, NULL, 0);
+
+	gdk_region_spans_intersect_foreach (region,
+	                                    spans,
+	                                    n_spans,
+	                                    sorted,
+	                                    (GdkSpanFunc) gtk2perl_gdk_span_func,
+	                                    callback);
+
+	gperl_callback_destroy (callback);
+	g_free (spans);

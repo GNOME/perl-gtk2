@@ -17,7 +17,7 @@ use Test::More;
 
 if( Gtk2->init_check )
 {
-	plan tests => 87;
+	plan tests => 102;
 }
 else
 {
@@ -37,6 +37,8 @@ ok( $win = Gtk2::Window->new('popup') );
 ok( $win = Gtk2::Window->new('toplevel') );
 
 $win->set_title;
+ok(1);
+$win->set_title(undef);
 ok(1);
 $win->set_title('');
 ok(1);
@@ -64,7 +66,19 @@ ok(1);
 my @s = $win->get_default_size;
 ok( $s[0] == 640 && $s[1] == 480 );
 
-#$win->set_geometry_hints(...);
+my $geometry = {
+	min_width => 10,
+	min_height => 10
+};
+
+my $label = Gtk2::Label->new("Bla");
+
+$win->set_geometry_hints($label, $geometry);
+ok(1);
+$win->set_geometry_hints($label, $geometry, undef);
+ok(1);
+$win->set_geometry_hints($label, $geometry, qw(min-size));
+ok(1);
 
 foreach (qw/north-west north north-east west center east
 	    south-west south south-east static/)
@@ -80,9 +94,12 @@ foreach (qw/none center mouse center-always center-on-parent/)
 	$win->set_position($_);
 	ok(1, "set_position $_");
 }
-# i don't think this does what we think it does
-$win->get_position;
+
+$win->set_position('center');
 ok(1);
+
+my @position = $win->get_position;
+is(scalar(@position), 2);
 
 ok( my $win2 = Gtk2::Window->new );
 
@@ -98,6 +115,32 @@ ok( $win2->get_destroy_with_parent );
 
 my @toplvls = Gtk2::Window->list_toplevels;
 is(scalar(@toplvls), 4);
+
+use Gtk2::Gdk::Keysyms;
+my $mnemonic = $Gtk2::Gdk::Keysyms{ KP_Enter };
+
+$win2->add_mnemonic($mnemonic, $label);
+ok(1);
+
+# FIXME: is it correct to assume that it always returns false?
+ok( ! $win2->mnemonic_activate($mnemonic, "shift-mask") );
+
+$win2->remove_mnemonic($mnemonic, $label);
+ok(1);
+
+$win2->set_mnemonic_modifier("control-mask");
+ok(1);
+
+is( $win2->get_mnemonic_modifier, "control-mask");
+
+$win2->set_focus;
+ok(1);
+
+$win2->set_focus(Gtk2::Entry->new());
+ok(1);
+
+# FIXME: what could be used here?
+# $win2->set_default(...);
 
 $win2->set_decorated(TRUE);
 ok(1);
@@ -212,12 +255,18 @@ Glib::Idle->add(sub {
 
 			skip $reason, 1 if defined $reason;
 
-			# $win->set_screen(...)
-			ok( $win->get_screen );
+			$win->set_screen(Gtk2::Gdk::Screen->get_default());
+			is($win->get_screen, Gtk2::Gdk::Screen->get_default());
 
 			$win->fullscreen;
 			$win->unfullscreen;
 		}
+
+		$win->begin_resize_drag("south-east", 1, 23, 42, 0);
+		ok(1);
+
+		$win->begin_move_drag(1, 23, 42, 0);
+		ok(1);
 
 		$win->move(100, 100);
 
@@ -227,7 +276,7 @@ Glib::Idle->add(sub {
 		isa_ok( $tmp, 'Gtk2::Gdk::Rectangle' );
 		$tmp = $win->intersect(Gtk2::Gdk::Rectangle->new(-10, -10, 1, 1));
 		ok( !$tmp );
-		
+
 		$win->resize(480,600);
 
 		# window managers don't honor our size request exactly,
@@ -245,6 +294,15 @@ Glib::Idle->add(sub {
 
 
 $win->set_frame_dimensions(0, 0, 300, 500);
+
+ok( $win2->parse_geometry("100x100+10+10") );
+
+SKIP: {
+	skip 'set_auto_startup_notification is new in 2.2', 1
+		if Gtk2->check_version(2, 2, 0);
+
+	$win2->set_auto_startup_notification(FALSE);
+}
 
 $win->show;
 ok(1);

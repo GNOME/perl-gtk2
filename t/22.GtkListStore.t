@@ -6,8 +6,6 @@ use Test::More tests => 69;
 
 ###############################################################################
 
-require './t/ignore_keyboard.pl';
-
 my $model = Gtk2::ListStore -> new("Glib::String", "Glib::Int");
 isa_ok($model, "Gtk2::ListStore");
 
