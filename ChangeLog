@@ -1,3 +1,52 @@
+2004/03/16 22:55 (-0500) muppetman
+
+	Big merge from the stable-1-04 branch.
+
+	* gtk2perl.h, maps-2.0, examples/combo_box.pl,
+	examples/file_chooser.pl, pm/TestHelper.pm, t/00.Gtk2.t,
+	t/01.GtkWindow.t, t/GdkDisplay.t, t/GtkAction.t, t/GtkActionGroup.t,
+	t/GtkCellLayout.t, t/GtkColorButton.t, t/GtkComboBox.t,
+	t/GtkComboBoxEntry.t, t/GtkEntryCompletion.t, t/GtkEventBox.t,
+	t/GtkExpander.t, t/GtkFileChooser.t, t/GtkFileChooserDialog.t,
+	t/GtkFileChooserWidget.t, t/GtkFileFilter.t, t/GtkFontButton.t,
+	t/GtkIconTheme.t, t/GtkListStore.t, t/GtkMenuShell.t,
+	t/GtkMessageDialog.t, t/GtkRadioAction.t, t/GtkRadioToolButton.t,
+	t/GtkRc.t, t/GtkSeparatorToolItem.t, t/GtkToggleAction.t,
+	t/GtkToggleToolButton.t, t/GtkToolButton.t, t/GtkToolItem.t,
+	t/GtkTreeModelFilter.t, t/GtkTreeView.t, t/GtkUIManager.t,
+	t/GtkWidget.t, xs/GdkCursor.xs, xs/GdkDisplay.xs, xs/GdkDrawable.xs,
+	xs/GdkPixbuf.xs, xs/GdkPixbufLoader.xs, xs/GtkAlignment.xs,
+	xs/GtkButton.xs, xs/GtkButtonBox.xs, xs/GtkCalendar.xs,
+	xs/GtkCellRenderer.xs, xs/GtkCheckMenuItem.xs, xs/GtkClipboard.xs,
+	xs/GtkComboBoxEntry.xs, xs/GtkDnd.xs, xs/GtkEntry.xs,
+	xs/GtkEventBox.xs, xs/GtkFileChooserDialog.xs,
+	xs/GtkFileChooserWidget.xs, xs/GtkIconFactory.xs, xs/GtkMenu.xs,
+	xs/GtkMenuShell.xs, xs/GtkMessageDialog.xs, xs/GtkRadioMenuItem.xs,
+	xs/GtkRc.xs, xs/GtkScale.xs, xs/GtkStyle.xs, xs/GtkTextBuffer.xs,
+	xs/GtkTextIter.xs, xs/GtkTextView.xs, xs/GtkToolbar.xs,
+	xs/GtkTreeViewColumn.xs, xs/GtkWidget.xs, xs/GtkWindow.xs:
+	bump all 2.3.x version guards to 2.4.0, and pretend that 2.3.x
+	never existed.
+
+	* xs/Gtk2.xs: add and document Gtk2::GET_VERSION_INFO; change
+	Gtk2::Pango::get_version_info to Gtk2::Pango::GET_VERSION_INFO.
+	put version docs in Foo::version.
+
+	* examples/color_list.pl: explain why this test should use the
+	runtime version check
+
+	* examples/item_factory.pl: show the usage of accel_groups (based
+	on the simplemenu code) and comment things a bit. (ross)
+
+2004/03/16 22:40 (-0500) muppetman
+
+	D maps-2.3
+	A maps-2.4
+	D xs_files-2.3
+	A xs_files-2.4
+	M MANIFEST
+	  rename the files related to 2.3
+
 2004/03/16 21:17 (-0500) rwmcfa1
 
 	* t/GtkFileChooser.t: get the filename off the the end of uri so that
