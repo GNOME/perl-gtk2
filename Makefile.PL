@@ -131,6 +131,8 @@ WriteMakefile(
 # -o on the compiler command line.  this is a hackish fix for it.
 #
 package MY;
+use Cwd;
+
 sub const_cccmd {
 	my $inherited = shift->SUPER::const_cccmd (@_);
 	$inherited .= ' -o $@';
@@ -139,9 +141,23 @@ sub const_cccmd {
 
 sub postamble
 {
+	my @dirs = qw{rpms rpms/BUILD rpms/RPMS rpms/SOURCES
+		      rpms/SPECS rpms/SRPMS};
+	my $cwd = getcwd();
+
 	"
 realclean ::
 	-rm -Rf build
+
+rpms/:
+	-mkdir @dirs
+
+perl-\$(DISTNAME).spec: perl-\$(DISTNAME).spec.in
+	sed -e \"s/\@VERSION\@/\$(VERSION)/g\" -e \"s/\@SOURCE\@/\$(DISTNAME)-\$(VERSION).tar.gz/g\" \$< > \$@
+
+dist-rpms: Makefile dist perl-\$(DISTNAME).spec rpms/
+	cp \$(DISTNAME)-\$(VERSION).tar.gz rpms/SOURCES/
+	rpmbuild -ba --define \"_topdir $cwd/rpms\" perl-\$(DISTNAME).spec
 "
 }
 package main;
