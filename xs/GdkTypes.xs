@@ -38,7 +38,9 @@ newSVGdkRectangle (GdkRectangle * rect)
 	av_push (av, newSViv (rect->y));
 	av_push (av, newSViv (rect->width));
 	av_push (av, newSViv (rect->height));
-	
+
+	sv_bless (r, gv_stashpv ("Gtk2::Gdk::Rectangle", TRUE));
+
 	return r;
 }
 
@@ -46,16 +48,16 @@ GdkRectangle *
 SvGdkRectangle (SV * sv)
 {
 	AV * av;
-	GdkRectangle * rect;
+	GdkRectangle * rect = NULL;
 
-	if ((!sv) || (!SvOK(sv)) ||
-	    (!SvRV(sv)) || (SvTYPE(SvRV(sv)) != SVt_PVAV))
+	if ((!sv) || (!SvOK(sv)) || (!SvRV(sv)) ||
+	    SvTYPE(SvRV(sv)) != SVt_PVAV)
 		return NULL;
-		
+	
 	av = (AV*) SvRV (sv);
 
 	if (av_len (av) != 3)
-		croak ("rectangle must have four elements");
+		croak ("rectangle array must have four elements");
 
 	rect = gperl_alloc_temp (sizeof (GdkRectangle));
 	
@@ -63,92 +65,49 @@ SvGdkRectangle (SV * sv)
 	rect->y      = SvIV (*av_fetch (av, 1, 0));
 	rect->width  = SvIV (*av_fetch (av, 2, 0));
 	rect->height = SvIV (*av_fetch (av, 3, 0));
-	
+
 	return rect;
 }
 
 
+MODULE = Gtk2::Gdk::Types	PACKAGE = Gtk2::Gdk::Rectangle
+
+GdkRectangle *
+new (class, x, y, width, height)
+	SV * class
+	gint x
+	gint y
+	gint width
+	gint height
+    PREINIT:
+	GdkRectangle rect;
+    CODE:
+	rect.x = x;
+	rect.y = y;
+	rect.width = width;
+	rect.height = height;
+	RETVAL = &rect;
+    OUTPUT:
+	RETVAL
 
 #if 0
 
-##MODULE = Gtk2::Gdk::Types	PACKAGE = Gtk2::Gdk::Point
-##
 ##gint
-##x (point)
-##	GdkPoint * point
-##    ALIAS:
-##	Gtk2::Gdk::Point::x = 0
-##	Gtk2::Gdk::Point::y = 1
-##    CODE:
-##	RETVAL = ix == 1 ? point->y : point->x;
-##    OUTPUT:
-##	RETVAL
-##
-##
-##MODULE = Gtk2::Gdk::Types	PACKAGE = Gtk2::Gdk::Segment
-##
-##gint
-##x1 (segment)
-##	GdkSegment * segment
-##    ALIAS:
-##	Gtk2::Gdk::Rectangle::x1 = 0
-##	Gtk2::Gdk::Rectangle::y1 = 1
-##	Gtk2::Gdk::Rectangle::x2 = 2
-##	Gtk2::Gdk::Rectangle::y2 = 3
-##    CODE:
-##	switch (ix) {
-##		case 0: RETVAL = rectangle->x1; break;
-##		case 1: RETVAL = rectangle->y2; break;
-##		case 2: RETVAL = rectangle->x2; break;
-##		case 3: RETVAL = rectangle->y2; break;
-##		default: croak ("shouldn't reach this");
-##	}
-##    OUTPUT:
-##	RETVAL
-##
-##MODULE = Gtk2::Gdk::Types	PACKAGE = Gtk2::Gdk::Span
-##
-##gint
-##x (span)
-##	GdkSpan * span
+##members (rectangle)
+##	GdkRectangle * rectangle
 ##    ALIAS:
 ##	Gtk2::Gdk::Rectangle::x = 0
 ##	Gtk2::Gdk::Rectangle::y = 1
 ##	Gtk2::Gdk::Rectangle::width = 2
+##	Gtk2::Gdk::Rectangle::height = 3
 ##    CODE:
 ##	switch (ix) {
 ##		case 0: RETVAL = rectangle->x; break;
 ##		case 1: RETVAL = rectangle->y; break;
 ##		case 2: RETVAL = rectangle->width; break;
-##		default: croak ("shouldn't reach this");
+##		case 3: RETVAL = rectangle->height; break;
 ##	}
 ##    OUTPUT:
 ##	RETVAL
-
-#endif
-
-#if 0
-
-///MODULE = Gtk2::Gdk::Types	PACKAGE = Gtk2::Gdk::Rectangle
-
-gint
-members (rectangle)
-	GdkRectangle * rectangle
-	SV * newval
-    ALIAS:
-	Gtk2::Gdk::Rectangle::x = 0
-	Gtk2::Gdk::Rectangle::y = 1
-	Gtk2::Gdk::Rectangle::width = 2
-	Gtk2::Gdk::Rectangle::height = 3
-    CODE:
-	switch (ix) {
-		case 0: RETVAL = rectangle->x; break;
-		case 1: RETVAL = rectangle->y; break;
-		case 2: RETVAL = rectangle->width; break;
-		case 3: RETVAL = rectangle->height; break;
-		default: croak ("shouldn't reach this");
-	}
-    OUTPUT:
-	RETVAL
 
 #endif
