@@ -112,6 +112,7 @@ t/GdkProperty.t
 t/GdkRegion.t
 t/GdkScreen.t
 t/GdkSelection.t
+t/GdkVisual.t
 t/GdkWindow.t
 t/GdkX11.t
 t/GtkAccelGroup.t
@@ -275,6 +276,7 @@ xs/GdkRgb.xs
 xs/GdkScreen.xs
 xs/GdkSelection.xs
 xs/GdkTypes.xs
+xs/GdkVisual.xs
 xs/GdkWindow.xs
 xs/GdkX11.xs
 xs/Gtk2.xs

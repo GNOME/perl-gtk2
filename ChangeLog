@@ -1,3 +1,10 @@
+2004/04/07 19:21 (+0200) kaffeetisch
+
+	A t/GdkVisual.t
+	A xs/GdkVisual.xs
+	* xs_files-2.0
+	* MANIFEST: Bind and test GdkVisual.
+
 2004/04/06 18:59 (+0200) kaffeetisch
 
 	Merge from the stable-1-04 branch:

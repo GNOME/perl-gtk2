@@ -21,6 +21,7 @@ xs/GdkRegion.xs
 xs/GdkRgb.xs
 xs/GdkSelection.xs
 xs/GdkTypes.xs
+xs/GdkVisual.xs
 xs/GdkWindow.xs
 #xs/GdkX11.xs is only built when using the X11 backend
 
