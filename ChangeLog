@@ -1,3 +1,28 @@
+2003/10/18 02:41 muppetman
+
+	* Gtk2.pm: bump version for devel series.
+	* Makefile.PL: require Glib 1.01 (to pick up a new typemap)
+
+	Made a pass through the source killing FIXMEs.
+	* TODO: updated.
+	* gtk.typemap, xs/GtkColorSelection.xs, xs/GtkTreeView.xs, 
+	xs/GtkTreeViewColumn.xs: cleaned up
+	* xs/Gdk.xs, xs/GtkTextBuffer.xs, xs/GtkTextTag.xs: use the new
+	gchar_ornull typemap to clean things up
+	* xs/GdkGC.xs: implemented GdkGCValues stuff, mostly by porting
+	Gtk-Perl code.
+	* xs/GdkPixbuf.xs, api.pod: implemented the animation iter and
+	pixbuf formats stuff, finally.
+	* xs/GtkStyle.xs: painstakingly traced through the source of
+	gtkstyle.c to see where NULL is and isn't allowed, and updated all
+	the paint_foo functions accordingly.
+	* xs/GtkTextIter.xs: implemented get_marks, get_toggled_tags,
+	get_attributes, and get_language
+	* xs/GtkWidget.xs: implement get_child_requisition.  apparently this
+	isn't equivalent to get_size_request after all; some widget
+	implementations need this (e.g., placing popups by hand).
+	* xs/PangoContext.xs: don't know why these weren't implemented.
+
 2003/10/12 13:42 rwmcfa1
 
 	* xs/(most).xs: UNUSED is no more, PERL_UNUSED_VAR used where 

@@ -41,6 +41,4 @@ to avoid *always* enabling thread safety, since it will
 be rare to have a multi-threaded perl gtk program until
 perl threading is more mainstream.
 
-need a gchar_ornull typemap
-
 what about decorated window stuff?
