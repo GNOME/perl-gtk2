@@ -5,6 +5,7 @@
 use 5.008;
 use strict;
 use ExtUtils::MakeMaker;
+use File::Spec;
 use Cwd;
 
 # minimum required version of Glib with which we can work.
@@ -95,7 +96,8 @@ $gtk2->set_inc ($pkgcfg{cflags} . ' -I./build ');
 $gtk2->set_libs ($pkgcfg{libs});
 $gtk2->add_pm (%pm_files);
 $gtk2->add_xs (<xs/*.xs>);
-$gtk2->add_typemaps (map {cwd().'/'.$_} 'gdk.typemap', 'build/gtk2perl.typemap');
+my $cwd = cwd();
+$gtk2->add_typemaps (map {File::Spec->catfile($cwd,$_)} 'gdk.typemap', 'build/gtk2perl.typemap');
 $gtk2->add_headers ('gtk2perl.h');
 
 $gtk2->install (qw(gtk2perl.h build/gtk2perl-autogen.h));
