@@ -16,8 +16,6 @@ gdk_pixbuf_render_pixmap_and_mask_for_colormap
 gdk_pixbuf_render_pixmap_and_mask
 gdk_pixbuf_new_from_data <- how would we do that?
 
-g_signal_handlers_disconnect_by_func
-
 gtk_key_snooper_install/remove
 
 no typemap (and therefore no bindings) for
@@ -37,8 +35,6 @@ no typemap (and therefore no bindings) for
 
 a bunch of functions are missing from GtkAccelGroup because they want 
 GClosures; these would have to be mapped to CVs, of course.
-
-GtkImage lacks support for GdkImages and GdkPixbufAnimations
 
 many functions missing from GtkRc; no methods bound for GtkRcStyle
 
