@@ -104,7 +104,7 @@ gdk_selection_owner_set_for_display (class, display, owner, selection, time_, se
 
 ##  GdkWindow *gdk_selection_owner_get_for_display (GdkDisplay *display, GdkAtom selection) 
 GdkWindow_ornull *
-gdk_selection_owner_get_for_display (clsas, display, selection)
+gdk_selection_owner_get_for_display (class, display, selection)
 	SV * class
 	GdkDisplay *display
 	GdkAtom selection
