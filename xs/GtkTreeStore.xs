@@ -55,7 +55,7 @@ gtk_tree_store_new (class, ...)
 =cut
 void
 gtk_tree_store_set_column_types (tree_store, ...)
-GtkTreeStore *tree_store
+	GtkTreeStore *tree_store
     PREINIT:
 	GArray * types;
     CODE:
