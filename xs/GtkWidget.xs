@@ -196,7 +196,7 @@ get_flags (widget, ...)
 		case 17: RETVAL = GTK_WIDGET_DOUBLE_BUFFERED  (widget); break;
 		case 18: RETVAL = GTK_WIDGET_CAN_DEFAULT      (widget); break;
 		case 19: RETVAL = GTK_WIDGET_HAS_DEFAULT      (widget); break;
-		default: croak ("inhandled case in flag_get - shouldn't happen");
+		default: croak ("unhandled case (%s) in get_flags - shouldn't happen", ix);
 	    }
 	} else {
 	    value = (gboolean) SvIV(ST(1));
@@ -206,10 +206,10 @@ get_flags (widget, ...)
 		case  3: flag = GTK_REALIZED	     ; break;
 		case  4: flag = GTK_MAPPED	     ; break;
 		case  5: flag = GTK_VISIBLE	     ; break;
-/* read only -	case  6: flag = GTK_DRAWABLE	     ; break; */
+		case  6: croak ("widget flag drawable is read only"); break;
 		case  7: flag = GTK_SENSITIVE	     ; break;
 		case  8: flag = GTK_PARENT_SENSITIVE ; break;
-/* read only -	case  9: flag = GTK_IS_SENSITIVE     ; break; */
+		case  9: croak ("widget flag is_sensitive is read only"); break;
 		case 10: flag = GTK_CAN_FOCUS	     ; break;
 		case 11: flag = GTK_HAS_FOCUS	     ; break;
 		case 12: flag = GTK_HAS_GRAB	     ; break;
@@ -220,7 +220,7 @@ get_flags (widget, ...)
 		case 17: flag = GTK_DOUBLE_BUFFERED  ; break;
 		case 18: flag = GTK_CAN_DEFAULT      ; break;
 		case 19: flag = GTK_HAS_DEFAULT      ; break;
-		default: croak ("inhandled case in flag_set - shouldn't happen");
+		default: croak ("unhandled case (%s) in set_flags - shouldn't happen", ix);
 	    }
 	    if ( value ) {
 	    	GTK_WIDGET_SET_FLAGS(widget, flag);
