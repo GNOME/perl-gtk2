@@ -381,7 +381,6 @@ gtk_action_group_add_radio_actions (action_group, radio_action_entries, value, o
 		croak ("radio_action_entries must be a reference to an array of action entries");
 	av = (AV*) SvRV (radio_action_entries);
 	n_actions = av_len (av) + 1;
-	warn ("n_actions : %d\n", n_actions);
 	if (n_actions < 1)
 		croak ("radio action array is empty");
 	entries = gperl_alloc_temp (sizeof (GtkRadioActionEntry) * n_actions);
