@@ -24,12 +24,11 @@
 
 #define GDK2PERL_TEXT_LIST_DECLARE	\
 	guchar *real_text = NULL;	\
-	gint length;			\
+	STRLEN length;			\
 	gchar **list = NULL;		\
 	int i, elements = 0;
 
 #define GDK2PERL_TEXT_LIST_FETCH	\
-	length = sv_len (text);		\
 	real_text = (guchar *) SvPV (text, length);
 
 #define GDK2PERL_TEXT_LIST_STORE	\
@@ -181,14 +180,13 @@ gdk_property_change (window, property, type, format, mode, ...)
 	guchar *data = NULL;
 	int i;
 	int first_index = 5;
-	gint nelements;
+	STRLEN nelements;
     CODE:
 	switch (format) {
 		case 8: {
 			SV *sv = ST (first_index);
 
 			/* need to use sv_len here because \0's are allowed. */
-			nelements = sv_len (sv);
 			data = (guchar *) SvPV (sv, nelements);
 			break;
 		}
