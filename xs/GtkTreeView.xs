@@ -679,23 +679,19 @@ gtk_tree_view_set_search_equal_func (tree_view, func, data=NULL)
 	                         (GDestroyNotify) gperl_callback_destroy);
 
 
-#if 0
-
-## according to the documentation, this function "should almost never be
-## used", and is exported for ATK.  i'll leave it out.
-#### void gtk_tree_view_set_destroy_count_func (GtkTreeView *tree_view, GtkTreeDestroyCountFunc func, gpointer data, GtkDestroyNotify destroy)
-void
-gtk_tree_view_set_destroy_count_func (tree_view, func, data=NULL)
-	GtkTreeView *tree_view
-	SV * func
-	SV * data
-    PREINIT:
-	GPerlCallback * callback;
-    CODE:
-	callback = gtk2perl_tree_view_destroy_count_func_create (func, data);
-	gtk_tree_view_set_destroy_count_func (tree_view,
-					      gtk2perl_tree_view_destroy_count_func,
-					      callback,
-					      (GDestroyNotify) gperl_callback_destroy);
-
-#endif
+#### according to the documentation, this function "should almost never be
+#### used", and is exported for ATK.  i'll leave it out.
+###### void gtk_tree_view_set_destroy_count_func (GtkTreeView *tree_view, GtkTreeDestroyCountFunc func, gpointer data, GtkDestroyNotify destroy)
+##void
+##gtk_tree_view_set_destroy_count_func (tree_view, func, data=NULL)
+##	GtkTreeView *tree_view
+##	SV * func
+##	SV * data
+##    PREINIT:
+##	GPerlCallback * callback;
+##    CODE:
+##	callback = gtk2perl_tree_view_destroy_count_func_create (func, data);
+##	gtk_tree_view_set_destroy_count_func (tree_view,
+##					      gtk2perl_tree_view_destroy_count_func,
+##					      callback,
+##					      (GDestroyNotify) gperl_callback_destroy);
