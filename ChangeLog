@@ -1,3 +1,16 @@
+2004/01/05 11:41 (-0500) rwmcfa1
+
+	* xs/GdkWindow.xs: merged get_children and peek_children into one
+	function that always uses peek children since we're copying the list
+	anyway. also fixes decent bug where list was being freed from 
+	peek_children which would of likely caused big problems.
+
+	* xs/GdkRegion.xs, xs/GdkWindow.xs, xs/GtkCellRenderer.xs,
+	xs/GtkContainer.xs, xs/GtkTreeModel.xs, xs/GtkWidget.xs,
+	xs/GtkWindow.xs: doc updates. some just made =for xxx, some fixed bad
+	doc. just added new doc. complete according to doc_helper.pl at this 
+	point.
+
 2004/01/04 21:41 (-0500) rwmcfa1
 
 	* t/accel-group-map.t: test out newly implemented xsubs

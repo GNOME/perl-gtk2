@@ -552,33 +552,27 @@ GdkWindow *
 gdk_window_get_toplevel (window)
 	GdkWindow *window
 
- ## GList * gdk_window_get_children (GdkWindow *window)
+## GList * gdk_window_get_children (GdkWindow *window)
+## GList * gdk_window_peek_children (GdkWindow *window)
+## we use ALIAS here b/c we're cheating and using peek_children all of the time 
+## since we're going to make a copy of the list anyway there's no need for gdk to
+=for apidoc Gtk2::Gdk::Window::peek_children
+An alias for get_children
+=cut
+=for apidoc
+Returns the list of children (Gtk2::Gdk::Window's) known to gdk.
+=cut
 void
 gdk_window_get_children (window)
 	GdkWindow *window
-    PREINIT:
-	GList *windows = NULL, *i;
-    PPCODE:
-	windows = gdk_window_get_children (window);
-
-	for (i = windows; i != NULL; i = i->next)
-		XPUSHs (sv_2mortal (newSVGdkWindow (i->data)));
-
-	g_list_free (windows);
-
- ## GList * gdk_window_peek_children (GdkWindow *window)
-void
-gdk_window_peek_children (window)
-	GdkWindow *window
+    ALIAS:
+	Gtk2::Gdk::Window::peek_children = 1
     PREINIT:
 	GList *windows = NULL, *i;
     PPCODE:
 	windows = gdk_window_peek_children (window);
-
 	for (i = windows; i != NULL; i = i->next)
 		XPUSHs (sv_2mortal (newSVGdkWindow (i->data)));
-
-	g_list_free (windows);
 
  ## GdkEventMask gdk_window_get_events (GdkWindow *window)
 GdkEventMask
@@ -644,6 +638,10 @@ gdk_window_set_functions (window, functions)
 	GdkWMFunction functions
 
  ## GList * gdk_window_get_toplevels (void)
+=for apidoc
+Returns a list of top level windows (Gtk2::Gdk::Window's) known to gdk, on the 
+default screen. A toplevel window is a child of the root window.
+=cut
 void
 gdk_window_get_toplevels (class)
     PREINIT:
@@ -770,9 +768,17 @@ void
 gdk_window_thaw_updates (window)
 	GdkWindow * window
 
+=for apidoc
+=for signature Gtk2::Gdk::Window->process_all_updates
+=for signature $window->process_all_updates
+=cut
 void gdk_window_process_all_updates (class_or_instance)
     C_ARGS: /*void*/
 
+=for apidoc
+=for signature Gtk2::Gdk::Window->set_debug_updates ($enable)
+=for signature $window->set_debug_updates ($enable)
+=cut
 void gdk_window_set_debug_updates (class_or_instance, gboolean enable)
     C_ARGS: enable
 

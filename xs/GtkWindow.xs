@@ -312,6 +312,10 @@ gtk_window_set_icon_from_file (window, filename)
 		gperl_croak_gerror (filename, error);
 
 #gboolean gtk_window_set_default_icon_from_file (GtkWindow *window, const gchar *filename, GError **err)
+=for apidoc
+=for signature Gtk2::Window->set_default_icon_from_file ($filename)
+=for signature $window->set_default_icon_from_file ($filename)
+=cut
 void
 gtk_window_set_default_icon_from_file (class_or_instance, filename)
 	GPerlFilename filename

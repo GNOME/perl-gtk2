@@ -261,14 +261,16 @@ gtk_container_add_with_properties (container, widget, ...)
 	g_object_unref (widget);
 	g_object_unref (container);
 
-=for apidoc
-
-=for arg ... list of property names
-
-=cut
  ## void gtk_container_child_get_valist (GtkContainer *container, GtkWidget *child, const gchar *first_property_name, va_list var_args)
  ## void gtk_container_child_get_property (GtkContainer *container, GtkWidget *child, const gchar *property_name, GValue *value)
  ## void gtk_container_child_get (GtkContainer *container, GtkWidget *child, const gchar *first_prop_name, ...)
+=for apidoc Gtk2::Container::child_get_property
+Alias for child_get
+=cut
+=for apidoc
+=for arg ... list of property names
+Returns a list of properties of the child.
+=cut
 void
 gtk_container_child_get (container, child, ...)
 	GtkContainer *container
@@ -292,14 +294,16 @@ gtk_container_child_get (container, child, ...)
 		g_value_unset (&value);
 	}
 
-=for apidoc
-
-=for arg ... list of property name/value pairs
-
-=cut
  ## void gtk_container_child_set_valist (GtkContainer *container, GtkWidget *child, const gchar *first_property_name, va_list var_args);
  ## void gtk_container_child_set_property (GtkContainer *container, GtkWidget *child, const gchar *property_name, const GValue *value)
  ## void gtk_container_child_set (GtkContainer *container, GtkWidget *child, const gchar *first_prop_name, ...)
+=for apidoc Gtk2::Container::child_set_property
+Alias for child_set
+=cut
+=for apidoc
+=for arg ... list of property name/value pairs
+Sets a list of properties on the child.
+=cut
 void
 gtk_container_child_set (container, child, ...)
 	GtkContainer *container

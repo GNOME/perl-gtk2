@@ -808,15 +808,31 @@ gchar* gtk_widget_get_composite_name (GtkWidget *widget)
 #/* Descend recursively and set rc-style on all widgets without user styles */
 void gtk_widget_reset_rc_styles (GtkWidget *widget)
  
+=for apidoc
+=for signature Gtk2::Widget->push_colormap (cmap)
+=for signature $widget->push_colormap (cmap)
+=cut
 void gtk_widget_push_colormap (class_or_widget, GdkColormap *cmap)
     C_ARGS: cmap
 
+=for apidoc
+=for signature Gtk2::Widget->pop_colormap (cmap)
+=for signature $widget->pop_colormap (cmap)
+=cut
 void gtk_widget_pop_colormap (class_or_widget)
     C_ARGS: /* void */
 
+=for apidoc
+=for signature Gtk2::Widget->push_composite_child (cmap)
+=for signature $widget->push_composite_child (cmap)
+=cut
 void gtk_widget_push_composite_child (class_or_widget)
     C_ARGS: /* void */
 
+=for apidoc
+=for signature Gtk2::Widget->pop_composite_child (cmap)
+=for signature $widget->pop_composite_child (cmap)
+=cut
 void gtk_widget_pop_composite_child (class_or_widget)
     C_ARGS: /* void */
 
@@ -839,6 +855,12 @@ void gtk_widget_pop_composite_child (class_or_widget)
 
 #if GTK_CHECK_VERSION(2,2,0)
 
+=for apidoc style_get_property
+An alias for style_get.
+=cut
+=for apidoc
+Returns a list of style properties.
+=cut
 void
 style_get (GtkWidget * widget, first_property_name, ...)
     ALIAS:
@@ -866,16 +888,32 @@ style_get (GtkWidget * widget, first_property_name, ...)
  #/* Set certain default values to be used at widget creation time.
  # */
 
+=for apidoc
+=for signature Gtk2::Widget->set_default_colormap ($colormap)
+=for signature $widget->set_default_colormap ($colormap)
+=cut
 void gtk_widget_set_default_colormap (class_or_widget, GdkColormap *colormap);
     C_ARGS: colormap
 
+=for apidoc
+=for signature style = Gtk2::Widget->get_default_style
+=for signature style = $widget->get_default_style
+=cut
 GtkStyle*
 gtk_widget_get_default_style (class_or_widget)
     C_ARGS: /* void */
 
+=for apidoc
+=for signature colormap = Gtk2::Widget->get_default_colormap
+=for signature colormap = $widget->get_default_colormap
+=cut
 GdkColormap* gtk_widget_get_default_colormap (class_or_widget)
     C_ARGS: /* void */
 
+=for apidoc
+=for signature visual = Gtk2::Widget->get_default_visual
+=for signature visual = $widget->get_default_visual
+=cut
 GdkVisual* gtk_widget_get_default_visual (class_or_widget)
     C_ARGS: /* void */
 

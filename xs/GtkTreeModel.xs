@@ -574,6 +574,9 @@ gtk_tree_model_row_deleted (tree_model, path)
 	GtkTreePath *path
 
 #### void gtk_tree_model_rows_reordered (GtkTreeModel *tree_model, GtkTreePath *path, GtkTreeIter *iter, gint *new_order)
+=for apidoc
+=for arg ... of integers, the new order
+=cut
 void
 gtk_tree_model_rows_reordered (tree_model, path, iter, ...)
 	GtkTreeModel *tree_model
