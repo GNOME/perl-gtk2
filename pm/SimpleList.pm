@@ -31,6 +31,7 @@ only bool is editable, and that's set up for you.
 =cut
 
 our %column_types = (
+  'hidden' => {type=>'Glib::String',                                        attr=>'hidden'},
   'text'   => {type=>'Glib::String',  renderer=>'Gtk2::CellRendererText',   attr=>'text'},
   'int'    => {type=>'Glib::Int',     renderer=>'Gtk2::CellRendererText',   attr=>'text'},
   'double' => {type=>'Glib::Double',  renderer=>'Gtk2::CellRendererText',   attr=>'text'},
@@ -85,6 +86,10 @@ sub new {
 				$column_info[$i]{title},
 				$column_info[$i]{rtype}->new,
 				$column_info[$i]{attr}, $i);
+		}
+		elsif ('hidden' eq $column_info[$i]{attr})
+		{
+			# skip hidden column
 		}
 		else
 		{
@@ -221,7 +226,7 @@ sub FETCH {
 
 sub STORE {
 	return $_[0]->{model}->set ($_[0]->{iter}, $_[1], $_[2])
-		if( $_[2] );
+		if defined $_[2]; # allow 0, but not undef
 }
 
 sub FETCHSIZE {
@@ -362,7 +367,23 @@ sub get_model {
 }
 
 sub STORESIZE { carp "STORESIZE: operation not supported"; }
-sub SPLICE { carp "SPLICE: operation not supported"; }
+
+sub SPLICE {
+	if ($_[2] == 0 && 'ARRAY' eq ref($_[3])) {
+		my $iter = $_[0]->{model}->insert($_[1]);
+		my @row;
+		tie @row, 'Gtk2::SimpleList::TiedRow', $_[0]->{model}, $iter;
+		if ('ARRAY' eq ref $_[3]) {
+			@row = @{$_[3]};
+		} else {
+			$row[0] = $_[3];
+		}
+		return 1;
+
+	} else {
+		carp "SPLICE: operation not fully supported";
+	}
+}
 
 1;
 
