@@ -1,3 +1,8 @@
+2004/01/28 15:42 (-0500) rwmcfa1
+
+	* xs/GtkCalendar.xs, xs/GtkRenderer.xs, xs/GtkTextChildAnchor.xs,
+	xs/GtkTextView.xs: apidoc updates
+
 2004/01/28 00:27 (+0100) kaffeetisch
 
 	A t/GdkSelection.t

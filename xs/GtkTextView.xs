@@ -134,6 +134,9 @@ gtk_text_view_get_iter_at_location (text_view, x, y)
 void gtk_text_view_get_line_yrange (GtkTextView *text_view, GtkTextIter *iter, OUTLIST gint y, OUTLIST gint height)
 
 ## void gtk_text_view_get_line_at_y (GtkTextView *text_view, GtkTextIter *target_iter, gint y, gint *line_top)
+=for apidoc 
+=for signature (target_iter, line_top) = $text_view->get_line_at_y ($y)
+=cut
 void
 gtk_text_view_get_line_at_y (text_view, y)
 	GtkTextView *text_view

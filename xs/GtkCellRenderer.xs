@@ -451,19 +451,6 @@ _install_overrides (const char * package)
 # class of the parent; so we rely on the package returned by caller().
 # therefore, it is only valid to call these from the derived package.
 #
-=for apidoc parent_get_size
-
-=for signature ($xoffset, $yoffset, $width, $height) = $cell->parent_get_size ($widget, $rectangle)
-
-=for arg ... (__hide__)
-=for arg widget (GtkWidget)
-=for arg rectangle (GdkRectangle_ornull)
-
-Invoke the C<get_size> method of the parent class; only valid in virtual
-overrides for C<on_get_size>.
-
-=cut
-
 =for apidoc parent_render
 
 =for signature $cell->parent_render ($window, $widget, $rectangle, $background_area, $cell_area, $expose_area, $flags)
@@ -515,6 +502,18 @@ overrides for C<on_start_editing>.
 
 =cut
 
+=for apidoc
+
+=for signature ($xoffset, $yoffset, $width, $height) = $cell->parent_get_size ($widget, $rectangle)
+
+=for arg ... (__hide__)
+=for arg widget (GtkWidget)
+=for arg rectangle (GdkRectangle_ornull)
+
+Invoke the C<get_size> method of the parent class; only valid in virtual
+overrides for C<on_get_size>.
+
+=cut
 void
 parent_get_size (GtkCellRenderer * cell, ...)
     ALIAS:

@@ -30,6 +30,9 @@ gtk_text_child_anchor_new (class)
 	/* void */
 
 ##  GList* gtk_text_child_anchor_get_widgets (GtkTextChildAnchor *anchor) 
+=for apidoc
+Returns a list of Gtk2::Widgets.
+=cut
 void
 gtk_text_child_anchor_get_widgets (anchor)
 	GtkTextChildAnchor *anchor

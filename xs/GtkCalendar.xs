@@ -10,11 +10,6 @@
 
 MODULE = Gtk2::Calendar	PACKAGE = Gtk2::Calendar	PREFIX = gtk_calendar_
 
-=for apidoc num_marked_dates
-=for signature $widget->num_marked_dates ($value)
-=for signature value = $widget->num_marked_dates
-=cut
-
 =for apidoc marked_date
 =for signature $widget->marked_date ($value)
 =for signature value = $widget->marked_date
@@ -35,6 +30,10 @@ MODULE = Gtk2::Calendar	PACKAGE = Gtk2::Calendar	PREFIX = gtk_calendar_
 =for signature value = $widget->selected_day
 =cut
 
+=for apidoc
+=for signature $widget->num_marked_dates ($value)
+=for signature value = $widget->num_marked_dates
+=cut
 void
 num_marked_dates (cal)
 	GtkCalendar* cal
