@@ -201,7 +201,9 @@ GTK_TYPE_RC_TOKEN_TYPE	GtkRcTokenType	GEnum	Gtk2::RcTokenType
 GTK_TYPE_SIZE_GROUP_MODE	GtkSizeGroupMode	GEnum	Gtk2::SizeGroupMode
 GTK_TYPE_SPIN_BUTTON_UPDATE_POLICY	GtkSpinButtonUpdatePolicy	GEnum	Gtk2::SpinButtonUpdatePolicy
 GTK_TYPE_SPIN_TYPE	GtkSpinType	GEnum	Gtk2::SpinType
-GTK_TYPE_TEXT_SEARCH_FLAGS	GtkTextSearchFlags	GEnum	Gtk2::TextSearchFlags
+# properly a GFlags in >= 2.3.x, misread as a GEnum in previous versions.
+# this is fixed with macro tricks in gtk2perl.h.
+GTK_TYPE_TEXT_SEARCH_FLAGS	GtkTextSearchFlags	GFlags	Gtk2::TextSearchFlags
 GTK_TYPE_TEXT_WINDOW_TYPE	GtkTextWindowType	GEnum	Gtk2::TextWindowType
 GTK_TYPE_TOOLBAR_CHILD_TYPE	GtkToolbarChildType	GEnum	Gtk2::ToolbarChildType
 GTK_TYPE_TOOLBAR_SPACE_STYLE	GtkToolbarSpaceStyle	GEnum	Gtk2::ToolbarSpaceStyle
