@@ -1,8 +1,11 @@
-2004/02/08 20:46 (-0500) muppetman
+2004/02/08 21:45 (-0500) muppetman
 
-	* Glib.pm, README, NEWS: unstable release 1.034
+	* Gtk2.pm, README, NEWS: unstable release 1.034
 
 	* Makefile.PL, README: require Glib 1.034
+
+	* t/GtkListStore.t, t/GtkTreeStore.t: update skips and such for
+	gtk+ 2.0.x
 
 2004/02/07 02:22 (-0500) muppetman
 

@@ -30,7 +30,9 @@ foreach (qw(bla blee bliii bloooo)) {
 my $path_model = Gtk2::TreePath -> new_from_string("0");
 my $iter_model;
 
-is($model -> remove($model -> get_iter($path_model)), 1);
+# remove returns boolean in >= 2.2.0, but false (actually, void) in 2.0.x.
+is($model -> remove($model -> get_iter($path_model)), 
+   (((Gtk2->get_version_info)[1] < 2) ? '' : 1));
 is($model -> get($model -> get_iter($path_model), 0), "blee");
 
 $model -> clear();
