@@ -2,12 +2,10 @@ list of objects that have been commited, tested, etc.
 initial by the ones you've worked on. beside that put to what level etc.
 
 (Rough) Stats:
-	97 of 140 modules completed or at least functional.
-	(not including the 11 marked as deprecated)
+	110 of 140 (possible) modules completed or paritally functional.
+	(excluding the 11 marked as deprecated)
 
 initial stuff of pango now in, very alpha
-
-in stuff by rm anything that's new to 2.2 probably needs to be added
 
 GObject
     GtkAccelGroup - rm (partial)
@@ -28,19 +26,18 @@ GObject
                     GtkButton - sla
                         GtkToggleButton - sla
                             GtkCheckButton - rm 
-                                GtkRadioButton - sla (partial, how to handle
-						      the GSList for groups?)
+                                GtkRadioButton - sla/rm (first pass, possible)
                         GtkOptionMenu - sla
                     GtkItem - rm 
                         GtkMenuItem - sla (partial)
                             GtkCheckMenuItem - rm 
-                                GtkRadioMenuItem - rm (commented out)
+                                GtkRadioMenuItem - rm (first pass, possible)
                             GtkImageMenuItem - rm 
                             GtkSeparatorMenuItem - rm 
                             GtkTearoffMenuItem - rm 
                         GtkListItem (deprecated)
                         GtkTreeItem (deprecated)
-                    GtkWindow - rm (partial, partial tested)
+                    GtkWindow - rm 
                         GtkDialog - sla
                             GtkColorSelectionDialog - rm 
                             GtkFileSelection - rm 
