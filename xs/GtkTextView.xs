@@ -116,12 +116,18 @@ gtk_text_view_get_iter_location (text_view, iter)
 	RETVAL
 
 ## void gtk_text_view_get_iter_at_location (GtkTextView *text_view, GtkTextIter *iter, gint x, gint y)
-void
-gtk_text_view_get_iter_at_location (text_view, iter, x, y)
+GtkTextIter_copy*
+gtk_text_view_get_iter_at_location (text_view, x, y)
 	GtkTextView * text_view
-	GtkTextIter * iter
 	gint          x
 	gint          y
+    PREINIT:
+	GtkTextIter iter;
+    CODE:
+	gtk_text_view_get_iter_at_location (text_view, &iter, x, y);
+	RETVAL = &iter;
+    OUTPUT:
+	RETVAL
 
 # TODO:  had to lose the const on GtkTextIter
 ## void gtk_text_view_get_line_yrange (GtkTextView *text_view, const GtkTextIter *iter, gint *y, gint *height)
