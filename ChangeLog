@@ -1,3 +1,20 @@
+2003/08/14 16:59 muppetman
+
+	* t/04.GtkSocket-GtkPlug.t: skip this test on win32
+
+	* Makefile.PL: find_extra_libs is a hack to look through the perl
+	library tree for the library created when the Glib module was 
+	installed, so we can add that to the libs line for Gtk2.  this is
+	necessary because win32 doesn't allow unresolved symbols in anything,
+	so we can't link to the all-important gperl_* without this.
+	*grumble*
+
+	* t/01.GtkWindow.t: true and false are not enums; use constants for
+	them and get around some hidden bugs; try to skip tests that aren't
+	available on windows.  number of tests didn't match up on various
+	versions because of improper method of skipping tests... i think it
+	works right now.
+
 2003/08/14 12:00 muppetman
 
 	* TODO: updates
