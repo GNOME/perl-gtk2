@@ -13,11 +13,14 @@ gtk_image_new (class)
 
 
  ## GtkWidget* gtk_image_new_from_pixmap (GdkPixmap *pixmap, GdkBitmap *mask)
- ##GtkWidget*
- ##gtk_image_new_from_pixmap (pixmap, mask)
- ##	GdkPixmap *pixmap
- ##	GdkBitmap *mask
- ##
+GtkWidget*
+gtk_image_new_from_pixmap (class, pixmap, mask)
+	SV * class
+	GdkPixmap_ornull * pixmap
+	GdkBitmap_ornull * mask
+    C_ARGS:
+	pixmap, mask
+
  ## GtkWidget* gtk_image_new_from_image (GdkImage *image, GdkBitmap *mask)
  ##GtkWidget*
  ##gtk_image_new_from_image (image, mask)
@@ -59,11 +62,11 @@ gtk_image_new_from_stock (class, stock_id, size)
  ##	GdkPixbufAnimation *animation
 
  ## void gtk_image_set_from_pixmap (GtkImage *image, GdkPixmap *pixmap, GdkBitmap *mask)
- ##void
- ##gtk_image_set_from_pixmap (image, pixmap, mask)
- ##	GtkImage *image
- ##	GdkPixmap *pixmap
- ##	GdkBitmap *mask
+void
+gtk_image_set_from_pixmap (image, pixmap, mask)
+	GtkImage * image
+	GdkPixmap_ornull * pixmap
+	GdkBitmap_ornull * mask
 
  ## void gtk_image_set_from_image (GtkImage *image, GdkImage *gdk_image, GdkBitmap *mask)
  ##void
@@ -108,11 +111,7 @@ gtk_image_get_storage_type (image)
 	GtkImage *image
 
  ## void gtk_image_get_pixmap (GtkImage *image, GdkPixmap **pixmap, GdkBitmap **mask)
- ##void
- ##gtk_image_get_pixmap (image, pixmap, mask)
- ##	GtkImage *image
- ##	GdkPixmap **pixmap
- ##	GdkBitmap **mask
+void gtk_image_get_pixmap (GtkImage *image, OUTLIST GdkPixmap * pixmap, OUTLIST GdkBitmap * mask)
 
  ## void gtk_image_get_image (GtkImage *image, GdkImage **gdk_image, GdkBitmap **mask)
  ##void
