@@ -687,26 +687,26 @@ gtk_widget_reset_shapes (widget)
 
 #if GTK_CHECK_VERSION(2,2,0)
 
-# GParamSpec not in typemap
+# GtkWidgetClass not in typemap
 ##GParamSpec* gtk_widget_class_find_style_property (GtkWidgetClass *klass, const gchar *property_name)
 #GParamSpec *
 #gtk_widget_class_find_style_property (klass, property_name)
 #	GtkWidgetClass * klass
 #	const gchar    * property_name
 #
-# GParamSpec not in typemap
+# GtkWidgetClass not in typemap
 ##GParamSpec** gtk_widget_class_list_style_properties (GtkWidgetClass *klass, guint *n_properties)
 #GParamSpec **
 #gtk_widget_class_list_style_properties (klass, n_properties)
 #	GtkWidgetClass * klass
 #	guint          * n_properties
-#
-#
-##GtkClipboard* gtk_widget_get_clipboard (GtkWidget *widget, GdkAtom selection)
-#GtkClipboard *
-#gtk_widget_get_clipboard (widget, selection)
-#	GtkWidget * widget
-#	GdkAtom     selection
+
+
+#GtkClipboard* gtk_widget_get_clipboard (GtkWidget *widget, GdkAtom selection)
+GtkClipboard *
+gtk_widget_get_clipboard (widget, selection=GDK_SELECTION_CLIPBOARD)
+	GtkWidget * widget
+	GdkAtom     selection
 
 
 #GdkDisplay* gtk_widget_get_display (GtkWidget *widget)
