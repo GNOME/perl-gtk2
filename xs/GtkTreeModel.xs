@@ -281,10 +281,16 @@ gtk_tree_model_get_value (tree_model, iter, column)
 
 ##
 ## gboolean gtk_tree_model_iter_next (GtkTreeModel *tree_model, GtkTreeIter *iter)
-gboolean
+GtkTreeIter_copy *
 gtk_tree_model_iter_next (tree_model, iter)
 	GtkTreeModel *tree_model
 	GtkTreeIter *iter
+    CODE:
+	if (!gtk_tree_model_iter_next (tree_model, iter))
+		XSRETURN_UNDEF;
+	RETVAL = iter;
+    OUTPUT:
+	RETVAL
 
 #### gboolean gtk_tree_model_iter_children (GtkTreeModel *tree_model, GtkTreeIter *iter, GtkTreeIter *parent)
 GtkTreeIter_own_ornull *
@@ -345,14 +351,13 @@ void
 gtk_tree_model_get (tree_model, iter, ...)
 	GtkTreeModel *tree_model
 	GtkTreeIter *iter
-	PREINIT:
+    PREINIT:
 	int i;
-	PPCODE:
+    PPCODE:
 	for (i = 2 ; i < items ; i++) {
-		SV * sv;
 		GValue gvalue = {0, };
-		gtk_tree_model_get_value (tree_model, iter, SvIV (ST (i)),
-		                          &gvalue);
+		gtk_tree_model_get_value (tree_model, iter, 
+		                          SvIV (ST (i)), &gvalue);
 		XPUSHs (sv_2mortal (gperl_sv_from_value (&gvalue)));
 		g_value_unset (&gvalue);
 	}
