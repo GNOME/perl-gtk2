@@ -1,3 +1,16 @@
+2003/08/19 21:11 rwmcfa1
+
+	* Makefile.PL: added realclean removal of build dir to postamble 
+	section.
+
+2003/08/19 21:11 rwmcfa1
+
+	* pm/SimpleMenu.pm, examples/simple_menu.pl: initial versions, and
+	example of how to use it, pod still to come.
+
+	* Makefile.PL: added realclean removal of build dir to postamble 
+	section. install SimpleMenu.pm
+
 2003/08/19 10:19 rwmcfa1
 
 	* t/*.t: fixed things so that test do not fail if init_check fails,
