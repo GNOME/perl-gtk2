@@ -183,32 +183,28 @@ http://gtk2-perl.sourceforge.net
 
 =head1 SEE ALSO
 
-perl(1), Glib(3pm).
+L<perl>(1), L<Glib>(3pm).
 
-Gtk2::Gdk::Keysyms(3pm) contains a hash of key codes, culled from
+L<Gtk2::Gdk::Keysyms>(3pm) contains a hash of key codes, culled from
 gdk/gdkkeysyms.h
 
-Gtk2::api(3pm) describes how to map the C API into perl, and some of the
+L<Gtk2::api>(3pm) describes how to map the C API into perl, and some of the
 important differences in the perl bindings.
 
-Gtk2::Helper(3pm) contains stuff that makes writing Gtk2 programs
+L<Gtk2::Helper>(3pm) contains stuff that makes writing Gtk2 programs
 a little easier.
 
-Gtk2::SimpleList(3pm) makes the GtkListStore and GtkTreeModel a I<lot>
+L<Gtk2::SimpleList>(3pm) makes the GtkListStore and GtkTreeModel a I<lot>
 easier to use.
 
-Gtk2::Pango(3pm) exports various little-used but important constants you may
-need to work with pango directly.
-
-Gtk2::Dialog::Responses(3pm) defines named constants for the numeric values
-of standard Gtk2::Dialog response codes seen only inside the response
-signal handler.
+L<Gtk2::Pango>(3pm) exports various little-used but important constants you
+may need to work with pango directly.
 
 Gtk2 also provides code to make it relatively painless to create perl
-wrappers for other GLib/Gtk-based libraries.  See Gtk2::CodeGen, 
-Glib::PkgConfig, and ExtUtils::Depends.  If you're writing bindings,
-you'll probably also be interested in Gtk2::devel, which is a supplement
-to Glib::devel and Glib::xsapi.  The Binding Howto, at
+wrappers for other GLib/Gtk-based libraries.  See L<Gtk2::CodeGen>,
+L<Glib::PkgConfig>, and L<ExtUtils::Depends>.  If you're writing bindings,
+you'll probably also be interested in L<Gtk2::devel>, which is a supplement
+to L<Glib::devel> and L<Glib::xsapi>.  The Binding Howto, at
 http://gtk2-perl.sourceforge.net/doc/binding_howto.pod.html, ties it all
 together.
 
