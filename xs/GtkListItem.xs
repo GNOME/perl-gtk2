@@ -26,7 +26,7 @@
 
 #include "gtk2perl.h"
 
-MODULE = Gtk2::ListItem	PACKAGE = Gtk2::ListItem	PREFIX = gtk_list_item
+MODULE = Gtk2::ListItem	PACKAGE = Gtk2::ListItem	PREFIX = gtk_list_item_
 
 #ifdef GTK_TYPE_LIST_ITEM
 
