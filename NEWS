@@ -1,3 +1,32 @@
+Overview of changes in Gtk2 1.080
+=================================
+
+ Since 1.06x (the previous stable series)
+ ----------------------------------------
+  * New objects: Gtk2::AboutDialog, Gtk2::CellRendererCombo,
+    Gtk2::CellRendererProgress, Gtk2::CellView, Gtk2::FileChooserButton,
+    Gtk2::IconView, Gtk2::MenuToolButton, Gtk2::Pango::FontMap, and
+    Gtk2::Pango::Script.
+  * New API in: Gtk2, Gtk2::Accelerator, Gtk2::Action, Gtk2::Button,
+    Gtk2::CellRenderer, Gtk2::Clipboard, Gtk2::ComboBox, Gtk2::Dialog,
+    Gtk2::Entry, Gtk2::EntryCompletion, Gtk2::FileChooser, Gtk2::FileFilter,
+    Gtk2::Gdk::Display, Gtk2::Gdk::DragContext, Gtk2::Gdk::Pixbuf,
+    Gtk2::Gdk::Rgb, Gtk2::Gdk::Window, Gtk2::IconTheme, Gtk2::IconView,
+    Gtk2::Image, Gtk2::Label, Gtk2::ListStore, Gtk2::Menu, Gtk2::MessageDialog,
+    Gtk2::Pango, Gtk2::Pango::FontDescription, Gtk2::Pango::Layout,
+    Gtk2::ProgressBar, Gtk2::SelectionData, Gtk2::TargetList, Gtk2::TextBuffer,
+    Gtk2::TextView, Gtk2::ToolItem, Gtk2::TreeView, Gtk2::Widget, and
+    Gtk2::Window.
+  * Support owner-change events.
+  * Enable translation of action groups.
+  * Gtk2::SimpleList handles undefined iters gracefully.
+  * Insertion methods in Gtk2::Notebook return the new position.
+  * Gtk2::Gdk::Pixmap::create_from_xpm handles non-existent files gracefully.
+
+ Since 1.074
+ -----------
+  * Sidestep a test failure.
+
 Overview of changes in Gtk2 1.074
 =================================
 
@@ -67,6 +96,18 @@ Overview of changes in Gtk2 1.070
   - PangoFontMap, PangoScript, and miscellaneous other pango functions.
     [Torsten]
 * Add support for owner-change events.  [Torsten]
+
+Overview of Changes in Gtk2 1.062
+=================================
+
+* Documentation fixes.  [muppet]
+* Properly create META.yml.  [muppet]
+* Make Gtk2::TreeModelFilter actually work by letting it inherit from
+  Gtk2::TreeModel.  [muppet]
+* Add missing interfaces to widgets that implement them.  [Ross]
+* Make the Gtk2::Clipboard constructors not assume ownership.  [Torsten]
+* Fix or disable some tests that fail with newer versions of Test::More.
+  [Torsten]
 
 Overview of Changes in Gtk2 1.061
 =================================
