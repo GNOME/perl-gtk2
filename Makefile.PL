@@ -6,6 +6,7 @@ use 5.008;
 use strict;
 use ExtUtils::MakeMaker;
 use File::Spec;
+use Config;
 use Cwd;
 
 # minimum required version of Glib with which we can work.
@@ -57,7 +58,7 @@ Gtk2::CodeGen->write_boot;
 
 # this one turns the long list of #defines in gdkkeysyms.h into a large
 # hash of key names and values, %Gtk2::Gdk::Keysyms.
-system 'perl genkeysyms.pl > build/Keysyms.pm';
+system "$Config{perlpath} genkeysyms.pl >\"build/Keysyms.pm\""; # the "" are essential for command.com
 
 #
 # since we've started down the dark path of breaking from standard 
