@@ -175,7 +175,7 @@ gdk_screen_get_default (class)
 
 ##  gboolean gdk_screen_get_setting (GdkScreen *screen, const gchar *name, GValue *value) 
 SV *
-gdk_screen_get_setting (screen, name, value)
+gdk_screen_get_setting (screen, name)
 	GdkScreen *screen
 	const gchar *name
     PREINIT:
