@@ -3,9 +3,8 @@
 #
 
 use Gtk2::TestHelper
-	# FIXME 2.4
-	at_least_version => [2, 3, 0, "GtkFileChooser is new in 2.4"],
-	tests => 37;
+	at_least_version => [2, 4, 0, "GtkFileChooser is new in 2.4"],
+	tests => 41;
 use File::Spec;
 use Cwd;
 
@@ -70,7 +69,7 @@ $filename = File::Spec->catfile ($cwd, 't');
 ok ($file_chooser->set_current_folder ($filename));
 is ($file_chooser->get_current_folder, $filename);
 
-$file_chooser->set_current_folder ($cwd);
+ok ($file_chooser->set_current_folder ($cwd));
 is ($file_chooser->get_current_folder, $cwd);
 
 
@@ -109,15 +108,18 @@ ok (!$file_chooser->get_preview_widget_active);
 $file_chooser->set_preview_widget_active (TRUE);
 ok ($file_chooser->get_preview_widget_active);
 
-$file_chooser->set_use_preview_label (1);
-is ($file_chooser->get_use_preview_label, 1);
+$file_chooser->set_use_preview_label (TRUE);
+is ($file_chooser->get_use_preview_label, TRUE);
 
-
-# FIXME
-#$filename = File::Spec->catfile ($cwd, 'gtk2perl.h');
-#$file_chooser->select_filename ($filename);
-#is ($file_chooser->get_preview_filename, $filename, 'get_preview_filename');
-#is ($file_chooser->get_preview_uri, "file://".$filename, 'get_preview_uri');
+# FIXME i can't for the life of me get these to work in this test, although
+# they function perfectly well in examples/file_chooser.pl
+TODO: { local $TODO = "Don't understand this one";
+$file_chooser->set_current_folder ($cwd);
+$filename = File::Spec->catfile ($cwd, 'gtk2perl.h');
+ok ($file_chooser->select_filename ($filename));
+is ($file_chooser->get_preview_filename, $filename, 'get_preview_filename');
+is ($file_chooser->get_preview_uri, "file://".$filename, 'get_preview_uri');
+}
 
 
 # Extra widget
@@ -150,20 +152,15 @@ is ($filter, $file_chooser->get_filter);
 $file_chooser->add_shortcut_folder ($cwd);
 $file_chooser->add_shortcut_folder_uri ("file://" . $cwd);
 
-SKIP: {
-	skip "list_shortcut_folders, get_uris, and get_filenames were broken prior to 2.3.5", 4
-		unless Gtk2->CHECK_VERSION (2, 3, 5);
+is_deeply ([$file_chooser->list_shortcut_folders], [$cwd, $cwd]);
+is_deeply ([$file_chooser->list_shortcut_folder_uris], ["file://" . $cwd, "file://" . $cwd]);
 
-	is_deeply ([$file_chooser->list_shortcut_folders], [$cwd, $cwd]);
-	is_deeply ([$file_chooser->list_shortcut_folder_uris], ["file://" . $cwd, "file://" . $cwd]);
+@list = $file_chooser->get_uris;
+ok (!scalar (@list), 'no uris selected');
 
-	@list = $file_chooser->get_uris;
-	ok (!scalar (@list), 'no uris selected');
-
-	$file_chooser->unselect_filename ($filename);
-	@list = $file_chooser->get_filenames;
-	is (scalar (@list), 0, 'unselected everything');
-}
+$file_chooser->unselect_filename ($filename);
+@list = $file_chooser->get_filenames;
+is (scalar (@list), 0, 'unselected everything');
 
 $file_chooser->remove_shortcut_folder ($cwd);
 $file_chooser->remove_shortcut_folder_uri ($cwd);
