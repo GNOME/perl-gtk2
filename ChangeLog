@@ -1,3 +1,26 @@
+2004/01/17 03:46 (-0500) muppetman
+
+	* Makefile.PL: maps is gone, use all of the maps-* files for
+	podifyenums.
+
+	* tools/podifyenums.pl: eat \$ARGV[0] and then process all files
+	on command line (with <>)
+
+	* examples/combo_box.pl, examples/color_list.pl,
+	examples/file_chooser.pl: refuse to run when linked against a
+	gtk+ that's too old
+
+	* examples/testdnd.pl: nobody told this example that the target
+	flags are no longer integers
+
+	* gtk-demo/hypertext.pl: bad logic kept hyperlinks from actually
+	working
+
+	* t/GtkTextBuffer.t: appropriate skips for 2.0.x
+
+	* xs/GdkEvent.xs: provide our own implementation of gdk_event_new()
+	on 2.0.x
+
 2004/01/17 02:35 (-0500) muppetman
 
 	* t/GtkExpander.t: doesn't need init.
