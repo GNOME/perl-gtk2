@@ -1,3 +1,13 @@
+2003/07/31 01:40 muppetman
+
+	* Gtk2.pm: mention Gtk2::api and Gtk2::SimpleList manpages
+
+	* Makefile.PL: install api.pod so perldoc can find it.
+
+	* examples/simplelist.pl, pm/SimpleList.pm, t/19.GtkSimpleList.t: add
+	simple interfaces to editable text cells and index-based selection
+	handling; modify and clarify other pod
+
 2003/07/29 22:06 rwmcfa1
 
 	* pm/SimpleList.pm: first pass at pod documentation done, small version
