@@ -1,6 +1,6 @@
 use strict;
 use warnings;
-use Gtk2::TestHelper tests => 68, noinit => 1;
+use Gtk2::TestHelper tests => 73, noinit => 1;
 
 my $show = 0;
 
@@ -134,6 +134,25 @@ SKIP: {
   is ($pixbuf->get_width, 20);
   is ($pixbuf->get_height, 25);
 }
+
+unlink $filename;
+
+
+$filename = 'testsave.png';
+my $mtime = scalar localtime;
+my $desc = 'Something really cool';
+$pixbuf->save ($filename, 'png',
+	       'tEXt::Thumb::MTime' => $mtime,
+	       'tEXt::Description' => $desc);
+ok (1);
+
+$pixbuf = Gtk2::Gdk::Pixbuf->new_from_file ($filename);
+isa_ok ($pixbuf, 'Gtk2::Gdk::Pixbuf', 'new_from_file');
+
+is ($pixbuf->get_option ('tEXt::Description'), $desc, 'get_option works');
+is ($pixbuf->get_option ('tEXt::Thumb::MTime'), $mtime, 'get_option works');
+ok (! $pixbuf->get_option ('tEXt::noneXIStenTTag'),
+    'get_option returns undef if the key is not found');
 
 unlink $filename;
 

@@ -240,6 +240,12 @@ int
 gdk_pixbuf_get_rowstride (pixbuf)
 	GdkPixbuf *pixbuf
 
+## G_CONST_RETURN gchar * gdk_pixbuf_get_option (GdkPixbuf *pixbuf, const gchar *key)
+const gchar_ornull *
+gdk_pixbuf_get_option (pixbuf, key)
+	GdkPixbuf * pixbuf
+	const gchar * key
+
 ##  GdkPixbuf *gdk_pixbuf_new (GdkColorspace colorspace, gboolean has_alpha, int bits_per_sample, int width, int height) 
 GdkPixbuf_noinc *
 gdk_pixbuf_new (class, colorspace, has_alpha, bits_per_sample, width, height)
