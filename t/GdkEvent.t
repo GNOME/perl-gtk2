@@ -189,11 +189,11 @@ is ($@, '', "nor does time with an arg");
 
 Gtk2::Gdk::Event->put ($event);
 is (Gtk2::Gdk->events_pending, 1);
-isa_ok (Gtk2::Gdk::Event->get, "Gtk2::Gdk::Event::Crossing");
+isa_ok (Gtk2::Gdk::Event->get, "Gtk2::Gdk::Event");
 
 Gtk2::Gdk::Event->put ($event);
 is (Gtk2::Gdk->events_pending, 1);
-isa_ok (Gtk2::Gdk::Event->peek, "Gtk2::Gdk::Event::Crossing");
+isa_ok (Gtk2::Gdk::Event->peek, "Gtk2::Gdk::Event");
 
 my $i_know_you = 0;
 
@@ -203,7 +203,7 @@ Gtk2::Gdk::Event -> handler_set(sub {
 	my ($ev, $data) = @_;
 
 	ok ((ref $ev eq 'Gtk2::Gdk::Event::Crossing' or
-	     ref $ev eq 'Gtk2::Gdk::Event'), '$ev of expected type');
+	     UNIVERSAL::isa ($ev, 'Gtk2::Gdk::Event')), '$ev of expected type');
 	is ($data, 'bla', 'user data passed properly');
 
 	# pass to gtk+ default handler

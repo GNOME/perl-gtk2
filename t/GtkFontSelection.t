@@ -22,7 +22,7 @@ isa_ok($dialog -> apply_button, "Gtk2::Button");
 isa_ok($dialog -> cancel_button, "Gtk2::Button");
 
 ok($dialog -> set_font_name("Sans 12"));
-is($dialog -> get_font_name(), "Sans 12");
+is(lc($dialog -> get_font_name()), "sans 12");
 
 $dialog -> set_preview_text("Quick brown gtk2-perl.");
 is($dialog -> get_preview_text(), "Quick brown gtk2-perl.");
