@@ -292,9 +292,9 @@ use constant  TARGET_STRING => 0;
 use constant  TARGET_ROOTWIN => 1;
 
 @target_table = (
-	{'target' => "STRING", 'flags' => 0, 'info' => TARGET_STRING},
-	{'target' => "text/plain", 'flags' => 0, 'info' => TARGET_STRING},
-	{'target' => "application/x-rootwin-drop", 'flags' => 0, 'info' => TARGET_ROOTWIN},
+	{'target' => "STRING", 'flags' => [], 'info' => TARGET_STRING},
+	{'target' => "text/plain", 'flags' => [], 'info' => TARGET_STRING},
+	{'target' => "application/x-rootwin-drop", 'flags' => [], 'info' => TARGET_ROOTWIN},
 );
 
 sub target_drag_leave {
