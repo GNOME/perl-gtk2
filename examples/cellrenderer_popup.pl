@@ -96,11 +96,11 @@ sub get_layout {
 }
 
 sub on_render {
-	my ($cell, $window, $widget, $background_area, $cell_area, $expose_area, $flags) = @_;
+	my ($cell, $drawable, $widget, $background_area, $cell_area, $expose_area, $flags) = @_;
 	my $state = 'normal';
 
 	if ($cell->{show_box}) {
-		$widget->get_style->paint_box ($window, $widget->state,
+		$widget->get_style->paint_box ($drawable, $widget->state,
 					 'out', $cell_area,
 					 undef, "optionmenu",
 					 $cell_area->x,
@@ -123,14 +123,14 @@ sub on_render {
 	$layout->set_text ($cell->{list}[$cell->{index}] || "");
 	my ($xoff, $yoff, $width, $height) = $cell->calc_size ($layout);
 
-	$widget->get_style->paint_layout ($window,
+	$widget->get_style->paint_layout ($drawable,
 				 $state,
 			         1, $cell_area,
 				 $widget, "cellrenderertext",
                                  $cell_area->x + $xoff + xpad,
                                  $cell_area->y + $yoff + ypad,
 				 $layout);
-	$widget->get_style->paint_arrow ($window, $state, 'none',
+	$widget->get_style->paint_arrow ($drawable, $state, 'none',
 				$cell_area, $widget, "",
 				'down', 0,
 				$cell_area->x+$cell_area->width - arrow_width,
@@ -165,15 +165,25 @@ sub menu_pos_func {
 
 
 sub editing_done {
-	warn Dumper(\@_);
-	my ($item, $cell) = @_;
+	my ($item, $info) = @_;
+	my ($cell, $editable) = @$info;
 	$cell->signal_emit ('edited', $item->{path}, $item->{index});
+	# see the evil trick description below
+	$editable->remove_widget;
 }
 
 sub on_start_editing {
 	my ($cell, $event, $widget, $path, $background_area, $cell_area, $flags) = @_;
 	my $menu = Gtk2::Menu->new;
 	my @data = @{ $cell->{list} };
+
+	# this is an evil trick.  we're creating a custom widget and handling
+	# the editing ourselves, but the higher level code only thinks we're
+	# editing if we return an editable.  so we return an editable.  of
+	# course, we have to remove it in the menu activate callbacks so that
+	# it doesn't stick around.
+	my $editable = Gtk2::Entry->new;
+
 	for (my $i = 0 ; $i < @data ; $i++) {
 		my $item = Gtk2::MenuItem->new ($data[$i]);
 		$item->show;
@@ -181,7 +191,8 @@ sub on_start_editing {
 		$item->{path} = $path;
 		$item->{index} = $i;
 		$item->{text} = $data[$i];
-		$item->signal_connect (activate => \&editing_done, $cell);
+		#$item->signal_connect (activate => \&editing_done, $cell);
+		$item->signal_connect (activate => \&editing_done, [$cell, $editable]);
 	}
 	$menu->set_active ($cell->{index});
 	$menu->popup (undef, undef,
@@ -189,7 +200,9 @@ sub on_start_editing {
 	              $event ? $event->button : 0, 0);
 	$item = $menu->get_active;
 	$menu->select_item ($item) if $item;
-	undef;
+
+	# see the evil trick mentioned above.
+	$editable;
 }
 
 
@@ -227,6 +240,9 @@ foreach ([ 'foo',        [qw/foo bar baz/]],
 
 # now a view
 $treeview = Gtk2::TreeView->new ($model);
+$treeview->set_rules_hint (1);
+$treeview->set_reorderable (1);
+
 
 #
 # regular editable text column for column 0, the string

@@ -41,7 +41,11 @@ static void gtk2perl_cell_renderer_get_size
 				       gint                 * height);
 static void gtk2perl_cell_renderer_render
                                       (GtkCellRenderer      * cell,
+#if GTK_CHECK_VERSION(2,3,0)
+                                       GdkDrawable          * window,
+#else
 				       GdkWindow            * window,
+#endif
 				       GtkWidget            * widget,
 				       GdkRectangle         * background_area,
 				       GdkRectangle         * cell_area,
@@ -130,7 +134,11 @@ gtk2perl_cell_renderer_get_size (GtkCellRenderer      * cell,
 
 static void
 gtk2perl_cell_renderer_render (GtkCellRenderer      * cell,
-			       GdkWindow            * window,
+#if GTK_CHECK_VERSION(2,3,0)
+			       GdkDrawable          * drawable,
+#else
+			       GdkWindow            * drawable,
+#endif
 			       GtkWidget            * widget,
 			       GdkRectangle         * background_area,
 			       GdkRectangle         * cell_area,
@@ -149,7 +157,7 @@ gtk2perl_cell_renderer_render (GtkCellRenderer      * cell,
 
 		EXTEND (SP, 7);
 		PUSHs (newSVGtkCellRenderer (cell));
-		PUSHs (newSVGdkWindow_ornull (window));
+		PUSHs (newSVGdkDrawable_ornull (drawable));
 		PUSHs (newSVGtkWidget_ornull (widget));
 		PUSHs (sv_2mortal (newSVGdkRectangle_ornull (background_area)));
 		PUSHs (sv_2mortal (newSVGdkRectangle_ornull (cell_area)));
@@ -350,9 +358,9 @@ gtk_cell_renderer_get_size (cell, widget)
 
 ## void gtk_cell_renderer_render (GtkCellRenderer *cell, GdkWindow *window, GtkWidget *widget, GdkRectangle *background_area, GdkRectangle *cell_area, GdkRectangle *expose_area, GtkCellRendererState flags)
 void
-gtk_cell_renderer_render (cell, window, widget, background_area, cell_area, expose_area, flags)
+gtk_cell_renderer_render (cell, drawable, widget, background_area, cell_area, expose_area, flags)
 	GtkCellRenderer      * cell
-	GdkWindow            * window
+	GdkDrawable          * drawable
 	GtkWidget            * widget
 	GdkRectangle         * background_area
 	GdkRectangle         * cell_area
@@ -456,7 +464,7 @@ overrides for C<on_get_size>.
 =for signature $cell->parent_render ($window, $widget, $rectangle, $background_area, $cell_area, $expose_area, $flags)
 
 =for arg ... (__hide__)
-=for arg window (GdkWindow)
+=for arg drawable (GdkDrawable)
 =for arg widget (GtkWidget)
 =for arg background_area (GdkRectangle_ornull)
 =for arg cell_area (GdkRectangle_ornull)
@@ -547,7 +555,7 @@ call_parent (GtkCellRenderer * cell, ...)
 	    case 1:
 		if (class->render)
 			class->render (cell,
-			               SvGdkWindow_ornull (ST (1)), /* window */
+			               SvGdkDrawable_ornull (ST (1)), /* drawable */
 				       SvGtkWidget_ornull (ST (2)), /* widget */
 				       SvGdkRectangle_ornull (ST (3)), /* background_area */
 				       SvGdkRectangle_ornull (ST (4)), /* cell_area */
@@ -583,3 +591,5 @@ call_parent (GtkCellRenderer * cell, ...)
 		}
 		break;
 	}
+
+

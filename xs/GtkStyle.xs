@@ -198,7 +198,7 @@ MODULE = Gtk2::Style	PACKAGE = Gtk2::Style	PREFIX = gtk_
 void
 gtk_paint_flat_box (style, window, state_type, shadow_type, area, widget, detail, x, y, width, height)
 	GtkStyle *style
-	GdkWindow *window
+	GdkDrawable *window
 	GtkStateType state_type
 	GtkShadowType shadow_type
 	GdkRectangle_ornull *area
@@ -213,7 +213,7 @@ gtk_paint_flat_box (style, window, state_type, shadow_type, area, widget, detail
 void
 gtk_paint_hline (style, window, state_type, area, widget, detail, x1, x2, y)
 	GtkStyle *style
-	GdkWindow *window
+	GdkDrawable *window
 	GtkStateType state_type
 	GdkRectangle_ornull *area
 	GtkWidget_ornull *widget
@@ -226,7 +226,7 @@ gtk_paint_hline (style, window, state_type, area, widget, detail, x1, x2, y)
 void
 gtk_paint_vline (style, window, state_type, area, widget, detail, y1_, y2_, x)
 	GtkStyle *style
-	GdkWindow *window
+	GdkDrawable *window
 	GtkStateType state_type
 	GdkRectangle_ornull *area
 	GtkWidget_ornull *widget
@@ -239,7 +239,7 @@ gtk_paint_vline (style, window, state_type, area, widget, detail, y1_, y2_, x)
 void
 gtk_paint_shadow (style, window, state_type, shadow_type, area, widget, detail, x, y, width, height)
 	GtkStyle *style
-	GdkWindow *window
+	GdkDrawable *window
 	GtkStateType state_type
 	GtkShadowType shadow_type
 	GdkRectangle_ornull *area
@@ -254,7 +254,7 @@ gtk_paint_shadow (style, window, state_type, shadow_type, area, widget, detail, 
 void
 gtk_paint_polygon (style, window, state_type, shadow_type, area, widget, detail, fill, x1, y1, ...)
 	GtkStyle *style
-	GdkWindow *window
+	GdkDrawable *window
 	GtkStateType state_type
 	GtkShadowType shadow_type
 	GdkRectangle_ornull *area
@@ -281,7 +281,7 @@ gtk_paint_polygon (style, window, state_type, shadow_type, area, widget, detail,
 void
 gtk_paint_arrow (style, window, state_type, shadow_type, area, widget, detail, arrow_type, fill, x, y, width, height)
 	GtkStyle *style
-	GdkWindow *window
+	GdkDrawable *window
 	GtkStateType state_type
 	GtkShadowType shadow_type
 	GdkRectangle_ornull *area
@@ -298,7 +298,7 @@ gtk_paint_arrow (style, window, state_type, shadow_type, area, widget, detail, a
 void
 gtk_paint_diamond (style, window, state_type, shadow_type, area, widget, detail, x, y, width, height)
 	GtkStyle *style
-	GdkWindow *window
+	GdkDrawable *window
 	GtkStateType state_type
 	GtkShadowType shadow_type
 	GdkRectangle_ornull *area
@@ -313,7 +313,7 @@ gtk_paint_diamond (style, window, state_type, shadow_type, area, widget, detail,
 void
 gtk_paint_box (style, window, state_type, shadow_type, area, widget, detail, x, y, width, height)
 	GtkStyle *style
-	GdkWindow *window
+	GdkDrawable *window
 	GtkStateType state_type
 	GtkShadowType shadow_type
 	GdkRectangle_ornull *area
@@ -328,7 +328,7 @@ gtk_paint_box (style, window, state_type, shadow_type, area, widget, detail, x, 
 void
 gtk_paint_check (style, window, state_type, shadow_type, area, widget, detail, x, y, width, height)
 	GtkStyle *style
-	GdkWindow *window
+	GdkDrawable *window
 	GtkStateType state_type
 	GtkShadowType shadow_type
 	GdkRectangle_ornull *area
@@ -343,7 +343,7 @@ gtk_paint_check (style, window, state_type, shadow_type, area, widget, detail, x
 void
 gtk_paint_option (style, window, state_type, shadow_type, area, widget, detail, x, y, width, height)
 	GtkStyle *style
-	GdkWindow *window
+	GdkDrawable *window
 	GtkStateType state_type
 	GtkShadowType shadow_type
 	GdkRectangle_ornull *area
@@ -358,7 +358,7 @@ gtk_paint_option (style, window, state_type, shadow_type, area, widget, detail, 
 void
 gtk_paint_tab (style, window, state_type, shadow_type, area, widget, detail, x, y, width, height)
 	GtkStyle *style
-	GdkWindow *window
+	GdkDrawable *window
 	GtkStateType state_type
 	GtkShadowType shadow_type
 	GdkRectangle_ornull *area
@@ -373,7 +373,7 @@ gtk_paint_tab (style, window, state_type, shadow_type, area, widget, detail, x, 
 void
 gtk_paint_shadow_gap (style, window, state_type, shadow_type, area, widget, detail, x, y, width, height, gap_side, gap_x, gap_width)
 	GtkStyle *style
-	GdkWindow *window
+	GdkDrawable *window
 	GtkStateType state_type
 	GtkShadowType shadow_type
 	GdkRectangle_ornull *area
@@ -391,7 +391,7 @@ gtk_paint_shadow_gap (style, window, state_type, shadow_type, area, widget, deta
 void
 gtk_paint_box_gap (style, window, state_type, shadow_type, area, widget, detail, x, y, width, height, gap_side, gap_x, gap_width)
 	GtkStyle *style
-	GdkWindow *window
+	GdkDrawable *window
 	GtkStateType state_type
 	GtkShadowType shadow_type
 	GdkRectangle_ornull *area
@@ -409,7 +409,7 @@ gtk_paint_box_gap (style, window, state_type, shadow_type, area, widget, detail,
 void
 gtk_paint_extension (style, window, state_type, shadow_type, area, widget, detail, x, y, width, height, gap_side)
 	GtkStyle *style
-	GdkWindow *window
+	GdkDrawable *window
 	GtkStateType state_type
 	GtkShadowType shadow_type
 	GdkRectangle_ornull *area
@@ -425,7 +425,7 @@ gtk_paint_extension (style, window, state_type, shadow_type, area, widget, detai
 void
 gtk_paint_focus (style, window, state_type, area, widget, detail, x, y, width, height)
 	GtkStyle *style
-	GdkWindow *window
+	GdkDrawable *window
 	GtkStateType state_type
 	GdkRectangle_ornull *area
 	GtkWidget_ornull *widget
@@ -439,7 +439,7 @@ gtk_paint_focus (style, window, state_type, area, widget, detail, x, y, width, h
 void
 gtk_paint_slider (style, window, state_type, shadow_type, area, widget, detail, x, y, width, height, orientation)
 	GtkStyle *style
-	GdkWindow *window
+	GdkDrawable *window
 	GtkStateType state_type
 	GtkShadowType shadow_type
 	GdkRectangle_ornull *area
@@ -455,7 +455,7 @@ gtk_paint_slider (style, window, state_type, shadow_type, area, widget, detail, 
 void
 gtk_paint_handle (style, window, state_type, shadow_type, area, widget, detail, x, y, width, height, orientation)
 	GtkStyle *style
-	GdkWindow *window
+	GdkDrawable *window
 	GtkStateType state_type
 	GtkShadowType shadow_type
 	GdkRectangle_ornull *area
@@ -471,7 +471,7 @@ gtk_paint_handle (style, window, state_type, shadow_type, area, widget, detail, 
 void
 gtk_paint_expander (style, window, state_type, area, widget, detail, x, y, expander_style)
 	GtkStyle *style
-	GdkWindow *window
+	GdkDrawable *window
 	GtkStateType state_type
 	GdkRectangle_ornull *area
 	GtkWidget *widget
@@ -484,7 +484,7 @@ gtk_paint_expander (style, window, state_type, area, widget, detail, x, y, expan
 void
 gtk_paint_layout (style, window, state_type, use_text, area, widget, detail, x, y, layout)
 	GtkStyle *style
-	GdkWindow *window
+	GdkDrawable *window
 	GtkStateType state_type
 	gboolean use_text
 	GdkRectangle_ornull *area
@@ -498,7 +498,7 @@ gtk_paint_layout (style, window, state_type, use_text, area, widget, detail, x, 
 void
 gtk_paint_resize_grip (style, window, state_type, area, widget, detail, edge, x, y, width, height)
 	GtkStyle *style
-	GdkWindow *window
+	GdkDrawable *window
 	GtkStateType state_type
 	GdkRectangle_ornull *area
 	GtkWidget_ornull *widget

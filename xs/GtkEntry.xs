@@ -24,10 +24,8 @@
 MODULE = Gtk2::Entry	PACKAGE = Gtk2::Entry	PREFIX = gtk_entry_
 
 BOOT:
-	{
-	AV * isa = get_av ("Gtk2::Entry::ISA", TRUE);
-	av_push (isa, newSVpv ("Gtk2::Editable", 0));
-	}
+	gperl_prepend_isa ("Gtk2::Entry", "Gtk2::CellEditable");
+	gperl_prepend_isa ("Gtk2::Entry", "Gtk2::Editable");
 
 GtkWidget*
 gtk_entry_new (class)

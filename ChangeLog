@@ -1,3 +1,23 @@
+2003/10/29 12:40 muppetman
+
+	fixing a few things while tracking down bugs reported by
+	Bjarne Steinsbø:
+
+	* xs/GtkCellRenderer.xs, xs/GtkStyle.xs: all of the gtk_paint_foo()
+	functions ask for GdkWindows, but actually work on GdkDrawables.
+	according to http://bugzilla.gnome.org/show_bug.cgi?id=102678 ,
+	the same is true for gtk_cell_renderer_render(), and has been fixed
+	in gtk+ 2.3.0.  so, we use GdkDrawable instead of GdkWindow in all
+	of those places.
+
+	* examples/cellrenderer_popup.pl: if the treeview is reorderable,
+	the popup and editing interaction is broken, resulting in the treeview
+	thinking we're still dragging the row.  fix that by using a dummy
+	GtkCellEditable.
+
+	* xs/GtkEntry.xs: GtkEntry also implements GtkCellEditable.
+	use gperl_prepend_isa() instead of custom AV-handling code.
+
 2003/10/29 09:36 rwmcfa1
 
 	* xs/GtkWidget.xs: improved error messages in get/set_flags. croak when
