@@ -1,3 +1,16 @@
+2003/05/27 18:50 muppetman
+
+	implementing missing bindings for selection handling and drag and 
+	drop stuff.
+
+	* xs/GdkDnd.xs, xs/GtkDnd.xs, xs/GtkSelection.xs, examples/testdnd.pl:
+	new files
+
+	* gtk2perl.h, xs/GdkTypes.xs, gdk.typemap: added type handling for
+	GdkAtom and GtkTargetEntry
+
+	* xs/GtkWidget.xs: added get_colormap
+
 2003/05/27 14:38 rwmcfa1
 
 	* xs/GtkWidget.xs: get_style was missing, in it's place was style, they're
