@@ -1,3 +1,16 @@
+2004/03/14 04:00 (-0500) muppetman
+
+	* examples/adding_stock_icons.pl, examples/customrenderer.pl,
+	examples/file_chooser.pl, examples/histogramplot.pl,
+	examples/insert-text-test.pl, examples/testdnd.pl:
+	improve commentary, so these make better examples.
+ 
+	* examples/calendar.pl: remove cruft; use dialog's response rather
+	than old-school manip of buttons.
+ 
+	* examples/combo_box.pl: do something more interesting with the
+	do-it-yourself cell renderer example.
+ 
 2004/03/12 23:11 (-0500) muppetman
 
 	* Gtk2.exports: fix missing symbols in the exports so we can link
