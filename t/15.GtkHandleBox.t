@@ -17,7 +17,7 @@ use Test::More;
 
 if( Gtk2->init_check )
 {
-	plan tests => 10;
+	plan tests => 11;
 }
 else
 {
@@ -53,6 +53,8 @@ $hb->set_handle_position('left');
 ok( $hb->get_handle_position eq 'left' );
 $hb->set_handle_position('top');
 ok( $hb->get_handle_position eq 'top' );
+
+ok( ! $hb->get_child_detached );
 
 Glib::Idle->add( sub {
 		Gtk2->main_quit;

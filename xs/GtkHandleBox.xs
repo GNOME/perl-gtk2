@@ -62,3 +62,11 @@ GtkPositionType
 gtk_handle_box_get_snap_edge (handle_box)
 	GtkHandleBox * handle_box
 
+## Added to have an accessor for child_detached.
+gboolean
+gtk_handle_box_get_child_detached (handle_box)
+	GtkHandleBox * handle_box
+    CODE:
+	RETVAL = handle_box->child_detached;
+    OUTPUT:
+	RETVAL
