@@ -95,6 +95,8 @@ t/GdkWindow.t
 t/GtkAccelGroup.t
 t/GtkAccelLabel.t
 t/GtkAccelMap.t
+t/GtkAction.t
+t/GtkActionGroup.t
 t/GtkAdjustment.t
 t/GtkAlignment.t
 t/GtkArrow.t
@@ -104,6 +106,7 @@ t/GtkBox.t
 t/GtkButton.t
 t/GtkButtonBox.t
 t/GtkCalendar.t
+t/GtkCellLayout.t
 t/GtkCellRenderer.t
 t/GtkCheckButton.t
 t/GtkCheckMenuItem.t
@@ -113,13 +116,19 @@ t/GtkColorSelection.t
 t/GtkColorSelectionDialog.t
 t/GtkCombo.t
 t/GtkComboBox.t
+t/GtkComboBoxEntry.t
 t/GtkCurve.t
 t/GtkDialog.t
 t/GtkDnd.t
 t/GtkDrawingArea.t
 t/GtkEntry.t
+t/GtkEntryCompletion.t
 t/GtkEventBox.t
 t/GtkExpander.t
+t/GtkFileChooser.t
+t/GtkFileChooserDialog.t
+t/GtkFileChooserWidget.t
+t/GtkFileFilter.t
 t/GtkFileSelection.t
 t/GtkFixed.t
 t/GtkFontButton.t
@@ -135,6 +144,7 @@ t/GtkHScrollbar.t
 t/GtkHSeparator.t
 t/GtkHandleBox.t
 t/GtkIconFactory.t
+t/GtkIconTheme.t
 t/GtkImage.t
 t/GtkImageMenuItem.t
 t/GtkInputDialog.t
@@ -154,8 +164,10 @@ t/GtkObject.t
 t/GtkOptionMenu.t
 t/GtkPaned.t
 t/GtkProgressBar.t
+t/GtkRadioAction.t
 t/GtkRadioButton.t
 t/GtkRadioMenuItem.t
+t/GtkRadioToolButton.t
 t/GtkRange.t
 t/GtkRc.t
 t/GtkRuler.t
@@ -163,6 +175,7 @@ t/GtkScale.t
 t/GtkScrolledWindow.t
 t/GtkSelection.t
 t/GtkSeparatorMenuItem.t
+t/GtkSeparatorToolItem.t
 t/GtkSimpleList.t
 t/GtkSimpleMenu.t
 t/GtkSizeGroup.t
@@ -180,11 +193,16 @@ t/GtkTextTag.t
 t/GtkTextTagTable.t
 t/GtkTextView.t
 t/GtkToggleButton.t
+t/GtkToggleToolButton.t
+t/GtkToolAction.t
 t/GtkToolbar.t
+t/GtkToolItem.t
 t/GtkTooltips.t
+t/GtkTreeModelFilter.t
 t/GtkTreeSelection.t
 t/GtkTreeStore.t
 t/GtkTreeView.t
+t/GtkUIManager.t
 t/GtkVBox.t
 t/GtkVButtonBox.t
 t/GtkVPaned.t
@@ -224,7 +242,6 @@ xs/Gtk2.xs
 xs/GtkAccelGroup.xs
 xs/GtkAccelLabel.xs
 xs/GtkAccelMap.xs
-xs/GtkAction.xs
 xs/GtkActionGroup.xs
 xs/GtkAdjustment.xs
 xs/GtkAlignment.xs
@@ -249,7 +266,6 @@ xs/GtkColorSelection.xs
 xs/GtkColorSelectionDialog.xs
 xs/GtkCombo.xs
 xs/GtkComboBox.xs
-xs/GtkComboBoxEntry.xs
 xs/GtkContainer.xs
 xs/GtkCurve.xs
 xs/GtkDialog.xs
@@ -260,10 +276,8 @@ xs/GtkEntry.xs
 xs/GtkEntryCompletion.xs
 xs/GtkEventBox.xs
 xs/GtkExpander.xs
-xs/GtkFileChooser.xs
 xs/GtkFileChooserDialog.xs
 xs/GtkFileChooserWidget.xs
-xs/GtkFileFilter.xs
 xs/GtkFileSelection.xs
 xs/GtkFixed.xs
 xs/GtkFontButton.xs

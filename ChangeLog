@@ -1,3 +1,25 @@
+2004/01/19 20:52 (-0500) muppetman
+
+	A t/GtkActionGroup.t
+	A t/GtkCellLayout.t
+	A t/GtkEntryCompletion.t
+	A t/GtkFileChooserDialog.t
+	A t/GtkFileChooserWidget.t
+	A t/GtkIconTheme.t
+	A t/GtkRadioAction.t
+	A t/GtkRadioToolButton.t
+	A t/GtkSeparatorToolItem.t
+	A t/GtkToggleAction.t
+	A t/GtkToggleToolButton.t
+	A t/GtkToolButton.t
+	A t/GtkToolItem.t
+	A t/GtkTreeModelFilter.t
+	A t/GtkUIManager.t
+	M MANIFEST
+	new tests
+
+	* xs/GtkActionGroup.xs: avoid core dumps
+
 2004/01/19 15:40 (-0500) muppetman
 
 	* Makefile.PL: refactor some of the code that handles picking up
