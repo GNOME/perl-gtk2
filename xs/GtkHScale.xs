@@ -33,8 +33,11 @@ gtk_hscale_new (class, adjustment=NULL)
 
 ## GtkWidget* gtk_hscale_new_with_range (gdouble min, gdouble max, gdouble step)
 GtkWidget *
-gtk_hscale_new_with_range (min, max, step)
+gtk_hscale_new_with_range (class, min, max, step)
+	SV * class
 	gdouble min
 	gdouble max
 	gdouble step
+    C_ARGS:
+	min, max, step
 

@@ -28,6 +28,7 @@ GtkAccelGroup *
 gtk_accel_group_new (class)
 	SV * class
     C_ARGS:
+	/*void*/
 
 ## void gtk_accel_group_lock (GtkAccelGroup *accel_group)
 void
@@ -123,34 +124,30 @@ gtk_accelerator_name (class, accelerator_key, accelerator_mods)
     C_ARGS:
 	accelerator_key, accelerator_mods
 
+
 ## void gtk_accelerator_set_default_mod_mask (GdkModifierType default_mod_mask)
+## call as Gtk2::Accelerator->set_default_mod_mask
 void
-gtk_accelerator_set_default_mod_mask (default_mod_mask)
+gtk_accelerator_set_default_mod_mask (class, default_mod_mask)
+	SV * class
 	GdkModifierType default_mod_mask
+    C_ARGS:
+	default_mod_mask
 
 ## guint gtk_accelerator_get_default_mod_mask (void)
+## call as Gtk2::Accelerator->get_default_mod_mask
 guint
-gtk_accelerator_get_default_mod_mask ()
+gtk_accelerator_get_default_mod_mask (class)
+	SV * class
+    C_ARGS:
+	/* void */
 
+ # no private functions
+## void _gtk_accel_group_attach (GtkAccelGroup *accel_group, GObject *object)
 ## void _gtk_accel_group_detach (GtkAccelGroup *accel_group, GObject *object)
-#void
-#_gtk_accel_group_detach (accel_group, object)
-#	GtkAccelGroup * accel_group
-#	GObject       * object
-
 ## void _gtk_accel_group_reconnect (GtkAccelGroup *accel_group, GQuark accel_path_quark)
-#void
-#_gtk_accel_group_reconnect (accel_group, accel_path_quark)
-#	GtkAccelGroup *accel_group
-#	GQuark accel_path_quark
-
+ # no get_type functions
 ##GType gtk_accel_group_get_type (void)
-
-##void _gtk_accel_group_attach (GtkAccelGroup *accel_group, GObject *object)
-#void
-#_gtk_accel_group_attach (accel_group, object)
-#	GtkWidget * accel_group
-#	GObject   * object
 
 ##gboolean gtk_accelerator_valid (guint keyval, GdkModifierType modifiers) G_GNUC_CONST
 gboolean

@@ -451,7 +451,10 @@ gtk_window_parse_geometry (window, geometry)
 
 ## GtkWindowGroup * gtk_window_group_new (void)
 GtkWindowGroup *
-gtk_window_group_new ()
+gtk_window_group_new (class)
+	SV * class
+    C_ARGS:
+	/*void*/
 
 ## void gtk_window_group_add_window (GtkWindowGroup *window_group, GtkWindow *window)
 void
