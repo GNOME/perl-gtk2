@@ -6,6 +6,14 @@ const gchar* gtk_action_get_name (GtkAction *action);
 
 void gtk_action_activate (GtkAction *action);
 
+gboolean gtk_action_is_sensitive (GtkAction *action);
+
+gboolean gtk_action_get_sensitive (GtkAction *action);
+
+gboolean gtk_action_is_visible (GtkAction *action);
+
+gboolean gtk_action_get_visible (GtkAction *action);
+
 GtkWidget* gtk_action_create_icon (GtkAction *action, GtkIconSize icon_size);
 
 GtkWidget* gtk_action_create_menu_item (GtkAction *action);

@@ -5,12 +5,18 @@
 use Gtk2::TestHelper
 	# FIXME 2.4
 	at_least_version => [2, 3, 0, "Action-based menus are new in 2.4"],
-	tests => 9, noinit => 0;
+	tests => 13, noinit => 0;
 
 my $action = Gtk2::Action->new (name => 'Open',
                                 label => '_Open',
                                 tooltip => 'Open Something',
                                 stock_id => 'gtk-open');
+
+is ($action->is_sensitive, 1);
+is ($action->get_sensitive, 1);
+
+is ($action->is_visible, 1);
+is ($action->get_visible, 1);
 
 isa_ok ($action, 'Gtk2::Action');
 is ($action->get_name, 'Open');

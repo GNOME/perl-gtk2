@@ -1,53 +1,40 @@
-#
-# $Header$
-#
-
+#!/usr/bin/perl -w
+use strict;
 use Gtk2::TestHelper
-	# FIXME 2.4
-	at_least_version => [2, 3, 0, "Action-based menus are new in 2.4"],
-	tests => 1, noinit => 1;
+  # FIXME 2.4
+  at_least_version => [2, 3, 0, "Action-based menus are new in 2.4"],
+  tests => 8,
+  noinit => 1;
 
-SKIP: { skip "NOT IMPLEMENTED", 1; }
+# $Header$
+
+my $item = Gtk2::RadioToolButton -> new();
+isa_ok($item, "Gtk2::RadioToolButton");
+
+my $item_two = Gtk2::RadioToolButton -> new(undef);
+isa_ok($item_two, "Gtk2::RadioToolButton");
+
+my $item_three = Gtk2::RadioToolButton -> new([$item, $item_two]);
+isa_ok($item_three, "Gtk2::RadioToolButton");
+
+$item_two = Gtk2::RadioToolButton -> new_from_stock(undef, "gtk-quit");
+isa_ok($item_two, "Gtk2::RadioToolButton");
+
+$item_three = Gtk2::RadioToolButton -> new_from_stock([$item, $item_two], "gtk-quit");
+isa_ok($item_three, "Gtk2::RadioToolButton");
+
+$item = Gtk2::RadioToolButton -> new_from_widget($item_two);
+isa_ok($item, "Gtk2::RadioToolButton");
+
+$item = Gtk2::RadioToolButton -> new_with_stock_from_widget($item_two, "gtk-quit");
+isa_ok($item, "Gtk2::RadioToolButton");
+
+$item = Gtk2::RadioToolButton -> new();
+
+$item -> set_group([$item_two, $item_three]);
+is_deeply($item -> get_group(), [$item_two, $item_three]);
+
 __END__
 
-MODULE = Gtk2::RadioToolButton PACKAGE = Gtk2::RadioToolButton PREFIX = gtk_radio_tool_button_
-
-## this group implementation is similiar to what GtkRadioButton does.
-
- ## GtkToolItem *gtk_radio_tool_button_new (GSList *group);
-GtkToolItem *gtk_radio_tool_button_new (class, SV * member_or_listref=NULL)
-    C_ARGS:
-	group_from_sv (member_or_listref)
-
- ## GtkToolItem *gtk_radio_tool_button_new_from_stock (GSList *group, const gchar *stock_id);
-GtkToolItem *
-gtk_radio_tool_button_new_from_stock (class, member_or_listref, stock_id)
-	SV * member_or_listref
-	const gchar * stock_id
-    C_ARGS:
-	group_from_sv (member_or_listref), stock_id
-
-GtkToolItem *gtk_radio_tool_button_new_from_widget (class, GtkRadioToolButton_ornull *group);
-    C_ARGS:
-	group
-
-GtkToolItem *gtk_radio_tool_button_new_with_stock_from_widget (class, GtkWidget_ornull *group, const gchar *stock_id);
-    C_ARGS:
-	(GtkRadioToolButton*)group, stock_id
-
- ##GSList * gtk_radio_tool_button_get_group (GtkRadioToolButton *button);
-SV *
-gtk_radio_tool_button_get_group (GtkRadioToolButton *button)
-    CODE:
-	RETVAL = sv_from_group (gtk_radio_tool_button_get_group (button));
-    OUTPUT:
-	RETVAL
-
- ##void gtk_radio_tool_button_set_group (GtkRadioToolButton *button, GSList *group);
-void
-gtk_radio_tool_button_set_group (button, member_or_listref)
-	GtkRadioToolButton *button
-	SV *member_or_listref
-    C_ARGS:
-	button, group_from_sv (member_or_listref)
-
+Copyright (C) 2003 by the gtk2-perl team (see the file AUTHORS for the
+full list).  See LICENSE for more information.

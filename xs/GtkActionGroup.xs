@@ -207,6 +207,14 @@ GtkActionGroup_noinc *gtk_action_group_new (class, const gchar *name);
 
 const gchar *gtk_action_group_get_name (GtkActionGroup *action_group);
 
+void gtk_action_group_set_sensitive (GtkActionGroup *action_group, gboolean sensitive);
+
+gboolean gtk_action_group_get_sensitive (GtkActionGroup *action_group);
+
+void gtk_action_group_set_visible (GtkActionGroup *action_group, gboolean sensitive);
+
+gboolean gtk_action_group_get_visible (GtkActionGroup *action_group);
+
 GtkAction *gtk_action_group_get_action (GtkActionGroup *action_group, const gchar *action_name);
 
 void gtk_action_group_list_actions (GtkActionGroup *action_group);
@@ -219,6 +227,8 @@ void gtk_action_group_list_actions (GtkActionGroup *action_group);
 	g_list_free (actions);
 
 void gtk_action_group_add_action (GtkActionGroup *action_group, GtkAction *action);
+
+void gtk_action_group_add_action_with_accel (GtkActionGroup *action_group, GtkAction *action, const gchar_ornull *accelerator);
 
 void gtk_action_group_remove_action (GtkActionGroup *action_group, GtkAction *action);
 

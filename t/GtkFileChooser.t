@@ -5,7 +5,7 @@
 use Gtk2::TestHelper
 	# FIXME 2.4
 	at_least_version => [2, 3, 0, "GtkFileChooser is new in 2.4"],
-	tests => 30;
+	tests => 32;
 use File::Spec;
 use Cwd;
 
@@ -147,13 +147,13 @@ is (scalar (@list), 0, 'list_filters after removing one filter');
 $file_chooser->set_filter ($filter);
 is ($filter, $file_chooser->get_filter);
 
-# FIXME
-### Per-application shortcut folders
+# Per-application shortcut folders
 #
-#$file_chooser->add_shortcut_folder (const char *folder);
-#$file_chooser->remove_shortcut_folder (const char *folder);
-#$file_chooser->add_shortcut_folder_uri (const char *folder);
-#$file_chooser->remove_shortcut_folder_uri (const char *folder);
+$file_chooser->add_shortcut_folder ($cwd);
+$file_chooser->add_shortcut_folder_uri ("file://" . $cwd);
 
-@list = $file_chooser->list_shortcut_folders;
-@list = $file_chooser->list_shortcut_folder_uris;
+is_deeply ([$file_chooser->list_shortcut_folders], [$cwd, $cwd]);
+is_deeply ([$file_chooser->list_shortcut_folder_uris], ["file://" . $cwd, "file://" . $cwd]);
+
+$file_chooser->remove_shortcut_folder ($cwd);
+$file_chooser->remove_shortcut_folder_uri ($cwd);

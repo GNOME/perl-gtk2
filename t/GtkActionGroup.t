@@ -6,12 +6,18 @@ use Gtk2::TestHelper
 	# FIXME 2.4
 	at_least_version => [2, 3, 0, "Action-based menus are new in 2.4"],
 #	tests => 9, noinit => 1;
-	tests => 9;
+	tests => 11;
 
 my $action_group = Gtk2::ActionGroup->new ("Fred");
 
 isa_ok ($action_group, "Gtk2::ActionGroup");
 is ($action_group->get_name, "Fred");
+
+$action_group->set_sensitive (1);
+is ($action_group->get_sensitive, 1);
+
+$action_group->set_visible (1);
+is ($action_group->get_visible, 1);
 
 my $action = Gtk2::Action->new (name => 'Barney');
 
@@ -24,6 +30,12 @@ is ($action_group->get_action ('Barney'), $action);
 $action_group->remove_action ($action);
 @list = $action_group->list_actions;
 is (@list, 0);
+
+$action_group->add_action_with_accel ($action, undef);
+$action_group->add_action_with_accel ($action, "<shift>a");
+
+$action_group->remove_action ($action);
+$action_group->remove_action ($action);
 
 my @action_entries = (
   {

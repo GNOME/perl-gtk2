@@ -1,3 +1,24 @@
+2004/02/11 00:37 (+0100) kaffeetisch
+
+	* t/GtkComboBox.t: Test new, new_with_model, set_wrap_width,
+	set_row_span_column, set_column_span_column, and [sg]et_active.
+
+	* t/GtkFileChooser.t: Test add_shortcut_folder(_uri)?,
+	list_shortcut_folders(_uris)?, and remove_shortcut_folder(_uri)?.
+
+	* t/GtkRadioToolButton.t: Implement.
+
+	* t/GtkAction.t
+	* xs/GtkAction.xs: Add and test (is|get)_sensitive and
+	(is|get)_visible.
+
+	* t/GtkActionGroup.t
+	* xs/GtkActionGroup.xs: Add and test [sg]et_sensitive,
+	[sg]et_visible, and add_action_with_accel.
+
+	* xs/GnomeIconTheme.xs: Allow undef for the context argument of
+	list_icons.
+
 2004/02/10 01:45 (-0500) muppetman
 
 	A copyright.pod

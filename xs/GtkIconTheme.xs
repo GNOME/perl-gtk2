@@ -86,7 +86,7 @@ GdkPixbuf_ornull * gtk_icon_theme_load_icon (GtkIconTheme *icon_theme, const gch
 
  ## GList * gtk_icon_theme_list_icons (GtkIconTheme *icon_theme, const gchar *context);
 void
-gtk_icon_theme_list_icons (GtkIconTheme * icon_theme, const char * context)
+gtk_icon_theme_list_icons (GtkIconTheme * icon_theme, const gchar_ornull * context)
     PREINIT:
 	GList * list, * i;
     PPCODE:
