@@ -14,11 +14,14 @@ gtk_radio_menu_item_news (class, member_or_listref=NULL, label=NULL)
     ALIAS:
 	Gtk2::RadioMenuItem::new = 0
 	Gtk2::RadioMenuItem::new_with_mnemonic = 1
+	Gtk2::RadioMenuItem::new_with_label = 2
     PREINIT:
 	GSList           * group = NULL;
 	GtkRadioMenuItem * member = NULL;
     CODE:
-	if( member_or_listref && member_or_listref != &PL_sv_undef )
+	if( member_or_listref && member_or_listref != &PL_sv_undef
+	    && SvROK (member_or_listref) 
+	    && SvRV (member_or_listref) != &PL_sv_undef )
 	{
 		if( SvTYPE(SvRV(member_or_listref)) == SVt_PVAV )
 		{
@@ -33,42 +36,16 @@ gtk_radio_menu_item_news (class, member_or_listref=NULL, label=NULL)
 			group = member->group;
 	}
 
-	if (label)
-		RETVAL = gtk_radio_menu_item_new_with_mnemonic (group, label);
-	else
+	if (label) {
+		if (ix == 2)
+			RETVAL = gtk_radio_menu_item_new_with_label (group, label);
+		else
+			RETVAL = gtk_radio_menu_item_new_with_mnemonic (group, label);
+	} else
 		RETVAL = gtk_radio_menu_item_new (group);
     OUTPUT:
 	RETVAL
 
-GtkWidget *
-gtk_radio_menu_item_new_with_label (class, member_or_listref=NULL, label)
-	SV          * class
-	SV          * member_or_listref
-	const gchar * label
-    PREINIT:
-	GSList         * group = NULL;
-	GtkRadioMenuItem * member = NULL;
-    CODE:
-	if( member_or_listref && member_or_listref != &PL_sv_undef )
-	{
-		if( SvTYPE(SvRV(member_or_listref)) == SVt_PVAV )
-		{
-			AV * av = (AV*)SvRV(member_or_listref);
-			SV ** svp = av_fetch(av, 0, 0);
-			if( SvOK(*svp) )
-			{
-				member = SvGtkRadioMenuItem(*svp);
-			}
-		}
-		else
-			member = SvGtkRadioMenuItem_ornull(member_or_listref);
-		if( member )
-			group = member->group;
-	}
-
-	RETVAL = gtk_radio_menu_item_new_with_label (group, label);
-    OUTPUT:
-	RETVAL
 
 # GSList * gtk_radio_menu_item_get_group (GtkRadioMenuItem *radio_menu_item)
 void
