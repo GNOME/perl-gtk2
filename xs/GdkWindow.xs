@@ -23,6 +23,7 @@
 
 MODULE = Gtk2::Gdk::Window	PACKAGE = Gtk2::Gdk::Window	PREFIX = gdk_window_
 
+# FIXME need typemap for GdkWindowAttr
  ## GdkWindow* gdk_window_new (GdkWindow *parent, GdkWindowAttr *attributes, gint attributes_mask)
  ##GdkWindow*
  ##gdk_window_new (parent, attributes, attributes_mask)
@@ -54,25 +55,25 @@ gdk_window_at_pointer (class)
 	PUSHs (sv_2mortal (newSViv (win_x)));
 	PUSHs (sv_2mortal (newSViv (win_y)));
 
- ## ## void gdk_window_show (GdkWindow *window)
- ##void
- ##gdk_window_show (window)
- ##	GdkWindow *window
- ##
- ## ## void gdk_window_hide (GdkWindow *window)
- ##void
- ##gdk_window_hide (window)
- ##	GdkWindow *window
- ##
- ## ## void gdk_window_withdraw (GdkWindow *window)
- ##void
- ##gdk_window_withdraw (window)
- ##	GdkWindow *window
- ##
- ## ## void gdk_window_show_unraised (GdkWindow *window)
- ##void
- ##gdk_window_show_unraised (window)
- ##	GdkWindow *window
+ ## void gdk_window_show (GdkWindow *window)
+void
+gdk_window_show (window)
+	GdkWindow *window
+
+ ## void gdk_window_hide (GdkWindow *window)
+void
+gdk_window_hide (window)
+	GdkWindow *window
+
+ ## void gdk_window_withdraw (GdkWindow *window)
+void
+gdk_window_withdraw (window)
+	GdkWindow *window
+
+ ## void gdk_window_show_unraised (GdkWindow *window)
+void
+gdk_window_show_unraised (window)
+	GdkWindow *window
 
  ## void gdk_window_move (GdkWindow *window, gint x, gint y)
 void
@@ -153,6 +154,7 @@ gdk_window_set_override_redirect (window, override_redirect)
 	GdkWindow *window
 	gboolean override_redirect
 
+# FIXME needs a callback
  ## void gdk_window_add_filter (GdkWindow *window, GdkFilterFunc function, gpointer data)
  ##void
  ##gdk_window_add_filter (window, function, data)
@@ -160,6 +162,7 @@ gdk_window_set_override_redirect (window, override_redirect)
  ##	GdkFilterFunc function
  ##	gpointer data
 
+# FIXME whoa!  we'd have to cache the callbacks to do this.
  ## void gdk_window_remove_filter (GdkWindow *window, GdkFilterFunc function, gpointer data)
  ##void
  ##gdk_window_remove_filter (window, function, data)
@@ -174,7 +177,7 @@ gdk_window_scroll (window, dx, dy)
 	gint dx
 	gint dy
 
-  ## needs typemap for GdkRegion
+  ## FIXME needs typemap for GdkRegion
  ## void gdk_window_shape_combine_region (GdkWindow *window, GdkRegion *shape_region, gint offset_x, gint offset_y)
  ##void
  ##gdk_window_shape_combine_region (window, shape_region, offset_x, offset_y)
@@ -205,13 +208,13 @@ GdkWindow* gdk_window_lookup (SV * class, GdkNativeWindow anid);
 
 #endif
  
- ##GdkWindow *gdk_window_foreign_new_for_display (GdkDisplay *display, GdkNativeWindow  anid);
+#ifdef GDK_TYPE_DISPLAY
+ 
+GdkWindow *gdk_window_foreign_new_for_display (GdkDisplay *display, GdkNativeWindow  anid);
 
- ## GdkWindow* gdk_window_lookup_for_display (GdkDisplay *display, GdkNativeWindow anid)
- ##GdkWindow*
- ##gdk_window_lookup_for_display (display, anid)
- ##	GdkDisplay *display
- ##	GdkNativeWindow anid
+GdkWindow* gdk_window_lookup_for_display (GdkDisplay *display, GdkNativeWindow anid)
+
+#endif /* have GdkDisplay */
 
  ## void gdk_window_set_type_hint (GdkWindow *window, GdkWindowTypeHint hint)
 void
@@ -241,6 +244,7 @@ gdk_window_set_skip_pager_hint (window, skips_pager)
 
 #endif
 
+# FIXME need typemap for GdkGeometry
  ## void gdk_window_set_geometry_hints (GdkWindow *window, GdkGeometry *geometry, GdkWindowHints geom_mask)
  ##void
  ##gdk_window_set_geometry_hints (window, geometry, geom_mask)
@@ -260,7 +264,7 @@ gdk_window_begin_paint_rect (window, rectangle)
 	GdkWindow *window
 	GdkRectangle *rectangle
 
-  ## needs typemap for GdkRegion
+  ## FIXME needs typemap for GdkRegion
  ## void gdk_window_begin_paint_region (GdkWindow *window, GdkRegion *region)
  ##void
  ##gdk_window_begin_paint_region (window, region)
@@ -325,6 +329,7 @@ void gdk_window_get_origin (GdkWindow *window, OUTLIST gint x, OUTLIST gint y)
  ## void gdk_window_get_root_origin (GdkWindow *window, gint *x, gint *y)
 void gdk_window_get_root_origin (GdkWindow *window, OUTLIST gint x, OUTLIST gint y)
 
+# FIXME
  ## void gdk_window_get_frame_extents (GdkWindow *window, GdkRectangle *rect)
  ##void
  ##gdk_window_get_frame_extents (window, rect)
@@ -353,6 +358,7 @@ gdk_window_get_pointer (window)
 	PUSHs (sv_2mortal (newSViv (y)));
 	PUSHs (sv_2mortal (newSVGdkModifierType (mask)));
 
+# FIXME
  ## GdkWindow * gdk_window_get_parent (GdkWindow *window)
  ##GdkWindow *
  ##gdk_window_get_parent (window)
@@ -363,11 +369,13 @@ GdkWindow *
 gdk_window_get_toplevel (window)
 	GdkWindow *window
 
+# FIXME
  ## GList * gdk_window_get_children (GdkWindow *window)
  ##GList *
  ##gdk_window_get_children (window)
  ##	GdkWindow *window
  ##
+# FIXME
  ## GList * gdk_window_peek_children (GdkWindow *window)
  ##GList *
  ##gdk_window_peek_children (window)
@@ -384,12 +392,14 @@ gdk_window_set_events (window, event_mask)
 	GdkWindow *window
 	GdkEventMask event_mask
 
+# FIXME
  ## void gdk_window_set_icon_list (GdkWindow *window, GList *pixbufs)
  ##void
  ##gdk_window_set_icon_list (window, pixbufs)
  ##	GdkWindow *window
  ##	GList *pixbufs
 
+# FIXME
  ## void gdk_window_set_icon (GdkWindow *window, GdkWindow *icon_window, GdkPixmap *pixmap, GdkBitmap *mask)
  ##void
  ##gdk_window_set_icon (window, icon_window, pixmap, mask)
@@ -416,6 +426,7 @@ gdk_window_set_decorations (window, decorations)
 	GdkWindow *window
 	GdkWMDecoration decorations
 
+# FIXME
  ## gboolean gdk_window_get_decorations (GdkWindow *window, GdkWMDecoration *decorations)
  ##gboolean
  ##gdk_window_get_decorations (window, decorations)
@@ -428,6 +439,7 @@ gdk_window_set_functions (window, functions)
 	GdkWindow *window
 	GdkWMFunction functions
 
+# FIXME
  ## GList * gdk_window_get_toplevels (void)
  ##GList *
  ##gdk_window_get_toplevels (void)
@@ -507,7 +519,7 @@ gdk_window_invalidate_rect (window, rectangle, invalidate_children)
 	GdkRectangle * rectangle
 	gboolean invalidate_children
 
-  ## needs typemap for GdkRegion
+# FIXME needs typemap for GdkRegion
  ## void gdk_window_invalidate_region (GdkWindow *window, GdkRegion *region, gboolean invalidate_children)
  ##void
  ##gdk_window_invalidate_region (window, region, invalidate_children)
@@ -515,6 +527,7 @@ gdk_window_invalidate_rect (window, rectangle, invalidate_children)
  ##	GdkRegion *region
  ##	gboolean invalidate_children
  ##
+# FIXME needs typemap for GdkRegion
  ## void gdk_window_invalidate_maybe_recurse (GdkWindow *window, GdkRegion *region, gboolean (*child_func) (GdkWindow *, gpointer), gpointer user_data)
  ##void
  ##gdk_window_invalidate_maybe_recurse (window, region, w, G, user_data)
@@ -544,6 +557,7 @@ gdk_window_process_all_updates (SV * class)
 void
 gdk_window_process_updates (GdkWindow * window, gboolean update_children)
 
+# FIXME needs typemap for GdkGeometry
  ## ## void gdk_window_constrain_size (GdkGeometry *geometry, guint flags, gint width, gint height, gint *new_width, gint *new_height)
  ##void
  ##gdk_window_constrain_size (geometry, flags, width, height)
