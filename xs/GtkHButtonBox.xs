@@ -26,7 +26,9 @@ void
 gtk_hbutton_box_set_layout_default (layout)
 	GtkButtonBoxStyle layout
 
-# TODO: should we accept class here
 ##gint gtk_hbutton_box_get_spacing_default (void)
 gint
-gtk_hbutton_box_get_spacing_default ()
+gtk_hbutton_box_get_spacing_default (class)
+	SV * class
+    C_ARGS:
+
