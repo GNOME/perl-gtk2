@@ -1,3 +1,9 @@
+2003/12/08 11:14 (-0500) muppetman
+
+	* pm/SimpleList.pm: call signature comments to make maintenance easier.
+
+	* t/paned.t: give effect to statement with no effect
+
 2003/12/08 02:39 (-0500) muppetman
 
 	* xs/GtkWidget.xs: implement gtk_widget_style_get for >= 2.2.0
