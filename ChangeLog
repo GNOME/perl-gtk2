@@ -1,3 +1,79 @@
+2004/01/17 02:00 (-0500) muppetman
+
+	The Giant Merge of the 2.3.x branch into HEAD.
+
+	D maps
+	A maps-2.0
+	A maps-2.2
+	A maps-2.3
+	Split the maps file into revision-specific pieces.  This lets us
+	track things a little more clearly.
+
+	A xs_files-2.3
+	A examples/combo_box.pl
+	A examples/file_chooser.pl
+	A gtk-demo/hypertext.pl
+	A gtk-demo/entry_completion.pl
+	A gtk-demo/ui_manager.pl
+	A t/GtkExpander.t
+	A t/GtkColorButton.t
+	A t/GtkFontButton.t
+	A xs/GtkAction.xs
+	A xs/GtkActionGroup.xs
+	A xs/GtkCellLayout.xs
+	A xs/GtkColorButton.xs
+	A xs/GtkComboBox.xs
+	A xs/GtkComboBoxEntry.xs
+	A xs/GtkEntryCompletion.xs
+	A xs/GtkExpander.xs
+	A xs/GtkFileChooser.xs
+	A xs/GtkFileChooserDialog.xs
+	A xs/GtkFileChooserWidget.xs
+	A xs/GtkFileFilter.xs
+	A xs/GtkFontButton.xs
+	A xs/GtkIconTheme.xs
+	A xs/GtkRadioAction.xs
+	A xs/GtkRadioToolButton.xs
+	A xs/GtkSeparatorToolItem.xs
+	A xs/GtkToggleAction.xs
+	A xs/GtkToggleToolButton.xs
+	A xs/GtkToolButton.xs
+	A xs/GtkToolItem.xs
+	A xs/GtkTreeModelFilter.xs
+	A xs/GtkUIManager.xs
+	new files for stuff that's new in 2.4, with three new tests.
+
+	* MANIFEST: updated for file churn.  alphabetized.
+
+	* CodeGen.pm: version 0.02 can merge maps from multiple files,
+	with full backward compatability.
+
+	* Makefile.PL: add xs_files for 2.3 if available.  merge maps from
+	various files by what's available.  NOTE: the 2.3 stuff will need
+	to be changed to 2.4 when 2.4 is released.
+
+	* gtk-demo/main.pl, gtk-demo/sizegroup.pl, gtk-demo/textview.pl:
+	cleanup, and updates for new things available in 2.4
+
+	* pm/TestHelper.pm: encourage the use of the TRUE/FALSE constants
+	in tests
+
+	* xs/GtkAccelGroup.xs: the closure unref thing bugs me, add FIXMEs
+
+	* xs/GtkLabel.xs: allow NULL where appropriate
+
+	* xs/GdkCursor.xs, xs/GdkDisplay.xs, xs/GdkDrawable.xs,
+	xs/GdkPixbuf.xs, xs/GdkPixbufLoader.xs, xs/GdkWindow.xs,
+	xs/GtkAlignment.xs, xs/GtkButton.xs, xs/GtkButtonBox.xs,
+	xs/GtkCalendar.xs, xs/GtkCheckMenuItem.xs, xs/GtkClipboard.xs,
+	xs/GtkEntry.xs, xs/GtkEventBox.xs, xs/GtkMenu.xs, xs/GtkMenuShell.xs,
+	xs/GtkMessageDialog.xs, xs/GtkTextBuffer.xs, xs/GtkTextIter.xs,
+	xs/GtkTextView.xs, xs/GtkToolbar.xs, xs/GtkTreeViewColumn.xs,
+	xs/GtkWidget.xs, xs/GtkWindow.xs: add new functions that appeared
+	in 2.3.x.  the CHECK_VERSION conditionals are marked with FIXMEs
+	to remind us to change them to 2.4.0 when gtk+-2.4.0 is finally
+	released.
+
 2004/01/17 00:46 (+0100) kaffeetisch
 
 	A t/GtkTextBuffer.t
