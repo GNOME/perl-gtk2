@@ -33,12 +33,11 @@ this is also used from gtk_tree_view_insert_column_with_cell_data_func.
 GPerlCallback *
 gtk2perl_tree_cell_data_func_create (SV * func, SV * data)
 {
-	GType param_types [] = {
-		GTK_TYPE_TREE_VIEW_COLUMN,
-		GTK_TYPE_CELL_RENDERER,
-		GTK_TYPE_TREE_MODEL,
-		GTK_TYPE_TREE_ITER
-	};
+	GType param_types [4];
+	param_types[0] = GTK_TYPE_TREE_VIEW_COLUMN;
+	param_types[1] = GTK_TYPE_CELL_RENDERER;
+	param_types[2] = GTK_TYPE_TREE_MODEL;
+	param_types[3] = GTK_TYPE_TREE_ITER;
 	return gperl_callback_new (func, data, 
 	                           G_N_ELEMENTS (param_types), param_types,
 	                           0);

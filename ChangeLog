@@ -1,3 +1,14 @@
+2004/06/04 13:52 (-0400) muppetman
+
+	* AUTHORS, xs/GdkEvent.xs, xs/GdkWindow.xs, xs/Gtk2.xs,
+	xs/GtkAccelMap.xs, xs/GtkCellRenderer.xs, xs/GtkClipboard.xs,
+	xs/GtkContainer.xs, xs/GtkMenu.xs, xs/GtkTextTagTable.xs,
+	xs/GtkTreeModel.xs, xs/GtkTreeSelection.xs, xs/GtkTreeSortable.xs,
+	xs/GtkTreeView.xs, xs/GtkTreeViewColumn.xs: patch from Albert Chin
+	removes non-static initializers so that we are compatible with
+	C89 (which doesn't allow them).  the patch converted C++ comments to
+	C, but most were on dead code, so i removed them instead.
+
 2004/05/29 16:24 (+0200) kaffeetisch
 
 	More merges from HEAD:

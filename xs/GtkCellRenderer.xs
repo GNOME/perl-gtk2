@@ -142,7 +142,6 @@ gtk2perl_cell_renderer_get_size (GtkCellRenderer      * cell,
 
 		PUTBACK;
 		count = call_sv ((SV *)GvCV (slot), G_ARRAY);
-//		count = call_method ("GET_SIZE", G_ARRAY);
 		SPAGAIN;
 		if (count != 4)
 			croak ("GET_SIZE must return four values -- "
@@ -192,7 +191,6 @@ gtk2perl_cell_renderer_render (GtkCellRenderer      * cell,
 
 		PUTBACK;
 		call_sv ((SV *)GvCV (slot), G_VOID|G_DISCARD);
-//		call_method ("RENDER", G_VOID|G_DISCARD);
 
 		FREETMPS;
 		LEAVE;
@@ -229,7 +227,6 @@ gtk2perl_cell_renderer_activate (GtkCellRenderer      * cell,
 
 		PUTBACK;
 		call_sv ((SV*) GvCV (slot), G_SCALAR);
-//		call_method ("ACTIVATE", G_SCALAR);
 		SPAGAIN;
 
 		retval = POPi;
@@ -274,7 +271,6 @@ gtk2perl_cell_renderer_start_editing (GtkCellRenderer      * cell,
 
 		PUTBACK;
 		call_sv ((SV*) GvCV (slot), G_SCALAR);
-//		call_method ("START_EDITING", G_SCALAR);
 		SPAGAIN;
 
 		sv = POPs;
@@ -498,7 +494,6 @@ gtk_cell_renderer_get_size (cell, widget, cell_area)
 	gint width;
 	gint height;
     PPCODE:
-	//cell_area.width = cell_area.height = 0;
 	gtk_cell_renderer_get_size(cell, widget, cell_area,
 		&x_offset, &y_offset, &width, &height);
 	EXTEND(SP,4);
@@ -575,8 +570,6 @@ _INSTALL_OVERRIDES (const char * package)
 	GtkCellRendererClass * class;
     CODE:
 	PERL_UNUSED_VAR (ix);
-	//warn ("%s %s", ix == 1 ? "_install_overrides" : "_INSTALL_OVERRIDES",
-	//               package);
 	gtype = gperl_object_type_from_package (package);
 	if (!gtype)
 		croak ("package '%s' is not registered with Gtk2-Perl",

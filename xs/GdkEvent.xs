@@ -555,10 +555,9 @@ gdk_event_handler_set (class, func, data=NULL)
 	SV * data
     PREINIT:
 	GPerlCallback *callback;
-	GType params[] = {
-		GDK_TYPE_EVENT
-	};
+	GType params[1];
     CODE:
+    	params[0] = GDK_TYPE_EVENT;
 	if (SvOK (func)) {
 		callback = gperl_callback_new (func, data,
 		                               G_N_ELEMENTS (params),

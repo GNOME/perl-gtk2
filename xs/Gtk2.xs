@@ -77,7 +77,9 @@ install_key_snooper (SV * func, SV * data)
 {
 	guint id; 
 	GPerlCallback * callback;
-	GType param_types[] = { GTK_TYPE_WIDGET, GDK_TYPE_EVENT };
+	GType param_types[2];
+	param_types[0] = GTK_TYPE_WIDGET;
+	param_types[1] = GDK_TYPE_EVENT;
 	if (!key_snoopers)
 		key_snoopers =
 			g_hash_table_new_full (g_direct_hash,

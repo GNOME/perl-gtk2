@@ -186,8 +186,6 @@ sv_from_iter (GtkTreeIter * iter)
 	av_push (av, newSViv (PTR2IV (iter->user_data)));
 	av_push (av, iter->user_data2 ? newRV (iter->user_data2) : &PL_sv_undef);
 	av_push (av, iter->user_data3 ? newRV (iter->user_data3) : &PL_sv_undef);
-	//warn ("sv_from_iter : av %p  %x %x %x %x\n", av,
-	//      iter->stamp, iter->user_data, iter->user_data2, iter->user_data3);
 	return newRV_noinc ((SV*)av);
 }
 
@@ -195,7 +193,6 @@ static gboolean
 iter_from_sv (GtkTreeIter * iter,
               SV * sv)
 {
-	//warn ("iter_from_sv 0x%x, 0x%x\n", iter, sv);
 	if (sv && SvROK (sv) && SvTYPE (SvRV (sv)) == SVt_PVAV) {
 		SV ** svp;
 		AV * av = (AV*) SvRV (sv);
@@ -216,8 +213,6 @@ iter_from_sv (GtkTreeIter * iter,
 			iter->user_data3 =  SvRV (*svp);
 		else
 			iter->user_data3 = NULL;
-		//warn ("iter_from_sv 0x%p  %x %x %x %x\n", iter,
-		//      iter->stamp, iter->user_data, iter->user_data2, iter->user_data3);
 		return TRUE;
 	} else {
 		iter->stamp = 0;
@@ -1001,12 +996,11 @@ gtk_tree_model_foreach (model, func, user_data=NULL)
 	SV * user_data
     PREINIT:
 	GPerlCallback * callback;
-	GType types[] = {
-		GTK_TYPE_TREE_MODEL,
-		GTK_TYPE_TREE_PATH,
-		GTK_TYPE_TREE_ITER
-	};
+	GType types[3];
     CODE:
+	types[0] = GTK_TYPE_TREE_MODEL;
+	types[1] = GTK_TYPE_TREE_PATH;
+	types[2] = GTK_TYPE_TREE_ITER;
 	callback = gperl_callback_new (func, user_data, G_N_ELEMENTS (types), types,
 	                               G_TYPE_BOOLEAN);
 	gtk_tree_model_foreach (model, gtk2perl_tree_model_foreach_func, callback);

@@ -23,6 +23,7 @@ Roderich Schupp      Roderich dot Schupp at partner dot bmw dot de
 Nathan Kurz          nate at verse dot com
 Cory Omand           Cory.Omand at sun dot com
 Jason Stirling       jasons at postoffice dot utas dot edu dot au
+Albert Chin          china at thewrittenword dot com
 
 several important bits of gtk2-perl were heavily inspired by pygtk, gtk-perl,
 and a good read-through of the gtk+ source code, so credit goes to those guys
@@ -30,6 +31,6 @@ as well -- thanks!
 
 
 
-Copyright (C) 2003 by the gtk2-perl team.
+Copyright (C) 2003-2004 by the gtk2-perl team.
 
 gtk2-perl is covered by the LGPL -- see the file LICENSE for details.

@@ -131,9 +131,12 @@ gtk_accel_map_foreach (class, data, foreach_func)
 	SV * foreach_func
     PREINIT:
 	GPerlCallback * callback = NULL;
-	GType types[] = { G_TYPE_STRING, G_TYPE_UINT, 
-			  GDK_TYPE_MODIFIER_TYPE, G_TYPE_BOOLEAN };
+	GType types[4];
     CODE:
+    	types[0] = G_TYPE_STRING;
+    	types[1] = G_TYPE_UINT;
+    	types[2] = GDK_TYPE_MODIFIER_TYPE;
+    	types[3] = G_TYPE_BOOLEAN;
 	callback = gperl_callback_new (foreach_func, data, 4, types, 
 				       G_TYPE_NONE);
 	gtk_accel_map_foreach 
@@ -147,9 +150,12 @@ gtk_accel_map_foreach_unfiltered (class, data, foreach_func)
 	SV * foreach_func
     PREINIT:
 	GPerlCallback * callback = NULL;
-	GType types[] = { G_TYPE_STRING, G_TYPE_UINT, 
-			  GDK_TYPE_MODIFIER_TYPE, G_TYPE_BOOLEAN };
+	GType types[4];
     CODE:
+    	types[0] = G_TYPE_STRING;
+    	types[1] = G_TYPE_UINT;
+    	types[2] = GDK_TYPE_MODIFIER_TYPE;
+    	types[3] = G_TYPE_BOOLEAN;
 	callback = gperl_callback_new (foreach_func, data, 4, types, 
 				       G_TYPE_NONE);
 	gtk_accel_map_foreach_unfiltered
