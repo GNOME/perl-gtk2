@@ -8,3 +8,13 @@ make gtk-demo not show the 2.2 stuff when running on 2.0
 should example programs be installed?
 there are plenty of unbound apis, either because of lack of interest or
 	lack of need -- these should be audited.
+
+do string columns in GtkTreeModels do automatic memory management?
+if not, do we need to automate it?  are we safe with sv strings?
+
+gdk_pixbuf_render_pixmap_and_mask_for_colormap
+gdk_pixbuf_render_pixmap_and_mask
+gdk_pixbuf_new_from_data <- how would we do that?
+
+g_signal_handlers_disconnect_by_func
+g_signal_handlers_disconnect_by_data
