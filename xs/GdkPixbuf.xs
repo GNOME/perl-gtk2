@@ -212,9 +212,18 @@ gdk_pixbuf_get_bits_per_sample (pixbuf)
 	GdkPixbuf *pixbuf
 
 ##  guchar *gdk_pixbuf_get_pixels (const GdkPixbuf *pixbuf) 
-guchar *
+SV *
 gdk_pixbuf_get_pixels (pixbuf)
 	GdkPixbuf *pixbuf
+    PREINIT:
+	guchar * pixels;
+    CODE:
+	pixels = gdk_pixbuf_get_pixels (pixbuf);
+	RETVAL = newSVpv (pixels,
+			  gdk_pixbuf_get_height (pixbuf)
+			  * gdk_pixbuf_get_rowstride (pixbuf));
+    OUTPUT:
+	RETVAL
 
 ##  int gdk_pixbuf_get_width (const GdkPixbuf *pixbuf) 
 int
