@@ -21,13 +21,6 @@
 
 #include "gtk2perl.h"
 
-/* FIXME: should we ever bind PangoFontMap, move this to the corresponding .xs
-          file. */
-MODULE = Gtk2::Pango::Font	PACKAGE = Gtk2::Pango::FontMap
-
-BOOT:
-	gperl_object_set_no_warn_unreg_subclass (PANGO_TYPE_FONT_MAP, TRUE);
-
 MODULE = Gtk2::Pango::Font	PACKAGE = Gtk2::Pango
 
 BOOT:
@@ -247,6 +240,30 @@ pango_font_metrics_get_approximate_char_width (metrics)
 int
 pango_font_metrics_get_approximate_digit_width (metrics)
 	PangoFontMetrics *metrics
+
+#if PANGO_CHECK_VERSION (1, 6, 0)
+
+## int pango_font_metrics_get_underline_position (PangoFontMetrics *metrics)
+int
+pango_font_metrics_get_underline_position (metrics)
+	PangoFontMetrics *metrics
+
+## int pango_font_metrics_get_underline_thickness (PangoFontMetrics *metrics)
+int
+pango_font_metrics_get_underline_thickness (metrics)
+	PangoFontMetrics *metrics
+
+## int pango_font_metrics_get_strikethrough_position (PangoFontMetrics *metrics)
+int
+pango_font_metrics_get_strikethrough_position (metrics)
+	PangoFontMetrics *metrics
+
+## int pango_font_metrics_get_strikethrough_thickness (PangoFontMetrics *metrics)
+int
+pango_font_metrics_get_strikethrough_thickness (metrics)
+	PangoFontMetrics *metrics
+
+#endif
 
 MODULE = Gtk2::Pango::Font	PACKAGE = Gtk2::Pango::FontFamily	PREFIX = pango_font_family_
 

@@ -1,8 +1,10 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 47, noinit => 1;
+use Gtk2::TestHelper tests => 48, noinit => 1;
 
 # $Header$
+
+is(Gtk2::Pango -> find_base_dir("urgs"), "ltr");
 
 my $language = Gtk2::Pango::Language -> from_string("de_DE");
 isa_ok($language, "Gtk2::Pango::Language");

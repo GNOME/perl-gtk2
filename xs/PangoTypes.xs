@@ -21,6 +21,15 @@
 
 #include "gtk2perl.h"
 
+MODULE = Gtk2::Pango::Types	PACKAGE = Gtk2::Pango	PREFIX = pango_
+
+##  PangoDirection pango_find_base_dir (const gchar *text, gint length)
+PangoDirection
+pango_find_base_dir (class, text)
+	const gchar *text
+    C_ARGS:
+	text, strlen (text)
+
 MODULE = Gtk2::Pango::Types	PACKAGE = Gtk2::Pango::Language	PREFIX = pango_language_
 
 ##  PangoLanguage * pango_language_from_string (const char *language)

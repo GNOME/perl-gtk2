@@ -40,6 +40,7 @@ PANGO_TYPE_FONTSET	PangoFontset	GObject	Gtk2::Pango::Fontset
 PANGO_TYPE_GLYPH_STRING	PangoGlyphString	GBoxed	Gtk2::Pango::GlyphString
 PANGO_TYPE_LANGUAGE	PangoLanguage	GBoxed	Gtk2::Pango::Language
 PANGO_TYPE_LAYOUT	PangoLayout	GObject	Gtk2::Pango::Layout
+PANGO_TYPE_SCRIPT	PangoScript	GEnum	Gtk2::Pango::Script
 PANGO_TYPE_STRETCH	PangoStretch	GEnum	Gtk2::Pango::Stretch
 PANGO_TYPE_STYLE	PangoStyle	GEnum	Gtk2::Pango::Style
 PANGO_TYPE_TAB_ALIGN	PangoTabAlign	GEnum	Gtk2::Pango::TabAlign
@@ -50,3 +51,4 @@ PANGO_TYPE_WEIGHT	PangoWeight	GEnum	Gtk2::Pango::Weight
 PANGO_TYPE_WRAP_MODE	PangoWrapMode	GEnum	Gtk2::Pango::WrapMode
 
 PANGO_TYPE_LAYOUT_ITER	PangoLayoutIter	GBoxed	Gtk2::Pango::LayoutIter
+PANGO_TYPE_SCRIPT_ITER	PangoScriptIter	GBoxed	Gtk2::Pango::ScriptIter

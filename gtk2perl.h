@@ -41,6 +41,12 @@
   GType gtk2perl_pango_layout_iter_get_type (void) G_GNUC_CONST;
 #endif
 
+/* custom GType for PangoScriptIter */
+#ifndef PANGO_TYPE_SCRIPT_ITER
+# define PANGO_TYPE_SCRIPT_ITER (gtk2perl_pango_script_iter_get_type ())
+  GType gtk2perl_pango_script_iter_get_type (void) G_GNUC_CONST;
+#endif
+
 #include "gtk2perl-autogen.h"
 
 #ifdef GDK_WINDOWING_WIN32 /* no plug/socket on win32 despite patches exist for years. */

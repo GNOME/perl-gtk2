@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 48;
+use Gtk2::TestHelper tests => 52;
 
 # $Header$
 
@@ -69,6 +69,16 @@ like($metrics -> get_descent(), $number);
 like($metrics -> get_approximate_char_width(), $number);
 like($metrics -> get_approximate_digit_width(), $number);
 
+SKIP: {
+  skip("new 1.6 stuff", 4)
+    unless (Gtk2::Pango -> CHECK_VERSION(1, 6, 0));
+
+  like($metrics -> get_underline_position(), $number);
+  like($metrics -> get_underline_thickness(), $number);
+  like($metrics -> get_strikethrough_position(), $number);
+  like($metrics -> get_strikethrough_thickness(), $number);
+}
+
 ###############################################################################
 
 like(int(Gtk2::Pango -> scale()), $number);
@@ -117,5 +127,5 @@ SKIP: {
 
 __END__
 
-Copyright (C) 2003 by the gtk2-perl team (see the file AUTHORS for the
+Copyright (C) 2003-2004 by the gtk2-perl team (see the file AUTHORS for the
 full list).  See LICENSE for more information.
