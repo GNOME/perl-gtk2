@@ -17,9 +17,10 @@ BEGIN { use_ok('Gtk2') };
 
 #########################
 
-ok( Gtk2->get_version_info );
-ok( Gtk2->check_version(0,0,0) eq 'Gtk+ version too new (major mismatch)' );
-ok( Gtk2->check_version(50,0,0) eq 'Gtk+ version too old (major mismatch)' );
+my @version = Gtk2->get_version_info;
+is( @version, 3, 'version info is three items long' );
+is( Gtk2->check_version(0,0,0), 'Gtk+ version too new (major mismatch)' );
+is( Gtk2->check_version(50,0,0), 'Gtk+ version too old (major mismatch)' );
 
 SKIP:
 {
