@@ -67,7 +67,7 @@ MODULE = Gtk2::ItemFactory	PACKAGE = Gtk2::ItemFactory	PREFIX = gtk_item_factory
 
 ##  GtkItemFactory* gtk_item_factory_new (GType container_type, const gchar *path, GtkAccelGroup *accel_group) 
 GtkItemFactory*
-gtk_item_factory_new (class, container_type_package, path, accel_group)
+gtk_item_factory_new (class, container_type_package, path, accel_group=NULL)
 	char * container_type_package
 	const gchar *path
 	GtkAccelGroup_ornull *accel_group

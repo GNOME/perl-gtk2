@@ -128,9 +128,11 @@ sub create_item {
 	}
 
 	# we have this funky perl wrapper for the XS function entirely for
-	# this line right here --- strip underscores from the possibly unicode
-	# path, for use with gtk_item_factory_get_widget.
-	($cleanpath = $path) =~ s/_//g;
+	# those three lines right here --- strip underscores from the possibly
+	# unicode path, for use with gtk_item_factory_get_widget.
+	$cleanpath = $path;
+	$cleanpath =~ s/_(?!_+)//g;
+	$cleanpath =~ s/_+/_/;
 
 	# the rest of the work happens in XS
 	$factory->_create_item ($path, $accelerator || '',

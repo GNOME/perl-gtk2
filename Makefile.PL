@@ -199,6 +199,12 @@ sub MY::postamble
 				$build_reqs{'perl-ExtUtils-PkgConfig'},
 			'PERL_GLIB' => $build_reqs{'perl-Glib'},
 	           );
+	
+	$text .= " 
+# rebuild the makefile if the file lists change
+Makefile : ".join(" ", @lists)."
+";
+
 	# this installation stuff doesn't make sense on windows, where
 	# we don't really have a /usr.  also, nmake barfs on $+.
 	unless ($^O eq 'MSWin32') {
@@ -210,11 +216,9 @@ install-\%: %
 	\@\$(MOD_INSTALL) ./tmp-\$+/ \\
 		\$(PREFIX)/share/doc/perl-\$(DISTNAME)/\$+
 	\@\$(RM_RF) tmp-\$+/
-
-# rebuild the makefile if the file lists change
-Makefile : ".join(" ", @lists)."
 ";
 	}
+
 	return $text;
 }
 

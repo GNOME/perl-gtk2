@@ -1,3 +1,12 @@
+2003/11/20 19:43 (-0500) rwmcfa1
+
+	* Makefile.PL: some of it, V should be in there even on win32.
+
+	* xs/GtkItemFactory.xs: ..._factory_new, allow accel_group to default,
+	Torsten Schoenfeld
+
+	* Gtk2.pm: patch applied to improve the cleanpath stuff.
+
 2003/11/19 14:14 (-0500) muppetman
 
 	* Makefile.PL: don't do the install stuff on win32, it b0rks things.
