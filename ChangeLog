@@ -1,3 +1,7 @@
+2004/02/29 00:11 (-0500) muppetman
+
+	* xs/GtkWidget.xs: fix the pod for (push|pop)_composite_child
+
 2004/02/29 01:39 (+0100) kaffeetisch
 
 	* t/GtkRc.t: Don't assume the return value of get_style_by_paths

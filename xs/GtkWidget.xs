@@ -803,17 +803,17 @@ void gtk_widget_pop_colormap (class_or_widget)
     C_ARGS: /* void */
 
 =for apidoc
-=for signature Gtk2::Widget->push_composite_child (cmap)
-=for signature $widget->push_composite_child (cmap)
+=for signature Gtk2::Widget->push_composite_child
+=for signature $widget->push_composite_child
 =cut
-void gtk_widget_push_composite_child (class_or_widget)
+void gtk_widget_push_composite_child (class_or_widget=NULL)
     C_ARGS: /* void */
 
 =for apidoc
-=for signature Gtk2::Widget->pop_composite_child (cmap)
-=for signature $widget->pop_composite_child (cmap)
+=for signature Gtk2::Widget->pop_composite_child
+=for signature $widget->pop_composite_child
 =cut
-void gtk_widget_pop_composite_child (class_or_widget)
+void gtk_widget_pop_composite_child (class_or_widget=NULL)
     C_ARGS: /* void */
 
 # bunch of FIXMEs FIXME FIXME FIXME
