@@ -75,9 +75,10 @@ gint
 gtk_spin_button_get_value_as_int (spin_button)
 	GtkSpinButton *spin_button
 
-gint
-gtk_spin_button_get_value_as_float (spin_button)
-	GtkSpinButton * spin_button
+### this is deprecated
+##gfloat
+##gtk_spin_button_get_value_as_float (spin_button)
+##	GtkSpinButton * spin_button
 
 void
 gtk_spin_button_set_value (spin_button, value)
