@@ -59,9 +59,6 @@ use Glib::Object::Subclass
 	],
 	;
 
-# !!!! very important !!!!
-__PACKAGE__->_install_overrides;
-
 use Data::Dumper;
 
 use constant xpad => 3;
@@ -80,7 +77,7 @@ sub calc_size {
 	return (0, 0, $w + xpad * 2 + arrow_width, $h + ypad * 2);
 }
 
-sub on_get_size {
+sub GET_SIZE {
 	my ($cell, $widget, $area) = @_;
 	if ($area) {
 		return (3, 3, $area->width - arrow_width - 2*xpad - 4, $area->height - 6);
@@ -96,7 +93,7 @@ sub get_layout {
 	return $cell->{layout} = $widget->create_pango_layout ("");
 }
 
-sub on_render {
+sub RENDER {
 	my ($cell, $drawable, $widget, $background_area, $cell_area, $expose_area, $flags) = @_;
 	my $state = 'normal';
 
@@ -173,7 +170,7 @@ sub editing_done {
 	$editable->remove_widget;
 }
 
-sub on_start_editing {
+sub START_EDITING {
 	my ($cell, $event, $widget, $path, $background_area, $cell_area, $flags) = @_;
 	my $menu = Gtk2::Menu->new;
 	my @data = @{ $cell->{list} };

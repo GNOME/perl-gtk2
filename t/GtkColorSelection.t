@@ -2,6 +2,8 @@
 use strict;
 use Gtk2::TestHelper tests => 12;
 
+# $Header$
+
 my $selection = Gtk2::ColorSelection -> new();
 isa_ok($selection, "Gtk2::ColorSelection");
 

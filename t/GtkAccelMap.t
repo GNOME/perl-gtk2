@@ -2,6 +2,8 @@
 use strict;
 use Gtk2::TestHelper tests => 15;
 
+# $Header$
+
 use Gtk2::Gdk::Keysyms;
 
 my $key = $Gtk2::Gdk::Keysyms{ KP_Enter };

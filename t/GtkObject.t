@@ -2,6 +2,8 @@
 use strict;
 use Gtk2::TestHelper tests => 2, noinit => 1;
 
+# $Header$
+
 my $label = Gtk2::Object -> new("Gtk2::Label", "Bla");
 isa_ok($label, "Gtk2::Object");
 isa_ok($label, "Gtk2::Label");

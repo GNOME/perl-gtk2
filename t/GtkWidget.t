@@ -1,3 +1,5 @@
+# $Header$
+
 use Gtk2::TestHelper tests => 62;
 
 # we can't instantiate Gtk2::Widget, it's abstract.  use a DrawingArea instead.

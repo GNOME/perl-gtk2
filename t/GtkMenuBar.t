@@ -2,6 +2,8 @@
 use strict;
 use Gtk2::TestHelper tests => 1, noinit => 1;
 
+# $Header$
+
 my $bar = Gtk2::MenuBar -> new();
 isa_ok($bar, "Gtk2::MenuBar");
 

@@ -2,6 +2,8 @@
 use strict;
 use Gtk2::TestHelper tests => 6;
 
+# $Header$
+
 my $list = Gtk2::TargetList -> new(
   { target => "STRING", flags => "same-app", info => 23 },
   { target => "COMPOUND_TEXT", flags => ["same-app", "same-widget"], info => 42 }

@@ -2,6 +2,8 @@
 use strict;
 use Gtk2::TestHelper tests => 11;
 
+# $Header$
+
 my $adjustment = Gtk2::Adjustment -> new(0, 0, 100, 1, 5, 10);
 
 my $spin = Gtk2::SpinButton -> new($adjustment, 0.2, 1);

@@ -1,5 +1,7 @@
 #!/usr/bin/perl -w
 
+# $Header$
+
 use Gtk2::TestHelper tests => 23, noinit => 1;
 
 # we'll create some containers (windows and boxes are containers) and

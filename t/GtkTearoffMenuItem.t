@@ -2,6 +2,8 @@
 use strict;
 use Gtk2::TestHelper tests => 1, noinit => 1;
 
+# $Header$
+
 my $item = Gtk2::TearoffMenuItem -> new();
 isa_ok($item, "Gtk2::TearoffMenuItem");
 

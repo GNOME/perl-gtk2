@@ -2,6 +2,8 @@
 use strict;
 use Gtk2::TestHelper tests => 19;
 
+# $Header$
+
 my $fs = Gtk2::FileSelection -> new("Bla");
 isa_ok($fs, "Gtk2::FileSelection");
 

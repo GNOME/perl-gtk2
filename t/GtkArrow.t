@@ -2,6 +2,8 @@
 use strict;
 use Gtk2::TestHelper tests => 3, noinit => 1;
 
+# $Header$
+
 # From Ross' original test.
 
 my $arrow = Gtk2::Arrow -> new('up', 'none');

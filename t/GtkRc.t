@@ -2,6 +2,8 @@
 use strict;
 use Gtk2::TestHelper tests => 36;
 
+# $Header$
+
 my $button = Gtk2::Button -> new("Bla");
 my $font = Gtk2::Pango::FontDescription -> from_string("Sans 12");
 my $green = Gtk2::Gdk::Color -> new(0, 0xFFFF, 0);

@@ -2,6 +2,8 @@
 use strict;
 use Gtk2::TestHelper tests => 2, noinit => 1;
 
+# $Header$
+
 use Gtk2::Gdk::Keysyms;
 
 my @items = (

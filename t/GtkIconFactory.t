@@ -2,6 +2,8 @@
 use strict;
 use Gtk2::TestHelper tests => 22;
 
+# $Header$
+
 my $pixbuf = Gtk2::Gdk::Pixbuf -> new("rgb", 0, 8, 10, 10);
 my $style = Gtk2::Style -> new();
 my $button = Gtk2::Button -> new("Bla");

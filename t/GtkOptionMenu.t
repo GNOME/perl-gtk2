@@ -2,6 +2,8 @@
 use strict;
 use Gtk2::TestHelper tests => 3;
 
+# $Header$
+
 my $option_menu = Gtk2::OptionMenu -> new();
 isa_ok($option_menu, "Gtk2::OptionMenu");
 

@@ -2,6 +2,8 @@
 use strict;
 use Gtk2::TestHelper tests => 117;
 
+# $Header$
+
 my @version_info = Gtk2 -> get_version_info();
 
 ###############################################################################

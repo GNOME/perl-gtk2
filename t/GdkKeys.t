@@ -2,6 +2,8 @@
 use strict;
 use Gtk2::TestHelper tests => 15;
 
+# $Header$
+
 my $map = Gtk2::Gdk::Keymap -> get_default();
 isa_ok($map, "Gtk2::Gdk::Keymap");
 

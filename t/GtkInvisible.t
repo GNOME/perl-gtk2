@@ -2,6 +2,8 @@
 use strict;
 use Gtk2::TestHelper tests => 3;
 
+# $Header$
+
 my $invisible = Gtk2::Invisible -> new();
 isa_ok($invisible, "Gtk2::Invisible");
 

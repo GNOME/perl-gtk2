@@ -2,6 +2,8 @@
 use strict;
 use Gtk2::TestHelper tests => 5, noinit => 1;
 
+# $Header$
+
 my $adjustment = Gtk2::Adjustment -> new(0, 0, 100, 1, 5, 10);
 
 my $range = Gtk2::HScale -> new($adjustment);

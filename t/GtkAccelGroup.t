@@ -2,6 +2,8 @@
 use strict;
 use Gtk2::TestHelper tests => 12;
 
+# $Header$
+
 use Gtk2::Gdk::Keysyms;
 
 my $group = Gtk2::AccelGroup -> new();

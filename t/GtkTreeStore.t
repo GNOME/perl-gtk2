@@ -2,6 +2,8 @@
 use strict;
 use Gtk2::TestHelper tests => 63, noinit => 1;
 
+# $Header$
+
 ###############################################################################
 
 my $model = Gtk2::TreeStore -> new("Glib::String", "Glib::Int");

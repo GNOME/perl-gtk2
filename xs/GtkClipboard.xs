@@ -382,8 +382,11 @@ void gtk_clipboard_request_targets (GtkClipboard *clipboard, SV * callback, SV *
 			 gtk2perl_clipboard_targets_received_func,
 			 real_callback);
 
+=for apidoc
+Returns a list of GdkAtom's.
+=cut
  ## gboolean gtk_clipboard_wait_for_targets (GtkClipboard  *clipboard, GdkAtom **targets, gint *n_targets);
-void gtk_clipboard_wait_for_targets (GtkClipboard  *clipboard, ...)
+void gtk_clipboard_wait_for_targets (GtkClipboard  *clipboard)
     PREINIT:
 	GdkAtom *targets = NULL;
 	gint n_targets, i;

@@ -2,6 +2,8 @@
 use strict;
 use Gtk2::TestHelper tests => 2, noinit => 1;
 
+# $Header$
+
 my $misc = Gtk2::Misc -> new(Gtk2::Label::);
 
 $misc -> set_alignment(0.5, 0.5);

@@ -2,6 +2,8 @@
 use strict;
 use Gtk2::TestHelper tests => 3;
 
+# $Header$
+
 my $window = Gtk2::Window -> new();
 $window -> realize();
 

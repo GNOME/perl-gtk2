@@ -2,6 +2,8 @@
 use strict;
 use Gtk2::TestHelper tests => 7, noinit => 1;
 
+# $Header$
+
 my $item = Gtk2::ImageMenuItem -> new();
 isa_ok($item, "Gtk2::ImageMenuItem");
 

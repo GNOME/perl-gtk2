@@ -2,6 +2,8 @@
 use strict;
 use Gtk2::TestHelper tests => 21, noinit => 1;
 
+# $Header$
+
 my $rectangle_one = Gtk2::Gdk::Rectangle -> new(23, 42, 10, 10);
 my $rectangle_two = Gtk2::Gdk::Rectangle -> new(23, 42, 15, 15);
 

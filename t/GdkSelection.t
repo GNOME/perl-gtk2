@@ -2,6 +2,8 @@
 use strict;
 use Gtk2::TestHelper tests => 20;
 
+# $Header$
+
 foreach (Gtk2::Gdk -> SELECTION_PRIMARY(),
          Gtk2::Gdk -> SELECTION_SECONDARY(),
          Gtk2::Gdk -> SELECTION_CLIPBOARD(),

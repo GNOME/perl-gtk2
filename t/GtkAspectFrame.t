@@ -2,6 +2,8 @@
 use strict;
 use Gtk2::TestHelper tests => 3, noinit => 1;
 
+# $Header$
+
 # Blatantly stolen from Ross' original test.
 
 my $frame = Gtk2::AspectFrame -> new("Label", 1, 1, 3, 0);

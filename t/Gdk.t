@@ -3,6 +3,8 @@ use strict;
 use Test::More;
 use Gtk2;
 
+# $Header$
+
 Gtk2::Gdk::Threads -> init();
 
 if (Gtk2->init_check )
@@ -10,7 +12,7 @@ if (Gtk2->init_check )
 	plan tests => 11;
 }
 else
-{	
+{
 	plan skip_all => 'Gtk2->init_check failed, probably unable to '
 		. 'open DISPLAY';
 }

@@ -1,5 +1,7 @@
 #!/usr/bin/perl -w
 
+# $Header$
+
 use Gtk2::TestHelper
 	tests => 12,
 	# FIXME 2.4

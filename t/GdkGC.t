@@ -2,6 +2,8 @@
 use strict;
 use Gtk2::TestHelper tests => 35;
 
+# $Header$
+
 my $black = Gtk2::Gdk::Color -> new(0, 0, 0);
 
 my $values = {

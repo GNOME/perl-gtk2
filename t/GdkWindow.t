@@ -2,6 +2,8 @@
 use strict;
 use Gtk2::TestHelper tests => 31;
 
+# $Header$
+
 my $attributes = {
   title => "Bla",
   event_mask => "button-press-mask",

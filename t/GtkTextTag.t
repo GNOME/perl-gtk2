@@ -2,6 +2,8 @@
 use strict;
 use Gtk2::TestHelper tests => 2, noinit => 1;
 
+# $Header$
+
 my $tag = Gtk2::TextTag -> new("bla");
 isa_ok($tag, "Gtk2::TextTag");
 

@@ -2,6 +2,8 @@
 use strict;
 use Gtk2::TestHelper tests => 5;
 
+# $Header$
+
 my $button = Gtk2::Button -> new("Bla");
 my $window = Gtk2::Window -> new();
 

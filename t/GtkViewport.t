@@ -2,6 +2,8 @@
 use strict;
 use Gtk2::TestHelper tests => 6, noinit => 1;
 
+# $Header$
+
 my $viewport = Gtk2::Viewport -> new();
 isa_ok($viewport, "Gtk2::Viewport");
 

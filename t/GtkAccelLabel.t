@@ -2,6 +2,8 @@
 use strict;
 use Gtk2::TestHelper tests => 4, noinit => 1;
 
+# $Header$
+
 my $button = Gtk2::Button -> new("Blub");
 
 my $label = Gtk2::AccelLabel -> new("Bla");

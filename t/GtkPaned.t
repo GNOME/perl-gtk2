@@ -1,6 +1,8 @@
 
 use Gtk2::TestHelper tests => 55;
 
+# $Header$
+
 my $window = Gtk2::Window->new;
 my $hpaned = Gtk2::HPaned->new;
 my $vpaned = Gtk2::VPaned->new;

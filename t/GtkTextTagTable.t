@@ -2,6 +2,8 @@
 use strict;
 use Gtk2::TestHelper tests => 5, noinit => 1;
 
+# $Header$
+
 my $table = Gtk2::TextTagTable -> new();
 isa_ok($table, "Gtk2::TextTagTable");
 

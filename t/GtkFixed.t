@@ -2,6 +2,8 @@
 use strict;
 use Gtk2::TestHelper tests => 2, noinit => 1;
 
+# $Header$
+
 my $fixed = Gtk2::Fixed -> new();
 isa_ok($fixed, "Gtk2::Fixed");
 

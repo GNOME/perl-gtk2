@@ -2,6 +2,8 @@
 use strict;
 use Gtk2::TestHelper tests => 3, noinit => 1;
 
+# $Header$
+
 my $box = Gtk2::VButtonBox -> new();
 isa_ok($box, "Gtk2::ButtonBox");
 

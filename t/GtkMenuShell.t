@@ -2,6 +2,8 @@
 use strict;
 use Gtk2::TestHelper tests => 2;
 
+# $Header$
+
 my $shell = Gtk2::Menu -> new();
 isa_ok($shell, "Gtk2::MenuShell");
 

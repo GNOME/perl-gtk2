@@ -2,6 +2,8 @@
 use strict;
 use Gtk2::TestHelper tests => 9;
 
+# $Header$
+
 my $fs = Gtk2::FontSelection -> new();
 isa_ok($fs, "Gtk2::FontSelection");
 

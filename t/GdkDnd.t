@@ -30,6 +30,8 @@ use strict;
 ### FIXME FIXME
 use Test::More skip_all => "FIXME FIXME FIXME something is horribly wrong with this test";
 
+# $Header$
+
 my $window = Gtk2::Window -> new();
 $window -> realize();
 $window -> show_now;
@@ -52,7 +54,7 @@ SKIP: {
     if (Gtk2 -> check_version(2, 2, 0));
 
   ($destination, $protocol) =  $context -> find_window_for_screen($window -> window(), Gtk2::Gdk::Screen -> get_default(), 0, 0);
-  
+
   isa_ok($destination, "Gtk2::Gdk::Window");
   ok($protocol);
 }

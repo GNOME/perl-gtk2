@@ -2,6 +2,8 @@
 use strict;
 use Gtk2::TestHelper tests => 5;
 
+# $Header$
+
 my $dialog = Gtk2::ColorSelectionDialog -> new("Bla");
 isa_ok($dialog, "Gtk2::ColorSelectionDialog");
 isa_ok($dialog -> colorsel(), "Gtk2::ColorSelection");

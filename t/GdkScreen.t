@@ -4,6 +4,8 @@ use Gtk2::TestHelper
   tests => 19,
   at_least_version => [2, 2, 0, "GdkScreen is new in 2.2"];
 
+# $Header$
+
 my $screen = Gtk2::Gdk::Screen -> get_default();
 isa_ok($screen, "Gtk2::Gdk::Screen");
 

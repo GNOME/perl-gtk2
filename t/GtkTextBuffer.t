@@ -2,6 +2,8 @@
 use strict;
 use Gtk2::TestHelper tests => 32;
 
+# $Header$
+
 my $table = Gtk2::TextTagTable -> new();
 
 my $buffer = Gtk2::TextBuffer -> new($table);

@@ -2,6 +2,8 @@
 use strict;
 use Gtk2::TestHelper tests => 6, noinit => 1;
 
+# $Header$
+
 my $layout = Gtk2::Layout -> new();
 isa_ok($layout, "Gtk2::Layout");
 

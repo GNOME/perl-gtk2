@@ -2,6 +2,8 @@
 use strict;
 use Gtk2::TestHelper tests => 6, noinit => 1;
 
+# $Header$
+
 my $array = Gtk2::Pango::TabArray -> new(8, 0);
 isa_ok($array, "Gtk2::Pango::TabArray");
 
