@@ -120,6 +120,20 @@ BOOT:
 	gperl_handle_logs_for ("Gdk");
 	gperl_handle_logs_for ("GdkPixbuf");
 	gperl_handle_logs_for ("Pango");
+	/* make sure that we're running/linked against a version at least as 
+	 * new as we built against, otherwise bad things will happen. */
+	if (!(GTK_MAJOR_VERSION > (gtk_major_version) ||
+			
+	      (GTK_MAJOR_VERSION == (gtk_major_version) && 
+	       GTK_MINOR_VERSION > (gtk_minor_version)) ||
+
+	      (GTK_MAJOR_VERSION == (gtk_major_version) && 
+	       GTK_MINOR_VERSION == (gtk_minor_version) &&
+	       GTK_MICRO_VERSION >= (gtk_micro_version))))
+		warn ("*** Gtk2 has linked against C libraries older than what "
+		      "it was compiled against, we'll continue, but expect "
+		      "problems!\n");
+		/* TODO/FIXME: better msg */
 	}
 
  ##GTKMAIN_C_VAR const guint gtk_binary_age;
