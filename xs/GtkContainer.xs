@@ -209,6 +209,7 @@ gtk_container_child_type (container)
 	 * that isn't registered with the bindings, so we have to look 
 	 * for one that we know about.  since Glib::Object is always
 	 * registered, this loop cannot be infinite. */
+	RETVAL = NULL;
 	while (gtype &&
 	       (NULL == (RETVAL = gperl_object_package_from_type (gtype))))
 		gtype = g_type_parent (gtype);
