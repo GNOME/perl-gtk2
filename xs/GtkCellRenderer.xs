@@ -202,11 +202,12 @@ gtk2perl_cell_renderer_activate (GtkCellRenderer      * cell,
 		XPUSHs (sv_2mortal (newSVGtkCellRendererState (flags)));
 
 		PUTBACK;
-		call_sv ((SV*) GvCV (*slot), G_SCALAR|G_DISCARD);
+		call_sv ((SV*) GvCV (*slot), G_SCALAR);
 		SPAGAIN;
 
 		retval = POPi;
 
+		PUTBACK;
 		FREETMPS;
 		LEAVE;
 	}
@@ -255,6 +256,7 @@ gtk2perl_cell_renderer_start_editing (GtkCellRenderer      * cell,
 		         ? GTK_CELL_EDITABLE (SvGObject (sv))
 		         : NULL;
 
+		PUTBACK;
 		FREETMPS;
 		LEAVE;
 	}

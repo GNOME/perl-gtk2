@@ -119,6 +119,7 @@ gtk2perl_editable_insert_text_marshal (GClosure * closure,
 	SvREFCNT_dec (string);
 	SvREFCNT_dec (position);
 
+	PUTBACK;
 	FREETMPS;
 	LEAVE;
 }
