@@ -13,20 +13,17 @@ gtk_button_news (class, label=NULL)
     ALIAS:
 	Gtk2::Button::new = 0
 	Gtk2::Button::new_with_mnemonic = 1
+	Gtk2::Button::new_with_label = 2
     CODE:
-	if (label)
-		RETVAL = gtk_button_new_with_mnemonic (label);
-	else
+	if (label) {
+		if (ix == 2)
+			RETVAL = gtk_button_new_with_label (label);
+		else
+			RETVAL = gtk_button_new_with_mnemonic (label);
+	} else
 		RETVAL = gtk_button_new ();
     OUTPUT:
 	RETVAL
-
-GtkWidget *
-gtk_button_new_with_label (class, label)
-	SV * class
-	const gchar * label
-    C_ARGS:
-	label
 
 GtkWidget *
 gtk_button_new_from_stock (class, stock_id)

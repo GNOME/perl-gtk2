@@ -8,6 +8,7 @@ MODULE = Gtk2::CheckMenuItem	PACKAGE = Gtk2::CheckMenuItem	PREFIX = gtk_check_me
 
 ## GtkWidget* gtk_check_menu_item_new (void)
 ## GtkWidget* gtk_check_menu_item_new_with_mnemonic (const gchar *label)
+## GtkWidget* gtk_check_menu_item_new_with_label (const gchar *label)
 GtkWidget *
 gtk_check_menu_item_news (class, label=NULL)
 	SV          * class
@@ -15,21 +16,17 @@ gtk_check_menu_item_news (class, label=NULL)
     ALIAS:
 	Gtk2::CheckMenuItem::new = 0
 	Gtk2::CheckMenuItem::new_with_mnemonic = 1
+	Gtk2::CheckMenuItem::new_with_label = 2
     CODE:
-	if (label)
-		RETVAL = gtk_check_menu_item_new_with_mnemonic (label);
-	else
+	if (label) {
+		if (ix == 2) 
+			RETVAL = gtk_check_menu_item_new_with_label (label);
+		else
+			RETVAL = gtk_check_menu_item_new_with_mnemonic (label);
+	} else
 		RETVAL = gtk_check_menu_item_new ();
     OUTPUT:
 	RETVAL
-
-## GtkWidget* gtk_check_menu_item_new_with_label (const gchar *label)
-GtkWidget *
-gtk_check_menu_item_new_with_label (class, label)
-	SV          * class
-	const gchar * label
-    C_ARGS:
-	label
 
 ## void gtk_check_menu_item_set_active (GtkCheckMenuItem *check_menu_item, gboolean is_active)
 void
