@@ -1,3 +1,16 @@
+2003/10/27 19:38 muppetman
+
+	* Makefile.PL: documentation generation experimentation
+
+	* xs/GdkEvent.xs: apidoc pod bundles all of the event subtypes into
+	GdkEvent's docs; which creates another problem, namely, they all have
+	the same instance name in their call signatures.  so, add =signature
+	pods to give them better names.  implemented a few of the more
+	esoteric members, too.
+	
+	* xs/GtkCellRenderer.xs: document CellRendererState and
+	CellRendererMode with CellRenderer.
+
 2003/10/27 14:34 muppetman
 
 	* xs/GtkCellRenderer.xs: merged the cellrenderer subclassing stuff,
