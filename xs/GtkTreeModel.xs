@@ -114,9 +114,6 @@ find_func (GtkTreeModel * tree_model,
 	return (SV*) gv_fetchmethod (stash, method_name);
 }
 
-#define PUSH_INSTANCE(var)	\
-	PUSHs (sv_2mortal (newSVGObject (G_OBJECT (var))))
-
 #define PREP(model)	\
 	dSP;			\
 	ENTER;			\
@@ -479,7 +476,7 @@ The implementation of each individual model decides how and if changes are
 made.
 
 In order to make life simpler for programmers who do not need to write their
-own specialized model, two generic models are provided — the Gtk2::TreeStore
+own specialized model, two generic models are provided - the Gtk2::TreeStore
 and the Gtk2::ListStore.  To use these, the developer simply pushes data into
 these models as necessary.  These models provide the data structure as well
 as all appropriate tree interfaces.  As a result, implementing drag and drop,
@@ -607,7 +604,7 @@ Implements $treemodel->get().
 
 Optional.
 
-=item REF_NODE ($model, ARRAYREF)
+=item UNREF_NODE ($model, ARRAYREF)
 
 Optional.
 
