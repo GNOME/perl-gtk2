@@ -1,3 +1,9 @@
+2003/11/29 16:51 (-0500) muppetman
+
+	* t/ignore_keyboard.pl: merge test helper script from head
+	* Gtk2.pm, README: bump to 1.013
+	* Makefile.PL: require Glib 1.013
+
 2003/11/29 12:21 (-0500) muppetman
 
 	* xs/GtkMessageDialog.xs: gtk_message_dialog_new uses printf-like
