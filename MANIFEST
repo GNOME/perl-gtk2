@@ -24,11 +24,13 @@ examples/color_list.pl
 examples/colorselectiontest.pl
 examples/combo_box.pl
 examples/file_chooser.pl
+examples/filesel_multisel.pl
 examples/histogramplot.pl
 examples/inline-images.pl
 examples/insert-text-test.pl
 examples/item_factory_demo.pl
 examples/layout.pl
+examples/multisel.pl
 examples/plug.pl
 examples/rulers.pl
 examples/scribble.pl
