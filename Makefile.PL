@@ -73,6 +73,7 @@ my %pm_files = (
 	'pm/Pango.pm'      => '$(INST_LIBDIR)/Gtk2/Pango.pm',
 	'pm/SimpleList.pm' => '$(INST_LIBDIR)/Gtk2/SimpleList.pm',
 	'api.pod'          => '$(INST_LIBDIR)/Gtk2/api.pod',
+	'devel.pod'        => '$(INST_LIBDIR)/Gtk2/devel.pod',
 );
 my %pod_files = (
 	'Gtk2.pm'          => '$(INST_MAN3DIR)/Gtk2.$(MAN3EXT)',
@@ -82,6 +83,7 @@ my %pod_files = (
 	'pm/Pango.pm'      => '$(INST_MAN3DIR)/Gtk2::Pango.$(MAN3EXT)',
 	'pm/SimpleList.pm' => '$(INST_MAN3DIR)/Gtk2::SimpleList.$(MAN3EXT)',
 	'api.pod'          => '$(INST_MAN3DIR)/Gtk2::api.$(MAN3EXT)',
+	'devel.pod'        => '$(INST_MAN3DIR)/Gtk2::devel.$(MAN3EXT)',
 );
 
 # now we're ready to start creating the makefile.
