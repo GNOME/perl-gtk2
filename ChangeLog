@@ -1,3 +1,12 @@
+2003/07/29 22:06 rwmcfa1
+
+	* pm/SimpleList.pm: first pass at pod documentation done, small version
+	bump, the on load warning has been removed.
+
+	* examples/simplelist.pl, t/19.GtkSimpleList.t: added examples/tests
+	for a more complex custom column type, sum_of_array, it better shows
+	the power of the custom column system.
+
 2003/07/29 14:52 rwmcfa1
 
 	* pm/SimpleList.pm: added code to allow users (well programmers anyway) 
