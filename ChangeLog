@@ -1,3 +1,7 @@
+2003/12/15 20:44 (-0500) muppetman
+
+	* Makefile.PL: added pure_all as a dep on a few things
+
 2003/12/15 13:44 (-0500) muppetman
 
 	* t/22.GtkListStore.t, t/23.GtkTreeStore.t: on GTK+ 2.0.x, gtk_main()
