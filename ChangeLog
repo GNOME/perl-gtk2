@@ -1,5 +1,11 @@
 2003/06/26 14:49 rwmcfa1
 
+	* MANIFEST, MANIFEST.SKIP: the manifest was updated to include a few
+	missing files and a MANIFEST.SKIP file was added to simplify the
+	process in the future.
+
+	* Gtk2.pm: cleaned up some of the ItemFactory stuff esp. error messages
+
 	* xs/GtkItemFactor.xs: reworked all of the callback stuff, needs 
 	verification
 
