@@ -149,8 +149,9 @@ gdk_gc_set_dashes (gc, dash_offset, ...)
 	gint8 * dash_list;
 	gint    n;
     CODE:
-	n = --items;
-	dash_list = g_new(gint8, items-2);
+	n = --items-1;
+	dash_list = g_new(gint8, n);
+	g_printerr("n: %d\n", n);
 	for( ; items > 1; items-- )
 		dash_list[items-2] = SvIV(ST(items));
 	gdk_gc_set_dashes(gc, dash_offset, dash_list, n);
