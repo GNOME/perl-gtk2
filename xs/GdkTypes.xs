@@ -121,7 +121,7 @@ SvGdkAtom (SV * sv)
 	if (!sv || !SvOK (sv))
 		return (GdkAtom)NULL;
 	else if (sv_derived_from (sv, "Gtk2::Gdk::Atom"))
-                return (GdkAtom) SvIV ((SV*)SvRV (sv));
+                return INT2PTR (GdkAtom, SvIV ((SV*)SvRV (sv)));
         else
                 croak ("variable is not of type Gtk2::Gdk::Atom");
 	return (GdkAtom)NULL; /* not reached */

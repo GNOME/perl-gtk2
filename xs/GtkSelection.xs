@@ -97,7 +97,7 @@ SvGtkTargetList (SV * sv)
 	if (!sv || !SvROK (sv) ||
 	    !sv_derived_from (sv, "Gtk2::TargetList"))
 		croak ("variable is not of type Gtk2::TargetList");
-	return (GtkTargetList*) SvUV (SvRV (sv));
+	return INT2PTR (GtkTargetList*, SvUV (SvRV (sv)));
 }
 
 

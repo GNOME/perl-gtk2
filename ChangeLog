@@ -1,3 +1,8 @@
+2004/03/22 11:02 (-0500) muppetman
+
+	* xs/GdkRgb.xs, xs/GdkTypes.xs, xs/GtkSelection.xs: use INT2PTR to
+	hush warnings about improper casting on cygwin.
+
 2004/03/21 23:01 (-0500) muppetman
 
 	* xs/GtkTreeSelection: document the return type on get_selected_rows
