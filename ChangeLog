@@ -1,3 +1,7 @@
+2003/11/06 16:53 (-0500) muppetman
+
+	* Gtk2.pm: link to the generated pods.
+
 2003/11/06 10:30 (-0500) muppetman
 
 	* xs/Gtk2.xs: handle logs for GdkPixbuf, too.
