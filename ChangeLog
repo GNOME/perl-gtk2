@@ -1,4 +1,10 @@
-2004/02/02 08:06 (-0500) rwmcfa1
+2004/02/02 19:22 (-0500) rwmcfa1
+
+	* pm/SimpleMenu.pm, t/GtkSimpleMenu.t: added the ability to do per 
+	entry user_data. tested that desired user data is passed to callbacks
+	in all cases.
+
+2004/02/02 18:06 (-0500) rwmcfa1
 
 	* pm/TestHelper.pm: added the ablity to skip_all, pretty much just a
 	pass through to Test::More, but a nice feature to have anyway.

@@ -36,7 +36,10 @@ sub new
 	# convert our menu_tree into a set of entries for itemfactory
 	$self->parse;
 	# create the entries 
-	$self->create_items($self->{user_data}, @{$self->{entries}});
+	foreach (@{$self->{entries}})
+	{
+		$self->create_item ($_, $_->[6] || $self->{user_data});
+	}
 	# store the widget so our owner can easily get to it
 	$self->{widget} = $self->get_widget('<main>');
 	# cache the accel_group so the user can add it to something,
@@ -116,7 +119,8 @@ sub parse
 					 (exists($groups[$grp]) ? 
 						 $groups[$grp] :
 						 $itms->{item_type}), 
-					 $itms->{extra_data}, ];
+					 $itms->{extra_data},
+					 $itms->{callback_data} ];
 
 			# create the group identifier (path)
 			# so that next button in this group will
@@ -137,7 +141,8 @@ sub parse
 						 $default_callback ),
 					 $itms->{callback_action},
 					 $itms->{item_type},
-					 $itms->{extra_data}, ];
+					 $itms->{extra_data}, 
+					 $itms->{callback_data} ];
 		}
 	}
 

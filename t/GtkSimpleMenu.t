@@ -7,19 +7,23 @@
 # 	- rm
 #########################
 
-use Gtk2::TestHelper tests => 42;
+use Gtk2::TestHelper tests => 43;
 
 require_ok( 'Gtk2::SimpleMenu' );
 
 use Data::Dumper;
 
+our %callback_datas;
+
 sub callback
 {
+	$callback_datas{$_[0]}++;
 	ok(1) unless( $_[1] % 2 );
 }
 
 sub default_callback
 {
+	$callback_datas{$_[0]}++;
 	ok(1) if( $_[1] % 2 );
 }
 
@@ -35,6 +39,7 @@ my $menu_tree = [
 			},
 			_Save      => {
 				callback_action => $action++,
+				callback_data => 'udata1',
 				accelerator => '<ctrl>S',
 			},
 			'Save _As' => {
@@ -70,15 +75,18 @@ my $menu_tree = [
 			_CheckItem => {
 				callback => \&callback,
 				callback_action => $action++,
+				callback_data => 'udata2',
 				item_type => '<CheckItem>',
 			},
 			_ToggleItem => {
 				callback_action => $action++,
+				callback_data => 'udata3',
 				item_type => '<ToggleItem>',
 			},
 			_StockItem => {
 				callback => \&callback,
 				callback_action => $action++,
+				callback_data => 'udata4',
 				item_type => '<StockItem>',
 				extra_data => 'gtk-execute',
 			},
@@ -98,6 +106,7 @@ my $menu_tree = [
 					},
 					'Radio _3' => {
 						callback_action => $action++,
+						callback_data => 'udata5',
 						item_type  => '<RadioItem>',
 						groupid => 1,
 					},
@@ -171,6 +180,15 @@ foreach (@{$menu->{entries}})
 }
 ok( $tmp = $menu->get_widget ('/File/Exit') );
 $tmp->activate;
+
+ok (eq_hash (\%callback_datas, {
+			'udata5' => 1,
+			'udata2' => 1,
+			'udata3' => 1,
+			'user data' => 13,
+			'udata4' => 1,
+			'udata1' => 1
+		}), 'correct callback user_data');
 
 __END__
 
