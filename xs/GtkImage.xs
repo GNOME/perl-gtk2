@@ -157,7 +157,6 @@ gtk_image_get_stock (image)
  ##	GdkImage **val
  ##	GdkBitmap **mask
 
-# TODO: GdkBitmap not in typemap
 ##void gtk_image_set (GtkImage *image, GdkImage *val, GdkBitmap *mask)
 #void
 #gtk_image_set (image, val, mask)
