@@ -139,10 +139,22 @@ sub RENDER {
 sub menu_pos_func {
 	my ($menu, $x, $y, $data) = @_;
 	my ($treeview, $cell_area) = @$data;
+	# we need to figure out where the cell is in window coordinates,
+	# so we can put the menu near it.  tree_to_widget_coords() maps
+	# the cell_area's x and y to widget coords, but this is in the
+	# entire treeview's coordinate space; if it's inside a scrolled
+	# window, then only part of it is visible.  thus, we need to add
+	# the offset of the visible portion of the treeview.  we want the
+	# menu to start xpad from the left of the cell (just like the 
+	# button graphic), and we'll start by centering it vertically.
+	# got all that?
 	my ($wx, $wy) = $treeview->get_bin_window->get_origin;
-        my ($tx, $ty) = $treeview->tree_to_widget_coords($cell_area->x, $cell_area->y);
-	$x = $wx + $tx + xpad;
-	$y = $wy + $ty + $cell_area->height / 2 - 2;
+	my ($tx, $ty) = $treeview->tree_to_widget_coords($cell_area->x, $cell_area->y);
+	my $visible = $treeview->get_visible_rect;
+
+	$x = $wx + $visible->x + $tx + xpad;
+	$y = $wy + $visible->y + $ty + $cell_area->height / 2 - 2;
+
 	# center the menu vertically around the selected item.
 	# this is inspired heavily by GtkOptionMenu.
 	my $active = $menu->get_active;
@@ -300,7 +312,12 @@ $renderer->signal_connect (edited => sub {
 $treeview->append_column ($column);
 
 
-$vbox->pack_start ($treeview, 1, 1, 0);
+my $scroll = Gtk2::ScrolledWindow->new;
+$scroll->set_policy ('never', 'automatic');
+$scroll->add ($treeview);
+$vbox->pack_start ($scroll, 1, 1, 0);
+
+$window->set_default_size (-1, 150);
 
 $window->show_all;
 
