@@ -1,3 +1,8 @@
+2004/02/09 00:59 (-0500) muppetman
+
+	* xs/GtkSelection.xs: make the parsing code for the array and hash
+	forms of Gtk2::TargetEntry agree on the value types.
+
 2004/02/08 21:45 (-0500) muppetman
 
 	* Gtk2.pm, README, NEWS: unstable release 1.034

@@ -77,7 +77,7 @@ gtk2perl_read_gtk_target_entry (SV * sv,
 		if ((s=av_fetch (a, 0, 0)) && SvOK (*s))
 			e->target = SvPV (*s, len);
 		if ((s=av_fetch (a, 1, 0)) && SvOK (*s))
-			e->flags = SvUV (*s);
+			e->flags = SvGtkTargetFlags (*s);
 		if ((s=av_fetch (a, 2, 0)) && SvOK (*s))
 			e->info = SvUV (*s);
 	}
