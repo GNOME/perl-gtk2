@@ -1,3 +1,16 @@
+2003/11/18 01:16 (-0500) muppetman
+
+	* xs/GtkEntry.xs, xs/GtkTextIter.xs, xs/PangoLayout.xs: now that we
+	have typemaps for gunichar, implement things that were waiting on it.
+
+	* xs/PangoLayout.xs: convert a few things to use gchar_length and 
+	length(); don't make pango call strlen() when perl already knows the
+	text's length!
+
+	* t/text-iter-searches.t: new test for the GtkTextIter search tools.
+	this one isn't numbered because it just needs to run after all of
+	the numbered tests.
+
 2003/11/17 23:21 (-0500) rwmcfa1
 
 	* xs/GdkDisplayManager.xs, xs/GdkDnd.xs, xs/GdkPixmap.xs, 

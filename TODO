@@ -14,7 +14,6 @@ if not, do we need to automate it?  are we safe with sv strings?
 no typemap (and therefore no bindings) for
 	GdkRegion
 	GdkRgbCmap
-	gunichar
 	GScanner
 	PangoGlyph
 	PangoEngineShape
