@@ -200,7 +200,7 @@ void
 gtk_drag_source_unset (widget)
 	GtkWidget *widget
 
-#if GTK_CHECK_VERSION(2,3,5) /* FIXME 2.4 */
+#if GTK_CHECK_VERSION(2,4,0)
 
 GtkTargetList_ornull *
 gtk_drag_source_get_target_list (widget)

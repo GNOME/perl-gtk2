@@ -30,7 +30,7 @@ ok(1);
 
 SKIP: {
   skip("reset_styles is new in 2.4", 0)
-    unless (Gtk2 -> CHECK_VERSION(2, 3, 5)); # FIXME 2.4
+    unless (Gtk2 -> CHECK_VERSION(2, 4, 0));
 
   Gtk2::Rc -> reset_styles($settings);
 }

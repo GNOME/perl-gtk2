@@ -3,8 +3,7 @@
 #
 
 use Gtk2::TestHelper
-	# FIXME 2.4
-	at_least_version => [2, 3, 0, "GtkEntryCompletion is new in 2.4"],
+	at_least_version => [2, 4, 0, "GtkEntryCompletion is new in 2.4"],
 	tests => 4;
 
 sub match_func {

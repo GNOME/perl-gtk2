@@ -149,8 +149,8 @@ void gtk2perl_menu_position_func (GtkMenu       * menu,
                                   GPerlCallback * callback);
 
 
-#if ! GTK_CHECK_VERSION (2, 3, 0)
- /* in versions prior to 2.3.0, GtkTreeSearchFlags was declared such that
+#if ! GTK_CHECK_VERSION (2, 4, 0)
+ /* in versions prior to 2.4.0, GtkTreeSearchFlags was declared such that
   * glib-mkenums interpreted and registered it as a GEnum type.  sometime
   * before 2.3.0, this was corrected, and the type is registered as a GFlags.
   * The maps file has GFlags (since that's correct), but we have to mangle

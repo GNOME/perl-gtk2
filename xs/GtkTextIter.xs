@@ -358,7 +358,7 @@ gtk_text_iter_backward_word_starts (iter, count)
 	GtkTextIter *iter
 	gint count
 
-#if GTK_CHECK_VERSION(2,3,0) /* FIXME 2.4 */
+#if GTK_CHECK_VERSION(2,4,0)
 
 gboolean gtk_text_iter_forward_visible_word_end (GtkTextIter *iter);
 
@@ -414,7 +414,7 @@ gtk_text_iter_backward_cursor_positions (iter, count)
 	GtkTextIter *iter
 	gint count
 
-#if GTK_CHECK_VERSION(2,3,0) /* FIXME 2.4 */
+#if GTK_CHECK_VERSION(2,4,0)
 
 gboolean gtk_text_iter_forward_visible_cursor_position   (GtkTextIter *iter);
 

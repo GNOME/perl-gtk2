@@ -190,7 +190,7 @@ SKIP: {
 
     Glib::Idle->add( sub {
 		SKIP: {
-			TODO: { local $TODO = "reorder changed in 2.3.5";
+			TODO: { local $TODO = "reorder changed in 2.4";
 			skip 'function only in version > 2.2', 5
 				unless Gtk2->CHECK_VERSION (2, 2, 0);
 			$store->reorder(4, 3, 2, 0, 1);

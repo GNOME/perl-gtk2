@@ -60,7 +60,7 @@ static void gtk2perl_cell_renderer_get_size
 				       gint                 * height);
 static void gtk2perl_cell_renderer_render
                                       (GtkCellRenderer      * cell,
-#if GTK_CHECK_VERSION(2,3,0)
+#if GTK_CHECK_VERSION(2,4,0)
                                        GdkDrawable          * window,
 #else
 				       GdkWindow            * window,
@@ -161,7 +161,7 @@ gtk2perl_cell_renderer_get_size (GtkCellRenderer      * cell,
 
 static void
 gtk2perl_cell_renderer_render (GtkCellRenderer      * cell,
-#if GTK_CHECK_VERSION(2,3,0)
+#if GTK_CHECK_VERSION(2,4,0)
 			       GdkDrawable          * drawable,
 #else
 			       GdkWindow            * drawable,
@@ -540,7 +540,7 @@ gtk_cell_renderer_start_editing (cell, event, widget, path, background_area, cel
 	GdkRectangle         * cell_area
 	GtkCellRendererState   flags
 
-#if GTK_CHECK_VERSION (2, 3, 2) /* FIXME 2.4 */
+#if GTK_CHECK_VERSION (2, 4, 0)
 
 ## void gtk_cell_renderer_editing_canceled (GtkCellRenderer *cell)
 void

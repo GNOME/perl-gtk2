@@ -3,8 +3,7 @@
 #
 
 use Gtk2::TestHelper
-	# FIXME 2.4
-	at_least_version => [2, 3, 0, "GtkFileChooser is new in 2.4"],
+	at_least_version => [2, 4, 0, "GtkFileChooser is new in 2.4"],
 	tests => 4, noinit => 1;
 
 my $filter_info = {

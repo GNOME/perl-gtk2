@@ -101,7 +101,7 @@ gtk_rc_reparse_all_for_settings (class, settings, force_load)
     C_ARGS:
 	settings, force_load
 
-#if GTK_CHECK_VERSION (2, 3, 5) /* FIXME 2.4 */
+#if GTK_CHECK_VERSION (2, 4, 0)
 
 ## void gtk_rc_reset_styles (GtkSettings *settings)
 void gtk_rc_reset_styles (class, settings)

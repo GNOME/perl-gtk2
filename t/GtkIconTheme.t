@@ -3,8 +3,7 @@
 #
 
 use Gtk2::TestHelper
-	# FIXME 2.4
-	at_least_version => [2, 3, 0, "GtkIconTheme is new in 2.4"],
+	at_least_version => [2, 4, 0, "GtkIconTheme is new in 2.4"],
 	tests => 15;
 
 my $icon_theme = Gtk2::IconTheme->new;
@@ -20,23 +19,18 @@ $icon_theme->set_screen (Gtk2::Gdk::Screen->get_default);
 
 ok ($icon_theme->list_icons (undef));
 
-SKIP: {
-	skip "the search path api was broken prior to 2.3.3", 3
-		unless Gtk2->CHECK_VERSION (2, 3, 3); # FIXME 2.4
+my @paths = qw(/tmp /etc /home);
+$icon_theme->set_search_path (@paths);
 	
-	my @paths = qw(/tmp /etc /home);
-	$icon_theme->set_search_path (@paths);
+is_deeply ([$icon_theme->get_search_path], \@paths);
 	
-	is_deeply ([$icon_theme->get_search_path], \@paths);
+$icon_theme->append_search_path ('/usr/local/tmp');
+push @paths, '/usr/local/tmp';
+is_deeply ([$icon_theme->get_search_path], \@paths);
 	
-	$icon_theme->append_search_path ('/usr/local/tmp');
-	push @paths, '/usr/local/tmp';
-	is_deeply ([$icon_theme->get_search_path], \@paths);
-	
-	$icon_theme->prepend_search_path ('/usr/tmp');
-	unshift @paths, '/usr/tmp';
-	is_deeply ([$icon_theme->get_search_path], \@paths);
-}
+$icon_theme->prepend_search_path ('/usr/tmp');
+unshift @paths, '/usr/tmp';
+is_deeply ([$icon_theme->get_search_path], \@paths);
 
 ok (!$icon_theme->has_icon ('gtk-open'));
 ok (!$icon_theme->has_icon ('something crazy'));

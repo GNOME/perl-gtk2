@@ -210,7 +210,7 @@ gtk_text_buffer_place_cursor (buffer, where)
 	GtkTextBuffer *buffer
 	GtkTextIter *where
 
-#if GTK_CHECK_VERSION(2,3,0) /* FIXME 2.4 */
+#if GTK_CHECK_VERSION(2,4,0)
 
 ## void gtk_text_buffer_select_range (GtkTextBuffer *buffer, const GtkTextIter *ins, const GtkTextIter *bound);
 void gtk_text_buffer_select_range (GtkTextBuffer *buffer, GtkTextIter *ins, GtkTextIter *bound);

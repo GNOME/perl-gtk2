@@ -4,8 +4,7 @@
 
 use Gtk2::TestHelper
 	tests => 12,
-	# FIXME 2.4
-	at_least_version => [2, 3, 0, "GtkFontButton didn't exist until 2.3.0"],
+	at_least_version => [2, 4, 0, "GtkFontButton is new in 2.4"],
 	;
 
 my $fbn;

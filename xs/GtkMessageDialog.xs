@@ -61,7 +61,7 @@ gtk_message_dialog_new (class, parent, flags, type, buttons, format, ...)
     OUTPUT:
 	RETVAL
 
-#if GTK_CHECK_VERSION(2,3,0) /* FIXME 2.4 */
+#if GTK_CHECK_VERSION(2,4,0)
 
 =for apidoc
 =for arg message a string containing Pango markup

@@ -145,7 +145,7 @@ GdkWindowTypeHint
 gtk_window_get_type_hint (window)
 	GtkWindow * window
 
-#if GTK_CHECK_VERSION(2, 3, 0) /* FIXME 2.4 */
+#if GTK_CHECK_VERSION(2, 4, 0)
 
 gboolean gtk_window_get_accept_focus (GtkWindow *window)
 
@@ -337,7 +337,7 @@ gtk_window_set_default_icon_from_file (class_or_instance, filename)
 
 #endif
 
-#if GTK_CHECK_VERSION(2,3,0) /* FIXME 2.4 */
+#if GTK_CHECK_VERSION(2,4,0)
 
 void gtk_window_set_default_icon (class, GdkPixbuf * icon)
     C_ARGS:
@@ -567,7 +567,7 @@ void
 gtk_window_unfullscreen (window)
 	GtkWindow * window
 
-#if GTK_CHECK_VERSION(2,3,0) /* FIXME 2.4 */
+#if GTK_CHECK_VERSION(2,4,0)
 
 void gtk_window_set_keep_above (GtkWindow *window, gboolean setting);
 
@@ -605,7 +605,7 @@ gtk_window_set_auto_startup_notification (class, setting)
 
 #endif
 
-#if GTK_CHECK_VERSION(2,3,4) /* FIXME 2.4 */
+#if GTK_CHECK_VERSION(2,4,0)
 
 =for apidoc
 =for arg event (Gtk2::Gdk::Event::Key)

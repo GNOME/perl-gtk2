@@ -3,8 +3,7 @@ use strict;
 use Gtk2::TestHelper
   tests => 20,
   noinit => 1,
-  # FIXME 2.4
-  at_least_version => [2, 3, 0, "GtkTreeModelFilter is new in 2.4"];
+  at_least_version => [2, 4, 0, "GtkTreeModelFilter is new in 2.4"];
 
 # $Header$
 

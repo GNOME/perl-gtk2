@@ -91,7 +91,7 @@ void gdk_display_put_event (GdkDisplay *display, GdkEvent *event)
 
 void gdk_display_set_double_click_time (GdkDisplay *display, guint msec) 
 
-#if GTK_CHECK_VERSION(2, 3, 1) /* FIXME 2.4 */
+#if GTK_CHECK_VERSION(2, 4, 0)
 
 void gdk_display_set_double_click_distance (GdkDisplay *display, guint distance)
 
@@ -139,7 +139,7 @@ gdk_display_get_window_at_pointer (GdkDisplay *display)
 
 #endif /* >= 2.2.0 */
 
-#if GTK_CHECK_VERSION(2, 3, 1) /* FIXME 2.4 */
+#if GTK_CHECK_VERSION(2, 4, 0)
 
 gboolean gdk_display_supports_cursor_alpha (GdkDisplay * display)
 

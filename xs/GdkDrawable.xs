@@ -332,7 +332,7 @@ gdk_drawable_get_image (drawable, x, y, width, height)
 	gint width
 	gint height
 
-#if GTK_CHECK_VERSION(2, 3, 1) /* FIXME 2.4 */
+#if GTK_CHECK_VERSION(2, 4, 0)
 
 GdkImage *
 gdk_drawable_copy_to_image (drawable, image, src_x, src_y, dest_x, dest_y, width, height)

@@ -280,7 +280,7 @@ gdk_pixbuf_new_from_file (class, filename)
     OUTPUT:
 	RETVAL
 
-#if GTK_CHECK_VERSION(2,3,0) /* FIXME 2.4 */
+#if GTK_CHECK_VERSION(2,4,0)
 
 ## GdkPixbuf *gdk_pixbuf_new_from_file_at_size (const char *filename, int width, int height, GError **error);
 =for apidoc __gerror__

@@ -52,9 +52,7 @@ gtk_file_chooser_dialog_new (class, gchar *title, GtkWindow_ornull *parent, GtkF
 	RETVAL = g_object_new (GTK_TYPE_FILE_CHOOSER_DIALOG,
 	                       "title", title,
 	                       "action", action,
-#if GTK_CHECK_VERSION (2, 3, 5) /* FIXME 2.4: those guards can be removed altogether */
 	                       "file-system-backend", backend,
-#endif
 	                       NULL);
 
 	if (parent)

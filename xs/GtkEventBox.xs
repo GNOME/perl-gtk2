@@ -29,7 +29,7 @@ gtk_event_box_new (class)
     C_ARGS:
 	/* void */
 
-#if GTK_CHECK_VERSION(2,3,0) /* FIXME 2.4 */
+#if GTK_CHECK_VERSION(2,4,0)
 
 gboolean gtk_event_box_get_visible_window (GtkEventBox *event_box);
 

@@ -59,7 +59,7 @@ gtk_scale_get_value_pos (scale)
 ## void _gtk_scale_get_value_size (GtkScale *scale, gint *width, gint *height)
 
 
-#if GTK_CHECK_VERSION (2, 3, 3) /* FIXME 2.4 */
+#if GTK_CHECK_VERSION (2, 4, 0)
 
 ## PangoLayout* gtk_scale_get_layout (GtkScale *scale)
 PangoLayout *

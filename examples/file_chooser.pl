@@ -18,7 +18,7 @@ use Gtk2 -init;
 
 die "This example requires gtk+ 2.4.0, but we're compiled for "
   . join (".", Gtk2->get_version_info)."\n"
-	unless Gtk2->CHECK_VERSION (2,3,0); # FIXME 2.4
+	unless Gtk2->CHECK_VERSION (2,4,0);
 
 my $file_chooser =
 	Gtk2::FileChooserDialog->new ('This is the spiffy new file chooser!',

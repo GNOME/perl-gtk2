@@ -39,7 +39,7 @@ stem ## _quark (void) 							\
 
 DEFINE_QUARK (clipboard_received);
 DEFINE_QUARK (clipboard_text_received);
-#if GTK_CHECK_VERSION (2, 3, 1) /* FIXME 2.4 */
+#if GTK_CHECK_VERSION (2, 4, 0)
 DEFINE_QUARK (clipboard_targets_received);
 #endif
 DEFINE_QUARK (clipboard_get);
@@ -72,7 +72,7 @@ gtk2perl_clipboard_text_received_func (GtkClipboard *clipboard,
 	PERL_UNUSED_VAR (data);
 }
 
-#if GTK_CHECK_VERSION(2, 3, 1) /* FIXME 2.4 */
+#if GTK_CHECK_VERSION(2, 4, 0)
 
 static void
 gtk2perl_clipboard_targets_received_func (GtkClipboard *clipboard,
@@ -360,7 +360,7 @@ gboolean
 gtk_clipboard_wait_is_text_available (clipboard)
 	GtkClipboard *clipboard
 
-#if GTK_CHECK_VERSION (2, 3, 1) /* FIXME 2.4 */
+#if GTK_CHECK_VERSION (2, 4, 0)
 
  ## void gtk_clipboard_request_targets (GtkClipboard *clipboard, GtkClipboardTargetsReceivedFunc  callback, gpointer user_data);
 void gtk_clipboard_request_targets (GtkClipboard *clipboard, SV * callback, SV * user_data=NULL)

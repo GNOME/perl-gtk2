@@ -5,8 +5,7 @@
 use Gtk2::TestHelper
 	tests => 14,
 	noinit => 1,
-	# FIXME 2.4
-	at_least_version => [2, 3, 0, "GtkExpander didn't exist until 2.3.0"],
+	at_least_version => [2, 4, 0, "GtkExpander is new in 2.4"],
 	;
 
 my $expander = Gtk2::Expander->new;

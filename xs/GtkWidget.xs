@@ -1009,7 +1009,7 @@ gboolean gtk_widget_has_screen (GtkWidget * widget);
 #endif
 
 
-#if GTK_CHECK_VERSION(2,3,0) /* FIXME 2.4 */
+#if GTK_CHECK_VERSION(2,4,0)
 
 void gtk_widget_set_no_show_all (GtkWidget *widget, gboolean no_show_all);
 
@@ -1017,18 +1017,10 @@ gboolean gtk_widget_get_no_show_all (GtkWidget *widget);
 
 void gtk_widget_queue_resize_no_redraw (GtkWidget *widget);
 
-#endif
-
-#if GTK_CHECK_VERSION(2,3,1) /* FIXME 2.4 */
-
 gboolean
 gtk_widget_can_activate_accel (widget, signal_id)
 	GtkWidget *widget
 	guint signal_id
-
-#endif
-
-#if GTK_CHECK_VERSION(2,3,5) /* FIXME 2.4 */
 
 void
 gtk_widget_list_mnemonic_labels (widget)

@@ -38,7 +38,7 @@ gtk_button_box_set_layout (widget, layout_style)
 	GtkButtonBox      * widget
 	GtkButtonBoxStyle   layout_style
 
-#if GTK_CHECK_VERSION(2,3,0) /* FIXME 2.4 */
+#if GTK_CHECK_VERSION(2,4,0)
 
 gboolean gtk_button_box_get_child_secondary (GtkButtonBox * widget, GtkWidget * child)
 

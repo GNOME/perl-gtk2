@@ -10,7 +10,7 @@ use Gtk2 -init;
 
 die "This example requires gtk+ 2.4.0, but Gtk2 has been compiled for "
   . join (".", Gtk2->get_version_info)."\n"
-	unless Gtk2->CHECK_VERSION (2, 3, 0); # FIXME 2.4
+	unless Gtk2->CHECK_VERSION (2, 4, 0);
 
 $window = Gtk2::Window->new;
 $window->signal_connect (delete_event => sub { Gtk2->main_quit; 1 });

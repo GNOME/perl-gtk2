@@ -360,25 +360,15 @@ SKIP: {
 }
 
 SKIP: {
-	skip "stuff that's new in 2.4", 1
-		unless Gtk2->CHECK_VERSION (2, 3, 0); # FIXME 2.4
+	skip "stuff that's new in 2.4", 3
+		unless Gtk2->CHECK_VERSION (2, 4, 0);
 
 	$widget->set_no_show_all (1);
 	is ($widget->get_no_show_all, 1);
 
 	$widget->queue_resize_no_redraw;
-}
-
-SKIP: {
-	skip "stuff that's new in 2.4", 1
-		unless Gtk2->CHECK_VERSION (2, 3, 1); # FIXME 2.4
 
 	ok(!$widget->can_activate_accel (23));
-}
-
-SKIP: {
-	skip "stuff that's new in 2.4", 1
-		unless Gtk2->CHECK_VERSION (2, 3, 5); # FIXME 2.4
 
 	my $label_one = Gtk2::Label->new ("_One");
 	my $label_two = Gtk2::Label->new ("_Two");

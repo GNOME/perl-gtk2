@@ -43,7 +43,7 @@ gdk_pixbuf_loader_new_with_type (image_type)
     OUTPUT:
 	RETVAL
 
-#if GTK_CHECK_VERSION(2,3,0) /* FIXME 2.4 */
+#if GTK_CHECK_VERSION(2,4,0)
 
 ## GdkPixbufLoader * gdk_pixbuf_loader_new_with_mime_type (const char *mime_type, GError **error);
 =for apidoc __gerror__

@@ -5,8 +5,7 @@
 use Gtk2::TestHelper
 	tests => 10,
 	noinit => 1,
-	# FIXME 2.4
-	at_least_version => [2, 3, 0, "GtkComboBox didn't exist until 2.3.0"],
+	at_least_version => [2, 4, 0, "GtkComboBox is new in 2.4"],
 	;
 
 my $combo_box;
@@ -33,15 +32,10 @@ isa_ok ($model, 'Gtk2::TreeModel');
 is ($model->get_path ($combo_box->get_active_iter)->to_string,
     $combo_box->get_active);
 
-SKIP: {
-	skip "set_active_iter was borken prior to 2.3.3", 1
-		unless Gtk2->CHECK_VERSION (2, 3, 3); # FIXME 2.4 remove
-
-	my $iter = $model->get_iter_first;
-	$combo_box->set_active_iter ($iter);
-	is ($model->get_path ($combo_box->get_active_iter)->to_string,
-	    $model->get_path ($iter)->to_string);
-}
+my $iter = $model->get_iter_first;
+$combo_box->set_active_iter ($iter);
+is ($model->get_path ($combo_box->get_active_iter)->to_string,
+    $model->get_path ($iter)->to_string);
 
 $combo_box = Gtk2::ComboBox->new;
 isa_ok ($combo_box, 'Gtk2::ComboBox');

@@ -250,7 +250,7 @@ gboolean
 gtk_text_view_get_editable (text_view)
 	GtkTextView * text_view
 
-#if GTK_CHECK_VERSION(2,3,0) /* FIXME 2.4 */
+#if GTK_CHECK_VERSION(2,4,0)
 
 void gtk_text_view_set_overwrite (GtkTextView *text_view, gboolean overwrite);
 

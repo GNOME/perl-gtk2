@@ -113,7 +113,7 @@ gtk_entry_get_layout (entry)
 void
 gtk_entry_get_layout_offsets (GtkEntry *entry, OUTLIST gint x, OUTLIST gint y)
 
-#if GTK_CHECK_VERSION(2,3,0) /* FIXME 2.4 */
+#if GTK_CHECK_VERSION(2,4,0)
 
 void gtk_entry_set_completion (GtkEntry *entry, GtkEntryCompletion *completion);
 
@@ -121,7 +121,7 @@ GtkEntryCompletion *gtk_entry_get_completion (GtkEntry *entry);
 
 #endif
 
-#if GTK_CHECK_VERSION(2,3,5) /* FIXME 2.4 */
+#if GTK_CHECK_VERSION(2,4,0)
 
 void gtk_entry_set_alignment (GtkEntry *entry, gfloat xalign);
 
