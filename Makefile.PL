@@ -120,6 +120,27 @@ our %pod_files = (
 	Glib::MakeHelper->do_pod_files (@xs_files),
 );
 
+if (grep /enable[-_]faq/i, @ARGV)
+{
+	print STDERR "Including FAQ in pod, retrieved from Gtk2-Perl site.\n";
+	# Writing a fake Makefile ensures that CPAN will pick up the correct
+	# dependencies and install them.
+	unless (eval "use LWP; 1") 
+	{
+	   warn "$@\n";
+	   WriteMakefile(
+	         PREREQ_FATAL => 1,
+	         PREREQ_PM    => {
+	            'LWP' => 0.1,
+	         },
+	   );
+	   exit 1; # not reached
+	}
+	require 'fetch_faq.pl';
+	$pm_files{'build/FAQ.pod'} = '$(INST_LIBDIR)/Gtk2/FAQ.pod';
+	$pod_files{'build/FAQ.pod'} = '$(INST_MAN3DIR)/Gtk2::devel.$(MAN3EXT)';
+}
+
 #
 # autogeneration
 #
@@ -208,6 +229,8 @@ Makefile : ".join(" ", @lists)."
 build/stock_items.podi: podifystockitems.pl
 	\$(PERL) -I \$(INST_LIB) -I \$(INST_ARCHLIB) \$< > \$@
 
+build/FAQ.pod: fetch_faq.pl
+	$^X \$<
 ";
 
 	# this installation stuff doesn't make sense on windows, where

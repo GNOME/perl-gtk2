@@ -1,3 +1,12 @@
+2003/12/04 09:44 (-0500) rwmcfa1
+
+	* : Merged from HEAD
+	
+	* Makefile.PL: --enable-faq added and worked out
+
+	* fetch_faq.pl, MANIFEST: initial import for fetch_faq.pl, needs 
+	testing
+
 2003/12/04 00:56 (-0500) rwmcfa1
 
 	* xs/GtkRadioButton.xs: broken signature fixed
