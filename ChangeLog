@@ -112,9 +112,10 @@
 	R t/file-selection.t
 	R t/paned.t
 	R t/trivial-widgets.t
-	* t/07.GtkBoxes.t: Rename most existing tests so that their name
-	corresponds to the XS file they test.  Get rid of many $windows
-	and ->show_alls.  Add lots of new tests.
+	* t/07.GtkBoxes.t
+	* MANIFEST: Rename most existing tests so that their name corresponds
+	to the XS file they test.  Get rid of many $windows and ->show_alls.
+	Add lots of new tests.
 
 2004/01/04 02:50 (+0100) kaffeetisch
 
