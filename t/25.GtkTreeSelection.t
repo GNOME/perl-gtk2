@@ -1,22 +1,10 @@
 #!/usr/bin/perl -w
-use strict;
-use warnings;
-use Gtk2;
-use Test::More;
 
 ###############################################################################
 
-if (Gtk2 -> init_check()) {
-	plan(tests => 26);
-}
-else {
-	plan(skip_all =>
-		'Gtk2->init_check failed, probably unable to open DISPLAY');
-}
+use Gtk2::TestHelper tests => 26;
 
 ###############################################################################
-
-require './t/ignore_keyboard.pl';
 
 my $model = Gtk2::ListStore -> new("Glib::String");
 my $view = Gtk2::TreeView -> new($model);

@@ -1,18 +1,6 @@
 #!/usr/bin/perl -w
 
-use strict;
-use warnings;
-
-use Test::More;
-use Gtk2;
-
-if (Gtk2->init_check) {
-	plan tests => 20;
-} else {
-	plan skip_all => 'no display';
-}
-
-require './t/ignore_keyboard.pl';
+use Gtk2::TestHelper tests => 20;
 
 # we'll create some containers (windows and boxes are containers) and
 # mess around with some of the methods to make sure they do things.

@@ -2,30 +2,12 @@
 # $Header$
 #
 
-use strict;
-use warnings;
-
 #########################
 # GdkColor Tests
 # 	- muppet
 #########################
 
-use Gtk2;
-use Test::More;
-
-BEGIN { use_ok ('Gtk2') }
-
-if( Gtk2->init_check )
-{
-	plan tests => 6;
-}
-else
-{
-	plan skip_all =>
-		'Gtk2->init_check failed, probably unable to open DISPLAY';
-}
-
-require './t/ignore_keyboard.pl';
+use Gtk2::TestHelper tests => 6;
 
 my $cmap = Gtk2::Gdk::Colormap->get_system;
 ok ($cmap, 'system colormap');

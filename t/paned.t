@@ -1,13 +1,5 @@
-use strict;
-use warnings;
-use Test::More;
-use Gtk2;
 
-if (Gtk2->init_check) {
-	plan tests => 54;
-} else {
-	plan skip_all => 'no display, nothing to do';
-}
+use Gtk2::TestHelper tests => 54;
 
 use constant TRUE => 1;
 use constant FALSE => 0;

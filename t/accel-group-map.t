@@ -2,9 +2,6 @@
 # $Header$
 #
 
-use strict;
-use warnings;
-
 #########################
 # GtkAccelGroup Tests
 # 	- rm
@@ -12,22 +9,7 @@ use warnings;
 
 #########################
 
-use Gtk2;
-use Test::More;
-
-if (Gtk2->init_check)
-{
-	plan tests => 11;
-}
-else
-{
-	plan skip_all =>
-		'Gtk2->init_check failed, probably unable to open DISPLAY';
-}
-
-#########################
-
-require './t/ignore_keyboard.pl';
+use Gtk2::TestHelper tests => 11;
 
 my $win = Gtk2::Window->new;
 $win->set_border_width (10);

@@ -2,32 +2,12 @@
 # $Header$
 #
 
-use strict;
-use warnings;
-
 #########################
 # GtkGammaCurve Tests
 # 	- rm
 #########################
 
-#########################
-
-use Test::More;
-BEGIN { use_ok('Gtk2') };
-
-if( Gtk2->init_check )
-{
-	plan tests => 3;
-}
-else
-{
-	plan skip_all =>
-		'Gtk2->init_check failed, probably unable to open DISPLAY';
-}
-
-#########################
-
-require './t/ignore_keyboard.pl';
+use Gtk2::TestHelper tests => 3;
 
 ok( my $win = Gtk2::Window->new("toplevel") );
 

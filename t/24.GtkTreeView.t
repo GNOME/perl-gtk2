@@ -1,24 +1,12 @@
 #!/usr/bin/perl -w
-use strict;
-use warnings;
-use Gtk2;
-use Test::More;
+
+###############################################################################
+
+use Gtk2::TestHelper tests => 166;
 
 my @version_info = Gtk2 -> get_version_info();
 
 ###############################################################################
-
-if (Gtk2 -> init_check()) {
-	plan(tests => 166);
-}
-else {
-	plan(skip_all =>
-		'Gtk2->init_check failed, probably unable to open DISPLAY');
-}
-
-###############################################################################
-
-require './t/ignore_keyboard.pl';
 
 my $window = Gtk2::Window -> new("toplevel");
 

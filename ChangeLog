@@ -1,3 +1,15 @@
+2003/12/29 16:32 (-0500) rwmcfa1
+
+	* t/ignore_keyboard.pl: deleted, functionality in TestHelper.pm
+
+	* pm/TestHelper.pm: initial import
+
+	* Makefile.PL: added pm/TestHelper.pm to list of pm_files
+
+	* MANIFEST: added pm/TestHelper.pm and removed t/ignore_keyboard.pl
+ 
+	* t/*: quit using ignore_keyboard.pl and use TestHelper.pm instead
+
 2003/12/29 22:58 (+0100) kaffeetisch
 
 	* t/15.GtkHandleBox.t

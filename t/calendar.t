@@ -2,32 +2,12 @@
 # $Header$
 #
 
-use strict;
-use warnings;
-
 #########################
 # GtkCalendar Tests
 # 	- rm
 #########################
 
-#########################
-
-use Gtk2;
-use Test::More;
-
-if( Gtk2->init_check )
-{
-	plan tests => 11;
-}
-else
-{
-	plan skip_all =>
-		'Gtk2->init_check failed, probably unable to open DISPLAY';
-}
-
-#########################
-
-require './t/ignore_keyboard.pl';
+use Gtk2::TestHelper tests => 11;
 
 ok( my $win = Gtk2::Window->new() );
 $win->set_border_width(10);

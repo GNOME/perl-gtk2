@@ -1,8 +1,6 @@
 #!/usr/bin/perl -w
-use strict;
-use warnings;
-use Gtk2; # no init/init_check necessary, we do no gui stuff
-use Test::More tests => 63;
+
+use Gtk2::TestHelper tests => 63;
 
 ###############################################################################
 

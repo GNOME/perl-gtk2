@@ -1,14 +1,5 @@
 
-use Test::More;
-use Gtk2;
-
-if (Gtk2->init_check) {
-	plan tests => 16;
-} else {
-	plan skip_all => 'no display, nothing to test';
-}
-
-require './t/ignore_keyboard.pl';
+use Gtk2::TestHelper tests => 16;
 
 $model = Gtk2::TextBuffer->new;
 $model->insert ($model->get_start_iter, join " ", 'Lore ipsem dolor.  I think that is misspelled.'x80);

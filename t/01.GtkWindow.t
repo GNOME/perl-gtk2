@@ -2,9 +2,6 @@
 # $Header$
 #
 
-use strict;
-use warnings;
-
 #########################
 # GtkWindow Tests
 # 	- rm
@@ -12,22 +9,7 @@ use warnings;
 
 #########################
 
-use Gtk2;
-use Test::More;
-
-if( Gtk2->init_check )
-{
-	plan tests => 100;
-}
-else
-{
-	plan skip_all =>
-		'Gtk2->init_check failed, probably unable to open DISPLAY';
-}
-
-#########################
-
-require './t/ignore_keyboard.pl';
+use Gtk2::TestHelper tests => 100;
 
 use constant TRUE => 1;
 use constant FALSE => 0;

@@ -72,6 +72,7 @@ pm/Helper.pm
 pm/Pango.pm
 pm/SimpleList.pm
 pm/SimpleMenu.pm
+pm/TestHelper.pm
 ppport.h
 t/00.Gtk2.t
 t/01.GtkWidget.t
@@ -106,7 +107,6 @@ t/30.GtkCellRenderer.t
 t/accel-group-map.t
 t/calendar.t
 t/file-selection.t
-t/ignore_keyboard.pl
 t/paned.t
 t/text-iter-searches.t
 t/trivial-widgets.t

@@ -97,6 +97,7 @@ our %pm_files = (
 	'pm/Pango.pm'      => '$(INST_LIBDIR)/Gtk2/Pango.pm',
 	'pm/SimpleList.pm' => '$(INST_LIBDIR)/Gtk2/SimpleList.pm',
 	'pm/SimpleMenu.pm' => '$(INST_LIBDIR)/Gtk2/SimpleMenu.pm',
+	'pm/TestHelper.pm' => '$(INST_LIBDIR)/Gtk2/TestHelper.pm',
 	'api.pod'          => '$(INST_LIBDIR)/Gtk2/api.pod',
 	'devel.pod'        => '$(INST_LIBDIR)/Gtk2/devel.pod',
 );

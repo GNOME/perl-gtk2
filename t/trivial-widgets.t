@@ -2,9 +2,6 @@
 # $Header$
 #
 
-use strict;
-use warnings;
-
 #########################
 # Trivial Widgets Tests
 #
@@ -17,24 +14,7 @@ use warnings;
 # 	- rm
 #########################
 
-#########################
-
-use Gtk2;
-use Test::More;
-
-if (Gtk2->init_check)
-{
-	plan tests => 12;
-}
-else
-{
-	plan skip_all =>
-		'Gtk2->init_check failed, probably unable to open DISPLAY';
-}
-
-#########################
-
-require './t/ignore_keyboard.pl';
+use Gtk2::TestHelper tests => 12;
 
 my $tmp;
 

@@ -2,32 +2,12 @@
 # $Header$
 #
 
-use strict;
-use warnings;
-
 #########################
 # GtkToolbar Tests
 # 	- rm
 #########################
 
-#########################
-
-use Gtk2;
-use Test::More;
-
-if( Gtk2->init_check )
-{
-	plan tests => 21;
-}
-else
-{
-	plan skip_all =>
-		'Gtk2->init_check failed, probably unable to open DISPLAY';
-}
-
-#########################
-
-require './t/ignore_keyboard.pl';
+use Gtk2::TestHelper tests => 21;
 
 ok( my $dlg = Gtk2::Dialog->new('GtkToolbar.t Test Window', undef,
 		[ ], 'gtk-quit', 1 ) );

@@ -1,39 +1,12 @@
 #########################
-# GtkWindow Tests
-# 	- rm
-#########################
 #
 # $Header$
 #
 
-use strict;
-use warnings;
-
 #########################
 
-# change 'tests => 1' to 'tests => last_test_to_print';
-
-use Gtk2;
-use Test::More;
-
-if ($^O eq 'MSWin32')
-{
-	plan skip_all => "socket and plug not implemented on win32";
-	# ...despite patches that have been around for a long time
-}
-elsif( not Gtk2->init_check )
-{
-	plan skip_all =>
-		'Gtk2->init_check failed, probably unable to open DISPLAY';
-}
-else
-{
-	plan tests => 4;
-}
-
-#########################
-
-require './t/ignore_keyboard.pl';
+# ...despite patches that have been around for a long time, no win32
+use Gtk2::TestHelper tests => 4, nowin32 => 1;
 
 ok( my $win = Gtk2::Window->new );
 
@@ -46,8 +19,6 @@ my $str = "$^X -Mblib -e '\$id = $id;\n\n".<<EOL;
 use Gtk2;
 
 Gtk2->init;
-
-require "./t/ignore_keyboard.pl";
 
 \$plug = Gtk2::Plug->new($id);
 \$plug->set_border_width(10);

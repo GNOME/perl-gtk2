@@ -11,27 +11,7 @@
 #	accessed as a: GtkTreeDragSource, GtkTreeDragDest and GtkTreeSortable.
 #
 
-use strict;
-use warnings;
-
-#########################
-
-use Gtk2;
-use Test::More;
-
-if( Gtk2->init_check )
-{
-	plan tests => 19;
-}
-else
-{
-	plan skip_all =>
-		'Gtk2->init_check failed, probably unable to open DISPLAY';
-}
-
-#########################
-
-require './t/ignore_keyboard.pl';
+use Gtk2::TestHelper tests => 19;
 
 my $win = Gtk2::Window->new;
 

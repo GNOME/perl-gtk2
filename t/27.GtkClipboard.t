@@ -1,19 +1,11 @@
 #!/usr/bin/perl -w
 
-use strict;
-use Test::More;
 use Data::Dumper;
-use Gtk2;
+use Gtk2::TestHelper tests => 22;
 
 if (2 > (Gtk2->get_version_info)[1]) {
 	plan (skip_all => "GtkClipboard didn't exist in 2.0.x");
-} elsif (not Gtk2->init_check) {
-	plan (skip_all => 'no display, nothing to test');
-} else {
-	plan (tests => 22);
-}
-
-require './t/ignore_keyboard.pl';
+} 
 
 my $clipboard = Gtk2::Clipboard->get (Gtk2::Gdk->SELECTION_PRIMARY);
 

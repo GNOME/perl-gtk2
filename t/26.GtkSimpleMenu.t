@@ -2,31 +2,14 @@
 # $Header$
 #
 
-use strict;
-use warnings;
-
 #########################
 # GtkSimpleMenu Tests
 # 	- rm
 #########################
 
-use Gtk2;
-use Test::More;
+use Gtk2::TestHelper tests => 43;
 
-if( Gtk2->init_check )
-{
-	plan tests => 43;
-	require_ok( 'Gtk2::SimpleMenu' );
-}
-else
-{
-	plan skip_all =>
-		'Gtk2->init_check failed, probably unable to open DISPLAY';
-}
-
-#########################
-
-require './t/ignore_keyboard.pl';
+require_ok( 'Gtk2::SimpleMenu' );
 
 use Data::Dumper;
 

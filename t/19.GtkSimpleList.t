@@ -2,32 +2,14 @@
 # $Header$
 #
 
-use strict;
-use warnings;
-
 #########################
 # GtkSimpleList Tests
 # 	- rm
 #########################
 
-use Gtk2;
-use Test::More;
+use Gtk2::TestHelper tests => 42;
 
-if( Gtk2->init_check )
-{
-	plan tests => 42;
-	require_ok( 'Gtk2::SimpleList' );
-}
-else
-{
-	plan skip_all =>
-		'Gtk2->init_check failed, probably unable to open DISPLAY';
-}
-
-
-#########################
-
-#require './t/ignore_keyboard.pl';
+require_ok( 'Gtk2::SimpleList' );
 
 Gtk2::SimpleList->add_column_type(
 	'ralacs', 	# think about it for a second...

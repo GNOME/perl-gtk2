@@ -1,18 +1,8 @@
 
+use Gtk2::TestHelper tests => 3;
 
-use Test::More;
-
-use Gtk2;
 use Cwd;
 use File::Spec;
-
-if (Gtk2->init_check) {
-	plan (tests => 3);
-} else {
-	plan (skip_all => "can't open display");
-}
-
-require './t/ignore_keyboard.pl';
 
 $basename = "Makefile.PL";
 

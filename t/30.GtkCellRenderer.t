@@ -1,19 +1,10 @@
 #!/usr/bin/perl -w
 
-use Test::More;
-use Gtk2;
-
-if (Gtk2->init_check) {
-	plan tests => 2;
-} else {
-	plan skip_all => 'no display, nothing to test';
-}
+use Gtk2::TestHelper tests => 2;
 
 package Mup::CellRendererPopup;
 
 use Test::More;
-
-require './t/ignore_keyboard.pl';
 
 use Glib::Object::Subclass
 	Gtk2::CellRendererText::,

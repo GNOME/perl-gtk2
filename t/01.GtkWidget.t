@@ -1,14 +1,4 @@
-use strict;
-use warnings;
-
-use Test::More;
-use Gtk2;
-
-if (!Gtk2->init_check) {
-	plan skip_all => 'no display, nothing to test';
-} else {
-	plan tests => 46;
-}
+use Gtk2::TestHelper tests => 46;
 
 # we can't instantiate Gtk2::Widget, it's abstract.  use a DrawingArea instead.
 

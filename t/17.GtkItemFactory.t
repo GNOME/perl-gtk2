@@ -2,32 +2,12 @@
 # $Header$
 #
 
-use strict;
-use warnings;
-
 #########################
 # Gtk2::ItemFactory Tests
 # 	- rm
 #########################
 
-#########################
-
-use Gtk2;
-use Test::More;
-
-if( Gtk2->init_check )
-{
-	plan tests => 9;
-}
-else
-{
-	plan skip_all =>
-		'Gtk2->init_check failed, probably unable to open DISPLAY';
-}
-
-#########################
-
-require './t/ignore_keyboard.pl';
+use Gtk2::TestHelper tests => 9;
 
 my @actions_used = (qw/1 0 0 0 0/);
 my @items = (
