@@ -1,3 +1,17 @@
+2003/07/07 23:10 muppetman
+
+	* CodeGen.pm: slight rework of write_boot.  now you can pass in an
+	arbitrary regex for modules to be ignored; the default is still to
+	ignore any module that has no :'s in its name.  this fix allows us
+	to use write_boot for packages like Gnome::Canvas, which *do* have
+	colons in the name of the package that needs to be ignored.
+	    also reimplemented the MODULE search to avoid needing grep,
+	which is conspicuously absent on most win32 systems.
+	    this changes the call signature of write_boot, but all the
+	defaults are the same and no module in gtk2-perl-xs was actually
+	using anything non-default.  sorry if this breaks you, but it's
+	for the best.
+
 2003/07/07 23:03 rwmcfa1
 
 	* t/17.GtkItemFactory.t: added test for item factory
