@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 
-use Test::More tests => 4;
+use Test::More tests => 2;
 use Gtk2 -init;
 
 package Mup::CellRendererPopup;
@@ -53,7 +53,7 @@ $treeview = Gtk2::TreeView->new ($model);
 #
 # custom cell renderer
 #
-$renderer = Mup::CellRendererPopup->new;
+ok ($renderer = Mup::CellRendererPopup->new, 'Mup::CellRendererPopup->new');
 $renderer->set (mode => 'editable');
 $column = Gtk2::TreeViewColumn->new_with_attributes ('selector', $renderer,
                                                      text => 0,);
@@ -80,7 +80,4 @@ Glib::Idle->add (sub {
 
 Gtk2->main;
 
-foreach (keys %hits)
-{
-	ok ($hits{$_}, $_);
-}
+ok (eq_array ([ sort keys %hits ], [ qw/edit init render size/ ]), 'callbacks encountered');
