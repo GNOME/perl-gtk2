@@ -55,6 +55,9 @@ MODULE = Gtk2::Gdk::Property	PACKAGE = Gtk2::Gdk::Window	PREFIX = gdk_
  ### the docs warn us not to use this one, but don't say it's deprecated.
 
 ##  gboolean gdk_property_get (GdkWindow *window, GdkAtom property, GdkAtom type, gulong offset, gulong length, gint pdelete, GdkAtom *actual_property_type, gint *actual_format, gint *actual_length, guchar **data) 
+=for apidoc
+=signature (property_type, format, length) = $window->property_get ($property, $type, $offset, $length, $pdelete)
+=cut
 void
 gdk_property_get (window, property, type, offset, length, pdelete)
 	GdkWindow *window

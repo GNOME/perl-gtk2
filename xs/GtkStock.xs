@@ -113,6 +113,9 @@ gtk_stock_lookup (class, stock_id)
 	RETVAL
 
 ##  GSList* gtk_stock_list_ids (void) 
+=for apidoc
+Returns a list of strings, the stock-ids.
+=cut
 void
 gtk_stock_list_ids (class)
     PREINIT:

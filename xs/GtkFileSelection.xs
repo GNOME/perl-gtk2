@@ -95,6 +95,9 @@ GPerlFilename_own
 gtk_file_selection_get_filename (filesel)
 	GtkFileSelection * filesel
 
+=for apidoc
+Returns the list of file name(s) selected.
+=cut
 void
 gtk_file_selection_get_selections (filesel)
 	GtkFileSelection * filesel

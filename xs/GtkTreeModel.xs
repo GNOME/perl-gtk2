@@ -117,6 +117,9 @@ gint
 gtk_tree_path_get_depth (path)
 	GtkTreePath *path
 
+=for apidoc
+Returns a list of integers.
+=cut
 void
 gtk_tree_path_get_indices (path)
 	GtkTreePath * path

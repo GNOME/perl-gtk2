@@ -366,6 +366,11 @@ gtk_text_buffer_get_start_iter (buffer)
 
 
 #### void gtk_text_buffer_get_bounds (GtkTextBuffer *buffer, GtkTextIter *start, GtkTextIter *end)
+=for apidoc
+=signature (start, end) = $buffer->get_bounds
+Retrieves the first and last iterators in the buffer, i.e. the entire buffer
+lies within the range (start,end).
+=cut
 void
 gtk_text_buffer_get_bounds (buffer)
 	GtkTextBuffer *buffer
@@ -454,6 +459,13 @@ gtk_text_buffer_paste_clipboard (buffer, clipboard, override_location, default_e
 
 ## gboolean gtk_text_buffer_get_selection_bounds (GtkTextBuffer *buffer, GtkTextIter *start, GtkTextIter *end)
 ## returns empty list if there is no selection
+=for apidoc
+=signature (start, end) = $buffer->get_selection_bounds
+Returns start and end if some text is selected, empty otherwise; places the
+bounds of the selection in start and end (if the selection has length 0, then
+start and end are filled in with the same value). start and end will be in
+ascending order.  
+=cut
 void
 gtk_text_buffer_get_selection_bounds (buffer)
 	GtkTextBuffer *buffer

@@ -279,6 +279,13 @@ gtk_selection_data_get_text (selection_data)
 	GtkSelectionData *selection_data
 
 ##  gboolean gtk_selection_data_get_targets (GtkSelectionData *selection_data, GdkAtom **targets, gint *n_atoms) 
+=for apidoc
+Gets the contents of selection_data as an array of targets. This can be used to
+interpret the results of getting the standard TARGETS target that is always
+supplied for any selection.
+
+Returns a list of GdkAtoms, the targets.
+=cut
 void
 gtk_selection_data_get_targets (selection_data)
 	GtkSelectionData *selection_data

@@ -117,6 +117,9 @@ gtk_tree_view_column_clear (tree_column)
 
 
 ## GList* gtk_tree_view_column_get_cell_renderers (GtkTreeViewColumn *tree_column);
+=for apidoc
+Returns a list of Gtk2::CellRenderer's.
+=cut
 void
 gtk_tree_view_column_get_cell_renderers (tree_column)
 	GtkTreeViewColumn * tree_column

@@ -99,6 +99,9 @@ gdk_screen_get_height_mm (screen)
 	GdkScreen *screen
 
 ##  GList * gdk_screen_list_visuals (GdkScreen *screen) 
+=for apidoc
+Returns a list of Gtk2::Gdk::Visual's.
+=cut
 void
 gdk_screen_list_visuals (screen)
 	GdkScreen *screen
@@ -111,6 +114,9 @@ gdk_screen_list_visuals (screen)
 	g_list_free (list);
 
 ##  GList * gdk_screen_get_toplevel_windows (GdkScreen *screen) 
+=for apidoc
+Returns a list of Gtk2::Gdk::Window's.
+=cut
 void
 gdk_screen_get_toplevel_windows (screen)
 	GdkScreen *screen

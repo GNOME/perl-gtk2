@@ -1,3 +1,25 @@
+2003/11/17 23:21 (-0500) rwmcfa1
+
+	* xs/GdkDisplayManager.xs, xs/GdkDnd.xs, xs/GdkPixmap.xs, 
+	xs/GdkProperty.xs, xs/GdkScreen.xs, xs/GdkTypes.xs, xs/GdkWindow.xs, 
+	xs/Gtk2.xs, xs/GtkAccelGroup.xs, xs/GtkCellRenderer.xs, 
+	xs/GtkColorSelection.xs, xs/GtkCurve.xs, xs/GtkEditable.xs, 
+	xs/GtkFileSelection.xs, xs/GtkIconFactory.xs, xs/GtkLabel.xs, 
+	xs/GtkRadioMenuItem.xs, xs/GtkSelection.xs, xs/GtkStock.xs, 
+	xs/GtkTextBuffer.xs, xs/GtkTreeModel.xs, xs/GtkTreeSortable.xs, 
+	xs/GtkTreeViewColumn.xs, xs/PangoLayout.xs, xs/PangoTabs.xs: apidoc 
+	added, almost all PPCODE xsubs now have it
+
+	* xs/GtkTreeDnd.xs: gtk_tree_get_row_drag_data had the outlist params 
+	in the prototype. apidoc added, almost all PPCODE xsubs now have it
+
+	* xs/GtkContainer.xs: PPCODE -> CODE, return was always void. apidoc 
+	added, almost all PPCODE xsubs now have it
+
+	* xs/GdkSelection.xs: added a class parameter to 
+	gdk_selection_property_get. apidoc added, almost all PPCODE xsubs now 
+	have it
+
 2003/11/17 16:27 (-0500) muppetman
 
 	* xs/GdkPixbuf.xs: i borked the get_from_(drawable|image) xsubs...

@@ -90,6 +90,9 @@ gdk_pixmap_create_from_data (class, drawable, data, width, height, depth, fg, bg
 	drawable, data, width, height, depth, fg, bg
 
  ## GdkPixmap* gdk_pixmap_create_from_xpm (GdkDrawable *drawable, GdkBitmap **mask, GdkColor *transparent_color, const gchar *filename)
+=for apidoc
+=signature (pixmap, mask) = Gtk2::Gdk::Pixmap->create_from_xpm ($drawable, $transparent_color, $filename)
+=cut
 void
 gdk_pixmap_create_from_xpm (class, drawable, transparent_color, filename)
 	GdkDrawable *drawable
@@ -106,6 +109,9 @@ gdk_pixmap_create_from_xpm (class, drawable, transparent_color, filename)
 	PUSHs (sv_2mortal (newSVGdkBitmap_noinc (mask)));
 
  ## GdkPixmap* gdk_pixmap_colormap_create_from_xpm (GdkDrawable *drawable, GdkColormap *colormap, GdkBitmap **mask, GdkColor *transparent_color, const gchar *filename)
+=for apidoc
+=signature (pixmap, mask) = Gtk2::Gdk::Pixmap->colormap_create_from_xpm ($drawable, $colormap, $transparent_color, $filename)
+=cut
 void
 gdk_pixmap_colormap_create_from_xpm (class, drawable, colormap, transparent_color, filename)
 	GdkDrawable *drawable

@@ -85,6 +85,9 @@ gtk_container_foreach (container, callback, callback_data=NULL)
  ## gtk_container_foreach_full
 
  ## GList* gtk_container_get_children (GtkContainer *container)
+=for apidoc
+Returns a list of Gtk2::Widget's, the children of the container.
+=cut
 void
 gtk_container_get_children (container)
 	GtkContainer *container
@@ -111,7 +114,7 @@ gtk_container_set_focus_chain (container, widget1, ...)
     PREINIT:
 	GList *focusable_widgets = NULL;
 	int i;
-    PPCODE:
+    CODE:
 	for (i = items - 1 ; i > 0 ; i--)
 		focusable_widgets = g_list_prepend (focusable_widgets,
 		                                    SvGtkWidget (ST (i)));
@@ -119,6 +122,9 @@ gtk_container_set_focus_chain (container, widget1, ...)
 	g_list_free (focusable_widgets);
  
  ## gboolean gtk_container_get_focus_chain (GtkContainer *container, GList **focusable_widgets)
+=for apidoc
+Returns a list of Gtk2::Widgets, the focus chain.
+=cut
 void
 gtk_container_get_focus_chain (container)
 	GtkContainer *container

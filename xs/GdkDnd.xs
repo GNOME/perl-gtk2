@@ -51,6 +51,9 @@ members (dc)
     OUTPUT:
 	RETVAL
 
+=for apidoc
+Returns a list of Gtk2::Gdk::Atom's, the targets.
+=cut
 void
 targets (dc)
 	GdkDragContext * dc
@@ -118,6 +121,9 @@ gdk_drag_begin (class, window, ...)
 #if GTK_CHECK_VERSION(2,2,0)
 
 ##  guint32 gdk_drag_get_protocol_for_display (GdkDisplay *display, guint32 xid, GdkDragProtocol *protocol) 
+=for apidoc
+=signature (ret, protocol) = Gtk2::Gdk::DragContext->get_protocol_for_display ($display, $xid)
+=cut
 void
 gdk_drag_get_protocol_for_display (class, display, xid)
 	GdkDisplay *display
@@ -131,6 +137,9 @@ gdk_drag_get_protocol_for_display (class, display, xid)
 	XPUSHs (sv_2mortal (newSVGdkDragProtocol (protocol)));
 
 ##  void gdk_drag_find_window_for_screen (GdkDragContext *context, GdkWindow *drag_window, GdkScreen *screen, gint x_root, gint y_root, GdkWindow **dest_window, GdkDragProtocol *protocol) 
+=for apidoc
+=signature (dest_window, protocol) = $context->find_window_for_screen ($drag_window, $screen, $x_root, $y_root)
+=cut
 void
 gdk_drag_find_window_for_screen (context, drag_window, screen, x_root, y_root)
 	GdkDragContext *context
@@ -151,6 +160,9 @@ gdk_drag_find_window_for_screen (context, drag_window, screen, x_root, y_root)
 #endif /* >= 2.2.0 */
 
 ##  guint32 gdk_drag_get_protocol (guint32 xid, GdkDragProtocol *protocol) 
+=for apidoc
+=signature (ret, protocol) = Gtk2::Gdk::DragContext->get_protocol ($xid)
+=cut
 void
 gdk_drag_get_protocol (class, xid)
 	guint32 xid
@@ -164,6 +176,9 @@ gdk_drag_get_protocol (class, xid)
 	
 
 ##  void gdk_drag_find_window (GdkDragContext *context, GdkWindow *drag_window, gint x_root, gint y_root, GdkWindow **dest_window, GdkDragProtocol *protocol) 
+=for apidoc
+=signature (dest_window, protocol) = $context->find_window ($drag_window, $x_root, $y_root)
+=cut
 void
 gdk_drag_find_window (context, drag_window, x_root, y_root)
 	GdkDragContext *context

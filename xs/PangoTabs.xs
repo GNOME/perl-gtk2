@@ -76,6 +76,12 @@ pango_tab_array_set_tab (tab_array, tab_index, alignment, location)
 void pango_tab_array_get_tab (PangoTabArray *tab_array, gint tab_index, OUTLIST PangoTabAlign alignment, OUTLIST gint location) 
 
 ##  void pango_tab_array_get_tabs (PangoTabArray *tab_array, PangoTabAlign **alignments, gint **locations) 
+=for apidoc
+Returns a list of Gtk2::Pango::TabAlign's, alignments, and integers, locations. 
+Even elemtents are alignments and odd elements are locations, so 0 is the first
+alignment and 1 is the first location, 2 the second alignment, 3 the second 
+location, etc.
+=cut
 void
 pango_tab_array_get_tabs (tab_array)
 	PangoTabArray *tab_array

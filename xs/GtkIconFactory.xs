@@ -104,6 +104,9 @@ gtk_icon_factory_lookup_default (class, stock_id)
 MODULE = Gtk2::IconFactory	PACKAGE = Gtk2::IconSize	PREFIX = gtk_icon_size_
 
 ##  gboolean gtk_icon_size_lookup (GtkIconSize size, gint *width, gint *height) 
+=for apidoc
+=signature (width, height) = Gtk2::IconSize->lookup ($size)
+=cut
 void
 gtk_icon_size_lookup (class, size)
 	GtkIconSize size
@@ -120,6 +123,9 @@ gtk_icon_size_lookup (class, size)
 #if GTK_CHECK_VERSION(2,2,0)
 
 ##  gboolean gtk_icon_size_lookup_for_settings (GtkSettings *settings, GtkIconSize size, gint *width, gint *height) 
+=for apidoc
+=signature (width, height) = Gtk2::IconSize->lookup_for_settings ($settings, $size)
+=cut
 void
 gtk_icon_size_lookup_for_settings (class, settings, size, width, height)
 	GtkSettings *settings
@@ -202,6 +208,9 @@ gtk_icon_set_add_source (icon_set, source)
 	GtkIconSource *source
 
 ##  void gtk_icon_set_get_sizes (GtkIconSet *icon_set, GtkIconSize **sizes, gint *n_sizes) 
+=for apidoc
+Returns a list of Gtk2::IconSize's.
+=cut
 void
 gtk_icon_set_get_sizes (icon_set)
 	GtkIconSet *icon_set

@@ -337,6 +337,9 @@ your cell renderer implementation!
 =cut
 
 ## void gtk_cell_renderer_get_size (GtkCellRenderer *cell, GtkWidget *widget, GdkRectangle *cell_area, gint *x_offset, gint *y_offset, gint *width, gint *height)
+=for apidoc
+=signature (cell_area, x_offset, y_offset, width, height) = $cell->renderer_get_size ($widget)
+=cut
 void
 gtk_cell_renderer_get_size (cell, widget)
 	GtkCellRenderer * cell

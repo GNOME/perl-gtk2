@@ -202,6 +202,9 @@ pango_layout_context_changed (layout)
 	PangoLayout *layout
 
 ##  void pango_layout_get_log_attrs (PangoLayout *layout, PangoLogAttr **attrs, gint *n_attrs) 
+=for apidoc
+Returns a list of Gtk2::Pango::LogAttr's
+=cut
 void
 pango_layout_get_log_attrs (layout)
 	PangoLayout * layout

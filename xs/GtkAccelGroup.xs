@@ -133,6 +133,9 @@ gtk_accel_groups_activate (object, accel_key, accel_mods)
 	GdkModifierType   accel_mods
 
 ## GSList* gtk_accel_groups_from_object (GObject *object)
+=for apidoc
+Returns a list of Gtk2::AccelGroup's.
+=cut
 void
 gtk_accel_groups_from_object (object)
 	GObject * object
@@ -164,6 +167,11 @@ gtk_accel_groups_from_object (object)
 MODULE = Gtk2::AccelGroup	PACKAGE = Gtk2::Accelerator	PREFIX = gtk_accelerator_
 
 ## void gtk_accelerator_parse (const gchar *accelerator, guint *accelerator_key, GdkModifierType *accelerator_mods)
+=for apidoc
+=signature (accelerator_key, accelerator_mods) = Gtk2::Accelerator->parse ($accelerator)
+Returns accelerator_key, an unsigned interger and accelerator_mods, a 
+Gtk2::Gdk::ModifierType.
+=cut
 void
 gtk_accelerator_parse (class, accelerator)
 	const gchar     * accelerator
