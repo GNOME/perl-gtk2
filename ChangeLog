@@ -1,3 +1,7 @@
+2003/12/04 23:23 (-0500) rwmcfa1
+
+	* t/calendar.t: initial import
+
 2003/12/04 21:35 (-0500) muppetman
 
 	* Gtk2.pm: bump version to 1.030 for next unstable devel series.
