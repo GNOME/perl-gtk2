@@ -1,3 +1,8 @@
+2005/02/10 22:30 (+0100) kaffeetisch
+
+	* t/GtkBox.t, t/GtkNotebook.t: Use TRUE and FALSE instead of 1 and
+	0 or undef where appropriate.
+
 2005/02/08 01:15 (-0400) muppetman
 
 	* Gtk2.pm, NEWS, README, copyright.pod: unstable release 1.073
