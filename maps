@@ -17,6 +17,7 @@ GTK_TYPE_CELL_RENDERER_TEXT	GtkCellRendererText	GtkObject	Gtk2::CellRendererText
 GTK_TYPE_CELL_RENDERER_TOGGLE	GtkCellRendererToggle	GtkObject	Gtk2::CellRendererToggle
 GTK_TYPE_CHECK_BUTTON	GtkCheckButton	GtkObject	Gtk2::CheckButton
 GTK_TYPE_CHECK_MENU_ITEM	GtkCheckMenuItem	GtkObject	Gtk2::CheckMenuItem
+GTK_TYPE_CLIPBOARD	GtkClipboard	GObject	Gtk2::Clipboard
 GTK_TYPE_COLOR_SELECTION_DIALOG	GtkColorSelectionDialog	GtkObject	Gtk2::ColorSelectionDialog
 GTK_TYPE_COLOR_SELECTION	GtkColorSelection	GtkObject	Gtk2::ColorSelection
 GTK_TYPE_COMBO	GtkCombo	GtkObject	Gtk2::Combo
@@ -104,6 +105,7 @@ GTK_TYPE_TREE_DRAG_DEST	GtkTreeDragDest	GInterface	Gtk2::TreeDragDest
 GTK_TYPE_TREE_MODEL	GtkTreeModel	GObject	Gtk2::TreeModel
 GTK_TYPE_TREE_ITER	GtkTreeIter	GBoxed	Gtk2::TreeIter
 GTK_TYPE_TREE_PATH	GtkTreePath	GBoxed	Gtk2::TreePath
+GTK_TYPE_TREE_ROW_REFERENCE	GtkTreeRowReference	GBoxed	Gtk2::TreeRowReference
 GTK_TYPE_TREE_MODEL_SORT	GtkTreeModelSort	GObject	Gtk2::TreeModelSort
 GTK_TYPE_TREE_SELECTION	GtkTreeSelection	GObject	Gtk2::TreeSelection
 GTK_TYPE_TREE_SORTABLE	GtkTreeSortable	GObject	Gtk2::TreeSortable
@@ -166,6 +168,8 @@ GTK_TYPE_WINDOW_POSITION	GtkWindowPosition	GEnum	Gtk2::WindowPosition
 GTK_TYPE_WINDOW_TYPE	GtkWindowType	GEnum	Gtk2::WindowType
 GTK_TYPE_WRAP_MODE	GtkWrapMode	GEnum	Gtk2::WrapMode
 GTK_TYPE_SORT_TYPE	GtkSortType	GEnum	Gtk2::SortType
+GTK_TYPE_IM_PREEDIT_STYLE	GtkIMPreeditStyle	GEnum	Gtk2::IMPreeditStyle
+GTK_TYPE_IM_STATUS_STYLE	GtkIMStatusStyle	GEnum	Gtk2::IMStatusStyle
 GTK_TYPE_IMAGE_TYPE	GtkImageType	GEnum	Gtk2::ImageType
 GTK_TYPE_MESSAGE_TYPE	GtkMessageType	GEnum	Gtk2::MessageType
 GTK_TYPE_BUTTONS_TYPE	GtkButtonsType	GEnum	Gtk2::ButtonsType
@@ -206,6 +210,8 @@ GTK_TYPE_WINDOW_GROUP	GtkWindowGroup	GObject	Gtk2::WindowGroup
 GDK_TYPE_COLORMAP	GdkColormap	GObject	Gtk2::Gdk::Colormap
 GDK_TYPE_COLOR	GdkColor	GBoxed	Gtk2::Gdk::Color
 GDK_TYPE_CURSOR	GdkCursor	GBoxed	Gtk2::Gdk::Cursor
+GDK_TYPE_DISPLAY	GdkDisplay	GObject	Gtk2::Gdk::Display
+GDK_TYPE_DISPLAY_MANAGER	GdkDisplayManager	GObject	Gtk2::Gdk::DisplayManager
 GDK_TYPE_DRAG_CONTEXT	GdkDragContext	GObject	Gtk2::Gdk::DragContext
 GDK_TYPE_DRAWABLE	GdkDrawable	GObject	Gtk2::Gdk::Drawable
 GDK_TYPE_CURSOR_TYPE	GdkCursorType	GEnum	Gtk2::Gdk::CursorType
@@ -261,6 +267,7 @@ GDK_TYPE_IMAGE	GdkImage	GObject	Gtk2::Gdk::Image
 GDK_TYPE_DEVICE	GdkDevice	GObject	Gtk2::Gdk::Device
 GDK_TYPE_KEYMAP	GdkKeymap	GObject	Gtk2::Gdk::Keymap
 GDK_TYPE_PIXMAP	GdkPixmap	GObject	Gtk2::Gdk::Pixmap
+GDK_TYPE_SCREEN	GdkScreen	GObject	Gtk2::Gdk::Screen
 GDK_TYPE_VISUAL	GdkVisual	GObject	Gtk2::Gdk::Visual
 GDK_TYPE_WINDOW	GdkWindow	GObject	Gtk2::Gdk::Window
 GDK_TYPE_PIXBUF_ALPHA_MODE	GdkPixbufAlphaMode	GEnum	Gtk2::Gdk::PixbufAlphaMode
@@ -279,6 +286,8 @@ ATK_TYPE_GOBJECT_ACCESSIBLE	AtkGObjectAccessible	GObject	Gtk2::Atk::GObjectAcces
 ATK_TYPE_HYPERLINK	AtkHyperlink	GObject	Gtk2::Atk::Hyperlink
 ATK_TYPE_HYPERTEXT	AtkHypertext	GInterface	Gtk2::Atk::Hypertext
 ATK_TYPE_IMAGE	AtkImage	GInterface	Gtk2::Atk::Image
+ATK_TYPE_NO_OP_OBJECT_FACTORY	AtkNoOpObjectFactory	GObject	Gtk2::Atk::NoOpObjectFactory
+ATK_TYPE_NO_OP_OBJECT	AtkNoOpObject	GObject	Gtk2::Atk::NoOpObject
 ATK_TYPE_OBJECT_FACTORY	AtkObjectFactory	GObject	Gtk2::Atk::ObjectFactory
 ATK_TYPE_OBJECT	AtkObject	GObject	Gtk2::Atk::Object
 ATK_TYPE_IMPLEMENTOR	AtkImplementorIface	GInterface	Gtk2::Atk::ImplementorIface
