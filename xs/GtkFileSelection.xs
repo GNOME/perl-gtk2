@@ -2,6 +2,33 @@
 
 MODULE = Gtk2::FileSelection	PACKAGE = Gtk2::FileSelection	PREFIX = gtk_file_selection_
 
+
+GtkWidget *
+member_widget (fs)
+	GtkFileSelection* fs
+    ALIAS:
+	Gtk2::FileSelection::ok_button       = 0
+	Gtk2::FileSelection::cancel_button   = 1
+	Gtk2::FileSelection::dir_list        = 2
+	Gtk2::FileSelection::file_list       = 3
+	Gtk2::FileSelection::selection_entry = 4
+	Gtk2::FileSelection::selection_text  = 5
+	Gtk2::FileSelection::main_vbox       = 6
+	Gtk2::FileSelection::help_button     = 7
+    CODE:
+	switch (ix) {
+		case 0: RETVAL = fs->ok_button;       break;
+		case 1: RETVAL = fs->cancel_button;   break;
+		case 2: RETVAL = fs->dir_list;        break;
+		case 3: RETVAL = fs->file_list;       break;
+		case 4: RETVAL = fs->selection_entry; break;
+		case 5: RETVAL = fs->selection_text;  break;
+		case 6: RETVAL = fs->main_vbox;       break;
+		case 7: RETVAL = fs->help_button;     break;
+	}
+    OUTPUT:
+	RETVAL
+
 ## GtkWidget* gtk_file_selection_new (const gchar *title)
 GtkWidget *
 gtk_file_selection_new (class, title)
