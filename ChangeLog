@@ -4,6 +4,8 @@
 
 	* xs/PangoFont.xs: added PANGO_PIXELS
 
+	* Gtk2.pm: bump version for release
+
 2003/06/27 17:01 pcg
 
 	* xs/GdkWindow.xs: gdk_window_set_back_pixmap allows null pixmap.
