@@ -1,3 +1,18 @@
+2003/08/14 12:00 muppetman
+
+	* TODO: updates
+
+	* xs/GdkPixmap.xs, gtk-demo/textview.pl: a GdkBitmap is a GdkPixmap
+	with depth 1.  so, set Gtk2::Gdk::Pixmap in @Gtk2::Gdk::Bitmap rather
+	than Gtk2::Gdk::Drawable.  this fixes a couple of annoying FIXMEs."
+
+	* xs/Gtk2.xs: cleanup and commentary
+
+	* xs/GdkDisplay.xs, xs/GdkDisplayManager.xs, gtk-demo/changedisplay.pl:
+	a couple more >=2.2 objects to make the changedisplay demo work.
+	dunno if it actually works with more than one display, because i
+	only have one here, but it doesn't crash like before...
+
 2003/08/11 12:52 muppetman
 
 	* xs/GtkTreeView.xs, AUTHORS: patch from Torsten Schoenfeld to enable
