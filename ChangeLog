@@ -1,3 +1,9 @@
+2003/06/17 18:21 muppetman
+
+	* gtk2perl.h, xs/GtkObject.xs: push sink functions into Glib, 
+	to avoid some problems in which GtkObject created via 
+	Glib::Object->new don't have gtk_object_sink called on them.
+
 2003/06/16 22:25 muppetman
 
 	* xs/GdkColor.xs, gtk-demo/drawingarea.pl: not sure how the GBoxed
