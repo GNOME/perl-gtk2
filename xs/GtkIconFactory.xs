@@ -20,6 +20,43 @@
  */
 #include "gtk2perl.h"
 
+/*
+ * Programs and libraries can register their own GtkIconSizes, making the
+ * standard enum handling rather incorrect.  so, we override that stuff
+ * here.  FIXME if this stuff is ever needed outside this file, we'll have
+ * to undef and prototype in gtk2perl.h, instead.
+ */
+#undef newSVGtkIconSize
+#undef SvGtkIconSize
+
+SV *
+newSVGtkIconSize (GtkIconSize size)
+{
+	/* crap.  there is no try.  do, or do not. */
+	//SV * sv = gperl_try_convert_back_enum (GTK_TYPE_ICON_SIZE, size);
+	SV * sv = gperl_convert_back_enum_pass_unknown (GTK_TYPE_ICON_SIZE,
+							size);
+	if (looks_like_number (sv)) {
+		/* fall back... */
+		const char * name;
+		name = gtk_icon_size_get_name (size);
+		if (name)
+			sv_setpv (sv, name);
+	}
+	return sv;
+}
+
+GtkIconSize
+SvGtkIconSize (SV * sv)
+{
+	GtkIconSize size;
+	if (gperl_try_convert_enum (GTK_TYPE_ICON_SIZE, sv, &size))
+		return size;
+	/* fall back... */
+	return gtk_icon_size_from_name (SvPV_nolen (sv));
+}
+
+
 MODULE = Gtk2::IconFactory	PACKAGE = Gtk2::IconFactory	PREFIX = gtk_icon_factory_
 
 ##  GtkIconFactory* gtk_icon_factory_new (void) 
@@ -27,7 +64,7 @@ GtkIconFactory_noinc *
 gtk_icon_factory_new (class)
 	SV * class
     C_ARGS:
-	
+	/*void*/
 
 ##  void gtk_icon_factory_add (GtkIconFactory *factory, const gchar *stock_id, GtkIconSet *icon_set) 
 void
@@ -59,8 +96,12 @@ GtkIconSet*
 gtk_icon_factory_lookup_default (class, stock_id)
 	SV * class
 	const gchar *stock_id
-    C_ARGS:
-	stock_id
+    CODE:
+	RETVAL = gtk_icon_factory_lookup_default (stock_id);
+	if (!RETVAL)
+		XSRETURN_UNDEF;
+    OUTPUT:
+	RETVAL
 
 MODULE = Gtk2::IconFactory	PACKAGE = Gtk2::IconSize	PREFIX = gtk_icon_size_
 
@@ -133,6 +174,7 @@ GtkIconSet_own*
 gtk_icon_set_new (class)
 	SV * class
     C_ARGS:
+	/*void*/
 	
 
 ##  GtkIconSet* gtk_icon_set_new_from_pixbuf (GdkPixbuf *pixbuf) 
@@ -191,7 +233,7 @@ GtkIconSource_own*
 gtk_icon_source_new (class)
 	SV * class
     C_ARGS:
-	
+	/*void*/
 
 ##  GtkIconSource* gtk_icon_source_copy (const GtkIconSource *source) 
 GtkIconSource_own *

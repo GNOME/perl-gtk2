@@ -81,9 +81,18 @@ sub create_model {
                         : '';
 
        $info{macro} = id_to_macro ($info{id});
-      
-       my $iter = $store->append;
-       $store->set ($iter, 0, \%info, 1, $id);
+
+       # something about redhat9's gnome setup registers a whole slew of 
+       # stock items which don't return icons in this context.  i don't
+       # know if it's because we don't do Gnome2::Program->init or what,
+       # but it's really annoying, because it messes with lots of things,
+       # and since you can't pass undef/null for an object property, we
+       # can't tell the cell renderers to use NULL for the pixbufs.
+       # so, we only add an entry for stock items which have icons.
+       if ($info{small_icon}) { 
+         my $iter = $store->append;
+         $store->set ($iter, 0, \%info, 1, $id);
+       }
   }
   return $store;
 }
@@ -101,6 +110,7 @@ sub get_largest_size {
 
   foreach my $size ($set->get_sizes) {
      my ($width, $height) = Gtk2::IconSize->lookup ($size);
+     next unless defined $height;
      if ($width * $height > $best_pixels) {
         $best_size = $size;
 	$best_pixels = $width * $height;
