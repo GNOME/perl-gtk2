@@ -483,8 +483,8 @@ gtk_tree_view_get_path_at_pos (tree_view, x, y)
 GdkRectangle_copy *
 gtk_tree_view_get_cell_area (tree_view, path, column)
 	GtkTreeView *tree_view
-	GtkTreePath *path
-	GtkTreeViewColumn *column
+	GtkTreePath_ornull *path
+	GtkTreeViewColumn_ornull *column
     PREINIT:
 	GdkRectangle rect;
     CODE:
@@ -497,8 +497,8 @@ gtk_tree_view_get_cell_area (tree_view, path, column)
 GdkRectangle_copy *
 gtk_tree_view_get_background_area (tree_view, path, column)
 	GtkTreeView *tree_view
-	GtkTreePath *path
-	GtkTreeViewColumn *column
+	GtkTreePath_ornull *path
+	GtkTreeViewColumn_ornull *column
     PREINIT:
 	GdkRectangle rect;
     CODE:
