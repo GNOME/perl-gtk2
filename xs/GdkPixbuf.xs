@@ -400,7 +400,7 @@ gdk_pixbuf_new_from_inline (class, data, copy_pixels=TRUE)
 	gboolean copy_pixels
     PREINIT:
 	GError * error = NULL;
-	gint data_length;
+	STRLEN data_length;
 	const guchar * raw_data;
     CODE:
 	raw_data = SvPV (data, data_length);
