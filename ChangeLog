@@ -1,3 +1,39 @@
+2004/02/26 23:00 (-0500) muppetman
+
+	* README: update the sandbox instructions.
+
+	* t/GtkMenu.t: have the position func return a location farther away
+	from the corner of the screen, to keep the test from creating gtk+
+	warnings on stderr about allocating a widget with negative size.
+
+	* xs/GtkTooltips.xs: use a weakref instead of object data to trigger
+	the unref of the tooltips object; this keeps from polluting the
+	widget's object data.  (Thanks to yosh for the idea.)
+
+	* t/GtkMenu.t: have the position func return a location farther away
+	from the corner of the screen, to keep the test from creating gtk+
+	warnings on stderr about allocating a widget with negative size.
+
+	* xs/Gtk2.xs, t/PangoLayout.t, t/PangoTabs.t: correct the semantics
+	of the boot-time version check; it was backwards, warning when the
+	runtime version was newer instead of older.  add pod for the version
+	stuff, now in the Gtk2::version manpage. 
+	change Gtk2::Pango::check_version to Gtk2::Pango::CHECK_VERSION, to
+	stick with the versioning scheme decision:
+	http://lists.gnome.org/archives/gtk-perl-list/2004-February/msg00085.html
+
+	* xs/GtkMenu.xs: commentary
+
+	* xs/GtkScale.xs: move comment to keep older versions of
+	ExtUtils::ParseXS from ignoring the #if
+
+	* xs/GtkTooltips.xs: use a weakref instead of object data to trigger
+	the unref of the tooltips object; this keeps from polluting the
+	widget's object data.  (Thanks to yosh for the idea.)
+
+	* xs/GtkWidget.xs: code to hush uninitialized value warning was
+	setting the wrong var.
+
 2004/02/26 23:29 (+0100) kaffeetisch
 
 	* xs/GtkCellEditable.xs (CALL): Don't call SPAGAIN since we're not
