@@ -1,3 +1,10 @@
+2004/01/04 11:49 (-0500) rwmcfa1
+
+	* xs/GdkWindow.xs: for some reason get_pointer was having issues with 
+	certian versions of perl/xsubpp. it seemed to be related to the both
+	having a return value and having OUTLIST's. this implements it as a 
+	PPCODE section doing the same thing.
+
 2004/01/04 02:50 (+0100) kaffeetisch
 
 	* t/10.GtkProgressBar.t: Test get_orientation, get_fraction,
