@@ -35,6 +35,11 @@ our %build_reqs = (
 	'perl-Glib'               => '1.060',
 	'Gtk+'                    => '2.0.0',
 );
+our %PREREQ_PM = (
+	'ExtUtils::Depends'   => $build_reqs{'perl-ExtUtils-Depends'},
+	'ExtUtils::PkgConfig' => $build_reqs{'perl-ExtUtils-PkgConfig'},
+	'Glib'                => $build_reqs{'perl-Glib'},
+);
 
 # Writing a fake Makefile ensures that CPAN will pick up the correct
 # dependencies and install them.
@@ -46,11 +51,7 @@ unless (eval "use ExtUtils::Depends '$build_reqs{'perl-ExtUtils-Depends'}';"
    warn "$@\n";
    WriteMakefile(
          PREREQ_FATAL => 1,
-         PREREQ_PM    => {
-            'ExtUtils::Depends'   => $build_reqs{'perl-ExtUtils-Depends'},
-            'ExtUtils::PkgConfig' => $build_reqs{'perl-ExtUtils-PkgConfig'},
-            'Glib'                => $build_reqs{'perl-Glib'},
-         },
+         PREREQ_PM    => \%PREREQ_PM,
    );
    exit 1; # not reached
 }
@@ -219,6 +220,7 @@ WriteMakefile(
     NAME          => 'Gtk2',
     VERSION_FROM  => 'Gtk2.pm', # finds $VERSION
     ABSTRACT_FROM => 'Gtk2.pm', # retrieve abstract from module
+    PREREQ_PM     => \%PREREQ_PM,
     XSPROTOARG    => '-noprototypes',
     MAN3PODS      => \%pod_files,
     FUNCLIST      => \@exports,

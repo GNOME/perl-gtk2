@@ -1,5 +1,10 @@
 2004/10/08 23:20 (-0400) muppetman
 
+	* Makefile.PL: use PREREQ_PM in both WriteMakefile calls, so META.yml
+	gets created properly.
+
+2004/10/08 23:20 (-0400) muppetman
+
 	* xs/GtkRadioButton.xs: correct documentation of the signature of
 	Gtk2::RadioButton::get_group; flesh out the rest of the docs for
 	this widget.
