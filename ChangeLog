@@ -1,7 +1,20 @@
+2003/08/08 12:09 muppetman
+
+	* Gtk2.pm, README: pod updates, bump version to 0.93
+
+	* Makefile.PL: use makefile variables for manpage extensions (idea
+	suggested by Roderich Schupp, thanks)
+
+	* genkeysyms.pl: add pod to generated file
+
 2003/08/06 23:19 rwmcfa1
 
-	* Makefile.PL: .pm -> .3pm copy and past bug corrected, spotted by 
+	* Makefile.PL: .pm -> .3pm copy and paste bug corrected, spotted by 
 	James Curbo
+
+2003/08-06 16:58 ggc
+
+	* xs/GtkWidget.xs: add gtk_widget_size_request
 
 2003/08/06 12:57 muppetman
 
