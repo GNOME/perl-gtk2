@@ -1,3 +1,12 @@
+2003/09/04 22:20 muppetman
+
+	* Gtk2.pm, README, debian/changelog, META.yml, ChangeLog: prep for
+	0.97 release
+
+	* gtk2perl.h: export gtk2perl_menu_position_func
+
+	* Gtk2.exports, Makefile.PL: add exports file
+
 2003/09/04 18:48 rwmcfa1
 
 	* MANIFEST: gtk.typemap and t/26.GtkSimpleMenu.t added.

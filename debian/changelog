@@ -1,3 +1,9 @@
+libgtk2-perl (0.97-1) unstable; urgency=low
+
+  * Updated for 0.97 release.
+
+ -- muppet <scott at asofyet dot org>  Thu, 04 Sep 2003 21:23:38 -0400
+
 libgtk2-perl (0.96-1) unstable; urgency=low
 
   * Updated for 0.96 release.
