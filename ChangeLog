@@ -1,3 +1,8 @@
+2004/02/23 15:16 (-0500) rwmcfa1
+
+	* t/00.Gtk2.t: versions could be 0, which would fail before, check for
+	defined.
+
 2004/02/23 14:38 (-0500) muppetman
 
 	* CodeGen.pm: add to parse_maps the ability to generate error
