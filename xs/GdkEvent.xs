@@ -144,6 +144,9 @@ gdk_event_unwrap (GType gtype, const char * package, SV * sv)
 
 MODULE = Gtk2::Gdk::Event	PACKAGE = Gtk2::Gdk::Event	PREFIX = gdk_event_
 
+=for enum GdkEventType
+=cut
+
 BOOT:
 	/* GdkEvent is a polymorphic structure, whose actual package
 	 * depends on the type member's value.  instead of trying to make

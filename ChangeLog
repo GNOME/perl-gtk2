@@ -1,3 +1,7 @@
+2003/12/02 00:46 (-0500) muppetman
+
+	* xs/GdkEvent.xs, xs/GdkPixmap.xs, xs/GtkObject.xs: doc
+
 2003/12/01 23:25 (-0500) rwmcfa1
 
 	* xs/GdkDnd.xs xs/GdkProperty.xs, xs/GtkClipboard.xs, xs/GtkDnd.xs,
