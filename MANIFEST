@@ -141,6 +141,8 @@ xs/GtkItemFactory.xs
 xs/GtkItem.xs
 xs/GtkLabel.xs
 xs/GtkLayout.xs
+xs/GtkList.xs
+xs/GtkListItem.xs
 xs/GtkListStore.xs
 xs/GtkMenuBar.xs
 xs/GtkMenuItem.xs
