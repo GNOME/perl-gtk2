@@ -234,14 +234,38 @@ gtk_tree_store_iter_is_valid (tree_store, iter)
 	GtkTreeStore *tree_store
 	GtkTreeIter *iter
 
-### TODO: new_order is an array of integers.  what are the contraints on
-###       the length and how do you find them?
+# TODO: definitely needs testing
 #### void gtk_tree_store_reorder (GtkTreeStore *tree_store, GtkTreeIter *parent, gint *new_order)
-##void
-##gtk_tree_store_reorder (tree_store, parent, new_order)
-##	GtkTreeStore *tree_store
-##	GtkTreeIter *parent
-##	gint *new_order
+void
+gtk_tree_store_reorder (tree_store, parent, new_order)
+	GtkTreeStore       * tree_store
+	GtkTreeIter_ornull * parent
+   PREINIT:
+	gint  * new_order;
+	GNode * level;
+	GNode * node;
+	int     length = 0;
+   CODE:
+	if( !parent )
+		level = ((GNode*)(tree_store->root))->children;
+	else
+		level = ((GNode*)(parent->user_data))->children;
+	/* count nodes */
+	node = level;
+	while (node)
+	{
+		length++;
+		node = node->next;
+	}
+	if( (items-2) != length )
+		croak("xs: gtk_tree_store_reorder: wrong number of "
+		      "positions passed");
+	items--;
+	new_order = (gint*)g_new(gint, items);
+	for( ; items > 1; items-- )
+		new_order[items-1] = SvIV(ST(items));
+	gtk_tree_store_reorder(tree_store, parent, new_order);
+	g_free(new_order);
 
 ## void gtk_tree_store_swap (GtkTreeStore *tree_store, GtkTreeIter *a, GtkTreeIter *b)
 void

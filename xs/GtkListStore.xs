@@ -185,13 +185,22 @@ gtk_list_store_iter_is_valid (list_store, iter)
 	GtkListStore *list_store
 	GtkTreeIter *iter
 
-### TODO: new_order is an array of integers.  what are the contraints on
-###       the length and how do you find them?
-#### void gtk_list_store_reorder (GtkListStore *store, gint *new_order)
-##void
-##gtk_list_store_reorder (store, new_order)
-##	GtkListStore *store
-##	gint *new_order
+## void gtk_list_store_reorder (GtkListStore *store, gint *new_order)
+void
+gtk_list_store_reorder (store, ...)
+	GtkListStore * store
+    PREINIT:
+	gint * new_order;
+    CODE:
+	if( (items-1) != store->length )
+		croak("xs: gtk_list_store_reorder: wrong number of "
+		      "positions passed");
+	items--;
+	new_order = (gint*)g_new(gint, items);
+	for( ; items > 0; items-- )
+		new_order[items-1] = SvIV(ST(items));
+	gtk_list_store_reorder(store, new_order);
+	g_free(new_order);
 
 ## void gtk_list_store_swap (GtkListStore *store, GtkTreeIter *a, GtkTreeIter *b)
 void
