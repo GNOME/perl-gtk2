@@ -115,6 +115,16 @@ $chk->signal_connect (toggled => sub {
 $vbox->pack_start ($chk, 0, 0, 0);
 $tooltips->set_tip ($chk, 'set whether column zero\'s text is editable');
 
+
+# toggle the reorderable-ness of the view
+$chk = Gtk2::CheckButton->new ('reorderable');
+$chk->set_active (0);
+$chk->signal_connect (toggled => sub {
+		$slist->set_reorderable ($_[0]->get_active);
+		});
+$vbox->pack_start ($chk, 0, 0, 0);
+$tooltips->set_tip ($chk, 'set whether the list is reorderable');
+
 #$slist->set_column_editable (1, 1);
 #$slist->set_column_editable (2, 1);
 
