@@ -66,10 +66,9 @@ gtk_font_selection_dialog_new (class, title)
 	title
 
 GtkWidget *
-members_get (fsd)
+ok_button (fsd)
 	GtkFontSelectionDialog * fsd
     ALIAS:
-	Gtk2::FontSelectionDialog::ok_button = 0
 	Gtk2::FontSelectionDialog::apply_button = 1
 	Gtk2::FontSelectionDialog::cancel_button = 2
     CODE:
