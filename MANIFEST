@@ -13,6 +13,7 @@ TODO
 api.pod
 examples/buttonbox.pl
 examples/calendar.pl
+examples/colorselectiontest.pl
 examples/histogramplot.pl
 examples/item_factory_demo.pl
 examples/layout.pl
@@ -76,6 +77,8 @@ t/13.GtkTooltips.t
 t/14.GtkToolbar.t
 t/15.GtkHandleBox.t
 t/16.GtkMenu-etc.t
+t/17.GtkItemFactory.t
+t/18.GtkNotebook.t
 testgtk.pl
 xs/Gdk.xs
 xs/GdkColor.xs
@@ -89,10 +92,12 @@ xs/GdkPixbufLoader.xs
 xs/GdkPixmap.xs
 xs/GdkProperty.xs
 xs/GdkRegion.xs
+xs/GdkRgb.xs
 xs/GdkScreen.xs
 xs/GdkSelection.xs
 xs/GdkTypes.xs
 xs/GdkWindow.xs
+xs/GdkX11.xs
 xs/Gtk2.xs
 xs/GtkAccelGroup.xs
 xs/GtkAccelLabel.xs
