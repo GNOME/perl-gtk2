@@ -87,7 +87,11 @@ foreach $num (qw/1 2 3/)
 ok( $optmenu = Gtk2::OptionMenu->new );
 $optmenu->set_menu($menu);
 
+my $i_know_you = 0;
+
 my $position_callback = sub {
+	return if $i_know_you++;
+
 	my ($menu, $x, $y, $data) = @_;
 
 	isa_ok ($menu, "Gtk2::Menu");

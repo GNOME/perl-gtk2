@@ -1,3 +1,12 @@
+2004/03/14 21:11 (+0100) kaffeetisch
+
+	* t/00.Gtk2.t: Test Gtk2::Widget::propagate_event, make the tests
+	for main_iteration, main_iteration_do and events_pending more
+	robust.
+
+	* t/GtkMenu.t: Prevent random failures by making sure we only
+	execute the positioning callback once.
+
 2004/03/14 04:00 (-0500) muppetman
 
 	* examples/adding_stock_icons.pl, examples/customrenderer.pl,
