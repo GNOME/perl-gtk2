@@ -71,6 +71,8 @@ gtk-demo/tree_store.pl
 gtk.typemap
 gtk2perl.h
 maps
+xs_files-2.0
+xs_files-2.2  
 perl-Gtk2.spec.in
 pm/Helper.pm
 pm/Pango.pm
