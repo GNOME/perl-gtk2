@@ -355,6 +355,15 @@ gtk_widget_size_request (widget)
 
 ## function is only useful for widget implementations
 ##void gtk_widget_get_child_requisition (GtkWidget *widget, GtkRequisition *requisition);
+GtkRequisition_copy*
+gtk_widget_get_child_requisition (GtkWidget * widget)
+    PREINIT:
+	GtkRequisition req;
+    CODE:
+	gtk_widget_get_child_requisition (widget, &req);
+	RETVAL = &req;
+    OUTPUT:
+	RETVAL
 
 void
 gtk_widget_add_accelerator (widget, accel_signal, accel_group, accel_key, accel_mods, flags)
@@ -620,8 +629,8 @@ gtk_widget_create_pango_layout (widget, text)
 	GtkWidget   * widget
         const gchar *text
 
- ### FIXME may return NULL if stockid isn't known.... but then, it will
- ###       croak on converting unknown stock ids, too.
+ ### may return NULL if stockid isn't known.... but then, it will
+ ### croak on converting unknown stock ids, too.
 GdkPixbuf_noinc *
 gtk_widget_render_icon (widget, stock_id, size, detail=NULL)
 	GtkWidget   * widget
