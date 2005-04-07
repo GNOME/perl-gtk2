@@ -12,7 +12,7 @@
 use strict;
 use warnings;
 
-use Gtk2::TestHelper tests => 30,
+use Gtk2::TestHelper tests => 36,
     at_least_version => [2, 6, 0, "GtkIconView is new in 2.6"],
     ;
 
@@ -65,6 +65,24 @@ foreach (qw/none single browse multiple/)
 	is ($iview->get_selection_mode, $_,
 	    '$iview->set|get_selection_mode '.$_);
 }
+
+$iview->set_columns (23);
+is ($iview->get_columns, 23);
+
+$iview->set_item_width (23);
+is ($iview->get_item_width, 23);
+
+$iview->set_spacing (23),
+is ($iview->get_spacing, 23);
+
+$iview->set_row_spacing (23);
+is ($iview->get_row_spacing, 23);
+
+$iview->set_column_spacing (23);
+is ($iview->get_column_spacing, 23);
+
+$iview->set_margin (23);
+is ($iview->get_margin, 23);
 
 #$win->show_all;
 

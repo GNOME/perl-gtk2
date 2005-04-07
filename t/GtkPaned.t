@@ -1,5 +1,5 @@
 
-use Gtk2::TestHelper tests => 55;
+use Gtk2::TestHelper tests => 59;
 
 # $Header$
 
@@ -29,6 +29,11 @@ $vpaned->remove ($vframe2);
 
 $vpaned->pack1 ($vframe1, TRUE, FALSE);
 $vpaned->pack2 ($vframe2, FALSE, FALSE);
+
+is ($vpaned->child1, $vframe1);
+is ($vpaned->child2, $vframe2);
+is ($vpaned->get_child1, $vframe1);
+is ($vpaned->get_child2, $vframe2);
 
 $vpaned->set_position (23);
 is ($vpaned->get_position, 23);
@@ -139,5 +144,5 @@ sub sizeof {
 
 __END__
 
-Copyright (C) 2003 by the gtk2-perl team (see the file AUTHORS for the
+Copyright (C) 2003-2005 by the gtk2-perl team (see the file AUTHORS for the
 full list).  See LICENSE for more information.

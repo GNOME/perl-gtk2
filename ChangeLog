@@ -1,3 +1,27 @@
+2005/04/07	kaffeetisch
+
+	* xs/GdkDrawable.xs: Update a FIXME comment.
+
+	* t/GtkAccelMap.t, xs/GtkAccelMap.xs: Bind and test
+	gtk_accel_map_get, gtk_accel_map_lock_path,
+	gtk_accel_map_unlock_path.
+
+	* t/GtkAction.t, xs/GtkAction.xs: Bind and test
+	gtk_action_get_accel_path.
+
+	* t/GtkIconView.t, xs/GtkIconView.xs: Bind and test
+	gtk_icon_view_set_columns, gtk_icon_view_get_columns,
+	gtk_icon_view_set_item_width, gtk_icon_view_get_item_width,
+	gtk_icon_view_set_spacing, gtk_icon_view_get_spacing,
+	gtk_icon_view_set_row_spacing, gtk_icon_view_get_row_spacing,
+	gtk_icon_view_set_column_spacing,
+	gtk_icon_view_get_column_spacing, gtk_icon_view_set_margin,
+	gtk_icon_view_get_margin.  Also add a copyright disclaimer to
+	GtkIconView.xs.
+
+	* t/GtkPaned.t, xs/GtkPaned.xs: Add and test get_child1 and
+	get_child2 aliases to the existing child1 and child2 accessors.
+
 2005/04/04	muppetman
 
 	* xs/GtkStyle.xs, t/GtkStyle.t: turn Gtk2::Style::bg_pixmap

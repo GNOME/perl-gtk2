@@ -1,3 +1,10 @@
+/*
+ * Copyright (c) 2004-2005 by the gtk2-perl team (see the file AUTHORS)
+ *
+ * Licensed under the LGPL, see LICENSE file for more information.
+ *
+ * $Header$
+ */
 #include "gtk2perl.h"
 
 static GPerlCallback *
@@ -49,6 +56,30 @@ void gtk_icon_view_set_orientation (GtkIconView * icon_view, GtkOrientation orie
 
 GtkOrientation gtk_icon_view_get_orientation (GtkIconView * icon_view);
 
+void gtk_icon_view_set_columns (GtkIconView *icon_view, gint columns);
+
+gint gtk_icon_view_get_columns (GtkIconView *icon_view);
+
+void gtk_icon_view_set_item_width (GtkIconView *icon_view, gint item_width);
+
+gint gtk_icon_view_get_item_width (GtkIconView *icon_view);
+
+void gtk_icon_view_set_spacing (GtkIconView *icon_view, gint spacing);
+
+gint gtk_icon_view_get_spacing (GtkIconView *icon_view);
+
+void gtk_icon_view_set_row_spacing (GtkIconView *icon_view, gint row_spacing);
+
+gint gtk_icon_view_get_row_spacing (GtkIconView *icon_view);
+
+void gtk_icon_view_set_column_spacing (GtkIconView *icon_view, gint column_spacing);
+
+gint gtk_icon_view_get_column_spacing (GtkIconView *icon_view);
+
+void gtk_icon_view_set_margin (GtkIconView *icon_view, gint margin);
+
+gint gtk_icon_view_get_margin (GtkIconView *icon_view);
+
 GtkTreePath_own * gtk_icon_view_get_path_at_pos (GtkIconView * icon_view, gint x, gint y);
 
 ## void gtk_icon_view_selected_foreach (GtkIconView * icon_view, GtkIconViewForeachFunc func, gpointer data);
@@ -84,10 +115,10 @@ gtk_icon_view_get_selected_items (GtkIconView * icon_view)
 	if (list)
 	{
 		GList * curr;
-		
+
 		for (curr = list; curr; curr = g_list_next (curr))
 			XPUSHs (sv_2mortal (newSVGtkTreePath (curr->data)));
-		
+
 		g_list_foreach (list, (GFunc)gtk_tree_path_free, NULL);
 		g_list_free (list);
 	}

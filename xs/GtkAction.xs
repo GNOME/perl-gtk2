@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003 by the gtk2-perl team (see the file AUTHORS)
+ * Copyright (c) 2003-2005 by the gtk2-perl team (see the file AUTHORS)
  *
  * Licensed under the LGPL, see LICENSE file for more information.
  *
@@ -58,5 +58,7 @@ void gtk_action_set_accel_group (GtkAction *action, GtkAccelGroup_ornull *accel_
 void gtk_action_set_sensitive (GtkAction *action, gboolean sensitive);
 
 void gtk_action_set_visible (GtkAction *action, gboolean visible);
+
+const gchar* gtk_action_get_accel_path (GtkAction *action);
 
 #endif

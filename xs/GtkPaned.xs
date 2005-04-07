@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003 by the gtk2-perl team (see the file AUTHORS)
+ * Copyright (c) 2003-2005 by the gtk2-perl team (see the file AUTHORS)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -61,6 +61,8 @@ GtkWidget *
 child1 (GtkPaned * paned)
     ALIAS:
 	Gtk2::Paned::child2 = 1
+	Gtk2::Paned::get_child1 = 0
+	Gtk2::Paned::get_child2 = 1
     CODE:
 	RETVAL = NULL;
 	switch (ix) {
