@@ -1,5 +1,10 @@
 2005/04/11	kaffeetisch
 
+	* Gtk2.pm, META.yml, Makefile.PL, NEWS, README: Stable release
+	1.081.
+
+2005/04/11	kaffeetisch
+
 	Merge from HEAD:
 
 	* xs/GdkDrawable.xs: Update a FIXME comment.
