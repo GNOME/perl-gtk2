@@ -42,7 +42,12 @@ if (defined($context)) {
   # warn $context -> get_source_widget();
 
   $context -> set_icon_widget($window, 5, 5);
-  # $context -> set_icon_pixmap(...);
+
+  my $pixmap = Gtk2::Gdk::Pixmap->new ($window->window, 16, 16, -1);
+  $context -> set_icon_pixmap($pixmap->get_colormap, $pixmap, undef, 5, 5);
+  my $mask = Gtk2::Gdk::Pixmap->new ($window->window, 16, 16, 1);
+  $context -> set_icon_pixmap($pixmap->get_colormap, $pixmap, $mask, 5, 5);
+
   $context -> set_icon_pixbuf($pixbuf, 5, 5);
   $context -> set_icon_stock("gtk-add", 5, 5);
   $context -> set_icon_default();
@@ -99,5 +104,5 @@ $button -> drag_source_unset();
 
 __END__
 
-Copyright (C) 2003 by the gtk2-perl team (see the file AUTHORS for the
-full list).  See LICENSE for more information.
+Copyright (C) 2003-2005 by the gtk2-perl team (see the file AUTHORS for
+the full list).  See LICENSE for more information.

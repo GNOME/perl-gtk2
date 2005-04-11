@@ -1,6 +1,20 @@
+2005/04/11	kaffeetisch
+
+	Merge from HEAD:
+
+	* xs/GdkDrawable.xs: Update a FIXME comment.
+
+	* xs/GtkIconView.xs: Add a license disclaimer.
+
+	* xs/GtkNotebook.xs: Document that the integer return values are
+	new in 1.080.
+
+	* t/GtkDnd.t, xs/GtkDnd.xs: Allow undef for the mask argument of
+	gtk_drag_set_icon_pixmap.
+
 2005/03/25	kaffeetisch
 
-	Port from HEAD:
+	Merge from HEAD:
 
 	* CodeGen.pm: Make the GEnum and GFlags converters cast their
 	return values to the correct type to fix compilation when using a

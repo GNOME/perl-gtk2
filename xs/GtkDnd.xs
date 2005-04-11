@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003 by the gtk2-perl team (see the file AUTHORS)
+ * Copyright (c) 2003-2005 by the gtk2-perl team (see the file AUTHORS)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -50,7 +50,7 @@ gtk_drag_set_icon_pixmap (context, colormap, pixmap, mask, hot_x, hot_y)
 	GdkDragContext *context
 	GdkColormap *colormap
 	GdkPixmap *pixmap
-	GdkBitmap *mask
+	GdkBitmap_ornull *mask
 	gint hot_x
 	gint hot_y
 

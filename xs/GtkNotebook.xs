@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003 by the gtk2-perl team (see the file AUTHORS)
+ * Copyright (c) 2003-2005 by the gtk2-perl team (see the file AUTHORS)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -70,6 +70,9 @@ gtk_notebook_new (class)
  ##
 
 ## gint gtk_notebook_append_page (GtkNotebook *notebook, GtkWidget *child, GtkWidget *tab_label)
+=for apidoc
+(integer return since Gtk2-Perl 1.080)
+=cut
 gint
 gtk_notebook_append_page (notebook, child, tab_label=NULL)
 	GtkNotebook * notebook
@@ -86,6 +89,9 @@ gtk_notebook_append_page (notebook, child, tab_label=NULL)
 	RETVAL
 
 ## gint gtk_notebook_append_page_menu (GtkNotebook *notebook, GtkWidget *child, GtkWidget *tab_label, GtkWidget *menu_label)
+=for apidoc
+(integer return since Gtk2-Perl 1.080)
+=cut
 gint
 gtk_notebook_append_page_menu (notebook, child, tab_label, menu_label)
 	GtkNotebook      * notebook
@@ -103,6 +109,9 @@ gtk_notebook_append_page_menu (notebook, child, tab_label, menu_label)
 	RETVAL
 
 ## gint gtk_notebook_prepend_page (GtkNotebook *notebook, GtkWidget *child, GtkWidget *tab_label)
+=for apidoc
+(integer return since Gtk2-Perl 1.080)
+=cut
 gint
 gtk_notebook_prepend_page (notebook, child, tab_label=NULL)
 	GtkNotebook * notebook
@@ -119,6 +128,9 @@ gtk_notebook_prepend_page (notebook, child, tab_label=NULL)
 	RETVAL
 
 ## gint gtk_notebook_prepend_page_menu (GtkNotebook *notebook, GtkWidget *child, GtkWidget *tab_label, GtkWidget *menu_label)
+=for apidoc
+(integer return since Gtk2-Perl 1.080)
+=cut
 gint
 gtk_notebook_prepend_page_menu (notebook, child, tab_label, menu_label)
 	GtkNotebook      * notebook
@@ -136,6 +148,9 @@ gtk_notebook_prepend_page_menu (notebook, child, tab_label, menu_label)
 	RETVAL
 
 ## gint gtk_notebook_insert_page (GtkNotebook *notebook, GtkWidget *child, GtkWidget *tab_label, gint position)
+=for apidoc
+(integer return since Gtk2-Perl 1.080)
+=cut
 gint
 gtk_notebook_insert_page (notebook, child, tab_label, position)
 	GtkNotebook * notebook
@@ -154,6 +169,9 @@ gtk_notebook_insert_page (notebook, child, tab_label, position)
 	RETVAL
 
 ## gint gtk_notebook_insert_page_menu (GtkNotebook *notebook, GtkWidget *child, GtkWidget *tab_label, GtkWidget *menu_label, gint position)
+=for apidoc
+(integer return since Gtk2-Perl 1.080)
+=cut
 gint
 gtk_notebook_insert_page_menu (notebook, child, tab_label, menu_label, position)
 	GtkNotebook      * notebook

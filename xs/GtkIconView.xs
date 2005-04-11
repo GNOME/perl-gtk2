@@ -1,3 +1,10 @@
+/*
+ * Copyright (c) 2004-2005 by the gtk2-perl team (see the file AUTHORS)
+ *
+ * Licensed under the LGPL, see LICENSE file for more information.
+ *
+ * $Header$
+ */
 #include "gtk2perl.h"
 
 static GPerlCallback *
@@ -84,10 +91,10 @@ gtk_icon_view_get_selected_items (GtkIconView * icon_view)
 	if (list)
 	{
 		GList * curr;
-		
+
 		for (curr = list; curr; curr = g_list_next (curr))
 			XPUSHs (sv_2mortal (newSVGtkTreePath (curr->data)));
-		
+
 		g_list_foreach (list, (GFunc)gtk_tree_path_free, NULL);
 		g_list_free (list);
 	}
