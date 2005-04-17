@@ -1,3 +1,8 @@
+2005/04/17	kaffeetisch
+
+	* Gtk2.pm, META.yml, Makefile.PL, NEWS, README: Merge from
+	stable-1-08.
+
 2005/04/08	rmcfarla
 
 	* xs/GtkNotebook.xs: added pod comments to functions that now return 
