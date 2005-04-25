@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003 by the gtk2-perl team (see the file AUTHORS)
+ * Copyright (c) 2003-2005 by the gtk2-perl team (see the file AUTHORS)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -29,6 +29,76 @@ gtk2perl_pixbuf_destroy_notify (guchar * pixels,
 
 	gperl_sv_free ((SV*)data);
 }
+
+#if GTK_CHECK_VERSION (2, 2, 0)
+
+static SV *
+newSVGdkPixbufFormat (GdkPixbufFormat * format)
+{
+	gchar * s;
+	gchar ** strv;
+	int j;
+	AV * av;
+	HV * stash, * hv = newHV ();
+
+	s = gdk_pixbuf_format_get_name (format);
+	hv_store (hv, "name", 4, newSVGChar (s), 0);
+	g_free (s);
+
+	s = gdk_pixbuf_format_get_description (format);
+	hv_store (hv, "description", 11, newSVGChar (s), 0);
+	g_free (s);
+
+	strv = gdk_pixbuf_format_get_mime_types (format);
+	av = newAV ();
+	for (j = 0 ; strv && strv[j] ; j++)
+		av_store (av, j, newSVGChar (strv[j]));
+	hv_store (hv, "mime_types", 10, newRV_noinc ((SV*) av), 0);
+	g_strfreev (strv);
+
+	strv = gdk_pixbuf_format_get_extensions (format);
+	av = newAV ();
+	for (j = 0 ; strv && strv[j] ; j++)
+		av_store (av, j, newSVGChar (strv[j]));
+	hv_store (hv, "extensions", 10, newRV_noinc ((SV*) av), 0);
+	g_strfreev (strv);
+
+#if GTK_CHECK_VERSION (2,6,0)
+{
+	gboolean b;
+
+	b = gdk_pixbuf_format_is_scalable (format);
+	hv_store (hv, "is_scalable", 11, newSVuv (b), 0);
+
+	b = gdk_pixbuf_format_is_disabled (format);
+	hv_store (hv, "is_disabled", 11, newSVuv (b), 0);
+
+	s = gdk_pixbuf_format_get_license (format);
+	hv_store (hv, "license", 7, newSVGChar (s), 0);
+	g_free (s);
+}
+#endif
+
+	/* Store the original format pointer in the hash so that
+	   SvGdkPixbufFormat can retrieve and return it. */
+	sv_magic ((SV*) hv, 0, PERL_MAGIC_ext, (const char *)format, 0);
+
+	stash = gv_stashpv ("Gtk2::Gdk::PixbufFormat", TRUE);
+	return sv_bless ((SV*) newRV_noinc ((SV*) hv), stash);
+}
+
+static GdkPixbufFormat *
+SvGdkPixbufFormat (SV * sv)
+{
+	MAGIC *mg;
+
+	if (!sv || !SvOK (sv) || !SvROK (sv) || !(mg = mg_find (SvRV (sv), PERL_MAGIC_ext)))
+		return NULL;
+
+	return (GdkPixbufFormat *) mg->mg_ptr;
+}
+
+#endif /* 2.2.0 */
 
 MODULE = Gtk2::Gdk::Pixbuf	PACKAGE = Gtk2::Gdk::Pixbuf	PREFIX = gdk_pixbuf_
 
@@ -305,6 +375,26 @@ gdk_pixbuf_new_from_file_at_size (class, GPerlFilename filename, int width, int 
 
 #endif
 
+#if GTK_CHECK_VERSION(2,6,0)
+
+## GdkPixbuf * gdk_pixbuf_new_from_file_at_scale (const char *filename, int width, int height, gboolean preserve_aspect_ratio, GError **error)
+=for apidoc __gerror__
+=cut
+GdkPixbuf_noinc *
+gdk_pixbuf_new_from_file_at_scale (class, GPerlFilename filename, int width, int height, gboolean preserve_aspect_ratio)
+    PREINIT:
+        GError *error = NULL;
+    CODE:
+	RETVAL = gdk_pixbuf_new_from_file_at_scale
+	                              (filename, width, height,
+	                               preserve_aspect_ratio, &error);
+	if (!RETVAL)
+		gperl_croak_gerror (filename, error);
+    OUTPUT:
+	RETVAL
+
+#endif
+
 ###  GdkPixbuf *gdk_pixbuf_new_from_data (const guchar *data, GdkColorspace colorspace, gboolean has_alpha, int bits_per_sample, int width, int height, int rowstride, GdkPixbufDestroyNotify destroy_fn, gpointer destroy_fn_data) 
 =for apidoc
 =for arg data (string of packed binary data) pixel data, usually made with pack()
@@ -551,6 +641,14 @@ gdk_pixbuf_fill (pixbuf, pixel)
 	GdkPixbuf *pixbuf
 	guint32 pixel
 
+#if GTK_CHECK_VERSION (2, 6, 0)
+
+GdkPixbuf_noinc * gdk_pixbuf_rotate_simple (const GdkPixbuf *src, GdkPixbufRotation angle);
+
+GdkPixbuf_noinc * gdk_pixbuf_flip (const GdkPixbuf *src, gboolean horizontal);
+
+#endif
+
 ##  void gdk_pixbuf_scale (const GdkPixbuf *src, GdkPixbuf *dest, int dest_x, int dest_y, int dest_width, int dest_height, double offset_x, double offset_y, double scale_x, double scale_y, GdkInterpType interp_type) 
 void
 gdk_pixbuf_scale (src, dest, dest_x, dest_y, dest_width, dest_height, offset_x, offset_y, scale_x, scale_y, interp_type)
@@ -732,16 +830,18 @@ MODULE = Gtk2::Gdk::Pixbuf	PACKAGE = Gtk2::Gdk::Pixbuf	PREFIX = gdk_pixbuf_
 
 #if GTK_CHECK_VERSION(2,2,0)
 
-## there's no typemap entry for GdkPixbufFormat, because there's no
-## boxed type support.  it's an information structure, so we'll just
-## hashify it so you can use Data::Dumper on it.
-##
+## GdkPixbufFormat is an information structure, so we'll just hashify it so you
+## can use Data::Dumper on it.
+
 # returned strings should be freed
 ###  gchar *gdk_pixbuf_format_get_name (GdkPixbufFormat *format) 
 ###  gchar *gdk_pixbuf_format_get_description (GdkPixbufFormat *format) 
 ###  gchar ** gdk_pixbuf_format_get_mime_types (GdkPixbufFormat *format)
 ###  gchar ** gdk_pixbuf_format_get_extensions (GdkPixbufFormat *format)
 ###  gboolean gdk_pixbuf_format_is_writable (GdkPixbufFormat *format) 
+###  gboolean gdk_pixbuf_format_is_scalable (GdkPixbufFormat *format)
+###  gboolean gdk_pixbuf_format_is_disabled (GdkPixbufFormat *format)
+###  gchar *gdk_pixbuf_format_get_license (GdkPixbufFormat *format)
 
 ###  GSList *gdk_pixbuf_get_formats (void) 
 ## list should be freed, but not formats
@@ -756,38 +856,54 @@ gdk_pixbuf_get_formats (class=NULL)
     PPCODE:
 	formats = gdk_pixbuf_get_formats ();
 	for (i = formats ; i != NULL ; i = i->next) {
-		gchar * s;
-		gchar ** strv;
-		int j;
-		AV * av;
-		GdkPixbufFormat * format = (GdkPixbufFormat*) i->data;
-		HV * hv = newHV ();
-
-		s = gdk_pixbuf_format_get_name (format);
-		hv_store (hv, "name", 4, newSVGChar (s), 0);
-		g_free (s);
-
-		s = gdk_pixbuf_format_get_description (format);
-		hv_store (hv, "description", 11, newSVGChar (s), 0);
-		g_free (s);
-
-		strv = gdk_pixbuf_format_get_mime_types (format);
-		av = newAV ();
-		for (j = 0 ; strv && strv[j] ; j++)
-			av_store (av, j, newSVGChar (strv[j]));
-		hv_store (hv, "mime_types", 10, newRV_noinc ((SV*) av), 0);
-		g_strfreev (strv);
-
-		strv = gdk_pixbuf_format_get_extensions (format);
-		av = newAV ();
-		for (j = 0 ; strv && strv[j] ; j++)
-			av_store (av, j, newSVGChar (strv[j]));
-		hv_store (hv, "extensions", 10, newRV_noinc ((SV*) av), 0);
-		g_strfreev (strv);
-
-		XPUSHs (sv_2mortal (newRV_noinc ((SV*) hv)));
+		XPUSHs (sv_2mortal (newSVGdkPixbufFormat (i->data)));
 	}
 	g_slist_free (formats);
 	PERL_UNUSED_VAR (ax);
 
 #endif /* >= 2.2.0 */
+
+#if GTK_CHECK_VERSION(2,4,0)
+
+###  GdkPixbufFormat *gdk_pixbuf_get_file_info (const gchar *filename, gint *width, gint *height)
+void gdk_pixbuf_get_file_info (class, filename)
+	GPerlFilename filename
+    PREINIT:
+	GdkPixbufFormat *format;
+	gint width = -1;
+	gint height = -1;
+    PPCODE:
+	format = gdk_pixbuf_get_file_info (filename, &width, &height);
+	if (format) {
+		EXTEND (sp, 3);
+		PUSHs (sv_2mortal (newSVGdkPixbufFormat (format)));
+		PUSHs (sv_2mortal (newSViv (width)));
+		PUSHs (sv_2mortal (newSViv (height)));
+	}
+
+#endif
+
+MODULE = Gtk2::Gdk::Pixbuf	PACKAGE = Gtk2::Gdk::PixbufFormat	PREFIX = gdk_pixbuf_format_
+
+#if GTK_CHECK_VERSION(2, 2, 0)
+
+void
+DESTROY (sv)
+	SV *sv
+    CODE:
+	sv_unmagic (sv, PERL_MAGIC_ext);
+
+#endif /* 2.2.0 */
+
+#if GTK_CHECK_VERSION(2, 6, 0)
+
+=for apidoc
+
+Note that any change caused by this method will not immediately affect
+I<$format->{is_disabled}>.  You need to refetch the format in order to see the
+new value.
+
+=cut
+void gdk_pixbuf_format_set_disabled (GdkPixbufFormat *format, gboolean disabled);
+
+#endif /* 2.6.0 */

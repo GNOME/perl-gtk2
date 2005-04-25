@@ -432,7 +432,9 @@ sub gen_object_stuff {
 ";
 
 	push @typemap, "$classname *	T_GPERL_GENERIC_WRAPPER";
+	push @typemap, "const $classname *	T_GPERL_GENERIC_WRAPPER";
 	push @typemap, "$classname\_ornull *	T_GPERL_GENERIC_WRAPPER";
+	push @typemap, "const $classname\_ornull *	T_GPERL_GENERIC_WRAPPER";
 	push @boot, "#ifdef $typemacro
 gperl_register_object ($typemacro, \"$package\");
 #endif /* $typemacro */";
@@ -482,7 +484,7 @@ muppet <scott at asofyet dot org>
 
 =head1 COPYRIGHT
 
-Copyright (C) 2003-2004 by the gtk2-perl team (see the file AUTHORS for the
+Copyright (C) 2003-2005 by the gtk2-perl team (see the file AUTHORS for the
 full list)
 
 This library is free software; you can redistribute it and/or modify it under

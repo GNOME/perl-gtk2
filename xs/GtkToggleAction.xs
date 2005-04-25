@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003 by the gtk2-perl team (see the file AUTHORS)
+ * Copyright (c) 2003-2005 by the gtk2-perl team (see the file AUTHORS)
  *
  * Licensed under the LGPL, see LICENSE file for more information.
  *
@@ -9,6 +9,19 @@
 #include "gtk2perl.h"
 
 MODULE = Gtk2::ToggleAction	PACKAGE = Gtk2::ToggleAction	PREFIX = gtk_toggle_action_
+
+=for position SYNOPSIS
+
+=head1 SYNOPSIS
+
+  my $action = Gtk2::ToggleAction->new (name => 'one',
+                                        tooltip => 'One');
+
+Note that the constructor slightly deviates from the convenience constructor in
+the C API.  Instead of passing in a list of values for name, label, tooltip and
+stock-id, you just use key => value pairs like with Glib::Object::new.
+
+=cut
 
 void gtk_toggle_action_toggled (GtkToggleAction *action);
 

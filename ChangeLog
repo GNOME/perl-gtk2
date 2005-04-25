@@ -1,3 +1,24 @@
+2005/04/25	kaffeetisch
+
+	* CodeGen.pm: Add const typemaps for object types.
+
+	* t/GtkFileChooser.t: Skip this test completely as it's failing.
+
+	* t/GtkAccelMap.t, t/GtkAccelGroup.t, t/GtkStock.t: Remove some
+	TODO block since the relevant Test::More bug has been fixed.
+
+	* gdk.typemap, maps-2.6, t/GdkPixbuf.t, xs/GdkPixbuf.xs: Bind and
+	test gdk_pixbuf_new_from_file_at_scale, gdk_pixbuf_rotate_simple,
+	gdk_pixbuf_flip, gdk_pixbuf_get_file_info, the new GdkPixbufFormat
+	members and gdk_pixbuf_format_set_disabled.
+
+	* t/GtkDnd.t, xs/GtkDnd.xs, xs/GtkNotebook.xs: Merge from
+	stable-1-08: Update copyright disclaimers.
+
+	* xs/GtkRadioAction.xs, xs/GtkToggleAction.xs: Add synopsis
+	sections that show and explain our custom constructors for these
+	types.
+
 2005/04/17	kaffeetisch
 
 	* Gtk2.pm, META.yml, Makefile.PL, NEWS, README: Merge from

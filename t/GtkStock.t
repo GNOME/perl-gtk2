@@ -21,13 +21,9 @@ my @items = (
 
 Gtk2::Stock -> add(@items);
 is_deeply([(Gtk2::Stock -> list_ids())[0, 1]], ["gtk2perl-test-script", "gtk2perl-bla"]);
-
-TODO: {
-  local $TODO = "Currently fails due to a Test::More bug";
-  is_deeply(Gtk2::Stock -> lookup("gtk2perl-test-script"), $items[0]);
-}
+is_deeply(Gtk2::Stock -> lookup("gtk2perl-test-script"), $items[0]);
 
 __END__
 
-Copyright (C) 2003 by the gtk2-perl team (see the file AUTHORS for the
+Copyright (C) 2003-2005 by the gtk2-perl team (see the file AUTHORS for the
 full list).  See LICENSE for more information.
