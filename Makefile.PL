@@ -228,6 +228,17 @@ WriteMakefile(
     $gtk2->get_makefile_vars,
 );
 
+print <<__EOW__;
+WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING
+
+   This is an unstable development release of Gtk2.  The API is not
+   frozen and things are subject to change at any time.  Report any
+   bugs to gtk-perl-list AT gnome DOT org as soon as possible.
+   Please use the 1.08x series for important work.
+
+WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING
+__EOW__
+
 #
 # extra makefile override stuff... watch for falling wizardry.
 #
