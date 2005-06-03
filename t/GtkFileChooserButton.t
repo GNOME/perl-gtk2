@@ -6,7 +6,7 @@ use Gtk2::TestHelper
 
 # $Header$
 
-my $dialog = Gtk2::FileChooserDialog -> new("Urgs", undef, "save",
+my $dialog = Gtk2::FileChooserDialog -> new("Urgs", undef, "open",
                                             "gtk-cancel" => "cancel",
                                             "gtk-ok" => "ok");
 

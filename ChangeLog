@@ -1,3 +1,8 @@
+2005/06/03	kaffeetisch
+
+	* t/GtkFileChooserButton.t: Use "open" instead of "save" for the
+	dialog since the button doesn't support "save".
+
 2005/04/25	kaffeetisch
 
 	* Gtk2.pm, Makefile.PL, META.yml, NEWS, README: Unstable release
