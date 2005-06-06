@@ -1,11 +1,16 @@
+Overview of changes in Gtk2 1.091
+=================================
+
+* Fix a minor test suite issue.
+
 Overview of changes in Gtk2 1.090
 =================================
 
 * Test updates and fixes.  [Torsten]
 * Bind and test Gtk2::Gdk::Pixbuf::new_from_file_at_scale,
-Gtk2::Gdk::Pixbuf::rotate_simple, Gtk2::Gdk::Pixbuf::flip,
-Gtk2::Gdk::Pixbuf::get_file_info, the new Gtk2::Gdk::PixbufFormat members and
-Gtk2::Gdk::PixbufFormat::set_disabled.  [Torsten]
+  Gtk2::Gdk::Pixbuf::rotate_simple, Gtk2::Gdk::Pixbuf::flip,
+  Gtk2::Gdk::Pixbuf::get_file_info, the new Gtk2::Gdk::PixbufFormat members and
+  Gtk2::Gdk::PixbufFormat::set_disabled.  [Torsten]
 * Documentation updates.  [Torsten]
 
 Overview of changes in Gtk2 1.081

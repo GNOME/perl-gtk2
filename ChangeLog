@@ -1,3 +1,8 @@
+2005/06/06	kaffeetisch
+
+	* Gtk2.pm, META.yml, Makefile.PL, NEWS, README: Unstable release
+	1.091.
+
 2005/06/03	kaffeetisch
 
 	* t/GtkFileChooserButton.t: Use "open" instead of "save" for the
