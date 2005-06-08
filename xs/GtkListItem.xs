@@ -28,6 +28,20 @@
 
 MODULE = Gtk2::ListItem	PACKAGE = Gtk2::ListItem	PREFIX = gtk_list_item_
 
+=for position DESCRIPTION
+
+=head1 DESCRIPTION
+
+Gtk2::ListItem is the widget used for each item in a Gtk2::List.  Gtk2::List
+and Gtk2::ListItem are deprecated; use Gtk2::TreeView and a Gtk2::ListStore
+instead.
+
+Gtk2::ListItem is included in Gtk2-Perl only because Gtk2::Combo contains a
+Gtk2::List, and Gtk2::Combo's replacement, Gtk2::ComboBox, didn't appear in
+gtk+ until 2.4.0.
+
+=cut
+
 #ifdef GTK_TYPE_LIST_ITEM
 
 ##  GtkWidget* gtk_list_item_new (void) 

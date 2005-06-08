@@ -3,6 +3,10 @@
 	* xs/GnomeAboutDialog.xs: Actually store the instances created by
 	Gtk2::show_about_dialog(), so that they can be reused.
 
+	* xs/GtkComboBox.xs, xs/GtkComboBoxEntry.xs, xs/GtkDialog.xs,
+	xs/GtkList.xs, xs/GtkListItem.xs, xs/GtkMessageDialog.xs: Add or
+	beef up a few synopsis and description sections.
+
 2005/06/06	kaffeetisch
 
 	* Gtk2.pm, META.yml, Makefile.PL, NEWS, README: Unstable release
