@@ -81,6 +81,12 @@ void gtk_show_about_dialog (class, GtkWindow_ornull * parent, first_property_nam
 				g_value_unset (&value);
 			}
 		}
+		if (parent)
+			g_object_set_data_full (G_OBJECT (parent),
+					       	"gtk-about-dialog",
+						dialog, g_object_unref);
+		else
+			global_about_dialog = dialog;
 	}
 	gtk_window_present (GTK_WINDOW (dialog));
 
