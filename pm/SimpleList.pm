@@ -38,8 +38,9 @@ sub add_column_type
 }
 
 sub text_cell_edited {
-	my ($cell_renderer, $text_path, $new_text, $model) = @_;
+	my ($cell_renderer, $text_path, $new_text, $slist) = @_;
 	my $path = Gtk2::TreePath->new_from_string ($text_path);
+	my $model = $slist->get_model;
 	my $iter = $model->get_iter ($path);
 	$model->set ($iter, $cell_renderer->{column}, $new_text);
 }
@@ -113,12 +114,15 @@ sub new_from_treeview {
 				# make boolean columns respond to editing.
 				my $r = $column->get_cell_renderers;
 				$r->set (activatable => 1);
+				$r->{column_index} = $i;
 				$r->signal_connect (toggled => sub {
-					my ($renderer, $row, $col) = @_;
+					my ($renderer, $row, $slist) = @_;
+					my $col = $renderer->{column_index};
+					my $model = $slist->get_model;
 					my $iter = $model->iter_nth_child (undef, $row);
 					my $val = $model->get ($iter, $col);
 					$model->set ($iter, $col, !$val);
-					}, $i);
+					}, $view);
 
 			} elsif ($column_info[$i]{attr} eq 'text') {
 				# attach a decent 'edited' callback to any
@@ -126,8 +130,8 @@ sub new_from_treeview {
 				# turn on editing by default.
 				my $r = $column->get_cell_renderers;
 				$r->{column} = $i;
-				$r->signal_connect (edited => \&text_cell_edited,
-						    $model);
+				$r->signal_connect
+					(edited => \&text_cell_edited, $view);
 			}
 		}
 	}

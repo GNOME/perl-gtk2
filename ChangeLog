@@ -1,3 +1,10 @@
+2005/06/16	muppetman
+
+	* pm/SimpleList.pm:  Don't trap the model in closures and signal
+	handler data.  This makes it possible to change the SimpleList's
+	model without breaking editable renderers.  This isn't a complete
+	solution, but is cleaner even by itself.
+
 2005/06/07	muppetman
 
 	* xs/GnomeAboutDialog.xs: Actually store the instances created by
