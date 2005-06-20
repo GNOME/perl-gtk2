@@ -2,7 +2,7 @@
 
 use warnings;
 use strict;
-use Gtk2::TestHelper tests => 115;
+use Gtk2::TestHelper tests => 123;
 
 # we can't instantiate Gtk2::Widget, it's abstract.  use a DrawingArea instead.
 
@@ -182,11 +182,27 @@ is( Gtk2->grab_get_current, $widget, 'grabbing worked' );
 Gtk2->grab_remove ($widget);
 
 $widget->realize;
-isa_ok( $widget->window, "Gtk2::Gdk::Window" );
+
+$win = $widget->window;
+isa_ok( $win, "Gtk2::Gdk::Window" );
+$widget->window (undef);
+is( $widget->window, undef );
+$widget->window ($win);
+is( $widget->window, $win );
+
+my $rec = $widget->requisition;
+isa_ok ($rec, 'Gtk2::Requisition');
+is ($rec->width, $widget->requisition->width);
+is ($rec->height, $widget->requisition->height);
+
+my $all = $widget->allocation;
+isa_ok ($all, 'Gtk2::Gdk::Rectangle');
+is ($all->x, $widget->allocation->x);
+is ($all->y, $widget->allocation->y);
+is ($all->width, $widget->allocation->width);
+is ($all->height, $widget->allocation->height);
 
 isa_ok ($widget->style, 'Gtk2::Style');
-isa_ok ($widget->requisition, 'Gtk2::Requisition');
-isa_ok ($widget->allocation, 'Gtk2::Gdk::Rectangle');
 isa_ok ($widget->parent, 'Gtk2::Window');
 
 $widget->event (Gtk2::Gdk::Event->new ("button-press"));

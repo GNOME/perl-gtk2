@@ -51,14 +51,28 @@ MODULE = Gtk2::Widget	PACKAGE = Gtk2::Widget	PREFIX = gtk_widget_
  ## access to important struct members:
 
  ## must allow ornull for people who call ->window before the widget
- ## is realized
+ ## is realized.  the ref/unref stunt is necessary to make sure RETVAL doesn't
+ ## get mangled.
 GdkWindow_ornull *
-window (widget)
+window (widget, new=NULL)
 	GtkWidget * widget
+	GdkWindow_ornull * new
     CODE:
 	RETVAL = widget->window;
+	if (RETVAL)
+		g_object_ref (widget->window);
+
+	if (items == 2 && new != widget->window) {
+		if (widget->window)
+			g_object_unref (widget->window);
+		if (new)
+			g_object_ref (new);
+		widget->window = new;
+	}
     OUTPUT:
 	RETVAL
+    CLEANUP:
+	if (RETVAL) g_object_unref (RETVAL);
 
 GtkRequisition *
 requisition (widget)

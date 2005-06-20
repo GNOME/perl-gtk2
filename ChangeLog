@@ -1,3 +1,8 @@
+2005/06/21	kaffeetisch
+
+	* t/GtkWidget.t, xs/GtkWidget.xs: Turn Gtk2::Widget::window into a
+	mutator.
+
 2005/06/20	kaffeetisch
 
 	* xs/GtkPaned.xs: Fix the child aliases to have unique ids to hush
