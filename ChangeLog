@@ -1,5 +1,10 @@
 2005/06/20	kaffeetisch
 
+	* xs/GtkPaned.xs: Fix the child aliases to have unique ids to hush
+	warnings from newer ExtUtils::ParseXS versions.
+
+2005/06/20	kaffeetisch
+
 	* t/GtkTreeView.t: Make sure we only enter the row separator
 	callback once to make this test more robust.
 

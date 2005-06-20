@@ -61,13 +61,17 @@ GtkWidget *
 child1 (GtkPaned * paned)
     ALIAS:
 	Gtk2::Paned::child2 = 1
-	Gtk2::Paned::get_child1 = 0
-	Gtk2::Paned::get_child2 = 1
+	Gtk2::Paned::get_child1 = 2
+	Gtk2::Paned::get_child2 = 3
     CODE:
 	RETVAL = NULL;
 	switch (ix) {
-		case 0: RETVAL = paned->child1; break;
-		case 1: RETVAL = paned->child2; break;
+		case 0:
+		case 2:
+			RETVAL = paned->child1; break;
+		case 1:
+		case 3:
+			RETVAL = paned->child2; break;
 		default:
 			RETVAL = NULL;
 			g_assert_not_reached ();
