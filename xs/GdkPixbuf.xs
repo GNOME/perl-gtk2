@@ -900,8 +900,8 @@ DESTROY (sv)
 =for apidoc
 
 Note that any change caused by this method will not immediately affect
-I<$format->{is_disabled}>.  You need to refetch the format in order to see the
-new value.
+I<$format-E<gt>{is_disabled}>.  You need to refetch the format in order to see
+the new value.
 
 =cut
 void gdk_pixbuf_format_set_disabled (GdkPixbufFormat *format, gboolean disabled);

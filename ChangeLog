@@ -1,3 +1,11 @@
+2005/06/20	kaffeetisch
+
+	* t/GtkTreeView.t: Make sure we only enter the row separator
+	callback once to make this test more robust.
+
+	* xs/GdkPixbuf.xs: Escape ">" in the POD for
+	gdk_pixbuf_format_set_disabled.
+
 2005/06/16	muppetman
 
 	* pm/SimpleList.pm:  Don't trap the model in closures and signal
