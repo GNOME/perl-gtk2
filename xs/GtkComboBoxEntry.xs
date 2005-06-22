@@ -10,6 +10,43 @@
 
 MODULE = Gtk2::ComboBoxEntry	PACKAGE = Gtk2::ComboBoxEntry	PREFIX = gtk_combo_box_entry_
 
+=for object Gtk2::ComboBoxEntry - A text entry field with a dropdown list
+
+=cut
+
+=for position SYNOPSIS
+
+=head1 SYNOPSIS
+
+  # the easy way
+  $combo_box_entry = Gtk2::ComboBoxEntry->new_text;
+  foreach (qw(one two three four five)) {
+      $combo_box_entry->append_text ($_);
+  }
+
+  # or the powerful way.  there always has to be at least
+  # one text column in the model, but you can have anything
+  # else in it that you want, just like Gtk2::ComboBox.
+  $combo_box_entry = Gtk2::ComboBoxEntry->new ($model, $text_index);
+
+  # to mess with with entry directly, get the child:
+  $current_text = $combo_box_entry->child->get_text;
+
+=cut
+
+=for position DESCRIPTION
+
+=head1 DESCRIPTION
+
+A ComboBoxEntry is a widget that allows the user to choose from a list of valid
+choices or enter a different value.  It is very similar to a ComboBox, but
+displays the selected value in an entry to allow modifying it.
+
+The ComboBoxEntry has a Gtk2::Entry as its child.  To get or set the
+currently-displayed text, just manipulate the entry normally.
+
+=cut
+
 BOOT:
 	gperl_set_isa ("Gtk2::ComboBoxEntry", "Gtk2::CellEditable");
 	gperl_set_isa ("Gtk2::ComboBoxEntry", "Gtk2::CellLayout");

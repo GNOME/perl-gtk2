@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 13;
+use Gtk2::TestHelper tests => 17;
 
 # $Header$
 
@@ -16,13 +16,10 @@ my $key = $Gtk2::Gdk::Keysyms{ KP_Enter };
 my $mask = qw(shift-mask);
 
 my $closure = sub {
-  TODO: {
-    local $TODO = "Currently fails due to a Test::More bug";
-    is_deeply(\@_, [$group,
-                    $window,
-                    $key,
-                    $mask]);
-  }
+  is($_[0], $group);
+  is($_[1], $window);
+  is($_[2], $key);
+  is($_[3], $mask);
 };
 
 $group -> connect($key, $mask, qw(visible), $closure);
@@ -35,10 +32,11 @@ like(Gtk2::AccelGroups -> activate($window, $key, $mask), qr/^(?:|1)$/);
 is(Gtk2::AccelGroups -> from_object($window), $group);
 
 is(Gtk2::Accelerator -> valid($key, $mask), 1);
-TODO: {
-  local $TODO = "Currently fails due to a Test::More bug";
-  is_deeply([Gtk2::Accelerator -> parse("<Shift>KP_Enter")], [$key, $mask]);
-}
+
+my @test = Gtk2::Accelerator -> parse("<Shift>KP_Enter");
+is($test[0], $key);
+is($test[1], $mask);
+
 is(Gtk2::Accelerator -> name($key, $mask), "<Shift>KP_Enter");
 
 Gtk2::Accelerator -> set_default_mod_mask([qw(shift-mask control-mask mod1-mask mod2-mask lock-mask)]);
@@ -66,5 +64,5 @@ ok(not $group -> disconnect($closure));
 
 __END__
 
-Copyright (C) 2003 by the gtk2-perl team (see the file AUTHORS for the
-full list).  See LICENSE for more information.
+Copyright (C) 2003-2005 by the gtk2-perl team (see the file AUTHORS for
+the full list).  See LICENSE for more information.

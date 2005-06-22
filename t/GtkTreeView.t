@@ -296,11 +296,8 @@ $view -> set_column_drag_function(sub { return 1; });
 
 SKIP: {
 	# NOTE: the skip count here includes 2 for each tested accessor and
-	#       three for each row that results in a call to the row
-	#       separator callback.  i'm assuming that the number will be
-	#       constant; if not, i suppose we'll just have to disable the
-	#       row separator func test.
-	skip "new toys in 2.6", 30
+	#       three for the row separator callback.
+	skip "new toys in 2.6", 9
 		unless Gtk2->CHECK_VERSION (2, 6, 0);
 
 	# here are a few new properties which default to off; let's check
@@ -318,9 +315,12 @@ SKIP: {
 		ok (!$view->$getter, $thing);
 	}
 
-# FIXME is this a reasonable way to test this?
+	my $i_know_this_place = 0;
 	$view->set_row_separator_func (sub {
 		my ($model, $iter, $data) = @_;
+
+		return FALSE if ($i_know_this_place++);
+
 		isa_ok ($model, 'Gtk2::TreeModel');
 		isa_ok ($iter, 'Gtk2::TreeIter');
 		isa_ok ($data, 'HASH');
@@ -400,6 +400,7 @@ $view->set_cursor_on_cell (Gtk2::TreePath->new ("1:1"), undef, undef, 0)
 
 $view->signal_connect (button_press_event => sub {
 		my ($v, $e) = @_;
+
 		my @res = $view->get_path_at_pos ($e->x, $e->y);
 		isa_ok ($res[0], 'Gtk2::TreePath', 'get_path_at_pos, path');
 		isa_ok ($res[1], 'Gtk2::TreeViewColumn', 'get_path_at_pos, col');

@@ -1,3 +1,27 @@
+2005/06/23	kaffeetisch
+
+	Merge from HEAD:
+
+	* t/GtkFileChooserButton.t: Use "open" instead of "save" for the
+	dialog since the button doesn't support "save".
+
+	* t/GtkAccelGroup.t, t/GtkAccelMap.t, t/GtkStock.t: Use is()
+	instead of is_deeply() to test flags values since the latter was
+	changed to always use the string version of overloaded objects in
+	recent versions of Test::More, whereas the former seems to work
+	correctly.  Tested with Test::More 0.45 and 0.60.
+
+	* t/GtkTreeView.t: Make sure we only enter the row separator
+	callback once to make this test more robust.
+
+	* xs/GtkComboBox.xs, xs/GtkComboBoxEntry.xs, xs/GtkDialog.xs,
+	xs/GtkList.xs, xs/GtkListItem.xs, xs/GtkMessageDialog.xs: Add or
+	beef up a few synopsis and description sections.
+
+	* xs/GtkRadioAction.xs, xs/GtkToggleAction.xs: Add synopsis
+	sections that show and explain our custom constructors for these
+	types.
+
 2005/06/13	muppetman
 
 	Merge from HEAD:

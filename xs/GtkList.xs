@@ -28,6 +28,18 @@
 
 MODULE = Gtk2::List	PACKAGE = Gtk2::List	PREFIX = gtk_list_
 
+=for position DESCRIPTION
+
+=head1 DESCRIPTION
+
+Gtk2::List is deprecated; use Gtk2::TreeView and a Gtk2::ListStore instead.
+
+Gtk2::List is included in Gtk2-Perl only because Gtk2::Combo still makes
+use of it, and Gtk2::Combo's replacement, Gtk2::ComboBox, didn't appear in
+gtk+ until 2.4.0.
+
+=cut
+
 #ifdef GTK_TYPE_LIST
 
 ##  GtkWidget* gtk_list_new (void) 

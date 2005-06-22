@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 15;
+use Gtk2::TestHelper tests => 23;
 
 # $Header$
 
@@ -10,16 +10,18 @@ my $key = $Gtk2::Gdk::Keysyms{ KP_Enter };
 my $mask = qw(shift-mask);
 
 Gtk2::AccelMap -> add_entry("<gtk2-perl-tests>/Bla/Blub", $key, $mask);
-TODO: {
-  local $TODO = "Currently fails due to a Test::More bug";
-  is_deeply([Gtk2::AccelMap -> lookup_entry("<gtk2-perl-tests>/Bla/Blub")], [$key, $mask, 0]);
-}
+
+my @test = Gtk2::AccelMap -> lookup_entry("<gtk2-perl-tests>/Bla/Blub");
+is($test[0], $key);
+is($test[1], $mask);
+is($test[2], 0);
 
 is(Gtk2::AccelMap -> change_entry("<gtk2-perl-tests>/Bla/Blub", $key + 1, $mask, 0), 1);
-TODO: {
-  local $TODO = "Currently fails due to a Test::More bug";
-  is_deeply([Gtk2::AccelMap -> lookup_entry("<gtk2-perl-tests>/Bla/Blub")], [$key + 1, $mask, 0]);
-}
+
+@test = Gtk2::AccelMap -> lookup_entry("<gtk2-perl-tests>/Bla/Blub");
+is($test[0], $key + 1);
+is($test[1], $mask);
+is($test[2], 0);
 
 # Gtk2::AccelMap -> save(...);
 # Gtk2::AccelMap -> load(...);
@@ -30,14 +32,11 @@ Gtk2::AccelMap -> add_entry("<gtk2-perl-tests>/Ble", $key, $mask);
 is(Gtk2::AccelMap -> change_entry("<gtk2-perl-tests>/Ble", $key + 1, $mask, 0), 1);
 
 Gtk2::AccelMap -> foreach("bla", sub {
-  TODO: {
-    local $TODO = "Currently fails due to a Test::More bug";
-    is_deeply(\@_, ["<gtk2-perl-tests>/Bla/Blub",
-                    $key + 1,
-                    $mask,
-                    1,
-                    "bla"]);
-  }
+  is($_[0], "<gtk2-perl-tests>/Bla/Blub");
+  is($_[1], $key + 1);
+  is($_[2], $mask);
+  is($_[3], 1);
+  is($_[4], "bla");
 });
 
 Gtk2::AccelMap -> foreach_unfiltered("bla", sub {

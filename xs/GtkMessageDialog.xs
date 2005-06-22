@@ -39,6 +39,64 @@ format_message (SV * format, SV ** start, int count)
 
 MODULE = Gtk2::MessageDialog	PACKAGE = Gtk2::MessageDialog	PREFIX = gtk_message_dialog_
 
+=for position SYNOPSIS
+
+=head1 SYNOPSIS
+
+  #
+  # A modal dialog.  Note that the message is a printf-style format.
+  #
+  $dialog = Gtk2::MessageDialog->new ($main_application_window,
+                                      'destroy-with-parent',
+                                      'question', # message type
+                                      'yes-no', # which set of buttons?
+                                      "Pay me $%.2f?", $amount);
+  $response = $dialog->run;
+  if ($response eq 'yes') {
+      send_bill ();
+  }
+  $dialog->destroy;
+
+  #
+  # A non-modal dialog.
+  #
+  $dialog = Gtk2::MessageDialog->new ($main_application_window,
+                                      'destroy-with-parent',
+                                      'question', # message type
+                                      'ok-cancel', # which set of buttons?
+                                      "Self-destruct now?");
+  # react whenever the user responds.
+  $dialog->signal_connect (response => sub {
+             my ($self, $response) = @_;
+             if ($response eq 'ok') {
+                     do_the_thing ();
+             }
+             $self->destroy;
+  });
+
+
+
+=cut
+
+=for position DESCRIPTION
+
+=head1 DESCRIPTION
+
+
+Gtk2::MessageDialog is a dialog with an image representing the type of message
+(Error, Question, etc.) alongside some message text.  It's simply a convenience
+widget; you could construct the equivalent of Gtk2::MessageDialog from Gtk2::Dialog
+without too much effort, but Gtk2::MessageDialog saves typing and helps create a
+consistent look and feel for your application.
+
+The easiest way to do a modal message dialog is to use C<< $dialog->run >>, which
+automatically makes your dialog modal and waits for the user to respond to it.
+You can also pass in the GTK_DIALOG_MODAL flag when creating the MessageDialog.
+
+
+=cut
+
+
 =for apidoc
 =for args format a printf format specifier.  may be undef.
 =for args ... arguments for I<$format>

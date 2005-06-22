@@ -24,6 +24,75 @@ gtk2perl_tree_view_row_separator_func (GtkTreeModel      *model,
 
 MODULE = Gtk2::ComboBox	PACKAGE = Gtk2::ComboBox	PREFIX = gtk_combo_box_
 
+=for object Gtk2::ComboBox - A widget used to choose from a list of items
+
+=cut
+
+=for position SYNOPSIS
+
+=head1 SYNOPSIS
+
+  # the easy way:
+  $combobox = Gtk2::ComboBox->new_text;
+  foreach (@strings) {
+      $combobox->append_text ($_);
+  }
+  $combobox->prepend_text ($another_string);
+  $combobox->insert_text ($index, $yet_another_string);
+  $combobox->remove_text ($index);
+  $text = $combobox->get_active_text;
+
+
+  # the full-featured way.  
+  # a combo box that shows stock ids and their images:
+  use constant ID_COLUMN => 0;
+  $model = Gtk2::ListStore->new ('Glib::String');
+  foreach (qw(gtk-ok gtk-cancel gtk-yes gtk-no gtk-save gtk-open)) {
+      $model->set ($model->append, ID_COLUMN, $_);
+  }
+  $combo_box = Gtk2::ComboBox->new ($model);
+  # to display anything, you must pack cell renderers into
+  # the combobox, which implements the Gtk2::CellLayout interface.
+  $renderer = Gtk2::CellRendererPixbuf->new;
+  $combo_box->pack_start ($renderer, FALSE);
+  $combo_box->add_attribute ($renderer, stock_id => ID_COLUMN);
+  $renderer = Gtk2::CellRendererText->new;
+  $combo_box->pack_start ($renderer, TRUE);
+  $combo_box->add_attribute ($renderer, text => ID_COLUMN);
+
+  # select by index
+  $combo_box->set_active ($index);
+  $active_index = $combo_box->get_active;
+
+  # or by iter
+  $combo_box->set_active_iter ($iter);
+  $active_iter = $combo_box->get_active_iter;
+
+=cut
+
+=for position DESCRIPTION
+
+=head1 DESCRIPTION
+
+Gtk2::ComboBox is a widget that allows the user to choose from a list of valid
+choices.  The ComboBox displays the selected choice.  When activated, the
+ComboBox displays a popup which allows the user to make a new choice.
+
+Unlike its predecessors Gtk2::Combo and Gtk2::OptionMenu, the Gtk2::ComboBox
+uses the model-view pattern; the list of valid choices is specified in the form
+of a tree model, and the display of the choices can be adapted to the data in
+the model by using cell renderers, as you would in a tree view.  This is
+possible since ComboBox implements the Gtk2::CellLayout interface.  The tree
+model holding the valid choices is not restricted to a flat list; it can be a
+real tree, and the popup will reflect the tree structure.
+
+In addition to the model-view API, ComboBox offers a simple API which is
+suitable for text-only combo boxes, and hides the complexity of managing the
+data in a model.  It consists of the methods C<new_text>, C<append_text>,
+C<insert_text>, C<prepend_text>, C<remove_text> and C<get_active_text>.
+
+=cut
+
 BOOT:
 	gperl_set_isa ("Gtk2::ComboBox", "Gtk2::CellLayout");
 	gperl_set_isa ("Gtk2::ComboBox", "Gtk2::CellEditable");
