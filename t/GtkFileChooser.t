@@ -4,6 +4,7 @@
 
 use Gtk2::TestHelper
 	at_least_version => [2, 4, 0, "GtkFileChooser is new in 2.4"],
+	skip_all => "GtkFileChooser is completely broken",
 	tests => 43;
 use File::Spec;
 use Cwd;

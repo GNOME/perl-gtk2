@@ -1,3 +1,9 @@
+Overview of changes in Gtk2 1.082
+=================================
+
+* Add many synopses and introductions to the docs.  [muppet]
+* Fix a few testsuite issues.  [Torsten]
+
 Overview of changes in Gtk2 1.081
 =================================
 
