@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 2, noinit => 1;
+use Gtk2::TestHelper tests => 6, noinit => 1;
 
 # $Header$
 
@@ -21,7 +21,13 @@ my @items = (
 
 Gtk2::Stock -> add(@items);
 is_deeply([(Gtk2::Stock -> list_ids())[0, 1]], ["gtk2perl-test-script", "gtk2perl-bla"]);
-is_deeply(Gtk2::Stock -> lookup("gtk2perl-test-script"), $items[0]);
+
+my $test = Gtk2::Stock -> lookup("gtk2perl-test-script");
+is($test -> { stock_id }, $items[0] -> { stock_id });
+is($test -> { label }, $items[0] -> { label });
+is($test -> { modifier }, $items[0] -> { modifier });
+is($test -> { keyval }, $items[0] -> { keyval });
+is($test -> { translation_domain }, $items[0] -> { translation_domain });
 
 __END__
 
