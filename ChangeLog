@@ -1,3 +1,10 @@
+2005/06/28	kaffeetisch
+
+	* Gtk2.pm, t/GtkTreeModelIface.t, xs/GtkTreeSortable.xs: Make it
+	possible for custom tree models to implement the GtkTreeSortable
+	interface.  Also add a FIXME comment about an incorrectly bound
+	method.
+
 2005/06/22	kaffeetisch
 
 	* t/GtkAccelGroup.t, t/GtkAccelMap.t, t/GtkStock.t: Use is()

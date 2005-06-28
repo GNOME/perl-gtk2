@@ -14,7 +14,7 @@ use Test::More;
 
 use Glib::Object::Subclass
 	Glib::Object::,
-	interfaces => [ Gtk2::TreeModel:: ],
+	interfaces => [ Gtk2::TreeModel::, Gtk2::TreeSortable:: ],
 	;
 
 # one-time init:
@@ -35,13 +35,15 @@ sub INIT_INSTANCE {
 	isa_ok ($list, "CustomList", "INIT_INSTANCE");
 
 	$list->{data}  = [];
-	
+
 	foreach my $val (sort { $ordmap{$a} <=> $ordmap{$b} } keys %ordmap) {
 		my $record = { pos => $ordmap{$val}, value => $val };
 		push @{$list->{data}}, $record;
 	}
-	
+
 	$list->{stamp} = 23;
+	$list->{sort_column_id} = -1;
+	$list->{sort_order} = "ascending";
 }
 
 sub FINALIZE_INSTANCE {
@@ -269,12 +271,82 @@ sub get_iter_from_ordinal {
 	return $iter;
 }
 
+###############################################################################
+
+sub GET_SORT_COLUMN_ID {
+	my ($list) = @_;
+
+	isa_ok ($list, "CustomList");
+
+	my $id = $list->{sort_column_id};
+	my $order = $list->{sort_order};
+
+	return $id >= 0, $id, $order;
+}
+
+sub SET_SORT_COLUMN_ID {
+	my ($list, $id, $order) = @_;
+
+	isa_ok ($list, "CustomList");
+	is ($id, 3);
+	is ($order, "descending");
+
+	$list->{sort_column_id} = $id;
+	$list->{sort_order} = $order;
+}
+
+sub SET_SORT_FUNC {
+	my ($list, $id, $func, $data) = @_;
+
+	isa_ok ($list, "CustomList");
+	ok ($id == 2 || $id == 3);
+	isa_ok ($func, "CODE");
+	ok (defined $data);
+
+	$list->{sort_funcs}->[$id] = [$func, $data];
+}
+
+sub SET_DEFAULT_SORT_FUNC {
+	my ($list, $func, $data) = @_;
+
+	isa_ok ($list, "CustomList");
+	isa_ok ($func, "CODE");
+	ok (defined $data);
+
+	$list->{sort_func_default} = [$func, $data];
+}
+
+sub HAS_DEFAULT_SORT_FUNC {
+	my ($list) = @_;
+
+	isa_ok ($list, "CustomList");
+
+	return defined $list->{sort_func_default};
+}
+
+sub sort {
+	my ($list, $id) = @_;
+	my $a = $list->get_iter_from_string (1);
+	my $b = $list->get_iter_from_string (2);
+
+	if (exists $list->{sort_funcs}->[$id]) {
+		my $func = $list->{sort_funcs}->[$id]->[0];
+		my $data = $list->{sort_funcs}->[$id]->[1];
+
+		is ($func->($list, $a, $b, $data), -1);
+	} else {
+		my $func = $list->{sort_func_default}->[0];
+		my $data = $list->{sort_func_default}->[1];
+
+		is ($func->($list, $a, $b, $data), 1);
+	}
+}
 
 ###############################################################################
 
 package main;
 
-use Gtk2::TestHelper tests => 92, noinit => 1;
+use Gtk2::TestHelper tests => 166, noinit => 1;
 use strict;
 use warnings;
 
@@ -320,3 +392,48 @@ is ($model->get($iter, 1), '12th');
 
 $model->ref_node ($iter);
 $model->unref_node ($iter);
+
+my $sorter_two = sub {
+	my ($list, $a, $b, $data) = @_;
+
+	isa_ok ($list, "CustomList");
+	isa_ok ($a, "Gtk2::TreeIter");
+	isa_ok ($b, "Gtk2::TreeIter");
+	is ($data, "tada");
+
+	return -1;
+};
+
+my $sorter_three = sub {
+	my ($list, $a, $b, $data) = @_;
+
+	isa_ok ($list, "CustomList");
+	isa_ok ($a, "Gtk2::TreeIter");
+	isa_ok ($b, "Gtk2::TreeIter");
+	is ($data, "data");
+
+	return -1;
+};
+
+my $default_sorter = sub {
+	my ($list, $a, $b, $data) = @_;
+
+	isa_ok ($list, "CustomList");
+	isa_ok ($a, "Gtk2::TreeIter");
+	isa_ok ($b, "Gtk2::TreeIter");
+	is ($data, "atad");
+
+	return 1;
+};
+
+$model->set_sort_column_id (3, "descending");
+is_deeply ([$model->get_sort_column_id], [3, "descending"]);
+
+$model->set_sort_func (2, $sorter_two, "tada");
+$model->set_sort_func (3, $sorter_three, "data");
+$model->set_default_sort_func ($default_sorter, "atad");
+ok ($model->has_default_sort_func);
+
+$model->sort(2);
+$model->sort(3);
+$model->sort(23);

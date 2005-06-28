@@ -92,6 +92,12 @@ use overload
 	'==' => \&Gtk2::Gdk::Atom::eq,
 	fallback => 1;
 
+package Gtk2::TreeSortable::IterCompareFunc;
+
+use overload
+	'&{}' => sub { \&Gtk2::TreeSortable::IterCompareFunc::invoke },
+	fallback => 1;
+
 package Gtk2;
 
 
