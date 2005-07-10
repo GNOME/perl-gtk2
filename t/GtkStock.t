@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 6, noinit => 1;
+use Gtk2::TestHelper tests => 9, noinit => 1;
 
 # $Header$
 
@@ -28,6 +28,23 @@ is($test -> { label }, $items[0] -> { label });
 is($test -> { modifier }, $items[0] -> { modifier });
 is($test -> { keyval }, $items[0] -> { keyval });
 is($test -> { translation_domain }, $items[0] -> { translation_domain });
+
+SKIP: {
+  skip("new 2.8 stuff", 3)
+    unless Gtk2->CHECK_VERSION (2, 7, 0); # FIXME: 2.8
+
+  Gtk2::Stock -> set_translate_func("de_DE", sub {
+    my ($label, $data) = @_;
+
+    is($label, "_gtk2perl test script");
+    is($data, "bla");
+
+    return reverse $label;
+  }, "bla");
+
+  my $test = Gtk2::Stock -> lookup("gtk2perl-test-script");
+  is($test -> { label }, "tpircs tset lrep2ktg_");
+}
 
 __END__
 

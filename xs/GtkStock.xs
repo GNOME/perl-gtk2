@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003 by the gtk2-perl team (see the file AUTHORS)
+ * Copyright (c) 2003-2005 by the gtk2-perl team (see the file AUTHORS)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -12,14 +12,15 @@
  * Library General Public License for more details.
  *
  * You should have received a copy of the GNU Library General Public
- * License along with this library; if not, write to the 
- * Free Software Foundation, Inc., 59 Temple Place - Suite 330, 
+ * License along with this library; if not, write to the
+ * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
  * Boston, MA  02111-1307  USA.
  *
  * $Header$
  */
 
 #include "gtk2perl.h"
+#include "gtk2perl-private.h" /* For the translate callback. */
 
 /*
 struct GtkStockItem {
@@ -32,7 +33,7 @@ struct GtkStockItem {
 };
 */
 
-static SV * 
+static SV *
 newSVGtkStockItem (GtkStockItem * item)
 {
 	HV * hv = newHV();
@@ -46,10 +47,10 @@ newSVGtkStockItem (GtkStockItem * item)
 }
 
 /*
- * returns a pointer to a temp stock item you can use until control returns 
+ * returns a pointer to a temp stock item you can use until control returns
  * to perl.
  */
-static GtkStockItem * 
+static GtkStockItem *
 SvGtkStockItem (SV * sv)
 {
 	HV * hv;
@@ -66,7 +67,7 @@ SvGtkStockItem (SV * sv)
 
 	svp = hv_fetch (hv, "stock_id", 8, FALSE);
 	if (svp) item->stock_id = SvGChar (*svp);
-	
+
 	svp = hv_fetch (hv, "label", 5, FALSE);
 	if (svp) item->label = SvGChar (*svp);
 
@@ -81,7 +82,6 @@ SvGtkStockItem (SV * sv)
 
 	return item;
 }
-
 
 MODULE = Gtk2::Stock	PACKAGE = Gtk2::Stock	PREFIX = gtk_stock_
 
@@ -103,7 +103,7 @@ hash reference with the following key/value pairs will be required/returned.
 =for include build/stock_items.podi
 =cut
 
-###  void gtk_stock_add (const GtkStockItem *items, guint n_items) 
+###  void gtk_stock_add (const GtkStockItem *items, guint n_items)
 =for apidoc
 =for arg ... of Gtk2::StockItem's to be added
 =cut
@@ -116,9 +116,9 @@ gtk_stock_add (class, ...)
 		gtk_stock_add (SvGtkStockItem (ST (i)), 1);
 
 ## you don't really ever get static memory from perl, so this is irrelevant.
-###  void gtk_stock_add_static (const GtkStockItem *items, guint n_items) 
+###  void gtk_stock_add_static (const GtkStockItem *items, guint n_items)
 
-##  gboolean gtk_stock_lookup (const gchar *stock_id, GtkStockItem *item) 
+##  gboolean gtk_stock_lookup (const gchar *stock_id, GtkStockItem *item)
 =for apidoc
 Returns a hash reference, a L<Gtk2::StockItem>.
 =cut
@@ -134,7 +134,7 @@ gtk_stock_lookup (class, stock_id)
     OUTPUT:
 	RETVAL
 
-##  GSList* gtk_stock_list_ids (void) 
+##  GSList* gtk_stock_list_ids (void)
 =for apidoc
 Returns a list of strings, the stock-ids.
 =cut
@@ -151,7 +151,26 @@ gtk_stock_list_ids (class)
 	g_slist_free (ids);
 	PERL_UNUSED_VAR (ax);
 
+#if GTK_CHECK_VERSION (2, 7, 0) /* FIXME: 2.8 */
+
+void
+gtk_stock_set_translate_func (class, domain, func, data=NULL)
+	const gchar *domain
+	SV *func
+	SV *data
+    PREINIT:
+	GPerlCallback *callback;
+    CODE:
+	callback = gtk2perl_translate_func_create (func, data);
+	gtk_stock_set_translate_func (domain,
+	                              gtk2perl_translate_func,
+	                              callback,
+	                              (GtkDestroyNotify)
+	                                gperl_callback_destroy);
+
+#endif
+
 ## Boxed type support
-###  GtkStockItem *gtk_stock_item_copy (const GtkStockItem *item) 
-###  void gtk_stock_item_free (GtkStockItem *item) 
+###  GtkStockItem *gtk_stock_item_copy (const GtkStockItem *item)
+###  void gtk_stock_item_free (GtkStockItem *item)
 

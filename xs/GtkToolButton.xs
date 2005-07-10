@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003 by the gtk2-perl team (see the file AUTHORS)
+ * Copyright (c) 2003-2005 by the gtk2-perl team (see the file AUTHORS)
  *
  * Licensed under the LGPL, see LICENSE file for more information.
  *
@@ -41,4 +41,10 @@ void gtk_tool_button_set_label_widget (GtkToolButton *button, GtkWidget_ornull *
 
 GtkWidget_ornull * gtk_tool_button_get_label_widget (GtkToolButton *button);
 
+#if GTK_CHECK_VERSION (2, 7, 0) /* FIXME: 2.8 */
 
+void gtk_tool_button_set_icon_name (GtkToolButton *button, const gchar_ornull *icon_name);
+
+const gchar_ornull* gtk_tool_button_get_icon_name (GtkToolButton *button);
+
+#endif

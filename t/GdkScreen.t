@@ -1,7 +1,7 @@
 #!/usr/bin/perl -w
 use strict;
 use Gtk2::TestHelper
-  tests => 19,
+  tests => 21,
   at_least_version => [2, 2, 0, "GdkScreen is new in 2.2"];
 
 # $Header$
@@ -42,7 +42,21 @@ $screen -> broadcast_client_message(Gtk2::Gdk::Event -> new("expose"));
 
 # FIXME: warn $screen -> get_setting("double_click_interval");
 
+SKIP: {
+  skip("new 2.8 stuff", 2)
+    unless Gtk2->CHECK_VERSION (2, 7, 0); # FIXME: 2.8
+
+  my $visual = $screen -> get_rgba_visual();
+  if (defined $visual) {
+    isa_ok($visual, "Gtk2::Gdk::Visual");
+    isa_ok($screen -> get_rgba_colormap(), "Gtk2::Gdk::Colormap");
+  } else {
+    ok(1);
+    ok(1);
+  }
+}
+
 __END__
 
-Copyright (C) 2003 by the gtk2-perl team (see the file AUTHORS for the
+Copyright (C) 2003-2005 by the gtk2-perl team (see the file AUTHORS for the
 full list).  See LICENSE for more information.

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003 by the gtk2-perl team (see the file AUTHORS)
+ * Copyright (c) 2003-2005 by the gtk2-perl team (see the file AUTHORS)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -475,6 +475,23 @@ gtk_dialog_set_alternative_button_order (dialog, ...)
 
 		g_free (new_order);
 	}
+
+#endif
+
+#if GTK_CHECK_VERSION (2, 7, 0) /* FIXME: 2.8 */
+
+##  gint gtk_dialog_get_response_for_widget (GtkDialog *dialog, GtkWidget *widget);
+SV *
+gtk_dialog_get_response_for_widget (dialog, widget)
+	GtkDialog *dialog
+	GtkWidget *widget
+    PREINIT:
+	gint tmp;
+    CODE:
+	tmp = gtk_dialog_get_response_for_widget (dialog, widget);
+	RETVAL = response_id_to_sv (tmp);
+    OUTPUT:
+	RETVAL
 
 #endif
 

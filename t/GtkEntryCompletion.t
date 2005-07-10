@@ -4,7 +4,7 @@
 
 use Gtk2::TestHelper
 	at_least_version => [2, 4, 0, "GtkEntryCompletion is new in 2.4"],
-	tests => 7;
+	tests => 9;
 
 sub match_func {
 	my ($completion, $key, $iter, $data) = @_;
@@ -52,16 +52,27 @@ SKIP: {
 
 	is ($completion->get_text_column, 0);
 
-	$completion->insert_prefix;
-
 	$completion->set_inline_completion (1);
 	is ($completion->get_inline_completion, 1);
 
 	$completion->set_popup_completion (1);
 	is ($completion->get_popup_completion, 1);
+
+	$completion->insert_prefix;
+}
+
+SKIP: {
+	skip 'new 2.8 stuff', 2
+		unless Gtk2->CHECK_VERSION (2, 7, 0); # FIXME: 2.8
+
+	$completion->set_popup_set_width (TRUE);
+	is ($completion->get_popup_set_width, TRUE);
+
+	$completion->set_popup_single_match (TRUE);
+	is ($completion->get_popup_single_match, TRUE);
 }
 
 __END__
 
-Copyright (C) 2003-2004 by the gtk2-perl team (see the file AUTHORS for the
+Copyright (C) 2003-2005 by the gtk2-perl team (see the file AUTHORS for the
 full list).  See LICENSE for more information.

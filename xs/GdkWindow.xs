@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003 by the gtk2-perl team (see the file AUTHORS)
+ * Copyright (c) 2003-2005 by the gtk2-perl team (see the file AUTHORS)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -816,6 +816,14 @@ void gdk_window_enable_synchronized_configure (GdkWindow *window);
 void gdk_window_configure_finished (GdkWindow *window);
 
 void gdk_window_set_focus_on_map (GdkWindow *window, gboolean focus_on_map);
+
+#endif
+
+#if GTK_CHECK_VERSION (2, 7, 0) /* FIXME: 2.8 */
+
+void gdk_window_set_urgency_hint (GdkWindow *window, gboolean urgent);
+
+void gdk_window_move_region (GdkWindow *window, GdkRegion *region, gint dx, gint dy);
 
 #endif
 

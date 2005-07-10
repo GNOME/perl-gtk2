@@ -83,11 +83,13 @@ gtk-demo/textview.pl
 gtk-demo/tree_store.pl
 gtk-demo/ui_manager.pl
 gtk.typemap
+gtk2perl-private.h
 gtk2perl.h
 maps-2.0
 maps-2.2
 maps-2.4
 maps-2.6
+maps-2.8
 maps_pango-1.0
 maps_pango-1.4
 maps_pango-1.6

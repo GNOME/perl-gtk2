@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 89, noinit => 1;
+use Gtk2::TestHelper tests => 93, noinit => 1;
 
 # $Header$
 
@@ -32,7 +32,7 @@ is ($iter->get_line_index, 10);
 $iter->set_visible_line_index (10);
 $iter->set_visible_line_offset (10);
 
-if (not defined Gtk2 -> check_version(2, 4, 8)) {
+if (not defined Gtk2->check_version(2, 4, 8)) {
   is ($iter->get_visible_line_index, 10);
   is ($iter->get_visible_line_offset, 10);
 } else {
@@ -176,6 +176,16 @@ SKIP: {
   ok ($iter->backward_visible_cursor_positions (1));
 }
 
+SKIP: {
+  skip("new 2.8 stuff", 4)
+    unless Gtk2->CHECK_VERSION (2, 7, 0); # FIXME: 2.8
+
+  ok ($iter->forward_visible_line);
+  ok ($iter->backward_visible_line);
+  ok ($iter->forward_visible_lines (2));
+  ok ($iter->backward_visible_lines (2));
+}
+
 $iter->forward_to_end;
 is ($iter->is_end, 1);
 
@@ -190,5 +200,5 @@ ok (!$iter->backward_to_tag_toggle ($tag));
 
 __END__
 
-Copyright (C) 2003 by the gtk2-perl team (see the file AUTHORS for the
+Copyright (C) 2003-2005 by the gtk2-perl team (see the file AUTHORS for the
 full list).  See LICENSE for more information.

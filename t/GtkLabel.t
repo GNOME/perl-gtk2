@@ -62,8 +62,8 @@ is ($label->get_use_markup, 1, '$label->get_use_markup, true');
 $label->set_line_wrap (1);
 ok ($label->get_line_wrap, '$label->(set|get)_line_wrap');
 
-ok (eq_array ([$label->get_layout_offsets],  [0, 0]), 
-	'$label-get_layout_offsets');
+my @offsets = $label->get_layout_offsets;
+is (@offsets, 2, '$label->get_layout_offsets');
 
 isa_ok ($label->get_layout, 'Gtk2::Pango::Layout');
 

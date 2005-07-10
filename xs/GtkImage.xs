@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003 by the gtk2-perl team (see the file AUTHORS)
+ * Copyright (c) 2003-2005 by the gtk2-perl team (see the file AUTHORS)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -172,5 +172,11 @@ void gtk_image_get_icon_name (GtkImage *image, OUTLIST const gchar *icon_name, O
 void gtk_image_set_pixel_size (GtkImage *image, gint pixel_size)
 
 gint gtk_image_get_pixel_size (GtkImage *image)
+
+#endif
+
+#if GTK_CHECK_VERSION (2, 7, 0) /* FIXME: 2.8 */
+
+void gtk_image_clear (GtkImage *image);
 
 #endif

@@ -100,6 +100,13 @@ SKIP: {
   $button -> drag_source_add_uri_targets();
 }
 
+SKIP: {
+  skip("2.8 stuff", 0)
+    unless Gtk2 -> CHECK_VERSION(2, 7, 0); # FIXME: 2.8
+
+  $button -> drag_source_set_icon_name("gtk-ok");
+}
+
 $button -> drag_source_unset();
 
 __END__

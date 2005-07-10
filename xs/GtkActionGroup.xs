@@ -7,6 +7,7 @@
  */
 
 #include "gtk2perl.h"
+#include "gtk2perl-private.h" /* For the translate callback. */
 
 /* helper for using gperl_signal_connect when you don't have the SV of
  * the instance... */
@@ -50,7 +51,7 @@
 
 
 /*
-struct _GtkActionEntry 
+struct _GtkActionEntry
 {
   gchar     *name;
   gchar     *stock_id;
@@ -99,7 +100,7 @@ read_action_entry_from_sv (SV * sv,
 
 
 /*
-struct _GtkToggleActionEntry 
+struct _GtkToggleActionEntry
 {
   gchar     *name;
   gchar     *stock_id;
@@ -155,14 +156,14 @@ read_toggle_action_entry_from_sv (SV * sv,
 
 
 /*
-struct _GtkRadioActionEntry 
+struct _GtkRadioActionEntry
 {
   gchar *name;
   gchar *stock_id;
   gchar *label;
   gchar *accelerator;
   gchar *tooltip;
-  gint   value; 
+  gint   value;
 };
 */
 
@@ -205,16 +206,6 @@ read_radio_action_entry_from_sv (SV * sv,
 		croak ("action entry must be a hash or an array");
 	}
 }
-
-/* ------------------------------------------------------------------------- */
-
-/* Implemented in GtkItemFactory.xs. */
-
-extern GPerlCallback * gtk2perl_translate_func_create (SV * func, SV * data);
-
-extern gchar * gtk2perl_translate_func (const gchar *path, gpointer data);
-
-/* ------------------------------------------------------------------------- */
 
 MODULE = Gtk2::ActionGroup	PACKAGE = Gtk2::ActionGroup	PREFIX = gtk_action_group_
 
@@ -288,7 +279,7 @@ gtk_action_group_add_actions (action_group, action_entries, user_data=NULL)
 		SV ** svp = av_fetch (av, i, 0);
 		read_action_entry_from_sv (*svp, entries+i);
 	}
-	
+
 	for (i = 0 ; i < n_actions ; i++) {
 		GtkAction * action;
 		gchar * accel_path;
@@ -365,7 +356,7 @@ gtk_action_group_add_toggle_actions (action_group, toggle_action_entries, user_d
 		SV ** svp = av_fetch (av, i, 0);
 		read_toggle_action_entry_from_sv (*svp, entries+i);
 	}
-	
+
 	for (i = 0 ; i < n_actions ; i++) {
 		GtkAction * action;
 		gchar * accel_path;
@@ -450,7 +441,7 @@ gtk_action_group_add_radio_actions (action_group, radio_action_entries, value, o
 		SV ** svp = av_fetch (av, i, 0);
 		read_radio_action_entry_from_sv (*svp, entries+i);
 	}
-	
+
 	for (i = 0 ; i < n_actions ; i++) {
 		GtkAction * action;
 		gchar * accel_path;

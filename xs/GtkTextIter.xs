@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003 by the gtk2-perl team (see the file AUTHORS)
+ * Copyright (c) 2003-2005 by the gtk2-perl team (see the file AUTHORS)
  *
  * Licensed under the LGPL, see LICENSE file for more information.
  *
@@ -570,3 +570,14 @@ gtk_text_iter_order (first, second)
 	GtkTextIter *first
 	GtkTextIter *second
 
+#if GTK_CHECK_VERSION (2, 7, 0) /* FIXME: 2.8 */
+
+gboolean gtk_text_iter_forward_visible_line (GtkTextIter *iter);
+
+gboolean gtk_text_iter_backward_visible_line (GtkTextIter *iter);
+
+gboolean gtk_text_iter_forward_visible_lines (GtkTextIter *iter, gint count);
+
+gboolean gtk_text_iter_backward_visible_lines (GtkTextIter *iter, gint count);
+
+#endif

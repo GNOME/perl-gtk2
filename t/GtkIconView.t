@@ -12,7 +12,7 @@
 use strict;
 use warnings;
 
-use Gtk2::TestHelper tests => 36,
+use Gtk2::TestHelper tests => 52,
     at_least_version => [2, 6, 0, "GtkIconView is new in 2.6"],
     ;
 
@@ -128,6 +128,58 @@ run_main {
 	my @selected_items = $iview->get_selected_items;
 	is ($ncalls, scalar(@selected_items),
 	    'called once for each selected child');
+
+	SKIP: {
+		skip 'new 2.8 stuff', 16
+			unless Gtk2->CHECK_VERSION (2, 7, 0); # FIXME: 2.8
+
+		$win->add ($iview);
+		$win->show_all;
+
+		my ($path, $cell) = $iview->get_item_at_pos (50, 50);
+		isa_ok ($path, "Gtk2::TreePath");
+		isa_ok ($cell, "Gtk2::CellRenderer");
+
+		$iview->set_cursor ($path, undef, FALSE);
+		my @tmp = $iview->get_cursor;
+		is (@tmp, 2);
+		isa_ok ($tmp[0], "Gtk2::TreePath");
+		is ($tmp[1], undef);
+
+		$iview->set_cursor ($path, $cell, TRUE);
+		@tmp = $iview->get_cursor;
+		is (@tmp, 2);
+		isa_ok ($tmp[0], "Gtk2::TreePath");
+		is ($tmp[1], $cell);
+
+		@tmp = $iview->get_visible_range;
+		isa_ok ($tmp[0], "Gtk2::TreePath");
+		isa_ok ($tmp[1], "Gtk2::TreePath");
+
+		$iview->scroll_to_path ($path, TRUE, 0.5, 0.5);
+
+		$iview->enable_model_drag_source ([qw/shift-mask/], "copy",
+		  { target => "STRING", flags => ["same-app", "same-widget"], info => 42 });
+		$iview->enable_model_drag_dest ("copy",
+		  { target => "STRING", flags => ["same-app", "same-widget"], info => 42 });
+
+		$iview->unset_model_drag_source;
+		$iview->unset_model_drag_dest;
+
+		$iview->set_reorderable (TRUE);
+		ok ($iview->get_reorderable);
+
+		$iview->set_drag_dest_item ($path, "drop-into");
+		@tmp = $iview->get_drag_dest_item;
+		isa_ok ($tmp[0], "Gtk2::TreePath");
+		is ($tmp[1], "drop-into");
+
+		my ($tmp_path, $pos) = $iview->get_dest_item_at_pos (50, 50);
+		isa_ok ($tmp_path, "Gtk2::TreePath");
+		is ($pos, "drop-into");
+
+		isa_ok ($iview->create_drag_icon ($path), "Gtk2::Gdk::Pixmap");
+	}
 };
 
 sub create_store

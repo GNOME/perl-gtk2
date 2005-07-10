@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003 by the gtk2-perl team (see the file AUTHORS)
+ * Copyright (c) 2003-2005 by the gtk2-perl team (see the file AUTHORS)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -187,5 +187,11 @@ gdk_display_store_clipboard (display, clipboard_window, time_, ...);
 
 	if (targets)
 		g_free (targets);
+
+#endif
+
+#if GTK_CHECK_VERSION (2, 7, 0) /* FIXME: 2.8 */
+
+void gdk_display_warp_pointer (GdkDisplay *display, GdkScreen *screen, gint x, gint y);
 
 #endif

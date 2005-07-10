@@ -25,11 +25,12 @@ is($axis -> { use }, "x");
 like($axis -> { min }, qr/^\d+$/);
 like($axis -> { max }, qr/^\d+$/);
 
-# FIXME: warn $device -> keys;
+# FIXME:
+# warn $device -> keys;
+# $device -> set_key(0, $Gtk2::Gdk::Keysyms{ Escape }, [qw/shift-mask/]);
 
 $device -> set_source("mouse");
 $device -> set_mode("screen");
-# FIXME: $device -> set_key(1, $Gtk2::Gdk::Keysyms{ Escape }, [qw/shift-mask/]);
 $device -> set_axis_use(1, "x");
 
 my $window = Gtk2::Window -> new();

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003 by the gtk2-perl team (see the file AUTHORS)
+ * Copyright (c) 2003-2005 by the gtk2-perl team (see the file AUTHORS)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -92,3 +92,10 @@ gtk_scrolled_window_add_with_viewport (scrolled_window, child)
 	GtkScrolledWindow * scrolled_window
 	GtkWidget         * child
 
+#if GTK_CHECK_VERSION (2, 7, 0) /* FIXME: 2.8 */
+
+GtkWidget_ornull* gtk_scrolled_window_get_hscrollbar (GtkScrolledWindow *scrolled_window);
+
+GtkWidget_ornull* gtk_scrolled_window_get_vscrollbar (GtkScrolledWindow *scrolled_window);
+
+#endif

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003-2004 by the gtk2-perl team (see the file AUTHORS)
+ * Copyright (c) 2003-2005 by the gtk2-perl team (see the file AUTHORS)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -104,6 +104,10 @@ gdk_event_get_package (GType gtype,
 	    case GDK_OWNER_CHANGE:
 		return "Gtk2::Gdk::Event::OwnerChange";
 #endif
+#if GTK_CHECK_VERSION (2, 7, 0) /* FIXME: 2.8 */
+	    case GDK_GRAB_BROKEN:
+		return "Gtk2::Gdk::Event::GrabBroken";
+#endif
 	    default:
 		croak ("Illegal type %d in event->type", event->type);
 		return NULL; /* not reached */
@@ -166,6 +170,9 @@ gtk2perl_gdk_event_set_state (GdkEvent * event,
 		    case GDK_SETTING:
 #if GTK_CHECK_VERSION (2, 6, 0)
 		    case GDK_OWNER_CHANGE:
+#endif
+#if GTK_CHECK_VERSION (2, 7, 0) /* FIXME: 2.8 */
+		    case GDK_GRAB_BROKEN:
 #endif
 			/* no state field */
 			break;
@@ -236,6 +243,9 @@ gtk2perl_gdk_event_set_time (GdkEvent * event,
 		     case GDK_UNMAP:
 		     case GDK_WINDOW_STATE:
 		     case GDK_SETTING:
+#if GTK_CHECK_VERSION (2, 7, 0) /* FIXME: 2.8 */
+		     case GDK_GRAB_BROKEN:
+#endif
 			/* no time */
 			break;
 		}
@@ -1754,30 +1764,37 @@ selection_time (GdkEvent * event, guint32 newvalue=0)
 
 #endif
 
- #union _GdkEvent
- #{
- #  GdkEventType		    type;
- #  GdkEventAny		    any;
- #  GdkEventExpose	    expose;
- #  GdkEventNoExpose	    no_expose;
- #  GdkEventVisibility	    visibility;
- #  GdkEventMotion	    motion;
- #  GdkEventButton	    button;
- #  GdkEventScroll            scroll;
- #  GdkEventKey		    key;
- #  GdkEventCrossing	    crossing;
- #  GdkEventFocus		    focus_change;
- #  GdkEventConfigure	    configure;
- #  GdkEventProperty	    property;
- #  GdkEventSelection	    selection;
- #  GdkEventOwnerChange		owner_change;
- #  GdkEventProximity	    proximity;
- #  GdkEventClient	    client;
- #  GdkEventDND               dnd;
- #  GdkEventWindowState       window_state;
- #  GdkEventSetting           setting;
- #};
+# --------------------------------------------------------------------------- #
 
+#if GTK_CHECK_VERSION (2, 7, 0) /* FIXME: 2.8 */
+
+MODULE = Gtk2::Gdk::Event	PACKAGE = Gtk2::Gdk::Event::GrabBroken
+
+=for position post_hierarchy
+
+=head1 HIERARCHY
+
+  Gtk2::Gdk::Event
+  +----Gtk2::Gdk::Event::GrabBroken
+
+=cut
+
+BOOT:
+	gperl_set_isa ("Gtk2::Gdk::Event::GrabBroken", "Gtk2::Gdk::Event");
+
+gboolean
+keyboard (GdkEvent * event, gboolean newvalue=0)
+    CODE:
+	RETVAL = event->grab_broken.keyboard;
+
+	if (items == 2 && newvalue != RETVAL)
+		event->grab_broken.keyboard = newvalue;
+    OUTPUT:
+	RETVAL
+
+#endif
+
+# --------------------------------------------------------------------------- #
 
 MODULE = Gtk2::Gdk::Event	PACKAGE = Gtk2::Gdk	PREFIX = gdk_
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003 by the gtk2-perl team (see the file AUTHORS)
+ * Copyright (c) 2003-2005 by the gtk2-perl team (see the file AUTHORS)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -195,5 +195,12 @@ gdk_screen_get_setting (screen, name)
     OUTPUT:
 	RETVAL
 
+#if GTK_CHECK_VERSION (2, 7, 0) /* FIXME: 2.8 */
+
+GdkColormap_ornull * gdk_screen_get_rgba_colormap (GdkScreen *screen);
+
+GdkVisual_ornull * gdk_screen_get_rgba_visual (GdkScreen *screen);
+
+#endif
 
 #endif /* GDK_TYPE_SCREEN */

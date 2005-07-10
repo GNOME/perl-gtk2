@@ -9,7 +9,7 @@
 
 #########################
 
-use Gtk2::TestHelper tests => 106;
+use Gtk2::TestHelper tests => 107;
 
 ok( my $win = Gtk2::Window->new );
 ok( $win = Gtk2::Window->new('popup') );
@@ -335,6 +335,16 @@ SKIP: {
 	is ($win->get_icon_name, "gtk-ok");
 
 	Gtk2::Window->set_default_icon_name ("gtk-cancel");
+}
+
+SKIP: {
+	skip("new 2.8 stuff", 1)
+		unless Gtk2->CHECK_VERSION (2, 7, 0); # FIXME: 2.8
+
+	$win->set_urgency_hint (TRUE);
+	is ($win->get_urgency_hint, TRUE);
+
+	$win->present_with_time (time);
 }
 
 __END__

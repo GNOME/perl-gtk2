@@ -130,3 +130,133 @@ void gtk_icon_view_select_all (GtkIconView * icon_view);
 void gtk_icon_view_unselect_all (GtkIconView * icon_view);
 
 void gtk_icon_view_item_activated (GtkIconView * icon_view, GtkTreePath * path);
+
+#if GTK_CHECK_VERSION(2,7,0) /* FIXME: 2.8 */
+
+## gboolean gtk_icon_view_get_cursor (GtkIconView *icon_view, GtkTreePath **path, GtkCellRenderer **cell);
+void
+gtk_icon_view_get_cursor (icon_view)
+	GtkIconView *icon_view
+    PREINIT:
+	GtkTreePath *path = NULL;
+	GtkCellRenderer *cell = NULL;
+    PPCODE:
+	if (!gtk_icon_view_get_cursor (icon_view, &path, &cell))
+		XSRETURN_EMPTY;
+	EXTEND (sp, 2);
+	PUSHs (sv_2mortal (newSVGtkTreePath_own (path)));
+	PUSHs (sv_2mortal (newSVGtkCellRenderer (cell)));
+
+void gtk_icon_view_set_cursor (GtkIconView *icon_view, GtkTreePath *path, GtkCellRenderer_ornull *cell, gboolean start_editing);
+
+## gboolean gtk_icon_view_get_item_at_pos (GtkIconView *icon_view, gint x, gint y, GtkTreePath **path, GtkCellRenderer **cell);
+void
+gtk_icon_view_get_item_at_pos (icon_view, x, y)
+	GtkIconView *icon_view
+	gint x
+	gint y
+    PREINIT:
+	GtkTreePath *path = NULL;
+	GtkCellRenderer *cell = NULL;
+    PPCODE:
+	if (!gtk_icon_view_get_item_at_pos (icon_view, x, y, &path, &cell))
+		XSRETURN_EMPTY;
+	EXTEND (sp, 2);
+	PUSHs (sv_2mortal (newSVGtkTreePath_own (path)));
+	PUSHs (sv_2mortal (newSVGtkCellRenderer (cell)));
+
+
+## gboolean gtk_icon_view_get_visible_range (GtkIconView *icon_view, GtkTreePath **start_path, GtkTreePath **end_path);
+void
+gtk_icon_view_get_visible_range (icon_view)
+	GtkIconView *icon_view
+    PREINIT:
+	GtkTreePath *start_path = NULL, *end_path = NULL;
+    PPCODE:
+	if (!gtk_icon_view_get_visible_range(icon_view, &start_path, &end_path))
+		XSRETURN_EMPTY;
+	EXTEND (sp, 2);
+	PUSHs (sv_2mortal (newSVGtkTreePath_own (start_path)));
+	PUSHs (sv_2mortal (newSVGtkTreePath_own (end_path)));
+
+void gtk_icon_view_scroll_to_path (GtkIconView *icon_view, GtkTreePath *path, gboolean use_align, gfloat row_align, gfloat col_align);
+
+## void gtk_icon_view_enable_model_drag_source (GtkIconView *icon_view, GdkModifierType start_button_mask, const GtkTargetEntry *targets, gint n_targets, GdkDragAction actions);
+=for apidoc
+=for arg ... of Gtk2::TargetEntry's
+=cut
+void
+gtk_icon_view_enable_model_drag_source (icon_view, start_button_mask, actions, ...)
+	GtkIconView *icon_view
+	GdkModifierType start_button_mask
+	GdkDragAction actions
+    PREINIT:
+	GtkTargetEntry * targets = NULL;
+	gint n_targets, i;
+    CODE:
+#define FIRST_TARGET 3
+	n_targets = items - FIRST_TARGET;
+	targets = g_new (GtkTargetEntry, n_targets);
+	for (i = 0 ; i < n_targets ; i++)
+		gtk2perl_read_gtk_target_entry (ST (i+FIRST_TARGET), targets+i);
+	gtk_icon_view_enable_model_drag_source (icon_view, start_button_mask,
+	                                        targets, n_targets, actions);
+#undef FIRST_TARGET
+    CLEANUP:
+	g_free (targets);
+
+## void gtk_icon_view_enable_model_drag_dest (GtkIconView *icon_view, const GtkTargetEntry *targets, gint n_targets, GdkDragAction actions);
+=for apidoc
+=for arg ... of Gtk2::TargetEntry's
+=cut
+void
+gtk_icon_view_enable_model_drag_dest (icon_view, actions, ...)
+	GtkIconView *icon_view
+	GdkDragAction actions
+    PREINIT:
+	GtkTargetEntry * targets = NULL;
+	gint n_targets, i;
+    CODE:
+#define FIRST_TARGET 2
+	n_targets = items - FIRST_TARGET;
+	targets = g_new (GtkTargetEntry, n_targets);
+	for (i = 0 ; i < n_targets ; i++)
+		gtk2perl_read_gtk_target_entry (ST (i+FIRST_TARGET), targets+i);
+	gtk_icon_view_enable_model_drag_dest (icon_view, targets, n_targets,
+	                                      actions);
+#undef FIRST_TARGET
+    CLEANUP:
+	g_free (targets);
+
+void gtk_icon_view_unset_model_drag_source (GtkIconView *icon_view);
+
+void gtk_icon_view_unset_model_drag_dest (GtkIconView *icon_view);
+
+void gtk_icon_view_set_reorderable (GtkIconView *icon_view, gboolean reorderable);
+
+gboolean gtk_icon_view_get_reorderable (GtkIconView *icon_view);
+
+void gtk_icon_view_set_drag_dest_item (GtkIconView *icon_view, GtkTreePath *path, GtkIconViewDropPosition pos);
+
+## void gtk_icon_view_get_drag_dest_item (GtkIconView *icon_view, GtkTreePath **path, GtkIconViewDropPosition *pos);
+void gtk_icon_view_get_drag_dest_item (GtkIconView *icon_view, OUTLIST GtkTreePath *path, OUTLIST GtkIconViewDropPosition pos);
+
+## gboolean gtk_icon_view_get_dest_item_at_pos (GtkIconView *icon_view, gint drag_x, gint drag_y, GtkTreePath **path, GtkIconViewDropPosition *pos);
+void
+gtk_icon_view_get_dest_item_at_pos (icon_view, drag_x, drag_y)
+	GtkIconView *icon_view
+	gint drag_x
+	gint drag_y
+    PREINIT:
+	GtkTreePath *path = NULL;
+	GtkIconViewDropPosition pos;
+    PPCODE:
+	if (!gtk_icon_view_get_dest_item_at_pos (icon_view, drag_x, drag_y, &path, &pos))
+		XSRETURN_EMPTY;
+	EXTEND (sp, 2);
+	PUSHs (sv_2mortal (newSVGtkTreePath_own (path)));
+	PUSHs (sv_2mortal (newSVGtkIconViewDropPosition (pos)));
+
+GdkPixmap_noinc *gtk_icon_view_create_drag_icon (GtkIconView *icon_view, GtkTreePath *path);
+
+#endif

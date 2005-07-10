@@ -1,3 +1,89 @@
+2005/07/10	kaffeetisch
+
+	* gtk2perl-private.h, MANIFEST, xs/GtkComboBox.xs,
+	xs/GtkActionGroup.xs: Add a private header for non-static,
+	non-public stuff to get rid of the 'extern' declarations.
+
+	* maps-2.8, MANIFEST: Add GtkPackDirection and
+	GtkIconViewDropPosition support.
+
+	* t/Gdk.t, t/GdkGC.t, t/GdkInput.t, t/GtkIconTheme.t,
+	t/GtkLabel.t: Fix a few test suite issues.  Add some tests.
+
+	* t/GdkCursor.t, xs/GdkCursor.xs: Bind gdk_cursor_new_from_name,
+	gdk_cursor_get_image.
+
+	* t/GdkDisplay.t, xs/GdkDisplay.xs: Bind gdk_display_warp_pointer.
+
+	* t/GdkEvent.t, xs/GdkEvent.xs: Add support for the grab-broken
+	event.
+
+	* t/GdkScreen.t, xs/GdkScreen.xs: Bind
+	gdk_screen_get_rgba_colormap, gdk_screen_get_rgba_visual.
+
+	* t/GdkWindow.t, xs/GdkWindow.xs: Bind
+	gdk_window_set_urgency_hint, gdk_window_move_region.
+
+	* t/GdkX11.t, xs/GdkX11.xs: Bind gdk_x11_display_set_cursor_theme,
+	gdk_x11_display_get_user_time.
+
+	* t/GtkDialog.t, xs/GtkDialog.xs: Bind
+	gtk_dialog_get_response_for_widget.
+
+	* t/GtkDnd.t, xs/GtkDnd.xs: Bind gtk_drag_source_set_icon_name.
+
+	* t/GtkEntryCompletion.t, xs/GtkEntryCompletion.xs: Bind
+	gtk_entry_completion_set_popup_set_width,
+	gtk_entry_completion_get_popup_set_width,
+	gtk_entry_completion_set_popup_single_match,
+	gtk_entry_completion_get_popup_single_match.
+
+	* t/GtkIconView.t, xs/GtkIconView.xs: Bind
+	gtk_icon_view_get_cursor, gtk_icon_view_get_item_at_pos,
+	gtk_icon_view_get_visible_range,
+	gtk_icon_view_enable_model_drag_source,
+	gtk_icon_view_enable_model_drag_dest,
+	gtk_icon_view_unset_model_drag_source,
+	gtk_icon_view_unset_model_drag_dest,
+	gtk_icon_view_set_reorderable, gtk_icon_view_get_reorderable,
+	gtk_icon_view_set_drag_dest_item,
+	gtk_icon_view_get_drag_dest_item,
+	gtk_icon_view_get_dest_item_at_pos,
+	gtk_icon_view_create_drag_icon.
+
+	* t/GtkImage.t, xs/GtkImage.xs: Bind gtk_image_clear.
+
+	* t/GtkMenuBar.t, xs/GtkMenuBar.xs: Bind
+	gtk_menu_bar_get_child_pack_direction,
+	gtk_menu_bar_set_child_pack_direction,
+	gtk_menu_bar_get_pack_direction, gtk_menu_bar_set_pack_direction.
+
+	* t/GtkMenuShell.t, xs/GtkMenuShell.xs: Bind
+	gtk_menu_shell_get_take_focus, gtk_menu_shell_set_take_focus.
+
+	* t/GtkScrolledWindow.t, xs/GtkScrolledWindow.xs: Bind
+	gtk_scrolled_window_get_hscrollbar,
+	gtk_scrolled_window_get_vscrollbar.
+
+	* t/GtkSizeGroup.t, xs/GtkSizeGroup.xs: Bind
+	gtk_size_group_set_ignore_hidden,
+	gtk_size_group_get_ignore_hidden.
+
+	* t/GtkStock.t, xs/GtkStock.xs: Bind gtk_stock_set_translate_func.
+
+	* t/GtkTextIter.t, xs/GtkTextIter.xs: Bind
+	gtk_text_iter_forward_visible_line,
+	gtk_text_iter_backward_visible_line,
+	gtk_text_iter_forward_visible_lines,
+	gtk_text_iter_backward_visible_lines.
+
+	* t/GtkToolButton.t, xs/GtkToolButton.xs: Bind
+	gtk_tool_button_set_icon_name, gtk_tool_button_get_icon_name.
+
+	* t/01.GtkWindow.t, xs/GtkWindow.xs: Bind
+	gtk_window_set_urgency_hint, gtk_window_get_urgency_hint,
+	gtk_window_present_with_time.
+
 2005/06/28	kaffeetisch
 
 	* Gtk2.pm, t/GtkTreeModelIface.t, xs/GtkTreeSortable.xs: Make it

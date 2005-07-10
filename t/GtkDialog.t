@@ -7,7 +7,7 @@
 # 	- rm
 #########################
 
-use Gtk2::TestHelper tests => 21;
+use Gtk2::TestHelper tests => 22;
 
 ok( my $win = Gtk2::Window->new('toplevel') );
 
@@ -76,6 +76,13 @@ SKIP: {
 	like (Gtk2->alternative_dialog_button_order ($screen), qr/^(?:1|)$/);
 	like (Gtk2->alternative_dialog_button_order (undef), qr/^(?:1|)$/);
 	like (Gtk2->alternative_dialog_button_order, qr/^(?:1|)$/);
+}
+
+SKIP: {
+	skip 'get_response_for_widget is new in 2.8', 1
+		unless Gtk2->CHECK_VERSION (2, 7, 0); # FIXME: 2.8
+
+	is( $d3->get_response_for_widget (($d3->action_area->get_children)[1]), 44 );
 }
 
 __END__

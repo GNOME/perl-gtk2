@@ -258,6 +258,12 @@ void gtk_drag_source_add_uri_targets (GtkWidget *widget);
 
 #endif
 
+#if GTK_CHECK_VERSION(2,7,0) /* FIXME: 2.8 */
+
+void gtk_drag_source_set_icon_name (GtkWidget *widget, const gchar *icon_name);
+
+#endif
+
  ## private
 ##  void _gtk_drag_source_handle_event (GtkWidget *widget, GdkEvent *event) 
 ##  void _gtk_drag_dest_handle_event (GtkWidget *toplevel, GdkEvent *event) 

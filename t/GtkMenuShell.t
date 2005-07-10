@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 2;
+use Gtk2::TestHelper tests => 3;
 
 # $Header$
 
@@ -25,7 +25,7 @@ $shell -> deselect();
 $shell -> activate_item($item_one, 1);
 
 SKIP: {
-  skip("cancel is new in 2.2", 0)
+  skip("select_first is new in 2.2", 0)
     unless Gtk2->CHECK_VERSION (2, 2, 0);
 
   $shell -> select_first(0);
@@ -38,7 +38,15 @@ SKIP: {
   $shell -> cancel();
 }
 
+SKIP: {
+  skip("new 2.8 stuff", 1)
+    unless Gtk2->CHECK_VERSION (2, 7, 0); # FIXME: 2.8
+
+  $shell -> set_take_focus(TRUE);
+  ok($shell -> get_take_focus());
+}
+
 __END__
 
-Copyright (C) 2003 by the gtk2-perl team (see the file AUTHORS for the
+Copyright (C) 2003-2005 by the gtk2-perl team (see the file AUTHORS for the
 full list).  See LICENSE for more information.
