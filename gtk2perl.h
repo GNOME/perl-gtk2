@@ -187,4 +187,10 @@ SV * newSVGdkGeometry (GdkGeometry *geometry);
 GdkGeometry * SvGdkGeometry (SV *object);
 GdkGeometry * SvGdkGeometryReal (SV *object, GdkWindowHints *hints);
 
+/* special handling for GdkPixbufFormat, which was introduced in gtk+ 2.2.0 */
+#if GTK_CHECK_VERSION (2, 2, 0)
+SV * newSVGdkPixbufFormat (GdkPixbufFormat * format);
+GdkPixbufFormat * SvGdkPixbufFormat (SV * sv);
+#endif
+
 #endif /* _GTK2PERL_H_ */

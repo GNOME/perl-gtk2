@@ -25,13 +25,20 @@
 
 #if PANGO_CHECK_VERSION (1, 4, 0)
 
+static gpointer
+gtk2perl_pango_script_iter_copy (gpointer boxed)
+{
+	croak ("Can't copy a PangoScriptIter");
+	return boxed;
+}
+
 GType
 gtk2perl_pango_script_iter_get_type (void)
 {
 	static GType t = 0;
 	if (!t)
 		t = g_boxed_type_register_static ("PangoScriptIter",
-		      (GBoxedCopyFunc) g_boxed_copy,
+		      (GBoxedCopyFunc) gtk2perl_pango_script_iter_copy,
 		      (GBoxedFreeFunc) pango_script_iter_free);
 	return t;
 }

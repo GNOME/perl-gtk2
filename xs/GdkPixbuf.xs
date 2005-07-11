@@ -32,7 +32,7 @@ gtk2perl_pixbuf_destroy_notify (guchar * pixels,
 
 #if GTK_CHECK_VERSION (2, 2, 0)
 
-static SV *
+SV *
 newSVGdkPixbufFormat (GdkPixbufFormat * format)
 {
 	gchar * s;
@@ -87,7 +87,7 @@ newSVGdkPixbufFormat (GdkPixbufFormat * format)
 	return sv_bless ((SV*) newRV_noinc ((SV*) hv), stash);
 }
 
-static GdkPixbufFormat *
+GdkPixbufFormat *
 SvGdkPixbufFormat (SV * sv)
 {
 	MAGIC *mg;
@@ -800,6 +800,9 @@ gdk_pixbuf_animation_get_iter (animation, start_time_seconds=0, start_time_micro
 	RETVAL
 
 MODULE = Gtk2::Gdk::Pixbuf	PACKAGE = Gtk2::Gdk::PixbufAnimationIter	PREFIX = gdk_pixbuf_animation_iter_
+
+BOOT:
+	gperl_object_set_no_warn_unreg_subclass (GDK_TYPE_PIXBUF_ANIMATION_ITER, TRUE);
 
 int gdk_pixbuf_animation_iter_get_delay_time (GdkPixbufAnimationIter *iter) 
 

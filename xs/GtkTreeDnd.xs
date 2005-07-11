@@ -21,7 +21,108 @@
 
 #include "gtk2perl.h"
 
+#define PREP_BOOL(object, path) \
+	gboolean ret;	\
+	dSP;		\
+	ENTER;		\
+	SAVETMPS;	\
+	PUSHMARK (SP);	\
+	PUSHs (sv_2mortal (newSVGObject (G_OBJECT (object))));	\
+	XPUSHs (sv_2mortal (newSVGtkTreePath (path)));
+
+#define CALL_AND_RETURN_BOOL(name) \
+	PUTBACK;			\
+	call_method (name, G_SCALAR);	\
+	SPAGAIN;			\
+	/* SvTRUE evaluates its arg more than once */	\
+	{				\
+		SV * sv_ret = POPs;	\
+		ret = SvTRUE (sv_ret);	\
+	}				\
+	PUTBACK;			\
+	FREETMPS;			\
+	LEAVE;				\
+	return ret;
+
+static gboolean
+gtk2perl_tree_drag_source_row_draggable (GtkTreeDragSource *drag_source,
+                                         GtkTreePath       *path)
+{
+	PREP_BOOL (drag_source, path);
+	CALL_AND_RETURN_BOOL ("ROW_DRAGGABLE");
+}
+
+static gboolean
+gtk2perl_tree_drag_source_drag_data_get (GtkTreeDragSource *drag_source,
+                                         GtkTreePath       *path,
+                                         GtkSelectionData  *selection_data)
+{
+	PREP_BOOL (drag_source, path);
+	XPUSHs (sv_2mortal (newSVGtkSelectionData (selection_data)));
+	CALL_AND_RETURN_BOOL ("DRAG_DATA_GET");
+}
+
+static gboolean
+gtk2perl_tree_drag_source_drag_data_delete (GtkTreeDragSource *drag_source,
+					    GtkTreePath       *path)
+{
+	PREP_BOOL (drag_source, path);
+	CALL_AND_RETURN_BOOL ("DRAG_DATA_DELETE");
+}
+
+static gboolean
+gtk2perl_tree_drag_dest_drag_data_received (GtkTreeDragDest  *drag_dest,
+					    GtkTreePath      *dest,
+					    GtkSelectionData *selection_data)
+{
+	PREP_BOOL (drag_dest, dest);
+	XPUSHs (sv_2mortal (newSVGtkSelectionData (selection_data)));
+	CALL_AND_RETURN_BOOL ("DRAG_DATA_RECEIVED");
+}
+
+static gboolean
+gtk2perl_tree_drag_dest_row_drop_possible (GtkTreeDragDest  *drag_dest,
+					   GtkTreePath      *dest_path,
+					   GtkSelectionData *selection_data)
+{
+	PREP_BOOL (drag_dest, dest_path);
+	XPUSHs (sv_2mortal (newSVGtkSelectionData (selection_data)));
+	CALL_AND_RETURN_BOOL ("ROW_DROP_POSSIBLE");
+}
+
+static void
+gtk2perl_tree_drag_source_iface_init (GtkTreeDragSourceIface * iface)
+{
+	iface->row_draggable = gtk2perl_tree_drag_source_row_draggable;
+	iface->drag_data_get = gtk2perl_tree_drag_source_drag_data_get;
+	iface->drag_data_delete = gtk2perl_tree_drag_source_drag_data_delete;
+}
+
+static void
+gtk2perl_tree_drag_dest_iface_init (GtkTreeDragDestIface * iface)
+{
+	iface->drag_data_received = gtk2perl_tree_drag_dest_drag_data_received;
+	iface->row_drop_possible = gtk2perl_tree_drag_dest_row_drop_possible;
+}
+
+
+
 MODULE = Gtk2::TreeDnd	PACKAGE = Gtk2::TreeDragSource	PREFIX = gtk_tree_drag_source_
+
+=for apidoc __hide__
+=cut
+void
+_ADD_INTERFACE (class, const char * target_class)
+    CODE:
+    {
+	static const GInterfaceInfo iface_info = {
+		(GInterfaceInitFunc) gtk2perl_tree_drag_source_iface_init,
+		(GInterfaceFinalizeFunc) NULL,
+		(gpointer) NULL
+	};
+	GType gtype = gperl_object_type_from_package (target_class);
+	g_type_add_interface_static (gtype, GTK_TYPE_TREE_DRAG_SOURCE, &iface_info);
+    }
 
 ## gboolean gtk_tree_drag_source_row_draggable (GtkTreeDragSource *drag_source, GtkTreePath *path)
 gboolean
@@ -51,6 +152,21 @@ gtk_tree_drag_source_drag_data_get (drag_source, path)
 	RETVAL
 
 MODULE = Gtk2::TreeDnd	PACKAGE = Gtk2::TreeDragDest	PREFIX = gtk_tree_drag_dest_
+
+=for apidoc __hide__
+=cut
+void
+_ADD_INTERFACE (class, const char * target_class)
+    CODE:
+    {
+	static const GInterfaceInfo iface_info = {
+		(GInterfaceInitFunc) gtk2perl_tree_drag_dest_iface_init,
+		(GInterfaceFinalizeFunc) NULL,
+		(gpointer) NULL
+	};
+	GType gtype = gperl_object_type_from_package (target_class);
+	g_type_add_interface_static (gtype, GTK_TYPE_TREE_DRAG_DEST, &iface_info);
+    }
 
 ## gboolean gtk_tree_drag_dest_drag_data_received (GtkTreeDragDest *drag_dest, GtkTreePath *dest, GtkSelectionData *selection_data)
 gboolean

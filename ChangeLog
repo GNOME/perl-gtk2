@@ -1,3 +1,24 @@
+2005/07/12	kaffeetisch
+
+	* t/GdkPixbuf.t, xs/GdkPixbuf.xs: Add Gtk2::Gdk::PixbufAnimation
+	tests.  Quell warnings about unregistered subclasses of
+	GdkPixbufAnimationIter.
+
+	* t/GdkPixbufLoader.t: New test from muppet.
+
+	* Gtk2.exports, gtk2perl.h, xs/GdkPixbuf.xs,
+	xs/GdkPixbufLoader.xs: Fix Gtk2::Gdk::PixbufLoader::new_with_type
+	and new_with_mime_type so they can be called correctly.  Bind
+	gdk_pixbuf_loader_get_format and make the GdkPixbufFormat
+	converters public.  Patch from muppet.
+
+	* xs/GtkTreeDnd.xs: Add support for GtkTreeDragSource and
+	GtkTreeDragDest interfaces.  Patch from muppet.
+
+	* xs/PangoLayout.xs, xs/PangoScript.xs: Use crashers for the
+	GBoxedCopyFunc of PangoLayoutIter and PangoScriptIter instead of
+	the incorrect g_boxed_copy.
+
 2005/07/10	kaffeetisch
 
 	* gtk2perl-private.h, MANIFEST, xs/GtkComboBox.xs,

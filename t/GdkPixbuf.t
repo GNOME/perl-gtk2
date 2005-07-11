@@ -1,8 +1,43 @@
 use strict;
 use warnings;
-use Gtk2::TestHelper tests => 85, noinit => 1;
+use Gtk2::TestHelper tests => 98, noinit => 1;
 
 my $show = 0;
+
+
+
+my $gif = 'gtk-demo/floppybuddy.gif';
+
+SKIP: {
+	skip 'animation not found', 12
+		unless -r $gif;
+
+	my $ani = Gtk2::Gdk::PixbufAnimation -> new_from_file($gif);
+	isa_ok ($ani, 'Gtk2::Gdk::PixbufAnimation');
+
+	is ($ani->get_width, 80);
+	is ($ani->get_height, 70);
+
+	my $iter = $ani->get_iter;
+	isa_ok ($iter, 'Gtk2::Gdk::PixbufAnimationIter');
+
+	$iter = $ani->get_iter (0, 0);
+	isa_ok ($iter, 'Gtk2::Gdk::PixbufAnimationIter');
+
+	ok (!$ani->is_static_image);
+	isa_ok($ani->get_static_image, 'Gtk2::Gdk::Pixbuf');
+
+	ok (!$iter->advance);
+	ok (!$iter->advance (0, 0));
+	like ($iter->get_delay_time, qr/^\d+$/);
+	ok (!$iter->on_currently_loading_frame);
+	isa_ok ($iter->get_pixbuf, 'Gtk2::Gdk::Pixbuf');
+}
+
+eval {
+  Gtk2::Gdk::PixbufAnimation -> new_from_file("aslkhaklh.gif");
+};
+isa_ok ($@, "Glib::File::Error");
 
 
 

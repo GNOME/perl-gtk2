@@ -23,13 +23,20 @@
 
 /* ------------------------------------------------------------------------- */
 
+static gpointer
+gtk2perl_pango_layout_iter_copy (gpointer boxed)
+{
+	croak ("Can't copy a PangoLayoutIter");
+	return boxed;
+}
+
 GType
 gtk2perl_pango_layout_iter_get_type (void)
 {
 	static GType t = 0;
 	if (!t)
 		t = g_boxed_type_register_static ("PangoLayoutIter",
-		      (GBoxedCopyFunc) g_boxed_copy,
+		      (GBoxedCopyFunc) gtk2perl_pango_layout_iter_copy,
 		      (GBoxedFreeFunc) pango_layout_iter_free);
 	return t;
 }
