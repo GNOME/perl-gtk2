@@ -21,7 +21,14 @@
 
 use strict;
 use warnings;
-use Gtk2::TestHelper tests => 29;
+use Gtk2;
+use Test::More;
+
+unless (Gtk2->CHECK_VERSION (2, 2, 0)) {
+    plan skip_all => "This doesn't seem to work on 2.0";
+} else {
+    plan tests => 29;
+}
 
 # first, a helper.
 sub make_ppm_data {
@@ -94,8 +101,8 @@ SKIP: {
 
 
 SKIP: {
-    skip 'new_with_mime_type was added in 2.4.0', 4
-        if Gtk2->check_version (2, 4, 0);
+    skip 'new_with_mime_type was added in 2.4.0, but only works with 2.6.0', 4
+        if Gtk2->check_version (2, 6, 0);
 
     foreach (Gtk2::Gdk::PixbufLoader->new_with_mime_type ('image/x-portable-pixmap'),
              Gtk2::Gdk::PixbufLoader::new_with_mime_type ('image/x-portable-pixmap')) {

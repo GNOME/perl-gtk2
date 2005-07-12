@@ -1,3 +1,36 @@
+Overview of changes in Gtk2 1.092
+=================================
+
+* Fix Gtk2::show_about_dialog to actually cache the dialog instance.  [muppet]
+* Make it possible to change a Gtk2::SimpleList's model.  [muppet]
+* Turn Gtk2::Widget::window into a mutator.  [Torsten]
+* Fix a few test suite issues and add some new tests.  [Torsten, muppet]
+* Make it possible to implement GtkTreeSortable, GtkTreeDragSource and
+  GtkTreeDragDest interfaces.  [Torsten, muppet]
+* Add new API in:  [Torsten]
+  - Gtk2::Gdk::Cursor,
+  - Gtk2::Gdk::Display,
+  - Gtk2::Gdk::Screen,
+  - Gtk2::Gdk::Window,
+  - Gtk2::Gdk::X11,
+  - Gtk2::Dialog,
+  - Gtk2::Dnd,
+  - Gtk2::EntryCompletion,
+  - Gtk2::IconView (yay, d'n'd support!),
+  - Gtk2::Image,
+  - Gtk2::MenuBar,
+  - Gtk2::MenuShell,
+  - Gtk2::ScrolledWindow,
+  - Gtk2::SizeGroup,
+  - Gtk2::Stock,
+  - Gtk2::TextIter,
+  - Gtk2::ToolButton,
+  - Gtk2::Window.
+* Add support for the grab-broken event.  [Torsten]
+* Fix the signature of Gtk2::Gdk::PixbufLoader::new_with_type and
+  Gtk2::Gdk::PixbufLoader::new_with_mime_type.  Add
+  Gtk2::Gdk::PixbufLoader::get_format.  [muppet]
+
 Overview of changes in Gtk2 1.091
 =================================
 

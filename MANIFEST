@@ -118,6 +118,7 @@ t/GdkInput.t
 t/GdkKeys.t
 t/GdkPango.t
 t/GdkPixbuf.t
+t/GdkPixbufLoader.t
 t/GdkPixmap.t
 t/GdkProperty.t
 t/GdkRegion.t

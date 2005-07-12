@@ -1,5 +1,13 @@
 2005/07/12	kaffeetisch
 
+	* t/GdkPixbuf.t, t/GdkPixbufLoader.t: Expand two skip sections to
+	include newer versions to account for some test failures.
+
+	* Gtk2.pm, MANIFEST, META.yml, Makefile.PL, NEWS, README: Unstable
+	release 1.092.
+
+2005/07/12	kaffeetisch
+
 	* t/GdkPixbuf.t, xs/GdkPixbuf.xs: Add Gtk2::Gdk::PixbufAnimation
 	tests.  Quell warnings about unregistered subclasses of
 	GdkPixbufAnimationIter.

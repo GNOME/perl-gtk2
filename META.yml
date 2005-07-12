@@ -1,13 +1,13 @@
 # http://module-build.sourceforge.net/META-spec.html
 #XXXXXXX This is a prototype!!!  It will change in the future!!! XXXXX#
 name:         Gtk2
-version:      1.091
+version:      1.092
 version_from: Gtk2.pm
 installdirs:  site
 requires:
     ExtUtils::Depends:             0.2
     ExtUtils::PkgConfig:           1.03
-    Glib:                          1.091
+    Glib:                          1.092
 
 distribution_type: module
-generated_by: ExtUtils::MakeMaker version 6.17
+generated_by: ExtUtils::MakeMaker version 6.30
