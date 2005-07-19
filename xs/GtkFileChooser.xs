@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003 by the gtk2-perl team (see the file AUTHORS)
+ * Copyright (c) 2003-2005 by the gtk2-perl team (see the file AUTHORS)
  *
  * Licensed under the LGPL, see LICENSE file for more information.
  *
@@ -206,5 +206,13 @@ void gtk_file_chooser_list_shortcut_folders (GtkFileChooser *chooser);
 void gtk_file_chooser_set_show_hidden (GtkFileChooser *chooser, gboolean show_hidden)
 
 gboolean gtk_file_chooser_get_show_hidden (GtkFileChooser *chooser)
+
+#endif
+
+#if GTK_CHECK_VERSION (2, 7, 0) /* FIXME: 2.8 */
+
+void gtk_file_chooser_set_do_overwrite_confirmation (GtkFileChooser *chooser, gboolean do_overwrite_confirmation);
+
+gboolean gtk_file_chooser_get_do_overwrite_confirmation (GtkFileChooser *chooser);
 
 #endif

@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 135;
+use Gtk2::TestHelper tests => 137;
 
 # $Header$
 
@@ -107,6 +107,13 @@ SKIP: {
 
 	$view_column -> set_expand(1);
 	is($view_column -> get_expand(), 1);
+}
+
+SKIP: {
+	skip("new 2.8 stuff", 0)
+		unless Gtk2->CHECK_VERSION (2, 8, 0);
+
+	$view_column -> queue_resize();
 }
 
 ###############################################################################
@@ -327,6 +334,15 @@ SKIP: {
 		my $path = $model->get_path ($iter);
 		return 1 == ($path->get_indices)[0];
 	}, {thing=>'foo'});
+}
+
+SKIP: {
+	skip("new 2.8 stuff", 2)
+		unless Gtk2 -> CHECK_VERSION(2, 7, 0); # FIXME: 2.8
+
+	my ($start, $end) = $view -> get_visible_range();
+        isa_ok($start, "Gtk2::TreePath");
+        isa_ok($end, "Gtk2::TreePath");
 }
 
 ###############################################################################

@@ -5,7 +5,7 @@
 use Gtk2::TestHelper
 	at_least_version => [2, 4, 0, "GtkFileChooser is new in 2.4"],
 	skip_all => "GtkFileChooser is completely broken",
-	tests => 43;
+	tests => 44;
 use File::Spec;
 use Cwd;
 
@@ -180,6 +180,14 @@ SKIP: {
 
 	$file_chooser->set_show_hidden (TRUE);
 	is ($file_chooser->get_show_hidden, TRUE);
+}
+
+SKIP: {
+	skip("new 2.8 stuff", 1)
+		unless Gtk2->CHECK_VERSION (2, 7, 0); # FIXME: 2.8
+
+	$file_chooser->set_do_overwrite_confirmation (TRUE);
+	is ($file_chooser->get_do_overwrite_confirmation, TRUE);
 }
 
 __END__

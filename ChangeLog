@@ -1,3 +1,20 @@
+2005/07/19	kaffeetisch
+
+	* pm/TestHelper.pm: Correct NAME section to read Gtk2::TestHelper
+	instead of Gtk2::Test::Helper.
+
+	* t/GtkFileChooser.t, xs/GtkFileChooser.xs: Bind
+	gtk_file_chooser_[sg]et_do_overwrite_confirmation.
+
+	* t/GtkTreeModel.t, xs/GtkTreeModel.xs: Bind and test
+	gtk_tree_row_reference_get_model.
+
+	* t/GtkTreeView.t, xs/GtkTreeView.xs: Bind and test
+	gtk_tree_view_get_visible_range.
+
+	* t/GtkTreeView.t, xs/GtkTreeViewColumn.xs: Bind and test
+	gtk_tree_view_column_queue_resize.
+
 2005/07/12	kaffeetisch
 
 	* t/GdkPixbuf.t, t/GdkPixbufLoader.t: Expand two skip sections to

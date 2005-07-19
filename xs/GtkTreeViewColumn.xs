@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003 by the gtk2-perl team (see the file AUTHORS)
+ * Copyright (c) 2003-2005 by the gtk2-perl team (see the file AUTHORS)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -397,6 +397,12 @@ gtk_tree_view_column_focus_cell (tree_column, cell)
 	GtkCellRenderer *cell
 
 #endif /* >= 2.2.0 */
+
+#if GTK_CHECK_VERSION (2, 7, 0) /* FIXME: 2.8 */
+
+void gtk_tree_view_column_queue_resize (GtkTreeViewColumn *tree_column);
+
+#endif
 
 MODULE = Gtk2::TreeViewColumn	PACKAGE = Gtk2::TreeView	PREFIX = gtk_tree_view_
 

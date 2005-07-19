@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 72, noinit => 1;
+use Gtk2::TestHelper tests => 73, noinit => 1;
 
 # $Header$
 
@@ -59,8 +59,8 @@ foreach (qw(bla blee bliii bloooo)) {
 ###############################################################################
 
 SKIP: {
-	skip("there doesn't seem to be a GType for GtkTreeRowReference in 2.0.x", 4)
-		unless Gtk2->CHECK_VERSION (2, 2, 0);
+	skip("there doesn't seem to be a GType for GtkTreeRowReference in 2.0.x", 5)
+		unless Gtk2 -> CHECK_VERSION(2, 2, 0);
 
 	my ($ref_one, $ref_two, $ref_path);
 
@@ -73,6 +73,13 @@ SKIP: {
 
 	$ref_two = $ref_one -> copy();
 	is($ref_two -> valid(), 1);
+
+	SKIP: {
+		skip("new 2.8 stuff", 1)
+			unless Gtk2 -> CHECK_VERSION(2, 7, 0); # FIXME: 2.8
+
+		is($ref_one -> get_model(), $model);
+	}
 }
 
 ###############################################################################
@@ -202,5 +209,5 @@ $model -> rows_reordered($path_one, undef, 3, 2, 1, 0);
 
 __END__
 
-Copyright (C) 2003 by the gtk2-perl team (see the file AUTHORS for the
+Copyright (C) 2003-2005 by the gtk2-perl team (see the file AUTHORS for the
 full list).  See LICENSE for more information.

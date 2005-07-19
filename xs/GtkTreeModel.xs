@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003 by the gtk2-perl team (see the file AUTHORS)
+ * Copyright (c) 2003-2005 by the gtk2-perl team (see the file AUTHORS)
  *
  * Licensed under the LGPL, see LICENSE file for more information.
  *
@@ -829,6 +829,12 @@ gtk_tree_row_reference_valid (reference)
 ##	gint *new_order
 ##
 
+#if GTK_CHECK_VERSION (2, 7, 0) /* FIXME: 2.8 */
+
+GtkTreeModel_ornull * gtk_tree_row_reference_get_model (GtkTreeRowReference *reference);
+
+#endif
+
 #endif /* defined GTK_TYPE_TREE_ROW_REFERENCE */
 
 MODULE = Gtk2::TreeModel	PACKAGE = Gtk2::TreeIter	PREFIX = gtk_tree_iter_
@@ -1321,4 +1327,3 @@ gtk_tree_model_rows_reordered (tree_model, path, iter, ...)
 		new_order[i] = SvIV (ST (3+i));
 	gtk_tree_model_rows_reordered (tree_model, path, iter, new_order);
 	g_free (new_order);
-

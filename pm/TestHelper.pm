@@ -108,7 +108,7 @@ __END__
 
 =head1 NAME
 
-Gtk2::Test::Helper - Code to make testing Gtk2 and friends simpler.
+Gtk2::TestHelper - Code to make testing Gtk2 and friends simpler.
 
 =head1 SYNOPSIS
 
