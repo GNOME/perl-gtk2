@@ -1,3 +1,4 @@
+# vim: set syntax=perl :
 #
 # $Header$
 #
