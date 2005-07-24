@@ -1,3 +1,11 @@
+2005/07/24	muppetman
+
+	* xs/GtkDialog.xs, AUTHORS: Patch from lonefox at welho dot com
+	changes Gtk2::Dialog::set_alternative_button_order() to accept
+	string constants as well as numeric response ids.
+
+	* t/GtkDialog.t: Test response strings as well as numbers.
+
 2005/06/23	kaffeetisch
 
 	* Gtk2.pm, META.yml, NEWS, README: Stable release 1.082.

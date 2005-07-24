@@ -468,7 +468,7 @@ gtk_dialog_set_alternative_button_order (dialog, ...)
 	if ((n_params = (items - 1)) > 0) {
 		new_order = g_new0 (gint, n_params);
 		for (i = 1; i < items; i++)
-			new_order[i - 1] = SvIV (ST (i));
+			new_order[i - 1] = sv_to_response_id (ST (i));
 
 		gtk_dialog_set_alternative_button_order_from_array (
 			dialog, n_params, new_order);
