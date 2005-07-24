@@ -1,5 +1,11 @@
 2005/07/24	muppetman
 
+	* t/GtkLabel.t: Backport a test fix from HEAD; gtk+ changed in 2.7.x,
+	so we test that get_layout_offsets() returns two items instead of
+	checking their values.
+
+2005/07/24	muppetman
+
 	* xs/GtkDialog.xs, AUTHORS: Patch from lonefox at welho dot com
 	changes Gtk2::Dialog::set_alternative_button_order() to accept
 	string constants as well as numeric response ids.
