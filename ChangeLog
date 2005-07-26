@@ -1,3 +1,7 @@
+2005/07/26	muppetman
+
+	* CodeGen.pm: Gtk2::CodeGen is now just a wrapper for Glib::CodeGen.
+
 2005/07/21	muppetman
 
 	* xs/GtkDialog.xs, AUTHORS: Patch from lonefox at welho dot com
