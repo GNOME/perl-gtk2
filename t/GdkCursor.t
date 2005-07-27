@@ -59,7 +59,9 @@ SKIP: {
 
   my $cursor = Gtk2::Gdk::Cursor -> new_from_name($display, "watch");
   isa_ok($cursor, "Gtk2::Gdk::Cursor");
-  isa_ok($cursor -> get_image(), "Gtk2::Gdk::Pixbuf");
+
+  my $pixbuf = $cursor -> get_image();
+  ok(!defined $pixbuf || ref $pixbuf eq "Gtk2::Gdk::Pixbuf");
 
 }
 

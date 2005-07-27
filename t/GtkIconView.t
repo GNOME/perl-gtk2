@@ -58,7 +58,7 @@ foreach (qw/horizontal vertical/)
 	is ($iview->get_orientation, $_, '$iview->set|get_orienation, '.$_);
 }
 
-# extended should be in this list, but it seems to fail 
+# extended should be in this list, but it seems to fail
 foreach (qw/none single browse multiple/)
 {
 	$iview->set_selection_mode ($_);
@@ -90,14 +90,14 @@ run_main {
 	# this stuff is liable to be flaky, it may require TODO's
 	my $path = $iview->get_path_at_pos (50, 50);
 	isa_ok ($path, 'Gtk2::TreePath', '$iview->get_path_at_pos (50, 50)');
-	
-	is ($iview->path_is_selected ($path), '', 
+
+	is ($iview->path_is_selected ($path), '',
 	    '$iview->path_is_selected, no');
 	$iview->select_path ($path);
-	is ($iview->path_is_selected ($path), 1, 
+	is ($iview->path_is_selected ($path), 1,
 	    '$iview->path_is_selected, yes');
 	$iview->unselect_path ($path);
-	is ($iview->path_is_selected ($path), '', 
+	is ($iview->path_is_selected ($path), '',
 	    '$iview->path_is_selected, no');
 
 	$iview->item_activated ($path);
@@ -176,7 +176,7 @@ run_main {
 
 		my ($tmp_path, $pos) = $iview->get_dest_item_at_pos (50, 50);
 		isa_ok ($tmp_path, "Gtk2::TreePath");
-		is ($pos, "drop-into");
+		like ($pos, qr/drop/);
 
 		isa_ok ($iview->create_drag_icon ($path), "Gtk2::Gdk::Pixmap");
 	}
@@ -208,11 +208,11 @@ sub fill_store
 	my $store = shift;
 	my $pbs = shift;
 
-	foreach (qw/one two three four five six seven eight nine uno dos 
+	foreach (qw/one two three four five six seven eight nine uno dos
 		    tres quatro cinco/)
 	{
 		my $iter = $store->append;
-		$store->set ($iter, 
+		$store->set ($iter,
 			     TEXT, "$_",
 			     PIXBUF, $pbs->[rand (@$pbs)],
 			     BOOLEAN, rand (2),

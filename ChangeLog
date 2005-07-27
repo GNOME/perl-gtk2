@@ -1,3 +1,16 @@
+2005/07/27	kaffeetisch
+
+	* t/GdkPixbuf.t: Make get_image() more tolerant.
+
+	* t/GtkAction.t: Correct skip message.
+
+	* t/GtkIconTheme.t: Update copyright.
+
+	* t/GtkIconView.t: Make the position test less fragile.
+
+	* t/PangoRenderer.t: Wrap draw_trapezoid() inside a SKIP block
+	till it gets fixed.
+
 2005/07/26	muppetman
 
 	* CodeGen.pm: Gtk2::CodeGen is now just a wrapper for Glib::CodeGen.

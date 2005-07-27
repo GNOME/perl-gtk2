@@ -59,7 +59,7 @@ $action->set_accel_group (undef);
 $action->set_accel_group (Gtk2::AccelGroup->new);
 
 SKIP: {
-	skip "set_sensitive and set_visible are new in 2.6", 3
+	skip "new 2.6 stuff", 3
 		unless Gtk2->CHECK_VERSION (2, 6, 0);
 
 	$action->set_sensitive(FALSE);
