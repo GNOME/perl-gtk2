@@ -1,12 +1,16 @@
 2005/07/27	kaffeetisch
 
+	* Gtk2.pm, META.yml, NEWS, README: Stable release 1.083.
+
+2005/07/27	kaffeetisch
+
 	Merge from HEAD:
 
 	* pm/TestHelper.pm: Use Gtk2::TestHelper instead
 	Gtk2::Test::Helper in the NAME section.
 
-	* t/Gdk.t, t/GdkEvent.t, t/GdkGC.t, t/GtkAccelMap.t,
-	t/GtkAction.t, t/GtkIconTheme.t: Various test fixes/additions.
+	* t/Gdk.t, t/GdkEvent.t, t/GdkGC.t, t/GtkIconTheme.t: Various test
+	fixes/additions.
 
 2005/07/24	muppetman
 

@@ -1,3 +1,10 @@
+Overview of changes in Gtk2 1.083
+=================================
+
+* Make Gtk2::Dialog::set_alternative_button_order() accept string constants.
+  [LoneFox]
+* Fix various test suite issues.  [Torsten]
+
 Overview of changes in Gtk2 1.082
 =================================
 

@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 24;
+use Gtk2::TestHelper tests => 23;
 
 # $Header$
 
@@ -48,16 +48,6 @@ Gtk2::AccelMap -> foreach_unfiltered("bla", sub {
   is(shift(), 1);
   is(shift(), "bla");
 });
-
-SKIP: {
-  skip "new stuff", 1
-    unless Gtk2 -> CHECK_VERSION(2, 4, 0);
-
-  isa_ok(Gtk2::AccelMap -> get(), "Gtk2::AccelMap");
-
-  Gtk2::AccelMap -> lock_path("<gtk2-perl-tests>/Bla/Blub");
-  Gtk2::AccelMap -> unlock_path("<gtk2-perl-tests>/Bla/Blub");
-}
 
 __END__
 
