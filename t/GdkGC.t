@@ -29,6 +29,8 @@ $window -> realize();
 my $gc = Gtk2::Gdk::GC -> new($window -> window());
 isa_ok($gc, "Gtk2::Gdk::GC");
 
+$gc -> copy($gc);
+
 $gc -> set_values($values);
 check_values();
 
@@ -48,17 +50,19 @@ my $pixmap = Gtk2::Gdk::Pixmap -> new($window -> window(), 10, 10, 8);
 my $rectangle = Gtk2::Gdk::Rectangle -> new(23, 42, 10, 10);
 my $region = Gtk2::Gdk::Region -> rectangle($rectangle);
 my $colormap = Gtk2::Gdk::Colormap -> get_system();
+my $bitmap = Gtk2::Gdk::Bitmap -> create_from_data($window -> window(), "", 1, 1);
 
 $gc -> set_foreground($black);
 $gc -> set_background($black);
 $gc -> set_rgb_fg_color($black);
+$gc -> set_rgb_bg_color($black);
 $gc -> set_function("copy");
 $gc -> set_fill("tiled");
 $gc -> set_tile($pixmap);
 $gc -> set_stipple($pixmap);
 $gc -> set_ts_origin(0, 0);
 $gc -> set_clip_origin(0, 0);
-# set_clip_mask
+$gc -> set_clip_mask($bitmap);
 $gc -> set_clip_rectangle($rectangle);
 $gc -> set_clip_region($region);
 $gc -> set_subwindow("clip-by-children");

@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 23;
+use Gtk2::TestHelper tests => 24;
 
 # $Header$
 
@@ -49,7 +49,17 @@ Gtk2::AccelMap -> foreach_unfiltered("bla", sub {
   is(shift(), "bla");
 });
 
+SKIP: {
+  skip "new stuff", 1
+    unless Gtk2 -> CHECK_VERSION(2, 4, 0);
+
+  isa_ok(Gtk2::AccelMap -> get(), "Gtk2::AccelMap");
+
+  Gtk2::AccelMap -> lock_path("<gtk2-perl-tests>/Bla/Blub");
+  Gtk2::AccelMap -> unlock_path("<gtk2-perl-tests>/Bla/Blub");
+}
+
 __END__
 
-Copyright (C) 2003 by the gtk2-perl team (see the file AUTHORS for the
+Copyright (C) 2003-2005 by the gtk2-perl team (see the file AUTHORS for the
 full list).  See LICENSE for more information.

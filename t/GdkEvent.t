@@ -7,13 +7,16 @@
 # 	- rm
 #########################
 
-use Gtk2::TestHelper tests => 113;
+use Gtk2::TestHelper tests => 115;
 use Data::Dumper;
 
 # Expose #######################################################################
 
 isa_ok (my $event = Gtk2::Gdk::Event->new ('expose'),
 	'Gtk2::Gdk::Event::Expose', 'Gtk2::Gdk::Event->new expose');
+isa_ok ($event->copy, 'Gtk2::Gdk::Event::Expose');
+
+is ($event->type, 'expose');
 
 $event->area (Gtk2::Gdk::Rectangle->new (0, 0, 100, 100));
 my $rect = $event->area;
@@ -412,6 +415,6 @@ SKIP: {
 
 __END__
 
-Copyright (C) 2003-2004 by the gtk2-perl team (see the file AUTHORS for the
+Copyright (C) 2003-2005 by the gtk2-perl team (see the file AUTHORS for the
 full list).  See LICENSE for more information.
 

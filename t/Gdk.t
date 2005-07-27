@@ -47,7 +47,8 @@ SKIP: {
 }
 
 ok(Gtk2::Gdk -> set_locale());
-Gtk2::Gdk -> set_sm_client_id();
+Gtk2::Gdk -> set_sm_client_id("blub");
+Gtk2::Gdk -> set_sm_client_id(undef);
 
 Gtk2::Gdk -> set_program_class("gtk2perl");
 is(Gtk2::Gdk -> get_program_class(), "gtk2perl");
