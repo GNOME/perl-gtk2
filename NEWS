@@ -1,3 +1,13 @@
+Overview of changes in Gtk2 1.093
+=================================
+
+* Bind new API in Gtk2::FileChooser, Gtk2::TreeModel, Gtk2::TreeView and
+  Gtk2::TreeViewColumn.  [Torsten]
+* Make Gtk2::Dialog::set_alternative_button_order() accept string constants.
+  [LoneFox]
+* Turn Gtk2::CodeGen into a thin wrapper around Glib::CodeGen.  [muppet]
+* Make the test suite more robust.  [Torsten]
+
 Overview of changes in Gtk2 1.092
 =================================
 
@@ -45,6 +55,12 @@ Overview of changes in Gtk2 1.090
   Gtk2::Gdk::Pixbuf::get_file_info, the new Gtk2::Gdk::PixbufFormat members and
   Gtk2::Gdk::PixbufFormat::set_disabled.  [Torsten]
 * Documentation updates.  [Torsten]
+
+Overview of changes in Gtk2 1.082
+=================================
+
+* Add many synopses and introductions to the docs.  [muppet]
+* Fix a few testsuite issues.  [Torsten]
 
 Overview of changes in Gtk2 1.081
 =================================

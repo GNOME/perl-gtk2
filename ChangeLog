@@ -1,5 +1,10 @@
 2005/07/27	kaffeetisch
 
+	* Gtk2.pm, META.yml, Makefile.PL, NEWS, README: Unstable release
+	1.093.
+
+2005/07/27	kaffeetisch
+
 	* t/GdkPixbuf.t: Make get_image() more tolerant.
 
 	* t/GtkAction.t: Correct skip message.
