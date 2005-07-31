@@ -338,7 +338,7 @@ SKIP: {
 
 SKIP: {
 	skip("new 2.8 stuff", 2)
-		unless Gtk2 -> CHECK_VERSION(2, 7, 0); # FIXME: 2.8
+		unless Gtk2 -> CHECK_VERSION(2, 7, 3); # FIXME: 2.8
 
 	my ($start, $end) = $view -> get_visible_range();
         isa_ok($start, "Gtk2::TreePath");

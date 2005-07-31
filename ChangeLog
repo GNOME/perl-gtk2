@@ -1,3 +1,11 @@
+2005/07/31	muppetman
+
+	* t/GtkTreeModel.t, t/GtkTreeView.t, xs/GtkFileChooser.xs,
+	  xs/GtkTreeModel.xs, xs/GtkTreeView.xs, xs/GtkTreeViewColumn.xs,
+	  AUTHORS: Patch from HE fixes up some bad version checks.  Features
+	  added in gtk+ 2.7.3 were incorrectly marked as 2.7.0, breaking
+	  testing with 2.7.[0-2].
+
 2005/07/27	kaffeetisch
 
 	* Gtk2.pm, META.yml, Makefile.PL, NEWS, README: Unstable release

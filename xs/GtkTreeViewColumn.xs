@@ -398,7 +398,7 @@ gtk_tree_view_column_focus_cell (tree_column, cell)
 
 #endif /* >= 2.2.0 */
 
-#if GTK_CHECK_VERSION (2, 7, 0) /* FIXME: 2.8 */
+#if GTK_CHECK_VERSION (2, 7, 3) /* FIXME: 2.8 */
 
 void gtk_tree_view_column_queue_resize (GtkTreeViewColumn *tree_column);
 

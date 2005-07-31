@@ -829,7 +829,7 @@ gtk_tree_row_reference_valid (reference)
 ##	gint *new_order
 ##
 
-#if GTK_CHECK_VERSION (2, 7, 0) /* FIXME: 2.8 */
+#if GTK_CHECK_VERSION (2, 7, 3) /* FIXME: 2.8 */
 
 GtkTreeModel_ornull * gtk_tree_row_reference_get_model (GtkTreeRowReference *reference);
 

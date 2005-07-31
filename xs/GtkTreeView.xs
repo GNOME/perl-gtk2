@@ -766,7 +766,7 @@ gtk_tree_view_set_row_separator_func (GtkTreeView *tree_view, SV * func, SV * da
 
 #endif
 
-#if GTK_CHECK_VERSION (2, 7, 0) /* FIXME: 2.8 */
+#if GTK_CHECK_VERSION (2, 7, 3) /* FIXME: 2.8 */
 
 #gboolean gtk_tree_view_get_visible_range (GtkTreeView *tree_view, GtkTreePath **start_path, GtkTreePath **end_path);
 void
