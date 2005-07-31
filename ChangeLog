@@ -6,6 +6,8 @@
 	  added in gtk+ 2.7.3 were incorrectly marked as 2.7.0, breaking
 	  testing with 2.7.[0-2].
 
+	* xs/GtkSelection.xs: fix some pointer signedness warnings.
+
 2005/07/27	kaffeetisch
 
 	* Gtk2.pm, META.yml, Makefile.PL, NEWS, README: Unstable release

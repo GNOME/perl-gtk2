@@ -198,7 +198,7 @@ gtk_target_list_remove (list, target)
 	GdkAtom target
 
 ##  gboolean gtk_target_list_find (GtkTargetList *list, GdkAtom target, guint *info) 
-gint
+guint
 gtk_target_list_find (list, target)
 	GtkTargetList *list
 	GdkAtom target
@@ -308,7 +308,7 @@ selection (d)
 	    case 1: RETVAL = newSVGdkAtom (d->target); break;
 	    case 2: RETVAL = newSVGdkAtom (d->type); break;
 	    case 3: RETVAL = newSViv (d->format); break;
-	    case 4: RETVAL = newSVpv (d->data, d->length); break;
+	    case 4: RETVAL = newSVpv ((char*)d->data, d->length); break;
 	    case 5: RETVAL = newSViv (d->length); break;
 #if GTK_CHECK_VERSION(2,2,0)
 	    case 6: RETVAL = newSVGdkDisplay (d->display); break;
@@ -342,6 +342,19 @@ gtk_selection_data_set_text (selection_data, str, len=-1)
 gchar_own *
 gtk_selection_data_get_text (selection_data)
 	GtkSelectionData *selection_data
+    CODE:
+	/* the C function returns guchar*, but the docs say it will return
+	 * a UTF-8 string or NULL.  for our code to do the UTF-8 upgrade,
+	 * we need to use a gchar* typemap, so we'll cast to keep the compiler
+	 * happy. */
+	RETVAL = (gchar*) gtk_selection_data_get_text (selection_data);
+	/* the docs say get_text will return NULL if there is no text or it
+	 * the text can't be converted to UTF-8.  (why don't we have a
+	 * gchar_own_ornull typemap?) */
+	if (!RETVAL)
+		XSRETURN_UNDEF;
+    OUTPUT:
+	RETVAL
 
 ##  gboolean gtk_selection_data_get_targets (GtkSelectionData *selection_data, GdkAtom **targets, gint *n_atoms) 
 =for apidoc
