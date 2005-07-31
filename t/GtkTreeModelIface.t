@@ -437,3 +437,5 @@ ok ($model->has_default_sort_func);
 $model->sort(2);
 $model->sort(3);
 $model->sort(23);
+
+# vim: set syntax=perl :
