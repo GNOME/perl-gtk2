@@ -63,7 +63,7 @@ $label->set_line_wrap (1);
 ok ($label->get_line_wrap, '$label->(set|get)_line_wrap');
 
 my @offsets = $label->get_layout_offsets;
-is (@offsets, 2, '$label->get_layout_offsets');
+is (scalar (@offsets), 2, '$label->get_layout_offsets');
 
 isa_ok ($label->get_layout, 'Gtk2::Pango::Layout');
 
