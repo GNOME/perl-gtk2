@@ -32,7 +32,7 @@ use Cwd;
 our %build_reqs = (
 	'perl-ExtUtils-Depends'   => '0.2',
 	'perl-ExtUtils-PkgConfig' => '1.03',
-	'perl-Glib'               => '1.093',
+	'perl-Glib'               => '1.100',
 	'Gtk+'                    => '2.0.0',
 );
 our %PREREQ_PM = (
@@ -228,6 +228,8 @@ WriteMakefile(
     $gtk2->get_makefile_vars,
 );
 
+=unstable
+
 print <<__EOW__;
 WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING
 
@@ -238,6 +240,8 @@ WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING
 
 WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING
 __EOW__
+
+=cut
 
 #
 # extra makefile override stuff... watch for falling wizardry.

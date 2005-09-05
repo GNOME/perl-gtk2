@@ -28,13 +28,6 @@ SKIP: {
   $renderer -> draw_rectangle("foreground", 0, 0, 10, 10);
   $renderer -> draw_error_underline(0, 0, 10, 10);
 
-  SKIP: {
-    skip "buggy trapezoid stuff", 0
-      unless (0); # FIXME: See bug 307688.
-
-    $renderer -> draw_trapezoid("foreground", 1, 2, 3, 4, 5, 6);
-  }
-
   my $description = Gtk2::Pango::FontDescription -> new();
   $description -> set_family("Sans");
   $description -> set_size(23);

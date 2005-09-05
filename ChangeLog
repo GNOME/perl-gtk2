@@ -1,3 +1,13 @@
+2005/09/05	kaffeetisch
+
+	* MANIFEST, META.yml: Remove META.yml.
+
+	* doctypes: Add GdkPixbuf_noinc.
+
+	* t/PangoRenderer.t: Remove draw_trapezoid test.
+
+	* Gtk2.pm, Makefile.PL, README, NEWS: Stable release 1.100.
+
 2005/07/31	muppetman
 
 	* t/GtkTreeModel.t, t/GtkTreeView.t, xs/GtkFileChooser.xs,

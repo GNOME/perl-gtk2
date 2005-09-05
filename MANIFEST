@@ -6,7 +6,6 @@ Gtk2.pm
 LICENSE
 MANIFEST
 MANIFEST.SKIP
-META.yml			Module meta-data in YAML
 Makefile.PL
 NEWS
 README
