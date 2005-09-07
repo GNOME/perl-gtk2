@@ -208,14 +208,14 @@ sub START_EDITING {
   $calendar -> select_month($month - 1, $year);
   $calendar -> select_day($day);
 
-  # Necessary to get the correct allocation of the popup.
-  $popup -> move(-500, -500);
-  $popup -> show_all();
-
   # Figure out where to put the popup - i.e., don't put it offscreen,
   # as it's not movable (by the user).
-  my $popup_width = $popup->allocation->width;
-  my $popup_height = $popup->allocation->height;
+
+  $popup -> get_child -> show_all();  # all but $popup itself
+  $popup -> realize;
+  my ($requisition) = $popup->size_request;
+  my ($popup_width, $popup_height) = ($requisition->width, $requisition->height);
+
   my $screen_height = $popup->get_screen->get_height;
 
   my ($x_origin, $y_origin) =  $view -> get_bin_window() -> get_origin();

@@ -4,6 +4,10 @@
 	  Kasak (dkasak at nusconsulting dot com dot au) ensures that the
 	  calendar popup never appears offscreen.
 
+	* examples/cellrenderer_date.pl: Further modify the example to use
+	  size_request() instead of showing the window offscreen to get the
+	  allocation and then moving it onscreen.
+
 2005/09/05	kaffeetisch
 
 	* MANIFEST, META.yml: Remove META.yml.
