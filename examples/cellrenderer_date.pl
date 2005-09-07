@@ -212,14 +212,26 @@ sub START_EDITING {
   $popup -> move(-500, -500);
   $popup -> show_all();
 
-  # Align the top right edge of the popup with the the bottom right edge of the
-  # cell.
+  # Figure out where to put the popup - i.e., don't put it offscreen,
+  # as it's not movable (by the user).
+  my $popup_width = $popup->allocation->width;
+  my $popup_height = $popup->allocation->height;
+  my $screen_height = $popup->get_screen->get_height;
+
   my ($x_origin, $y_origin) =  $view -> get_bin_window() -> get_origin();
 
-  $popup -> move(
-    $x_origin + $cell_area -> x() + $cell_area -> width() - $popup -> allocation() -> width(),
-    $y_origin + $cell_area -> y() + $cell_area -> height()
-  );
+  my $popup_x = $x_origin + $cell_area->x + $cell_area->width - $popup_width;
+  if ($popup_x < 0) {
+    $popup_x = 0;
+  }
+
+  my $popup_y = $y_origin + $cell_area->y + $cell_area->height;
+  if ($popup_y + $popup_height > $screen_height) {
+    $popup_y = $y_origin + $cell_area->y - $popup_height;
+  }
+
+  $popup -> move($popup_x, $popup_y);
+  $popup -> show();
 
   # Grab the focus and the pointer.
   Gtk2 -> grab_add($popup);

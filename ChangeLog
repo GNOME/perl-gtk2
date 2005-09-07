@@ -1,3 +1,9 @@
+2005/09/06	muppetman
+
+	* examples/cellrenderer_date.pl, AUTHORS: Modified patch from Daniel
+	  Kasak (dkasak at nusconsulting dot com dot au) ensures that the
+	  calendar popup never appears offscreen.
+
 2005/09/05	kaffeetisch
 
 	* MANIFEST, META.yml: Remove META.yml.
