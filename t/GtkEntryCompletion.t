@@ -63,7 +63,7 @@ SKIP: {
 
 SKIP: {
 	skip 'new 2.8 stuff', 2
-		unless Gtk2->CHECK_VERSION (2, 7, 0); # FIXME: 2.8
+		unless Gtk2->CHECK_VERSION (2, 8, 0);
 
 	$completion->set_popup_set_width (TRUE);
 	is ($completion->get_popup_set_width, TRUE);

@@ -417,7 +417,7 @@ SKIP: {
 
 SKIP: {
 	skip ("the grab-broken event is new in 2.8", 2)
-		unless (Gtk2->CHECK_VERSION (2, 7, 0)); # FIXME: 2.8
+		unless (Gtk2->CHECK_VERSION (2, 8, 0));
 
 	isa_ok ($event = Gtk2::Gdk::Event->new ("grab-broken"),
 		"Gtk2::Gdk::Event::GrabBroken");

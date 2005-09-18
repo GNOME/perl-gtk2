@@ -4,7 +4,6 @@
 
 use Gtk2::TestHelper
 	at_least_version => [2, 4, 0, "GtkFileChooser is new in 2.4"],
-	skip_all => "GtkFileChooser is completely broken",
 	tests => 44;
 use File::Spec;
 use Cwd;
@@ -44,17 +43,26 @@ $filename = File::Spec->catfile ($cwd, 'gtk2perl.h');
 ok ($file_chooser->set_filename ($filename),
     'set filename to something that exists');
 
-is_idle (sub {$file_chooser->get_filename}, $filename,
-         'set current name to something that does exist');
+TODO: {
+      local $TODO = "GtkFileChooser trouble";
+      is_idle (sub {$file_chooser->get_filename}, $filename,
+               'set current name to something that does exist');
+}
 
 #ok (!$file_chooser->select_filename ('/something bogus'));
 ok ($file_chooser->select_filename ($filename));
 
-is_idle (sub {$file_chooser->get_filename}, $filename, 'select something');
+TODO: {
+      local $TODO = "GtkFileChooser trouble";
+      is_idle (sub {$file_chooser->get_filename}, $filename, 'select something');
+}
 
-my @list = $file_chooser->get_filenames;
-is (scalar (@list), 1, 'selected one thing');
-is ($list[0], $filename, 'selected '.$filename);
+TODO: {
+      local $TODO = "GtkFileChooser trouble";
+      my @list = $file_chooser->get_filenames;
+      is (scalar (@list), 1, 'selected one thing');
+      is ($list[0], $filename, 'selected '.$filename);
+}
 
 $file_chooser->set_select_multiple (TRUE);
 ok ($file_chooser->get_select_multiple, 'select multiple');
@@ -64,7 +72,10 @@ ok (!$file_chooser->get_select_multiple, 'not select multiple');
 
 $file_chooser->select_all;
 @list = $file_chooser->get_filenames;
-ok (scalar (@list));
+TODO: {
+      local $TODO = "GtkFileChooser trouble";
+      ok (scalar (@list));
+}
 $file_chooser->unselect_all;
 
 $filename = File::Spec->catfile ($cwd, 'nonexistent');
@@ -88,11 +99,17 @@ is ($file_chooser->get_current_folder, $cwd);
 my $uri = Glib::filename_to_uri (File::Spec->rel2abs ($0), undef);
 ok ($file_chooser->set_uri ($uri));
 
-is_idle (sub {$file_chooser->get_uri}, $uri, 'uri');
+TODO: {
+      local $TODO = "GtkFileChooser trouble";
+      is_idle (sub {$file_chooser->get_uri}, $uri, 'uri');
+}
 
 ok ($file_chooser->select_uri ($uri));
 
-ok_idle (sub {scalar ($file_chooser->get_uris)}, 'selected a uri');
+TODO: {
+      local $TODO = "GtkFileChooser trouble";
+      ok_idle (sub {scalar ($file_chooser->get_uris)}, 'selected a uri');
+}
 
 $file_chooser->unselect_uri ($uri);
 
@@ -160,8 +177,11 @@ is ($filter, $file_chooser->get_filter);
 $file_chooser->add_shortcut_folder ($cwd);
 $file_chooser->add_shortcut_folder_uri ("file://" . $cwd);
 
-is_deeply ([$file_chooser->list_shortcut_folders], [$cwd, $cwd]);
-is_deeply ([$file_chooser->list_shortcut_folder_uris], ["file://" . $cwd, "file://" . $cwd]);
+TODO: {
+      local $TODO = "GtkFileChooser trouble";
+      is_deeply ([$file_chooser->list_shortcut_folders], [$cwd, $cwd]);
+      is_deeply ([$file_chooser->list_shortcut_folder_uris], ["file://" . $cwd, "file://" . $cwd]);
+}
 
 $file_chooser->unselect_filename ($filename);
 
@@ -184,7 +204,7 @@ SKIP: {
 
 SKIP: {
 	skip("new 2.8 stuff", 1)
-		unless Gtk2->CHECK_VERSION (2, 7, 0); # FIXME: 2.8
+		unless Gtk2->CHECK_VERSION (2, 8, 0);
 
 	$file_chooser->set_do_overwrite_confirmation (TRUE);
 	is ($file_chooser->get_do_overwrite_confirmation, TRUE);

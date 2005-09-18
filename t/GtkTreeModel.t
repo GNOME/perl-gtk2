@@ -76,7 +76,7 @@ SKIP: {
 
 	SKIP: {
 		skip("new 2.8 stuff", 1)
-			unless Gtk2 -> CHECK_VERSION(2, 7, 3); # FIXME: 2.8
+			unless Gtk2 -> CHECK_VERSION(2, 8, 0);
 
 		is($ref_one -> get_model(), $model);
 	}

@@ -195,7 +195,7 @@ SKIP: {
 
 SKIP: {
 	skip 'new stuff in 2.8', 0
-		unless Gtk2->CHECK_VERSION (2, 7, 0); # FIXME: 2.8
+		unless Gtk2->CHECK_VERSION (2, 8, 0);
 
 	$img->clear;
 }

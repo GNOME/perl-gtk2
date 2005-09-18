@@ -77,7 +77,7 @@ void gtk_menu_shell_cancel (GtkMenuShell *menu_shell);
 
 #endif
 
-#if GTK_CHECK_VERSION (2, 7, 0) /* FIXME: 2.8 */
+#if GTK_CHECK_VERSION (2, 8, 0)
 
 gboolean gtk_menu_shell_get_take_focus (GtkMenuShell *menu_shell);
 

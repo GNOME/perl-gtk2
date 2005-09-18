@@ -31,7 +31,7 @@ is($test -> { translation_domain }, $items[0] -> { translation_domain });
 
 SKIP: {
   skip("new 2.8 stuff", 3)
-    unless Gtk2->CHECK_VERSION (2, 7, 0); # FIXME: 2.8
+    unless Gtk2->CHECK_VERSION (2, 8, 0);
 
   Gtk2::Stock -> set_translate_func("de_DE", sub {
     my ($label, $data) = @_;

@@ -35,7 +35,7 @@ is($window -> get_shadow_type(), "etched-in");
 
 SKIP: {
   skip("new 2.8 stuff", 2)
-    unless Gtk2->CHECK_VERSION (2, 7, 0); # FIXME: 2.8
+    unless Gtk2->CHECK_VERSION (2, 8, 0);
 
   isa_ok($window -> get_hscrollbar(), "Gtk2::HScrollbar");
   isa_ok($window -> get_vscrollbar(), "Gtk2::VScrollbar");

@@ -92,7 +92,7 @@ gtk_scrolled_window_add_with_viewport (scrolled_window, child)
 	GtkScrolledWindow * scrolled_window
 	GtkWidget         * child
 
-#if GTK_CHECK_VERSION (2, 7, 0) /* FIXME: 2.8 */
+#if GTK_CHECK_VERSION (2, 8, 0)
 
 GtkWidget_ornull* gtk_scrolled_window_get_hscrollbar (GtkScrolledWindow *scrolled_window);
 

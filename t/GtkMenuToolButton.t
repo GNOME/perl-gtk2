@@ -1,7 +1,7 @@
 #!/usr/bin/perl -w
 use strict;
 use Gtk2::TestHelper
-  tests => 5, noinit => 1,
+  tests => 5,
   at_least_version => [2, 6, 0, "GtkMenuToolButton is new in 2.6"];
 
 # $Header$

@@ -209,7 +209,7 @@ gboolean gtk_file_chooser_get_show_hidden (GtkFileChooser *chooser)
 
 #endif
 
-#if GTK_CHECK_VERSION (2, 7, 3) /* FIXME: 2.8 */
+#if GTK_CHECK_VERSION (2, 8, 0)
 
 void gtk_file_chooser_set_do_overwrite_confirmation (GtkFileChooser *chooser, gboolean do_overwrite_confirmation);
 

@@ -104,7 +104,7 @@ gboolean gtk_entry_completion_get_popup_completion (GtkEntryCompletion *completi
 
 #endif
 
-#if GTK_CHECK_VERSION(2,7,0) /* FIXME: 2.8 */
+#if GTK_CHECK_VERSION(2, 8, 0)
 
 void gtk_entry_completion_set_popup_set_width (GtkEntryCompletion *completion, gboolean popup_set_width);
 

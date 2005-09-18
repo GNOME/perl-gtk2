@@ -131,7 +131,7 @@ run_main {
 
 	SKIP: {
 		skip 'new 2.8 stuff', 16
-			unless Gtk2->CHECK_VERSION (2, 7, 0); # FIXME: 2.8
+			unless Gtk2->CHECK_VERSION (2, 8, 0);
 
 		$win->add ($iview);
 		$win->show_all;

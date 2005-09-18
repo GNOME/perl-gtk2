@@ -82,7 +82,7 @@ SKIP: {
 
 SKIP: {
 	skip 'get_response_for_widget is new in 2.8', 1
-		unless Gtk2->CHECK_VERSION (2, 7, 0); # FIXME: 2.8
+		unless Gtk2->CHECK_VERSION (2, 8, 0);
 
 	is( $d3->get_response_for_widget (($d3->action_area->get_children)[1]), 44 );
 }

@@ -277,7 +277,7 @@ SKIP: {
 
 SKIP: {
   skip("new 2.8 stuff", 0)
-    unless Gtk2->CHECK_VERSION (2, 7, 0); # FIXME: 2.8
+    unless Gtk2->CHECK_VERSION (2, 8, 0);
 
   $window_three -> set_urgency_hint(TRUE);
   $window_three -> move_region($region, 10, 10);

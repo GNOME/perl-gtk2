@@ -131,7 +131,7 @@ void gtk_icon_view_unselect_all (GtkIconView * icon_view);
 
 void gtk_icon_view_item_activated (GtkIconView * icon_view, GtkTreePath * path);
 
-#if GTK_CHECK_VERSION(2,7,0) /* FIXME: 2.8 */
+#if GTK_CHECK_VERSION(2, 8, 0)
 
 ## gboolean gtk_icon_view_get_cursor (GtkIconView *icon_view, GtkTreePath **path, GtkCellRenderer **cell);
 void

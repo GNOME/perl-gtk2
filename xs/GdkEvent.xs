@@ -104,7 +104,7 @@ gdk_event_get_package (GType gtype,
 	    case GDK_OWNER_CHANGE:
 		return "Gtk2::Gdk::Event::OwnerChange";
 #endif
-#if GTK_CHECK_VERSION (2, 7, 0) /* FIXME: 2.8 */
+#if GTK_CHECK_VERSION (2, 8, 0)
 	    case GDK_GRAB_BROKEN:
 		return "Gtk2::Gdk::Event::GrabBroken";
 #endif
@@ -171,7 +171,7 @@ gtk2perl_gdk_event_set_state (GdkEvent * event,
 #if GTK_CHECK_VERSION (2, 6, 0)
 		    case GDK_OWNER_CHANGE:
 #endif
-#if GTK_CHECK_VERSION (2, 7, 0) /* FIXME: 2.8 */
+#if GTK_CHECK_VERSION (2, 8, 0)
 		    case GDK_GRAB_BROKEN:
 #endif
 			/* no state field */
@@ -243,7 +243,7 @@ gtk2perl_gdk_event_set_time (GdkEvent * event,
 		     case GDK_UNMAP:
 		     case GDK_WINDOW_STATE:
 		     case GDK_SETTING:
-#if GTK_CHECK_VERSION (2, 7, 0) /* FIXME: 2.8 */
+#if GTK_CHECK_VERSION (2, 8, 0)
 		     case GDK_GRAB_BROKEN:
 #endif
 			/* no time */
@@ -1766,7 +1766,7 @@ selection_time (GdkEvent * event, guint32 newvalue=0)
 
 # --------------------------------------------------------------------------- #
 
-#if GTK_CHECK_VERSION (2, 7, 0) /* FIXME: 2.8 */
+#if GTK_CHECK_VERSION (2, 8, 0)
 
 MODULE = Gtk2::Gdk::Event	PACKAGE = Gtk2::Gdk::Event::GrabBroken
 

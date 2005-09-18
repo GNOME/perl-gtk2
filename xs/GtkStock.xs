@@ -151,7 +151,7 @@ gtk_stock_list_ids (class)
 	g_slist_free (ids);
 	PERL_UNUSED_VAR (ax);
 
-#if GTK_CHECK_VERSION (2, 7, 0) /* FIXME: 2.8 */
+#if GTK_CHECK_VERSION (2, 8, 0)
 
 void
 gtk_stock_set_translate_func (class, domain, func, data=NULL)

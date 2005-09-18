@@ -190,7 +190,7 @@ gdk_display_store_clipboard (display, clipboard_window, time_, ...);
 
 #endif
 
-#if GTK_CHECK_VERSION (2, 7, 0) /* FIXME: 2.8 */
+#if GTK_CHECK_VERSION (2, 8, 0)
 
 void gdk_display_warp_pointer (GdkDisplay *display, GdkScreen *screen, gint x, gint y);
 

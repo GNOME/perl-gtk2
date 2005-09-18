@@ -29,7 +29,7 @@ gtk_menu_bar_new (class)
     C_ARGS:
 	/* void */
 
-#if GTK_CHECK_VERSION (2, 7, 0) /* FIXME: 2.8 */
+#if GTK_CHECK_VERSION (2, 8, 0)
 
 GtkPackDirection gtk_menu_bar_get_child_pack_direction (GtkMenuBar *menubar);
 

@@ -159,7 +159,7 @@ void gdk_x11_display_grab (GdkDisplay *display);
 
 void gdk_x11_display_ungrab (GdkDisplay *display);
 
-#if GTK_CHECK_VERSION (2, 7, 0) /* FIXME: 2.8 */
+#if GTK_CHECK_VERSION (2, 8, 0)
 
 void gdk_x11_display_set_cursor_theme (GdkDisplay *display, const gchar *theme, gint size);
 

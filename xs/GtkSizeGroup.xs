@@ -55,7 +55,7 @@ gtk_size_group_remove_widget (size_group, widget)
 	GtkSizeGroup *size_group
 	GtkWidget *widget
 
-#if GTK_CHECK_VERSION (2, 7, 0) /* FIXME: 2.8 */
+#if GTK_CHECK_VERSION (2, 8, 0)
 
 void gtk_size_group_set_ignore_hidden (GtkSizeGroup *size_group, gboolean ignore_hidden);
 

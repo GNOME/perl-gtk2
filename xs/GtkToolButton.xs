@@ -41,7 +41,7 @@ void gtk_tool_button_set_label_widget (GtkToolButton *button, GtkWidget_ornull *
 
 GtkWidget_ornull * gtk_tool_button_get_label_widget (GtkToolButton *button);
 
-#if GTK_CHECK_VERSION (2, 7, 0) /* FIXME: 2.8 */
+#if GTK_CHECK_VERSION (2, 8, 0)
 
 void gtk_tool_button_set_icon_name (GtkToolButton *button, const gchar_ornull *icon_name);
 

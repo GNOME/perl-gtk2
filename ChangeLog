@@ -1,3 +1,35 @@
+2005/09/18	kaffeetisch
+
+	* t/GtkComboBox.t, xs/GtkComboBox.xs: Only add Gtk2::CellEditable
+	to @Gtk2::ComboBox::ISA if we're on gtk+ >= 2.6.
+
+	* Gtk2/t/GtkHScale.t, Gtk2/t/GtkMenuToolButton.t,
+	Gtk2/t/GtkRange.t, t/GtkVScale.t: Remove noinit => 1 to fix test
+	failures.
+
+	* t/GtkFileChooser.t: Turn the one skip_all into various TODOs.
+
+	* Gtk2/t/01.GtkWindow.t, Gtk2/t/GdkCursor.t, Gtk2/t/GdkDisplay.t,
+	Gtk2/t/GdkEvent.t, Gtk2/t/GdkScreen.t, Gtk2/t/GdkWindow.t,
+	Gtk2/t/GdkX11.t, Gtk2/t/GtkDialog.t, Gtk2/t/GtkDnd.t,
+	Gtk2/t/GtkEntryCompletion.t, t/GtkFileChooser.t,
+	Gtk2/t/GtkIconView.t, Gtk2/t/GtkImage.t, Gtk2/t/GtkMenuBar.t,
+	Gtk2/t/GtkMenuShell.t, Gtk2/t/GtkScrolledWindow.t,
+	Gtk2/t/GtkSizeGroup.t, Gtk2/t/GtkStock.t, Gtk2/t/GtkTextIter.t,
+	Gtk2/t/GtkToolButton.t, Gtk2/t/GtkTreeModel.t,
+	Gtk2/t/GtkTreeView.t, Gtk2/xs/GdkCursor.xs, Gtk2/xs/GdkDisplay.xs,
+	Gtk2/xs/GdkEvent.xs, Gtk2/xs/GdkScreen.xs, Gtk2/xs/GdkWindow.xs,
+	Gtk2/xs/GdkX11.xs, Gtk2/xs/GtkDialog.xs, Gtk2/xs/GtkDnd.xs,
+	Gtk2/xs/GtkEntryCompletion.xs, Gtk2/xs/GtkFileChooser.xs,
+	Gtk2/xs/GtkIconView.xs, Gtk2/xs/GtkImage.xs,
+	Gtk2/xs/GtkMenuBar.xs, Gtk2/xs/GtkMenuShell.xs,
+	Gtk2/xs/GtkScrolledWindow.xs, Gtk2/xs/GtkSizeGroup.xs,
+	Gtk2/xs/GtkStock.xs, Gtk2/xs/GtkTextIter.xs,
+	Gtk2/xs/GtkToolButton.xs, Gtk2/xs/GtkTreeModel.xs,
+	Gtk2/xs/GtkTreeView.xs, Gtk2/xs/GtkTreeViewColumn.xs,
+	Gtk2/xs/GtkWindow.xs: Make all version checks refer to stable
+	releases.
+
 2005/09/06	muppetman
 
 	* examples/cellrenderer_date.pl, AUTHORS: Modified patch from Daniel
