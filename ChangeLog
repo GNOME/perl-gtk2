@@ -1,5 +1,23 @@
 2005/09/30	kaffeetisch
 
+	Wrap a big chunk of the atk API:
+
+	* gtk2perl.h: Include atk.h and atk-enum-types.h.
+
+	* Makefile.PL, maps-2.0, xs_files-2.0: Add some necessary
+	infrastructure stuff.
+
+	* t/AtkAction.t, t/AtkComponent.t, t/AtkImage.t,
+	t/AtkImplementor.t, t/AtkObject.t, t/AtkSelection.t,
+	xs/AtkAction.xs, xs/AtkComponent.xs, xs/AtkDocument.xs,
+	xs/AtkEditableText.xs, xs/AtkHyperlink.xs, xs/AtkHypertext.xs,
+	xs/AtkImage.xs, xs/AtkImplementor.xs, xs/AtkObject.xs,
+	xs/AtkSelection.xs, xs/AtkStreamableContent.xs, xs/AtkTable.xs,
+	xs/AtkText.xs, xs/AtkValue.xs: Initial wrappers and (mostly
+	non-functional) tests.
+
+2005/09/30	kaffeetisch
+
 	* xs/GtkCellView.xs, xs/GtkComboBox.xs, xs/GtkComboBoxEntry.xs,
 	xs/GtkEntryCompletion.xs, xs/GtkListStore.xs, xs/GtkSpinButton.xs,
 	xs/GtkTreeModelFilter.xs, xs/GtkTreeModelSort.xs,

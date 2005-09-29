@@ -92,7 +92,8 @@ my @pango_version = split /\./, $pkgcfg_pango{modversion};
 #
 ExtUtils::PkgConfig->write_version_macros(
 	"build/gtk2perl-versions.h",
-	pango => "PANGO"
+	pango => "PANGO",
+	atk => "ATK"
 );
 
 #

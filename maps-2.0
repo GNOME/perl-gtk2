@@ -30,13 +30,17 @@ GDK_PIXBUF_ERROR	GDK_TYPE_PIXBUF_ERROR	GError Gtk2::Gdk::Pixbuf::Error
 # typemacro	C type name	base type	package
 ATK_TYPE_ACTION	AtkAction	GInterface	Gtk2::Atk::Action
 ATK_TYPE_COMPONENT	AtkComponent	GInterface	Gtk2::Atk::Component
+ATK_TYPE_COORD_TYPE	AtkCoordType	GEnum		Gtk2::Atk::CoordType
 ATK_TYPE_DOCUMENT	AtkDocument	GInterface	Gtk2::Atk::Document
 ATK_TYPE_EDITABLE_TEXT	AtkEditableText	GInterface	Gtk2::Atk::EditableText
 ATK_TYPE_GOBJECT_ACCESSIBLE	AtkGObjectAccessible	GObject	Gtk2::Atk::GObjectAccessible
 ATK_TYPE_HYPERLINK	AtkHyperlink	GObject	Gtk2::Atk::Hyperlink
+ATK_TYPE_HYPERLINK_STATE_FLAGS		AtkHyperlinkStateFlags	GFlags	Gtk2::Atk::HyperlinkStateFlags
 ATK_TYPE_HYPERTEXT	AtkHypertext	GInterface	Gtk2::Atk::Hypertext
 ATK_TYPE_IMAGE	AtkImage	GInterface	Gtk2::Atk::Image
-ATK_TYPE_IMPLEMENTOR	AtkImplementorIface	GInterface	Gtk2::Atk::ImplementorIface
+ATK_TYPE_IMPLEMENTOR	AtkImplementor	GInterface	Gtk2::Atk::Implementor
+ATK_TYPE_KEY_EVENT_TYPE	AtkKeyEventType	GEnum		Gtk2::Atk::KeyEventType
+ATK_TYPE_LAYER		AtkLayer	GEnum		Gtk2::Atk::Layer
 ATK_TYPE_NO_OP_OBJECT	AtkNoOpObject	GObject	Gtk2::Atk::NoOpObject
 ATK_TYPE_NO_OP_OBJECT_FACTORY	AtkNoOpObjectFactory	GObject	Gtk2::Atk::NoOpObjectFactory
 ATK_TYPE_OBJECT	AtkObject	GObject	Gtk2::Atk::Object
@@ -44,11 +48,17 @@ ATK_TYPE_OBJECT_FACTORY	AtkObjectFactory	GObject	Gtk2::Atk::ObjectFactory
 ATK_TYPE_REGISTRY	AtkRegistry	GObject	Gtk2::Atk::Registry
 ATK_TYPE_RELATION	AtkRelation	GObject	Gtk2::Atk::Relation
 ATK_TYPE_RELATION_SET	AtkRelationSet	GObject	Gtk2::Atk::RelationSet
+ATK_TYPE_RELATION_TYPE	AtkRelationType	GEnum	Gtk2::Atk::RelationType
+ATK_TYPE_ROLE		AtkRole		GEnum	Gtk2::Atk::Role
 ATK_TYPE_SELECTION	AtkSelection	GInterface	Gtk2::Atk::Selection
 ATK_TYPE_STATE_SET	AtkStateSet	GObject	Gtk2::Atk::StateSet
+ATK_TYPE_STATE_TYPE	AtkStateType	GEnum	Gtk2::Atk::StateType
 ATK_TYPE_STREAMABLE_CONTENT	AtkStreamableContent	GInterface	Gtk2::Atk::StreamableContent
 ATK_TYPE_TABLE	AtkTable	GInterface	Gtk2::Atk::Table
 ATK_TYPE_TEXT	AtkText	GInterface	Gtk2::Atk::Text
+ATK_TYPE_TEXT_ATTRIBUTE	AtkTextAttribute	GEnum	Gtk2::Atk::TextAttribute
+ATK_TYPE_TEXT_BOUNDARY	AtkTextBoundary		GEnum	Gtk2::Atk::TextBoundary
+ATK_TYPE_TEXT_CLIP_TYPE	AtkTextClipType		GEnum	Gtk2::Atk::TextClipType
 ATK_TYPE_UTIL	AtkUtil	GObject	Gtk2::Atk::Util
 ATK_TYPE_VALUE	AtkValue	GInterface	Gtk2::Atk::Value
 GDK_TYPE_AXIS_USE	GdkAxisUse	GEnum	Gtk2::Gdk::AxisUse

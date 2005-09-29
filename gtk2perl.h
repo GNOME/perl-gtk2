@@ -25,6 +25,8 @@
 #define _GTK2PERL_H_
 
 #include <gperl.h>
+#include <atk/atk.h>
+#include <atk/atk-enum-types.h>
 #include <gtk/gtk.h>
 
 #include "gtk2perl-versions.h"
