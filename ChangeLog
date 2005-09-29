@@ -1,3 +1,18 @@
+2005/09/30	kaffeetisch
+
+	* xs/GtkCellView.xs, xs/GtkComboBox.xs, xs/GtkComboBoxEntry.xs,
+	xs/GtkEntryCompletion.xs, xs/GtkListStore.xs, xs/GtkSpinButton.xs,
+	xs/GtkTreeModelFilter.xs, xs/GtkTreeModelSort.xs,
+	xs/GtkTreeStore.xs, xs/GtkTreeViewColumn.xs: Take advantage of
+	Glib's new automatic interface registration code and remove all
+	unneeded gperl_set_isa calls.
+
+	* t/GtkComboBox.t, t/GtkEntry.t, t/GtkEntryCompletion.t,
+	t/GtkIconView.t, t/GtkListStore.t, t/GtkTreeModelFilter.t,
+	t/GtkTreeModelSort.t, t/GtkTreeStore.t, t/GtkTreeView.t: Add
+	missing isa_ok tests that check if all implemented interfaces show
+	up in the ancestry.
+
 2005/09/18	kaffeetisch
 
 	* t/GtkComboBox.t, xs/GtkComboBox.xs: Only add Gtk2::CellEditable

@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 8, noinit => 1;
+use Gtk2::TestHelper tests => 10, noinit => 1;
 
 # $Header$
 
@@ -11,8 +11,16 @@ $list -> set($list -> append(), 0 => 23);
 
 my $sort = Gtk2::TreeModelSort -> new_with_model($list);
 isa_ok($sort, "Gtk2::TreeModelSort");
-isa_ok($sort, "Gtk2::TreeDragSource");
+isa_ok($sort, "Gtk2::TreeModel");
+isa_ok($sort, "Gtk2::TreeSortable");
 is($sort -> get_model(), $list);
+
+SKIP: {
+  skip '@ISA check', 1
+    unless Gtk2 -> CHECK_VERSION (2, 4, 0);
+
+  isa_ok($sort, "Gtk2::TreeDragSource");
+}
 
 my $path = Gtk2::TreePath -> new_from_string("1");
 my $iter = $sort -> get_iter($path);

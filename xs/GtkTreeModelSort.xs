@@ -23,12 +23,6 @@
 
 MODULE = Gtk2::TreeModelSort	PACKAGE = Gtk2::TreeModelSort	PREFIX = gtk_tree_model_sort_
 
-BOOT:
-	gperl_set_isa ("Gtk2::TreeModelSort", "Gtk2::TreeModel");
-	gperl_set_isa ("Gtk2::TreeModelSort", "Gtk2::TreeSortable");
-	gperl_set_isa ("Gtk2::TreeModelSort", "Gtk2::TreeDragSource");
-
-
 GtkTreeModel_noinc *
 gtk_tree_model_sort_new_with_model (class, child_model)
 	GtkTreeModel * child_model

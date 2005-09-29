@@ -1,11 +1,12 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 15;
+use Gtk2::TestHelper tests => 16;
 
 # $Header$
 
 my $entry = Gtk2::Entry -> new();
 isa_ok($entry, "Gtk2::Entry");
+isa_ok($entry, "Gtk2::CellEditable");
 
 $entry -> set_text("Bla");
 is($entry -> get_text(), "Bla");

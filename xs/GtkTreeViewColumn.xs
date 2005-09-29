@@ -77,12 +77,6 @@ gtk2perl_tree_cell_data_func (GtkTreeViewColumn * tree_column,
 
 MODULE = Gtk2::TreeViewColumn	PACKAGE = Gtk2::TreeViewColumn	PREFIX = gtk_tree_view_column_
 
-BOOT:
-#if GTK_CHECK_VERSION(2,4,0)
-	gperl_set_isa ("Gtk2::TreeViewColumn", "Gtk2::CellLayout");
-#endif
-
-
 GtkTreeViewColumn *
 gtk_tree_view_column_new (class)
     C_ARGS:

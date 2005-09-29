@@ -4,7 +4,7 @@
 
 use Gtk2::TestHelper
 	at_least_version => [2, 4, 0, "GtkEntryCompletion is new in 2.4"],
-	tests => 9;
+	tests => 10;
 
 sub match_func {
 	my ($completion, $key, $iter, $data) = @_;
@@ -19,6 +19,7 @@ my $entry = Gtk2::Entry->new;
 
 $completion = Gtk2::EntryCompletion->new;
 isa_ok ($completion, 'Gtk2::EntryCompletion');
+isa_ok ($completion, 'Gtk2::CellLayout');
 
 $entry->set_completion ($completion);
 

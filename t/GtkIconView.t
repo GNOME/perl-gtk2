@@ -12,7 +12,7 @@
 use strict;
 use warnings;
 
-use Gtk2::TestHelper tests => 52,
+use Gtk2::TestHelper tests => 53,
     at_least_version => [2, 6, 0, "GtkIconView is new in 2.6"],
     ;
 
@@ -28,6 +28,13 @@ my $model = create_store ();
 
 isa_ok (my $iview = Gtk2::IconView->new, 'Gtk2::IconView',
 	'Gtk2::IconView->new');
+
+SKIP: {
+	skip '@ISA check', 1
+		unless Gtk2 -> CHECK_VERSION (2, 8, 0);
+
+	isa_ok ($iview, 'Gtk2::CellLayout');
+}
 
 is ($iview->get_model, undef, '$iview->get_model, undef');
 $iview->set_model ($model);

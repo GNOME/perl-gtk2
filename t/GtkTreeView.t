@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 137;
+use Gtk2::TestHelper tests => 138;
 
 # $Header$
 
@@ -49,6 +49,13 @@ $window -> show_all();
 
 my $view_column = Gtk2::TreeViewColumn -> new();
 isa_ok($view_column, "Gtk2::TreeViewColumn");
+
+SKIP: {
+	skip '@ISA check', 1
+		unless Gtk2 -> CHECK_VERSION (2, 4, 0);
+
+	isa_ok($view_column, "Gtk2::CellLayout");
+}
 
 $view_column -> set_spacing(23);
 is($view_column -> get_spacing(), 23);

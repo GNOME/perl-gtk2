@@ -10,9 +10,6 @@
 
 MODULE = Gtk2::CellView PACKAGE = Gtk2::CellView PREFIX = gtk_cell_view_
 
-BOOT:
-	gperl_set_isa ("Gtk2::CellView", "Gtk2::CellLayout");
-
 GtkWidget * gtk_cell_view_new (class)
     C_ARGS:
 	/* void */

@@ -83,12 +83,6 @@ C<insert_text>, C<prepend_text>, C<remove_text> and C<get_active_text>.
 
 =cut
 
-BOOT:
-	gperl_set_isa ("Gtk2::ComboBox", "Gtk2::CellLayout");
-#if GTK_CHECK_VERSION (2, 6, 0)
-	gperl_set_isa ("Gtk2::ComboBox", "Gtk2::CellEditable");
-#endif
-
 GtkWidget *gtk_combo_box_new (class, GtkTreeModel *model=NULL)
     ALIAS:
 	new_with_model = 1
