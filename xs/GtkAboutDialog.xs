@@ -117,6 +117,14 @@ const gchar_ornull * gtk_about_dialog_get_license (GtkAboutDialog * about);
 
 void gtk_about_dialog_set_license (GtkAboutDialog * about, const gchar_ornull * license);
 
+#if GTK_CHECK_VERSION (2, 8, 0)
+
+gboolean gtk_about_dialog_get_wrap_license (GtkAboutDialog *about);
+
+void gtk_about_dialog_set_wrap_license (GtkAboutDialog *about, gboolean wrap_license);
+
+#endif
+
 const gchar_ornull * gtk_about_dialog_get_website (GtkAboutDialog * about);
 
 void gtk_about_dialog_set_website (GtkAboutDialog * about, const gchar_ornull * website);

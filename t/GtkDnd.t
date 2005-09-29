@@ -51,6 +51,13 @@ if (defined($context)) {
   $context -> set_icon_pixbuf($pixbuf, 5, 5);
   $context -> set_icon_stock("gtk-add", 5, 5);
   $context -> set_icon_default();
+
+  SKIP: {
+    skip "new 2.8 stuff", 0
+      unless Gtk2 -> CHECK_VERSION(2, 8, 0);
+
+    $context -> set_icon_name("gtk-add", 5, 5);
+  }
 }
 
 is($button -> drag_check_threshold(5, 5, 100, 100), 1);

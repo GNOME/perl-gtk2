@@ -70,6 +70,12 @@ gtk_drag_set_icon_stock (context, stock_id, hot_x, hot_y)
 	gint hot_x
 	gint hot_y
 
+#if GTK_CHECK_VERSION (2, 8, 0)
+
+void gtk_drag_set_icon_name (GdkDragContext *context, const gchar *icon_name, gint hot_x, gint hot_y)
+
+#endif
+
 ##  void gtk_drag_set_icon_default (GdkDragContext *context) 
 void
 gtk_drag_set_icon_default (context)
