@@ -1,5 +1,32 @@
 2005/09/30	kaffeetisch
 
+	Make gdk's and pango's cairo glue available if the Perl module
+	Cairo is installed:
+
+	* Gtk2.pm, Makefile.PL: Optionally depend on Cairo.
+
+	* maps_pango-1.10: Add PANGO_TYPE_CAIRO_FONT_MAP.
+
+	* t/GdkCairo.t, xs/GdkCairo.xs: Bind and test gdk_cairo_create,
+	gdk_cairo_set_source_color, gdk_cairo_set_source_pixbuf,
+	gdk_cairo_rectangle, gdk_cairo_region.
+
+	* t/PangoCairo.t, xs/PangoCairo.xs: Bind and test
+	pango_cairo_font_map_new, pango_cairo_font_map_set_resolution,
+	pango_cairo_font_map_get_resolution,
+	pango_cairo_font_map_create_context, pango_cairo_update_context,
+	pango_cairo_create_layout, pango_cairo_update_layout,
+	pango_cairo_show_glyph_string, pango_cairo_show_layout,
+	pango_cairo_glyph_string_path, pango_cairo_layout_path,
+	pango_cairo_context_set_font_options,
+	pango_cairo_context_get_font_options,
+	pango_cairo_context_set_resolution,
+	pango_cairo_context_get_resolution.
+
+	* examples/cairo-rendering.pl: Add a small cairo example.
+
+2005/09/30	kaffeetisch
+
 	Wrap a big chunk of the atk API:
 
 	* gtk2perl.h: Include atk.h and atk-enum-types.h.

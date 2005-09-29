@@ -29,6 +29,9 @@ use warnings;
 
 use Glib;
 
+# Optionally "depend" on Cairo.
+eval "use Cairo;";
+
 require DynaLoader;
 
 our $VERSION = '1.100';
