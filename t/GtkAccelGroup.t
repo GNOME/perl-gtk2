@@ -19,7 +19,7 @@ my $closure = sub {
   is($_[0], $group);
   is($_[1], $window);
   is($_[2], $key);
-  is($_[3], $mask);
+  is_deeply(\@{ $_[3] }, [$mask]);
 };
 
 $group -> connect($key, $mask, qw(visible), $closure);
@@ -35,7 +35,7 @@ is(Gtk2::Accelerator -> valid($key, $mask), 1);
 
 my @test = Gtk2::Accelerator -> parse("<Shift>KP_Enter");
 is($test[0], $key);
-is($test[1], $mask);
+is_deeply(\@{ $test[1] }, [$mask]);
 
 is(Gtk2::Accelerator -> name($key, $mask), "<Shift>KP_Enter");
 

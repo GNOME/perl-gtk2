@@ -60,7 +60,7 @@ SKIP: {
   $window -> unfullscreen();
 }
 
-is($window -> get_state(), "withdrawn");
+is_deeply(\@{ $window -> get_state() }, ["withdrawn"]);
 
 is_deeply([$window -> get_position()], [10, 10]);
 

@@ -121,7 +121,7 @@ ok(1);
 $win2->set_mnemonic_modifier("control-mask");
 ok(1);
 
-is( $win2->get_mnemonic_modifier, "control-mask");
+is_deeply(\@{ $win2->get_mnemonic_modifier }, ["control-mask"]);
 
 $win2->set_focus;
 ok(1);

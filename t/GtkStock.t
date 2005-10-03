@@ -25,7 +25,7 @@ is_deeply([(Gtk2::Stock -> list_ids())[0, 1]], ["gtk2perl-test-script", "gtk2per
 my $test = Gtk2::Stock -> lookup("gtk2perl-test-script");
 is($test -> { stock_id }, $items[0] -> { stock_id });
 is($test -> { label }, $items[0] -> { label });
-is($test -> { modifier }, $items[0] -> { modifier });
+is_deeply(\@{ $test -> { modifier } }, $items[0] -> { modifier });
 is($test -> { keyval }, $items[0] -> { keyval });
 is($test -> { translation_domain }, $items[0] -> { translation_domain });
 
