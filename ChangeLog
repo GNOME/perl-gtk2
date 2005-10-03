@@ -1,5 +1,9 @@
 2005/10/03	kaffeetisch
 
+	* Gtk2.pm, NEWS, README: Stable release 1.101.
+
+2005/10/03	kaffeetisch
+
 	* t/GtkFileChooser.t: Add another TODO block.
 
 	* t/01.GtkWindow.t, t/GdkEvent.t, t/GdkWindow.t,
