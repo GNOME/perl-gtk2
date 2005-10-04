@@ -630,6 +630,10 @@ _ADD_INTERFACE (class, const char * target_class)
 
 MODULE = Gtk2::TreeModel	PACKAGE = Gtk2::TreePath	PREFIX = gtk_tree_path_
 
+=for apidoc
+Create a new path.  For convenience, if you pass a value for I<$path>,
+this is just an alias for C<new_from_string>.
+=cut
 GtkTreePath_own_ornull *
 gtk_tree_path_new (class, path=NULL)
 	const gchar * path
