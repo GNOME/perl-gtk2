@@ -1,3 +1,19 @@
+2005/10/05	kaffeetisch
+
+	Merge from stable-1-10:
+
+	* NEWS: Add the 1.101 release notes.
+
+	* t/01.GtkWindow.t, t/GdkEvent.t, t/GdkWindow.t,
+	t/GtkAccelGroupt.t, t/GtkAccelMap.t, t/GtkStock.t,
+	t/GtkTreeModelIface.t, t/GtkWidget.t: Change the flags tests yet
+	again.  Make them explicit this time by using is_deeply() and
+	\@{}, '>=' or 'eq' so it hopefully works with any version of
+	Test::More.
+
+	* t/GtkFileChooser.t: Patch from Scott Lanning fixes a test
+	problem.
+
 2005/09/30	kaffeetisch
 
 	* t/GtkFileChooser.t: Add yet another TODO for a new failure that

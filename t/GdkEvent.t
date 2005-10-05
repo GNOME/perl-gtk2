@@ -147,14 +147,14 @@ is ($event->focus, 1, '$crossing_event->focus');
 is ($event->time, 0, '$event->time');
 is ($event->get_time, 0, '$event->time');
 
-is ($event->state, [], '$event->state');
-is ($event->get_state, [], '$event->state');
+is_deeply (\@{ $event->state }, [], '$event->state');
+is_deeply (\@{ $event->get_state }, [], '$event->state');
 
 ok (eq_array ([$event->coords], [0, 0]), '$event->coords');
 is ($event->x, 0, '$event->x');
 is ($event->y, 0, '$event->y');
 
-ok (eq_array ([$event->get_root_coords], [0, 0]), '$event->get_root_coords');
+is_deeply ([$event->get_root_coords], [0, 0], '$event->get_root_coords');
 is ($event->x_root, 0, '$event->x_root');
 is ($event->y_root, 0, '$event->y_root');
 
@@ -347,10 +347,12 @@ isa_ok ($event = Gtk2::Gdk::Event->new ('window-state'),
 	'Gtk2::Gdk::Event::WindowState', 'Gtk2::Gdk::Event->new windowstate');
 
 $event->changed_mask ('maximized');
-is ($event->changed_mask, 'maximized', '$windowstate_event->changed_mask');
+is_deeply (\@{ $event->changed_mask }, ['maximized'],
+	   '$windowstate_event->changed_mask');
 
 $event->new_window_state ('withdrawn');
-is ($event->new_window_state, 'withdrawn', '$windowstate_event->new_window_state');
+is_deeply (\@{ $event->new_window_state }, ['withdrawn'],
+	   '$windowstate_event->new_window_state');
 
 # DND ##########################################################################
 

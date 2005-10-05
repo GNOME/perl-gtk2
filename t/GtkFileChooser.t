@@ -195,7 +195,7 @@ ok (!scalar (@list), 'no uris selected');
 is (scalar (@list), 0, 'unselected everything');
 
 $file_chooser->remove_shortcut_folder ($cwd);
-$file_chooser->remove_shortcut_folder_uri ($cwd);
+$file_chooser->remove_shortcut_folder_uri ("file://$cwd");
 
 SKIP: {
 	skip("[sg]et_show_hidden are new in 2.6", 1)

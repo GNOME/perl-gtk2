@@ -352,7 +352,7 @@ use warnings;
 
 my $model = CustomList->new;
 
-is ($model->get_flags, [qw/list-only iters-persist/]);
+ok ($model->get_flags eq [qw/iters-persist list-only/]);
 is ($model->get_n_columns, 23, "get_n_columns reports the number correctly");
 is ($model->get_column_type (1), Glib::String::);
 

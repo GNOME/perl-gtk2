@@ -1,3 +1,9 @@
+Overview of changes in Gtk2 1.101
+=================================
+
+* Improve the date cell renderer example.  [Daniel Kasak, muppet]
+* Fix a few test suite issues.  [Torsten]
+
 Overview of changes in Gtk2 1.100
 =================================
 
