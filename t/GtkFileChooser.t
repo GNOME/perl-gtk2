@@ -32,7 +32,7 @@ my $cwd = cwd ();
 
 $file_chooser->set_current_name ('something that may not exist');
 TODO: {
-      local $TODO = "GtkFileChooser trouble";
+	local $TODO = "GtkFileChooser trouble";
 	is ($file_chooser->get_filename,
 	    $cwd . "/" . 'something that may not exist',
 	    'set current name');
@@ -195,7 +195,7 @@ ok (!scalar (@list), 'no uris selected');
 is (scalar (@list), 0, 'unselected everything');
 
 $file_chooser->remove_shortcut_folder ($cwd);
-$file_chooser->remove_shortcut_folder_uri ($cwd);
+$file_chooser->remove_shortcut_folder_uri ("file://$cwd");
 
 SKIP: {
 	skip("[sg]et_show_hidden are new in 2.6", 1)

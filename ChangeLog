@@ -1,3 +1,8 @@
+2005/10/05	kaffeetisch
+
+	* t/GtkFileChooser.t: Patch from Scott Lanning fixes a test
+	problem.
+
 2005/10/03	kaffeetisch
 
 	* Gtk2.pm, NEWS, README: Stable release 1.101.
