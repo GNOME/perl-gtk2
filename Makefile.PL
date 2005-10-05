@@ -56,7 +56,7 @@ unless (eval "use ExtUtils::Depends '$build_reqs{'perl-ExtUtils-Depends'}';"
    exit 1; # not reached
 }
 
-require 'CodeGen.pm'; # other modules can should 'use Gtk2::CodeGen;' --
+require 'CodeGen.pm'; # other modules should 'use Gtk2::CodeGen;' --
                       # we can't because it's not installed yet.
 
 # all the generated stuff will go into this subdir...
@@ -77,7 +77,6 @@ foreach my $filename (@xs_lists) {
 }
 my $target = ExtUtils::PkgConfig->variable ('gtk+-2.0', 'target');
 if ($target =~ /x11/) {
-	warn "Congratulations, you're building on X11!\n";
 	push @xs_files, 'xs/GdkX11.xs';
 }
 

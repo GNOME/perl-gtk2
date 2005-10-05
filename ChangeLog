@@ -1,5 +1,13 @@
 2005/10/05	kaffeetisch
 
+	Merge from HEAD:
+
+	* Makefile.PL: Fix some grammar.  Remove X11 warning.
+
+	* xs/GtkTreeModel.xs: Add docs for Gtk2::TreePath::new.
+
+2005/10/05	kaffeetisch
+
 	* t/GtkFileChooser.t: Patch from Scott Lanning fixes a test
 	problem.
 
