@@ -711,7 +711,7 @@ gdk_pixbuf_scale_simple (src, dest_width, dest_height, interp_type)
 	GdkInterpType interp_type
 
 ##  GdkPixbuf *gdk_pixbuf_composite_color_simple (const GdkPixbuf *src, int dest_width, int dest_height, GdkInterpType interp_type, int overall_alpha, int check_size, guint32 color1, guint32 color2) 
-GdkPixbuf *
+GdkPixbuf_noinc *
 gdk_pixbuf_composite_color_simple (src, dest_width, dest_height, interp_type, overall_alpha, check_size, color1, color2)
 	GdkPixbuf *src
 	int dest_width
