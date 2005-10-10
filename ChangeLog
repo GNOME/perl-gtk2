@@ -1,3 +1,16 @@
+2005/10/10	kaffeetisch
+
+	Merge from HEAD:
+
+	Patch from Marc Lehmann:
+
+	* t/GdkGC.t, xs/GdkGC.xs: Allow undef for the argument of
+	Gtk2::Gdk::GC::set_clip_mask, set_clip_rectangle, and
+	set_clip_region.
+
+	* xs/GdkPixbuf.xs: Don't leak the return value of
+	gdk_pixbuf_composite_color_simple.
+
 2005/10/05	kaffeetisch
 
 	Merge from HEAD:
