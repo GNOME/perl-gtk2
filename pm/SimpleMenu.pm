@@ -314,6 +314,8 @@ accelerators are being used in the menu tree's items.
 
 Perl(1), Glib(3pm), Gtk2(3pm), examples/simple_menu.pl.
 
+Note: Gtk2::SimpleMenu is deprecated in favor of Gtk2::Ex::Simple::Menu, part of the Gtk2-Perl-Ex project at L<http://gtk2-perl-ex.sf.net/> .
+
 =head1 AUTHORS
 
  Ross McFarland <rwmcfa1 at neces dot com>

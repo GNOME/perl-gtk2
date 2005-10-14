@@ -820,6 +820,9 @@ section will prove redundant, but just in case:
 Perl(1), Glib(3pm), Gtk2(3pm), Gtk2::TreeView(3pm), Gtk2::TreeModel(3pm),
 Gtk2::ListStore(3pm).
 
+Note: Gtk2::SimpleList is deprecated in favor of Gtk2::Ex::Simple::List, part
+of the Gtk2-Perl-Ex project at http://gtk2-perl-ex.sf.net .
+
 =head1 AUTHORS
 
  muppet <scott at asofyet dot org>

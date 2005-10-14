@@ -2,6 +2,8 @@
 
 	* MANIFEST: update with missing entries.
 
+	* pm/SimpleList.pm, pm/SimpleMenu.pm: add deprecation notices.
+
 2005/10/10	kaffeetisch
 
 	Patch from Marc Lehmann:
