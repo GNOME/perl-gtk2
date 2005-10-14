@@ -317,6 +317,7 @@ xs/GdkKeys.xs
 xs/GdkPango.xs
 xs/GdkPixbuf.xs
 xs/GdkPixbufLoader.xs
+xs/GdkPixbufSimpleAnim.xs
 xs/GdkPixmap.xs
 xs/GdkProperty.xs
 xs/GdkRegion.xs
@@ -486,3 +487,4 @@ xs_files-2.0
 xs_files-2.2
 xs_files-2.4
 xs_files-2.6
+xs_files-2.8

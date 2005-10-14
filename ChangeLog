@@ -4,6 +4,9 @@
 
 	* pm/SimpleList.pm, pm/SimpleMenu.pm: add deprecation notices.
 
+	* xs/GdkPixbufSimpleAnim.xs, t/GdkPixbufSimpleAnim.t, xs_files-2.8,
+	maps-2.8, MANIFEST:  Bind and test GdkPixbufSimpleAnim.
+
 2005/10/10	kaffeetisch
 
 	Patch from Marc Lehmann:
