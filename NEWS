@@ -3,15 +3,11 @@ Overview of changes in Gtk2 1.110
 
 * Take advantage of Glib's new automatic @ISA registration for interfaces.
   [Torsten]
-
 * Wrap most of the atk API.  [Torsten]
-
 * Make gdk's and pango's cairo glue available if the Perl module Cairo is
   installed.  [Torsten]
-
 * Add Gtk2::AboutDialog::[gs]et_wrap_license and Gtk2::Dnd::set_icon_name.
   [Torsten]
-
 * Improve some of the Gtk2::Gdk::GC API and fix a leak in Gtk2::Gdk::Pixbuf.
   [Marc Lehmann]
 
