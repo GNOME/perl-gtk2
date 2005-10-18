@@ -1,5 +1,10 @@
 2005/10/18	kaffeetisch
 
+	* Gtk2.pm, MANIFEST, Makefile.PL, NEWS, README: Unstable release
+	1.110.
+
+2005/10/18	kaffeetisch
+
 	* xs/GtkClipboard.xs, xs/GtkToolbar.xs: Fix a signedness and a
 	no-comma-after-last-enum-value warning.
 

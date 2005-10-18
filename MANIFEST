@@ -17,6 +17,7 @@ doctypes
 examples/accel_groups.pl
 examples/adding_stock_icons.pl
 examples/buttonbox.pl
+examples/cairo-rendering.pl
 examples/calendar.pl
 examples/cellrenderer_date.pl
 examples/cellrenderer_popup.pl
@@ -90,6 +91,7 @@ maps-2.4
 maps-2.6
 maps-2.8
 maps_pango-1.0
+maps_pango-1.10
 maps_pango-1.4
 maps_pango-1.6
 maps_pango-1.8
@@ -111,6 +113,7 @@ t/AtkImplementor.t
 t/AtkObject.t
 t/AtkSelection.t
 t/Gdk.t
+t/GdkCairo.t
 t/GdkColor.t
 t/GdkCursor.t
 t/GdkDisplay.t
@@ -275,6 +278,7 @@ t/GtkVSeparator.t
 t/GtkViewport.t
 t/GtkWidget.t
 t/PangoAttributes.t
+t/PangoCairo.t
 t/PangoContext.t
 t/PangoFont.t
 t/PangoFontMap.t
@@ -304,6 +308,7 @@ xs/AtkTable.xs
 xs/AtkText.xs
 xs/AtkValue.xs
 xs/Gdk.xs
+xs/GdkCairo.xs
 xs/GdkColor.xs
 xs/GdkCursor.xs
 xs/GdkDisplay.xs
@@ -474,6 +479,7 @@ xs/GtkViewport.xs
 xs/GtkWidget.xs
 xs/GtkWindow.xs
 xs/PangoAttributes.xs
+xs/PangoCairo.xs
 xs/PangoContext.xs
 xs/PangoFont.xs
 xs/PangoFontMap.xs
