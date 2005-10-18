@@ -10,7 +10,6 @@ Overview of changes in Gtk2 1.110
   [Torsten]
 * Improve some of the Gtk2::Gdk::GC API and fix a leak in Gtk2::Gdk::Pixbuf.
   [Marc Lehmann]
-
 * Wrap most of gdk's X11-related API.  [Marc, Torsten]
 
 Overview of changes in Gtk2 1.101
