@@ -1,3 +1,8 @@
+2005/10/18	kaffeetisch
+
+	* xs/GtkClipboard.xs, xs/GtkToolbar.xs: Fix a signedness and a
+	no-comma-after-last-enum-value warning.
+
 2005/10/15	kaffeetisch
 
 	* t/GdkX11.t, xs/GdkX11.xs: Patch from Marc Lehmann adds

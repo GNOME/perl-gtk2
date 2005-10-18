@@ -40,7 +40,7 @@ typedef enum {
 typedef enum {
 	PREPEND,
 	APPEND,
-	INSERT,
+	INSERT
 } WhichOp;
 
 #define SvGChar_ornull(sv)   ((sv) && SvOK((sv)) ? SvGChar ((sv)) : NULL)

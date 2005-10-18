@@ -431,10 +431,10 @@ gtk_clipboard_set_can_store (clipboard, ...);
 	GtkClipboard *clipboard
     PREINIT:
 	GtkTargetEntry *targets = NULL;
-	gint n_targets;
+	guint n_targets;
     CODE:
 	GTK2PERL_STACK_ITEMS_TO_TARGET_ENTRY_ARRAY (1, targets, n_targets);
-	gtk_clipboard_set_can_store (clipboard, targets, n_targets);
+	gtk_clipboard_set_can_store (clipboard, targets, (gint) n_targets);
 
 void gtk_clipboard_store (GtkClipboard *clipboard);
 
