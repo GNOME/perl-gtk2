@@ -1,12 +1,12 @@
 #!/usr/bin/perl -w
 use strict;
 use Glib qw/TRUE FALSE/;
-use Gtk2 -init;
+use Gtk2;
 use Test::More;
 
 eval "use Cairo";
 
-if (!$@ && Gtk2 -> CHECK_VERSION(2, 8, 0)) {
+if (!$@ && Gtk2 -> CHECK_VERSION(2, 8, 0) && Gtk2->init_check ) {
   plan tests => 2;
 } else {
   plan skip_all => "Need Cairo";

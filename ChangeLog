@@ -1,3 +1,9 @@
+2005/11/01	rwmcfa1
+
+	* t/GdkCairo.t: don't do Gtk -init, with no display (RPM build or
+	otherwise) will break. remove -init added Gtk2->init_check to ok to go
+	check
+
 2005/10/18	kaffeetisch
 
 	* Gtk2.pm, MANIFEST, Makefile.PL, NEWS, README: Unstable release
