@@ -141,7 +141,7 @@ $file_chooser->set_current_folder ($cwd);
 $filename = File::Spec->catfile ($cwd, 'gtk2perl.h');
 ok ($file_chooser->select_filename ($filename));
 
-run_main {
+run_main sub {
   TODO: {
     local $TODO = "gtk+ 2.6 seems to return undef for some reason";
     is ($file_chooser->get_preview_filename, $filename, 'get_preview_filename');

@@ -145,7 +145,7 @@ SKIP: {
 
 ##########################################################################
 
-run_main {
+run_main sub {
 	$treeview->set_cursor (Gtk2::TreePath->new_from_string ('0'),
 	                       $column, 1);
 	$treeview->set_cursor (Gtk2::TreePath->new_from_string ('0'),

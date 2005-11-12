@@ -96,7 +96,7 @@ ok( $list->signal_connect( row_activated => sub
 	} ) );
 
 my $count = 0;
-run_main {
+run_main sub {
 		my $ldata = $list->{data};
 
 		ok( scalar(@$ldata) == 4 );

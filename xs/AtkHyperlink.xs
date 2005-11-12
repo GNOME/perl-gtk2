@@ -24,4 +24,8 @@ gboolean atk_hyperlink_is_inline (AtkHyperlink *link_);
 
 gint atk_hyperlink_get_n_anchors (AtkHyperlink *link_);
 
+#if ATK_CHECK_VERSION (1, 4, 0)
+
 gboolean atk_hyperlink_is_selected_link (AtkHyperlink *link_);
+
+#endif

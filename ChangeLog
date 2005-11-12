@@ -1,3 +1,16 @@
+2005/11/12	kaffeetisch
+
+	* t/01.GtkWindow.t, t/GtkCellRenderer.t, t/GtkFileChooser.t,
+	t/GtkIconView.t, t/GtkListStore.t, t/GtkNotebook.t,
+	t/GtkSimpleList.t, t/GtkTreeView.t: Add the "sub" keyword to all
+	blocks in run_main invocations to make older perl's happy.
+
+	* xs/AtkHyperlink.xs: Only compile support for
+	atk_hyperlink_is_selected_link if it's available.
+
+	* xs/GdkColor.xs (gdk_color_new): Change the type of the arguments
+	to guint16 to hush signedness warnings.
+
 2005/11/01	rwmcfa1
 
 	* t/GdkCairo.t: don't do Gtk -init, with no display (RPM build or
