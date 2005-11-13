@@ -441,9 +441,26 @@ gdk_event_copy (event)
  ## void gdk_event_free (GdkEvent *event)
 
  ## guint32 gdk_event_get_time (GdkEvent *event)
+=for apidoc Gtk2::Gdk::Event::set_time
+=for signature $event->set_time ($newtime)
+=for arg ... (hide)
+=for arg newtime (timestamp)
+=cut
+
+# we'll doc this one below with get_time
+=for apidoc Gtk2::Gdk::Event::time __hide__
+=cut
+
+=for apidoc
+=for signature $timestamp = $event->get_time
+=for signature $timestamp = $event->time
+=for arg ... (hide)
+Get I<$event>'s time.  If that event type doesn't have a time, or if
+I<$event> is undef, returns GDK_CURRENT_TIME, which is 0.
+=cut
 guint
 gdk_event_get_time (event, ...)
-	GdkEvent *event
+	GdkEvent_ornull *event
     ALIAS:
 	Gtk2::Gdk::Event::time = 1
 	Gtk2::Gdk::Event::set_time = 2
@@ -461,6 +478,22 @@ gdk_event_get_time (event, ...)
 	RETVAL
 
  ## gboolean gdk_event_get_state (GdkEvent *event, GdkModifierType *state)
+=for apidoc Gtk2::Gdk::Event::set_state
+=for signature $event->set_state ($newstate)
+=for arg ... (hide)
+=for arg newstate (GdkModifierType)
+=cut
+
+# we'll doc this one below with get_state
+=for apidoc Gtk2::Gdk::Event::state __hide__
+=cut
+
+=for apidoc
+=for signature $modifiertype = $event->get_state
+=for signature $modifiertype = $event->state
+=for arg ... (hide)
+Get I<$event>'s state.  Croaks if that event type doesn't have a state.
+=cut
 GdkModifierType
 gdk_event_get_state (event, ...)
 	GdkEvent *event

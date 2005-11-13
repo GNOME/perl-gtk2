@@ -1,3 +1,4 @@
+# vim: set filetype=perl :
 #
 # $Header$
 #
@@ -7,7 +8,7 @@
 # 	- rm
 #########################
 
-use Gtk2::TestHelper tests => 117;
+use Gtk2::TestHelper tests => 118;
 use Data::Dumper;
 
 # Expose #######################################################################
@@ -146,6 +147,10 @@ is ($event->focus, 1, '$crossing_event->focus');
 
 is ($event->time, 0, '$event->time');
 is ($event->get_time, 0, '$event->time');
+
+# special case for get_time()
+is (Gtk2::Gdk::Event::get_time(undef), 0,
+    "get_time with no event gets GDK_CURRENT_TIME, which is 0");
 
 is_deeply (\@{ $event->state }, [], '$event->state');
 is_deeply (\@{ $event->get_state }, [], '$event->state');
