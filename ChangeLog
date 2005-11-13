@@ -1,3 +1,18 @@
+2005/11/13	muppetman
+
+	Merge from HEAD:
+
+	* xs/GdkEvent.xs: Don't croak() when trying to marshal unknown
+	event types to perl.  You can get an unknown event type when
+	running with a newer gtk+ than that for which the bindings were
+	compiled; since this marshaling typically occurs during the
+	process of invoking a signal handler (e.g. event or event-after),
+	a croak() here can result in C stack corruption and eventually a
+	crash.  Instead, warn() about it, and limp along with the generic
+	Gtk2::Gdk::Event type.
+
+	Documentation updates.
+
 2005/10/10	kaffeetisch
 
 	Merge from HEAD:
