@@ -1,3 +1,8 @@
+2005/11/13	muppetman
+
+	* pm/TestHelper.pm: Add ginterfaces_ok(), a helper for testing interface
+	implementation on GObjects.
+
 2005/11/12	kaffeetisch
 
 	* t/01.GtkWindow.t, t/GtkCellRenderer.t, t/GtkFileChooser.t,

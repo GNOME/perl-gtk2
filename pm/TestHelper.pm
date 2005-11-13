@@ -103,6 +103,23 @@ sub is_idle ($$;$) {
 }
 
 
+sub ginterfaces_ok {
+	my ($object_or_package) = @_;
+	my $type = ref $object_or_package || $object_or_package;
+	my $i = 0;
+	my @ifaces = Glib::Type->list_interfaces ($type);
+	foreach my $iface (@ifaces) {
+		if ($object_or_package->isa ($iface)) {
+			$i++;
+		} else {
+			warn "GType $type is supposed to implement $iface, "
+			   . "but \@type\::ISA doesn't contain $iface!\n";
+		}
+	}
+	is ($i, scalar(@ifaces), "GInterface versus \@ISA for $type");
+}
+
+
 1;
 __END__
 
@@ -184,6 +201,12 @@ pending events.  Implemented with C<run_main> and other special trickery.
 
 Like ok_idle(), but compares the return value of I<THIS_SUB> with I<THAT>
 using Test::More's is().
+
+=item ginterfaces_ok (GOBJECT_OR_PACKAGE)
+
+Verify that the GObject subclass I<GOBJECT_OR_PACKAGE>'s @ISA is set up properly
+with all of the GInterfaces that the type system claims it supports.  Something
+like an isa_ok() in steroids.
 
 =back
 
