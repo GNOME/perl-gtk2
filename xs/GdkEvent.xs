@@ -109,8 +109,17 @@ gdk_event_get_package (GType gtype,
 		return "Gtk2::Gdk::Event::GrabBroken";
 #endif
 	    default:
-		croak ("Illegal type %d in event->type", event->type);
-		return NULL; /* not reached */
+		{
+		GEnumClass * class = g_type_class_ref (GDK_TYPE_EVENT_TYPE);
+		GEnumValue * value = g_enum_get_value (class, event->type);
+		if (value)
+			warn ("Unhandled event type %s (%d) in event->type",
+			      value->value_name, event->type);
+		else
+			warn ("Unknown value %d in event->type", event->type);
+		g_type_class_unref (class);
+		}
+		return "Gtk2::Gdk::Event"; /* limp along */
 	}
 }
 
@@ -357,6 +366,8 @@ MODULE = Gtk2::Gdk::Event	PACKAGE = Gtk2::Gdk::Event	PREFIX = gdk_event_
 
 =item * L<Gtk2::Gdk::Event::OwnerChange> (since gtk+ 2.6)
 
+=item * L<Gtk2::Gdk::Event::GrabBroken> (since gtk+ 2.8)
+
 =back
 
 =cut
@@ -464,8 +475,13 @@ gdk_event_get_state (event, ...)
 	if (items == 2 || ix == 2) {
 		/* set; return old value. */
 		if (!gdk_event_get_state (event, &RETVAL)) {
-			SV * s = gperl_convert_back_enum (GDK_TYPE_EVENT_TYPE,
-			                                  event->type);
+			/* Use pass_unknown to prevent getting the rather
+			 * unhelpful "invalid enum value" exception here for
+			 * events added in newer gdks than that for which we
+			 * were built.  If we're going to throw an exception,
+			 * it should at least be somewhat meaningful. */
+			SV * s = gperl_convert_back_enum_pass_unknown
+					(GDK_TYPE_EVENT_TYPE, event->type);
 			croak ("events of type %s have no state member",
 			       SvPV_nolen (s));
 		}
@@ -611,8 +627,9 @@ gdk_event_get_screen (event)
 
  ## since we're overriding the package names, Glib::Boxed::DESTROY won't
  ## be able to find the right destructor, because these new names don't
- ## correspond to GTypes.  we'll have to explicitly tell perl what
- ## destructor to use.
+ ## correspond to GTypes, and Glib::Boxed::DESTROY tries to find the GType
+ ## from the package into which the SV is blessed.  we'll have to explicitly
+ ## tell perl what destructor to use.
 void
 DESTROY (sv)
 	SV * sv
@@ -635,6 +652,7 @@ DESTROY (sv)
 	Gtk2::Gdk::Event::WindowState::DESTROY = 16
 	Gtk2::Gdk::Event::DND::DESTROY         = 17
 	Gtk2::Gdk::Event::OwnerChange::DESTROY = 18
+	Gtk2::Gdk::Event::GrabBroken::DESTROY  = 19
     CODE:
 	PERL_UNUSED_VAR (ix);
 	default_wrapper_class->destroy (sv);

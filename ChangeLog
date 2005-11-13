@@ -3,6 +3,16 @@
 	* pm/TestHelper.pm: Add ginterfaces_ok(), a helper for testing interface
 	implementation on GObjects.
 
+	* xs/GdkEvent.xs: Don't croak() when trying to marshal unknown event types
+	to perl.  You can get an unknown event type when running with a newer gtk+
+	than that for which the bindings were compiled; since this marshaling
+	typically occurs during the process of invoking a signal handler (e.g.
+	event or event-after), a croak() here can result in C stack corruption and
+	eventually a crash.  Instead, warn() about it, and limp along with the
+	generic Gtk2::Gdk::Event type.
+
+	Also, alias Gtk2::Gdk::Event::GrabBroken::DESTROY to prevent leaks.
+
 2005/11/12	kaffeetisch
 
 	* t/01.GtkWindow.t, t/GtkCellRenderer.t, t/GtkFileChooser.t,
