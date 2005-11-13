@@ -105,8 +105,17 @@ gdk_event_get_package (GType gtype,
 		return "Gtk2::Gdk::Event::OwnerChange";
 #endif
 	    default:
-		croak ("Illegal type %d in event->type", event->type);
-		return NULL; /* not reached */
+		{
+		GEnumClass * class = g_type_class_ref (GDK_TYPE_EVENT_TYPE);
+		GEnumValue * value = g_enum_get_value (class, event->type);
+		if (value)
+			warn ("Unhandled event type %s (%d) in event->type",
+			      value->value_name, event->type);
+		else
+			warn ("Unknown value %d in event->type", event->type);
+		g_type_class_unref (class);
+		}
+		return "Gtk2::Gdk::Event"; /* limp along */
 	}
 }
 
@@ -420,6 +429,23 @@ gdk_event_copy (event)
  ## void gdk_event_free (GdkEvent *event)
 
  ## guint32 gdk_event_get_time (GdkEvent *event)
+=for apidoc Gtk2::Gdk::Event::set_time
+=for signature $event->set_time ($newtime)
+=for arg ... (hide)
+=for arg newtime (timestamp)
+=cut
+
+# we'll doc this one below with get_time
+=for apidoc Gtk2::Gdk::Event::time __hide__
+=cut
+
+=for apidoc
+=for signature $timestamp = $event->get_time
+=for signature $timestamp = $event->time
+=for arg ... (hide)
+Get I<$event>'s time.  If that event type doesn't have a time, 
+returns GDK_CURRENT_TIME, which is 0.
+=cut
 guint
 gdk_event_get_time (event, ...)
 	GdkEvent *event
@@ -440,6 +466,22 @@ gdk_event_get_time (event, ...)
 	RETVAL
 
  ## gboolean gdk_event_get_state (GdkEvent *event, GdkModifierType *state)
+=for apidoc Gtk2::Gdk::Event::set_state
+=for signature $event->set_state ($newstate)
+=for arg ... (hide)
+=for arg newstate (GdkModifierType)
+=cut
+
+# we'll doc this one below with get_state
+=for apidoc Gtk2::Gdk::Event::state __hide__
+=cut
+
+=for apidoc
+=for signature $modifiertype = $event->get_state
+=for signature $modifiertype = $event->state
+=for arg ... (hide)
+Get I<$event>'s state.  Croaks if that event type doesn't have a state.
+=cut
 GdkModifierType
 gdk_event_get_state (event, ...)
 	GdkEvent *event
@@ -454,8 +496,13 @@ gdk_event_get_state (event, ...)
 	if (items == 2 || ix == 2) {
 		/* set; return old value. */
 		if (!gdk_event_get_state (event, &RETVAL)) {
-			SV * s = gperl_convert_back_enum (GDK_TYPE_EVENT_TYPE,
-			                                  event->type);
+			/* Use pass_unknown to prevent getting the rather
+			 * unhelpful "invalid enum value" exception here for
+			 * events added in newer gdks than that for which we
+			 * were built.  If we're going to throw an exception,
+			 * it should at least be somewhat meaningful. */
+			SV * s = gperl_convert_back_enum_pass_unknown
+					(GDK_TYPE_EVENT_TYPE, event->type);
 			croak ("events of type %s have no state member",
 			       SvPV_nolen (s));
 		}
@@ -601,8 +648,9 @@ gdk_event_get_screen (event)
 
  ## since we're overriding the package names, Glib::Boxed::DESTROY won't
  ## be able to find the right destructor, because these new names don't
- ## correspond to GTypes.  we'll have to explicitly tell perl what
- ## destructor to use.
+ ## correspond to GTypes, and Glib::Boxed::DESTROY tries to find the GType
+ ## from the package into which the SV is blessed.  we'll have to explicitly
+ ## tell perl what destructor to use.
 void
 DESTROY (sv)
 	SV * sv
