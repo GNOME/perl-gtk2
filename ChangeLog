@@ -1,5 +1,9 @@
 2005/11/14	kaffeetisch
 
+	* Gtk2.pm, Makefile.PL, NEWS, README: Unstable release 1.111.
+
+2005/11/14	kaffeetisch
+
 	* t/GtkComboBoxEntry.t: Skip the @ISA test for Gtk2::CellEditable
 	on anything older than 2.8.0.
 

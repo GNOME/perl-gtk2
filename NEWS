@@ -1,3 +1,10 @@
+Overview of changes in Gtk2 1.111
+=================================
+
+* Handle unknown event types gracefully.  [muppet]
+* Allow passing undef to Gtk2::Gdk::Event::get_time.  [muppet]
+* Fix a few compilation and test suite issues.  [Ross, Torsten]
+
 Overview of changes in Gtk2 1.110
 =================================
 
