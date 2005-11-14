@@ -10,8 +10,14 @@ my $entry_box;
 
 $entry_box = Gtk2::ComboBoxEntry->new;
 isa_ok ($entry_box, 'Gtk2::ComboBoxEntry');
-isa_ok ($entry_box, 'Gtk2::CellEditable');
 isa_ok ($entry_box, 'Gtk2::CellLayout');
+
+SKIP: {
+	skip "isa test", 1
+		unless Gtk2->CHECK_VERSION (2, 8, 0);
+
+	isa_ok ($entry_box, 'Gtk2::CellEditable');
+}
 
 my $model = Gtk2::ListStore->new (qw/Glib::String Glib::Int Glib::String/);
 foreach (qw/a b c d e f g/) {

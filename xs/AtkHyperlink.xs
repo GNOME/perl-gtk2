@@ -20,7 +20,11 @@ gint atk_hyperlink_get_start_index (AtkHyperlink *link_);
 
 gboolean atk_hyperlink_is_valid (AtkHyperlink *link_);
 
+#if ATK_CHECK_VERSION (1, 2, 0)
+
 gboolean atk_hyperlink_is_inline (AtkHyperlink *link_);
+
+#endif
 
 gint atk_hyperlink_get_n_anchors (AtkHyperlink *link_);
 

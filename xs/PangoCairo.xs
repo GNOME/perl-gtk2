@@ -13,6 +13,7 @@ MODULE = Gtk2::Pango::Cairo	PACKAGE = Gtk2::Pango::Cairo::FontMap	PREFIX = pango
 
 BOOT:
 	gperl_set_isa ("Gtk2::Pango::Cairo::FontMap", "Gtk2::Pango::FontMap");
+	PERL_UNUSED_VAR (file); /* for older pango's. */
 
 #if PANGO_CHECK_VERSION (1, 10, 0)
 

@@ -1,3 +1,14 @@
+2005/11/14	kaffeetisch
+
+	* t/GtkComboBoxEntry.t: Skip the @ISA test for Gtk2::CellEditable
+	on anything older than 2.8.0.
+
+	* xs/GtkHyperlink.xs: Only compile support for
+	atk_hyperlink_is_inline if it's available.
+
+	* xs/GdkCairo.xs, xs/PangoCairo.xs: Hush warnings about unused
+	variables.
+
 2005/11/13	muppetman
 
 	* pm/TestHelper.pm: Add ginterfaces_ok(), a helper for testing

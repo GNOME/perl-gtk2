@@ -13,6 +13,7 @@ MODULE = Gtk2::Gdk::Cairo::Context	PACKAGE = Gtk2::Gdk::Cairo::Context	PREFIX = 
 
 BOOT:
 	gperl_set_isa ("Gtk2::Gdk::Cairo::Context", "Cairo::Context");
+	PERL_UNUSED_VAR (file); /* for older gtk+'s. */
 
 #if GTK_CHECK_VERSION (2, 8, 0)
 
