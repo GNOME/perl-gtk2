@@ -1,3 +1,15 @@
+2005/11/28	kaffeetisch
+
+	Merge from HEAD:
+
+	* t/01.GtkWindow.t, t/GtkCellRenderer.t, t/GtkFileChooser.t,
+	t/GtkIconView.t, t/GtkListStore.t, t/GtkNotebook.t,
+	t/GtkSimpleList.t, t/GtkTreeView.t: Add the "sub" keyword to all
+	blocks in run_main invocations to make older perl's happy.
+
+	* xs/GdkColor.xs, xs/GtkClipboard.xs, xs/GtkToolbar.xs: Fix a few
+	compiler warnings.
+
 2005/11/13	muppetman
 
 	Merge from HEAD:

@@ -218,7 +218,7 @@ SKIP: {
 $win->show;
 ok(1);
 
-run_main {
+run_main sub {
 		$win2->show;
 
 		# there are no widgets, so this should fail

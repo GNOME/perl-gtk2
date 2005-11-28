@@ -187,9 +187,9 @@ saturation.  If you are used to dealing with colors on the range of 0 to
 
 GdkColor_own *
 gdk_color_new (class, red, green, blue)
-	int red
-	int green
-	int blue
+	guint16 red
+	guint16 green
+	guint16 blue
     PREINIT:
 	GdkColor c;
     CODE:

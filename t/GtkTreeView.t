@@ -432,7 +432,7 @@ $view->signal_connect (button_press_event => sub {
 	});
 my $event = Gtk2::Gdk::Event->new ('button-press');
 
-run_main { $view->signal_emit ('button_press_event', $event) };
+run_main sub { $view->signal_emit ('button_press_event', $event) };
 
 __END__
 

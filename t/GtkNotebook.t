@@ -116,7 +116,7 @@ is_deeply( [ $nb->query_tab_label_packing($child) ],
 
 $win->show_all;
 ok(1);
-run_main {
+run_main sub {
 		$nb->next_page;
 		ok(1);
 		$nb->prev_page;

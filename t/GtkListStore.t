@@ -188,7 +188,7 @@ SKIP: {
 	$i++;
     }
 
-    run_main {
+    run_main sub {
 		SKIP: {
 			skip 'function only in version > 2.2', 5
 				unless Gtk2->CHECK_VERSION (2, 2, 0);
