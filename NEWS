@@ -1,3 +1,11 @@
+Overview of changes in Gtk2 1.102
+=================================
+
+* Handle unknown event types gracefully.  [muppet]
+* Improve some of the Gtk2::Gdk::GC API and fix a leak in Gtk2::Gdk::Pixbuf.
+  [Marc Lehmann]
+* Fix a few test suite issues.  [Scott Lanning, Torsten]
+
 Overview of changes in Gtk2 1.101
 =================================
 

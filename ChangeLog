@@ -1,5 +1,9 @@
 2005/11/28	kaffeetisch
 
+	* Gtk2.pm, NEWS, README: Stable release 1.102.
+
+2005/11/28	kaffeetisch
+
 	Merge from HEAD:
 
 	* t/01.GtkWindow.t, t/GtkCellRenderer.t, t/GtkFileChooser.t,
