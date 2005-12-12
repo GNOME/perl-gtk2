@@ -7,7 +7,7 @@ use Gtk2::TestHelper tests => 53;
 my $description = Gtk2::Pango::FontDescription -> new();
 isa_ok($description, "Gtk2::Pango::FontDescription");
 
-is($description -> hash(), 0);
+like($description -> hash(), qr/^\d+$/);
 is($description -> equal($description), 1);
 
 $description -> set_family("Sans");
