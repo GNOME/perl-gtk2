@@ -44,6 +44,7 @@ examples/scribble.pl
 examples/simple_menu.pl
 examples/simplelist.pl
 examples/socket.pl
+examples/table_packing.pl
 examples/testdnd.pl
 examples/thread_usage.pl
 examples/timeouttest.pl

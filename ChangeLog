@@ -7,6 +7,8 @@
 	is a little convoluted because we still allow the valid syntax of
 	Glib::Object::new for compatibility.  Tests included.
 
+	* MANIFEST, examples/table_packing.pl: add new example.
+
 2005/12/12	kaffeetisch
 
 	* Gtk2.pm, Makefile.PL, NEWS, README: Unstable release 1.112.
