@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003 by the gtk2-perl team (see the file AUTHORS)
+ * Copyright (c) 2003-2005 by the gtk2-perl team (see the file AUTHORS)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -28,6 +28,34 @@ gtk_tree_model_sort_new_with_model (class, child_model)
 	GtkTreeModel * child_model
     C_ARGS:
 	child_model
+
+=for apidoc
+=for signature treemodel = Gtk2::TreeModelSort->new ($child_model)
+=for signature treemodel = Gtk2::TreeModelSort->new (model => $child_model)
+=for arg ... (__hide__)
+=for arg child_model (GtkTreeModel*) The tree model to proxy.
+Aliases for C<new_with_model>.  Before Gtk2 1.120, C<new> resolved to
+C<Glib::Object::new>, which would allow creation of an invalid object if the
+required property C<model> was not supplied.
+=cut
+GtkTreeModel_noinc *
+gtk_tree_model_sort_new (class, ...)
+    PREINIT:
+	GtkTreeModel * child_model = NULL;
+    CODE:
+	if (items == 2)
+		/* called as Gtk2::TreeModelSort->new ($model) */
+		child_model = SvGtkTreeModel (ST (1));
+	else if (items == 3)
+		/* called as Gtk2::TreeModelSort->new (model => $model) */
+		child_model = SvGtkTreeModel (ST (2));
+	else
+		croak ("Usage: $sort = Gtk2::TreeModelSort->new ($child_model)\n"
+		       "   or  $sort = Gtk2::TreeModelSort->new (model => $child_model)\n"
+		       "   ");
+	RETVAL = gtk_tree_model_sort_new_with_model (child_model);
+    OUTPUT:
+	RETVAL
 
 GtkTreeModel *
 gtk_tree_model_sort_get_model (tree_model)

@@ -1,3 +1,12 @@
+2005/12/18	muppetman
+
+	* xs/GtkTreeModelSort.xs, t/GtkTreeModelSort.t: add new() as an
+	alias for new_with_model().  Previously, new() fell back to
+	Glib::Object::new(), which would allow creation of invalid objects,
+	resulting in several very hard-to-debug bug reports.  The change
+	is a little convoluted because we still allow the valid syntax of
+	Glib::Object::new for compatibility.  Tests included.
+
 2005/12/12	kaffeetisch
 
 	* Gtk2.pm, Makefile.PL, NEWS, README: Unstable release 1.112.

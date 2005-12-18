@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 10, noinit => 1;
+use Gtk2::TestHelper tests => 13, noinit => 1;
 
 # $Header$
 
@@ -39,6 +39,13 @@ SKIP: {
 
   is($sort -> iter_is_valid($sort -> get_iter($path)), 1);
 }
+
+# other ways to construct
+ok (Gtk2::TreeModelSort->new ($list), 'new with one arg');
+ok (Gtk2::TreeModelSort->new (model => $list), 'new with two args');
+# this should die with a usage message.
+eval { $sort = Gtk2::TreeModelSort->new(); };
+ok ($@, 'new with no args is an error');
 
 __END__
 
