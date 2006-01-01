@@ -1,3 +1,10 @@
+2006/01/01	kaffeetisch
+
+	* t/GtkFileChooser.t: Don't use the same shortcut path twice.
+
+	* xs/GtkObject.xs: Manually force Gtk2::Object to be a descendant
+	of Glib::Object to work around the GInitiallyUnowned issue.
+
 2005/12/18	muppetman
 
 	* xs/GtkTreeModelSort.xs, t/GtkTreeModelSort.t: add new() as an

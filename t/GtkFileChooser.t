@@ -178,12 +178,12 @@ is ($filter, $file_chooser->get_filter);
 # Per-application shortcut folders
 #
 $file_chooser->add_shortcut_folder ($cwd);
-$file_chooser->add_shortcut_folder_uri ("file://" . $cwd);
+$file_chooser->add_shortcut_folder_uri ("file://$cwd/t");
 
 TODO: {
       local $TODO = "GtkFileChooser trouble";
-      is_deeply ([$file_chooser->list_shortcut_folders], [$cwd, $cwd]);
-      is_deeply ([$file_chooser->list_shortcut_folder_uris], ["file://" . $cwd, "file://" . $cwd]);
+      is_deeply ([$file_chooser->list_shortcut_folders], [$cwd, "$cwd/t"]);
+      is_deeply ([$file_chooser->list_shortcut_folder_uris], ["file://$cwd", "file://$cwd/t"]);
 }
 
 $file_chooser->unselect_filename ($filename);
@@ -195,7 +195,7 @@ ok (!scalar (@list), 'no uris selected');
 is (scalar (@list), 0, 'unselected everything');
 
 $file_chooser->remove_shortcut_folder ($cwd);
-$file_chooser->remove_shortcut_folder_uri ("file://$cwd");
+$file_chooser->remove_shortcut_folder_uri ("file://$cwd/t");
 
 SKIP: {
 	skip("[sg]et_show_hidden are new in 2.6", 1)

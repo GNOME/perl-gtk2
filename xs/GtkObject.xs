@@ -83,7 +83,9 @@ MODULE = Gtk2::Object	PACKAGE = Gtk2::Object	PREFIX = gtk_object_
 BOOT:
 	/* GtkObject uses a different method of ownership than GObject */
 	gperl_register_sink_func (GTK_TYPE_OBJECT, gtk2perl_object_sink);
-
+	/* FIXME: This is a temporary hack to work around the GInitiallyUnowned
+         * issue. */
+	gperl_set_isa ("Gtk2::Object", "Glib::Object");
 
  ## void gtk_object_sink	  (GtkObject *object);
  ## we don't need this to be exported to perl, it's automagical
