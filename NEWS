@@ -1,3 +1,13 @@
+Overview of changes in Gtk2 1.113
+=================================
+
+* Make Gtk2::TreeModelSort::new an alias for new_with_model.  [muppet]
+* Add a new example that shows how to use Gtk2::Table's packing options.
+  [muppet]
+* Add a temporary hack to work around a problem with the most recent,
+  not-yet-released version of the GLib library that causes Gtk2::Object to not
+  inherit from Glib::Object.  [Torsten]
+
 Overview of changes in Gtk2 1.112
 =================================
 
@@ -23,6 +33,14 @@ Overview of changes in Gtk2 1.110
 * Improve some of the Gtk2::Gdk::GC API and fix a leak in Gtk2::Gdk::Pixbuf.
   [Marc Lehmann]
 * Wrap most of gdk's X11-related API.  [Marc, Torsten]
+
+Overview of changes in Gtk2 1.102
+=================================
+
+* Handle unknown event types gracefully.  [muppet]
+* Improve some of the Gtk2::Gdk::GC API and fix a leak in Gtk2::Gdk::Pixbuf.
+  [Marc Lehmann]
+* Fix a few test suite issues.  [Scott Lanning, Torsten]
 
 Overview of changes in Gtk2 1.101
 =================================

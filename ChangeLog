@@ -1,5 +1,9 @@
 2006/01/01	kaffeetisch
 
+	* Gtk2.pm, Makefile.PL, NEWS, README: Unstable release 1.113.
+
+2006/01/01	kaffeetisch
+
 	* t/GtkFileChooser.t: Don't use the same shortcut path twice.
 
 	* xs/GtkObject.xs: Manually force Gtk2::Object to be a descendant
