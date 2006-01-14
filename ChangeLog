@@ -1,3 +1,8 @@
+2006/01/14	muppetman
+
+	* xs/GdkPixbuf.xs, t/GdkPixbuf.t: Bind and test
+	gdk_pixbuf_save_to_buffer.
+
 2006/01/01	kaffeetisch
 
 	* Gtk2.pm, Makefile.PL, NEWS, README: Unstable release 1.113.

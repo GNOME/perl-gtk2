@@ -1,6 +1,6 @@
 use strict;
 use warnings;
-use Gtk2::TestHelper tests => 98, noinit => 1;
+use Gtk2::TestHelper tests => 101, noinit => 1;
 
 my $show = 0;
 
@@ -450,3 +450,26 @@ SKIP: {
 	$pixbuf->get_from_drawable
 			($pixmap, undef, 0, 0, 0, 0, $pixmap->get_size);
 }
+
+
+
+SKIP: {
+        skip "save_to_buffer was introduced in 2.4", 3
+                unless Gtk2->CHECK_VERSION (2, 4, 0);
+
+        my ($width, $height) = (45, 89);
+        my $data = pack "C*", map { int rand 255 } 0..(3*$width*$height);
+        my $pixbuf = Gtk2::Gdk::Pixbuf->new_from_data
+                        ($data, 'rgb', FALSE, 8, $width, $height, $width*3);
+        my $buffer = $pixbuf->save_to_buffer ('jpeg', quality => 0.75);
+        ok ($buffer, 'save_to_buffer');
+
+        my $loader = Gtk2::Gdk::PixbufLoader->new;
+        $loader->write ($buffer);
+        $loader->close;
+        $pixbuf = $loader->get_pixbuf;
+        is ($pixbuf->get_width, $width);
+        is ($pixbuf->get_height, $height);
+}
+
+# vim: set ft=perl :

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003-2005 by the gtk2-perl team (see the file AUTHORS)
+ * Copyright (c) 2003-2006 by the gtk2-perl team (see the file AUTHORS)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -99,6 +99,26 @@ SvGdkPixbufFormat (SV * sv)
 }
 
 #endif /* 2.2.0 */
+
+
+#if GTK_CHECK_VERSION(2, 4, 0)
+
+static gboolean
+save_to_sv_callback (const gchar * data,
+                     gsize count,
+                     GError ** error,
+                     gpointer user_data)
+{
+        SV * sv = user_data;
+
+        sv_catpvn_nomg (sv, data, count);
+        /* XXX no way to find out if that failed. */
+
+        return TRUE;
+}
+
+#endif /* 2.4.0 */
+
 
 MODULE = Gtk2::Gdk::Pixbuf	PACKAGE = Gtk2::Gdk::Pixbuf	PREFIX = gdk_pixbuf_
 
@@ -601,6 +621,66 @@ gdk_pixbuf_save (pixbuf, filename, type, ...)
 		gperl_croak_gerror (filename, error);
 #undef FIRST_KEY
 
+
+#if GTK_CHECK_VERSION(2, 4, 0)
+
+### croaks on error
+##  gboolean gdk_pixbuf_save_to_buffer (GdkPixbuf *pixbuf, gchar ** buffer, gsize *buffer_size, const char *type, GError **error, ...) 
+=for apidoc __gerror__
+=for arg type name of file format (e.g. "jpeg", "png")
+=for arg ... list of key-value save options
+
+Save I<$pixbuf> to a scalar buffer, in the format I<$type>, which is currently
+"jpeg" or "png".  The function will croak if there is an error, which may arise
+from image format-related issues.
+
+The returned string contains binary data, which may have embedded nuls.  Don't
+try to C<print> it.
+
+See C<Gtk2::Gdk::Pixbuf::save> for more details.
+
+=cut
+SV *
+gdk_pixbuf_save_to_buffer (pixbuf, type, ...)
+	GdkPixbuf *pixbuf
+	gchar *type
+    PREINIT:
+	GError * error = NULL;
+	char ** option_keys = NULL;
+	char ** option_vals = NULL;
+	int i, nkeys;
+    CODE:
+	/* collect key/val pairs from the argument stack and 
+	 * call gdk_pixbuf_save_to_bufferv */
+#define FIRST_KEY 2
+	nkeys = (items - FIRST_KEY) / 2;
+	/* always allocate them.  doesn't hurt.  always one longer for the
+	 * null-terminator, which is set by g_new0. */
+	option_keys = g_new0 (char *, nkeys + 1);
+	option_vals = g_new0 (char *, nkeys + 1);
+
+	for (i = 0 ; i < nkeys ; i++) {
+		/* NOT copies */
+		option_keys[i] = SvPV_nolen (ST (FIRST_KEY + i*2 + 0));
+		option_vals[i] = SvPV_nolen (ST (FIRST_KEY + i*2 + 1));
+	}
+#undef FIRST_KEY
+        RETVAL = newSV (1024);
+	sv_setpvn (RETVAL, "", 0);
+        if (! gdk_pixbuf_save_to_callbackv (pixbuf,
+                                            save_to_sv_callback, RETVAL,
+                                            type, option_keys, option_vals,
+                                            &error)) {
+                SvREFCNT_dec (RETVAL);
+                gperl_croak_gerror (NULL, error);
+        }
+	/* don't free the strings themselves! */
+	g_free (option_keys);
+	g_free (option_vals);
+    OUTPUT:
+	RETVAL
+
+#endif /* 2.4 */
 
 ##  GdkPixbuf *gdk_pixbuf_add_alpha (const GdkPixbuf *pixbuf, gboolean substitute_color, guchar r, guchar g, guchar b) 
 GdkPixbuf_noinc *
