@@ -1,5 +1,21 @@
 2006/01/16	kaffeetisch
 
+	* MANIFEST, maps-2.0, xs_files-2.0, t/AtkAction.t,
+	t/AtkComponent.t, t/AtkImage.t, t/AtkImplementor.t, t/AtkObject.t,
+	t/AtkSelection.t, xs/AtkAction.xs, xs/AtkComponent.xs,
+	xs/AtkDocument.xs, xs/AtkEditableText.xs, xs/AtkHyperlink.xs,
+	xs/AtkHypertext.xs, xs/AtkImage.xs, xs/AtkImplementor.xs,
+	xs/AtkObject.xs, xs/AtkSelection.xs, xs/AtkStreamableContent.xs,
+	xs/AtkTable.xs, xs/AtkText.xs, xs/AtkValue.xs: Remove the atk
+	support again.  It was virtually untested and most probably
+	unusable.  We can't have that kind of code in an API-stable
+	release.  If you did use the atk stuff, let us know.
+
+	* xs/GtkObject.xs: Remove the GInitiallyUnowned hack again.  Glib
+	1.114 fixes the underlying problem.
+
+2006/01/16	kaffeetisch
+
 	* t/GdkScreen.t: Use skip() instead of two ok(1)'s.
 
 	* t/GtkBin.t: Add a test for the "child" accessor.
