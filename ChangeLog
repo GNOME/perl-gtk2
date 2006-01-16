@@ -1,5 +1,9 @@
 2006/01/16	kaffeetisch
 
+	* Gtk2.pm, Makefile.PL, NEWS, README: Unstable release 1.114.
+
+2006/01/16	kaffeetisch
+
 	* MANIFEST, maps-2.0, xs_files-2.0, t/AtkAction.t,
 	t/AtkComponent.t, t/AtkImage.t, t/AtkImplementor.t, t/AtkObject.t,
 	t/AtkSelection.t, xs/AtkAction.xs, xs/AtkComponent.xs,

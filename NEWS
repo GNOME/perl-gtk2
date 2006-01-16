@@ -1,3 +1,12 @@
+Overview of changes in Gtk2 1.114
+=================================
+
+* Remove the GInitiallyUnowned hack again; Glib 1.114 fixes the problem.
+  [Torsten]
+* Add bindings for gdk_pixbuf_save_to_buffer.  [muppet]
+* Remove the recently added atk support again -- it was untested and apparently
+  unusable.  Let us know if you need it.  [Torsten]
+
 Overview of changes in Gtk2 1.113
 =================================
 
