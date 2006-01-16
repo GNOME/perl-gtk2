@@ -3,21 +3,21 @@
 # versions of gtk+ should not be listed here.
 # one filename per line, whitespace and comments are ignored.
 
-# Atk stuff
-xs/AtkAction.xs
-xs/AtkComponent.xs
-xs/AtkDocument.xs
-xs/AtkEditableText.xs
-xs/AtkHyperlink.xs
-xs/AtkHypertext.xs
-xs/AtkImage.xs
-xs/AtkImplementor.xs
-xs/AtkObject.xs
-xs/AtkSelection.xs
-xs/AtkStreamableContent.xs
-xs/AtkTable.xs
-xs/AtkText.xs
-xs/AtkValue.xs
+# Atk stuff -- commented out for now; scream if you need them.
+# xs/AtkAction.xs
+# xs/AtkComponent.xs
+# xs/AtkDocument.xs
+# xs/AtkEditableText.xs
+# xs/AtkHyperlink.xs
+# xs/AtkHypertext.xs
+# xs/AtkImage.xs
+# xs/AtkImplementor.xs
+# xs/AtkObject.xs
+# xs/AtkSelection.xs
+# xs/AtkStreamableContent.xs
+# xs/AtkTable.xs
+# xs/AtkText.xs
+# xs/AtkValue.xs
 
 # Gdk stuff
 xs/Gdk.xs
