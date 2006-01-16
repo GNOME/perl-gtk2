@@ -1,3 +1,14 @@
+2006/01/16	kaffeetisch
+
+	* t/GdkScreen.t: Use skip() instead of two ok(1)'s.
+
+	* t/GtkBin.t: Add a test for the "child" accessor.
+
+	* t/GtkFileChooser.t: Redo slightly to make more robust, but still
+	mark as "skip_all" since it's still too fragile.
+
+	* t/GtkRc.t: Use isa() instead of ref() to test for inheritance.
+
 2006/01/14	muppetman
 
 	* xs/GdkPixbuf.xs, t/GdkPixbuf.t: Bind and test

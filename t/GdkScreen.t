@@ -47,13 +47,11 @@ SKIP: {
     unless Gtk2->CHECK_VERSION (2, 8, 0);
 
   my $visual = $screen -> get_rgba_visual();
-  if (defined $visual) {
-    isa_ok($visual, "Gtk2::Gdk::Visual");
-    isa_ok($screen -> get_rgba_colormap(), "Gtk2::Gdk::Colormap");
-  } else {
-    ok(1);
-    ok(1);
-  }
+  skip "visual stuff", 2
+    unless defined $visual;
+
+  isa_ok($visual, "Gtk2::Gdk::Visual");
+  isa_ok($screen -> get_rgba_colormap(), "Gtk2::Gdk::Colormap");
 }
 
 __END__

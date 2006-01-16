@@ -20,7 +20,7 @@ my $retval = Gtk2::Rc -> get_style_by_paths($settings,
                                             $class_path,
                                             Gtk2::Button::);
 
-ok(not defined $retval or ref $retval eq "Gtk2::Style");
+ok(not defined $retval or UNIVERSAL::isa($retval, "Gtk2::Style"));
 
 # Gtk2::Rc -> parse(...);
 Gtk2::Rc -> parse_string(qq(style "blablabla" { }));
