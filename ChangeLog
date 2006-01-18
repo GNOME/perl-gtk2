@@ -1,5 +1,9 @@
 2006/01/18	kaffeetisch
 
+	* Gtk2.pm, Makefile.PL, NEWS, README: Stable release 1.103.
+
+2006/01/18	kaffeetisch
+
 	Merge from HEAD:
 
 	* t/GdkScreen.t: Use skip() instead of two ok(1)'s.

@@ -1,3 +1,9 @@
+Overview of changes in Gtk2 1.103
+=================================
+
+* Depend on Glib 1.103 for the new object registration semantics.  Make use of
+  them.  [Torsten]
+
 Overview of changes in Gtk2 1.102
 =================================
 
