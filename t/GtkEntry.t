@@ -6,7 +6,7 @@ use Gtk2::TestHelper tests => 16;
 
 my $entry = Gtk2::Entry -> new();
 isa_ok($entry, "Gtk2::Entry");
-isa_ok($entry, "Gtk2::CellEditable");
+ginterfaces_ok($entry);
 
 $entry -> set_text("Bla");
 is($entry -> get_text(), "Bla");

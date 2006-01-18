@@ -10,7 +10,7 @@ use Gtk2::TestHelper
 my $widget = Gtk2::FileChooserWidget->new ('save');
 
 isa_ok ($widget, 'Gtk2::FileChooserWidget');
-isa_ok ($widget, 'Gtk2::FileChooser');
+ginterfaces_ok($widget);
 
 is ($widget->get_action, 'save');
 

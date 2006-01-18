@@ -28,13 +28,7 @@ my $model = create_store ();
 
 isa_ok (my $iview = Gtk2::IconView->new, 'Gtk2::IconView',
 	'Gtk2::IconView->new');
-
-SKIP: {
-	skip '@ISA check', 1
-		unless Gtk2 -> CHECK_VERSION (2, 8, 0);
-
-	isa_ok ($iview, 'Gtk2::CellLayout');
-}
+ginterfaces_ok($iview);
 
 is ($iview->get_model, undef, '$iview->get_model, undef');
 $iview->set_model ($model);

@@ -1,3 +1,19 @@
+2006/01/18	kaffeetisch
+
+	* t/GtkCellView.t, t/GtkComboBox.t, t/GtkComboBoxEntry.t,
+	t/GtkEntry.t, t/GtkEntryCompletion.t, t/GtkFileChooserButton.t,
+	t/GtkFileChooserDialog.t, t/GtkFileChooserWidget.t,
+	t/GtkIconView.t, t/GtkListStore.t, t/GtkSpinButton.t,
+	t/GtkTreeModelFilter.t, t/GtkTreeModelSort.t, t/GtkTreeStore.t,
+	t/GtkTreeView.t: Use ginterfaces_ok on objects that implement
+	interfaces.
+
+	* gtk2perl.h, xs/.cvsignore: Remove atk stuff.
+
+	* t/GtkProgressBar.t, xs/GtkProgressBar.xs: Remove now unneeded
+	call to gperl_set_isa.  To be on the safe side, test that
+	Gtk2::ProgressBar inherits from Gtk2::Widget.
+
 2006/01/16	kaffeetisch
 
 	* Gtk2.pm, Makefile.PL, NEWS, README: Unstable release 1.114.

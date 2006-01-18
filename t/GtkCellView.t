@@ -12,7 +12,7 @@
 use strict;
 use warnings;
 
-use Gtk2::TestHelper tests => 10,
+use Gtk2::TestHelper tests => 11,
     at_least_version => [2, 6, 0, "GtkCellView is new in 2.6"],
     ;
 
@@ -26,6 +26,7 @@ isa_ok (my $cview = Gtk2::CellView->new, 'Gtk2::CellView',
 	'Gtk2::CellView->new');
 
 isa_ok ($cview, 'Gtk2::CellLayout');
+ginterfaces_ok($cview);
 
 isa_ok ($cview = Gtk2::CellView->new_with_text ('text'), 'Gtk2::CellView',
 	'Gtk2::CellView->new_with_text');

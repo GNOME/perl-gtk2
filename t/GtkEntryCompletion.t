@@ -19,7 +19,7 @@ my $entry = Gtk2::Entry->new;
 
 $completion = Gtk2::EntryCompletion->new;
 isa_ok ($completion, 'Gtk2::EntryCompletion');
-isa_ok ($completion, 'Gtk2::CellLayout');
+ginterfaces_ok($completion);
 
 $entry->set_completion ($completion);
 

@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 45, noinit => 1;
+use Gtk2::TestHelper tests => 42, noinit => 1;
 
 # $Header$
 
@@ -8,10 +8,7 @@ use Gtk2::TestHelper tests => 45, noinit => 1;
 
 my $model = Gtk2::TreeStore -> new("Glib::String", "Glib::Int");
 isa_ok($model, "Gtk2::TreeStore");
-isa_ok($model, "Gtk2::TreeModel");
-isa_ok($model, "Gtk2::TreeDragSource");
-isa_ok($model, "Gtk2::TreeDragDest");
-isa_ok($model, "Gtk2::TreeSortable");
+ginterfaces_ok($model);
 
 $model -> set_column_types("Glib::String", "Glib::Int");
 is($model -> get_column_type(0), "Glib::String");

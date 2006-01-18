@@ -49,13 +49,7 @@ $window -> show_all();
 
 my $view_column = Gtk2::TreeViewColumn -> new();
 isa_ok($view_column, "Gtk2::TreeViewColumn");
-
-SKIP: {
-	skip '@ISA check', 1
-		unless Gtk2 -> CHECK_VERSION (2, 4, 0);
-
-	isa_ok($view_column, "Gtk2::CellLayout");
-}
+ginterfaces_ok($view_column);
 
 $view_column -> set_spacing(23);
 is($view_column -> get_spacing(), 23);

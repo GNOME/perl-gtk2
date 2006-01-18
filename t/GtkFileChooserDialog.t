@@ -12,7 +12,7 @@ my $dialog = Gtk2::FileChooserDialog->new ('some title', undef, 'save',
                                            'gtk-ok' => 'ok');
 
 isa_ok ($dialog, 'Gtk2::FileChooserDialog');
-isa_ok ($dialog, 'Gtk2::FileChooser');
+ginterfaces_ok($dialog);
 
 is ($dialog->get_action, 'save');
 

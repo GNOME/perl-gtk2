@@ -12,7 +12,7 @@ my $dialog = Gtk2::FileChooserDialog -> new("Urgs", undef, "open",
 
 my $button = Gtk2::FileChooserButton -> new("Urgs", "open");
 isa_ok($button, "Gtk2::FileChooserButton");
-isa_ok($button, "Gtk2::FileChooser");
+ginterfaces_ok($button);
 
 $button = Gtk2::FileChooserButton -> new_with_backend("Urgs", "open", "backend");
 isa_ok($button, "Gtk2::FileChooserButton");
