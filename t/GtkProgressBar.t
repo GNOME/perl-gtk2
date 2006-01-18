@@ -7,7 +7,7 @@
 # 	- rm
 #########################
 
-use Gtk2::TestHelper tests => 31, noinit => 1;
+use Gtk2::TestHelper tests => 35, noinit => 1;
 
 ok( my $vbox = Gtk2::VBox->new( 0, 5 ) );
 
@@ -17,6 +17,7 @@ my @prog;
 foreach (@ori)
 {
 	ok( my $prog = Gtk2::ProgressBar->new );
+	isa_ok( $prog, 'Gtk2::Widget' );
 	$vbox->pack_start($prog, 0, 0, 0);
 
 	$prog->set_orientation($_);

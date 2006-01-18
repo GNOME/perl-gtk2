@@ -65,7 +65,6 @@ BOOT:
 	/* TreeModel needs to be first in @ISA so that Gtk2::TreeModel::get
 	 * is found before Glib::Object::get(). */
 	gperl_prepend_isa ("Gtk2::TreeModelFilter", "Gtk2::TreeModel");
-	gperl_set_isa ("Gtk2::TreeModelFilter", "Gtk2::TreeDragSource");
 
  ## GtkTreeModel *gtk_tree_model_filter_new (GtkTreeModel *child_model, GtkTreePath *root);
 GtkTreeModel *gtk_tree_model_filter_new (class, GtkTreeModel *child_model, GtkTreePath_ornull *root=NULL);

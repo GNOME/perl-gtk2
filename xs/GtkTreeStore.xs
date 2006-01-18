@@ -28,9 +28,6 @@ BOOT:
 	 * Gtk2::TreeModel::get isn't masked by Glib::Object::get.
 	 * should we change the api to something unique, instead? */
 	gperl_prepend_isa ("Gtk2::TreeStore", "Gtk2::TreeModel");
-	gperl_set_isa ("Gtk2::TreeStore", "Gtk2::TreeDragSource");
-	gperl_set_isa ("Gtk2::TreeStore", "Gtk2::TreeDragDest");
-	gperl_set_isa ("Gtk2::TreeStore", "Gtk2::TreeSortable");
 
 ## GtkTreeStore* gtk_tree_store_new (gint n_columns, ...);
 =for apidoc

@@ -84,7 +84,6 @@ BOOT:
 	/* GtkObject uses a different method of ownership than GObject */
 	gperl_register_sink_func (GTK_TYPE_OBJECT, gtk2perl_object_sink);
 
-
  ## void gtk_object_sink	  (GtkObject *object);
  ## we don't need this to be exported to perl, it's automagical
 

@@ -47,10 +47,6 @@ currently-displayed text, just manipulate the entry normally.
 
 =cut
 
-BOOT:
-	gperl_set_isa ("Gtk2::ComboBoxEntry", "Gtk2::CellEditable");
-	gperl_set_isa ("Gtk2::ComboBoxEntry", "Gtk2::CellLayout");
-
  ## GtkWidget *gtk_combo_box_entry_new (void);
  ## GtkWidget *gtk_combo_box_entry_new_with_model (GtkTreeModel *model, gint text_column);
 =for apidoc new_with_model
