@@ -1,3 +1,8 @@
+2006/01/22	muppetman
+
+	* xs/GtkWidget.xs: Allow undef for the adjustment parameters of
+	gtk_widget_set_scroll_adjustments().
+
 2006/01/18	kaffeetisch
 
 	* t/GtkCellView.t, t/GtkComboBox.t, t/GtkComboBoxEntry.t,
