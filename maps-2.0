@@ -150,7 +150,7 @@ GTK_TYPE_BUTTON	GtkButton	GtkObject	Gtk2::Button
 GTK_TYPE_BUTTONS_TYPE	GtkButtonsType	GEnum	Gtk2::ButtonsType
 GTK_TYPE_CALENDAR_DISPLAY_OPTIONS	GtkCalendarDisplayOptions	GFlags	Gtk2::CalendarDisplayOptions
 GTK_TYPE_CALENDAR	GtkCalendar	GtkObject	Gtk2::Calendar
-GTK_TYPE_CELL_EDITABLE	GtkCellEditable	GtkObject	Gtk2::CellEditable
+GTK_TYPE_CELL_EDITABLE	GtkCellEditable	GInterface	Gtk2::CellEditable
 GTK_TYPE_CELL_RENDERER	GtkCellRenderer	GtkObject	Gtk2::CellRenderer
 GTK_TYPE_CELL_RENDERER_MODE	GtkCellRendererMode	GEnum	Gtk2::CellRendererMode
 GTK_TYPE_CELL_RENDERER_PIXBUF	GtkCellRendererPixbuf	GtkObject	Gtk2::CellRendererPixbuf
@@ -307,12 +307,12 @@ GTK_TYPE_TREE_DRAG_DEST	GtkTreeDragDest	GInterface	Gtk2::TreeDragDest
 GTK_TYPE_TREE_DRAG_SOURCE	GtkTreeDragSource	GInterface	Gtk2::TreeDragSource
 GTK_TYPE_TREE_ITER	GtkTreeIter	GBoxed	Gtk2::TreeIter
 GTK_TYPE_TREE_MODEL_FLAGS	GtkTreeModelFlags	GFlags	Gtk2::TreeModelFlags
-GTK_TYPE_TREE_MODEL	GtkTreeModel	GObject	Gtk2::TreeModel
+GTK_TYPE_TREE_MODEL	GtkTreeModel	GInterface	Gtk2::TreeModel
 GTK_TYPE_TREE_MODEL_SORT	GtkTreeModelSort	GObject	Gtk2::TreeModelSort
 GTK_TYPE_TREE_PATH	GtkTreePath	GBoxed	Gtk2::TreePath
 GTK_TYPE_TREE_ROW_REFERENCE	GtkTreeRowReference	GBoxed	Gtk2::TreeRowReference
 GTK_TYPE_TREE_SELECTION	GtkTreeSelection	GObject	Gtk2::TreeSelection
-GTK_TYPE_TREE_SORTABLE	GtkTreeSortable	GObject	Gtk2::TreeSortable
+GTK_TYPE_TREE_SORTABLE	GtkTreeSortable	GInterface	Gtk2::TreeSortable
 GTK_TYPE_TREE_STORE	GtkTreeStore	GObject	Gtk2::TreeStore
 GTK_TYPE_TREE_VIEW_COLUMN	GtkTreeViewColumn	GtkObject	Gtk2::TreeViewColumn
 GTK_TYPE_TREE_VIEW_COLUMN_SIZING	GtkTreeViewColumnSizing	GEnum	Gtk2::TreeViewColumnSizing

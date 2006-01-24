@@ -1,3 +1,16 @@
+2006/01/24	kaffeetisch
+
+	* maps-2.0, maps-2.4: Register GtkCellEditable, GtkTreeModel,
+	GtkTreeSortable and GtkFileChooser as GInterfaces since that's
+	what they are.
+
+	* xs/GtkTreeModelSort.xs: Make the xsubs for
+	gtk_tree_model_sort_new_with_model and gtk_tree_model_sort_new
+	return GtkTreeModelSorts instead of GtkTreeModels.  The latter is
+	an interface and therefore abstract.
+
+	* t/GtkCellView.t: Remove redundant isa_ok test.
+
 2006/01/22	muppetman
 
 	* xs/GtkWidget.xs: Allow undef for the adjustment parameters of

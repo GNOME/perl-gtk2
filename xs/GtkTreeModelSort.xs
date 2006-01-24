@@ -23,11 +23,14 @@
 
 MODULE = Gtk2::TreeModelSort	PACKAGE = Gtk2::TreeModelSort	PREFIX = gtk_tree_model_sort_
 
-GtkTreeModel_noinc *
+GtkTreeModelSort_noinc *
 gtk_tree_model_sort_new_with_model (class, child_model)
 	GtkTreeModel * child_model
-    C_ARGS:
-	child_model
+    CODE:
+	RETVAL = (GtkTreeModelSort *)
+	  gtk_tree_model_sort_new_with_model (child_model);
+    OUTPUT:
+	RETVAL
 
 =for apidoc
 =for signature treemodel = Gtk2::TreeModelSort->new ($child_model)
@@ -38,7 +41,7 @@ Aliases for C<new_with_model>.  Before Gtk2 1.120, C<new> resolved to
 C<Glib::Object::new>, which would allow creation of an invalid object if the
 required property C<model> was not supplied.
 =cut
-GtkTreeModel_noinc *
+GtkTreeModelSort_noinc *
 gtk_tree_model_sort_new (class, ...)
     PREINIT:
 	GtkTreeModel * child_model = NULL;
@@ -53,7 +56,8 @@ gtk_tree_model_sort_new (class, ...)
 		croak ("Usage: $sort = Gtk2::TreeModelSort->new ($child_model)\n"
 		       "   or  $sort = Gtk2::TreeModelSort->new (model => $child_model)\n"
 		       "   ");
-	RETVAL = gtk_tree_model_sort_new_with_model (child_model);
+	RETVAL = (GtkTreeModelSort *)
+	  gtk_tree_model_sort_new_with_model (child_model);
     OUTPUT:
 	RETVAL
 
