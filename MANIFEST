@@ -283,6 +283,7 @@ t/PangoRenderer.t
 t/PangoScript.t
 t/PangoTabs.t
 t/PangoTypes.t
+t/set-scroll-adjustments-signal.t
 tools/fetch_faq.pl
 tools/genkeysyms.pl
 tools/genmaps.pl

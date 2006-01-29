@@ -1,11 +1,63 @@
 /*
- * Copyright (c) 2003-2005 by the gtk2-perl team (see the file AUTHORS)
+ * Copyright (c) 2003-2006 by the gtk2-perl team (see the file AUTHORS)
  *
  * Licensed under the LGPL, see LICENSE file for more information.
  *
  * $Header$
  */
 #include "gtk2perl.h"
+
+static void
+_INSTALL_OVERRIDES (const char * package)
+{
+        GType gtype;
+        guint signal_id;
+
+        gtype = gperl_object_type_from_package (package);
+        if (!gtype)
+                croak ("package '%s' is not registered with Gtk2-Perl",
+                       package);
+        if (! g_type_is_a (gtype, GTK_TYPE_WIDGET))
+                croak ("%s(%s) is not a GtkWidget",
+                       package, g_type_name (gtype));
+
+        /*
+         * GtkWidgets may implement "native scrolling".  Such widgets can
+         * be told to use scroll adjustments with the method
+         * gtk_widget_set_scroll_adjustments(), which emits the signal whose
+         * id is stored in GtkWidgetClass::set_scroll_adjustments_signal.
+         * Since we have limited support for class-init, we'll add the
+         * somewhat sensible restriction that the signal named
+         * "set-scroll-adjustments" is for that purpose.
+         */
+        signal_id = g_signal_lookup ("set-scroll-adjustments", gtype);
+        if (signal_id) {
+                GSignalQuery query;
+
+                /* verify that the signal is valid for this purpose. */
+                g_signal_query (signal_id, &query);
+                if (query.itype == gtype &&
+                    query.return_type == G_TYPE_NONE &&
+                    query.n_params == 2 &&
+                    g_type_is_a (query.param_types[0], GTK_TYPE_ADJUSTMENT) &&
+                    g_type_is_a (query.param_types[1], GTK_TYPE_ADJUSTMENT)) {
+                        GtkWidgetClass * class;
+
+                        class = g_type_class_peek (gtype);
+                        g_assert (class);
+
+                        class->set_scroll_adjustments_signal = signal_id;
+                } else {
+                        warn ("Signal %s on %s is an invalid set-scroll-"
+                              "adjustments signal.  A set-scroll-adjustments "
+                              "signal must have no return type and take "
+                              "exactly two Gtk2::Adjustment parameters.  "
+                              "Ignoring", query.signal_name, package);
+                }
+        }
+}
+
+
 
 MODULE = Gtk2::Widget	PACKAGE = Gtk2::Requisition
 
@@ -47,6 +99,12 @@ new (class, width=0, height=0)
 
 
 MODULE = Gtk2::Widget	PACKAGE = Gtk2::Widget	PREFIX = gtk_widget_
+
+=for apidoc __hide__
+=cut
+void
+_INSTALL_OVERRIDES (const char * package)
+
 
  ## access to important struct members:
 

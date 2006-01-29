@@ -1,3 +1,16 @@
+2006/01/29	muppetman
+
+	* MANIFEST, t/set-scroll-adjustments-signal.t, xs/GtkWidget.xs:
+	In perl-derived Gtk2::Widgets, recognize signals named
+	"set-scroll-adjustments" as special, and set their signal ids
+	into GtkWidgetClass::set_scroll_adjustments_signal.  This makes
+	it possible to implement natively-scrollable widgets in perl.
+
+	This approach assumes the name name of the signal instead of
+	following the completely generic approach taken by gtk+.  The
+	idea is to hide some of the hackishness of the rather clunky,
+	pre-GInterface scheme from perl developers.
+
 2006/01/24	kaffeetisch
 
 	* maps-2.0, maps-2.4: Register GtkCellEditable, GtkTreeModel,
