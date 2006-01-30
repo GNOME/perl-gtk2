@@ -1,3 +1,13 @@
+Overview of changes in Gtk2 1.115
+=================================
+
+* Make use of Glib's new type mapping semantics in some more places.  [Torsten]
+* Allow undef for the parameters of Gtk2::Widget::set_scroll_adjustments.
+  [muppet]
+* Make it possible to implement natively-scrollable widgets in Perl by
+  recognizing signals named "set-scroll-adjustments" as special in custom types
+  derived from Gtk2::Widget.  [muppet]
+
 Overview of changes in Gtk2 1.114
 =================================
 

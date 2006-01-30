@@ -32,7 +32,7 @@ use Cwd;
 our %build_reqs = (
 	'perl-ExtUtils-Depends'   => '0.2',
 	'perl-ExtUtils-PkgConfig' => '1.03',
-	'perl-Glib'               => '1.114',
+	'perl-Glib'               => '1.115',
 	'Gtk+'                    => '2.0.0',
 );
 our %PREREQ_PM = (
@@ -84,7 +84,7 @@ if ($target =~ /x11/) {
 	push @xs_files, 'xs/GdkX11.xs';
 }
 
-if ($have_cairo) {
+if ($have_cairo && ($gtk_version[1] >= 8)) {
 	push @xs_files, 'xs/GdkCairo.xs', 'xs/PangoCairo.xs';
 }
 
