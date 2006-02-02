@@ -10,51 +10,56 @@
 static void
 _INSTALL_OVERRIDES (const char * package)
 {
-        GType gtype;
-        guint signal_id;
+    GType gtype;
+    guint signal_id;
 
-        gtype = gperl_object_type_from_package (package);
-        if (!gtype)
-                croak ("package '%s' is not registered with Gtk2-Perl",
-                       package);
-        if (! g_type_is_a (gtype, GTK_TYPE_WIDGET))
-                croak ("%s(%s) is not a GtkWidget",
-                       package, g_type_name (gtype));
+    gtype = gperl_object_type_from_package (package);
+    if (!gtype)
+        croak ("package '%s' is not registered with Gtk2-Perl",
+                package);
+    if (! g_type_is_a (gtype, GTK_TYPE_WIDGET))
+        croak ("%s(%s) is not a GtkWidget",
+                package, g_type_name (gtype));
 
-        /*
-         * GtkWidgets may implement "native scrolling".  Such widgets can
-         * be told to use scroll adjustments with the method
-         * gtk_widget_set_scroll_adjustments(), which emits the signal whose
-         * id is stored in GtkWidgetClass::set_scroll_adjustments_signal.
-         * Since we have limited support for class-init, we'll add the
-         * somewhat sensible restriction that the signal named
-         * "set-scroll-adjustments" is for that purpose.
-         */
-        signal_id = g_signal_lookup ("set-scroll-adjustments", gtype);
-        if (signal_id) {
-                GSignalQuery query;
+    /*
+     * GtkWidgets may implement "native scrolling".  Such widgets can
+     * be told to use scroll adjustments with the method
+     * gtk_widget_set_scroll_adjustments(), which emits the signal whose
+     * id is stored in GtkWidgetClass::set_scroll_adjustments_signal.
+     * Since we have limited support for class-init, we'll add the
+     * somewhat sensible restriction that the signal named
+     * "set-scroll-adjustments" is for that purpose.
+     */
+    signal_id = g_signal_lookup ("set-scroll-adjustments", gtype);
+    if (signal_id) {
+        GSignalQuery query;
 
-                /* verify that the signal is valid for this purpose. */
-                g_signal_query (signal_id, &query);
-                if (query.itype == gtype &&
-                    query.return_type == G_TYPE_NONE &&
+        /* verify that the signal is valid for this purpose. */
+        g_signal_query (signal_id, &query);
+
+        /* Note: we are interested iff the signal is defined by the
+         * exact type we're initializing.  Do NOT do this for inherited
+         * signals. */
+        if (query.itype == gtype) {
+            if (query.return_type == G_TYPE_NONE &&
                     query.n_params == 2 &&
                     g_type_is_a (query.param_types[0], GTK_TYPE_ADJUSTMENT) &&
                     g_type_is_a (query.param_types[1], GTK_TYPE_ADJUSTMENT)) {
-                        GtkWidgetClass * class;
+                GtkWidgetClass * class;
 
-                        class = g_type_class_peek (gtype);
-                        g_assert (class);
+                class = g_type_class_peek (gtype);
+                g_assert (class);
 
-                        class->set_scroll_adjustments_signal = signal_id;
-                } else {
-                        warn ("Signal %s on %s is an invalid set-scroll-"
-                              "adjustments signal.  A set-scroll-adjustments "
-                              "signal must have no return type and take "
-                              "exactly two Gtk2::Adjustment parameters.  "
-                              "Ignoring", query.signal_name, package);
-                }
+                class->set_scroll_adjustments_signal = signal_id;
+            } else {
+                warn ("Signal %s on %s is an invalid set-scroll-"
+                        "adjustments signal.  A set-scroll-adjustments "
+                        "signal must have no return type and take "
+                        "exactly two Gtk2::Adjustment parameters.  "
+                        "Ignoring", query.signal_name, package);
+            }
         }
+    }
 }
 
 

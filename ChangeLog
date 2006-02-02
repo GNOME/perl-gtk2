@@ -1,3 +1,10 @@
+2006/02/02	muppetman
+
+	* xs/GtkWidget.xs: Silly logic error in _INSTALL_OVERRIDES caused 
+	confusing but harmless warnings about set-scroll-adjustments signals.
+	Need to test the instance type of the signal separately from the
+	correctness of the signature.
+
 2006/01/30	kaffeetisch
 
 	* Makefile.PL: Check for gtk+ >= 2.8.0 before adding GdkCairo.xs
