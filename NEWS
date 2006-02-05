@@ -1,3 +1,11 @@
+Overview of changes in Gtk2 1.104
+=================================
+
+* Allow undef for the adjustment parameters of
+  Gtk2::Widget::set_scroll_adjustments.  [muppet]
+* Fix a memory handling bug in Gtk2::Gdk::Region::get_rectangles.
+  [Marc Lehmann]
+
 Overview of changes in Gtk2 1.103
 =================================
 

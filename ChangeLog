@@ -1,5 +1,9 @@
 2006/02/05	kaffeetisch
 
+	* Gtk2.pm, Makefile.PL, NEWS, README: Stable release 1.104.
+
+2006/02/05	kaffeetisch
+
 	* xs/GdkRegion.xs: Fix access after free() in get_rectangles.
 
 	* xs/GtkWidget.xs: Allow undef for the adjustment parameters of
