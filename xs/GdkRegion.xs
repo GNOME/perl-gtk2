@@ -143,7 +143,7 @@ gdk_region_get_rectangles (region)
 	gdk_region_get_rectangles (region, &rectangles, &n_rectangles);
 	EXTEND (SP, n_rectangles);
 	for (i = 0 ; i < n_rectangles ; i++)
-		PUSHs (sv_2mortal (newSVGdkRectangle (rectangles + i)));
+		PUSHs (sv_2mortal (newSVGdkRectangle_copy (rectangles + i)));
 	g_free (rectangles);
 
 ##  gboolean gdk_region_empty (GdkRegion *region) 
