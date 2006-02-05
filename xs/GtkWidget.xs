@@ -534,8 +534,8 @@ gtk_widget_activate (widget)
 gboolean
 gtk_widget_set_scroll_adjustments (widget, hadjustment, vadjustment)
 	GtkWidget     * widget
-	GtkAdjustment * hadjustment
-	GtkAdjustment * vadjustment
+	GtkAdjustment_ornull * hadjustment
+	GtkAdjustment_ornull * vadjustment
 
 void
 gtk_widget_reparent (widget, new_parent)
