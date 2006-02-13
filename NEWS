@@ -1,3 +1,9 @@
+Overview of changes in Gtk2 1.116
+=================================
+
+* Fix a memory handling bug in Gtk2::Gdk::Region::get_rectangles.
+  [Marc Lehmann]
+
 Overview of changes in Gtk2 1.115
 =================================
 
@@ -52,6 +58,20 @@ Overview of changes in Gtk2 1.110
 * Improve some of the Gtk2::Gdk::GC API and fix a leak in Gtk2::Gdk::Pixbuf.
   [Marc Lehmann]
 * Wrap most of gdk's X11-related API.  [Marc, Torsten]
+
+Overview of changes in Gtk2 1.104
+=================================
+
+* Allow undef for the adjustment parameters of
+  Gtk2::Widget::set_scroll_adjustments.  [muppet]
+* Fix a memory handling bug in Gtk2::Gdk::Region::get_rectangles.
+  [Marc Lehmann]
+
+Overview of changes in Gtk2 1.103
+=================================
+
+* Depend on Glib 1.103 for the new object registration semantics.  Make use of
+  them.  [Torsten]
 
 Overview of changes in Gtk2 1.102
 =================================

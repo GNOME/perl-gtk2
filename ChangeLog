@@ -1,3 +1,7 @@
+2006/02/13	kaffeetisch
+
+	* Gtk2.pm, Makefile.PL, NEWS, README: Unstable release 1.116.
+
 2006/02/05 04:26 pcg
 
 	* xs/GdkRegion.xs: Fix access after free() in get_rectangles.

@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2003-2005 by the gtk2-perl team (see the file AUTHORS for
+# Copyright (C) 2003-2006 by the gtk2-perl team (see the file AUTHORS for
 # the full list)
 # 
 # This library is free software; you can redistribute it and/or modify it under
@@ -34,7 +34,7 @@ eval "use Cairo;";
 
 require DynaLoader;
 
-our $VERSION = '1.115';
+our $VERSION = '1.116';
 
 our @ISA = qw(DynaLoader);
 
