@@ -32,7 +32,7 @@ use Cwd;
 our %build_reqs = (
 	'perl-ExtUtils-Depends'   => '0.2',
 	'perl-ExtUtils-PkgConfig' => '1.03',
-	'perl-Glib'               => '1.116',
+	'perl-Glib'               => '1.120',
 	'Gtk+'                    => '2.0.0',
 );
 our %PREREQ_PM = (
@@ -237,6 +237,8 @@ WriteMakefile(
     $gtk2->get_makefile_vars,
 );
 
+=unstable
+
 print <<__EOW__;
 WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING
 
@@ -247,6 +249,23 @@ WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING
 
 WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING
 __EOW__
+
+=cut
+
+=frozen
+
+print <<__EOW__;
+WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING
+
+   This is an unstable development release of Gtk2.  The API is frozen in
+   accordance with the GNOME 2.14 schedule.  Report any bugs to gtk-perl-list
+   AT gnome DOT org as soon as possible.  Please use the 1.08x series for
+   important work.
+
+WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING
+__EOW__
+
+=cut
 
 #
 # extra makefile override stuff... watch for falling wizardry.

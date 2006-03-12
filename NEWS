@@ -1,3 +1,19 @@
+Overview of changes in Gtk2 1.120
+=================================
+
+ Since 1.10x (the previous stable series)
+ ----------------------------------------
+  * Make GDK's and Pango's cairo glue available if the Perl module Cairo is
+    installed.
+  * Add Gtk2::AboutDialog::[gs]et_wrap_license and Gtk2::Dnd::set_icon_name.
+  * Add most of the missing functions of GDK's X11 API.
+  * Add Gtk2::Gdk::Pixbuf::save_to_buffer.
+  * Make it possible to implement natively-scrollable widgets in Perl.
+
+ Since 1.116
+ -----------
+  * Nada.
+
 Overview of changes in Gtk2 1.116
 =================================
 
