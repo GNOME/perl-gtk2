@@ -1,3 +1,7 @@
+2006/04/08	kaffeetisch
+
+	* Gtk2.pm, NEWS, README: Stable release 1.121.
+
 2006/03/38	muppetman
 
 	* t/Gdk.t: Don't call Gtk2::Gdk::Threads::init on a non-threading perl.

@@ -1,3 +1,8 @@
+Overview of changes in Gtk2 1.121
+=================================
+
+* Fix a test issue that occured on non-threaded perls.  [muppet]
+
 Overview of changes in Gtk2 1.120
 =================================
 
