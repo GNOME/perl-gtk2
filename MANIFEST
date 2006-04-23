@@ -16,6 +16,7 @@ devel.pod
 doctypes
 examples/accel_groups.pl
 examples/adding_stock_icons.pl
+examples/assistant.pl
 examples/buttonbox.pl
 examples/cairo-rendering.pl
 examples/calendar.pl
@@ -143,6 +144,7 @@ t/GtkAdjustment.t
 t/GtkAlignment.t
 t/GtkArrow.t
 t/GtkAspectFrame.t
+t/GtkAssistant.t
 t/GtkBin.t
 t/GtkBox.t
 t/GtkButton.t
@@ -328,6 +330,7 @@ xs/GtkAdjustment.xs
 xs/GtkAlignment.xs
 xs/GtkArrow.xs
 xs/GtkAspectFrame.xs
+xs/GtkAssistant.xs
 xs/GtkBin.xs
 xs/GtkBox.xs
 xs/GtkButton.xs

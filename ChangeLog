@@ -1,10 +1,15 @@
+2006/03/23	kaffeetisch
+
+	* MANIFEST, maps-2.10, xs_files-2.10, examples/assistant.pl,
+	t/GtkAssistant.t, xs/GtkAssistant.xs: Patch from muppet adds
+	support for GtkAssistant.
+
 2006/04/23	kaffeetisch
 
-	* Gtk2/t/GtkCellLayout.t, Gtk2/t/GtkExpander.t,
-	Gtk2/t/GtkMenuItem.t, Gtk2/t/GtkRadioButton.t,
-	Gtk2/t/GtkRadioToolButton.t, Gtk2/t/GtkScrolledWindow.t,
-	Gtk2/t/GtkToggleButton.t: Remove the noinit flag from some tests
-	that now apparently need an initialized gtk+.
+	* t/GtkCellLayout.t, t/GtkExpander.t, t/GtkMenuItem.t,
+	t/GtkRadioButton.t, t/GtkRadioToolButton.t, t/GtkScrolledWindow.t,
+	t/GtkToggleButton.t: Remove the noinit flag from some tests that
+	now apparently need an initialized gtk+.
 
 2006/04/23	kaffeetisch
 
@@ -4766,7 +4771,7 @@
 2003/11/17 07:10 (-0500) rwmcfa1
 
 	* Makefile.PL: xs_files-2.3 shouldn't be involved outside of the 2.3 
-	branch. problem found by Bjarne Steinsbø
+	branch. problem found by Bjarne Steinsb??
 
 2003/11/16 21:36 (-0500) rwmcfa1
 
@@ -5023,7 +5028,7 @@
 2003/10/29 12:40 muppetman
 
 	fixing a few things while tracking down bugs reported by
-	Bjarne Steinsbø:
+	Bjarne Steinsb??:
 
 	* xs/GtkCellRenderer.xs, xs/GtkStyle.xs: all of the gtk_paint_foo()
 	functions ask for GdkWindows, but actually work on GdkDrawables.
@@ -5182,7 +5187,7 @@
 
 	* pm/SimpleList.pm: fixed bugs with push and unshift not taking arrays
 	for pushing, only first element was getting pushed. pointed out by
-	Bjarne Steinsbø
+	Bjarne Steinsb??
 
 	* examples/simplelist.pl: example of push/unshift array of arrays
 	

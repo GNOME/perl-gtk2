@@ -1,1 +1,4 @@
+GTK_TYPE_ASSISTANT	GtkAssistant	GtkObject	Gtk2::Assistant
+GTK_TYPE_ASSISTANT_PAGE_TYPE	GtkAssistantPageType	GEnum	Gtk2::AssistantPageType
+
 GTK_TYPE_STATUS_ICON	GtkStatusIcon	GObject	Gtk2::StatusIcon
