@@ -4,7 +4,6 @@
 
 use Gtk2::TestHelper
 	tests => 14,
-	noinit => 1,
 	at_least_version => [2, 4, 0, "GtkExpander is new in 2.4"],
 	;
 
