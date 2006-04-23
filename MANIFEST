@@ -87,6 +87,7 @@ gtk.typemap
 gtk2perl-private.h
 gtk2perl.h
 maps-2.0
+maps-2.10
 maps-2.2
 maps-2.4
 maps-2.6
@@ -235,6 +236,7 @@ t/GtkSizeGroup.t
 t/GtkSocket-GtkPlug.t
 t/GtkSpinButton.t
 t/GtkStatusBar.t
+t/GtkStatusIcon.t
 t/GtkStock.t
 t/GtkStyle.t
 t/GtkTable.t
@@ -421,6 +423,7 @@ xs/GtkSeparatorToolItem.xs
 xs/GtkSizeGroup.xs
 xs/GtkSocket.xs
 xs/GtkSpinButton.xs
+xs/GtkStatusIcon.xs
 xs/GtkStatusbar.xs
 xs/GtkStock.xs
 xs/GtkStyle.xs
@@ -472,6 +475,7 @@ xs/PangoScript.xs
 xs/PangoTabs.xs
 xs/PangoTypes.xs
 xs_files-2.0
+xs_files-2.10
 xs_files-2.2
 xs_files-2.4
 xs_files-2.6

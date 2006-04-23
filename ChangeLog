@@ -1,3 +1,9 @@
+2006/04/23	kaffeetisch
+
+	* MANIFEST, maps-2.10, xs_files-2.10, t/GtkStatusIcon.t,
+	xs/GtkStatusIcon.xs: The gtk2-perl tag team, muppet and me, adds
+	support for GtkStatusIcon.
+
 2006/04/08	kaffeetisch
 
 	* Gtk2.pm, NEWS, README: Stable release 1.121.
