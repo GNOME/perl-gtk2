@@ -1,2 +1,3 @@
 xs/GtkAssistant.xs
+xs/GtkLinkButton.xs
 xs/GtkStatusIcon.xs

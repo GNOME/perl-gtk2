@@ -38,6 +38,7 @@ examples/inline-images.pl
 examples/insert-text-test.pl
 examples/item_factory_demo.pl
 examples/layout.pl
+examples/linkbutton.pl
 examples/multisel.pl
 examples/plug.pl
 examples/rulers.pl
@@ -207,6 +208,7 @@ t/GtkInvisible.t
 t/GtkItemFactory.t
 t/GtkLabel.t
 t/GtkLayout.t
+t/GtkLinkButton.t
 t/GtkListStore.t
 t/GtkMenu.t
 t/GtkMenuBar.t
@@ -395,6 +397,7 @@ xs/GtkItem.xs
 xs/GtkItemFactory.xs
 xs/GtkLabel.xs
 xs/GtkLayout.xs
+xs/GtkLinkButton.xs
 xs/GtkList.xs
 xs/GtkListItem.xs
 xs/GtkListStore.xs

@@ -1,4 +1,10 @@
-2006/03/23	kaffeetisch
+2006/04/25	kaffeetisch
+
+	* MANIFEST, maps-2.10, xs_files-2.10, examples/linkbutton.pl,
+	t/GtkLinkButton.t, xs/GtkLinkButton.xs: Patch from muppet adds
+	support for GtkLinkButton.
+
+2006/04/23	kaffeetisch
 
 	* MANIFEST, maps-2.10, xs_files-2.10, examples/assistant.pl,
 	t/GtkAssistant.t, xs/GtkAssistant.xs: Patch from muppet adds
