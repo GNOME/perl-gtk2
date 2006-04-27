@@ -1,3 +1,4 @@
 xs/GtkAssistant.xs
+xs/GtkCellRendererAccel.xs
 xs/GtkLinkButton.xs
 xs/GtkStatusIcon.xs

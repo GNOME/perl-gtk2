@@ -154,6 +154,7 @@ t/GtkCalendar.t
 t/GtkCellEditable.t
 t/GtkCellLayout.t
 t/GtkCellRenderer.t
+t/GtkCellRendererAccel.t
 t/GtkCellRendererCombo.t
 t/GtkCellRendererPixbuf.t
 t/GtkCellRendererProgress.t
@@ -341,6 +342,7 @@ xs/GtkCalendar.xs
 xs/GtkCellEditable.xs
 xs/GtkCellLayout.xs
 xs/GtkCellRenderer.xs
+xs/GtkCellRendererAccel.xs
 xs/GtkCellRendererCombo.xs
 xs/GtkCellRendererPixbuf.xs
 xs/GtkCellRendererProgress.xs

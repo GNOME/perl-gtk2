@@ -1,3 +1,9 @@
+2006/04/28	kaffeetisch
+
+	* MANIFEST, maps-2.10, xs_files-2.10, t/GtkCellRendererAccel.t,
+	xs/GtkCellRendererAccel.xs: Patch from muppet adds support for
+	GtkCellRendererAccel.
+
 2006/04/25	kaffeetisch
 
 	* MANIFEST, maps-2.10, xs_files-2.10, examples/linkbutton.pl,
