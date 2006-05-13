@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 39;
+use Gtk2::TestHelper tests => 40;
 
 # $Header$
 
@@ -211,6 +211,19 @@ $window -> set_icon_list(Gtk2::Gdk::Pixbuf -> new("rgb", 0, 8, 10, 10),
 
 $window -> set_modal_hint(0);
 $window -> set_type_hint("normal");
+
+SKIP: {
+  skip "new 2.10 stuff", 1
+    unless Gtk2 -> CHECK_VERSION(2, 9, 0); # FIXME: 2.10
+
+  ok(defined $window -> get_type_hint());
+
+  $window -> set_child_input_shapes();
+  $window -> merge_child_input_shapes();
+  $window -> input_shape_combine_mask($bitmap, 23, 42);
+  $window -> input_shape_combine_region($region, 23, 42);
+  
+}
 
 SKIP: {
   skip("set_skip_taskbar_hint and set_skip_pager_hint are new in 2.2.0", 0)

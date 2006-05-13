@@ -83,6 +83,8 @@ gdk_atom_intern (class, atom_name, only_if_exists=FALSE)
     CLEANUP:
 	PERL_UNUSED_VAR (ix);
 
+## 2.10 adds gdk_atom_intern_static_string().  This isn't useful from perl.
+
 ##  gchar* gdk_atom_name (GdkAtom atom) 
 gchar_own *
 gdk_atom_name (atom)

@@ -57,12 +57,15 @@ SKIP: {
 
   my $display = Gtk2::Gdk::Display -> get_default();
 
+  # new_from_name will return undef if there is no cursor with that name.
+  # this can happen with different cursor themes and such.
   my $cursor = Gtk2::Gdk::Cursor -> new_from_name($display, "watch");
+  skip "no cursor named 'watch'; that probably means that new_from_name works.", 2
+    unless $cursor;
   isa_ok($cursor, "Gtk2::Gdk::Cursor");
 
   my $pixbuf = $cursor -> get_image();
-  ok(!defined $pixbuf || ref $pixbuf eq "Gtk2::Gdk::Pixbuf");
-
+  ok(!defined $pixbuf || UNIVERSAL::isa($pixbuf, "Gtk2::Gdk::Pixbuf"));
 }
 
 __END__

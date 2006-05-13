@@ -195,3 +195,11 @@ gdk_display_store_clipboard (display, clipboard_window, time_, ...);
 void gdk_display_warp_pointer (GdkDisplay *display, GdkScreen *screen, gint x, gint y);
 
 #endif
+
+#if GTK_CHECK_VERSION (2, 9, 0) /* FIXME 2.10 */
+
+gboolean gdk_display_supports_shapes (GdkDisplay *display);
+
+gboolean gdk_display_supports_input_shapes (GdkDisplay *display);
+
+#endif

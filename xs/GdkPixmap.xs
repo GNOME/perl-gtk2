@@ -241,3 +241,13 @@ gdk_pixmap_foreign_new_for_display (class, display, anid)
 	display, anid
 
 #endif
+
+#if GTK_CHECK_VERSION(2, 9, 0) /* FIXME 2.10 */
+
+## GdkPixmap* gdk_pixmap_foreign_new_for_screen (GdkScreen *screen, GdkNativeWindow anid, gint width, gint height, gint depth);
+GdkPixmap *
+gdk_pixmap_foreign_new_for_screen (class, GdkScreen *screen, GdkNativeWindow anid, gint width, gint height, gint depth)
+    C_ARGS:
+	screen, anid, width, height, depth
+
+#endif

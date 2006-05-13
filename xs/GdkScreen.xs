@@ -18,21 +18,16 @@
  *
  * $Header$
  */
+
 #include "gtk2perl.h"
 
 MODULE = Gtk2::Gdk::Screen	PACKAGE = Gtk2::Gdk::Screen	PREFIX = gdk_screen_
-
- ## GdkScreen was introduced in 2.1.x, but wasn't stable until 2.2.0.
-
-#if GTK_CHECK_VERSION(2,2,0)
 
 BOOT:
 	/* the gdk backends override the public GdkScreen with private,
 	 * back-end-specific types.  tell gperl_get_object not to 
 	 * complain about them.  */
 	gperl_object_set_no_warn_unreg_subclass (GDK_TYPE_SCREEN, TRUE);
-
-##  void (*size_changed) (GdkScreen *screen) 
 
 ##  GdkColormap *gdk_screen_get_default_colormap (GdkScreen *screen) 
 GdkColormap *
@@ -202,4 +197,29 @@ GdkVisual_ornull * gdk_screen_get_rgba_visual (GdkScreen *screen);
 
 #endif
 
-#endif /* GDK_TYPE_SCREEN */
+#if GTK_CHECK_VERSION (2, 9, 0) /* FIXME 2.10 */
+
+# gdk_screen_get_font_options and gdk_screen_set_font_options are wrapped in
+# GdkCairo.xs.
+
+void gdk_screen_set_resolution (GdkScreen *screen, gdouble dpi);
+
+gdouble gdk_screen_get_resolution (GdkScreen *screen);
+
+GdkWindow * gdk_screen_get_active_window (GdkScreen * screen);
+
+##GList * gdk_screen_get_window_stack (GdkScreen *screen)
+void
+gdk_screen_get_window_stack (GdkScreen *screen)
+    PREINIT:
+	GList *list, *i;
+    PPCODE:
+	list = gdk_screen_get_window_stack (screen);
+	for (i = list; i != NULL; i = i->next)
+		/* The list owns a reference to the windows. */
+		XPUSHs (sv_2mortal (newSVGdkWindow_noinc (i->data)));
+	g_list_free (list);
+
+gboolean gdk_screen_is_composited (GdkScreen *screen);
+
+#endif /* 2.10 */

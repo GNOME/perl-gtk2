@@ -247,6 +247,7 @@ t/GtkStyle.t
 t/GtkTable.t
 t/GtkTearoffMenuItem.t
 t/GtkTextBuffer.t
+t/GtkTextBufferRichText.t
 t/GtkTextChildAnchor.t
 t/GtkTextIter.t
 t/GtkTextMark.t
@@ -438,6 +439,7 @@ xs/GtkStyle.xs
 xs/GtkTable.xs
 xs/GtkTearoffMenuItem.xs
 xs/GtkTextBuffer.xs
+xs/GtkTextBufferRichText.xs
 xs/GtkTextChildAnchor.xs
 xs/GtkTextIter.xs
 xs/GtkTextMark.xs

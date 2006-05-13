@@ -4,9 +4,8 @@ use Glib qw/TRUE FALSE/;
 use Gtk2;
 use Test::More;
 
-eval "use Cairo";
-
-if (!$@ && Gtk2::Pango -> CHECK_VERSION(1, 10, 0)) {
+if (UNIVERSAL::can("Gtk2::Pango::Cairo::FontMap", "new") &&
+    Gtk2::Pango -> CHECK_VERSION(1, 10, 0)) {
   plan tests => 10;
 } else {
   plan skip_all => "Need Cairo";

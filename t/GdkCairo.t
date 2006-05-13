@@ -1,12 +1,13 @@
 #!/usr/bin/perl -w
+# vim: set ft=perl :
 use strict;
 use Glib qw/TRUE FALSE/;
 use Gtk2;
 use Test::More;
 
-eval "use Cairo";
-
-if (!$@ && Gtk2 -> CHECK_VERSION(2, 8, 0) && Gtk2->init_check ) {
+if (UNIVERSAL::can("Gtk2::Gdk::Cairo::Context", "create") &&
+    Gtk2 -> CHECK_VERSION(2, 8, 0) &&
+    Gtk2->init_check ) {
   plan tests => 2;
 } else {
   plan skip_all => "Need Cairo";
@@ -37,7 +38,15 @@ $context -> region($region);
 $context -> set_operator("clear");
 $context -> rectangle(0, 0, 10, 10);
 
+SKIP: {
+    skip "set_source_pixmap is new in gtk+ 2.10", 0
+        unless Gtk2 -> CHECK_VERSION(2, 9, 0); # FIXME 2.10
+
+    my $pixmap = Gtk2::Gdk::Pixmap -> new($window->window, 20, 20, -1);
+    $context -> set_source_pixmap($pixmap, 10, 10);
+}
+
 __END__
 
-Copyright (C) 2005 by the gtk2-perl team (see the file AUTHORS for the
+Copyright (C) 2005-2006 by the gtk2-perl team (see the file AUTHORS for the
 full list).  See LICENSE for more information.

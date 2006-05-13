@@ -827,6 +827,20 @@ void gdk_window_move_region (GdkWindow *window, GdkRegion *region, gint dx, gint
 
 #endif
 
+#if GTK_CHECK_VERSION (2, 9, 0) /* FIXME 2.10 */
+
+GdkWindowTypeHint gdk_window_get_type_hint (GdkWindow *window);
+
+void gdk_window_input_shape_combine_mask (GdkWindow * window, GdkBitmap *mask, gint x, gint y);
+
+void gdk_window_input_shape_combine_region (GdkWindow * window, GdkRegion *shape, gint offset_x, gint offset_y);
+
+void gdk_window_set_child_input_shapes (GdkWindow *window);
+
+void gdk_window_merge_child_input_shapes (GdkWindow *window);
+
+#endif
+
 MODULE = Gtk2::Gdk::Window	PACKAGE = Gtk2::Gdk	PREFIX = gdk_
 
 GdkWindow *gdk_get_default_root_window (class)

@@ -1,3 +1,41 @@
+2006/05/13	kaffeetisch
+
+	The gtk2-perl tag team strikes again.
+
+	* MANIFEST, xs_files-2.10, t/GtkTextBufferRichText.t,
+	xs/GtkTextBufferRichText.xs: Add support for
+	GtkTextBufferRichText.
+
+	* t/GdkCairo.t, t/GdkScreen.t, xs/GdkCairo.xs: Bind and test
+	gdk_cairo_set_source_pixmap, gdk_screen_get_font_options, and
+	gdk_screen_set_font_options.
+
+	* t/GdkDisplay.t, xs/GdkDisplay.xs: Bind and test
+	gdk_display_supports_shapes and gdk_display_supports_input_shapes.
+
+	* t/GdkPixmap.t, xs/GdkPixmap.xs: Bind and test
+	gdk_pixmap_foreign_new_for_screen.
+
+	* t/GdkScreen.t, xs/GdkScreen.xs: Bind and test
+	gdk_screen_set_resolution, gdk_screen_get_resolution,
+	gdk_screen_get_active_window, gdk_screen_get_window_stack, and
+	gdk_screen_is_composited.
+
+	* t/GdkWindow.t, xs/GdkWindow.xs: Bind and test
+	gdk_window_get_type_hint, gdk_window_input_shape_combine_mask,
+	gdk_window_input_shape_combine_region,
+	gdk_window_set_child_input_shapes, and
+	gdk_window_merge_child_input_shapes.
+
+	* t/GdkCairo.t, t/PangoCairo.t: Make the check for Cairo's
+	presence more robust.
+
+	* t/GdkCursor.t: Fail gracefully if the "watch" cursor can't be found.
+
+	* Makefile.PL: Bump up the (optionally) required Cairo version to
+	0.03 for recent typemap improvements.  Only compile gdk's and
+	pango's cairo glue if gtk+ >= 2.8.x.
+
 2006/04/28	kaffeetisch
 
 	* MANIFEST, maps-2.10, xs_files-2.10, t/GtkCellRendererAccel.t,
