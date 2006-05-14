@@ -47,7 +47,7 @@ SKIP:
 {
 	Gtk2->disable_setlocale;
 
-	@ARGV = qw(--help --g-fatal-warnings --name gtk2perl --urgs tree);
+	@ARGV = qw(--help --name gtk2perl --urgs tree);
 
 	skip 'Gtk2->init_check failed, probably unable to open DISPLAY', 
 		19, unless( Gtk2->init_check );
