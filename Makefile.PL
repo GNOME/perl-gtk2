@@ -239,7 +239,7 @@ WriteMakefile(
     $gtk2->get_makefile_vars,
 );
 
-=unstable
+# =unstable
 
 print <<__EOW__;
 WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING
@@ -247,12 +247,12 @@ WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING
    This is an unstable development release of Gtk2.  The API is not
    frozen and things are subject to change at any time.  Report any
    bugs to gtk-perl-list AT gnome DOT org as soon as possible.
-   Please use the 1.08x series for important work.
+   Please use the 1.12x series for important work.
 
 WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING
 __EOW__
 
-=cut
+# =cut
 
 =frozen
 
@@ -260,8 +260,8 @@ print <<__EOW__;
 WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING
 
    This is an unstable development release of Gtk2.  The API is frozen in
-   accordance with the GNOME 2.14 schedule.  Report any bugs to gtk-perl-list
-   AT gnome DOT org as soon as possible.  Please use the 1.08x series for
+   accordance with the GNOME 2.16 schedule.  Report any bugs to gtk-perl-list
+   AT gnome DOT org as soon as possible.  Please use the 1.12x series for
    important work.
 
 WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING

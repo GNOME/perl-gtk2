@@ -1,3 +1,24 @@
+Overview of changes in Gtk2 1.130
+=================================
+
+* Add support for GtkStatusIcon, GtkAssistant, GtkLinkButton,
+  GtkCellRendererAccel, and GtkTextBufferRichText. [muppet, Torsten]
+* Wrap new API:  [muppet, Torsten]
+  - gdk_cairo_set_source_pixmap
+  - gdk_screen_get_font_options, gdk_screen_set_font_options
+  - gdk_display_supports_shapes, gdk_display_supports_input_shapes
+  - gdk_pixmap_foreign_new_for_screen
+  - gdk_screen_get_resolution, gdk_screen_set_resolution
+  - gdk_screen_get_active_window
+  - gdk_screen_get_window_stack
+  - gdk_screen_is_composited
+  - gdk_window_get_type_hint
+  - gdk_window_input_shape_combine_mask
+  - gdk_window_input_shape_combine_region
+  - gdk_window_set_child_input_shapes
+  - gdk_window_merge_child_input_shapes
+* Fix some test suite issues.  [muppet, Torsten]
+
 Overview of changes in Gtk2 1.121
 =================================
 
