@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003 by the gtk2-perl team (see the file AUTHORS)
+ * Copyright (c) 2003-2006 by the gtk2-perl team (see the file AUTHORS)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -121,6 +121,22 @@ gtk2perl_clipboard_clear_func (GtkClipboard *clipboard,
 			                    clipboard_clear_quark());
 	gperl_callback_invoke (callback, NULL, clipboard, user_data_or_owner);
 }
+
+#if GTK_CHECK_VERSION (2, 9, 0) /* FIXME 2.10 */
+
+static void
+gtk2perl_clipboard_rich_text_received_func (GtkClipboard     *clipboard,
+                                            GdkAtom           format,
+                                            const guint8     *text,
+                                            gsize             length,
+                                            gpointer          data)
+{
+        gperl_callback_invoke ((GPerlCallback*) data, NULL, clipboard,
+                               sv_2mortal (newSVGdkAtom (format)),
+                               sv_2mortal (newSVpvn ((const char *) text, length)));
+}
+
+#endif /* 2.10 */
 
 #endif /* defined GTK_TYPE_CLIPBOARD */
 
@@ -441,5 +457,63 @@ void gtk_clipboard_store (GtkClipboard *clipboard);
 gboolean gtk_clipboard_wait_is_target_available (GtkClipboard *clipboard, GdkAtom target);
 
 #endif /* 2.6.0 */
+
+#if GTK_CHECK_VERSION (2, 9, 0) /* FIXME 2.10 */
+
+##void
+##gtk_clipboard_request_rich_text (GtkClipboard                    *clipboard,
+##                                 GtkTextBuffer                   *buffer,
+##                                 GtkClipboardRichTextReceivedFunc callback,
+##                                 gpointer                         user_data)
+void
+gtk_clipboard_request_rich_text (clipboard, buffer, callback, user_data=NULL)
+        GtkClipboard  * clipboard
+        GtkTextBuffer * buffer
+        SV * callback
+        SV * user_data
+    PREINIT:
+        GPerlCallback * real_callback;
+        GType param_types[3];
+    CODE:
+        param_types[0] = GTK_TYPE_CLIPBOARD;
+        param_types[1] = GPERL_TYPE_SV; /* there is no GDK_TYPE_ATOM */
+        /* The real callback gets string and length parameters, but
+         * perl scalars know their own length, so we won't expose that.
+         * The string may have embedded nuls, so we use an SV. */
+        param_types[2] = GPERL_TYPE_SV;
+        real_callback = gperl_callback_new (callback, user_data,
+                                            G_N_ELEMENTS (param_types),
+                                            param_types, G_TYPE_NONE);
+        gtk_clipboard_request_rich_text
+                                (clipboard, buffer,
+                                 gtk2perl_clipboard_rich_text_received_func,
+				 real_callback);
+
+##guint8 *
+##gtk_clipboard_wait_for_rich_text (GtkClipboard  *clipboard,
+##                                  GtkTextBuffer *buffer,
+##                                  GdkAtom       *format,
+##                                  gsize         *length)
+void
+gtk_clipboard_wait_for_rich_text (clipboard, buffer)
+        GtkClipboard  *clipboard
+        GtkTextBuffer *buffer
+    PREINIT:
+        GdkAtom       format;
+        gsize         length;
+        guint8       *text;
+    PPCODE:
+        text = gtk_clipboard_wait_for_rich_text (clipboard, buffer,
+                                                 &format, &length);
+        if (text) {
+                EXTEND (SP, 2);
+                PUSHs (sv_2mortal (newSVpvn ((const char *) text, length)));
+                PUSHs (sv_2mortal (newSVGdkAtom (format)));
+                g_free (text);
+        }
+
+gboolean gtk_clipboard_wait_is_rich_text_available (GtkClipboard  *clipboard, GtkTextBuffer *buffer)
+
+#endif /* 2.10.0 */
 
 #endif /* defined GTK_TYPE_CLIPBOARD */

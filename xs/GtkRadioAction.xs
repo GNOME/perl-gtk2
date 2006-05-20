@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003-2005 by the gtk2-perl team (see the file AUTHORS)
+ * Copyright (c) 2003-2006 by the gtk2-perl team (see the file AUTHORS)
  *
  * Licensed under the LGPL, see LICENSE file for more information.
  *
@@ -60,3 +60,8 @@ void gtk_radio_action_set_group (GtkRadioAction *action, SV *member_or_listref);
 
 gint gtk_radio_action_get_current_value (GtkRadioAction *action);
 
+#if GTK_CHECK_VERSION (2, 9, 0) /* FIXME 2.10 */
+
+void gtk_radio_action_set_current_value (GtkRadioAction *action, gint value);
+
+#endif

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003 by the gtk2-perl team (see the file AUTHORS)
+ * Copyright (c) 2003-2006 by the gtk2-perl team (see the file AUTHORS)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -524,3 +524,13 @@ gtk_text_buffer_create_child_anchor (buffer, iter)
 gboolean gtk_text_buffer_backspace (GtkTextBuffer *buffer, GtkTextIter *iter, gboolean interactive, gboolean default_editable);
 
 #endif
+
+#if GTK_CHECK_VERSION (2, 9, 0)  /* FIXME 2.10 */
+
+gboolean gtk_text_buffer_get_has_selection (GtkTextBuffer *buffer);
+
+GtkTargetList* gtk_text_buffer_get_copy_target_list (GtkTextBuffer *buffer);
+
+GtkTargetList* gtk_text_buffer_get_paste_target_list (GtkTextBuffer *buffer);
+
+#endif /* 2.10 */

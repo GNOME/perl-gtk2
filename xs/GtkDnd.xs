@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003-2005 by the gtk2-perl team (see the file AUTHORS)
+ * Copyright (c) 2003-2006 by the gtk2-perl team (see the file AUTHORS)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -206,19 +206,6 @@ void
 gtk_drag_source_unset (widget)
 	GtkWidget *widget
 
-#if GTK_CHECK_VERSION(2,4,0)
-
-GtkTargetList_ornull *
-gtk_drag_source_get_target_list (widget)
-	GtkWidget *widget
-
-void
-gtk_drag_source_set_target_list (widget, target_list)
-	GtkWidget *widget
-	GtkTargetList_ornull *target_list
-
-#endif
-
 ##  void gtk_drag_source_set_icon (GtkWidget *widget, GdkColormap *colormap, GdkPixmap *pixmap, GdkBitmap *mask) 
 void
 gtk_drag_source_set_icon (widget, colormap, pixmap, mask)
@@ -248,6 +235,19 @@ gtk_drag_check_threshold (widget, start_x, start_y, current_x, current_y)
 	gint current_x
 	gint current_y
 
+#if GTK_CHECK_VERSION(2,4,0)
+
+GtkTargetList_ornull *
+gtk_drag_source_get_target_list (widget)
+	GtkWidget *widget
+
+void
+gtk_drag_source_set_target_list (widget, target_list)
+	GtkWidget *widget
+	GtkTargetList_ornull *target_list
+
+#endif
+
 #if GTK_CHECK_VERSION(2,6,0)
 
 void gtk_drag_dest_add_text_targets (GtkWidget *widget);
@@ -270,10 +270,10 @@ void gtk_drag_source_set_icon_name (GtkWidget *widget, const gchar *icon_name);
 
 #endif
 
- ## private
-##  void _gtk_drag_source_handle_event (GtkWidget *widget, GdkEvent *event) 
-##  void _gtk_drag_dest_handle_event (GtkWidget *toplevel, GdkEvent *event) 
+#if GTK_CHECK_VERSION (2,9,0) /* FIXME 2.10 */
 
- ## deprecated
-##  void gtk_drag_set_default_icon (GdkColormap *colormap, GdkPixmap *pixmap, GdkBitmap *mask, gint hot_x, gint hot_y) 
+void gtk_drag_dest_set_track_motion (GtkWidget *widget, gboolean track_motion);
 
+gboolean gtk_drag_dest_get_track_motion  (GtkWidget *widget);
+
+#endif

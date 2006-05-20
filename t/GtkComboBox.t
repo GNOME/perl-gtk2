@@ -14,13 +14,6 @@ $combo_box = Gtk2::ComboBox->new_text;
 isa_ok ($combo_box, 'Gtk2::ComboBox');
 ginterfaces_ok($combo_box);
 
-SKIP: {
-	skip '@ISA check', 1
-		unless Gtk2 -> CHECK_VERSION (2, 6, 0);
-
-	isa_ok ($combo_box, 'Gtk2::CellEditable');
-}
-
 $combo_box->append_text ("some text");
 $combo_box->append_text ("more text");
 $combo_box->prepend_text ("more text");
@@ -126,7 +119,17 @@ SKIP: {
 	is ($combo_box->get_column_span_column, 1);
 }
 
+SKIP: {
+	skip "new api in gtk+ 2.10", 1
+		unless Gtk2->CHECK_VERSION (2, 9, 0); # FIXME 2.10
+
+	$combo_box->set_title ("whee");
+	is ($combo_box->get_title, "whee");
+}
+
 __END__
 
-Copyright (C) 2003-2005 by the gtk2-perl team (see the file AUTHORS for the
+Copyright (C) 2003-2006 by the gtk2-perl team (see the file AUTHORS for the
 full list).  See LICENSE for more information.
+
+vim: set ft=perl :

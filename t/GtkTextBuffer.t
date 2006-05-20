@@ -1,6 +1,7 @@
 #!/usr/bin/perl -w
+# vim: set filetype=perl expandtab shiftwidth=2 softtabstop=2 :
 use strict;
-use Gtk2::TestHelper tests => 32;
+use Gtk2::TestHelper tests => 35;
 
 # $Header$
 
@@ -131,7 +132,20 @@ SKIP: {
   $buffer -> backspace($buffer -> get_end_iter(), TRUE, TRUE);
 }
 
+SKIP: {
+  skip "new stuff in 2.10", 3
+    unless Gtk2->CHECK_VERSION (2, 9, 0); # FIXME 2.10
+
+  my $bool = $buffer -> get_has_selection();
+  ok (1);
+
+  my $targetlist = $buffer -> get_copy_target_list();
+  isa_ok($targetlist, 'Gtk2::TargetList');
+  $targetlist = $buffer -> get_paste_target_list();
+  isa_ok($targetlist, 'Gtk2::TargetList');
+}
+
 __END__
 
-Copyright (C) 2003 by the gtk2-perl team (see the file AUTHORS for the
+Copyright (C) 2003-2006 by the gtk2-perl team (see the file AUTHORS for the
 full list).  See LICENSE for more information.

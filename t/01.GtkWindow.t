@@ -9,7 +9,7 @@
 
 #########################
 
-use Gtk2::TestHelper tests => 107;
+use Gtk2::TestHelper tests => 109;
 
 ok( my $win = Gtk2::Window->new );
 ok( $win = Gtk2::Window->new('popup') );
@@ -347,7 +347,17 @@ SKIP: {
 	$win->present_with_time (time);
 }
 
+SKIP: {
+	skip("new 2.10 stuff", 2)
+		unless Gtk2->CHECK_VERSION (2, 9, 0); # FIXME: 2.10
+
+	$win->set_deletable (TRUE);
+	is ($win->get_deletable, TRUE);
+
+	isa_ok ($win->get_group, "Gtk2::WindowGroup");
+}
+
 __END__
 
-Copyright (C) 2003-2005 by the gtk2-perl team (see the file AUTHORS for the
+Copyright (C) 2003-2006 by the gtk2-perl team (see the file AUTHORS for the
 full list).  See LICENSE for more information.

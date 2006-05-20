@@ -151,11 +151,15 @@ void gtk2perl_read_gtk_target_entry (SV * sv, GtkTargetEntry * entry);
  * some custom opaque object handling for private gtk structures needed 
  * for doing drag and drop.
  */
+
+/* gtk+ 2.10 introduces a boxed type for GtkTargetList. */
+#if !GTK_CHECK_VERSION (2, 9, 0) /* FIXME 2.10 */
 typedef GtkTargetList GtkTargetList_ornull;
 SV * newSVGtkTargetList (GtkTargetList * list);
 #define newSVGtkTargetList_ornull(list)	((list) ? newSVGtkTargetList (list) : &PL_sv_undef)
 GtkTargetList * SvGtkTargetList (SV * sv);
 #define SvGtkTargetList_ornull(sv)	(((sv) && SvOK (sv)) ? SvGtkTargetList (sv) : NULL)
+#endif /* !2.10 */
 
 /*
  * exported so Gnome2 can reuse it in wrappers.  other modules might want to

@@ -7,7 +7,7 @@
 # 	- rm
 #########################
 
-use Gtk2::TestHelper tests => 60;
+use Gtk2::TestHelper tests => 63;
 
 my $win = Gtk2::Window->new;
 
@@ -114,6 +114,24 @@ ok(1);
 is_deeply( [ $nb->query_tab_label_packing($child) ],
 	   [ TRUE, FALSE, 'end' ] );
 
+SKIP: {
+	skip "2.10 stuff", 3
+		unless Gtk2->CHECK_VERSION (2, 9, 0); # FIXME 2.10
+
+	$nb->set_group_id (23);
+	is ($nb->get_group_id, 23);
+
+	$nb->set_tab_reorderable ($child, TRUE);
+	ok ($nb->get_tab_reorderable ($child));
+
+	$nb->set_tab_detachable ($child, TRUE);
+	ok ($nb->get_tab_detachable ($child));
+
+	# FIXME: How to test the callback marshalling?
+	$nb->set_window_creation_hook (sub { warn join ", ", @_; }, 'data');
+	$nb->set_window_creation_hook (sub { warn join ", ", @_; });
+}
+
 $win->show_all;
 ok(1);
 run_main sub {
@@ -141,5 +159,5 @@ ok(1);
 
 __END__
 
-Copyright (C) 2003-2005 by the gtk2-perl team (see the file AUTHORS for the
+Copyright (C) 2003-2006 by the gtk2-perl team (see the file AUTHORS for the
 full list).  See LICENSE for more information.

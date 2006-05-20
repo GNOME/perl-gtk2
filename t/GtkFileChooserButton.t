@@ -1,7 +1,7 @@
 #!/usr/bin/perl -w
 use strict;
 use Gtk2::TestHelper
-  tests => 8,
+  tests => 9,
   at_least_version => [2, 6, 0, "GtkFileChooserButton is new in 2.6"];
 
 # $Header$
@@ -28,7 +28,15 @@ is($button -> get_title(), "Urgs");
 $button -> set_width_chars(23);
 is($button -> get_width_chars(), 23);
 
+SKIP: {
+  skip "new 2.10 stuff", 1
+    unless Gtk2 -> CHECK_VERSION(2, 9, 0); # FIXME 2.10
+
+  $button -> set_focus_on_click(TRUE);
+  is($button -> get_focus_on_click(), TRUE);
+}
+
 __END__
 
-Copyright (C) 2004 by the gtk2-perl team (see the file AUTHORS for the
+Copyright (C) 2004-2006 by the gtk2-perl team (see the file AUTHORS for the
 full list).  See LICENSE for more information.

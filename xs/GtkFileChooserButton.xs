@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2004 by the gtk2-perl team (see the file AUTHORS)
+ * Copyright (c) 2004-2006 by the gtk2-perl team (see the file AUTHORS)
  *
  * Licensed under the LGPL, see LICENSE file for more information.
  *
@@ -44,3 +44,11 @@ void gtk_file_chooser_button_set_title (GtkFileChooserButton *button, const gcha
 gint gtk_file_chooser_button_get_width_chars (GtkFileChooserButton *button);
 
 void gtk_file_chooser_button_set_width_chars (GtkFileChooserButton *button, gint n_chars);
+
+#if GTK_CHECK_VERSION (2, 9, 0) /* FIXME 2.10 */
+
+void gtk_file_chooser_button_set_focus_on_click (GtkFileChooserButton *button, gboolean focus_on_click)
+
+gboolean gtk_file_chooser_button_get_focus_on_click (GtkFileChooserButton *button)
+
+#endif

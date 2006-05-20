@@ -1,5 +1,6 @@
 xs/GtkAssistant.xs
 xs/GtkCellRendererAccel.xs
+xs/GtkCellRendererSpin.xs
 xs/GtkLinkButton.xs
 xs/GtkStatusIcon.xs
 xs/GtkTextBufferRichText.xs

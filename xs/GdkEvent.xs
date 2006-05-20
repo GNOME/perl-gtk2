@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003-2005 by the gtk2-perl team (see the file AUTHORS)
+ * Copyright (c) 2003-2006 by the gtk2-perl team (see the file AUTHORS)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -392,7 +392,6 @@ BOOT:
 	gdk_event_wrapper_class.unwrap = (GPerlBoxedUnwrapFunc)gdk_event_unwrap;
 	gperl_register_boxed (GDK_TYPE_EVENT, "Gtk2::Gdk::Event",
 	                      &gdk_event_wrapper_class);
-	gperl_set_isa ("Gtk2::Gdk::Event", "Glib::Boxed");
 
  ## GdkEvent* gdk_event_get (void)
  ## GdkEvent* gdk_event_peek (void)

@@ -158,6 +158,7 @@ t/GtkCellRendererAccel.t
 t/GtkCellRendererCombo.t
 t/GtkCellRendererPixbuf.t
 t/GtkCellRendererProgress.t
+t/GtkCellRendererSpin.t
 t/GtkCellRendererText.t
 t/GtkCellRendererToggle.t
 t/GtkCellView.t
@@ -347,6 +348,7 @@ xs/GtkCellRendererAccel.xs
 xs/GtkCellRendererCombo.xs
 xs/GtkCellRendererPixbuf.xs
 xs/GtkCellRendererProgress.xs
+xs/GtkCellRendererSpin.xs
 xs/GtkCellRendererText.xs
 xs/GtkCellRendererToggle.xs
 xs/GtkCellView.xs

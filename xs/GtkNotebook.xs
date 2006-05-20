@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003-2005 by the gtk2-perl team (see the file AUTHORS)
+ * Copyright (c) 2003-2006 by the gtk2-perl team (see the file AUTHORS)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -20,7 +20,6 @@
  */
 
 #include "gtk2perl.h"
-
 
 static GtkWidget *
 ensure_label_widget (SV * sv)
@@ -48,6 +47,39 @@ notebook_return_value_spoof_helper (GtkNotebook * notebook,
 	return position;
 }
 #endif
+
+#if GTK_CHECK_VERSION (2, 9, 0) /* FIXME 2.10 */
+
+static GPerlCallback *
+gtk2perl_notebook_window_creation_func_create (SV * func,
+                                               SV * data)
+{
+        GType param_types[4];
+        param_types[0] = GTK_TYPE_NOTEBOOK;
+        param_types[1] = GTK_TYPE_WIDGET;
+        param_types[2] = G_TYPE_INT;
+        param_types[3] = G_TYPE_INT;
+        return gperl_callback_new (func, data, G_N_ELEMENTS (param_types),
+                                   param_types, GTK_TYPE_NOTEBOOK);
+}
+
+static GtkNotebook *
+gtk2perl_notebook_window_creation_func (GtkNotebook *source,
+                                        GtkWidget   *page,
+                                        gint         x,
+                                        gint         y,
+                                        gpointer     data)
+{
+        GtkNotebook * retval;
+        GValue value = {0, };
+        g_value_init (&value, GTK_TYPE_NOTEBOOK);
+        gperl_callback_invoke ((GPerlCallback*) data, &value, source, x, y);
+        retval = g_value_get_object (&value);
+        g_value_unset (&value);
+        return retval;
+}
+
+#endif /* 2.10 */
 
 MODULE = Gtk2::Notebook	PACKAGE = Gtk2::Notebook	PREFIX = gtk_notebook_
 
@@ -390,3 +422,28 @@ gtk_notebook_get_tab_label_text (notebook, child)
 	GtkNotebook * notebook
 	GtkWidget   * child
 
+#if GTK_CHECK_VERSION (2, 9, 0) /* FIXME 2.10 */
+
+void gtk_notebook_set_window_creation_hook (class, SV * func, SV * data=NULL);
+    PREINIT:
+        static GPerlCallback * callback = NULL;
+    CODE:
+        if (callback)
+                gperl_callback_destroy (callback);
+        callback = gtk2perl_notebook_window_creation_func_create (func, data);
+        gtk_notebook_set_window_creation_hook
+                (gtk2perl_notebook_window_creation_func, callback);
+
+void gtk_notebook_set_group_id (GtkNotebook *notebook, gint group_id);
+
+gint gtk_notebook_get_group_id (GtkNotebook *notebook);
+
+void gtk_notebook_set_tab_reorderable (GtkNotebook *notebook, GtkWidget *child, gboolean reorderable);
+
+gboolean gtk_notebook_get_tab_reorderable (GtkNotebook *notebook, GtkWidget *child);
+
+void gtk_notebook_set_tab_detachable (GtkNotebook *notebook, GtkWidget *child, gboolean detachable);
+
+gboolean gtk_notebook_get_tab_detachable (GtkNotebook *notebook, GtkWidget *child);
+
+#endif /* 2.10 */

@@ -4,6 +4,12 @@ GTK_TYPE_ASSISTANT_PAGE_TYPE		GtkAssistantPageType		GEnum		Gtk2::AssistantPageTy
 GTK_TYPE_CELL_RENDERER_ACCEL		GtkCellRendererAccel		GtkObject	Gtk2::CellRendererAccel
 GTK_TYPE_CELL_RENDERER_ACCEL_MODE	GtkCellRendererAccelMode	GEnum		Gtk2::CellRendererAccelMode
 
+GTK_TYPE_CELL_RENDERER_SPIN		GtkCellRendererSpin		GtkObject	Gtk2::CellRendererSpin
+
 GTK_TYPE_LINK_BUTTON			GtkLinkButton			GtkObject	Gtk2::LinkButton
 
+GTK_TYPE_SENSITIVITY_TYPE		GtkSensitivityType		GEnum		Gtk2::SensitivityType
+
 GTK_TYPE_STATUS_ICON			GtkStatusIcon			GObject		Gtk2::StatusIcon
+
+GTK_TYPE_TARGET_LIST			GtkTargetList			GBoxed		Gtk2::TargetList

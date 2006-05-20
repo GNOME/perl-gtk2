@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 16;
+use Gtk2::TestHelper tests => 18;
 
 # $Header$
 
@@ -61,7 +61,17 @@ SKIP: {
   is($entry -> text_index_to_layout_index(1), 1);
 }
 
+SKIP: {
+  skip("inner border stuff", 2)
+    unless Gtk2->CHECK_VERSION (2, 9, 0); # FIXME 2.10
+
+  $entry -> set_inner_border(undef);
+  is($entry -> get_inner_border(), undef);
+  $entry -> set_inner_border({left=>1, right=>2, top=>3, bottom=>4});
+  is_deeply($entry -> get_inner_border(), {left=>1, right=>2, top=>3, bottom=>4});
+}
+
 __END__
 
-Copyright (C) 2003 by the gtk2-perl team (see the file AUTHORS for the
+Copyright (C) 2003-2006 by the gtk2-perl team (see the file AUTHORS for the
 full list).  See LICENSE for more information.

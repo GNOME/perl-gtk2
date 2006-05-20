@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003 by the gtk2-perl team (see the file AUTHORS)
+ * Copyright (c) 2003-2006 by the gtk2-perl team (see the file AUTHORS)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -81,3 +81,14 @@ gdouble
 gtk_range_get_value (range)
 	GtkRange * range
 
+#if GTK_CHECK_VERSION (2, 9, 0) /* FIXME 2.10 */
+
+GtkSensitivityType gtk_range_get_lower_stepper_sensitivity (GtkRange *range);
+
+void gtk_range_set_lower_stepper_sensitivity (GtkRange *range, GtkSensitivityType sensitivity);
+
+GtkSensitivityType gtk_range_get_upper_stepper_sensitivity (GtkRange *range);
+
+void gtk_range_set_upper_stepper_sensitivity (GtkRange *range, GtkSensitivityType sensitivity);
+
+#endif

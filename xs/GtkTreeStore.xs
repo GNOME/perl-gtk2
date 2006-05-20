@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003 by the gtk2-perl team (see the file AUTHORS)
+ * Copyright (c) 2003-2006 by the gtk2-perl team (see the file AUTHORS)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -280,3 +280,66 @@ gtk_tree_store_move_after (tree_store, iter, position)
 	GtkTreeIter *position
 
 #endif /* >= 2.2.0 */
+
+#if GTK_CHECK_VERSION (2, 9, 0) /* FIXME 2.10 */
+
+=for apidoc
+=for arg position position to insert the new row
+=for arg ... pairs of column numbers and values
+Like doing insert followed by set, except that insert_with_values emits only
+the row-inserted signal, rather than row-inserted, row-changed, and, if the
+store is sorted, rows-reordered as in the multiple-operation case.
+Since emitting the rows-reordered signal repeatedly can affect the performance
+of the program, insert_with_values should generally be preferred when
+inserting rows in a sorted tree store.
+=cut
+GtkTreeIter_copy *
+gtk_tree_store_insert_with_values (GtkTreeStore *tree_store, GtkTreeIter_ornull *parent, gint position, ...);
+    PREINIT:
+	gint n_cols, i;
+	GtkTreeIter iter;
+	gint * columns = NULL;
+	GValue * values = NULL;
+	gint n_values;
+	const char * errfmt = "Usage: $iter = $treestore->insert_with_values ($parent, $position, column1, value1, ...)\n     %s";
+    CODE:
+	if (items < 3 || 0 != ((items - 3) % 2))
+		croak (errfmt, "There must be a value for every column number");
+	/*
+	 * we could jump through hoops to prevent leaking arrays and
+	 * initialized GValues here on column validation croaks, but
+	 * since gperl_value_from_sv() croaks (and we can't catch it
+	 * without major work), and since column index validation errors
+	 * mean there's a programming error anyway, we won't worry about
+	 * any of that.
+	 */
+	n_cols = gtk_tree_model_get_n_columns (GTK_TREE_MODEL (tree_store));
+	n_values = (items - 3) / 2;
+	if (n_values > 0) {
+		columns = gperl_alloc_temp (sizeof (gint) * n_values);
+		/* gperl_alloc_temp() calls memset(), so we don't need to do
+		 * anything else special to prepare these GValues. */
+		values = gperl_alloc_temp (sizeof (GValue) * n_values);
+		for (i = 0 ; i < n_values ; i ++) {
+			if (! looks_like_number (ST (3 + i*2)))
+				croak (errfmt, "The first value in each pair must be a column index number");
+			columns[i] = SvIV (ST (3 + i*2));
+			if (! (columns[i] >= 0 && columns[i] < n_cols))
+				croak (errfmt, form ("Bad column index %d, model only has %d columns",
+						     columns[i], n_cols));
+			g_value_init (values + i,
+			              gtk_tree_model_get_column_type
+			                        (GTK_TREE_MODEL (tree_store),
+			                         columns[i]));
+			gperl_value_from_sv (values + i, ST (3 + i*2 + 1));
+		}
+	}
+	gtk_tree_store_insert_with_valuesv (tree_store, &iter, parent, position,
+					    columns, values, n_values);
+	for (i = 0 ; i < n_values ; i++)
+		g_value_unset (values + i);
+	RETVAL = &iter;
+    OUTPUT:
+	RETVAL
+
+#endif /* 2.10 */

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003 by the gtk2-perl team (see the file AUTHORS)
+ * Copyright (c) 2003-2006 by the gtk2-perl team (see the file AUTHORS)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -21,11 +21,79 @@
 
 #include "gtk2perl.h"
 
+static GPerlBoxedWrapperClass gtk_border_wrapper_class;
+
+static SV *
+gtk2perl_border_wrap (GType gtype, const char * package, gpointer boxed, gboolean own)
+{
+	GtkBorder *border = boxed;
+	HV *hv;
+
+	if (!border)
+		return &PL_sv_undef;
+
+	hv = newHV ();
+
+	hv_store (hv, "left", 4, newSViv (border->left), 0);
+	hv_store (hv, "right", 5, newSViv (border->right), 0);
+	hv_store (hv, "top", 3, newSViv (border->top), 0);
+	hv_store (hv, "bottom", 6, newSViv (border->bottom), 0);
+
+	if (own)
+		gtk_border_free (border);
+
+	return newRV_noinc ((SV *) hv);
+}
+
+/* This uses gperl_alloc_temp so make sure you don't hold on to pointers
+ * returned by SvGtkBorder for too long. */
+static gpointer
+gtk2perl_border_unwrap (GType gtype, const char * package, SV * sv)
+{
+	HV *hv;
+	SV **value;
+	GtkBorder *border;
+
+	if (!SvOK (sv) || !SvRV (sv))
+		return NULL;
+
+	if (SvTYPE (SvRV (sv)) != SVt_PVHV)
+		croak ("GtkBorder must be a hash reference with four keys: "
+		       "left, right, top, bottom");
+
+	hv = (HV *) SvRV (sv);
+
+	border = gperl_alloc_temp (sizeof (GtkBorder));
+
+	value = hv_fetch (hv, "left", 4, 0);
+	if (value && SvOK (*value))
+		border->left = SvIV (*value);
+
+	value = hv_fetch (hv, "right", 5, 0);
+	if (value && SvOK (*value))
+		border->right = SvIV (*value);
+
+	value = hv_fetch (hv, "top", 3, 0);
+	if (value && SvOK (*value))
+		border->top = SvIV (*value);
+
+	value = hv_fetch (hv, "bottom", 6, 0);
+	if (value && SvOK (*value))
+		border->bottom = SvIV (*value);
+
+	return border;
+}
+
 MODULE = Gtk2::Entry	PACKAGE = Gtk2::Entry	PREFIX = gtk_entry_
 
 BOOT:
 	gperl_prepend_isa ("Gtk2::Entry", "Gtk2::CellEditable");
 	gperl_prepend_isa ("Gtk2::Entry", "Gtk2::Editable");
+	gtk_border_wrapper_class = * gperl_default_boxed_wrapper_class ();
+	gtk_border_wrapper_class.wrap = gtk2perl_border_wrap;
+	gtk_border_wrapper_class.unwrap = gtk2perl_border_unwrap;
+	gperl_register_boxed (GTK_TYPE_BORDER, "Gtk2::Border",
+	                      &gtk_border_wrapper_class);
 
 GtkWidget*
 gtk_entry_new (class)
@@ -164,5 +232,13 @@ gtk_entry_set_editable (entry, editable)
 gint gtk_entry_layout_index_to_text_index (GtkEntry *entry, gint layout_index)
 
 gint gtk_entry_text_index_to_layout_index (GtkEntry *entry, gint text_index)
+
+#endif
+
+#if GTK_CHECK_VERSION(2, 9, 0) /* FIXME 2.10 */
+
+void gtk_entry_set_inner_border (GtkEntry *entry, const GtkBorder_ornull *border);
+
+const GtkBorder_ornull * gtk_entry_get_inner_border (GtkEntry *entry);
 
 #endif

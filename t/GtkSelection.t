@@ -1,11 +1,17 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 10;
+use Gtk2::TestHelper tests => 16;
 
 # $Header$
 
 my $list = Gtk2::TargetList -> new();
 isa_ok($list, "Gtk2::TargetList");
+SKIP: {
+  skip "2.10 stuff", 1
+    unless Gtk2 -> CHECK_VERSION(2, 9, 0); # FIXME 2.10
+
+  isa_ok($list, "Glib::Boxed");
+}
 
 $list = Gtk2::TargetList -> new(
   { target => "STRING", flags => "same-app", info => 23 },
@@ -33,6 +39,34 @@ SKIP: {
   is($list -> find(Gtk2::Gdk::Atom -> intern("text/plain")), 42);
   is($list -> find(Gtk2::Gdk::Atom -> intern("image/png")), 43);
   is($list -> find(Gtk2::Gdk::Atom -> intern("text/uri-list")), 44);
+}
+
+SKIP: {
+  skip("2.10 stuff", 5)
+    unless Gtk2 -> CHECK_VERSION(2, 9, 0); # FIXME 2.10
+
+  my $buffer = Gtk2::TextBuffer->new;
+  $buffer->register_serialize_format (
+    'text/rdf',
+    sub { warn "here"; return 'bla!'; });
+  $buffer->register_deserialize_format (
+    'text/rdf',
+    sub { warn "here"; $_[1]->insert ($_[2], 'bla!'); });
+  $list -> add_rich_text_targets(45, TRUE, $buffer);
+
+  is($list -> find(Gtk2::Gdk::Atom -> intern("text/rdf")), 45);
+
+  my @targets = (
+    Gtk2::Gdk::Atom -> intern("text/plain"),
+    Gtk2::Gdk::Atom -> intern("text/uri-list"),
+    Gtk2::Gdk::Atom -> intern("image/png"),
+    Gtk2::Gdk::Atom -> intern("text/rdf"),
+  );
+
+  ok(Gtk2 -> targets_include_text(@targets));
+  ok(Gtk2 -> targets_include_uri(@targets));
+  ok(Gtk2 -> targets_include_rich_text($buffer, @targets));
+  ok(Gtk2 -> targets_include_image(TRUE, @targets));
 }
 
 ###############################################################################
@@ -77,5 +111,5 @@ $window -> selection_remove_all();
 
 __END__
 
-Copyright (C) 2003 by the gtk2-perl team (see the file AUTHORS for the
+Copyright (C) 2003-2006 by the gtk2-perl team (see the file AUTHORS for the
 full list).  See LICENSE for more information.

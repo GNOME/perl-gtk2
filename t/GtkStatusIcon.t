@@ -58,13 +58,32 @@ is($icon -> get_icon_name(), "gtk-ok");
 
 my $icon_theme = Gtk2::IconTheme -> new();
 my $icon_info = $icon_theme -> lookup_icon('stock_edit', 24, 'use-builtin');
-my $icon_file = $icon_info -> get_filename();
 
-$icon = Gtk2::StatusIcon -> new_from_file($icon_file);
-isa_ok($icon, "Gtk2::StatusIcon");
-is($icon -> get_storage_type(), "pixbuf");
+SKIP: {
+	skip "new_from_file; theme icon not found", 2
+		unless defined $icon_info;
 
-$icon -> set_from_file($icon_file);
+	my $icon_file = $icon_info -> get_filename();
+
+	$icon = Gtk2::StatusIcon -> new_from_file($icon_file);
+	isa_ok($icon, "Gtk2::StatusIcon");
+	is($icon -> get_storage_type(), "pixbuf");
+
+	$icon -> set_from_file($icon_file);
+}
+
+# --------------------------------------------------------------------------- #
+
+my $menu = Gtk2::Menu -> new();
+$menu -> popup(undef, undef, \&Gtk2::StatusIcon::position_menu, $icon, 0, 0);
+$menu -> popdown();
+
+my $callback = sub {
+	my ($menu, $x, $y, $icon) = @_;
+	return Gtk2::StatusIcon::position_menu($menu, $x, $y, $icon);
+};
+$menu -> popup(undef, undef, $callback, $icon, 0, 0);
+$menu -> popdown();
 
 __END__
 

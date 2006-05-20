@@ -1,6 +1,7 @@
 #!/usr/bin/perl -w
+# vim: set ft=perl :
 use strict;
-use Gtk2::TestHelper tests => 5;
+use Gtk2::TestHelper tests => 7;
 
 # $Header$
 
@@ -24,7 +25,18 @@ is($range -> get_value(), 23.42);
 $range -> set_increments(1, 5);
 $range -> set_range(0, 100);
 
+SKIP: {
+        skip 'new stuff in 2.10', 2
+                unless Gtk2 -> CHECK_VERSION(2, 9, 0); # FIXME 2.10
+
+        $range -> set_lower_stepper_sensitivity('off');
+        is ($range -> get_lower_stepper_sensitivity, 'off');
+
+	$range -> set_upper_stepper_sensitivity('on');
+	is ($range -> get_upper_stepper_sensitivity, 'on');
+}
+
 __END__
 
-Copyright (C) 2003 by the gtk2-perl team (see the file AUTHORS for the
+Copyright (C) 2003,2006 by the gtk2-perl team (see the file AUTHORS for the
 full list).  See LICENSE for more information.

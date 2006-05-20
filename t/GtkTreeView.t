@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 138;
+use Gtk2::TestHelper tests => 140;
 
 # $Header$
 
@@ -244,6 +244,13 @@ is($view -> get_headers_visible(), 1);
 
 $view -> set_headers_clickable(1);
 
+SKIP: {
+	skip "new 2.10 stuff", 1
+		unless Gtk2 -> CHECK_VERSION(2, 9, 0); # FIXME: 2.10
+
+	is($view -> get_headers_clickable(), 1);
+}
+
 $view -> set_rules_hint(1);
 is($view -> get_rules_hint(), 1);
 
@@ -346,6 +353,19 @@ SKIP: {
         isa_ok($end, "Gtk2::TreePath");
 }
 
+SKIP: {
+	skip("new 2.10 stuff", 1)
+		unless Gtk2 -> CHECK_VERSION(2, 9, 0); # FIXME 2.10
+
+	my $entry = Gtk2::Entry -> new();
+	$view -> set_search_entry($entry);
+	isa_ok($view -> get_search_entry(), "Gtk2::Entry");
+
+	# FIXME: This doesn't actually invoke the handler.
+	$view -> set_search_position_func(sub { warn @_; }, "bla");
+	run_main sub { $view -> signal_emit("start_interactive_search") };
+}
+
 ###############################################################################
 
 my $i_know_this_place = 0;
@@ -437,5 +457,5 @@ run_main sub { $view->signal_emit ('button_press_event', $event) };
 
 __END__
 
-Copyright (C) 2003-2005 by the gtk2-perl team (see the file AUTHORS for the
+Copyright (C) 2003-2006 by the gtk2-perl team (see the file AUTHORS for the
 full list).  See LICENSE for more information.

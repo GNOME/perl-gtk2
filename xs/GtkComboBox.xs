@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003-2004 by the gtk2-perl team (see the file AUTHORS)
+ * Copyright (c) 2003-2006 by the gtk2-perl team (see the file AUTHORS)
  *
  * Licensed under the LGPL, see LICENSE file for more information.
  *
@@ -187,5 +187,13 @@ void gtk_combo_box_set_focus_on_click (GtkComboBox *combo_box, gboolean focus_on
 gboolean gtk_combo_box_get_focus_on_click (GtkComboBox *combo_box);
 
 #AtkObject * gtk_combo_box_get_popup_accessible (GtkComboBox *combo_box);
+
+#endif
+
+#if GTK_CHECK_VERSION (2, 9, 0) /* FIXME 2.10 */
+
+void gtk_combo_box_set_title (GtkComboBox *combo_box, const gchar * title);
+
+const gchar * gtk_combo_box_get_title (GtkComboBox *combo_box);
 
 #endif

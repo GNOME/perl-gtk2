@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 5;
+use Gtk2::TestHelper tests => 6;
 
 # $Header$
 
@@ -76,6 +76,14 @@ SKIP: {
   $button -> drag_dest_add_uri_targets();
 }
 
+SKIP: {
+  skip("2.10 stuff", 1)
+    unless Gtk2 -> CHECK_VERSION(2, 9, 0); # FIXME 2.10
+
+  $button -> drag_dest_set_track_motion(FALSE);
+  ok(!$button -> drag_dest_get_track_motion());
+}
+
 $button -> drag_dest_unset();
 
 # Source ######################################################################
@@ -118,5 +126,5 @@ $button -> drag_source_unset();
 
 __END__
 
-Copyright (C) 2003-2005 by the gtk2-perl team (see the file AUTHORS for
+Copyright (C) 2003-2006 by the gtk2-perl team (see the file AUTHORS for
 the full list).  See LICENSE for more information.

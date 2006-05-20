@@ -398,7 +398,15 @@ SKIP: {
 	$widget->remove_mnemonic_label ($label_two);
 }
 
+SKIP: {
+	skip "stuff that's new in 2.10", 0
+		unless Gtk2->CHECK_VERSION (2, 9, 0); # FIXME 2.10
+
+	$widget->input_shape_combine_mask ($bitmap, 23, 42);
+	$widget->input_shape_combine_mask (undef, 0, 0);
+}
+
 __END__
 
-Copyright (C) 2003 by the gtk2-perl team (see the file AUTHORS for the
+Copyright (C) 2003-2006 by the gtk2-perl team (see the file AUTHORS for the
 full list).  See LICENSE for more information.

@@ -41,7 +41,14 @@ SKIP: {
   isa_ok($window -> get_vscrollbar(), "Gtk2::VScrollbar");
 }
 
+SKIP: {
+  skip("new 2.10 stuff", 0)
+    unless Gtk2->CHECK_VERSION (2, 9, 0); # FIXME 2.10
+
+  $window -> unset_placement();
+}
+
 __END__
 
-Copyright (C) 2003-2005 by the gtk2-perl team (see the file AUTHORS for the
+Copyright (C) 2003-2006 by the gtk2-perl team (see the file AUTHORS for the
 full list).  See LICENSE for more information.

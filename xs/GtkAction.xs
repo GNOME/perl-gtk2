@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003-2005 by the gtk2-perl team (see the file AUTHORS)
+ * Copyright (c) 2003-2006 by the gtk2-perl team (see the file AUTHORS)
  *
  * Licensed under the LGPL, see LICENSE file for more information.
  *
@@ -60,5 +60,13 @@ void gtk_action_set_sensitive (GtkAction *action, gboolean sensitive);
 void gtk_action_set_visible (GtkAction *action, gboolean visible);
 
 const gchar* gtk_action_get_accel_path (GtkAction *action);
+
+#endif
+
+#if GTK_CHECK_VERSION (2, 9, 0) /* FIXME 2.10 */
+
+MODULE = Gtk2::Action	PACKAGE = Gtk2::Widget	PREFIX = gtk_widget_
+
+GtkAction_ornull * gtk_widget_get_action (GtkWidget *widget);
 
 #endif

@@ -60,3 +60,19 @@ void gtk_status_icon_set_blinking (GtkStatusIcon *status_icon, gboolean blinking
 gboolean gtk_status_icon_get_blinking (GtkStatusIcon *status_icon);
 
 gboolean gtk_status_icon_is_embedded (GtkStatusIcon *status_icon);
+
+=for apidoc __function__
+This function can be used as the I<menu_pos_func> argument to
+I<Gtk2::Menu::popup>.
+=cut
+##void gtk_status_icon_position_menu (GtkMenu *menu, gint *x, gint *y, gboolean *push_in, gpointer user_data)
+void
+gtk_status_icon_position_menu (GtkMenu *menu, gint x, gint y, GtkStatusIcon *icon)
+    PREINIT:
+	gboolean push_in;
+    PPCODE:
+	gtk_status_icon_position_menu (menu, &x, &y, &push_in, icon);
+	EXTEND (sp, 3);
+	PUSHs (sv_2mortal (newSViv (x)));
+	PUSHs (sv_2mortal (newSViv (y)));
+	PUSHs (sv_2mortal (newSVuv (push_in)));

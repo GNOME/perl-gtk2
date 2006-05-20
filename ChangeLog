@@ -1,3 +1,93 @@
+2006/05/20	kaffeetisch
+
+	Another successful gtk2-perl tag team coup:
+
+	* t/GtkHButtonBox.t, t/GtkVButtonBox.t:
+	Test [gs]et_layout_default, [gs]et_spacing_default.
+
+	* xs/GdkEvent.xs: Remove an unneeded call to gperl_set_isa.
+
+	* t/GtkAction.t, xs/GtkAction.xs: Bind and test
+	gtk_widget_get_action.
+
+	* MANIFEST, maps-2.10, xs_files-2.10, t/GtkCellRendererSpin.t,
+	xs/GtkCellRendererSpin.xs: Add support for GtkCellRendererSpin.
+
+	* t/GtkClipboard.t, xs/GtkClipboard.xs: Bind and test
+	gtk_clipboard_request_rich_text, gtk_clipboard_wait_for_rich_text,
+	gtk_clipboard_wait_is_rich_text_available.
+
+	* t/GtkComboBox.t, xs/GtkComboBox.xs: Bind and test
+	gtk_combo_box_set_title, gtk_combo_box_get_title.
+
+	* t/GtkDnd.t, xs/GtkDnd.xs: Bind and test
+	gtk_drag_dest_set_track_motion, gtk_drag_dest_get_track_motion.
+
+	* t/GtkEntry.t, xs/GtkEntry.xs: Bind and test
+	gtk_entry_set_inner_border, gtk_entry_get_inner_border and the new
+	boxed wrapper for GtkBorder they made necessary.
+
+	* t/GtkFileChooserButton.t, xs/GtkFileChooserButton.xs: Bind and
+	test gtk_file_chooser_button_set_focus_on_click,
+	gtk_file_chooser_button_get_focus_on_click.
+
+	* t/GtkNotebook.t, xs/GtkNotebook.xs: Bind and test
+	gtk_notebook_set_window_creation_hook, gtk_notebook_set_group_id,
+	gtk_notebook_get_group_id, gtk_notebook_set_tab_reorderable,
+	gtk_notebook_get_tab_reorderable, gtk_notebook_set_tab_detachable,
+	gtk_notebook_get_tab_detachable.
+
+	* t/GtkRadioAction.t, xs/GtkRadioAction.xs: Bind and test
+	gtk_radio_action_set_current_value.
+
+	* maps-2.10, t/GtkRange.t, xs/GtkRange.xs: Bind and test
+	gtk_range_get_lower_stepper_sensitivity,
+	gtk_range_set_lower_stepper_sensitivity,
+	gtk_range_get_upper_stepper_sensitivity,
+	gtk_range_set_upper_stepper_sensitivity.
+
+	* t/GtkScrolledWindow.t, xs/GtkScrolledWindow.xs: Bind and test
+	gtk_scrolled_window_unset_placement.
+
+	* gtk2perl.h, maps-2.10, xs/GtkSelection.xs: If available, use the
+	boxed wrapper for GtkTargetList.
+
+	* t/GtkSelection.t, t/GtkClipboard.t, xs/GtkSelection.xs: Bind and
+	test gtk_target_list_add_rich_text_targets,
+	gtk_targets_include_text, gtk_targets_include_uri,
+	gtk_targets_include_rich_text, gtk_targets_include_image,
+	gtk_selection_data_targets_include_rich_text,
+	gtk_selection_data_targets_include_uri.
+
+	* t/GtkSizeGroup.t, xs/GtkSizeGroup.xs: Bind and test
+	gtk_size_group_get_widgets.
+
+	* t/GtkStatusIcon.t, xs/GtkStatusIcon.xs: Bind and test
+	gtk_status_icon_position_menu.
+
+	* t/GtkStyle.t, xs/GtkStyle.xs: Bind and test
+	gtk_style_lookup_color.
+
+	* t/GtkTextBuffer.t, xs/GtkTextBuffer.xs: Bind and test
+	gtk_text_buffer_get_has_selection,
+	gtk_text_buffer_get_copy_target_list,
+	gtk_text_buffer_get_paste_target_list.
+
+	* t/GtkTreeStore.t, xs/GtkTreeStore.xs: Bind and test
+	gtk_tree_store_insert_with_values.
+
+	* t/GtkTreeView.t, xs/GtkTreeView.xs: Bind and test
+	gtk_tree_view_get_headers_clickable,
+	gtk_tree_view_set_search_entry, gtk_tree_view_get_search_entry,
+	gtk_tree_view_set_search_position_func.
+
+	* t/GtkWidget.t, xs/GtkWidget.xs: Bind and test
+	gtk_widget_input_shape_combine_mask.
+
+	* t/01.GtkWindow.t, xs/GtkWindow.xs: Bind and test
+	gtk_window_set_deletable, gtk_window_get_deletable,
+	gtk_window_get_group.
+
 2006/05/15	kaffeetisch
 
 	* Gtk2.pm, Makefile.PL, NEWS, README: Unstable release 1.130.
