@@ -1,5 +1,9 @@
 2006/05/26	kaffeetisch
 
+	* Gtk2.pm, NEWS, README: Stable release 1.122.
+
+2006/05/26	kaffeetisch
+
 	Merge from HEAD:
 
 	* t/00.Gtk2.t: Fix test failure caused by the warning about a

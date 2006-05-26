@@ -1,3 +1,9 @@
+Overview of changes in Gtk2 1.122
+=================================
+
+* Allow pasing undef to the Gtk2::Widget::modify_* methods.  [muppet]
+* Fix multiple test suite issues.  [Torsten]
+
 Overview of changes in Gtk2 1.121
 =================================
 
