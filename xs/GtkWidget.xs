@@ -820,15 +820,15 @@ void gtk_widget_modify_style (GtkWidget *widget, GtkRcStyle *style);
 
 GtkRcStyle * gtk_widget_get_modifier_style (GtkWidget * widget);
 
-void gtk_widget_modify_fg (GtkWidget * widget, GtkStateType state, GdkColor * color);
+void gtk_widget_modify_fg (GtkWidget * widget, GtkStateType state, GdkColor_ornull * color);
 
-void gtk_widget_modify_bg (GtkWidget * widget, GtkStateType state, GdkColor * color);
+void gtk_widget_modify_bg (GtkWidget * widget, GtkStateType state, GdkColor_ornull * color);
 
-void gtk_widget_modify_text (GtkWidget * widget, GtkStateType state, GdkColor * color);
+void gtk_widget_modify_text (GtkWidget * widget, GtkStateType state, GdkColor_ornull * color);
 
-void gtk_widget_modify_base (GtkWidget * widget, GtkStateType state, GdkColor * color);
+void gtk_widget_modify_base (GtkWidget * widget, GtkStateType state, GdkColor_ornull * color);
 
-void gtk_widget_modify_font (GtkWidget *widget, PangoFontDescription *font_desc)
+void gtk_widget_modify_font (GtkWidget *widget, PangoFontDescription_ornull *font_desc)
 
 
  #PangoContext *gtk_widget_create_pango_context (GtkWidget   *widget);
