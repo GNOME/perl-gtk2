@@ -1,3 +1,8 @@
+2006/05/25	muppetman
+
+	* t/GtkWidget.t, xs/GtkWidget.xs: Allow undef for the modify_foo
+	methods.  #342891
+
 2006/05/20	kaffeetisch
 
 	Another successful gtk2-perl tag team coup:

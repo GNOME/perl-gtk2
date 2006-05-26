@@ -1,4 +1,5 @@
 # $Header$
+# vim: set ft=perl :
 
 use warnings;
 use strict;
@@ -306,6 +307,13 @@ $widget->modify_bg (qw/normal/, $black);
 $widget->modify_text (qw/normal/, $black);
 $widget->modify_base (qw/normal/, $black);
 $widget->modify_font (Gtk2::Pango::FontDescription->from_string ("Sans"));
+
+# passing undef allows you to undo
+$widget->modify_fg (qw/normal/, undef);
+$widget->modify_bg (qw/normal/, undef);
+$widget->modify_text (qw/normal/, undef);
+$widget->modify_base (qw/normal/, undef);
+$widget->modify_font (undef);
 
 isa_ok ($widget->create_pango_context, "Gtk2::Pango::Context");
 isa_ok ($widget->get_pango_context, "Gtk2::Pango::Context");
