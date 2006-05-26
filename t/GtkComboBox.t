@@ -3,7 +3,7 @@
 # $Header$
 
 use Gtk2::TestHelper
-	tests => 24,
+	tests => 23,
 	at_least_version => [2, 4, 0, "GtkComboBox is new in 2.4"],
 	;
 
@@ -13,13 +13,6 @@ my $combo_box;
 $combo_box = Gtk2::ComboBox->new_text;
 isa_ok ($combo_box, 'Gtk2::ComboBox');
 ginterfaces_ok($combo_box);
-
-SKIP: {
-	skip '@ISA check', 1
-		unless Gtk2 -> CHECK_VERSION (2, 6, 0);
-
-	isa_ok ($combo_box, 'Gtk2::CellEditable');
-}
 
 $combo_box->append_text ("some text");
 $combo_box->append_text ("more text");

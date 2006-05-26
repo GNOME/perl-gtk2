@@ -1,3 +1,20 @@
+2006/05/26	kaffeetisch
+
+	Merge from HEAD:
+
+	* t/00.Gtk2.t: Fix test failure caused by the warning about a
+	missing theme engine.  Reported by Sergei Steshenko in #341688.
+
+	* t/GdkCairo.t, t/PangoCairo.t: Make the check for Cairo's
+	presence more robust.
+
+	* t/GtkCellLayout.t, t/GtkExpander.t, t/GtkMenuItem.t,
+	t/GtkRadioButton.t, t/GtkRadioToolButton.t, t/GtkScrolledWindow.t,
+	t/GtkToggleButton.t: Remove the noinit flag from some tests that
+	now apparently need an initialized gtk+.
+
+	* t/GtkComboBox.t: Remove redundant @ISA check.
+
 2006/05/25	muppetman
 
 	* t/GtkWidget.t, xs/GtkWidget.xs: Allow undef for the modify_foo

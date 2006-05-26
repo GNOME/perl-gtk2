@@ -2,8 +2,7 @@
 use strict;
 use Gtk2::TestHelper
   at_least_version => [2, 4, 0, "GtkCellLayout is new in 2.4"],
-  tests => 4,
-  noinit => 1;
+  tests => 4;
 
 # $Header$
 
