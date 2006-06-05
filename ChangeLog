@@ -1,3 +1,14 @@
+2006/06/05	kaffeetisch
+
+	* t/GtkButton.t, xs/GtkButton.xs: Wrap
+	gtk_button_set_image_position and gtk_button_get_image_position.
+
+	* t/GtkMessageDialog.t, xs/GtkMessageDialog.xs: Wrap
+	gtk_message_dialog_set_image.
+
+	* t/GtkStatusIcon.t, xs/GtkStatusIcon.xs: Wrap
+	gtk_status_icon_get_geometry.
+
 2006/05/25	muppetman
 
 	* t/GtkWidget.t, xs/GtkWidget.xs: Allow undef for the modify_foo

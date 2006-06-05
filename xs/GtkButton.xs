@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003 by the gtk2-perl team (see the file AUTHORS)
+ * Copyright (c) 2003-2006 by the gtk2-perl team (see the file AUTHORS)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -154,17 +154,6 @@ void gtk_button_set_alignment (GtkButton * button, gfloat xalign, gfloat yalign)
  ## void gtk_button_get_alignment (GtkButton *button, gfloat *xalign, gfloat *yalign)
 void gtk_button_get_alignment (GtkButton *button, OUTLIST gfloat xalign, OUTLIST gfloat yalign)
 
-##void gtk_button_get_alignment (GtkButton *button)
-##    PREINIT:
-##	gfloat xalign;
-##	gfloat yalign;
-##    PPCODE:
-##	gtk_button_get_alignment (button, &xalign, &yalign);
-##	warn ("%.20f, %.20f", xalign, yalign);
-##	EXTEND (sp, 2);
-##	PUSHs (sv_2mortal (newSVnv (xalign)));
-##	PUSHs (sv_2mortal (newSVnv (yalign)));
-
 #endif
 
 #if GTK_CHECK_VERSION(2,6,0)
@@ -172,5 +161,13 @@ void gtk_button_get_alignment (GtkButton *button, OUTLIST gfloat xalign, OUTLIST
 void gtk_button_set_image (GtkButton *button, GtkWidget_ornull *image)
 
 GtkWidget_ornull * gtk_button_get_image (GtkButton *button)
+
+#endif
+
+#if GTK_CHECK_VERSION(2,9,2)
+
+void gtk_button_set_image_position (GtkButton *button, GtkPositionType position);
+
+GtkPositionType gtk_button_get_image_position (GtkButton *button);
 
 #endif

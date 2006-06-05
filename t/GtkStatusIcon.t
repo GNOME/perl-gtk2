@@ -4,7 +4,7 @@
 use strict;
 use warnings;
 use Gtk2::TestHelper
-  tests => 17,
+  tests => 20,
   at_least_version => [2, 9, 0, "Gtk2::StatusIcon is new in 2.10"]; # FIXME: 2.10
 
 # $Header$
@@ -84,6 +84,18 @@ my $callback = sub {
 };
 $menu -> popup(undef, undef, $callback, $icon, 0, 0);
 $menu -> popdown();
+
+# --------------------------------------------------------------------------- #
+
+my ($screen, $area, $orientation) = $icon -> get_geometry();
+SKIP: {
+  skip "geometry tests", 3
+    unless defined $screen;
+
+  isa_ok ($screen, "Gtk2::Gdk::Screen");
+  isa_ok ($area, "Gtk2::Gdk::Rectangle");
+  ok (defined $orientation);
+}
 
 __END__
 

@@ -58,7 +58,15 @@ SKIP: {
   $dialog -> format_secondary_markup(undef);
 }
 
+SKIP: {
+  skip("new 2.10 stuff", 0)
+    unless Gtk2->CHECK_VERSION (2, 9, 2); # FIXME 2.10
+
+  my $image = Gtk2::Label -> new(":-)");
+  $dialog -> set_image($image);
+}
+
 __END__
 
-Copyright (C) 2003 by the gtk2-perl team (see the file AUTHORS for the
+Copyright (C) 2003-2006 by the gtk2-perl team (see the file AUTHORS for the
 full list).  See LICENSE for more information.
