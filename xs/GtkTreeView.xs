@@ -839,4 +839,20 @@ void gtk_tree_view_set_search_position_func (GtkTreeView *tree_view, SV *func, S
 ### this point.
 ### gtk_tree_view_get_search_position_func
 
+#endif
+
+#if GTK_CHECK_VERSION (2, 9, 2) /* FIXME 2.10 */
+
+void gtk_tree_view_set_rubber_banding (GtkTreeView *tree_view, gboolean enable);
+
+gboolean gtk_tree_view_get_rubber_banding (GtkTreeView *tree_view);
+
+GtkTreeViewGridLines gtk_tree_view_get_grid_lines (GtkTreeView *tree_view);
+
+void gtk_tree_view_set_grid_lines (GtkTreeView *tree_view, GtkTreeViewGridLines grid_lines);
+
+gboolean gtk_tree_view_get_enable_tree_lines (GtkTreeView *tree_view);
+
+void gtk_tree_view_set_enable_tree_lines (GtkTreeView *tree_view, gboolean enabled);
+
 #endif /* 2.10 */

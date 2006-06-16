@@ -3,6 +3,12 @@
 	* t/GtkNotebook.t, xs/GtkNotebook.xs: Use an API improvement in
 	gtk+ 2.9.2.
 
+	* map-2.10, t/GtkTreeView.t, xs/GtkTreeView.xs: Bind and test
+	gtk_tree_view_set_rubber_banding,
+	gtk_tree_view_get_rubber_banding, gtk_tree_view_get_grid_lines,
+	gtk_tree_view_set_grid_lines, gtk_tree_view_get_enable_tree_lines,
+	gtk_tree_view_set_enable_tree_lines.
+
 2006/06/05	kaffeetisch
 
 	* t/GtkButton.t, xs/GtkButton.xs: Wrap

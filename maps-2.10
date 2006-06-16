@@ -13,3 +13,5 @@ GTK_TYPE_SENSITIVITY_TYPE		GtkSensitivityType		GEnum		Gtk2::SensitivityType
 GTK_TYPE_STATUS_ICON			GtkStatusIcon			GObject		Gtk2::StatusIcon
 
 GTK_TYPE_TARGET_LIST			GtkTargetList			GBoxed		Gtk2::TargetList
+
+GTK_TYPE_TREE_VIEW_GRID_LINES		GtkTreeViewGridLines		GEnum		Gtk2::TreeViewGridLines
