@@ -105,7 +105,7 @@ SKIP: {
 		is ($_[0], $clipboard);
 		is ($_[1]->name, 'text/rdf');
 		is ($_[2], undef); # FIXME
-	is ($_[3], 'user data!');
+		is ($_[3], 'user data!');
 	}, 'user data!');
 
 	# FIXME
