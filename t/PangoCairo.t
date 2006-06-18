@@ -54,6 +54,14 @@ Gtk2::Pango::Cairo::layout_path($cr, $layout);
 # FIXME: Test pango_cairo_show_glyph_string, pango_cairo_glyph_string_path,
 # pango_cairo_show_layout_line, pango_cairo_layout_line_path.
 
+SKIP: {
+  skip "error line stuff", 0
+    unless Gtk2::Pango -> CHECK_VERSION(1, 13, 2); # FIXME 1.14
+
+  Gtk2::Pango::Cairo::show_error_underline($cr, 23, 42, 5, 5);
+  Gtk2::Pango::Cairo::error_underline_path($cr, 23, 42, 5, 5);
+}
+
 __END__
 
 Copyright (C) 2005 by the gtk2-perl team (see the file AUTHORS for the

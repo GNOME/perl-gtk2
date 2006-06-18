@@ -6,6 +6,10 @@
 	and gtk_tree_model_filter_convert_path_to_child_path can now
 	return NULL.  Alter the wrappers accordingly.
 
+	* t/PangoCairo.t, xs/PangoCairo.xs: Bind and test
+	pango_cairo_show_error_underline,
+	pango_cairo_error_underline_path.
+
 	* t/PangoFont.t, xs/PangoFont.xs: Bind and test
 	pango_font_describe_with_absolute_size.  Also plug some leaks.
 
