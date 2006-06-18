@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 53;
+use Gtk2::TestHelper tests => 54;
 
 # $Header$
 
@@ -62,6 +62,13 @@ my $language = Gtk2 -> get_default_language();
 my $number = qr/^-?\d+$/;
 
 isa_ok($font -> describe(), "Gtk2::Pango::FontDescription");
+
+SKIP: {
+  skip "new 1.14 stuff", 1
+    unless Gtk2::Pango -> CHECK_VERSION(1, 13, 2); # FIXME: 1.14
+
+  isa_ok($font -> describe_with_absolute_size(), "Gtk2::Pango::FontDescription");
+}
 
 foreach my $rectangle ($font -> get_glyph_extents(23)) {
   foreach my $key (qw(x y width height)) {

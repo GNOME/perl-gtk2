@@ -6,6 +6,9 @@
 	and gtk_tree_model_filter_convert_path_to_child_path can now
 	return NULL.  Alter the wrappers accordingly.
 
+	* t/PangoFont.t, xs/PangoFont.xs: Bind and test
+	pango_font_describe_with_absolute_size.  Also plug some leaks.
+
 2006/06/16	kaffeetisch
 
 	* t/GtkNotebook.t, xs/GtkNotebook.xs: Use an API improvement in
