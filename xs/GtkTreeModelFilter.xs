@@ -153,8 +153,15 @@ gtk_tree_model_filter_convert_child_iter_to_iter (filter, child_iter)
     PREINIT:
 	GtkTreeIter filter_iter;
     CODE:
+#if GTK_CHECK_VERSION (2, 9, 2) /* FIXME: 2.10 */
+	if (gtk_tree_model_filter_convert_child_iter_to_iter (filter, &filter_iter, child_iter))
+		RETVAL = &filter_iter;
+	else
+		XSRETURN_UNDEF;
+#else
 	gtk_tree_model_filter_convert_child_iter_to_iter (filter, &filter_iter, child_iter);
 	RETVAL = &filter_iter;
+#endif
     OUTPUT:
 	RETVAL
 
@@ -171,9 +178,9 @@ gtk_tree_model_filter_convert_iter_to_child_iter (filter, filter_iter)
     OUTPUT:
 	RETVAL
 
-GtkTreePath *gtk_tree_model_filter_convert_child_path_to_path (GtkTreeModelFilter *filter, GtkTreePath *child_path);
+GtkTreePath_ornull *gtk_tree_model_filter_convert_child_path_to_path (GtkTreeModelFilter *filter, GtkTreePath *child_path);
 
-GtkTreePath *gtk_tree_model_filter_convert_path_to_child_path (GtkTreeModelFilter *path, GtkTreePath *filter_path);
+GtkTreePath_ornull *gtk_tree_model_filter_convert_path_to_child_path (GtkTreeModelFilter *path, GtkTreePath *filter_path);
 
 
 ##

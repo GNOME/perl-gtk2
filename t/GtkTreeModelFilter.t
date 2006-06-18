@@ -35,8 +35,8 @@ my $iter = $list -> get_iter($path);
 isa_ok(my $tmp = $filter -> convert_child_iter_to_iter($iter), "Gtk2::TreeIter");
 isa_ok($filter -> convert_iter_to_child_iter($tmp), "Gtk2::TreeIter");
 
-isa_ok($filter -> convert_child_path_to_path($path), "Gtk2::TreePath");
-isa_ok($filter -> convert_path_to_child_path($path), "Gtk2::TreePath");
+isa_ok($tmp = $filter -> convert_child_path_to_path($path), "Gtk2::TreePath");
+isa_ok($filter -> convert_path_to_child_path($tmp), "Gtk2::TreePath");
 
 $filter -> set_visible_func(sub {
   my ($model, $iter, $data) = @_;

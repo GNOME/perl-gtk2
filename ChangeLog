@@ -1,3 +1,11 @@
+2006/06/18	kaffeetisch
+
+	* t/GtkTreeModelFilter.t, xs/GtkTreeModelFilter.xs:
+	gtk_tree_model_filter_convert_child_iter_to_iter now has a bool
+	return value, and gtk_tree_model_filter_convert_child_path_to_path
+	and gtk_tree_model_filter_convert_path_to_child_path can now
+	return NULL.  Alter the wrappers accordingly.
+
 2006/06/16	kaffeetisch
 
 	* t/GtkNotebook.t, xs/GtkNotebook.xs: Use an API improvement in
