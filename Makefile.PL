@@ -1,16 +1,16 @@
 # Copyright (C) 2003-2006 by the gtk2-perl team (see the file AUTHORS for the
 # full list)
-# 
+#
 # This library is free software; you can redistribute it and/or modify it under
 # the terms of the GNU Library General Public License as published by the Free
 # Software Foundation; either version 2.1 of the License, or (at your option)
 # any later version.
-# 
+#
 # This library is distributed in the hope that it will be useful, but WITHOUT
 # ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
 # FOR A PARTICULAR PURPOSE.  See the GNU Library General Public License for
 # more details.
-# 
+#
 # You should have received a copy of the GNU Library General Public License
 # along with this library; if not, write to the Free Software Foundation, Inc.,
 # 59 Temple Place - Suite 330, Boston, MA  02111-1307  USA.
@@ -33,8 +33,10 @@ our %build_reqs = (
 	'perl-ExtUtils-Depends'   => '0.2',
 	'perl-ExtUtils-PkgConfig' => '1.03',
 	'perl-Glib'               => '1.120',
+	'perl-Cairo'              => '0.04',
 	'Gtk+'                    => '2.0.0',
 );
+
 our %PREREQ_PM = (
 	'ExtUtils::Depends'   => $build_reqs{'perl-ExtUtils-Depends'},
 	'ExtUtils::PkgConfig' => $build_reqs{'perl-ExtUtils-PkgConfig'},
@@ -48,20 +50,16 @@ unless (eval "use ExtUtils::Depends '$build_reqs{'perl-ExtUtils-Depends'}';"
 	   . "use Glib '$build_reqs{'perl-Glib'}';"
            . "use Glib::MakeHelper;" # for do_pod_files()
            . "1") {
-   warn "$@\n";
-   WriteMakefile(
-         PREREQ_FATAL => 1,
-         PREREQ_PM    => \%PREREQ_PM,
-   );
-   exit 1; # not reached
+	warn "$@\n";
+	WriteMakefile(
+		PREREQ_FATAL => 1,
+		PREREQ_PM    => \%PREREQ_PM,
+	);
+	exit 1; # not reached
 }
 
-# Optionally "depend" on Cairo.
-eval "use Cairo 0.03;";
-my $have_cairo = $@ ? 0 : 1;
-
-require 'CodeGen.pm'; # other modules should 'use Gtk2::CodeGen;' --
-                      # we can't because it's not installed yet.
+require './CodeGen.pm'; # other modules should 'use Gtk2::CodeGen;' --
+                        # we can't because it's not installed yet.
 
 # all the generated stuff will go into this subdir...
 mkdir 'build', 0777;
@@ -84,9 +82,19 @@ if ($target =~ /x11/) {
 	push @xs_files, 'xs/GdkX11.xs';
 }
 
-if ($have_cairo &&
-    ($gtk_version[0] > 2 || ($gtk_version[0] == 2 && $gtk_version[1] >= 8))) {
-	push @xs_files, 'xs/GdkCairo.xs', 'xs/PangoCairo.xs';
+# if gtk+ >= 2.8, we depend on Cairo
+my $have_cairo = 0;
+if ($gtk_version[0] > 2 || ($gtk_version[0] == 2 && $gtk_version[1] >= 8)) {
+	unless (eval "use Cairo '$build_reqs{'perl-Cairo'}'; 1;") {
+		warn "$@\n";
+		$PREREQ_PM{Cairo} = $build_reqs{'perl-Cairo'};
+		WriteMakefile(
+			PREREQ_FATAL => 1,
+			PREREQ_PM    => \%PREREQ_PM,
+		);
+		exit 1; # not reached
+	}
+	$have_cairo = 1;
 }
 
 #
@@ -151,7 +159,7 @@ if (grep /enable[-_]faq/i, @ARGV)
 	print STDERR "Including FAQ in pod, retrieved from Gtk2-Perl site.\n";
 	# Writing a fake Makefile ensures that CPAN will pick up the correct
 	# dependencies and install them.
-	unless (eval "use LWP; 1") 
+	unless (eval "use LWP; 1")
 	{
 	   warn "$@\n";
 	   WriteMakefile(

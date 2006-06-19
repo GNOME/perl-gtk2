@@ -1,3 +1,8 @@
+2006/06/19	kaffeetisch
+
+	* Makefile.PL, xs_files-2.8: If gtk+ 2.8 or newer is used,
+	require (the Perl module) Cairo 0.04.
+
 2006/06/18	kaffeetisch
 
 	* t/GtkTreeModelFilter.t, xs/GtkTreeModelFilter.xs:
