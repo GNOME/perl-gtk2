@@ -1,3 +1,14 @@
+2006/06/20	kaffeetisch
+
+	* MANIFEST, maps-2.10, xs_files-2.10, t/GtkPageSetup.t,
+	t/GtkPaperSize.t, t/GtkPrintContext.t, t/GtkPrintOperation.t,
+	t/GtkPrintOperationPreview.t, t/GtkPrintSettings.t,
+	xs/GtkPageSetup.xs, xs/GtkPaperSize.xs, xs/GtkPrintContext.xs,
+	xs/GtkPrintOperation.xs, xs/GtkPrintOperationPreview.xs,
+	xs/GtkPrintSettings.xs: Add support for the new printing API:
+	GtkPageSetup, GtkPaperSize, GtkPrintContext, GtkPrintOperation,
+	GtkPrintOperationPreview, GtkPrintSettings.
+
 2006/06/19	kaffeetisch
 
 	* Makefile.PL, xs_files-2.8: If gtk+ 2.8 or newer is used,

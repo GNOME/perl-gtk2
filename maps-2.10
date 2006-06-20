@@ -8,6 +8,18 @@ GTK_TYPE_CELL_RENDERER_SPIN		GtkCellRendererSpin		GtkObject	Gtk2::CellRendererSp
 
 GTK_TYPE_LINK_BUTTON			GtkLinkButton			GtkObject	Gtk2::LinkButton
 
+GTK_PRINT_ERROR				GTK_TYPE_PRINT_ERROR		GError		Gtk2::PrintError
+GTK_TYPE_PAGE_ORIENTATION		GtkPageOrientation		GEnum		Gtk2::PageOrientation
+GTK_TYPE_PAGE_SETUP			GtkPageSetup			GObject		Gtk2::PageSetup
+GTK_TYPE_PAPER_SIZE			GtkPaperSize			GBoxed		Gtk2::PaperSize
+GTK_TYPE_PRINT_CONTEXT			GtkPrintContext			GObject		Gtk2::PrintContext
+GTK_TYPE_PRINT_OPERATION		GtkPrintOperation		GObject		Gtk2::PrintOperation
+GTK_TYPE_PRINT_OPERATION_ACTION		GtkPrintOperationAction		GEnum		Gtk2::PrintOperationAction
+GTK_TYPE_PRINT_OPERATION_PREVIEW	GtkPrintOperationPreview	GInterface	Gtk2::PrintOperationPreview
+GTK_TYPE_PRINT_OPERATION_RESULT		GtkPrintOperationResult		GEnum		Gtk2::PrintOperationResult
+GTK_TYPE_PRINT_SETTINGS			GtkPrintSettings		GObject		Gtk2::PrintSettings
+GTK_TYPE_PRINT_STATUS			GtkPrintStatus			GEnum		Gtk2::PrintStatus
+
 GTK_TYPE_SENSITIVITY_TYPE		GtkSensitivityType		GEnum		Gtk2::SensitivityType
 
 GTK_TYPE_STATUS_ICON			GtkStatusIcon			GObject		Gtk2::StatusIcon
@@ -15,3 +27,5 @@ GTK_TYPE_STATUS_ICON			GtkStatusIcon			GObject		Gtk2::StatusIcon
 GTK_TYPE_TARGET_LIST			GtkTargetList			GBoxed		Gtk2::TargetList
 
 GTK_TYPE_TREE_VIEW_GRID_LINES		GtkTreeViewGridLines		GEnum		Gtk2::TreeViewGridLines
+
+GTK_TYPE_UNIT				GtkUnit				GEnum		Gtk2::Unit
