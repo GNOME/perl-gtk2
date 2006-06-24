@@ -1,7 +1,7 @@
 #!/usr/bin/perl -w
 # vim: set filetype=perl expandtab shiftwidth=2 softtabstop=2 :
 use strict;
-use Gtk2::TestHelper tests => 35;
+use Gtk2::TestHelper tests => 37;
 
 # $Header$
 
@@ -133,7 +133,7 @@ SKIP: {
 }
 
 SKIP: {
-  skip "new stuff in 2.10", 3
+  skip "new stuff in 2.10", 5
     unless Gtk2->CHECK_VERSION (2, 9, 0); # FIXME 2.10
 
   my $bool = $buffer -> get_has_selection();
@@ -143,6 +143,9 @@ SKIP: {
   isa_ok($targetlist, 'Gtk2::TargetList');
   $targetlist = $buffer -> get_paste_target_list();
   isa_ok($targetlist, 'Gtk2::TargetList');
+
+  isa_ok($buffer -> get('copy-target-list'), 'Gtk2::TargetList');
+  isa_ok($buffer -> get('paste-target-list'), 'Gtk2::TargetList');
 }
 
 __END__

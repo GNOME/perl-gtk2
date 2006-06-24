@@ -85,25 +85,48 @@ gtk2perl_read_gtk_target_entry (SV * sv,
 
 /* gtk+ 2.10 introduces a boxed type for GtkTargetList. */
 
-#if !GTK_CHECK_VERSION (2, 9, 0) /* FIXME 2.10 */
+#if GTK_CHECK_VERSION (2, 9, 0) /* FIXME 2.10 */
+
+static GPerlBoxedWrapperClass *default_wrapper_class;
+static GPerlBoxedWrapperClass gtk_target_list_wrapper_class;
+
+static SV *
+gtk_target_list_wrap (GType gtype,
+                      const char *package,
+                      gpointer boxed,
+                      gboolean own)
+{
+	/* To keep compatibility with the old wrappers, we always assume
+	 * ownership of the list. */
+	gtk_target_list_ref ((GtkTargetList *) boxed);
+	return default_wrapper_class->wrap (gtype, package, boxed, TRUE);
+}
+
+#endif /* 2.10 */
 
 SV *
 newSVGtkTargetList (GtkTargetList * list)
 {
+#if GTK_CHECK_VERSION (2, 9, 0)
+	return gperl_new_boxed (list, GTK_TYPE_TARGET_LIST, TRUE);
+#else
 	gtk_target_list_ref (list);
 	return sv_setref_pv (newSV (0), "Gtk2::TargetList", list);
+#endif
 }
 
 GtkTargetList *
 SvGtkTargetList (SV * sv)
 {
+#if GTK_CHECK_VERSION (2, 9, 0)
+	return gperl_get_boxed_check (sv, GTK_TYPE_TARGET_LIST);
+#else
 	if (!sv || !SvROK (sv) ||
 	    !sv_derived_from (sv, "Gtk2::TargetList"))
 		croak ("variable is not of type Gtk2::TargetList");
 	return INT2PTR (GtkTargetList*, SvUV (SvRV (sv)));
+#endif
 }
-
-#endif /* !2.10 */
 
 
 MODULE = Gtk2::Selection	PACKAGE = Gtk2::TargetEntry
@@ -146,6 +169,15 @@ target type without extensive string compares.
 
 MODULE = Gtk2::Selection	PACKAGE = Gtk2::TargetList	PREFIX = gtk_target_list_
 
+BOOT:
+#if GTK_CHECK_VERSION (2, 9, 0)
+	default_wrapper_class = gperl_default_boxed_wrapper_class ();
+	gtk_target_list_wrapper_class = *default_wrapper_class;
+	gtk_target_list_wrapper_class.wrap = gtk_target_list_wrap;
+	gperl_register_boxed (GTK_TYPE_TARGET_LIST, "Gtk2::TargetList",
+	                      &gtk_target_list_wrapper_class);
+#endif
+
 =for see_also Gtk2::TargetEntry
 =cut
 
@@ -162,21 +194,18 @@ DESTROY (SV * list)
 =for apidoc
 =for arg ... of Gtk2::TargetEntry's
 =cut
-SV *
+GtkTargetList *
 gtk_target_list_new (class, ...)
     PREINIT:
 	GtkTargetEntry *targets;
 	guint ntargets;
     CODE:
 	GTK2PERL_STACK_ITEMS_TO_TARGET_ENTRY_ARRAY (1, targets, ntargets);
-#if GTK_CHECK_VERSION (2, 9, 0) /* FIXME 2.10 */
-	RETVAL = newSVGtkTargetList_own (gtk_target_list_new (targets, ntargets));
-#else
-	RETVAL = newSVGtkTargetList (gtk_target_list_new (targets, ntargets));
-	gtk_target_list_unref (RETVAL);
-#endif
+	RETVAL = gtk_target_list_new (targets, ntargets);
     OUTPUT:
 	RETVAL
+    CLEANUP:
+	gtk_target_list_unref (RETVAL);
 
 ##  void gtk_target_list_add (GtkTargetList *list, GdkAtom target, guint flags, guint info) 
 void

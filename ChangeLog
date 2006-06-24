@@ -1,3 +1,15 @@
+2006/06/24	kaffeetisch
+
+	* t/GtkTextBuffer.t: Test the copy-target-list and
+	paste-target-list properties.
+
+	* gtk2perl.h, xs/GtkSelection.xs: Fix the GtkTargetList wrappers
+	again to be fully backwards-compatible *and* use the boxed type if
+	available.  This involves using a custom wrap function that always
+	assumes ownership of the boxed object, just like the old wrapper
+	does.  Code that uses the GtkTargetList typemaps should continue
+	to work without changes.
+
 2006/06/20	kaffeetisch
 
 	* MANIFEST, maps-2.10, xs_files-2.10, t/GtkPageSetup.t,

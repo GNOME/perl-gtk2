@@ -152,14 +152,21 @@ void gtk2perl_read_gtk_target_entry (SV * sv, GtkTargetEntry * entry);
  * for doing drag and drop.
  */
 
-/* gtk+ 2.10 introduces a boxed type for GtkTargetList. */
-#if !GTK_CHECK_VERSION (2, 9, 0) /* FIXME 2.10 */
-typedef GtkTargetList GtkTargetList_ornull;
+/* gtk+ 2.10 introduces a boxed type for GtkTargetList and we use it for
+ * property marshalling, etc.  But we also need to keep backwards compatability
+ * with the old wrappers so we overwrite the macros. */
+#if GTK_CHECK_VERSION (2, 9, 0) /* FIXME 2.10 */
+# undef newSVGtkTargetList
+# undef newSVGtkTargetList_ornull
+# undef SvGtkTargetList
+# undef SvGtkTargetList_ornull
+#else
+  typedef GtkTargetList GtkTargetList_ornull;
+#endif
 SV * newSVGtkTargetList (GtkTargetList * list);
 #define newSVGtkTargetList_ornull(list)	((list) ? newSVGtkTargetList (list) : &PL_sv_undef)
 GtkTargetList * SvGtkTargetList (SV * sv);
 #define SvGtkTargetList_ornull(sv)	(((sv) && SvOK (sv)) ? SvGtkTargetList (sv) : NULL)
-#endif /* !2.10 */
 
 /*
  * exported so Gnome2 can reuse it in wrappers.  other modules might want to
