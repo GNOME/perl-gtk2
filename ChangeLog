@@ -1,5 +1,8 @@
 2006/06/25	kaffeetisch
 
+	* t/GtkSizeGroup.t: Don't assume that Gtk2::SizeGroup::add_widget
+	takes a reference on the widget.  Fixes a test failure.
+
 	* t/GtkLabel.t, xs/GtkLabel.xs: Bind and test
 	gtk_label_set_line_wrap_mode and gtk_label_get_line_wrap_mode.
 

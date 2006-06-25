@@ -32,11 +32,17 @@ SKIP: {
   my @widgets = $group->get_widgets;
   ok(!@widgets);
 
+  my ($uno, $dos, $tres, $cuatro) =
+    (Gtk2::Label->new ("Tinky-Winky"),
+     Gtk2::Label->new ("Dipsy"),
+     Gtk2::Label->new ("La La"),
+     Gtk2::Label->new ("Po"));
+
   # now add a few and try again.
-  $group->add_widget(Gtk2::Label->new ("Tinky-Winky"));
-  $group->add_widget(Gtk2::Label->new ("Dipsy"));
-  $group->add_widget(Gtk2::Label->new ("La La"));
-  $group->add_widget(Gtk2::Label->new ("Po"));
+  $group->add_widget($uno);
+  $group->add_widget($dos);
+  $group->add_widget($tres);
+  $group->add_widget($cuatro);
   @widgets = $group->get_widgets;
   is (scalar @widgets, 4);
   # i don't think we can count on an order.  do we care about ensuring
