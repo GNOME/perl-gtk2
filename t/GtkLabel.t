@@ -12,7 +12,7 @@
 
 #########################
 
-use Gtk2::TestHelper tests => 29;
+use Gtk2::TestHelper tests => 30;
 
 my $win = Gtk2::Window->new;
 
@@ -94,6 +94,14 @@ SKIP: {
 	ok ($label->get_single_line_mode, '[sg]et_single_line_mode');
 	$label->set_single_line_mode (FALSE);
 	ok (!$label->get_single_line_mode, '[sg]et_single_line_mode');
+}
+
+SKIP: {
+	skip 'new 2.10 stuff', 1
+		unless Gtk2->CHECK_VERSION (2, 9, 4); # FIXME 2.10
+
+	$label->set_line_wrap_mode('word');
+	is ($label->get_line_wrap_mode, 'word');
 }
 
 1;

@@ -208,3 +208,11 @@ void gtk_label_set_single_line_mode (GtkLabel *label, gboolean single_line_mode)
 gboolean gtk_label_get_single_line_mode (GtkLabel *label);
 
 #endif
+
+#if GTK_CHECK_VERSION (2, 9, 4)
+
+void gtk_label_set_line_wrap_mode (GtkLabel *label, PangoWrapMode wrap_mode);
+
+PangoWrapMode gtk_label_get_line_wrap_mode (GtkLabel *label);
+
+#endif
