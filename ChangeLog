@@ -1,5 +1,10 @@
 2006-07-02  Emmanuele Bassi  <ebassi@gmail.com>
 
+	* xs/GtkRecentFilter.xs: Initial implementation of the
+	Gtk2::RecentFilter object.
+
+2006-07-02  Emmanuele Bassi  <ebassi@gmail.com>
+
 	A xs/GtkRecentChooser.xs
 	A xs/GtkRecentChooserDialog.xs
 	A xs/GtkRecentChooserMenu.xs
