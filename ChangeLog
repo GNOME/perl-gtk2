@@ -1,3 +1,10 @@
+2006/07/02	kaffeetisch
+
+	* t/GtkAssistant.t, t/GtkLinkButton.t, t/GtkRadioAction.t,
+	t/GtkTextBufferRichText.t: Skip some tests if gtk+ < 2.10.
+
+	* t/GtkClipboard.t: Correct skip count.
+
 2006/06/25	kaffeetisch
 
 	* t/GtkSizeGroup.t: Don't assume that Gtk2::SizeGroup::add_widget

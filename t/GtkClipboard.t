@@ -88,7 +88,7 @@ SKIP: {
 }
 
 SKIP: {
-        skip "new stuff in 2.10", 3
+        skip "new stuff in 2.10", 6
                 unless Gtk2->CHECK_VERSION (2, 9, 0);  # FIXME 2.10
 
 	my $buffer = Gtk2::TextBuffer->new;

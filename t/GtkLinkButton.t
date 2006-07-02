@@ -2,7 +2,9 @@
 # vim: set ft=perl :
 
 use strict;
-use Gtk2::TestHelper tests => 21;
+use Gtk2::TestHelper
+  tests => 21,
+  at_least_version => [2, 9, 0, "GtkLinkButton is new in 2.10"]; # FIXME 2.10
 
 my $button;
 
