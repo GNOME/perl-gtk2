@@ -1,3 +1,22 @@
+2006-07-02  Emmanuele Bassi  <ebassi@gmail.com>
+
+	A xs/GtkRecentChooser.xs
+	A xs/GtkRecentChooserDialog.xs
+	A xs/GtkRecentChooserMenu.xs
+	A xs/GtkRecentChooserWidget.xs
+	A xs/GtkRecentFilter.xs
+	A xs/GtkRecentManager.xs
+
+	* maps-2.10:
+	* xs_files-2.10:
+	* xs/GtkRecent*.xs: Add initial support for GtkRecent; wrap
+	methos for these objects:
+		Gtk2::RecentChooser
+		Gtk2::RecentChooserDialog
+		Gtk2::RecentChooserMenu
+		Gtk2::RecentChooserWidget
+		Gtk2::RecentManager
+
 2006/07/02	kaffeetisch
 
 	* t/GtkAssistant.t, t/GtkLinkButton.t, t/GtkRadioAction.t,

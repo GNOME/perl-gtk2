@@ -8,5 +8,11 @@ xs/GtkPrintContext.xs
 xs/GtkPrintOperation.xs
 xs/GtkPrintOperationPreview.xs
 xs/GtkPrintSettings.xs
+xs/GtkRecentChooser.xs
+xs/GtkRecentChooserDialog.xs
+xs/GtkRecentChooserMenu.xs
+xs/GtkRecentChooserWidget.xs
+xs/GtkRecentFilter.xs
+xs/GtkRecentManager.xs
 xs/GtkStatusIcon.xs
 xs/GtkTextBufferRichText.xs
