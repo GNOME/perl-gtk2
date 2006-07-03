@@ -36,6 +36,23 @@ newSVGtkRecentFilterInfo (const GtkRecentFilterInfo *info)
   hv_store (hv, "contains", 8,
             newSVGtkRecentFilterFlags (info->contains), 0);
 
+  if (info->uri)
+    hv_store (hv, "uri", 3, newSVpv (info->uri, PL_na), 0);
+
+  if (info->display_name)
+    hv_store (hv, "display_name", 12, newSVGChar (info->display_name), 0);
+
+  if (info->mime_type)
+    hv_store (hv, "mime_type", 9, newSVGChar (info->mime_type), 0);
+
+#if 0 /* FIXME */
+  if (info->applications)
+    hv_store (hv, "applications", 12, newSVGStrv (info->applications), 0);
+
+  if (info->groups)
+    hv_store (hv, "groups", 6, newSVGStrv (info->groups), 0);
+#endif
+
   return newRV_noinc ((SV *) hv);
 }
 
@@ -55,6 +72,23 @@ SvGtkRecentFilterInfo (SV *sv)
   if ((svp = hv_fetch (hv, "contains", 8, 0)))
     info->contains = SvGtkRecentFilterFlags (*svp);
   
+  if ((svp = hv_fetch (hv, "uri", 3, 0)))
+    info->uri = SvPV_nolen (*svp);
+
+  if ((svp = hv_fetch (hv, "display_name", 12, 0)))
+    info->display_name = SvGChar (*svp);
+
+  if ((svp = hv_fetch (hv, "mime_type", 9, 0)))
+    info->mime_type = SvGChar (*svp);
+
+#if 0 /* FIXME */
+  if ((svp = hv_fetch (hv, "applications", 12, 0)))
+    info->applications = SvGStrv (*svp);
+
+  if ((svp = hv_fetch (hv, "groups", 6, 0)))
+    info->groups = SvGStrv (*svp);
+#endif
+  
   return info;
 }
 
@@ -63,7 +97,7 @@ gtk2perl_recent_filter_func (const GtkRecentFilterInfo *filter_info,
 			     gpointer                   user_data)
 {
   GPerlCallback *callback = (GPerlCallback *) user_data;
-  GValue valure = { 0, };
+  GValue value = { 0, };
   gboolean retval;
   SV *sv;
 
@@ -71,7 +105,7 @@ gtk2perl_recent_filter_func (const GtkRecentFilterInfo *filter_info,
   sv = newSVGtkRecentFilterInfo (filter_info);
 
   gperl_callback_invoke (callback, &value, sv);
-  retval = g_value_get_boolean (value);
+  retval = g_value_get_boolean (&value);
 
   SvREFCNT_dec (sv);
   g_value_unset (&value);
@@ -130,7 +164,7 @@ gtk_recent_filter_get_needed (GtkRecentFilter *filter)
 gboolean
 gtk_recent_filter_filter (filter, filter_info)
 	GtkRecentFilter *filter
-	const GtkRecentFilterInfo *filter_info
+	SV *filter_info
     C_ARGS:
     	filter, SvGtkRecentFilterInfo (filter_info)
 

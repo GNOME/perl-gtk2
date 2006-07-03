@@ -27,6 +27,7 @@ GTK_TYPE_RECENT_CHOOSER_DIALOG		GtkRecentChooserDialog		GtkObject	Gtk2::RecentCh
 GTK_TYPE_RECENT_CHOOSER_MENU		GtkRecentChooserMenu		GtkObject	Gtk2::RecentChooserMenu
 GTK_TYPE_RECENT_CHOOSER_WIDGET		GtkRecentChooserWidget		GtkObject	Gtk2::RecentChooserWidget
 GTK_TYPE_RECENT_FILTER			GtkRecentFilter			GtkObject	Gtk2::RecentFilter
+GTK_TYPE_RECENT_FILTER_FLAGS		GtkRecentFilterFlags		GEnum		Gtk2::RecentFilterFlags
 GTK_TYPE_RECENT_INFO			GtkRecentInfo			GBoxed		Gtk2::RecentInfo
 GTK_TYPE_RECENT_MANAGER			GtkRecentManager		GObject		Gtk2::RecentManager
 GTK_TYPE_RECENT_SORT_TYPE		GtkRecentSortType		GEnum		Gtk2::RecentSortType

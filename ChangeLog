@@ -1,5 +1,16 @@
 2006-07-02  Emmanuele Bassi  <ebassi@gmail.com>
 
+	* maps-2.10: Include GTK_TYPE_RECENT_FILTER_FLAGS to the list
+	of known types.
+
+	* xs/GtkRecentFilter.xs: Add string fields to the
+	GtkRecentFilterInfo converter.
+
+	* xs/GtkRecentManager.xs: Implement the Gtk2::RecentInfo
+	boxed type and its API.
+
+2006-07-02  Emmanuele Bassi  <ebassi@gmail.com>
+
 	* xs/GtkRecentFilter.xs: Initial implementation of the
 	Gtk2::RecentFilter object.
 
@@ -15,7 +26,7 @@
 	* maps-2.10:
 	* xs_files-2.10:
 	* xs/GtkRecent*.xs: Add initial support for GtkRecent; wrap
-	methos for these objects:
+	methods for these objects:
 		Gtk2::RecentChooser
 		Gtk2::RecentChooserDialog
 		Gtk2::RecentChooserMenu

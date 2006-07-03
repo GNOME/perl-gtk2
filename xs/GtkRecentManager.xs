@@ -191,4 +191,165 @@ gtk_recent_manager_purge_items (GtkRecentManager *manager)
 # GtkRecentInfo
 #
 
+# not needed
+##GtkRecentInfo *gtk_recent_info_ref   (GtkRecentInfo  *info);
+##void           gtk_recent_info_unref (GtkRecentInfo  *info);
 
+=for apidoc Gtk2::RecentInfo::get_uri
+=for signature string = $info->get_uri
+=cut
+
+=for apidoc Gtk2::RecentInfo::get_display_name
+=for signature string = $info->get_display_name
+=cut
+
+=for apidoc Gtk2::RecentInfo::get_description
+=for signature string = $info->get_description
+=cut
+
+=for apidoc Gtk2::RecentInfo::get_mime_type
+=for signature string = $info->get_mime_type
+=cut
+
+const gchar *
+get_uri (GtkRecentInfo *info)
+    ALIAS:
+        Gtk2::RecentInfo::get_display_name = 1
+	Gtk2::RecentInfo::get_description  = 2
+	Gtk2::RecentInfo::get_mime_type    = 3
+    CODE:
+        switch (ix) {
+		case 0: RETVAL = gtk_recent_info_get_uri          (info); break;
+		case 1: RETVAL = gtk_recent_info_get_display_name (info); break;
+		case 2: RETVAL = gtk_recent_info_get_description  (info); break;
+		case 3: RETVAL = gtk_recent_info_get_mime_type    (info); break;
+		default:
+			RETVAL = NULL;
+			g_assert_not_reached ();
+	}
+    OUTPUT:
+        RETVAL
+
+=for apidoc Gtk2::RecentInfo::get_added
+=for signature timestamp = $info->get_added;
+cut
+
+=for apidoc Gtk2::RecentInfo::get_modified
+=for signature timestamp = $info->get_modified;
+cut
+
+=for apidoc Gtk2::RecentInfo::get_visited
+=for signature timestamp = $info->get_visited;
+cut
+
+time_t
+get_added (GtkRecentInfo *info)
+    ALIAS:
+        Gtk2::RecentInfo::get_modified = 1
+	Gtk2::RecentInfo::get_visited  = 2
+    CODE:
+        switch (ix) {
+		case 0: RETVAL = gtk_recent_info_get_added    (info); break;
+		case 1: RETVAL = gtk_recent_info_get_modified (info); break;
+		case 2: RETVAL = gtk_recent_info_get_visited  (info); break;
+		default:
+			RETVAL = (time_t) -1;
+			g_assert_not_reached ();
+	}
+    OUTPUT:
+        RETVAL
+
+gboolean
+gtk_recent_info_get_private_hint (GtkRecentInfo *info)
+
+=for apidoc
+=for signature (app_exec, count, timestamp) = $info->get_application_info ($app_name)
+=cut
+void
+gtk_recent_info_get_application_info (GtkRecentInfo *info, const gchar *app_name)
+    PREINIT:
+	gchar *app_exec;
+	guint count;
+	time_t timestamp;
+	gboolean res;
+    PPCODE:
+        res = gtk_recent_info_get_application_info (info, app_name,
+						    &app_exec,
+						    &count,
+						    &timestamp);
+	if (res) {
+		EXTEND (SP, 3);
+		PUSHs (sv_2mortal (newSVGChar (app_exec)));
+		PUSHs (sv_2mortal (newSVuv (count)));
+		PUSHs (sv_2mortal (newSViv (timestamp)));
+
+		g_free (app_exec); /* don't leak */
+	}
+
+=for apidoc
+=for signature (applications) = $info->get_applications
+=cut
+void
+gtk_recent_info_get_applications (GtkRecentInfo *info)
+    PREINIT:
+        gchar **apps;
+        gsize length, i;
+    PPCODE:
+        apps = gtk_recent_info_get_applications (info, &length);
+	if (length > 0) {
+		for (i = 0; i < length; i++) {
+			if (apps[i])
+				XPUSHs (sv_2mortal (newSVGChar (apps[i])));
+		}
+		
+		g_strfreev (apps);
+	}
+
+gchar_own *
+gtk_recent_info_last_application (GtkRecentInfo *info)
+
+gboolean
+gtk_recent_info_has_application (GtkRecentInfo *info, const gchar *app_name)
+
+=for apidoc
+=for signature (groups) = $info->get_groups
+=cut
+void
+gtk_recent_info_get_groups (GtkRecentInfo *info)
+    PREINIT:
+        gchar **groups;
+	gsize length, i;
+    PPCODE:
+        groups = gtk_recent_info_get_groups (info, &length);
+	if (length > 0) {
+		for (i = 0; i < length; i++) {
+			if (groups[i])
+				XPUSHs (sv_2mortal (newSVGChar (groups[i])));
+		}
+
+		g_strfreev (groups);
+	}
+
+gboolean
+gtk_recent_info_has_group (GtkRecentInfo *info, const gchar *group_name)
+
+GdkPixbuf *
+gtk_recent_info_get_icon (GtkRecentInfo *info, gint size)
+
+gchar_own *
+gtk_recent_info_get_short_name (GtkRecentInfo *info)
+
+gchar_own *
+gtk_recent_info_get_uri_display (GtkRecentInfo *info)
+
+gint
+gtk_recent_info_get_age (GtkRecentInfo *info)
+
+gboolean
+gtk_recent_info_is_local (GtkRecentInfo *info)
+
+gboolean
+gtk_recent_info_exists (GtkRecentInfo *info)
+
+gboolean
+gtk_recent_info_match (GtkRecentInfo *info_a, GtkRecentInfo *info_b)
