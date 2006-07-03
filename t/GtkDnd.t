@@ -30,10 +30,16 @@ my $pixbuf = Gtk2::Gdk::Pixbuf -> new("rgb", 0, 8, 10, 10);
 my $event = Gtk2::Gdk::Event -> new("button-press");
 
 my $context = Gtk2::Drag -> begin($button, $list, "default", 1, $event);
-isa_ok($context, "Gtk2::Gdk::DragContext");
+SKIP: {
+  skip "context test", 1 unless defined $context;
+  isa_ok($context, "Gtk2::Gdk::DragContext");
+}
 
 $context = $button -> drag_begin($list, "default", 1, $event);
-isa_ok($context, "Gtk2::Gdk::DragContext");
+SKIP: {
+  skip "context test", 1 unless defined $context;
+  isa_ok($context, "Gtk2::Gdk::DragContext");
+}
 
 if (defined($context)) {
   # warn $button -> drag_dest_find_target($context, $list);

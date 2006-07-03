@@ -1,3 +1,7 @@
+2006/07/03	kaffeetisch
+
+	* t/GtkDnd.t: Make more robust.
+
 2006-07-02  Emmanuele Bassi  <ebassi@gmail.com>
 
 	* maps-2.10: Include GTK_TYPE_RECENT_FILTER_FLAGS to the list
