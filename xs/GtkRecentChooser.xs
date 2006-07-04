@@ -108,7 +108,7 @@ GtkRecentSortType
 gtk_recent_chooser_get_sort_type (GtkRecentChooser *chooser)
 
 void
-gtk_recent_chooser_set_sort_func (chooser, sort_func, sort_data)
+gtk_recent_chooser_set_sort_func (chooser, sort_func, sort_data=NULL)
 	GtkRecentChooser *chooser
 	SV *sort_func
 	SV *sort_data
@@ -191,9 +191,9 @@ gtk_recent_chooser_get_uris (GtkRecentChooser *chooser)
     PPCODE:
         uris = gtk_recent_chooser_get_uris (chooser, &length);
 	if (length == 0)
-		return;
+		XSRETURN_EMPTY;
 		
-	EXTEND (SP, length - 1);
+	EXTEND (SP, length);
 	for (i = 0; i < length; i++)
 		PUSHs (sv_2mortal (newSVGChar (uris[i])));
 	

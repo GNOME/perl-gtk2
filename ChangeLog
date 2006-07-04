@@ -1,3 +1,24 @@
+2006-07-04  Emmanuele Bassi  <ebassi@gmail.com>
+
+	* MANIFEST: Add new xs/GtkRecent*.xs files.
+
+	* xs/GtkRecentChooser.xs: Miscellaneous fixes from kaffee.
+	
+	(gtk_recent_chooser_set_sort_func): Imply undef as default
+	data for the sorting function.
+
+	(gtk_recent_chooser_get_uris): EXTEND the stack with the
+	right size of elements and return an empty array in case
+	there are no URIs.
+
+	* xs/GtkRecentManager.xs: Miscellaneous fixes from kaffee.
+
+	(gtk_recent_info_get_application_info): Return an empty
+	array on error.
+
+	* xs/GtkIconTheme.xs: 
+	* xs/GtkRecentManager.xs: Do not leak the returned pixbufs.
+
 2006/07/03	kaffeetisch
 
 	* t/GtkDnd.t: Make more robust.

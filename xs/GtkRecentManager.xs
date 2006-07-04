@@ -277,14 +277,15 @@ gtk_recent_info_get_application_info (GtkRecentInfo *info, const gchar *app_name
 						    &app_exec,
 						    &count,
 						    &timestamp);
-	if (res) {
-		EXTEND (SP, 3);
-		PUSHs (sv_2mortal (newSVGChar (app_exec)));
-		PUSHs (sv_2mortal (newSVuv (count)));
-		PUSHs (sv_2mortal (newSViv (timestamp)));
+	if (!res)
+		XSRETURN_EMPTY;
 
-		g_free (app_exec); /* don't leak */
-	}
+	EXTEND (SP, 3);
+	PUSHs (sv_2mortal (newSVGChar (app_exec)));
+	PUSHs (sv_2mortal (newSVuv (count)));
+	PUSHs (sv_2mortal (newSViv (timestamp)));
+
+	g_free (app_exec); /* don't leak */
 
 =for apidoc
 =for signature (applications) = $info->get_applications
@@ -333,7 +334,7 @@ gtk_recent_info_get_groups (GtkRecentInfo *info)
 gboolean
 gtk_recent_info_has_group (GtkRecentInfo *info, const gchar *group_name)
 
-GdkPixbuf *
+GdkPixbuf_noinc *
 gtk_recent_info_get_icon (GtkRecentInfo *info, gint size)
 
 gchar_own *
