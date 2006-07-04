@@ -1,3 +1,19 @@
+2006-07-05  Emmanuele Bassi  <ebassi@gmail.com>
+
+	A t/GtkRecentManager.t
+
+	* t/GtkAccelGroup.t: Fix the name of the symbolic constant
+	of KP_Enter, and make the test not fail.
+
+	* t/GtkRecentManager.t: Initial test suite for Gtk2::RecentManager
+	and Gtk2::RecentInfo.
+
+	* copyright.pod: Update copyright.
+
+	* xs/GtkRecentManager.xs: Add a PACKAGE for Gtk2::RecentInfo;
+	add missing aliased methods; fix apidoc; use EXTEND when the
+	size of the returned array is known.
+
 2006-07-04  Emmanuele Bassi  <ebassi@gmail.com>
 
 	* MANIFEST: Add new xs/GtkRecent*.xs files.

@@ -191,6 +191,8 @@ gtk_recent_manager_purge_items (GtkRecentManager *manager)
 # GtkRecentInfo
 #
 
+MODULE = Gtk2::RecentManager	PACKAGE = Gtk2::RecentInfo	PREFIX = gtk_recent_info_
+	
 # not needed
 ##GtkRecentInfo *gtk_recent_info_ref   (GtkRecentInfo  *info);
 ##void           gtk_recent_info_unref (GtkRecentInfo  *info);
@@ -214,6 +216,7 @@ gtk_recent_manager_purge_items (GtkRecentManager *manager)
 const gchar *
 get_uri (GtkRecentInfo *info)
     ALIAS:
+        Gtk2::RecentInfo::get_uri          = 0
         Gtk2::RecentInfo::get_display_name = 1
 	Gtk2::RecentInfo::get_description  = 2
 	Gtk2::RecentInfo::get_mime_type    = 3
@@ -230,6 +233,7 @@ get_uri (GtkRecentInfo *info)
     OUTPUT:
         RETVAL
 
+
 =for apidoc Gtk2::RecentInfo::get_added
 =for signature timestamp = $info->get_added;
 cut
@@ -240,11 +244,12 @@ cut
 
 =for apidoc Gtk2::RecentInfo::get_visited
 =for signature timestamp = $info->get_visited;
-cut
+=cut
 
 time_t
 get_added (GtkRecentInfo *info)
     ALIAS:
+        Gtk2::RecentInfo::get_added    = 0
         Gtk2::RecentInfo::get_modified = 1
 	Gtk2::RecentInfo::get_visited  = 2
     CODE:
@@ -259,14 +264,18 @@ get_added (GtkRecentInfo *info)
     OUTPUT:
         RETVAL
 
+
 gboolean
 gtk_recent_info_get_private_hint (GtkRecentInfo *info)
 
+
 =for apidoc
-=for signature (app_exec, count, timestamp) = $info->get_application_info ($app_name)
+=for signature (exec, count, timestamp) = $info->get_application_info ($app_name)
 =cut
 void
-gtk_recent_info_get_application_info (GtkRecentInfo *info, const gchar *app_name)
+gtk_recent_info_get_application_info (info, app_name)
+	GtkRecentInfo *info
+	const gchar *app_name
     PREINIT:
 	gchar *app_exec;
 	guint count;
@@ -279,12 +288,10 @@ gtk_recent_info_get_application_info (GtkRecentInfo *info, const gchar *app_name
 						    &timestamp);
 	if (!res)
 		XSRETURN_EMPTY;
-
 	EXTEND (SP, 3);
 	PUSHs (sv_2mortal (newSVGChar (app_exec)));
 	PUSHs (sv_2mortal (newSVuv (count)));
 	PUSHs (sv_2mortal (newSViv (timestamp)));
-
 	g_free (app_exec); /* don't leak */
 
 =for apidoc
@@ -298,13 +305,15 @@ gtk_recent_info_get_applications (GtkRecentInfo *info)
     PPCODE:
         apps = gtk_recent_info_get_applications (info, &length);
 	if (length > 0) {
+		EXTEND (SP, length);
 		for (i = 0; i < length; i++) {
 			if (apps[i])
-				XPUSHs (sv_2mortal (newSVGChar (apps[i])));
-		}
-		
+				PUSHs (sv_2mortal (newSVGChar (apps[i])));
+		}		
 		g_strfreev (apps);
 	}
+	else
+		XSRETURN_EMPTY;
 
 gchar_own *
 gtk_recent_info_last_application (GtkRecentInfo *info)
@@ -323,13 +332,15 @@ gtk_recent_info_get_groups (GtkRecentInfo *info)
     PPCODE:
         groups = gtk_recent_info_get_groups (info, &length);
 	if (length > 0) {
+		EXTEND (SP, length);
 		for (i = 0; i < length; i++) {
 			if (groups[i])
-				XPUSHs (sv_2mortal (newSVGChar (groups[i])));
+				PUSHs (sv_2mortal (newSVGChar (groups[i])));
 		}
-
 		g_strfreev (groups);
 	}
+	else
+		XSRETURN_EMPTY;
 
 gboolean
 gtk_recent_info_has_group (GtkRecentInfo *info, const gchar *group_name)
@@ -353,4 +364,4 @@ gboolean
 gtk_recent_info_exists (GtkRecentInfo *info)
 
 gboolean
-gtk_recent_info_match (GtkRecentInfo *info_a, GtkRecentInfo *info_b)
+gtk_recent_info_match (GtkRecentInfo *info, GtkRecentInfo *other_info)

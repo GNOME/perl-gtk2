@@ -235,6 +235,7 @@ t/GtkRadioMenuItem.t
 t/GtkRadioToolButton.t
 t/GtkRange.t
 t/GtkRc.t
+t/GtkRecentManager.t
 t/GtkRuler.t
 t/GtkScale.t
 t/GtkScrolledWindow.t
@@ -510,3 +511,4 @@ xs_files-2.2
 xs_files-2.4
 xs_files-2.6
 xs_files-2.8
+META.yml                                 Module meta-data (added by MakeMaker)
