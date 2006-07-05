@@ -1,5 +1,9 @@
 2006-07-05  Emmanuele Bassi  <ebassi@gmail.com>
 
+	* t/GtkRecentManager.t: Add more tests for Gtk2::RecentInfo API.
+
+2006-07-05  Emmanuele Bassi  <ebassi@gmail.com>
+
 	A t/GtkRecentManager.t
 
 	* t/GtkAccelGroup.t: Fix the name of the symbolic constant
