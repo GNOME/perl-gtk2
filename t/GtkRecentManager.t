@@ -12,28 +12,45 @@
 use strict;
 use warnings;
 
-use Gtk2::TestHelper tests => 14,
+use Gtk2::TestHelper tests => 23,
     at_least_version => [2, 10, 0, "GtkRecentManager is new in 2.10"],
     ;
 
-isa_ok(Gtk2::RecentManager->get_default, 'Gtk2::RecentManager',
-       'check get_default');
+my $manager = Gtk2::RecentManager->get_default;
+isa_ok($manager, 'Gtk2::RecentManager', 'get_default');
 
-our $manager = Gtk2::RecentManager->get_default;
+$manager = Gtk2::RecentManager->new;
+isa_ok($manager, 'Gtk2::RecentManager', 'new');
+
+$manager = Gtk2::RecentManager->get_for_screen(Gtk2::Gdk::Screen->get_default);
+isa_ok($manager, 'Gtk2::RecentManager', 'get_for_screen');
+
+$manager->set_screen(Gtk2::Gdk::Screen->get_default);
+
+# tests should not change or modify the global recently used files
+# list, so we use the 'filename' constructor only property of the
+# GtkRecentManager object to create our own test storage file.  this
+# also gives us a better controlled environment. -- ebassi
+$manager = Glib::Object::new('Gtk2::RecentManager', filename => './test.xbel');
+isa_ok($manager, 'Gtk2::RecentManager');
 
 # use this silly trick to get a file
 my $icon_theme = Gtk2::IconTheme->get_default;
 my $icon_info  = $icon_theme->lookup_icon('stock_edit', 24, 'use-builtin');
 
 SKIP: {
-	skip "add_item; theme icon not found", 13
+	skip "add_item; theme icon not found", 19
 		unless defined $icon_info;
+
+	use Data::Dumper;
 	
 	my $icon_file = $icon_info->get_filename;
 	my $icon_uri  = 'file://' . $icon_file;
 
 	$manager->add_item($icon_uri);
 	ok($manager->has_item($icon_uri), 'check add item');
+
+	sleep(1); # gross hack to allow the timestamp to be different
 	
 	$manager->add_full($icon_uri, {
 			   display_name => 'Stock edit',
@@ -58,15 +75,29 @@ SKIP: {
 
 	ok($recent_info->is_local, 'check is local');
 	
+	is($recent_info->last_application, 'Eog', 'check last application');
+	
 	my @app_info = $recent_info->get_application_info('Eog');
 	is(@app_info, 3, 'check app info');
 
 	my ($exec, $count, $stamp) = @app_info;
-	is($exec, 'eog ' . $icon_uri, 'check exec');
+	is($exec,  'eog ' . $icon_uri,         'check exec' );
+	is($count, 1,                          'check count');
+	is($stamp, $recent_info->get_modified, 'check stamp');
+
+	is($recent_info->get_private_hint, 1, 'check is private');
+
+	my @items = $manager->get_items;
+	is(@items, 1, 'check get_items');
 
 	$manager->remove_item($icon_uri);
 	ok(!$manager->has_item($icon_uri), 'check remove item');
+
+	is($manager->purge_items, 0, 'check purge items');
 }
+
+unlink './test.xbel' or
+	die "Unable to remove the test storage file";
 
 __END__
 

@@ -1,5 +1,12 @@
 2006-07-05  Emmanuele Bassi  <ebassi@gmail.com>
 
+	* t/GtkRecentManager.t: Even more tests for Gtk2::RecentManager
+	and Gtk2::RecentInfo; use a custom test file for storing the
+	list used by the recent manager in order not to taint the user's
+	recent files list.
+
+2006-07-05  Emmanuele Bassi  <ebassi@gmail.com>
+
 	* t/GtkRecentManager.t: Add more tests for Gtk2::RecentInfo API.
 
 2006-07-05  Emmanuele Bassi  <ebassi@gmail.com>
