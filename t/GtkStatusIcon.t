@@ -56,7 +56,7 @@ is($icon -> get_icon_name(), "gtk-ok");
 
 # --------------------------------------------------------------------------- #
 
-my $icon_theme = Gtk2::IconTheme -> new();
+my $icon_theme = Gtk2::IconTheme -> get_default();
 my $icon_info = $icon_theme -> lookup_icon('stock_edit', 24, 'use-builtin');
 
 SKIP: {

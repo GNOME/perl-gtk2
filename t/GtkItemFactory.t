@@ -8,7 +8,7 @@
 #########################
 
 use strict;
-use Gtk2::TestHelper tests => 50;
+use Gtk2::TestHelper tests => 58;
 
 my @actions_used = (qw/1 0 0 0 0 0/);
 my @items = (
@@ -81,6 +81,10 @@ sub callback
 	isa_ok ($data, 'HASH', 'callback data');
 	$actions_used[$action]++;
 	isa_ok ($item, 'Gtk2::MenuItem');
+	# Add some "padding" so all menu callbacks have the same number of
+	# tests.
+	ok (TRUE);
+	ok (TRUE);
 }
 
 ok( my $fac = Gtk2::ItemFactory->new('Gtk2::Menu', '<main>', undef) );
@@ -107,24 +111,32 @@ isa_ok( $fac->get_widget('<main>'), "Gtk2::Menu" );
 isa_ok( $fac->get_widget_by_action(2), "Gtk2::Widget" );
 isa_ok( $fac->get_item_by_action(2), "Gtk2::MenuItem" );
 
+my $skip_actions_tests = FALSE;
+
 foreach ('<main>/Menu/Test 1',
          '<main>/Menu/Test 2',
          '<main>/Menu/Sub Menu/Test 1',
          '<main>/Menu/Sub Menu/Test 2',
          '<main>/Menu/Quit') {
+
 	my $widget = $fac->get_widget($_);
 
 	SKIP: {
-		skip "for some reason, get_widget returned undef", 2
-			unless defined $widget;
+		unless (defined $widget) {
+			$skip_actions_tests = TRUE;
+			# $widget->activate would have invoked one of the
+			# callbacks, so add their number of tests to the skip
+			# count.
+			skip "for some reason, get_widget returned undef", 7;
+		}
+
+		isa_ok( $fac->get_item($_), "Gtk2::MenuItem" );
 
 		is( Gtk2::ItemFactory->from_widget($widget), $fac );
 		is( Gtk2::ItemFactory->path_from_widget($widget), $_ );
+
+		$widget->activate;
 	}
-
-	isa_ok( $fac->get_item($_), "Gtk2::MenuItem" );
-
-	$widget->activate;
 }
 
 $fac->delete_item('<main>/Menu/Test 1');
@@ -139,9 +151,14 @@ foreach ('<main>/Menu/Test 1',
 	is( $fac->get_widget($_), undef );
 }
 
-foreach (@actions_used)
-{
-	ok( $_ );
+SKIP: {
+	skip "actions tests", scalar @actions_used
+		if $skip_actions_tests;
+
+	foreach (@actions_used)
+	{
+		ok( $_ );
+	}
 }
 
 __END__
