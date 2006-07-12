@@ -8,6 +8,9 @@
 
 #include "gtk2perl.h"
 
+ /* For gtk2perl_sv_to_strv and gtk2perl_sv_from_strv. */
+#include "gtk2perl-private.h"
+
 /*
 struct _GtkRecentFilterInfo
 {
@@ -45,13 +48,13 @@ newSVGtkRecentFilterInfo (const GtkRecentFilterInfo *info)
   if (info->mime_type)
     hv_store (hv, "mime_type", 9, newSVGChar (info->mime_type), 0);
 
-#if 0 /* FIXME */
   if (info->applications)
-    hv_store (hv, "applications", 12, newSVGStrv (info->applications), 0);
+    hv_store (hv, "applications", 12, gtk2perl_sv_from_strv (info->applications), 0);
 
   if (info->groups)
-    hv_store (hv, "groups", 6, newSVGStrv (info->groups), 0);
-#endif
+    hv_store (hv, "groups", 6, gtk2perl_sv_from_strv (info->groups), 0);
+
+  hv_store (hv, "age", 3, newSViv (info->age), 0);
 
   return newRV_noinc ((SV *) hv);
 }
@@ -65,13 +68,13 @@ SvGtkRecentFilterInfo (SV *sv)
 
   if (!sv || !SvOK (sv) || !SvROK (sv) || SvTYPE (SvRV (sv)) != SVt_PVHV)
     croak ("invalid recent filter info - expecting a hash reference");
-  
+
   hv = (HV *) SvRV (sv);
   info = gperl_alloc_temp (sizeof (GtkRecentFilterInfo));
 
   if ((svp = hv_fetch (hv, "contains", 8, 0)))
     info->contains = SvGtkRecentFilterFlags (*svp);
-  
+
   if ((svp = hv_fetch (hv, "uri", 3, 0)))
     info->uri = SvPV_nolen (*svp);
 
@@ -81,14 +84,15 @@ SvGtkRecentFilterInfo (SV *sv)
   if ((svp = hv_fetch (hv, "mime_type", 9, 0)))
     info->mime_type = SvGChar (*svp);
 
-#if 0 /* FIXME */
   if ((svp = hv_fetch (hv, "applications", 12, 0)))
-    info->applications = SvGStrv (*svp);
+    info->applications = gtk2perl_sv_to_strv (*svp);
 
   if ((svp = hv_fetch (hv, "groups", 6, 0)))
-    info->groups = SvGStrv (*svp);
-#endif
-  
+    info->groups = gtk2perl_sv_to_strv (*svp);
+
+  if ((svp = hv_fetch (hv, "age", 3, 0)))
+    info->age = SvIV (*svp);
+
   return info;
 }
 

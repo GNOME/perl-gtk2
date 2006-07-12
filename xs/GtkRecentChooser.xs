@@ -18,10 +18,10 @@ gtk2perl_recent_sort_func (GtkRecentInfo *a,
   gint retval;
 
   g_value_init (&value, callback->return_type);
-  
+
   gperl_callback_invoke (callback, &value, a, b);
   retval = g_value_get_int (&value);
-  
+
   g_value_unset (&value);
 
   return retval;
@@ -89,11 +89,12 @@ gtk_recent_chooser_set_show_tips (GtkRecentChooser *chooser, gboolean show_tips)
 gboolean
 gtk_recent_chooser_get_show_tips (GtkRecentChooser *chooser)
 
-void
-gtk_recent_chooser_set_show_numbers (GtkRecentChooser *chooser, gboolean show_numbers)
-
-gboolean
-gtk_recent_chooser_get_show_numbers (GtkRecentChooser *chooser)
+# these are a gtk mistake, and we should not bind them.
+##void
+##gtk_recent_chooser_set_show_numbers (GtkRecentChooser *chooser, gboolean show_numbers)
+##
+##gboolean
+##gtk_recent_chooser_get_show_numbers (GtkRecentChooser *chooser)
 
 void
 gtk_recent_chooser_set_show_icons (GtkRecentChooser *chooser, gboolean show_icons)
@@ -170,13 +171,9 @@ gtk_recent_chooser_get_items (GtkRecentChooser *chooser)
         GList *items, *l;
     PPCODE:
         items = gtk_recent_chooser_get_items (chooser);
-	
-	for (l = items; l != NULL; l = l->next) {
-		GtkRecentInfo *info = l->data;
-		
-		XPUSHs (sv_2mortal (newSVGtkRecentInfo (info)));
-		gtk_recent_info_unref (info);
-	}
+
+	for (l = items; l != NULL; l = l->next)
+		XPUSHs (sv_2mortal (newSVGtkRecentInfo_own (l->data)));
 
 	g_list_free (items);
 
@@ -192,11 +189,11 @@ gtk_recent_chooser_get_uris (GtkRecentChooser *chooser)
         uris = gtk_recent_chooser_get_uris (chooser, &length);
 	if (length == 0)
 		XSRETURN_EMPTY;
-		
+
 	EXTEND (SP, length);
 	for (i = 0; i < length; i++)
 		PUSHs (sv_2mortal (newSVGChar (uris[i])));
-	
+
 	g_strfreev (uris);
 
 #

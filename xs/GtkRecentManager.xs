@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright (C) 2006 by the gtk2-perl team (see the file AUTHORS for a
  * complete listing)
  *
@@ -20,6 +20,43 @@
 
 #include "gtk2perl.h"
 
+/* Also used in GtkRecentFilter.xs */
+const gchar **
+gtk2perl_sv_to_strv (SV *sv)
+{
+	AV *av;
+	SV **svp;
+	int i;
+	gchar **retval;
+
+	if (!sv || !SvOK (sv) || !SvROK (sv) || SvTYPE (SvRV (sv)) != SVt_PVAV)
+		croak ("invalid groups value - expecting an array reference");
+
+	av = (AV *) SvRV (sv);
+	retval = gperl_alloc_temp (sizeof (gchar*) * (av_len (av) + 2));
+	for (i = 0; i <= av_len (av); i++)
+		if ((svp = av_fetch (av, i, 0)))
+			retval[i] = SvGChar (*svp);
+	retval[i] = NULL;
+
+	return (const gchar **) retval;
+}
+
+/* Used in GtkRecentFilter.xs */
+SV *
+gtk2perl_sv_from_strv (const gchar **strv)
+{
+	AV *av;
+	int i;
+
+	av = newAV ();
+	i = 0;
+	while (strv[i])
+		av_push (av, newSVGChar (strv[i++]));
+
+	return newRV_noinc ((SV *) av);
+}
+
 /*
 struct _GtkRecentData
 {
@@ -35,7 +72,7 @@ struct _GtkRecentData
 
   gboolean is_private;
 };
- */
+*/
 
 static GtkRecentData *
 SvGtkRecentData (SV *sv)
@@ -48,7 +85,7 @@ SvGtkRecentData (SV *sv)
 	  croak ("invalid recent data - expecting a hash reference");
 
   hv = (HV *) SvRV (sv);
-  
+
   data = gperl_alloc_temp (sizeof (GtkRecentData));
 
   if ((svp = hv_fetch (hv, "display_name", 12, 0)))
@@ -69,11 +106,9 @@ SvGtkRecentData (SV *sv)
   if ((svp = hv_fetch (hv, "is_private", 10, 0)))
 	  data->is_private = SvIV (*svp);
 
-#if 0 /* FIXME */
   if ((svp = hv_fetch (hv, "groups", 6, 0)))
-	  data->groups = SvGStrv (*svp);
-#endif
-  
+	  data->groups = (gchar **) gtk2perl_sv_to_strv (*svp);
+
   return data;
 }
 
@@ -165,13 +200,8 @@ gtk_recent_manager_get_items (GtkRecentManager *manager)
         GList *items, *l;
     PPCODE:
         items = gtk_recent_manager_get_items (manager);
-	for (l = items; l != NULL; l = l->next) {
-		GtkRecentInfo *info = l->data;
-
-		XPUSHs (sv_2mortal (newSVGtkRecentInfo (info)));
-
-		gtk_recent_info_unref (info);
-	}
+	for (l = items; l != NULL; l = l->next)
+		XPUSHs (sv_2mortal (newSVGtkRecentInfo_own (l->data)));
 	g_list_free (items);
 
 =for apidoc __gerror__
@@ -192,7 +222,7 @@ gtk_recent_manager_purge_items (GtkRecentManager *manager)
 #
 
 MODULE = Gtk2::RecentManager	PACKAGE = Gtk2::RecentInfo	PREFIX = gtk_recent_info_
-	
+
 # not needed
 ##GtkRecentInfo *gtk_recent_info_ref   (GtkRecentInfo  *info);
 ##void           gtk_recent_info_unref (GtkRecentInfo  *info);
@@ -309,7 +339,7 @@ gtk_recent_info_get_applications (GtkRecentInfo *info)
 		for (i = 0; i < length; i++) {
 			if (apps[i])
 				PUSHs (sv_2mortal (newSVGChar (apps[i])));
-		}		
+		}
 		g_strfreev (apps);
 	}
 	else

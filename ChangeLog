@@ -1,3 +1,35 @@
+2006-07-11  Emmanuele Bassi  <ebassi@gmail.com>
+
+	Many fixes and test suite additions from kaffee.
+
+	* gtk2perl-private.h: Add private functions:
+
+	  gtk2perl_sv_to_strv()
+	  gtk2perl_sv_from_strv()
+	
+	for converting a scalar to and from a string vector.
+
+	* xs/GtkRecentFilter.xs:
+	* xs/GtkRecentManager.xs: ... and use them.
+	
+	* xs/GtkRecentChooser.xs:
+	* xs/GtkRecentManager.xs: Use newSVGtkRecentInfo_own instead
+	of manually unreffing the recent info object.
+
+	* xs/GtkRecentChooserDialog.xs: Use the right property name
+	inside the constructor.
+	
+	* maps-2.10: GtkRecentFilterFlags is - quite obviously - a
+	GFlags type.
+
+	* t/GtkRecentChooser.t:
+	* t/GtkRecentChooserDialog.t:
+	* t/GtkRecentChooserMenu.t:
+	* t/GtkRecentChooserWidget.t:
+	* t/GtkRecentFilter.t: Test suite for the GtkRecent widgets.
+
+	* t/GtkRecentManager.t: Add more tests.
+
 2006-07-07	kaffeetisch
 
 	* t/GtkAccelGroup.t: Fix the fix by only demanding that

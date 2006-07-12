@@ -53,11 +53,11 @@ gtk_recent_chooser_dialog_new (class, gchar *title, GtkWindow_ornull *parent, ..
 
 	RETVAL = g_object_new (GTK_TYPE_RECENT_CHOOSER_DIALOG,
 			       "title", title,
-			       "manager", manager,
+			       "recent-manager", manager,
 			       NULL);
 	if (parent)
 		gtk_window_set_transient_for (GTK_WINDOW (RETVAL), parent);
-	
+
 	for (i = first_index; i < items; i += 2) {
 		gchar *button_text = SvGChar (ST (i));
 		gint response_id = SvGtkResponseType (ST (i + 1));

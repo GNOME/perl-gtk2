@@ -30,6 +30,10 @@
 GPerlCallback * gtk2perl_translate_func_create (SV * func, SV * data);
 gchar * gtk2perl_translate_func (const gchar *path, gpointer data);
 
+/* Implemented in GtkRecentManager.xs */
+const gchar ** gtk2perl_sv_to_strv (SV *sv);
+SV * gtk2perl_sv_from_strv (const gchar **strv);
+
 #if GTK_CHECK_VERSION (2, 6, 0)
 /* Implemented in GtkTreeView.xs. */
 GPerlCallback * gtk2perl_tree_view_row_separator_func_create (SV * func,
