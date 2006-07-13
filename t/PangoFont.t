@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 54;
+use Gtk2::TestHelper tests => 55;
 
 # $Header$
 
@@ -92,6 +92,13 @@ SKIP: {
   like($metrics -> get_underline_thickness(), $number);
   like($metrics -> get_strikethrough_position(), $number);
   like($metrics -> get_strikethrough_thickness(), $number);
+}
+
+SKIP: {
+  skip("new 1.10 stuff", 1)
+    unless (Gtk2::Pango -> CHECK_VERSION(1, 10, 0));
+
+  isa_ok($font -> get_font_map(), "Gtk2::Pango::FontMap");
 }
 
 ###############################################################################

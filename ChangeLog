@@ -1,3 +1,11 @@
+2006-07-13	kaffeetisch
+
+	* t/GtkRecentChooser.t: Don't try to test
+	gtk_recent_chooser_[sg]et_show_numbers; they're not wrapped.
+
+	* t/PangoFont.t, xs/PangoFont.xs: Bind and test
+	pango_font_get_font_map.
+
 2006-07-11  Emmanuele Bassi  <ebassi@gmail.com>
 
 	Many fixes and test suite additions from kaffee.
@@ -6,19 +14,19 @@
 
 	  gtk2perl_sv_to_strv()
 	  gtk2perl_sv_from_strv()
-	
+
 	for converting a scalar to and from a string vector.
 
 	* xs/GtkRecentFilter.xs:
 	* xs/GtkRecentManager.xs: ... and use them.
-	
+
 	* xs/GtkRecentChooser.xs:
 	* xs/GtkRecentManager.xs: Use newSVGtkRecentInfo_own instead
 	of manually unreffing the recent info object.
 
 	* xs/GtkRecentChooserDialog.xs: Use the right property name
 	inside the constructor.
-	
+
 	* maps-2.10: GtkRecentFilterFlags is - quite obviously - a
 	GFlags type.
 

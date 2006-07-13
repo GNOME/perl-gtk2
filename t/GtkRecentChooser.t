@@ -1,7 +1,7 @@
 #!/usr/bin/perl -w
 use strict;
 use Gtk2::TestHelper
-  tests => 16,
+  tests => 15,
   at_least_version => [2, 10, 0, "GtkRecentChooser"];
 
 # $Header$
@@ -29,12 +29,6 @@ ok($chooser -> get_local_only());
 
 $chooser -> set_show_tips(TRUE);
 ok($chooser -> get_show_tips());
-
-# FIXME: This asserts.  Looks like this property is only valid for
-# GtkRecentChooserMenu.  Shouldn't it be removed from the GtkRecentChooser
-# interface then?
-$chooser -> set_show_numbers(TRUE);
-ok($chooser -> get_show_numbers());
 
 $chooser -> set_show_icons(TRUE);
 ok($chooser -> get_show_icons());

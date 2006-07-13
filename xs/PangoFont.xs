@@ -381,6 +381,12 @@ pango_font_get_glyph_extents (font, glyph)
 	PUSHs (sv_2mortal (newSVPangoRectangle (&ink_rect)));
 	PUSHs (sv_2mortal (newSVPangoRectangle (&logical_rect)));
 
+#if PANGO_CHECK_VERSION(1, 10, 0)
+
+PangoFontMap * pango_font_get_font_map (PangoFont *font);
+
+#endif
+
 ### no typemaps for this stuff.
 ### it looks like it would only be useful from C, though.
 ### PangoCoverage * pango_font_get_coverage (PangoFont *font, PangoLanguage *language)
