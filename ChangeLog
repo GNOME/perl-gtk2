@@ -1,3 +1,7 @@
+2006-07-14	kaffeetisch
+
+	* Gtk2.pm, MANIFEST, Makefile.PL, NEWS, README: Unstable 1.131.
+
 2006-07-13	kaffeetisch
 
 	* t/GtkRecentChooser.t: Don't try to test

@@ -1,3 +1,56 @@
+Overview of changes in Gtk2 1.131
+=================================
+
+* Allow passing undef to the Gtk2::Widget::modify_* methods.  [muppet]
+* Add support for GtkCellRendererSpin.  [Torsten]
+* Add support for GtkPageSetup, GtkPaperSize, GtkPrintContext,
+  GtkPrintOperation, GtkPrintOperationPreview, GtkPrintSettings.  [Torsten]
+* Add support for GtkRecentChooser, GtkRecentChooserDialog,
+  GtkRecentChooserMenu, GtkRecentChooserWidget, GtkRecentFilter,
+  GtkRecentManager.  [Emmanuele]
+* Wrap new API:  [Torsten, muppet]
+  - gtk_button_set_image_position, gtk_button_get_image_position
+  - gtk_clipboard_request_rich_text, gtk_clipboard_wait_for_rich_text,
+    gtk_clipboard_wait_is_rich_text_available
+  - gtk_combo_box_set_title, gtk_combo_box_get_title
+  - gtk_drag_dest_set_track_motion, gtk_drag_dest_get_track_motion
+  - gtk_entry_set_inner_border, gtk_entry_get_inner_border
+  - gtk_file_chooser_button_set_focus_on_click,
+    gtk_file_chooser_button_get_focus_on_click
+  - gtk_label_set_line_wrap_mode, gtk_label_get_line_wrap_mode
+  - gtk_message_dialog_set_image
+  - gtk_notebook_set_window_creation_hook, gtk_notebook_set_group_id,
+    gtk_notebook_get_group_id, gtk_notebook_set_tab_reorderable,
+    gtk_notebook_get_tab_reorderable, gtk_notebook_set_tab_detachable,
+    gtk_notebook_get_tab_detachable
+  - gtk_radio_action_set_current_value
+  - gtk_range_get_lower_stepper_sensitivity,
+    gtk_range_set_lower_stepper_sensitivity,
+    gtk_range_get_upper_stepper_sensitivity,
+    gtk_range_set_upper_stepper_sensitivity
+  - gtk_scrolled_window_unset_placement
+  - gtk_target_list_add_rich_text_targets, gtk_targets_include_text,
+    gtk_targets_include_uri, gtk_targets_include_rich_text,
+    gtk_targets_include_image, gtk_selection_data_targets_include_rich_text,
+    gtk_selection_data_targets_include_uri
+  - gtk_size_group_get_widgets
+  - gtk_status_icon_position_menu, gtk_status_icon_get_geometry
+  - gtk_style_lookup_color
+  - gtk_text_buffer_get_has_selection, gtk_text_buffer_get_copy_target_list,
+    gtk_text_buffer_get_paste_target_list
+  - gtk_tree_store_insert_with_values
+  - gtk_tree_view_get_headers_clickable, gtk_tree_view_set_search_entry,
+    gtk_tree_view_get_search_entry, gtk_tree_view_set_search_position_func,
+    gtk_tree_view_set_rubber_banding, gtk_tree_view_get_rubber_banding,
+    gtk_tree_view_get_grid_lines, gtk_tree_view_set_grid_lines,
+    gtk_tree_view_get_enable_tree_lines, gtk_tree_view_set_enable_tree_lines
+  - gtk_widget_get_action, gtk_widget_input_shape_combine_mask
+  - gtk_window_set_deletable, gtk_window_get_deletable, gtk_window_get_group
+  - pango_cairo_show_error_underline, pango_cairo_error_underline_path
+  - pango_font_describe_with_absolute_size, pango_font_get_font_map
+* Fix a few memory leaks.  [Torsten]
+* Make many tests more robust.  [Torsten, Emmanuele]
+
 Overview of changes in Gtk2 1.130
 =================================
 
@@ -18,6 +71,12 @@ Overview of changes in Gtk2 1.130
   - gdk_window_set_child_input_shapes
   - gdk_window_merge_child_input_shapes
 * Fix some test suite issues.  [muppet, Torsten]
+
+Overview of changes in Gtk2 1.122
+=================================
+
+* Allow passing undef to the Gtk2::Widget::modify_* methods.  [muppet]
+* Fix multiple test suite issues.  [Torsten]
 
 Overview of changes in Gtk2 1.121
 =================================

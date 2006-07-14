@@ -29,12 +29,13 @@ use warnings;
 
 use Glib;
 
-# Optionally "depend" on Cairo.
+# if the gtk+ we've been compiled against is at least as new as 2.8.0, we need
+# to import the Cairo module for the cairo glue in gtk+ and pango.
 eval "use Cairo;";
 
 require DynaLoader;
 
-our $VERSION = '1.130';
+our $VERSION = '1.131';
 
 our @ISA = qw(DynaLoader);
 
