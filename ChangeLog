@@ -1,3 +1,11 @@
+2006-07-27	kaffeetisch
+
+	* AUTHORS, pm/TestHelper.pm: Patch from Grant McLean makes sure
+	that strict and warnings are actually forced upon users.
+
+	* t/GtkAction.t, t/GtkEntryCompletion.t, t/GtkListStore.t,
+	t/GtkRadioAction.t: Fix the issues the patch uncovered.
+
 2006-07-14	kaffeetisch
 
 	* Gtk2.pm, MANIFEST, Makefile.PL, NEWS, README: Unstable 1.131.

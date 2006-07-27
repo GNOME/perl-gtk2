@@ -17,7 +17,7 @@ sub match_func {
 
 my $entry = Gtk2::Entry->new;
 
-$completion = Gtk2::EntryCompletion->new;
+my $completion = Gtk2::EntryCompletion->new;
 isa_ok ($completion, 'Gtk2::EntryCompletion');
 ginterfaces_ok($completion);
 

@@ -24,19 +24,19 @@ $action->signal_connect (activate => sub { ok (TRUE) });
 $action->activate;
 
 # most of these are for action implementations
-$icon_widget = $action->create_icon ('large-toolbar');
+my $icon_widget = $action->create_icon ('large-toolbar');
 isa_ok ($icon_widget, 'Gtk2::Image');
 
 my $group = Gtk2::ActionGroup->new ('dummy');
 $group->add_action ($action);
 
-$widget = $action->create_menu_item;
+my $widget = $action->create_menu_item;
 isa_ok ($widget, 'Gtk2::MenuItem');
 
 $widget = $action->create_tool_item;
 isa_ok ($widget, 'Gtk2::ToolItem');
 
-@proxies = $action->get_proxies;
+my @proxies = $action->get_proxies;
 is (@proxies, 1);
 
 my $proxy = Gtk2::Statusbar->new;

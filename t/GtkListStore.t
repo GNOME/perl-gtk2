@@ -128,6 +128,7 @@ foreach (@data)
 		'$store->set/get');
 }
 
+my $iter;
 ok ($iter = $store->insert (0), '$store->insert (5)');
 ok ($iter = $store->insert (0), '$store->insert (0)');
 ok ($iter = $store->insert_before ($iter), '$store->insert_before');

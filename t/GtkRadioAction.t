@@ -8,17 +8,17 @@ use Gtk2::TestHelper
 
 
 my @actions = (Gtk2::RadioAction->new (name => 'one', value => 0));
-isa_ok ($actions[$#action], 'Gtk2::RadioAction');
+isa_ok ($actions[$#actions], 'Gtk2::RadioAction');
 my $i = 1;
 foreach (qw(two three four five)) {
 	push @actions, Gtk2::RadioAction->new (group => $actions[$#actions],
 	                                       name => $_,
 	                                       value => $i++);
-	isa_ok ($actions[$#action], 'Gtk2::RadioAction');
+	isa_ok ($actions[$#actions], 'Gtk2::RadioAction');
 }
 my $group = $actions[0]->get_group;
 push @actions, Gtk2::RadioAction->new (name => 'six', value => 5);
-isa_ok ($actions[$#action], 'Gtk2::RadioAction');
+isa_ok ($actions[$#actions], 'Gtk2::RadioAction');
 $actions[$#actions]->set_group ($group);
 
 

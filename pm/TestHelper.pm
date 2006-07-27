@@ -3,6 +3,8 @@
 #
 
 package Gtk2::TestHelper;
+use strict;
+use warnings;
 use Test::More;
 use Carp;
 
@@ -48,13 +50,15 @@ sub import
 
 	# ignore keyboard
 	Gtk2->key_snooper_install (sub { 1; });
+
+	# turn on strict and warnings in caller
+	$^W = 1;
+	@_ = ();
+	goto &strict::import;
 }
 
 package main;
 
-# these are to make people behave
-use strict;
-use warnings;
 # go ahead and use Gtk2 for them.
 use Gtk2;
 # and obviously they'll need Test::More
