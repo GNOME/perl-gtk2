@@ -70,7 +70,7 @@ PANGO_PIXELS (class, d)
 MODULE = Gtk2::Pango::Font	PACKAGE = Gtk2::Pango::FontDescription	PREFIX = pango_font_description_
 
 ##PangoFontDescription* pango_font_description_new (void)
-PangoFontDescription *
+PangoFontDescription_own *
 pango_font_description_new (class)
     C_ARGS:
 	/* void */
@@ -356,7 +356,7 @@ pango_font_get_metrics (font, language)
 	PangoLanguage *language
 
 ## PangoFontDescription* pango_font_describe (PangoFont *font)
-PangoFontDescription *
+PangoFontDescription_own *
 pango_font_describe (font)
 	PangoFont *font
 
