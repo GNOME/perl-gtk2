@@ -60,7 +60,7 @@ SKIP: {
 
 SKIP: {
   skip("new 2.10 stuff", 0)
-    unless Gtk2->CHECK_VERSION (2, 9, 2); # FIXME 2.10
+    unless Gtk2->CHECK_VERSION (2, 10, 0);
 
   my $image = Gtk2::Label -> new(":-)");
   $dialog -> set_image($image);

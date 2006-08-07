@@ -190,7 +190,7 @@ gboolean gtk_combo_box_get_focus_on_click (GtkComboBox *combo_box);
 
 #endif
 
-#if GTK_CHECK_VERSION (2, 9, 0) /* FIXME 2.10 */
+#if GTK_CHECK_VERSION (2, 10, 0)
 
 void gtk_combo_box_set_title (GtkComboBox *combo_box, const gchar * title);
 

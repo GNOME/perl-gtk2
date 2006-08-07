@@ -196,7 +196,7 @@ void gdk_display_warp_pointer (GdkDisplay *display, GdkScreen *screen, gint x, g
 
 #endif
 
-#if GTK_CHECK_VERSION (2, 9, 0) /* FIXME 2.10 */
+#if GTK_CHECK_VERSION (2, 10, 0)
 
 gboolean gdk_display_supports_shapes (GdkDisplay *display);
 

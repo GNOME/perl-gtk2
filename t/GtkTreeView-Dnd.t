@@ -52,7 +52,7 @@ $view->signal_connect (drag_data_received => sub {
 		$context->finish (0, 0, $time);
 	});
 
-# TODO/FIXME: synthisize the drag
+# TODO/FIXME: synthesize the drag
 
 $win->add ($view);
 $win->show_all;

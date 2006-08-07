@@ -89,7 +89,7 @@ SKIP: {
 
 SKIP: {
         skip "new stuff in 2.10", 6
-                unless Gtk2->CHECK_VERSION (2, 9, 0);  # FIXME 2.10
+                unless Gtk2->CHECK_VERSION (2, 10, 0);
 
 	my $buffer = Gtk2::TextBuffer->new;
 	$buffer->insert ($buffer->get_start_iter, 'bla!');
@@ -175,7 +175,7 @@ sub get_func {
 
 	SKIP: {
 		skip '2.10 stuff', 2
-			unless Gtk2->CHECK_VERSION (2, 9, 0); # FIXME: 2.10
+			unless Gtk2->CHECK_VERSION (2, 10, 0);
 
 		is ($_[1]->targets_include_uri, FALSE);
 

@@ -24,7 +24,7 @@ $actions[$#actions]->set_group ($group);
 
 is ($actions[0]->get_current_value, 0);
 
-if (Gtk2->CHECK_VERSION (2, 9, 0)) { # FIXME 2.10
+if (Gtk2->CHECK_VERSION (2, 10, 0)) {
 	$actions[0]->set_current_value (3);
 } else {
 	$actions[0]->set (value => 3);

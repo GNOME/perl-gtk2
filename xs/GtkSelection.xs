@@ -85,7 +85,7 @@ gtk2perl_read_gtk_target_entry (SV * sv,
 
 /* gtk+ 2.10 introduces a boxed type for GtkTargetList. */
 
-#if GTK_CHECK_VERSION (2, 9, 0) /* FIXME 2.10 */
+#if GTK_CHECK_VERSION (2, 10, 0)
 
 static GPerlBoxedWrapperClass *default_wrapper_class;
 static GPerlBoxedWrapperClass gtk_target_list_wrapper_class;
@@ -181,7 +181,7 @@ BOOT:
 =for see_also Gtk2::TargetEntry
 =cut
 
-#if !GTK_CHECK_VERSION (2, 9, 0) /* FIXME 2.10 */
+#if !GTK_CHECK_VERSION (2, 10, 0)
 
 void
 DESTROY (SV * list)
@@ -255,7 +255,7 @@ void gtk_target_list_add_uri_targets (GtkTargetList  *list, guint info);
 
 #endif
 
-#if GTK_CHECK_VERSION (2, 9, 0) /* FIXME 2.10 */
+#if GTK_CHECK_VERSION (2, 10, 0)
 
 void gtk_target_list_add_rich_text_targets (GtkTargetList  *list, guint info, gboolean deserializable, GtkTextBuffer * buffer);
 
@@ -333,7 +333,7 @@ void
 gtk_selection_remove_all (widget)
 	GtkWidget *widget
 
-#if GTK_CHECK_VERSION (2, 9, 0) /* FIXME 2.10 */
+#if GTK_CHECK_VERSION (2, 10, 0)
 
 MODULE = Gtk2::Selection	PACKAGE = Gtk2	PREFIX = gtk_
 
@@ -542,7 +542,7 @@ gboolean gtk_selection_data_targets_include_image (GtkSelectionData *selection_d
 
 #endif /* 2.6 */
 
-#if GTK_CHECK_VERSION (2, 9, 0) /* FIXME 2.10 */
+#if GTK_CHECK_VERSION (2, 10, 0)
 
 gboolean gtk_selection_data_targets_include_rich_text (GtkSelectionData *selection_data, GtkTextBuffer * buffer) 
 

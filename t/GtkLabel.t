@@ -98,7 +98,7 @@ SKIP: {
 
 SKIP: {
 	skip 'new 2.10 stuff', 1
-		unless Gtk2->CHECK_VERSION (2, 9, 4); # FIXME 2.10
+		unless Gtk2->CHECK_VERSION (2, 10, 0);
 
 	$label->set_line_wrap_mode('word');
 	is ($label->get_line_wrap_mode, 'word');

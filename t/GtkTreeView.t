@@ -246,7 +246,7 @@ $view -> set_headers_clickable(1);
 
 SKIP: {
 	skip "new 2.10 stuff", 1
-		unless Gtk2 -> CHECK_VERSION(2, 9, 0); # FIXME: 2.10
+		unless Gtk2 -> CHECK_VERSION(2, 10, 0);
 
 	is($view -> get_headers_clickable(), 1);
 }
@@ -355,7 +355,7 @@ SKIP: {
 
 SKIP: {
 	skip("new 2.10 stuff", 1)
-		unless Gtk2 -> CHECK_VERSION(2, 9, 0); # FIXME 2.10
+		unless Gtk2 -> CHECK_VERSION(2, 10, 0);
 
 	my $entry = Gtk2::Entry -> new();
 	$view -> set_search_entry($entry);

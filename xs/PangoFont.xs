@@ -360,7 +360,7 @@ PangoFontDescription_own *
 pango_font_describe (font)
 	PangoFont *font
 
-#if PANGO_CHECK_VERSION(1, 13, 2) /* FIXME: 1.14 */
+#if PANGO_CHECK_VERSION(1, 14, 0)
 
  ## PangoFontDescription *pango_font_describe_with_absolute_size (PangoFont *font);
 PangoFontDescription_own *pango_font_describe_with_absolute_size (PangoFont *font);

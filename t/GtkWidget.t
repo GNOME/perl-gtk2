@@ -408,7 +408,7 @@ SKIP: {
 
 SKIP: {
 	skip "stuff that's new in 2.10", 0
-		unless Gtk2->CHECK_VERSION (2, 9, 0); # FIXME 2.10
+		unless Gtk2->CHECK_VERSION (2, 10, 0);
 
 	$widget->input_shape_combine_mask ($bitmap, 23, 42);
 	$widget->input_shape_combine_mask (undef, 0, 0);

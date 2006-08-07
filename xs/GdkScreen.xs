@@ -197,7 +197,7 @@ GdkVisual_ornull * gdk_screen_get_rgba_visual (GdkScreen *screen);
 
 #endif
 
-#if GTK_CHECK_VERSION (2, 9, 0) /* FIXME 2.10 */
+#if GTK_CHECK_VERSION (2, 10, 0)
 
 # gdk_screen_get_font_options and gdk_screen_set_font_options are wrapped in
 # GdkCairo.xs.

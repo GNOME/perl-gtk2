@@ -34,7 +34,7 @@ SKIP: {
 
   SKIP: {
     skip("2.10 stuff", 1)
-      unless Gtk2 -> CHECK_VERSION(2, 9, 0); # FIXME 2.10
+      unless Gtk2 -> CHECK_VERSION(2, 10, 0);
 
     my $screen = Gtk2::Gdk::Screen -> get_default();
     my $pixmap =

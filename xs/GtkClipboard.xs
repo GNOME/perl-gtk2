@@ -122,7 +122,7 @@ gtk2perl_clipboard_clear_func (GtkClipboard *clipboard,
 	gperl_callback_invoke (callback, NULL, clipboard, user_data_or_owner);
 }
 
-#if GTK_CHECK_VERSION (2, 9, 0) /* FIXME 2.10 */
+#if GTK_CHECK_VERSION (2, 10, 0)
 
 static void
 gtk2perl_clipboard_rich_text_received_func (GtkClipboard     *clipboard,
@@ -458,7 +458,7 @@ gboolean gtk_clipboard_wait_is_target_available (GtkClipboard *clipboard, GdkAto
 
 #endif /* 2.6.0 */
 
-#if GTK_CHECK_VERSION (2, 9, 0) /* FIXME 2.10 */
+#if GTK_CHECK_VERSION (2, 10, 0)
 
 ##void
 ##gtk_clipboard_request_rich_text (GtkClipboard                    *clipboard,

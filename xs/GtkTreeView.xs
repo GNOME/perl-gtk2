@@ -167,7 +167,7 @@ gtk2perl_tree_view_row_separator_func (GtkTreeModel      *model,
 
 #endif /* 2.6.0 */
 
-#if GTK_CHECK_VERSION (2, 9, 0) /* FIXME 2.10 */
+#if GTK_CHECK_VERSION (2, 10, 0)
 
 static GPerlCallback *
 gtk2perl_tree_view_search_position_func_create (SV * func,
@@ -807,7 +807,7 @@ gtk_tree_view_get_visible_range (tree_view)
 
 #endif
 
-#if GTK_CHECK_VERSION (2, 9, 0) /* FIXME 2.10 */
+#if GTK_CHECK_VERSION (2, 10, 0)
 
 gboolean gtk_tree_view_get_headers_clickable (GtkTreeView *tree_view);
 
@@ -841,7 +841,7 @@ void gtk_tree_view_set_search_position_func (GtkTreeView *tree_view, SV *func, S
 
 #endif
 
-#if GTK_CHECK_VERSION (2, 9, 2) /* FIXME 2.10 */
+#if GTK_CHECK_VERSION (2, 10, 0)
 
 void gtk_tree_view_set_rubber_banding (GtkTreeView *tree_view, gboolean enable);
 

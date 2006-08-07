@@ -82,6 +82,8 @@ SKIP: {
   $context -> status(qw(move), 0);
   ok($context -> action() == qw(move));
 
+  $context -> status([], 0);
+
   $context -> drop_reply(1, 0);
   $context -> drop_finish(1, 0);
 

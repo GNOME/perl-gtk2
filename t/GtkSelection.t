@@ -8,7 +8,7 @@ my $list = Gtk2::TargetList -> new();
 isa_ok($list, "Gtk2::TargetList");
 SKIP: {
   skip "2.10 stuff", 1
-    unless Gtk2 -> CHECK_VERSION(2, 9, 0); # FIXME 2.10
+    unless Gtk2 -> CHECK_VERSION(2, 10, 0);
 
   isa_ok($list, "Glib::Boxed");
 }
@@ -43,7 +43,7 @@ SKIP: {
 
 SKIP: {
   skip("2.10 stuff", 5)
-    unless Gtk2 -> CHECK_VERSION(2, 9, 0); # FIXME 2.10
+    unless Gtk2 -> CHECK_VERSION(2, 10, 0);
 
   my $buffer = Gtk2::TextBuffer->new;
   $buffer->register_serialize_format (

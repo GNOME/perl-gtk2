@@ -24,7 +24,7 @@
 use strict;
 use Gtk2::TestHelper
   tests => 46,
-  at_least_version => [2, 9, 0, "GtkTextBufferRichText is new in 2.10"]; # FIXME 2.10
+  at_least_version => [2, 10, 0, "GtkTextBufferRichText is new in 2.10"];
 
 sub dump_formats {
         for (my $i = 0 ; $i < @_ ; $i++) {

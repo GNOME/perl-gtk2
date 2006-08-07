@@ -65,7 +65,7 @@ isa_ok($font -> describe(), "Gtk2::Pango::FontDescription");
 
 SKIP: {
   skip "new 1.14 stuff", 1
-    unless Gtk2::Pango -> CHECK_VERSION(1, 13, 2); # FIXME: 1.14
+    unless Gtk2::Pango -> CHECK_VERSION(1, 14, 0);
 
   isa_ok($font -> describe_with_absolute_size(), "Gtk2::Pango::FontDescription");
 }

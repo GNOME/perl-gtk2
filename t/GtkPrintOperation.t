@@ -2,7 +2,7 @@
 use strict;
 use Gtk2::TestHelper
   tests => 10,
-  at_least_version => [2, 9, 2, "GtkPrintOperation is new in 2.10"]; # FIXME 2.10
+  at_least_version => [2, 10, 0, "GtkPrintOperation is new in 2.10"];
 
 # $Header$
 

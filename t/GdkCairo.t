@@ -40,7 +40,7 @@ $context -> rectangle(0, 0, 10, 10);
 
 SKIP: {
     skip "set_source_pixmap is new in gtk+ 2.10", 0
-        unless Gtk2 -> CHECK_VERSION(2, 9, 0); # FIXME 2.10
+        unless Gtk2 -> CHECK_VERSION(2, 10, 0);
 
     my $pixmap = Gtk2::Gdk::Pixmap -> new($window->window, 20, 20, -1);
     $context -> set_source_pixmap($pixmap, 10, 10);

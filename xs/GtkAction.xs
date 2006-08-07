@@ -63,7 +63,7 @@ const gchar* gtk_action_get_accel_path (GtkAction *action);
 
 #endif
 
-#if GTK_CHECK_VERSION (2, 9, 0) /* FIXME 2.10 */
+#if GTK_CHECK_VERSION (2, 10, 0)
 
 MODULE = Gtk2::Action	PACKAGE = Gtk2::Widget	PREFIX = gtk_widget_
 

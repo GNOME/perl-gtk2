@@ -67,7 +67,6 @@ gtk_curve_get_vector (curve, veclen=32)
 	vector = g_new(gfloat, veclen);
 	gtk_curve_get_vector(curve, veclen, vector);
 	EXTEND(SP, veclen);
-	/* TODO: precision issues ?? */
 	for( i = 0; i < veclen; i++ )
 		PUSHs(sv_2mortal(newSVnv(vector[i])));
 	g_free(vector);

@@ -116,7 +116,7 @@ is_deeply( [ $nb->query_tab_label_packing($child) ],
 
 SKIP: {
 	skip "2.10 stuff", 3
-		unless Gtk2->CHECK_VERSION (2, 9, 2); # FIXME 2.10
+		unless Gtk2->CHECK_VERSION (2, 10, 0);
 
 	$nb->set_group_id (23);
 	is ($nb->get_group_id, 23);

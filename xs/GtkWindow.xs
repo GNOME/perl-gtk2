@@ -658,7 +658,7 @@ void gtk_window_present_with_time (GtkWindow *window, guint32 timestamp);
 
 #endif
 
-#if GTK_CHECK_VERSION (2, 9, 0) /* FIXME 2.10 */
+#if GTK_CHECK_VERSION (2, 10, 0)
 
 void gtk_window_set_deletable (GtkWindow *window, gboolean setting);
 

@@ -63,7 +63,7 @@ gboolean gtk_size_group_get_ignore_hidden (GtkSizeGroup *size_group);
 
 #endif /* 2.8 */
 
-#if GTK_CHECK_VERSION (2, 9, 0) /* FIXME 2.10 */
+#if GTK_CHECK_VERSION (2, 10, 0)
 
 ## the returned list is owned by GTK+ and should not be modified.
 void gtk_size_group_get_widgets (GtkSizeGroup *size_group)

@@ -90,7 +90,7 @@ SKIP: {
 
 SKIP: {
   skip("new 2.10 stuff", 2)
-    unless Gtk2->CHECK_VERSION(2, 9, 0); # FIXME 2.10
+    unless Gtk2->CHECK_VERSION(2, 10, 0);
 
   ok (defined $display->supports_shapes);
   ok (defined $display->supports_input_shapes);

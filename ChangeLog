@@ -1,3 +1,44 @@
+2006-08-07	kaffeetisch
+
+	* gtk2perl.h, t/GdkCairo.t, t/GdkDisplay.t, t/GdkPixmap.t,
+	t/GdkScreen.t, t/GdkWindow.t, t/GtkAction.t, t/GtkAssistant.t,
+	t/GtkButton.t, t/GtkCellRendererAccel.t, t/GtkCellRendererSpin.t,
+	t/GtkClipboard.t, t/GtkComboBox.t, t/GtkDnd.t, t/GtkEntry.t,
+	t/GtkFileChooserButton.t, t/GtkLabel.t, t/GtkLinkButton.t,
+	t/GtkMessageDialog.t, t/GtkNotebook.t, t/GtkPageSetup.t,
+	t/GtkPaperSize.t, t/GtkPrintContext.t, t/GtkPrintOperation.t,
+	t/GtkPrintOperationPreview.t, t/GtkPrintSettings.t,
+	t/GtkRadioAction.t, t/GtkRange.t, t/GtkScrolledWindow.t,
+	t/GtkSelection.t, t/GtkSizeGroup.t, t/GtkStatusIcon.t,
+	t/GtkStyle.t, t/GtkTextBuffer.t, t/GtkTextBufferRichText.t,
+	t/GtkTreeStore.t, t/GtkTreeView.t, t/GtkWidget.t, t/PangoCairo.t,
+	t/PangoFont.t, xs/GdkCairo.xs, xs/GdkDisplay.xs, xs/GdkPixmap.xs,
+	xs/GdkScreen.xs, xs/GdkWindow.xs, xs/GtkAction.xs,
+	xs/GtkClipboard.xs, xs/GtkComboBox.xs, xs/GtkDnd.xs,
+	xs/GtkEntry.xs, xs/GtkFileChooserButton.xs,
+	xs/GtkMessageDialog.xs, xs/GtkNotebook.xs, xs/GtkRadioAction.xs,
+	xs/GtkRange.xs, xs/GtkScrolledWindow.xs, xs/GtkSelection.xs,
+	xs/GtkSizeGroup.xs, xs/GtkStatusIcon.xs, xs/GtkStyle.xs,
+	xs/GtkTextBuffer.xs, xs/GtkTreeModelFilter.xs, xs/GtkTreeStore.xs,
+	xs/GtkTreeView.xs, xs/GtkWidget.xs, xs/GtkWindow.xs,
+	xs/PangoCairo.xs, xs/PangoFont.xs: Change version checks to refer
+	to stable releases only.
+
+	* t/01.GtkWindow.t, t/GdkPixbuf.t: Make a few tests a bit more
+	robust.
+
+	* t/GdkDnd.t: Test Gtk2::Gdk::DragContext::status with an empty
+	action argument.
+
+	* t/GtkTreeView-Dnd.t: Fix typo.
+
+	* xs/GtkAccelLabel.xs: Update TODO comment.
+
+	* xs/GtkColorSelection.xs: Add TODO comment about
+	gtk_color_selection_set_change_palette_with_screen_hook.
+
+	* xs/GtkCurve.xs: Remove an invalid TODO comment.
+
 2006-07-27	kaffeetisch
 
 	* AUTHORS, pm/TestHelper.pm: Patch from Grant McLean makes sure

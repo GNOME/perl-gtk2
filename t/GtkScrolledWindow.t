@@ -43,7 +43,7 @@ SKIP: {
 
 SKIP: {
   skip("new 2.10 stuff", 0)
-    unless Gtk2->CHECK_VERSION (2, 9, 0); # FIXME 2.10
+    unless Gtk2->CHECK_VERSION (2, 10, 0);
 
   $window -> unset_placement();
 }

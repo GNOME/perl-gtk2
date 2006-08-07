@@ -235,7 +235,7 @@ gint gtk_entry_text_index_to_layout_index (GtkEntry *entry, gint text_index)
 
 #endif
 
-#if GTK_CHECK_VERSION(2, 9, 0) /* FIXME 2.10 */
+#if GTK_CHECK_VERSION(2, 10, 0)
 
 void gtk_entry_set_inner_border (GtkEntry *entry, const GtkBorder_ornull *border);
 

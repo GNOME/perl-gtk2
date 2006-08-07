@@ -59,7 +59,7 @@ void gdk_cairo_region (cairo_t *cr, GdkRegion *region);
 
 #endif
 
-#if GTK_CHECK_VERSION (2, 9, 0) /* FIXME 2.10 */
+#if GTK_CHECK_VERSION (2, 10, 0)
 
 void gdk_cairo_set_source_pixmap (cairo_t *cr, GdkPixmap *pixmap, double pixmap_x, double pixmap_y);
 
@@ -69,7 +69,7 @@ void gdk_cairo_set_source_pixmap (cairo_t *cr, GdkPixmap *pixmap, double pixmap_
 
 MODULE = Gtk2::Gdk::Cairo	PACKAGE = Gtk2::Gdk::Screen	PREFIX = gdk_screen_
 
-#if GTK_CHECK_VERSION (2, 9, 0) /* FIXME 2.10 */
+#if GTK_CHECK_VERSION (2, 10, 0)
 
 const cairo_font_options_t_ornull* gdk_screen_get_font_options (GdkScreen *screen);
 

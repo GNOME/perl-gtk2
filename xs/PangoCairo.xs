@@ -36,7 +36,7 @@ pango_cairo_font_map_new (class)
 
 	    default:
 		fontmap = NULL; stash = NULL; RETVAL = NULL;
-		croak ("FIXME: Hu?");
+		g_assert_not_reached ();
 	}
 
 	stash = gperl_object_stash_from_type (PANGO_TYPE_CAIRO_FONT_MAP);
@@ -74,7 +74,7 @@ void pango_cairo_glyph_string_path (cairo_t *cr, PangoFont *font, PangoGlyphStri
 
 void pango_cairo_layout_path (cairo_t *cr, PangoLayout *layout);
 
-#if PANGO_CHECK_VERSION (1, 13, 2) /* FIXME 1.14 */
+#if PANGO_CHECK_VERSION (1, 14, 0)
 
 void pango_cairo_show_error_underline (cairo_t *cr, double x, double y, double width, double height);
 

@@ -558,7 +558,7 @@ gtk_draw_insertion_cursor (class, widget, drawable, area, location, is_primary, 
 
 MODULE = Gtk2::Style	PACKAGE = Gtk2::Style	PREFIX = gtk_style_
 
-#if GTK_CHECK_VERSION (2, 9, 0) /* FIXME 2.10 */
+#if GTK_CHECK_VERSION (2, 10, 0)
 
 GdkColor_copy *
 gtk_style_lookup_color (GtkStyle *style, const gchar *color_name)

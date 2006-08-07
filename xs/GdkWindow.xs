@@ -827,7 +827,7 @@ void gdk_window_move_region (GdkWindow *window, GdkRegion *region, gint dx, gint
 
 #endif
 
-#if GTK_CHECK_VERSION (2, 9, 0) /* FIXME 2.10 */
+#if GTK_CHECK_VERSION (2, 10, 0)
 
 GdkWindowTypeHint gdk_window_get_type_hint (GdkWindow *window);
 

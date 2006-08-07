@@ -5,7 +5,7 @@ use strict;
 use Gtk2::TestHelper
   tests => 3,
   noinit => 1,
-  at_least_version => [2, 9, 0, "Gtk2::CellRendererSpin is new in 2.10"]; # FIXME 2.10
+  at_least_version => [2, 10, 0, "Gtk2::CellRendererSpin is new in 2.10"];
 
 my $cell = Gtk2::CellRendererSpin->new;
 isa_ok ($cell, 'Gtk2::CellRendererSpin');

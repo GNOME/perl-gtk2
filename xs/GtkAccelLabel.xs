@@ -46,7 +46,9 @@ gtk_accel_label_set_accel_widget (accel_label, accel_widget)
 	GtkAccelLabel * accel_label
 	GtkWidget     * accel_widget
 
-# TODO: GClosure * not in typmap
+# TODO: The docs say that the "closure must be connected to an accelerator
+# group", but how do we find the GClosure that was created in the xsub for
+# gtk_accel_group_connect()?
 ## void gtk_accel_label_set_accel_closure (GtkAccelLabel *accel_label, GClosure *accel_closure)
 #void
 #gtk_accel_label_set_accel_closure (accel_label, accel_closure)

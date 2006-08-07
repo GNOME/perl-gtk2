@@ -30,7 +30,7 @@ is($button -> get_width_chars(), 23);
 
 SKIP: {
   skip "new 2.10 stuff", 1
-    unless Gtk2 -> CHECK_VERSION(2, 9, 0); # FIXME 2.10
+    unless Gtk2 -> CHECK_VERSION(2, 10, 0);
 
   $button -> set_focus_on_click(TRUE);
   is($button -> get_focus_on_click(), TRUE);

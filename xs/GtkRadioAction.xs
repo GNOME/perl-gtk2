@@ -60,7 +60,7 @@ void gtk_radio_action_set_group (GtkRadioAction *action, SV *member_or_listref);
 
 gint gtk_radio_action_get_current_value (GtkRadioAction *action);
 
-#if GTK_CHECK_VERSION (2, 9, 0) /* FIXME 2.10 */
+#if GTK_CHECK_VERSION (2, 10, 0)
 
 void gtk_radio_action_set_current_value (GtkRadioAction *action, gint value);
 

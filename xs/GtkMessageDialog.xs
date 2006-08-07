@@ -178,7 +178,7 @@ gtk_message_dialog_format_secondary_markup (message_dialog, message)
 
 #endif
 
-#if GTK_CHECK_VERSION(2,9,2) /* FIXME 2.10 */
+#if GTK_CHECK_VERSION(2,10,0)
 
 void gtk_message_dialog_set_image (GtkMessageDialog *dialog, GtkWidget *image);
 

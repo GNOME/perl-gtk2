@@ -84,7 +84,7 @@ SKIP: {
 
 SKIP: {
   skip("2.10 stuff", 1)
-    unless Gtk2 -> CHECK_VERSION(2, 9, 0); # FIXME 2.10
+    unless Gtk2 -> CHECK_VERSION(2, 10, 0);
 
   $button -> drag_dest_set_track_motion(FALSE);
   ok(!$button -> drag_dest_get_track_motion());

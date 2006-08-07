@@ -525,7 +525,7 @@ gboolean gtk_text_buffer_backspace (GtkTextBuffer *buffer, GtkTextIter *iter, gb
 
 #endif
 
-#if GTK_CHECK_VERSION (2, 9, 0)  /* FIXME 2.10 */
+#if GTK_CHECK_VERSION (2, 10, 0)
 
 gboolean gtk_text_buffer_get_has_selection (GtkTextBuffer *buffer);
 

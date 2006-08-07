@@ -77,7 +77,7 @@ gtk_status_icon_position_menu (GtkMenu *menu, gint x, gint y, GtkStatusIcon *ico
 	PUSHs (sv_2mortal (newSViv (y)));
 	PUSHs (sv_2mortal (newSVuv (push_in)));
 
-#if GTK_CHECK_VERSION (2, 9, 2) /* FIXME: 2.10 */
+#if GTK_CHECK_VERSION (2, 10, 0)
 
 # gboolean gtk_status_icon_get_geometry (GtkStatusIcon *status_icon, GdkScreen **screen, GdkRectangle *area, GtkOrientation *orientation);
 void

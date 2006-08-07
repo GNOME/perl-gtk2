@@ -56,7 +56,7 @@ Gtk2::Pango::Cairo::layout_path($cr, $layout);
 
 SKIP: {
   skip "error line stuff", 0
-    unless Gtk2::Pango -> CHECK_VERSION(1, 13, 2); # FIXME 1.14
+    unless Gtk2::Pango -> CHECK_VERSION(1, 14, 0);
 
   Gtk2::Pango::Cairo::show_error_underline($cr, 23, 42, 5, 5);
   Gtk2::Pango::Cairo::error_underline_path($cr, 23, 42, 5, 5);

@@ -153,7 +153,7 @@ gtk_tree_model_filter_convert_child_iter_to_iter (filter, child_iter)
     PREINIT:
 	GtkTreeIter filter_iter;
     CODE:
-#if GTK_CHECK_VERSION (2, 9, 2) /* FIXME: 2.10 */
+#if GTK_CHECK_VERSION (2, 10, 0)
 	if (gtk_tree_model_filter_convert_child_iter_to_iter (filter, &filter_iter, child_iter))
 		RETVAL = &filter_iter;
 	else

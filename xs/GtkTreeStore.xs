@@ -281,7 +281,7 @@ gtk_tree_store_move_after (tree_store, iter, position)
 
 #endif /* >= 2.2.0 */
 
-#if GTK_CHECK_VERSION (2, 9, 0) /* FIXME 2.10 */
+#if GTK_CHECK_VERSION (2, 10, 0)
 
 =for apidoc
 =for arg position position to insert the new row

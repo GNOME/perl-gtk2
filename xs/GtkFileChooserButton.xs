@@ -45,7 +45,7 @@ gint gtk_file_chooser_button_get_width_chars (GtkFileChooserButton *button);
 
 void gtk_file_chooser_button_set_width_chars (GtkFileChooserButton *button, gint n_chars);
 
-#if GTK_CHECK_VERSION (2, 9, 0) /* FIXME 2.10 */
+#if GTK_CHECK_VERSION (2, 10, 0)
 
 void gtk_file_chooser_button_set_focus_on_click (GtkFileChooserButton *button, gboolean focus_on_click)
 

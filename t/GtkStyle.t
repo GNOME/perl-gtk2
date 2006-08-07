@@ -126,7 +126,7 @@ SKIP: {
 
 SKIP: {
   skip("lookup_color is new in 2.10", 1)
-    unless (Gtk2->CHECK_VERSION(2, 9, 0)); # FIXME 2.10
+    unless (Gtk2->CHECK_VERSION(2, 10, 0));
 
   my $color = $style->lookup_color ('foreground');
   # at this point we can't verify anything about it...

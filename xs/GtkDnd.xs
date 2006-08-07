@@ -270,7 +270,7 @@ void gtk_drag_source_set_icon_name (GtkWidget *widget, const gchar *icon_name);
 
 #endif
 
-#if GTK_CHECK_VERSION (2,9,0) /* FIXME 2.10 */
+#if GTK_CHECK_VERSION (2,10,0)
 
 void gtk_drag_dest_set_track_motion (GtkWidget *widget, gboolean track_motion);
 

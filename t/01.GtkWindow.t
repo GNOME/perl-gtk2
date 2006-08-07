@@ -101,8 +101,7 @@ my $mnemonic = $Gtk2::Gdk::Keysyms{ KP_Enter };
 $win2->add_mnemonic($mnemonic, $label);
 ok(1);
 
-# FIXME: is it correct to assume that it always returns false?
-ok( ! $win2->mnemonic_activate($mnemonic, "shift-mask") );
+ok( defined $win2->mnemonic_activate($mnemonic, "shift-mask") );
 
 SKIP: {
 	skip "activate_key and propagate_key_event are new in 2.4", 2
@@ -349,7 +348,7 @@ SKIP: {
 
 SKIP: {
 	skip("new 2.10 stuff", 2)
-		unless Gtk2->CHECK_VERSION (2, 9, 0); # FIXME: 2.10
+		unless Gtk2->CHECK_VERSION (2, 10, 0);
 
 	$win->set_deletable (TRUE);
 	is ($win->get_deletable, TRUE);

@@ -27,7 +27,7 @@ $range -> set_range(0, 100);
 
 SKIP: {
         skip 'new stuff in 2.10', 2
-                unless Gtk2 -> CHECK_VERSION(2, 9, 0); # FIXME 2.10
+                unless Gtk2 -> CHECK_VERSION(2, 10, 0);
 
         $range -> set_lower_stepper_sensitivity('off');
         is ($range -> get_lower_stepper_sensitivity, 'off');

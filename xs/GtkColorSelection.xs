@@ -167,11 +167,14 @@ gtk_color_selection_palette_to_string (class, ...)
 	RETVAL
 
 
-# TODO: GdkColorSelectionChangePaletteFunc not in typemap (that's a mouthfull)
+# TODO: GtkColorSelectionChangePaletteFunc not in typemap (that's a mouthfull)
 ## GtkColorSelectionChangePaletteFunc gtk_color_selection_set_change_palette_hook (GtkColorSelectionChangePaletteFunc func)
 #GtkColorSelectionChangePaletteFunc
 #gtk_color_selection_set_change_palette_hook (func)
 #	GtkColorSelectionChangePaletteFunc func
+
+# TODO: no marshaller for GtkColorSelectionChangePaletteWithScreenFunc either
+## GtkColorSelectionChangePaletteWithScreenFunc gtk_color_selection_set_change_palette_with_screen_hook (GtkColorSelectionChangePaletteWithScreenFunc func)
 
 # deprecated
 ## void gtk_color_selection_get_color (GtkColorSelection *colorsel, gdouble *color)

@@ -100,7 +100,7 @@ GtkWidget_ornull* gtk_scrolled_window_get_vscrollbar (GtkScrolledWindow *scrolle
 
 #endif
 
-#if GTK_CHECK_VERSION (2, 9, 0) /* FIXME 2.10 */
+#if GTK_CHECK_VERSION (2, 10, 0)
 
 void gtk_scrolled_window_unset_placement (GtkScrolledWindow *scrolled_window);
 

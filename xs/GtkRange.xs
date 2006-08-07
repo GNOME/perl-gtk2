@@ -81,7 +81,7 @@ gdouble
 gtk_range_get_value (range)
 	GtkRange * range
 
-#if GTK_CHECK_VERSION (2, 9, 0) /* FIXME 2.10 */
+#if GTK_CHECK_VERSION (2, 10, 0)
 
 GtkSensitivityType gtk_range_get_lower_stepper_sensitivity (GtkRange *range);
 

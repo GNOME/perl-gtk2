@@ -121,7 +121,7 @@ SKIP: {
 
 SKIP: {
 	skip "new api in gtk+ 2.10", 1
-		unless Gtk2->CHECK_VERSION (2, 9, 0); # FIXME 2.10
+		unless Gtk2->CHECK_VERSION (2, 10, 0);
 
 	$combo_box->set_title ("whee");
 	is ($combo_box->get_title, "whee");

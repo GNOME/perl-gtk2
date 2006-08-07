@@ -155,7 +155,7 @@ void gtk2perl_read_gtk_target_entry (SV * sv, GtkTargetEntry * entry);
 /* gtk+ 2.10 introduces a boxed type for GtkTargetList and we use it for
  * property marshalling, etc.  But we also need to keep backwards compatability
  * with the old wrappers so we overwrite the macros. */
-#if GTK_CHECK_VERSION (2, 9, 0) /* FIXME 2.10 */
+#if GTK_CHECK_VERSION (2, 10, 0)
 # undef newSVGtkTargetList
 # undef newSVGtkTargetList_ornull
 # undef SvGtkTargetList

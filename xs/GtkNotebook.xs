@@ -48,7 +48,7 @@ notebook_return_value_spoof_helper (GtkNotebook * notebook,
 }
 #endif
 
-#if GTK_CHECK_VERSION (2, 9, 0) /* FIXME 2.10 */
+#if GTK_CHECK_VERSION (2, 10, 0)
 
 static GPerlCallback *
 gtk2perl_notebook_window_creation_func_create (SV * func,
@@ -422,7 +422,7 @@ gtk_notebook_get_tab_label_text (notebook, child)
 	GtkNotebook * notebook
 	GtkWidget   * child
 
-#if GTK_CHECK_VERSION (2, 9, 2) /* FIXME 2.10 */
+#if GTK_CHECK_VERSION (2, 10, 0)
 
 void gtk_notebook_set_window_creation_hook (class, SV * func, SV * data=NULL);
     PREINIT:
@@ -432,10 +432,6 @@ void gtk_notebook_set_window_creation_hook (class, SV * func, SV * data=NULL);
 	gtk_notebook_set_window_creation_hook
 		(gtk2perl_notebook_window_creation_func, callback,
 		 (GDestroyNotify) gperl_callback_destroy);
-
-#endif /* 2.10 */
-
-#if GTK_CHECK_VERSION (2, 9, 0) /* FIXME 2.10 */
 
 void gtk_notebook_set_group_id (GtkNotebook *notebook, gint group_id);
 

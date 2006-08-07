@@ -105,7 +105,7 @@ SKIP: {
 
 SKIP: {
 	skip("[sg]et_image_position are new in 2.10", 1)
-		unless Gtk2->CHECK_VERSION (2, 9, 2); # FIXME 2.10
+		unless Gtk2->CHECK_VERSION (2, 10, 0);
 
 	$button->set_image_position ("left");
 	is ($button->get_image_position, "left");
