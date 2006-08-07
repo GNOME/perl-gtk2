@@ -1,3 +1,9 @@
+Overview of changes in Gtk2 1.132
+=================================
+
+* Make Gtk2::TestHelper enforce strict and warnings.  [Grant McLean]
+* Cleanup some code comments and fix a few test suite issues.  [Torsten]
+
 Overview of changes in Gtk2 1.131
 =================================
 

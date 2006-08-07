@@ -35,7 +35,7 @@ eval "use Cairo;";
 
 require DynaLoader;
 
-our $VERSION = '1.131';
+our $VERSION = '1.132';
 
 our @ISA = qw(DynaLoader);
 
