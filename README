@@ -4,14 +4,14 @@ Gtk2 version 1.132
 ==================
 
 Perl bindings to the 2.x series of the Gtk+ graphical user interface library.
-This module allows you to write graphical user interfaces in a perlish and
+This module allows you to write graphical user interfaces in a Perlish and
 object-oriented way, freeing you from the casting and memory management in C,
 yet remaining very close in spirit to original API.  Find out more about Gtk+
 at http://www.gtk.org.
 
 The GTK+ Reference Manual [ http://developer.gnome.org/doc/API/2.0/gtk/ ]
 is also a handy companion when writing Gtk programs in any language.
-The perl bindings follow the C API very closely, and the C reference
+The Perl bindings follow the C API very closely, and the C reference
 should be considered the canonical documentation.
 
 Be sure to check out the example programs in the "examples" and "gtk-demo"
@@ -61,8 +61,12 @@ DEPENDENCIES
 This module requires these other modules and libraries:
 
   perl >= 5.8.0
-  Glib >= 1.120 (perl module)
+  Glib >= 1.120 (Perl module)
   GTK+ > 2.x (C library)
+
+If GTK+ is as new or newer as 2.8, the Cairo module is also required:
+
+  Cairo >= 0.92 (Perl module)
 
 In order to build it from source, you'll also need
 
