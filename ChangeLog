@@ -1,5 +1,9 @@
 2006-08-20	kaffeetisch
 
+	* Gtk2.pm, Makefile.PL, NEWS, README: Unstable release 1.133.
+
+2006-08-20	kaffeetisch
+
 	* Makefile.PL, README: Require Cairo 0.92 (still only if gtk+ >=
 	2.8).
 
