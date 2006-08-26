@@ -1,3 +1,8 @@
+2006-08-26	kaffeetisch
+
+	* Makefile.PL: Add Cairo to the pre-requisite hash if appropriate
+	so that EU::MM generates a correct META.yml.
+
 2006-08-20	kaffeetisch
 
 	* Gtk2.pm, Makefile.PL, NEWS, README: Unstable release 1.133.

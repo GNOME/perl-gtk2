@@ -85,9 +85,9 @@ if ($target =~ /x11/) {
 # if gtk+ >= 2.8, we depend on Cairo
 my $have_cairo = 0;
 if ($gtk_version[0] > 2 || ($gtk_version[0] == 2 && $gtk_version[1] >= 8)) {
+	$PREREQ_PM{Cairo} = $build_reqs{'perl-Cairo'};
 	unless (eval "use Cairo '$build_reqs{'perl-Cairo'}'; 1;") {
 		warn "$@\n";
-		$PREREQ_PM{Cairo} = $build_reqs{'perl-Cairo'};
 		WriteMakefile(
 			PREREQ_FATAL => 1,
 			PREREQ_PM    => \%PREREQ_PM,
