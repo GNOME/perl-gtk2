@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 38;
+use Gtk2::TestHelper tests => 41;
 
 # $Header$
 
@@ -50,6 +50,7 @@ my $rc_style = Gtk2::RcStyle -> new();
 isa_ok($rc_style, "Gtk2::RcStyle");
 isa_ok($rc_style -> copy(), "Gtk2::RcStyle");
 
+# first, test normal values
 is($rc_style -> name("bla"), undef);
 is($rc_style -> bg_pixmap_name("normal", "blub"), undef);
 is($rc_style -> font_desc($font), undef);
@@ -69,7 +70,7 @@ is($rc_style -> ythickness(5), -1);
 
 is($rc_style -> name(), "bla");
 is($rc_style -> bg_pixmap_name("normal"), "blub");
-is($rc_style -> font_desc() -> to_string, "Sans 12");
+is($rc_style -> font_desc() -> to_string(), "Sans 12");
 
 is($rc_style -> fg("active") -> green(), 0xFFFF);
 is($rc_style -> bg("prelight") -> green(), 0xFFFF);
@@ -83,6 +84,16 @@ ok($rc_style -> color_flags("insensitive") == ["base"]);
 
 is($rc_style -> xthickness(), 5);
 is($rc_style -> ythickness(), 5);
+
+# second, test undef
+$rc_style -> name(undef);
+is($rc_style -> name(), undef);
+
+$rc_style -> bg_pixmap_name("normal", undef);
+is($rc_style -> bg_pixmap_name("normal"), undef);
+
+$rc_style -> font_desc(undef);
+is($rc_style -> font_desc(), undef);
 
 __END__
 

@@ -1,3 +1,8 @@
+2006-08-27	kaffeetisch
+
+	* t/GtkRc.t, xs/GtkRc.xs: Allow passing undef to
+	Gtk2::RcStyle::name, bg_pixmap_name, and font_desc.  (#352707)
+
 2006-08-26	kaffeetisch
 
 	* Makefile.PL: Add Cairo to the pre-requisite hash if appropriate

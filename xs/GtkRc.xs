@@ -12,8 +12,8 @@
  * Library General Public License for more details.
  *
  * You should have received a copy of the GNU Library General Public
- * License along with this library; if not, write to the 
- * Free Software Foundation, Inc., 59 Temple Place - Suite 330, 
+ * License along with this library; if not, write to the
+ * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
  * Boston, MA  02111-1307  USA.
  *
  * $Header$
@@ -68,7 +68,6 @@ gtk_rc_set_default_files (class, ...)
 
 	gtk_rc_set_default_files(filenames);
 	g_free(filenames);
-	
 
 ## GtkStyle* gtk_rc_get_style (GtkWidget *widget)
 GtkStyle*
@@ -88,7 +87,7 @@ gtk_rc_get_style_by_paths (class, settings, widget_path, class_path, package)
 	GType gtype = {0,};
     CODE:
 	gtype = gperl_object_type_from_package (package);
-	RETVAL = gtk_rc_get_style_by_paths 
+	RETVAL = gtk_rc_get_style_by_paths
 			(settings, widget_path, class_path, gtype);
     OUTPUT:
 	RETVAL
@@ -187,12 +186,12 @@ name (style, new=NULL)
 		case 1: RETVAL = newSVPangoFontDescription (style->font_desc); break;
 		case 2: RETVAL = newSViv (style->xthickness); break;
 		case 3: RETVAL = newSViv (style->ythickness); break;
-		default: 
+		default:
 			RETVAL = NULL;
 			g_assert_not_reached ();
 	}
 
-	if (new) {
+	if (items == 2) {
 		switch (ix) {
 		    case 0:
 			if (style->name)
@@ -224,15 +223,15 @@ SV *
 bg_pixmap_name (style, state, new=NULL)
 	GtkRcStyle *style
 	GtkStateType state
-	gchar *new
+	gchar_ornull *new
     CODE:
 	RETVAL = style->bg_pixmap_name[state]
 	       ? newSVGChar (style->bg_pixmap_name[state])
 	       : NULL;
-	if (new) {
+	if (items == 3) {
 		if (style->bg_pixmap_name[state])
 			g_free (style->bg_pixmap_name[state]);
-		style->bg_pixmap_name[state] = g_strdup (new);
+		style->bg_pixmap_name[state] = new ? g_strdup (new) : NULL;
 	}
     OUTPUT:
 	RETVAL
@@ -244,7 +243,7 @@ color_flags (style, state, new=0)
 	GtkRcFlags new
     CODE:
 	RETVAL = style->color_flags[state];
-	if (new)
+	if (items == 3)
 		style->color_flags[state] = new;
     OUTPUT:
 	RETVAL
@@ -269,7 +268,7 @@ fg (style, state, new=NULL)
 			g_assert_not_reached ();
 	}
 
-	if (new) {
+	if (items == 3) {
 		switch (ix) {
 			case 0: style->fg[state]   = *new; break;
 			case 1: style->bg[state]   = *new; break;
@@ -296,4 +295,3 @@ gtk_rc_style_copy (orig)
 # should happen automagically
 ## void gtk_rc_style_ref (GtkRcStyle *rc_style)
 ## void gtk_rc_style_unref (GtkRcStyle *rc_style)
-
