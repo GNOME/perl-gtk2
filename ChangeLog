@@ -1,3 +1,7 @@
+2006-08-29	kaffeetisch
+
+	* README: Add a bug reports section.
+
 2006-08-27	kaffeetisch
 
 	* t/GtkRc.t, xs/GtkRc.xs: Allow passing undef to

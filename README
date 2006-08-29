@@ -1,5 +1,3 @@
-# $Header$
-
 Gtk2 version 1.133
 ==================
 
@@ -25,6 +23,7 @@ http://gtk2-perl.sourceforge.net
 
 
 INSTALLATION
+------------
 
 To install this module type the following:
 
@@ -57,11 +56,12 @@ ways:
 
 
 DEPENDENCIES
+------------
 
 This module requires these other modules and libraries:
 
   perl >= 5.8.0
-  Glib >= 1.120 (Perl module)
+  Glib >= 1.132 (Perl module)
   GTK+ > 2.x (C library)
 
 If GTK+ is as new or newer as 2.8, the Cairo module is also required:
@@ -73,7 +73,16 @@ In order to build it from source, you'll also need
   ExtUtils::Depends >= 0.2
   ExtUtils::PkgConfig >= 1.03
 
+
+BUG REPORTS
+-----------
+
+Please report bugs to the gnome-perl product in GNOME's Bugzilla:
+<http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-perl>
+
+
 COPYRIGHT AND LICENSE
+---------------------
 
 Copyright (C) 2003-2006 by the gtk2-perl team (see the file AUTHORS for the
 full list)
@@ -91,3 +100,5 @@ details.
 You should have received a copy of the GNU Library General Public License along
 with this library; if not, write to the Free Software Foundation, Inc., 59
 Temple Place - Suite 330, Boston, MA  02111-1307  USA.
+
+# $Id$
