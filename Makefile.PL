@@ -32,8 +32,8 @@ use Cwd;
 our %build_reqs = (
 	'perl-ExtUtils-Depends'   => '0.2',
 	'perl-ExtUtils-PkgConfig' => '1.03',
-	'perl-Glib'               => '1.132',
-	'perl-Cairo'              => '0.92',
+	'perl-Glib'               => '1.140',
+	'perl-Cairo'              => '1.00',
 	'Gtk+'                    => '2.0.0',
 );
 
@@ -262,7 +262,7 @@ __EOW__
 
 =cut
 
-# =frozen
+=frozen
 
 print <<__EOW__;
 WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING
@@ -275,7 +275,7 @@ WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING
 WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING
 __EOW__
 
-# =cut
+=cut
 
 #
 # extra makefile override stuff... watch for falling wizardry.

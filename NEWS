@@ -1,3 +1,29 @@
+Overview of changes in Gtk2 1.140
+=================================
+
+ Since 1.12x (the previous stable series)
+ ----------------------------------------
+  * Add Gtk2::Assistant, Gtk2::CellRendererAccel, Gtk2::CellRendererSpin,
+    Gtk2::LinkButton, Gtk2::PageSetup, Gtk2::PaperSize, Gtk2::PrintContext,
+    Gtk2::PrintOperation, Gtk2::PrintOperationPreview, Gtk2::PrintSettings,
+    Gtk2::RecentChooser, Gtk2::RecentChooserDialog, Gtk2::RecentChooserMenu,
+    Gtk2::RecentChooserWidget, Gtk2::RecentFilter, Gtk2::RecentManager,
+    Gtk2::StatusIcon, and Gtk2::TextBufferRichText
+  * Add new API in Gtk2::Gdk::Cairo, Gtk2::Gdk::Screen, Gtk2::Gdk::Display,
+    Gtk2::Gdk::Pixmap, Gtk2::Gdk::Window, Gtk2::Button, Gtk2::Clipboard,
+    Gtk2::ComboBox, Gtk2::Entry, Gtk2::FileChooserButton, Gtk2::Label,
+    Gtk2::MessageDialog, Gtk2::Notebook, Gtk2::RadioAction, Gtk2::Range,
+    Gtk2::ScrolledWindow, Gtk2::SizeGroup, Gtk2::StatusIcon, Gtk2::Style,
+    Gtk2::TextBuffer, Gtk2::TreeStore, Gtk2::TreeView, Gtk2::Widet,
+    Gtk2::Window, Gtk2::Pango::Cairo, and Gtk2::Pango::Font.
+  * Allow passing undef to Gtk2::Widget::modify_*, Gtk2::RcStyle::name,
+    Gtk2::RcStyle::bg_pixmap_name, and Gtk2::RcStyle::font_desc.
+
+ Since 1.133
+ -----------
+  * Allow passing undef to Gtk2::RcStyle::name, bg_pixmap_name, and font_desc.
+  * Require Cairo 1.00 (still only if gtk+ >= 2.8).
+
 Overview of changes in Gtk2 1.133
 =================================
 

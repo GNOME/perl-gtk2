@@ -1,3 +1,7 @@
+2006-09-04	kaffeetisch
+
+	* Gtk2.pm, Makefile.PL, NEWS, README: Stable release 1.140.
+
 2006-08-29	kaffeetisch
 
 	* README: Add a bug reports section.
