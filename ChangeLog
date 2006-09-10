@@ -1,3 +1,17 @@
+2006-09-10	kaffeetisch
+
+	* t/02.GtkContainer.t, t/GtkBin.t: Remove the noinit flag, since
+	these tests apparently need an initialized gtk+ now.
+
+	* t/GdkDnd.t: Turn the get_selection() TODO block into a SKIP
+	block that gets skipped on Darwin.
+
+	* t/GtkFileChooser.t: Update; mainly remove a few TODO blocks that
+	aren't needed anymore.  Still skip by default though.
+
+	* t/GtkSocket-GtkPlug.t: Skip the whole test if there's no blib
+	directory.
+
 2006-09-04	kaffeetisch
 
 	* Gtk2.pm, Makefile.PL, NEWS, README: Stable release 1.140.

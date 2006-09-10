@@ -4,8 +4,8 @@
 
 use Gtk2::TestHelper
 	at_least_version => [2, 4, 0, 'GtkFileChooser is new in 2.4'],
-	tests => 43,
-	skip_all => 'Skipping unreliable GtkFileChooser test';
+	tests => 42,
+	skip_all => 'unreliable GtkFileChooser test';
 use File::Spec;
 use Cwd;
 
@@ -25,13 +25,9 @@ my $filename = 'something that may not exist';
 my $cwd = cwd ();
 
 $file_chooser->set_current_name ($filename);
-TODO: {
-  local $TODO = 'GtkFileChooser trouble';
-
-  update; is_idle (sub {$file_chooser->get_filename},
-                   undef,
-                   'set current name');
-}
+update; is_idle (sub {$file_chooser->get_filename},
+                 undef,
+                 'set current name');
 
 $filename = File::Spec->catfile ($cwd, 'gtk2perl.h');
 ok ($file_chooser->set_filename ($filename),
@@ -54,16 +50,12 @@ $file_chooser->select_all;
 ok (scalar (@list));
 $file_chooser->unselect_all;
 
-$filename = File::Spec->catfile ($cwd, 'nonexistent');
-ok (!$file_chooser->set_current_folder ($filename),
-    'set_current_folder fails when the folder does not exist');
-
-$filename = File::Spec->catfile ($cwd, 't');
-ok ($file_chooser->set_current_folder ($filename));
-is ($file_chooser->get_current_folder, $filename);
+my $folder = File::Spec->catfile ($cwd, 't');
+ok ($file_chooser->set_current_folder ($folder));
+update; is_idle (sub{$file_chooser->get_current_folder}, $folder);
 
 ok ($file_chooser->set_current_folder ($cwd));
-is ($file_chooser->get_current_folder, $cwd);
+update; is_idle (sub{$file_chooser->get_current_folder}, $cwd);
 
 # URI manipulation
 #
@@ -105,10 +97,11 @@ ok ($file_chooser->select_filename ($filename));
 TODO: {
   local $TODO = 'GtkFileChooser trouble';
 
-  update; run_main sub {
-    is ($file_chooser->get_preview_filename, $filename, 'get_preview_filename');
-    is ($file_chooser->get_preview_uri, 'file://'.$filename, 'get_preview_uri');
-};
+  update;
+  is_idle (sub {$file_chooser->get_preview_filename},
+           $filename, 'get_preview_filename');
+  is_idle (sub {$file_chooser->get_preview_uri},
+           'file://'.$filename, 'get_preview_uri');
 }
 
 # Extra widget
@@ -142,14 +135,10 @@ eval {
   $file_chooser->add_shortcut_folder ($cwd);
   $file_chooser->add_shortcut_folder_uri ("file://$cwd/t");
 
-  TODO: {
-    local $TODO = 'GtkFileChooser trouble';
-
-    update; run_main sub {
-      is_deeply ([$file_chooser->list_shortcut_folders], [$cwd, "$cwd/t"]);
-      is_deeply ([$file_chooser->list_shortcut_folder_uris], ["file://$cwd", "file://$cwd/t"]);
-    };
-  }
+  update; run_main sub {
+    is_deeply ([$file_chooser->list_shortcut_folders], [$cwd, "$cwd/t"]);
+    is_deeply ([$file_chooser->list_shortcut_folder_uris], ["file://$cwd", "file://$cwd/t"]);
+  };
 
   $file_chooser->remove_shortcut_folder ($cwd);
   $file_chooser->remove_shortcut_folder_uri ("file://$cwd/t");
