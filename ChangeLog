@@ -1,3 +1,8 @@
+2006-09-13	kaffeetisch
+
+	* Makefile.PL (find_extra_libs): Also look for Cairo.lib to make
+	linking work on win32.
+
 2006-09-10	kaffeetisch
 
 	* t/02.GtkContainer.t, t/GtkBin.t: Remove the noinit flag, since

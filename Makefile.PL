@@ -341,6 +341,8 @@ sub find_extra_libs {
 	# and find the actual Glib.dll and Glib.lib installed by perl when
 	# the Glib module was built, and add it to the list of lib files.
 	#
+	# when we depend on Cairo, the same applies to Cairo.lib.
+	#
 	# say it with me: "i hate win32."
 
 	my $retstring = "";
@@ -349,6 +351,10 @@ sub find_extra_libs {
 	find (sub {
 			$retstring .= " ".$File::Find::name
 				if /Glib.lib/i;
+			if ($have_cairo) {
+				$retstring .= " ".$File::Find::name
+					if /Cairo.lib/i;
+			}
 		}, @INC);
 
 	return $retstring;
