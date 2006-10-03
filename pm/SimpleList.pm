@@ -227,12 +227,8 @@ use strict;
 use Gtk2;
 use Carp;
 
-=cut
-
-TiedRow is the lowest-level tie, allowing you to treat a row as an array
-of column data.
-
-=cut
+# TiedRow is the lowest-level tie, allowing you to treat a row as an array
+# of column data.
 
 sub TIEARRAY {
 	my $class = shift;
@@ -291,11 +287,7 @@ use strict;
 use Gtk2;
 use Carp;
 
-=cut
-
-TiedList is an array in which each element is a row in the liststore.
-
-=cut
+# TiedList is an array in which each element is a row in the liststore.
 
 sub TIEARRAY {
 	my $class = shift;

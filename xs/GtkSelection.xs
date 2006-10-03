@@ -337,6 +337,9 @@ gtk_selection_remove_all (widget)
 
 MODULE = Gtk2::Selection	PACKAGE = Gtk2	PREFIX = gtk_
 
+=for object Gtk2::Selection
+=cut
+
 gboolean gtk_targets_include_text (class, first_target_atom, ...)
     ALIAS:
         targets_include_uri = 1

@@ -1,3 +1,11 @@
+2006-10-03	kaffeetisch
+
+	* pm/SimpleList.pm: Don't use =cut ... =cut comment blocks.
+	They're invalid POD.
+
+	* xs/GtkSelection.xs, xs/PangoTypes.xs: Don't clobber the Gtk2 and
+	Gtk2::Pango man pages with POD.
+
 2006-09-13	kaffeetisch
 
 	* Makefile.PL (find_extra_libs): Also look for Cairo.lib to make

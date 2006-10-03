@@ -25,6 +25,9 @@ MODULE = Gtk2::Pango::Types	PACKAGE = Gtk2::Pango	PREFIX = pango_
 
 #if PANGO_CHECK_VERSION (1, 4, 0)
 
+=for object Gtk2::Pango::Language
+=cut
+
 ##  PangoDirection pango_find_base_dir (const gchar *text, gint length)
 PangoDirection
 pango_find_base_dir (class, text)
