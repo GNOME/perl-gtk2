@@ -1,3 +1,7 @@
+2006-10-17	kaffeetisch
+
+	* MANIFEST, ppport.h: Remove ppport.h, it's unused.
+
 2006-10-03	kaffeetisch
 
 	* pm/SimpleList.pm: Don't use =cut ... =cut comment blocks.

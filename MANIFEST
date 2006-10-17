@@ -106,7 +106,6 @@ pm/Pango.pm
 pm/SimpleList.pm
 pm/SimpleMenu.pm
 pm/TestHelper.pm
-ppport.h
 t/00.Gtk2.t
 t/01.GtkWindow.t
 t/02.GtkContainer.t
