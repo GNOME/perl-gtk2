@@ -52,10 +52,9 @@ void pango_renderer_deactivate (PangoRenderer *renderer);
 
 void pango_renderer_part_changed (PangoRenderer *renderer, PangoRenderPart part);
 
-# FIXME: PangoColor not usable at the moment.  Maybe just bind it as an
-#        anonmous array reference?
-# void pango_renderer_set_color (PangoRenderer *renderer, PangoRenderPart part, const PangoColor_ornull *color);
-# PangoColor_ornull *pango_renderer_get_color (PangoRenderer *renderer, PangoRenderPart part);
+void pango_renderer_set_color (PangoRenderer *renderer, PangoRenderPart part, const PangoColor_ornull *color);
+
+PangoColor_ornull *pango_renderer_get_color (PangoRenderer *renderer, PangoRenderPart part);
 
 void pango_renderer_set_matrix (PangoRenderer *renderer, const PangoMatrix_ornull *matrix);
 

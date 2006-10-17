@@ -56,7 +56,6 @@ newSVPangoRectangle (PangoRectangle * rectangle)
 	return newRV_noinc ((SV *) hv);
 }
 
-#if 0 /* not used currently */
 PangoRectangle *
 SvPangoRectangle (SV * sv)
 {
@@ -109,7 +108,6 @@ SvPangoRectangle (SV * sv)
 
 	return rectangle;
 }
-#endif
 
 /* ------------------------------------------------------------------------- */
 

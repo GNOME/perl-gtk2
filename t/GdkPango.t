@@ -3,7 +3,7 @@ use strict;
 use warnings;
 use Gtk2::TestHelper
   at_least_version => [2, 6, 0, "GdkPango is new in 2.6"],
-  tests => 2;
+  tests => 10;
 
 # $Header$
 
@@ -48,7 +48,19 @@ my $color = Gtk2::Gdk::Color -> new(0xffff, 0xffff, 0xffff);
 $renderer -> set_override_color("background", undef);
 $renderer -> set_override_color("background", $color);
 
+my $attr = Gtk2::Gdk::Pango::AttrStipple->new (undef, 0, 23);
+isa_ok ($attr, "Gtk2::Gdk::Pango::AttrStipple");
+isa_ok ($attr, "Gtk2::Pango::Attribute");
+is ($attr->stipple ($bitmap), undef);
+is ($attr->stipple, $bitmap);
+
+$attr = Gtk2::Gdk::Pango::AttrEmbossed->new (TRUE, 0, 23);
+isa_ok ($attr, "Gtk2::Gdk::Pango::AttrEmbossed");
+isa_ok ($attr, "Gtk2::Pango::Attribute");
+ok ($attr->embossed (FALSE));
+ok (!$attr->embossed);
+
 __END__
 
-Copyright (C) 2005 by the gtk2-perl team (see the file AUTHORS for the full
-list).  See LICENSE for more information.
+Copyright (C) 2005-2006 by the gtk2-perl team (see the file AUTHORS for the
+full list).  See LICENSE for more information.

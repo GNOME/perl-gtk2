@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2003-2005 by the gtk2-perl team (see the file AUTHORS for the
+ * Copyright (C) 2003-2006 by the gtk2-perl team (see the file AUTHORS for the
  * full list)
  *
  * This library is free software; you can redistribute it and/or modify it
@@ -42,5 +42,26 @@ gboolean gtk2perl_tree_view_row_separator_func (GtkTreeModel *model,
 				                GtkTreeIter  *iter,
 				                gpointer      data);
 #endif
+
+/* Implemented in PangoAttributes.xs. */
+void gtk2perl_pango_attribute_register_custom_type (PangoAttrType type, const char *package);
+
+#define GTK2PERL_PANGO_ATTR_REGISTER_CUSTOM_TYPE(attr, package)	\
+{								\
+	static gboolean type_registered_already = FALSE;	\
+	if (!type_registered_already) {				\
+		gtk2perl_pango_attribute_register_custom_type	\
+			((attr)->klass->type, package);		\
+		type_registered_already = TRUE;			\
+	}							\
+}
+
+#define GTK2PERL_PANGO_ATTR_STORE_INDICES(offset, attr)	\
+	if (items == offset + 2) {			\
+		guint start = SvUV (ST (offset));	\
+		guint end = SvUV (ST (offset + 1));	\
+		attr->start_index = start;		\
+		attr->end_index = end;			\
+	}
 
 #endif /* _GTK2PERL_PRIVATE_H_ */

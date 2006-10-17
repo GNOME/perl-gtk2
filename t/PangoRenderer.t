@@ -1,11 +1,11 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 3;
+use Gtk2::TestHelper tests => 5;
 
 # $Header$
 
 SKIP: {
-  skip("PangoRenderer is new in 1.8", 3)
+  skip("PangoRenderer is new in 1.8", 5)
     unless (Gtk2::Pango -> CHECK_VERSION(1, 8, 0));
 
   my $screen = Gtk2::Gdk::Screen -> get_default();
@@ -37,6 +37,12 @@ SKIP: {
 
   $renderer -> draw_glyph($font, 0, 0, 0);
   $renderer -> part_changed("foreground");
+
+  $renderer -> set_color("foreground", undef);
+  is($renderer -> get_color("foreground"), undef);
+
+  $renderer -> set_color("background", [0xaaaa, 0xbbbb, 0xcccc]);
+  is_deeply($renderer -> get_color("background"), [0xaaaa, 0xbbbb, 0xcccc]);
 
   $renderer -> set_matrix(undef);
   is($renderer -> get_matrix(), undef);

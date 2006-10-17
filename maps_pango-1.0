@@ -50,4 +50,7 @@ PANGO_TYPE_VARIANT	PangoVariant	GEnum	Gtk2::Pango::Variant
 PANGO_TYPE_WEIGHT	PangoWeight	GEnum	Gtk2::Pango::Weight
 PANGO_TYPE_WRAP_MODE	PangoWrapMode	GEnum	Gtk2::Pango::WrapMode
 
-PANGO_TYPE_LAYOUT_ITER	PangoLayoutIter	GBoxed	Gtk2::Pango::LayoutIter
+# custom types
+PANGO_TYPE_ATTRIBUTE		PangoAttribute		GBoxed	Gtk2::Pango::Attribute
+PANGO_TYPE_ATTR_ITERATOR	PangoAttrIterator	GBoxed	Gtk2::Pango::AttrIterator
+PANGO_TYPE_LAYOUT_ITER		PangoLayoutIter		GBoxed	Gtk2::Pango::LayoutIter

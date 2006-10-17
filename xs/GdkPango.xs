@@ -1,11 +1,13 @@
 /*
- * Copyright (c) 2005 by the gtk2-perl team (see the file AUTHORS)
+ * Copyright (c) 2005-2006 by the gtk2-perl team (see the file AUTHORS)
  *
  * Licensed under the LGPL, see LICENSE file for more information.
  *
  * $Header$
  */
+
 #include "gtk2perl.h"
+#include "gtk2perl-private.h"
 
 MODULE = Gtk2::Gdk::Pango	PACKAGE = Gtk2::Gdk::PangoRenderer	PREFIX = gdk_pango_renderer_
 
@@ -37,10 +39,55 @@ void gdk_pango_renderer_set_override_color (GdkPangoRenderer *gdk_renderer, Pang
 #        instead.
 # PangoContext *gdk_pango_context_get_for_screen (GdkScreen *screen);
 
-# FIXME: Bind these if/when we get PangoAttribute bindings.
-# PangoAttribute *gdk_pango_attr_stipple_new  (GdkBitmap *stipple);
-# PangoAttribute *gdk_pango_attr_embossed_new (gboolean embossed);
-
 # FIXME: How to bind these?  Class static method or function?
 # GdkRegion *gdk_pango_layout_line_get_clip_region (PangoLayoutLine *line, gint x_origin, gint y_origin, gint *index_ranges, gint n_ranges);
 # GdkRegion *gdk_pango_layout_get_clip_region (PangoLayout *layout, gint x_origin, gint y_origin, gint *index_ranges, gint n_ranges);
+
+# --------------------------------------------------------------------------- #
+
+MODULE = Gtk2::Gdk::Pango	PACKAGE = Gtk2::Gdk::Pango::AttrStipple	PREFIX = gdk_pango_attr_stipple_
+
+BOOT:
+	gperl_set_isa ("Gtk2::Gdk::Pango::AttrStipple", "Gtk2::Pango::Attribute");
+
+PangoAttribute_own *
+gdk_pango_attr_stipple_new (class, GdkBitmap_ornull *stipple, ...);
+    C_ARGS:
+	stipple
+    POSTCALL:
+	GTK2PERL_PANGO_ATTR_REGISTER_CUSTOM_TYPE (RETVAL, "Gtk2::Gdk::Pango::AttrStipple");
+	GTK2PERL_PANGO_ATTR_STORE_INDICES (2, RETVAL);
+
+GdkBitmap_noinc *
+stipple (PangoAttribute * attr, ...)
+    CODE:
+	RETVAL = ((GdkPangoAttrStipple*) attr)->stipple;
+	if (items > 1)
+		((GdkPangoAttrStipple*) attr)->stipple =
+			g_object_ref (SvGdkBitmap_ornull (ST (1)));
+    OUTPUT:
+	RETVAL
+
+# --------------------------------------------------------------------------- #
+
+MODULE = Gtk2::Gdk::Pango	PACKAGE = Gtk2::Gdk::Pango::AttrEmbossed	PREFIX = gdk_pango_attr_embossed_
+
+BOOT:
+	gperl_set_isa ("Gtk2::Gdk::Pango::AttrEmbossed", "Gtk2::Pango::Attribute");
+
+PangoAttribute_own *
+gdk_pango_attr_embossed_new (class, gboolean embossed, ...);
+    C_ARGS:
+	embossed
+    POSTCALL:
+	GTK2PERL_PANGO_ATTR_REGISTER_CUSTOM_TYPE (RETVAL, "Gtk2::Gdk::Pango::AttrEmbossed");
+	GTK2PERL_PANGO_ATTR_STORE_INDICES (2, RETVAL);
+
+gboolean
+embossed (PangoAttribute * attr, ...)
+    CODE:
+	RETVAL = ((GdkPangoAttrEmbossed*) attr)->embossed;
+	if (items > 1)
+		((GdkPangoAttrEmbossed*) attr)->embossed = SvTRUE (ST (1));
+    OUTPUT:
+	RETVAL

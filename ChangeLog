@@ -1,5 +1,34 @@
 2006-10-17	kaffeetisch
 
+	Add support for pango attributes.
+
+	* Gtk2.exports, xs/PangoLayout.xs: Make SvPangoRectangle public
+	since it's now needed.
+
+	* t/PangoRenderer.t, xs/PangoAttributes.xs, xs/PangoRenderer.xs:
+	Implement a custom boxed wrapper for PangoColor that represents a
+	color as an r,g,b tuple.  Use it to wrap
+	pango_renderer_[sg]et_color.
+
+	* gtk2perl-private.h: Export
+	gtk2perl_pango_attribute_register_custom_type, implement
+	GTK2PERL_PANGO_ATTR_REGISTER_CUSTOM_TYPE and
+	GTK2PERL_PANGO_ATTR_STORE_INDICES.
+
+	* gtk2perl.h, maps_pango-1.0: Make our custom types for
+	PangoAttribute and PangoAttrIterator known.
+
+	* t/PangoAttributes.t, xs/PangoAttributes.xs: Implement and test
+	all the attribute contructors, accessors, and support
+	infrastructure.
+
+	* t/GdkPango.t, xs/GdkPango.xs: Wrap and test
+	gdk_pango_attr_stipple_new and gdk_pango_attr_embossed_new.
+
+	* examples/attributes.pl: Demonstrate some of the attribute stuff.
+
+2006-10-17	kaffeetisch
+
 	* MANIFEST, ppport.h: Remove ppport.h, it's unused.
 
 2006-10-03	kaffeetisch

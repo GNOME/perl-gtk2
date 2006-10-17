@@ -39,5 +39,6 @@ SvGdkGeometryReal
 SvGdkPixbufFormat
 SvGtkTargetEntry
 SvGtkTargetList
+SvPangoRectangle
 );
 1;

@@ -35,6 +35,18 @@
   GType gtk2perl_gdk_region_get_type (void) G_GNUC_CONST;
 #endif
 
+/* custom GType for PangoAttribute */
+#ifndef PANGO_TYPE_ATTRIBUTE
+# define PANGO_TYPE_ATTRIBUTE (gtk2perl_pango_attribute_get_type ())
+  GType gtk2perl_pango_attribute_get_type (void) G_GNUC_CONST;
+#endif
+
+/* custom GType for PangoAttrIter */
+#ifndef PANGO_TYPE_ATTR_ITERATOR
+# define PANGO_TYPE_ATTR_ITERATOR (gtk2perl_pango_attr_iterator_get_type ())
+  GType gtk2perl_pango_attr_iterator_get_type (void) G_GNUC_CONST;
+#endif
+
 /* custom GType for PangoLayoutIter */
 #ifndef PANGO_TYPE_LAYOUT_ITER
 # define PANGO_TYPE_LAYOUT_ITER (gtk2perl_pango_layout_iter_get_type ())
@@ -94,6 +106,7 @@ void SvGdkGCValues (SV * data, GdkGCValues * v, GdkGCValuesMask * m);
 
 /* exported for various other parts of pango */
 SV * newSVPangoRectangle (PangoRectangle * rectangle);
+PangoRectangle * SvPangoRectangle (SV * sv);
 
 /*
  * GdkAtom, an opaque pointer
