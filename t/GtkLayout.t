@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 6, noinit => 1;
+use Gtk2::TestHelper tests => 8;
 
 # $Header$
 
@@ -28,6 +28,13 @@ $layout -> move($label, 5, 5);
 
 $layout -> set_size(10, 10);
 is_deeply([$layout -> get_size()], [10, 10]);
+
+is($layout -> bin_window(), undef);
+
+my $window = Gtk2::Window -> new();
+$window -> add($layout);
+$layout -> realize();
+isa_ok($layout -> bin_window(), "Gtk2::Gdk::Window");
 
 __END__
 

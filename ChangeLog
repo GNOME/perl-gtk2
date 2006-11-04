@@ -1,3 +1,9 @@
+2006-11-04	kaffeetisch
+
+	* AUTHORS, t/GtkLayout.t, xs/GtkLayout.xs: Add an accessor for
+	GtkLayout's bin_window struct member.  Original patch by Philipp
+	Rumpf.
+
 2006-10-17	kaffeetisch
 
 	Add support for pango attributes.

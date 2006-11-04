@@ -23,6 +23,15 @@
 
 MODULE = Gtk2::Layout	PACKAGE = Gtk2::Layout	PREFIX = gtk_layout_
 
+## layout->bin_window
+GdkWindow_ornull *
+bin_window (layout)
+	GtkLayout * layout
+    CODE:
+	RETVAL = layout->bin_window;
+    OUTPUT:
+	RETVAL
+
 ## GtkWidget* gtk_layout_new (GtkAdjustment *hadjustment, GtkAdjustment *vadjustment)
 GtkWidget *
 gtk_layout_new (class, hadjustment=NULL, vadjustment=NULL)
