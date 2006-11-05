@@ -841,6 +841,12 @@ void gdk_window_merge_child_input_shapes (GdkWindow *window);
 
 #endif
 
+#if GTK_CHECK_VERSION (2, 11, 0) /* FIXME: 2.12 */
+
+void gdk_window_beep (GdkWindow *window);
+
+#endif
+
 MODULE = Gtk2::Gdk::Window	PACKAGE = Gtk2::Gdk	PREFIX = gdk_
 
 GdkWindow *gdk_get_default_root_window (class)

@@ -1,3 +1,10 @@
+2006-11-05	kaffeetisch
+
+	* t/GdkPango.t, xs/GdkPango.xs: Add support for
+	GdkPangoAttrEmbossColor.
+
+	* t/GdkWindow.t, xs/GdkWindow.xs: Bind gdk_window_beep.
+
 2006-11-04	kaffeetisch
 
 	* AUTHORS, t/GtkLayout.t, xs/GtkLayout.xs: Add an accessor for

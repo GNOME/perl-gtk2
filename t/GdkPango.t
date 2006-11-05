@@ -3,7 +3,7 @@ use strict;
 use warnings;
 use Gtk2::TestHelper
   at_least_version => [2, 6, 0, "GdkPango is new in 2.6"],
-  tests => 10;
+  tests => 14;
 
 # $Header$
 
@@ -59,6 +59,18 @@ isa_ok ($attr, "Gtk2::Gdk::Pango::AttrEmbossed");
 isa_ok ($attr, "Gtk2::Pango::Attribute");
 ok ($attr->embossed (FALSE));
 ok (!$attr->embossed);
+
+SKIP: {
+  skip "2.12 stuff", 4
+    unless Gtk2->CHECK_VERSION (2, 11, 0); # FIXME: 2.12
+
+  my $color = Gtk2::Gdk::Color->new (0xffff, 0xffff, 0xffff);
+  my $attr = Gtk2::Gdk::Pango::AttrEmbossColor->new ($color);
+  isa_ok ($attr, "Gtk2::Gdk::Pango::AttrEmbossColor");
+  isa_ok ($attr, "Gtk2::Pango::Attribute");
+  is_deeply ($attr->color ([0x23, 0x42, 0x00]), [0xffff, 0xffff, 0xffff]);
+  is_deeply ($attr->color, [0x23, 0x42, 0x00]);
+}
 
 __END__
 

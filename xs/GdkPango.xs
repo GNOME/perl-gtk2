@@ -91,3 +91,34 @@ embossed (PangoAttribute * attr, ...)
 		((GdkPangoAttrEmbossed*) attr)->embossed = SvTRUE (ST (1));
     OUTPUT:
 	RETVAL
+
+# --------------------------------------------------------------------------- #
+
+#if GTK_CHECK_VERSION (2, 11, 0) /* FIXME: 2.12 */
+
+MODULE = Gtk2::Gdk::Pango	PACKAGE = Gtk2::Gdk::Pango::AttrEmbossColor	PREFIX = gdk_pango_attr_emboss_color_
+
+BOOT:
+	gperl_set_isa ("Gtk2::Gdk::Pango::AttrEmbossColor", "Gtk2::Pango::Attribute");
+
+PangoAttribute_own *
+gdk_pango_attr_emboss_color_new (class, const GdkColor *color, ...);
+    C_ARGS:
+	color
+    POSTCALL:
+	GTK2PERL_PANGO_ATTR_REGISTER_CUSTOM_TYPE (RETVAL, "Gtk2::Gdk::Pango::AttrEmbossColor");
+	GTK2PERL_PANGO_ATTR_STORE_INDICES (2, RETVAL);
+
+PangoColor *
+color (PangoAttribute * attr, ...)
+    PREINIT:
+	PangoColor color;
+    CODE:
+	color = ((GdkPangoAttrEmbossColor*) attr)->color;
+	RETVAL = &color;
+	if (items > 1)
+		((GdkPangoAttrEmbossColor*) attr)->color = *((PangoColor *) SvPangoColor (ST (1)));
+    OUTPUT:
+	RETVAL
+
+#endif
