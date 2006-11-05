@@ -5,6 +5,12 @@
 
 	* t/GdkWindow.t, xs/GdkWindow.xs: Bind gdk_window_beep.
 
+	* t/GtkTreeView.t, xs/GtkTreeView.xs: Bind
+	gtk_tree_view_set_show_expanders,
+	gtk_tree_view_get_show_expanders,
+	gtk_tree_view_set_level_indentation, and
+	gtk_tree_view_get_level_indentation.
+
 2006-11-04	kaffeetisch
 
 	* AUTHORS, t/GtkLayout.t, xs/GtkLayout.xs: Add an accessor for

@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 143;
+use Gtk2::TestHelper tests => 145;
 
 # $Header$
 
@@ -364,13 +364,7 @@ SKIP: {
 	# FIXME: This doesn't actually invoke the handler.
 	$view -> set_search_position_func(sub { warn @_; }, "bla");
 	run_main sub { $view -> signal_emit("start_interactive_search") };
-
 	$view -> set_search_position_func(undef);
-}
-
-SKIP: {
-	skip("new 2.10 stuff", 3)
-		unless Gtk2 -> CHECK_VERSION(2, 9, 2);
 
 	$view -> set_rubber_banding(TRUE);
 	ok($view -> get_rubber_banding());
@@ -380,6 +374,17 @@ SKIP: {
 
 	$view -> set_enable_tree_lines(FALSE);
 	ok(!$view -> get_enable_tree_lines());
+}
+
+SKIP: {
+	skip "new 2.12 stuff", 2
+		unless Gtk2 -> CHECK_VERSION(2, 11, 0); # FIXME: 2.12
+
+	$view -> set_show_expanders(TRUE);
+	ok($view -> get_show_expanders());
+
+	$view -> set_level_indentation(23);
+	is($view -> get_level_indentation(), 23);
 }
 
 ###############################################################################
