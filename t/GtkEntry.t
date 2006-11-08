@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 18;
+use Gtk2::TestHelper tests => 19;
 
 # $Header$
 
@@ -36,13 +36,16 @@ like($x, qr/^-?\d+$/);
 like($y, qr/^-?\d+$/);
 
 SKIP: {
-  skip("[sg]et_completion are new in 2.4", 1)
+  skip("[sg]et_completion are new in 2.4", 2)
     unless Gtk2->CHECK_VERSION (2, 4, 0);
 
   my $completion = Gtk2::EntryCompletion -> new();
 
   $entry -> set_completion($completion);
   is($entry -> get_completion(), $completion);
+
+  $entry -> set_completion(undef);
+  is($entry -> get_completion(), undef);
 }
 
 SKIP: {

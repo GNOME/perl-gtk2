@@ -183,9 +183,9 @@ gtk_entry_get_layout_offsets (GtkEntry *entry, OUTLIST gint x, OUTLIST gint y)
 
 #if GTK_CHECK_VERSION(2,4,0)
 
-void gtk_entry_set_completion (GtkEntry *entry, GtkEntryCompletion *completion);
+void gtk_entry_set_completion (GtkEntry *entry, GtkEntryCompletion_ornull *completion);
 
-GtkEntryCompletion *gtk_entry_get_completion (GtkEntry *entry);
+GtkEntryCompletion_ornull *gtk_entry_get_completion (GtkEntry *entry);
 
 #endif
 
