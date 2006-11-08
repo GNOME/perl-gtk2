@@ -1,3 +1,8 @@
+2006-11-08	kaffeetisch
+
+	* t/GtkEntry.t, xs/GtkEntry.xs: Allow passing undef to
+	set_completion.
+
 2006-11-05	kaffeetisch
 
 	* t/GdkPango.t, xs/GdkPango.xs: Add support for

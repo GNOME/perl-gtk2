@@ -183,17 +183,29 @@ gtk_entry_get_layout_offsets (GtkEntry *entry, OUTLIST gint x, OUTLIST gint y)
 
 #if GTK_CHECK_VERSION(2,4,0)
 
-void gtk_entry_set_completion (GtkEntry *entry, GtkEntryCompletion *completion);
+void gtk_entry_set_completion (GtkEntry *entry, GtkEntryCompletion_ornull *completion);
 
-GtkEntryCompletion *gtk_entry_get_completion (GtkEntry *entry);
-
-#endif
-
-#if GTK_CHECK_VERSION(2,4,0)
+GtkEntryCompletion_ornull *gtk_entry_get_completion (GtkEntry *entry);
 
 void gtk_entry_set_alignment (GtkEntry *entry, gfloat xalign);
 
 gfloat gtk_entry_get_alignment (GtkEntry *entry);
+
+#endif
+
+#if GTK_CHECK_VERSION(2, 6, 0)
+
+gint gtk_entry_layout_index_to_text_index (GtkEntry *entry, gint layout_index)
+
+gint gtk_entry_text_index_to_layout_index (GtkEntry *entry, gint text_index)
+
+#endif
+
+#if GTK_CHECK_VERSION(2, 10, 0)
+
+void gtk_entry_set_inner_border (GtkEntry *entry, const GtkBorder_ornull *border);
+
+const GtkBorder_ornull * gtk_entry_get_inner_border (GtkEntry *entry);
 
 #endif
 
@@ -226,19 +238,3 @@ void
 gtk_entry_set_editable (entry, editable)
 	GtkEntry * entry
 	gboolean   editable
-
-#if GTK_CHECK_VERSION(2, 6, 0)
-
-gint gtk_entry_layout_index_to_text_index (GtkEntry *entry, gint layout_index)
-
-gint gtk_entry_text_index_to_layout_index (GtkEntry *entry, gint text_index)
-
-#endif
-
-#if GTK_CHECK_VERSION(2, 10, 0)
-
-void gtk_entry_set_inner_border (GtkEntry *entry, const GtkBorder_ornull *border);
-
-const GtkBorder_ornull * gtk_entry_get_inner_border (GtkEntry *entry);
-
-#endif
