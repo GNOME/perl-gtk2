@@ -224,6 +224,14 @@ gboolean pango_font_description_get_size_is_absolute (const PangoFontDescription
 
 #endif
 
+#if PANGO_CHECK_VERSION (1, 15, 0) /* FIXME: 1.16 */
+
+void pango_font_description_set_gravity (PangoFontDescription *desc, PangoGravity gravity);
+
+PangoGravity pango_font_description_get_gravity (const PangoFontDescription *desc);
+
+#endif
+
 MODULE = Gtk2::Pango::Font	PACKAGE = Gtk2::Pango::FontMetrics	PREFIX = pango_font_metrics_
 
 # should happen automagicly

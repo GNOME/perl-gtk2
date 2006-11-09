@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 55;
+use Gtk2::TestHelper tests => 56;
 
 # $Header$
 
@@ -50,6 +50,14 @@ SKIP: {
 
   $description -> set_absolute_size(23.42);
   is($description -> get_size_is_absolute(), TRUE);
+}
+
+SKIP: {
+  skip("new 1.16 stuff", 1)
+    unless (Gtk2::Pango -> CHECK_VERSION(1, 15, 0)); # FIXME: 1.16
+
+  $description -> set_gravity("south");
+  is($description -> get_gravity(), "south");
 }
 
 ###############################################################################

@@ -1,3 +1,13 @@
+2006-11-09	kaffeetisch
+
+	* t/PangoContext.t, xs/PangoContext.xs: Wrap
+	pango_context_set_base_gravity, pango_context_get_base_gravity,
+	and pango_context_get_gravity.
+
+	* t/PangoFont.t, xs/PangoFont.xs: Wrap
+	pango_font_description_set_gravity and
+	pango_font_description_get_gravity.
+
 2006-11-08	kaffeetisch
 
 	* t/GtkEntry.t, xs/GtkEntry.xs: Allow passing undef to

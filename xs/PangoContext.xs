@@ -153,3 +153,13 @@ pango_context_set_matrix (context, matrix)
 	PangoMatrix_ornull *matrix
 
 #endif
+
+#if PANGO_CHECK_VERSION (1, 15, 0) /* FIXME: 1.16 */
+
+void pango_context_set_base_gravity (PangoContext *context, PangoGravity gravity);
+
+PangoGravity pango_context_get_base_gravity (PangoContext *context);
+
+PangoGravity pango_context_get_gravity (PangoContext *context);
+
+#endif
