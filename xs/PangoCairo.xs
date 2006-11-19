@@ -48,41 +48,84 @@ void pango_cairo_font_map_set_resolution (PangoCairoFontMap *fontmap, double dpi
 
 double pango_cairo_font_map_get_resolution (PangoCairoFontMap *fontmap);
 
-PangoContext *pango_cairo_font_map_create_context (PangoCairoFontMap *fontmap);
+# PangoContext *pango_cairo_font_map_create_context (PangoCairoFontMap *fontmap);
+SV *
+pango_cairo_font_map_create_context (PangoCairoFontMap *fontmap)
+    PREINIT:
+	PangoContext *context;
+	HV *stash;
+    CODE:
+	context = pango_cairo_font_map_create_context (fontmap);
+	if (!context)
+		XSRETURN_UNDEF;
+	RETVAL = newSVPangoContext (context);
+	stash = gv_stashpv ("Gtk2::Pango::Cairo::Context", TRUE);
+	sv_bless (RETVAL, stash);
+    OUTPUT:
+	RETVAL
 
 # --------------------------------------------------------------------------- #
 
 MODULE = Gtk2::Pango::Cairo	PACKAGE = Gtk2::Pango::Cairo	PREFIX = pango_cairo_
 
+=for position DESCRIPTION
+I<Gtk2::Pango::Cairo> contains a few functions that help integrate pango and
+cairo.  Since they aren't methods of a particular object, they are bound as
+plain functions.
+=cut
+
+=for apidoc __function__
+=cut
 void pango_cairo_update_context (cairo_t *cr, PangoContext *context);
 
+=for apidoc __function__
+=cut
 PangoLayout *pango_cairo_create_layout (cairo_t *cr);
 
+=for apidoc __function__
+=cut
 void pango_cairo_update_layout (cairo_t *cr, PangoLayout *layout);
 
+=for apidoc __function__
+=cut
 void pango_cairo_show_glyph_string (cairo_t *cr, PangoFont *font, PangoGlyphString *glyphs);
 
 # FIXME: Need PangoLayoutLine support.
 # void pango_cairo_show_layout_line (cairo_t *cr, PangoLayoutLine *line);
 
+=for apidoc __function__
+=cut
 void pango_cairo_show_layout (cairo_t *cr, PangoLayout *layout);
 
+=for apidoc __function__
+=cut
 void pango_cairo_glyph_string_path (cairo_t *cr, PangoFont *font, PangoGlyphString *glyphs);
 
 # FIXME: Need PangoLayoutLine support.
 # void pango_cairo_layout_line_path (cairo_t *cr, PangoLayoutLine *line);
 
+=for apidoc __function__
+=cut
 void pango_cairo_layout_path (cairo_t *cr, PangoLayout *layout);
 
 #if PANGO_CHECK_VERSION (1, 14, 0)
 
+=for apidoc __function__
+=cut
 void pango_cairo_show_error_underline (cairo_t *cr, double x, double y, double width, double height);
 
+=for apidoc __function__
+=cut
 void pango_cairo_error_underline_path (cairo_t *cr, double x, double y, double width, double height);
 
 #endif
 
+# --------------------------------------------------------------------------- #
+
 MODULE = Gtk2::Pango::Cairo	PACKAGE = Gtk2::Pango::Cairo::Context	PREFIX = pango_cairo_context_
+
+BOOT:
+	gperl_set_isa ("Gtk2::Pango::Cairo::Context", "Gtk2::Pango::Context");
 
 void pango_cairo_context_set_font_options (PangoContext *context, const cairo_font_options_t *options);
 

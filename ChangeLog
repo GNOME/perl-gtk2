@@ -1,3 +1,12 @@
+2006-11-19	kaffeetisch
+
+	Merge from HEAD:
+
+	* doctypes: List GdkPixbufFormat as "hash reference".
+
+	* t/PangoCairo.t, xs/PangoCairo.xs: Also allow using method
+	calling semantics for pango_cairo_context_*.
+
 2006-11-08	kaffeetisch
 
 	Merge from HEAD:

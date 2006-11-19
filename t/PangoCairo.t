@@ -37,12 +37,26 @@ Gtk2::Pango::Cairo::update_context($cr, $context);
 
 my $options = Cairo::FontOptions -> create();
 
-Gtk2::Pango::Cairo::Context::set_font_options($context, $options);
-isa_ok(Gtk2::Pango::Cairo::Context::get_font_options($context),
-       "Cairo::FontOptions");
+# Function interface
+{
+  Gtk2::Pango::Cairo::Context::set_font_options($context, $options);
+  isa_ok(Gtk2::Pango::Cairo::Context::get_font_options($context),
+         "Cairo::FontOptions");
 
-Gtk2::Pango::Cairo::Context::set_resolution($context, 72);
-is(Gtk2::Pango::Cairo::Context::get_resolution($context), 72);
+  Gtk2::Pango::Cairo::Context::set_resolution($context, 72);
+  is(Gtk2::Pango::Cairo::Context::get_resolution($context), 72);
+}
+
+# Method interface
+{
+  isa_ok($context, "Gtk2::Pango::Cairo::Context");
+
+  $context -> set_font_options($options);
+  isa_ok($context -> get_font_options(), "Cairo::FontOptions");
+
+  $context -> set_resolution(72);
+  is($context -> get_resolution(), 72);
+}
 
 my $layout = Gtk2::Pango::Cairo::create_layout($cr);
 isa_ok($layout, "Gtk2::Pango::Layout");
