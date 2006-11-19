@@ -24,6 +24,7 @@ SKIP: {
 
   my $layout = $window -> create_pango_layout("Bla");
   $renderer -> draw_layout($layout, 0, 0);
+  $renderer -> draw_layout_line($layout -> get_line(0), 0, 0);
 
   $renderer -> draw_rectangle("foreground", 0, 0, 10, 10);
   $renderer -> draw_error_underline(0, 0, 10, 10);

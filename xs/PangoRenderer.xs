@@ -30,8 +30,7 @@ BOOT:
 
 void pango_renderer_draw_layout (PangoRenderer *renderer, PangoLayout *layout, int x, int y);
 
-# FIXME: Need PangoLayoutLine bindings.
-# void pango_renderer_draw_layout_line (PangoRenderer *renderer, PangoLayoutLine *line, int x, int y);
+void pango_renderer_draw_layout_line (PangoRenderer *renderer, PangoLayoutLine *line, int x, int y);
 
 # FIXME: We do have typemaps for PangoGlyphString, but no way to actually get
 #        one.  pango_shape() would be about the only function that returns one,

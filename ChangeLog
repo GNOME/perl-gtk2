@@ -1,3 +1,21 @@
+2006-11-19	kaffeetisch
+
+	* doctypes: List GdkPixbufFormat as "hash reference".
+
+	* t/PangoCairo.t, xs/PangoCairo.xs: Also allow using method
+	calling semantics for pango_cairo_context_*.
+
+	* xs/GdkCairo.xs: Remove redundant #if's.
+
+	* xs/PangoCairo.xs: Add a DESCRIPTION section and __function__ POD
+	tags to emphasize that and why the pango_cairo_* stuff is bound as
+	functions.
+
+	* gtk2perl.h, maps_pango-1.0, t/GdkDrawable.t, t/PangoCairo.t,
+	t/PangoLayout.t, t/PangoRenderer.t, xs/GdkDrawable.xs,
+	xs/PangoCairo.xs, xs/PangoLayout.xs, xs/PangoRenderer.xs: Add
+	support for PangoLayoutLine.
+
 2006-11-09	kaffeetisch
 
 	* t/PangoContext.t, xs/PangoContext.xs: Wrap

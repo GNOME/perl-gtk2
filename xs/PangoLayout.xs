@@ -43,6 +43,19 @@ gtk2perl_pango_layout_iter_get_type (void)
 
 /* ------------------------------------------------------------------------- */
 
+GType
+gtk2perl_pango_layout_line_get_type (void)
+{
+	static GType t = 0;
+	if (!t)
+		t = g_boxed_type_register_static ("PangoLayoutLine",
+		      (GBoxedCopyFunc) pango_layout_line_ref,
+		      (GBoxedFreeFunc) pango_layout_line_unref);
+	return t;
+}
+
+/* ------------------------------------------------------------------------- */
+
 SV *
 newSVPangoRectangle (PangoRectangle * rectangle)
 {
@@ -425,80 +438,89 @@ int
 pango_layout_get_line_count (layout)
 	PangoLayout *layout
 
-# FIXME no typemaps for PangoLayoutLine
-####  PangoLayoutLine *pango_layout_get_line (PangoLayout *layout, int line) 
-##PangoLayoutLine_ornull *
-##pango_layout_get_line (layout, line)
-##	PangoLayout *layout
-##	int line
-##
-####  GSList * pango_layout_get_lines (PangoLayout *layout) 
-##void
-##pango_layout_get_lines (layout)
-##	PangoLayout *layout
-##    PREINIT:
-##	GSList * lines, * i;
-##    PPCODE:
-##	lines = pango_layout_get_lines (layout);
-##	for (i = lines ; i != NULL ; i = i->next)
-##		XPUSHs (sv_2mortal (newSVPangoLayoutLine (i->data)));
-##	/* docs do not say that you are to free this, so i don't */
-##
-##MODULE = Gtk2::Pango::Layout	PACKAGE = Gtk2::Pango::LayoutLine	PREFIX = pango_layout_line_
-##
-####  void pango_layout_line_ref (PangoLayoutLine *line) 
-####  void pango_layout_line_unref (PangoLayoutLine *line) 
-##
-####  gboolean pango_layout_line_x_to_index (PangoLayoutLine *line, int x_pos, int *index_, int *trailing) 
-##void
-##pango_layout_line_x_to_index (line, x_pos)
-##	PangoLayoutLine *line
-##	int x_pos
-##    PREINIT:
-##	int index_, trailing;
-##    PPCODE:
-##	if (pango_layout_line_x_to_index (line, x_pos, &index_, &trailing))
-##		EXTEND (SP, 2);
-##		PUSHs (sv_2mortal (newSViv (index_)));
-##		PUSHs (sv_2mortal (newSViv (trailing)));
-##	}
-##
-####  void pango_layout_line_index_to_x (PangoLayoutLine *line, int index_, gboolean trailing, int *x_pos) 
-##void
-##pango_layout_line_index_to_x (line, index_, trailing, x_pos)
-##	PangoLayoutLine *line
-##	int index_
-##	gboolean trailing
-##	int *x_pos
-##
-####  void pango_layout_line_get_x_ranges (PangoLayoutLine *line, int start_index, int end_index, int **ranges, int *n_ranges) 
-##void
-##pango_layout_line_get_x_ranges (line, start_index, end_index, ranges, n_ranges)
-##	PangoLayoutLine *line
-##	int start_index
-##	int end_index
-##	int **ranges
-##	int *n_ranges
-##
-####  void pango_layout_line_get_extents (PangoLayoutLine *line, PangoRectangle *ink_rect, PangoRectangle *logical_rect) 
-##void
-##pango_layout_line_get_extents (line, ink_rect, logical_rect)
-##	PangoLayoutLine *line
-##	PangoRectangle *ink_rect
-##	PangoRectangle *logical_rect
-##
-####  void pango_layout_line_get_pixel_extents (PangoLayoutLine *layout_line, PangoRectangle *ink_rect, PangoRectanfound and converted 62 (potential) functions
-##gle *logical_rect) 
-##void
-##pango_layout_line_get_pixel_extents (layout_line, ink_rect, logical_rect)
-##	PangoLayoutLine *layout_line
-##	PangoRectangle *ink_rect
-##	PangoRectangle *logical_rect
+##  PangoLayoutLine *pango_layout_get_line (PangoLayout *layout, int line) 
+PangoLayoutLine_ornull *
+pango_layout_get_line (layout, line)
+	PangoLayout *layout
+	int line
 
-##  PangoLayoutIter *pango_layout_get_iter (PangoLayout *layout) 
+##  GSList * pango_layout_get_lines (PangoLayout *layout) 
+void
+pango_layout_get_lines (layout)
+	PangoLayout *layout
+    PREINIT:
+	GSList * lines, * i;
+    PPCODE:
+	lines = pango_layout_get_lines (layout);
+	for (i = lines ; i != NULL ; i = i->next)
+		XPUSHs (sv_2mortal (newSVPangoLayoutLine (i->data)));
+	/* the list is owned by the layout. */
+
+##  PangoLayoutIter *pango_layout_get_iter (PangoLayout *layout)
 PangoLayoutIter *
 pango_layout_get_iter (layout)
 	PangoLayout *layout
+
+# --------------------------------------------------------------------------- #
+
+MODULE = Gtk2::Pango::Layout	PACKAGE = Gtk2::Pango::LayoutLine	PREFIX = pango_layout_line_
+
+##  gboolean pango_layout_line_x_to_index (PangoLayoutLine *line, int x_pos, int *index_, int *trailing)
+gboolean pango_layout_line_x_to_index (PangoLayoutLine *line, int x_pos, OUTLIST int index_, OUTLIST int trailing);
+
+##  void pango_layout_line_index_to_x (PangoLayoutLine *line, int index_, gboolean trailing, int *x_pos)
+void pango_layout_line_index_to_x (PangoLayoutLine *line, int index_, gboolean trailing, OUTLIST int x_pos);
+
+##  void pango_layout_line_get_x_ranges (PangoLayoutLine *line, int start_index, int end_index, int **ranges, int *n_ranges)
+void
+pango_layout_line_get_x_ranges (line, start_index, end_index)
+	PangoLayoutLine *line
+	int start_index
+	int end_index
+    PREINIT:
+	int *ranges;
+	int n_ranges, i;
+    PPCODE:
+	pango_layout_line_get_x_ranges (line, start_index, end_index, &ranges, &n_ranges);
+	EXTEND (SP, n_ranges);
+	for (i = 0; i < 2*n_ranges; i += 2) {
+		AV *av = newAV ();
+		av_push (av, newSViv (ranges[i]));
+		av_push (av, newSViv (ranges[i + 1]));
+		PUSHs (sv_2mortal (newRV_noinc ((SV *) av)));
+	}
+
+
+####  void pango_layout_line_get_extents (PangoLayoutLine *line, PangoRectangle *ink_rect, PangoRectangle *logical_rect)
+####  void pango_layout_line_get_pixel_extents (PangoLayoutLine *layout_line, PangoRectangle *ink_rect, PangoRectangle *logical_rect)
+=for apidoc
+=for signature (ink_rect, logical_rect) = $line->get_extents
+=for signature (ink_rect, logical_rect) = $line->get_pixel_extents
+=cut
+void
+pango_layout_line_get_extents (line)
+	PangoLayoutLine *line
+    ALIAS:
+	Gtk2::Pango::LayoutLine::get_pixel_extents = 1
+    PREINIT:
+	PangoRectangle ink_rect;
+	PangoRectangle logical_rect;
+    PPCODE:
+	switch (ix) {
+		case 0:
+			pango_layout_line_get_extents (line, &ink_rect, &logical_rect);
+			break;
+		case 1:
+			pango_layout_line_get_pixel_extents (line, &ink_rect, &logical_rect);
+			break;
+		default:
+			g_assert_not_reached ();
+	}
+	EXTEND (sp, 2);
+	PUSHs (sv_2mortal (newSVPangoRectangle (&ink_rect)));
+	PUSHs (sv_2mortal (newSVPangoRectangle (&logical_rect)));
+
+# --------------------------------------------------------------------------- #
 
 MODULE = Gtk2::Pango::Layout	PACKAGE = Gtk2::Pango::LayoutIter	PREFIX = pango_layout_iter_
 
@@ -515,11 +537,10 @@ pango_layout_iter_get_index (iter)
 # pango_layout_iter_get_run (iter)
 # 	PangoLayoutIter *iter
 
-# FIXME: no typemap for PangoLayoutLine.
-# ##  PangoLayoutLine *pango_layout_iter_get_line (PangoLayoutIter *iter) 
-# PangoLayoutLine *
-# pango_layout_iter_get_line (iter)
-# 	PangoLayoutIter *iter
+##  PangoLayoutLine *pango_layout_iter_get_line (PangoLayoutIter *iter) 
+PangoLayoutLine *
+pango_layout_iter_get_line (iter)
+	PangoLayoutIter *iter
 
 ##  gboolean pango_layout_iter_at_last_line (PangoLayoutIter *iter) 
 gboolean

@@ -53,6 +53,12 @@
   GType gtk2perl_pango_layout_iter_get_type (void) G_GNUC_CONST;
 #endif
 
+/* custom GType for PangoLayoutLine */
+#ifndef PANGO_TYPE_LAYOUT_LINE
+# define PANGO_TYPE_LAYOUT_LINE (gtk2perl_pango_layout_line_get_type ())
+  GType gtk2perl_pango_layout_line_get_type (void) G_GNUC_CONST;
+#endif
+
 /* custom GType for PangoScriptIter */
 #if PANGO_CHECK_VERSION (1, 4, 0)
 # ifndef PANGO_TYPE_SCRIPT_ITER

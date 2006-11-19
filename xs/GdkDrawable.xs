@@ -278,15 +278,14 @@ gdk_draw_pixbuf (drawable, gc, pixbuf, src_x, src_y, dest_x, dest_y, width, heig
 ##	gint y
 ##	PangoGlyphString *glyphs
 
- # FIXME need typemap PangoLayoutLine
-## ## void gdk_draw_layout_line (GdkDrawable *drawable, GdkGC *gc, gint x, gint y, PangoLayoutLine *line)
-##void
-##gdk_draw_layout_line (drawable, gc, x, y, line)
-##	GdkDrawable *drawable
-##	GdkGC *gc
-##	gint x
-##	gint y
-##	PangoLayoutLine *line
+ ## void gdk_draw_layout_line (GdkDrawable *drawable, GdkGC *gc, gint x, gint y, PangoLayoutLine *line)
+void
+gdk_draw_layout_line (drawable, gc, x, y, line)
+	GdkDrawable *drawable
+	GdkGC *gc
+	gint x
+	gint y
+	PangoLayoutLine *line
 
  ## void gdk_draw_layout (GdkDrawable *drawable, GdkGC *gc, gint x, gint y, PangoLayout *layout)
 void
@@ -297,17 +296,16 @@ gdk_draw_layout (drawable, gc, x, y, layout)
 	gint y
 	PangoLayout *layout
 
- # FIXME need typemap for PangoLayoutLine
-## ## void gdk_draw_layout_line_with_colors (GdkDrawable *drawable, GdkGC *gc, gint x, gint y, PangoLayoutLine *line, GdkColor *foreground, GdkColor *background)
-##void
-##gdk_draw_layout_line_with_colors (drawable, gc, x, y, line, foreground, background)
-##	GdkDrawable *drawable
-##	GdkGC *gc
-##	gint x
-##	gint y
-##	PangoLayoutLine *line
-##	GdkColor *foreground
-##	GdkColor *background
+ ## void gdk_draw_layout_line_with_colors (GdkDrawable *drawable, GdkGC *gc, gint x, gint y, PangoLayoutLine *line, GdkColor *foreground, GdkColor *background)
+void
+gdk_draw_layout_line_with_colors (drawable, gc, x, y, line, foreground, background)
+	GdkDrawable *drawable
+	GdkGC *gc
+	gint x
+	gint y
+	PangoLayoutLine *line
+	GdkColor *foreground
+	GdkColor *background
 
  ## void gdk_draw_layout_with_colors (GdkDrawable *drawable, GdkGC *gc, gint x, gint y, PangoLayout *layout, GdkColor *foreground, GdkColor *background)
 void

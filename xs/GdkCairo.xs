@@ -13,9 +13,6 @@ MODULE = Gtk2::Gdk::Cairo	PACKAGE = Gtk2::Gdk::Cairo::Context	PREFIX = gdk_cairo
 
 BOOT:
 	gperl_set_isa ("Gtk2::Gdk::Cairo::Context", "Cairo::Context");
-	PERL_UNUSED_VAR (file); /* for older gtk+'s. */
-
-#if GTK_CHECK_VERSION (2, 8, 0)
 
 # cairo_t *gdk_cairo_create (GdkDrawable *drawable);
 SV *
@@ -56,8 +53,6 @@ gdk_cairo_rectangle (cairo_t *cr, ...)
 	}
 
 void gdk_cairo_region (cairo_t *cr, GdkRegion *region);
-
-#endif
 
 #if GTK_CHECK_VERSION (2, 10, 0)
 
