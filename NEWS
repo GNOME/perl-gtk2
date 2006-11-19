@@ -1,3 +1,13 @@
+Overview of changes in Gtk2 1.141
+=================================
+
+* Allow passing undef to Gtk2::Entry::set_completion.  [Torsten]
+* Allow using method calling semantics for Gtk2::Pango::Cairo::Context::*.
+  [Torsten]
+* On Win32, also try to locate Cairo.lib if necessary.  [Torsten]
+* Fix some POD errors.  [Torsten]
+* Fix a few test suite issues.  [Torsten]
+
 Overview of changes in Gtk2 1.140
 =================================
 

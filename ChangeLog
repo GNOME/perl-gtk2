@@ -1,5 +1,9 @@
 2006-11-19	kaffeetisch
 
+	* Gtk2.pm, NEWS, README: Stable release 1.141.
+
+2006-11-19	kaffeetisch
+
 	Merge from HEAD:
 
 	* doctypes: List GdkPixbufFormat as "hash reference".
