@@ -88,8 +88,12 @@ is ($iview->get_margin, 23);
 #$win->show_all;
 
 run_main sub {
-	# this stuff is liable to be flaky, it may require TODO's
-	my $path = $iview->get_path_at_pos (50, 50);
+    my $path = $iview->get_path_at_pos (50, 50);
+
+    SKIP: {
+	skip 'get_path_at_pos (50, 50) returned undef', 29
+		unless defined $path;
+
 	isa_ok ($path, 'Gtk2::TreePath', '$iview->get_path_at_pos (50, 50)');
 
 	is ($iview->path_is_selected ($path), '',
@@ -181,6 +185,7 @@ run_main sub {
 
 		isa_ok ($iview->create_drag_icon ($path), "Gtk2::Gdk::Pixmap");
 	}
+    }
 };
 
 sub create_store

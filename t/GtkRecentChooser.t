@@ -45,6 +45,7 @@ use Cwd qw(cwd);
 my $uri_one = "file://" . cwd() . "/" . $0;
 my $uri_two = "file://" . $^X;
 
+$manager -> purge_items();
 $manager -> add_item($uri_one);
 $manager -> add_item($uri_two);
 

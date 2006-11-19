@@ -6,7 +6,7 @@ use Test::More;
 
 if (UNIVERSAL::can("Gtk2::Pango::Cairo::FontMap", "new") &&
     Gtk2::Pango -> CHECK_VERSION(1, 10, 0)) {
-  plan tests => 10;
+  plan tests => 13;
 } else {
   plan skip_all => "Need Cairo";
 }
