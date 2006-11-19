@@ -35,6 +35,9 @@ unlink './test.xbel'; # in case of an aborted run
 $manager = Glib::Object::new('Gtk2::RecentManager', filename => './test.xbel');
 isa_ok($manager, 'Gtk2::RecentManager');
 
+# purge existing items.
+$manager->purge_items;
+
 # use this silly trick to get a file
 my $icon_theme = Gtk2::IconTheme->get_default;
 my $icon_info  = $icon_theme->lookup_icon('stock_edit', 24, 'use-builtin');

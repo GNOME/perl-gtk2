@@ -1,5 +1,10 @@
 2006-11-19	kaffeetisch
 
+	* t/GdkVisual.t, t/GtkIconView.t, t/GtkRecentChooser.t,
+	t/GtkRecentManager.t: Fix test failures.
+
+2006-11-19	kaffeetisch
+
 	* doctypes: List GdkPixbufFormat as "hash reference".
 
 	* t/PangoCairo.t, xs/PangoCairo.xs: Also allow using method
