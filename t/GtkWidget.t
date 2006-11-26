@@ -3,7 +3,7 @@
 
 use warnings;
 use strict;
-use Gtk2::TestHelper tests => 123;
+use Gtk2::TestHelper tests => 124;
 
 # we can't instantiate Gtk2::Widget, it's abstract.  use a DrawingArea instead.
 
@@ -392,7 +392,7 @@ SKIP: {
 
 	$widget->queue_resize_no_redraw;
 
-	ok(!$widget->can_activate_accel (23));
+	ok (!$widget->can_activate_accel (23));
 
 	my $label_one = Gtk2::Label->new ("_One");
 	my $label_two = Gtk2::Label->new ("_Two");
@@ -412,6 +412,14 @@ SKIP: {
 
 	$widget->input_shape_combine_mask ($bitmap, 23, 42);
 	$widget->input_shape_combine_mask (undef, 0, 0);
+}
+
+SKIP: {
+	skip "new 2.12 stuff", 1
+		unless Gtk2->CHECK_VERSION (2, 11, 0); # FIXME: 2.12
+
+	ok (defined $widget->keynav_failed ('tab-backward'));
+	$widget->error_bell;
 }
 
 __END__

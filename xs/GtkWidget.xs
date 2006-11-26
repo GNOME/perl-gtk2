@@ -1120,3 +1120,11 @@ void gtk_widget_remove_mnemonic_label (GtkWidget *widget, GtkWidget *label);
 void gtk_widget_input_shape_combine_mask (GtkWidget *widget, GdkBitmap_ornull *shape_mask, gint offset_x, gint offset_y);
 
 #endif /* 2.10 */
+
+#if GTK_CHECK_VERSION(2, 11, 0) /* FIXME: 2.12 */
+
+gboolean gtk_widget_keynav_failed (GtkWidget *widget, GtkDirectionType direction);
+
+void gtk_widget_error_bell (GtkWidget *widget);
+
+#endif

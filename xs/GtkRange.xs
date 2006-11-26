@@ -92,3 +92,19 @@ GtkSensitivityType gtk_range_get_upper_stepper_sensitivity (GtkRange *range);
 void gtk_range_set_upper_stepper_sensitivity (GtkRange *range, GtkSensitivityType sensitivity);
 
 #endif
+
+#if GTK_CHECK_VERSION (2, 11, 0) /* FIXME: 2.12 */
+
+void gtk_range_set_show_fill_level (GtkRange *range, gboolean show_fill_level);
+
+gboolean gtk_range_get_show_fill_level (GtkRange *range);
+
+void gtk_range_set_restrict_to_fill_level (GtkRange *range, gboolean restrict_to_fill_level);
+
+gboolean gtk_range_get_restrict_to_fill_level (GtkRange *range);
+
+void gtk_range_set_fill_level (GtkRange *range, gdouble fill_level);
+
+gdouble gtk_range_get_fill_level (GtkRange *range);
+
+#endif

@@ -4,7 +4,7 @@
 use strict;
 use warnings;
 use Gtk2::TestHelper
-  tests => 20,
+  tests => 21,
   at_least_version => [2, 10, 0, "Gtk2::StatusIcon is new in 2.10"];
 
 # $Header$
@@ -95,6 +95,17 @@ SKIP: {
   isa_ok ($screen, "Gtk2::Gdk::Screen");
   isa_ok ($area, "Gtk2::Gdk::Rectangle");
   ok (defined $orientation);
+}
+
+# --------------------------------------------------------------------------- #
+
+SKIP: {
+  skip "new 2.12 stuff", 1
+    unless Gtk2 -> CHECK_VERSION(2, 11, 0); # FIXME: 2.12
+
+  my $screen = $icon -> get_screen();
+  isa_ok($screen, "Gtk2::Gdk::Screen");
+  $icon -> set_screen($screen);
 }
 
 __END__

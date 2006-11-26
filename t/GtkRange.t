@@ -1,7 +1,7 @@
 #!/usr/bin/perl -w
 # vim: set ft=perl :
 use strict;
-use Gtk2::TestHelper tests => 7;
+use Gtk2::TestHelper tests => 10;
 
 # $Header$
 
@@ -34,6 +34,20 @@ SKIP: {
 
 	$range -> set_upper_stepper_sensitivity('on');
 	is ($range -> get_upper_stepper_sensitivity, 'on');
+}
+
+SKIP: {
+        skip 'new stuff in 2.12', 3
+                unless Gtk2 -> CHECK_VERSION(2, 11, 0); # FIXME: 2.12
+
+	$range -> set_show_fill_level(TRUE);
+	ok($range -> get_show_fill_level());
+
+	$range -> set_restrict_to_fill_level(FALSE);
+	ok(!$range -> get_restrict_to_fill_level());
+
+	$range -> set_fill_level(0.23);
+	is($range -> get_fill_level(), 0.23);
 }
 
 __END__

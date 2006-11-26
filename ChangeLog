@@ -1,3 +1,19 @@
+2006-11-26	kaffeetisch
+
+	* NEWS: Merge from stable-1-14.
+
+	* t/GtkRange.t, xs/GtkRange.xs: Bind and test
+	gtk_range_set_show_fill_level, gtk_range_get_show_fill_level,
+	gtk_range_set_restrict_to_fill_level,
+	gtk_range_get_restrict_to_fill_level, gtk_range_set_fill_level,
+	and gtk_range_get_fill_level.
+
+	* t/GtkStatusIcon.t, xs/GtkStatusIcon.xs: Bind and test
+	gtk_status_icon_set_screen and gtk_status_icon_get_screen.
+
+	* t/GtkWidget.t, xs/GtkWidget.xs: Bind and test
+	gtk_widget_keynav_failed and gtk_widget_error_bell.
+
 2006-11-19	kaffeetisch
 
 	* t/GdkVisual.t, t/GtkIconView.t, t/GtkRecentChooser.t,
