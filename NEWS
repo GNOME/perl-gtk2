@@ -1,3 +1,25 @@
+Overview of changes in Gtk2 1.150
+=================================
+
+* Add support for pango attributes.  [Torsten]
+* Add support for PangoLayoutLine.  [Torsten]
+* Add support for GdkPangoAttrEmbossColor.  [Torsten]
+* Wrap new API:  [Torsten]
+  - gdk_window_beep
+  - gtk_range_set_show_fill_level, gtk_range_get_show_fill_level,
+    gtk_range_set_restrict_to_fill_level, gtk_range_get_restrict_to_fill_level,
+    gtk_range_set_fill_level, gtk_range_get_fill_level
+  - gtk_tree_view_set_show_expanders, gtk_tree_view_get_show_expanders,
+    gtk_tree_view_set_level_indentation, gtk_tree_view_get_level_indentation
+  - pango_context_set_base_gravity, pango_context_get_base_gravity,
+    pango_context_get_gravity, pango_font_description_set_gravity,
+    pango_font_description_get_gravity
+* Allow passing undef to Gtk2::Entry::set_completion.  [Torsten]
+* Add Gtk2::Layout::bin_window.  [Philipp Rumpf]
+* When building on Win32, also look for Cairo.lib to make linking work.
+  [Torsten]
+* Fix a few test suite issues.  [Torsten]
+
 Overview of changes in Gtk2 1.141
 =================================
 
