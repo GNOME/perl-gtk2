@@ -52,6 +52,8 @@ gtk2perl_tree_sortable_get_sort_column_id (GtkTreeSortable *sortable,
                                            GtkSortType     *order)
 {
 	gboolean retval = FALSE;
+	gint real_sort_column_id;
+	GtkSortType real_order;
 	GET_METHOD ("GET_SORT_COLUMN_ID");
 
 	if (METHOD_EXISTS) {
@@ -65,12 +67,17 @@ gtk2perl_tree_sortable_get_sort_column_id (GtkTreeSortable *sortable,
 
 		SPAGAIN;
 
-		*order = SvGtkSortType (POPs);
-		*sort_column_id = POPi;
+		real_order = SvGtkSortType (POPs);
+		real_sort_column_id = POPi;
 		retval = POPu;
 
 		PUTBACK;
 		FINISH;
+
+		if (sort_column_id)
+			*sort_column_id = real_sort_column_id;
+		if (order)
+			*order = real_order;
 	}
 
 	return retval;
