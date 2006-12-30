@@ -1,3 +1,11 @@
+2006-12-30	kaffeetisch
+
+	Merge from HEAD:
+
+	* GtkTreeSortable.xs: Don't segfault in the GET_SORT_COLUMN_ID
+	marshaller if any of the output parameter pointers is NULL.  Patch
+	by muppet.
+
 2006-11-19	kaffeetisch
 
 	* Gtk2.pm, NEWS, README: Stable release 1.141.
