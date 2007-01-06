@@ -1,5 +1,12 @@
 2007-01-06  Emmanuele Bassi  <ebassi@gnome.org>
 
+	* xs/GtkRecentManager.xs: Add more documentation for the
+	Gtk2::RecentManager::add_item and Gtk2::RecentManager::add_full
+	methods; define the needed keys for the hashref to be passed
+	to the add_full method.
+
+2007-01-06  Emmanuele Bassi  <ebassi@gnome.org>
+
 	* xs/GtkCombo.xs:
 	* xs/GtkFileSelection.xs:
 	* xs/GtkItemFactory.xs:

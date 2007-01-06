@@ -47,7 +47,7 @@ our %PREREQ_PM = (
 # dependencies and install them.
 unless (eval "use ExtUtils::Depends '$build_reqs{'perl-ExtUtils-Depends'}';"
            . "use ExtUtils::PkgConfig '$build_reqs{'perl-ExtUtils-PkgConfig'}';"
-	   . "use Glib '$build_reqs{'perl-Glib'}';"
+           . "use Glib '$build_reqs{'perl-Glib'}';"
            . "use Glib::MakeHelper;" # for do_pod_files()
            . "1") {
 	warn "$@\n";

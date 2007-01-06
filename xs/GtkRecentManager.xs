@@ -136,9 +136,58 @@ gtk_recent_manager_get_for_screen (class, GdkScreen *screen)
 void
 gtk_recent_manager_set_screen (GtkRecentManager *manager, GdkScreen *screen)
 
+=for apidoc
+Add I<$uri> to the list of recently used documents.  The Gtk2::RecentManager
+object will try to guess the meta-data of the document from its URI, but if
+you know it you should use L<Gtk2::RecentManager::add_full>.
+=cut
 gboolean
 gtk_recent_manager_add_item (GtkRecentManager *manager, const gchar *uri)
 
+=for apidoc
+Add I<$uri> to the list of recently used documents.  Instead of letting the
+Gtk2::RecentManager object guess the meta-data, use I<$data> to supply it.
+I<$data> is a hash reference with these keys:
+
+=over
+
+=item display_name
+
+The name to be used when displaying the document inside the recently used
+documents list.
+
+=item description
+
+A short description of the document.
+
+=item mime_type
+
+The MIME type of the document. [Mandatory]
+
+=item app_name
+
+The name of the application that is registering the document.  You might
+use the same name you used in L<Glib::set_application_name>.
+
+=item app_exec
+
+The command line needed to launch the application with the document.  You
+can use the variable C<"%u">, which will be expanded to the document's URI,
+or the variable C<"%f"> which will be expanded to the document's canonical
+full path.
+
+=item groups
+
+An array reference, containing the group names the document belongs to.
+
+=item is_private
+
+Whether the document should be visible only to the applications and groups
+that have registered it.
+
+=back
+
+=cut
 gboolean
 gtk_recent_manager_add_full (GtkRecentManager *manager, const gchar *uri, SV *data)
     C_ARGS:
