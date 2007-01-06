@@ -23,6 +23,9 @@
 
 MODULE = Gtk2::OptionMenu	PACKAGE = Gtk2::OptionMenu	PREFIX = gtk_option_menu_
 
+=for deprecated_by Gtk2::ComboBox
+=cut
+
 GtkWidget *
 gtk_option_menu_new (class)
     C_ARGS:

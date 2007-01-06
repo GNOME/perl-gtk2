@@ -231,6 +231,8 @@ gtk2perl_item_factory_create_item_helper (GtkItemFactory *ifactory,
 
 MODULE = Gtk2::ItemFactory	PACKAGE = Gtk2::ItemFactory	PREFIX = gtk_item_factory_
 
+=for deprecated_by Gtk2::UIManager
+=cut
 
 ##  GtkItemFactory* gtk_item_factory_new (GType container_type, const gchar *path, GtkAccelGroup *accel_group) 
 GtkItemFactory*

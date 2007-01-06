@@ -23,6 +23,9 @@
 
 MODULE = Gtk2::FileSelection	PACKAGE = Gtk2::FileSelection	PREFIX = gtk_file_selection_
 
+=for deprecated_by Gtk2::FileChooserDialog
+=cut
+
 GtkWidget *
 dir_list (fs)
 	GtkFileSelection* fs

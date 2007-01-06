@@ -23,6 +23,9 @@
 
 MODULE = Gtk2::Combo	PACKAGE = Gtk2::Combo	PREFIX = gtk_combo_
 
+=for deprecated_by Gtk2::ComboBox
+=cut
+
 ## GtkWidget* gtk_combo_new (void)
 GtkWidget*
 gtk_combo_new (class)
