@@ -74,3 +74,19 @@ void gtk_cell_layout_clear_attributes (GtkCellLayout *cell_layout, GtkCellRender
 
 void gtk_cell_layout_reorder (GtkCellLayout *cell_layout, GtkCellRenderer *cell, gint position)
 
+#if GTK_CHECK_VERSION (2, 11, 0) /* FIXME: 2.12 */
+
+###GList * gtk_cell_layout_get_cells (GtkCellLayout *cell_layout);
+void
+gtk_cell_layout_get_cells (GtkCellLayout *cell_layout)
+    PREINIT:
+	GList *result, *i;
+    PPCODE:
+	result = gtk_cell_layout_get_cells (cell_layout);
+	if (!result) /* can happen if the widget doesn't implement get_cells */
+		XSRETURN_UNDEF;
+	for (i = result; i != NULL; i = i->next)
+		XPUSHs (sv_2mortal (newSVGtkCellRenderer (i->data)));
+	g_list_free (result);
+
+#endif

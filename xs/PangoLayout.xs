@@ -59,7 +59,12 @@ gtk2perl_pango_layout_line_get_type (void)
 SV *
 newSVPangoRectangle (PangoRectangle * rectangle)
 {
-	HV * hv = newHV ();
+	HV * hv;
+
+	if (!rectangle)
+		return &PL_sv_undef;
+
+	hv = newHV ();
 
 	hv_store (hv, "x", 1, newSViv (rectangle->x), 0);
 	hv_store (hv, "y", 1, newSViv (rectangle->y), 0);
@@ -75,8 +80,10 @@ SvPangoRectangle (SV * sv)
 	PangoRectangle *rectangle;
 	SV ** v;
 
-	if (!sv || !SvOK (sv) || !SvRV (sv) ||
-	    !(SvTYPE (SvRV (sv)) == SVt_PVHV || SvTYPE (SvRV (sv)) == SVt_PVAV))
+	if (!sv || !SvOK (sv))
+		return NULL;
+
+	if (!SvRV (sv) || !(SvTYPE (SvRV (sv)) == SVt_PVHV || SvTYPE (SvRV (sv)) == SVt_PVAV))
 		croak ("a PangoRectangle must be a reference to a hash or an array");
 
 	rectangle = gperl_alloc_temp (sizeof (PangoRectangle));
@@ -456,6 +463,28 @@ pango_layout_get_lines (layout)
 		XPUSHs (sv_2mortal (newSVPangoLayoutLine (i->data)));
 	/* the list is owned by the layout. */
 
+#if PANGO_CHECK_VERSION (1, 15, 2) /* FIXME: 1.16 */
+
+##  PangoLayoutLine *pango_layout_get_line_readonly (PangoLayout *layout, int line) 
+PangoLayoutLine_ornull *
+pango_layout_get_line_readonly (layout, line)
+	PangoLayout *layout
+	int line
+
+##  GSList * pango_layout_get_lines_readonly (PangoLayout *layout) 
+void
+pango_layout_get_lines_readonly (layout)
+	PangoLayout *layout
+    PREINIT:
+	GSList * lines, * i;
+    PPCODE:
+	lines = pango_layout_get_lines_readonly (layout);
+	for (i = lines ; i != NULL ; i = i->next)
+		XPUSHs (sv_2mortal (newSVPangoLayoutLine (i->data)));
+	/* the list is owned by the layout. */
+
+#endif
+
 ##  PangoLayoutIter *pango_layout_get_iter (PangoLayout *layout)
 PangoLayoutIter *
 pango_layout_get_iter (layout)
@@ -541,6 +570,21 @@ pango_layout_iter_get_index (iter)
 PangoLayoutLine *
 pango_layout_iter_get_line (iter)
 	PangoLayoutIter *iter
+
+#if PANGO_CHECK_VERSION (1, 15, 2) /* FIXME: 1.16 */
+
+# FIXME: no typemap for PangoLayoutRun / PangoGlyphItem.
+# ##  PangoLayoutRun *pango_layout_iter_get_run_readonly (PangoLayoutIter *iter) 
+# PangoLayoutRun *
+# pango_layout_iter_get_run_readonly (iter)
+# 	PangoLayoutIter *iter
+
+##  PangoLayoutLine *pango_layout_iter_get_line_readonly (PangoLayoutIter *iter) 
+PangoLayoutLine *
+pango_layout_iter_get_line_readonly (iter)
+	PangoLayoutIter *iter
+
+#endif
 
 ##  gboolean pango_layout_iter_at_last_line (PangoLayoutIter *iter) 
 gboolean

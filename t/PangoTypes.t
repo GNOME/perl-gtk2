@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 48, noinit => 1;
+use Gtk2::TestHelper tests => 57, noinit => 1;
 
 # $Header$
 
@@ -15,6 +15,14 @@ my $language = Gtk2::Pango::Language -> from_string("de_DE");
 isa_ok($language, "Gtk2::Pango::Language");
 is($language -> to_string(), "de-de");
 is($language -> matches("*"), 1);
+
+SKIP: {
+  skip "1.16 stuff", 1
+    unless Gtk2::Pango -> CHECK_VERSION(1, 15, 2); # FIXME: 1.16
+
+
+  isa_ok(Gtk2::Pango::Language -> get_default(), "Gtk2::Pango::Language");
+}
 
 SKIP: {
   skip("PangoMatrix is new in 1.6", 44)
@@ -82,6 +90,29 @@ SKIP: {
   is($matrix -> yy, 2.3);
   is($matrix -> x0, 2.3);
   is($matrix -> y0, 2.3);
+}
+
+SKIP: {
+  skip "1.16 stuff", 8
+    unless Gtk2::Pango -> CHECK_VERSION(1, 15, 2); # FIXME: 1.16
+
+  my $matrix = Gtk2::Pango::Matrix -> new(); # identity
+
+  is_deeply([$matrix -> transform_distance(1.0, 2.0)], [1.0, 2.0]);
+
+  is_deeply([$matrix -> transform_point(1.0, 2.0)], [1.0, 2.0]);
+
+  my $rect = {x => 1.0, y => 2.0, width => 23.0, height => 42.0};
+  is_deeply($matrix -> transform_rectangle($rect), $rect);
+  is_deeply($matrix -> transform_pixel_rectangle($rect), $rect);
+
+  is(Gtk2::Pango::units_from_double(Gtk2::Pango::units_to_double(23)), 23);
+
+  my ($new_ink, $new_logical) = Gtk2::Pango::extents_to_pixels($rect, $rect);
+  isa_ok($new_ink, "HASH");
+  isa_ok($new_logical, "HASH");
+
+  is_deeply([Gtk2::Pango::extents_to_pixels(undef, undef)], [undef, undef]);
 }
 
 __END__

@@ -1,3 +1,21 @@
+2007-01-07	kaffeetisch
+
+	* t/GtkCellLayout.t, xs/GtkCellLayout.xs: Wrap
+	gtk_cell_layout_get_cells.
+
+	* xs/PangoLayout.xs: Handle NULL and undef in newSVPangoRectangle
+	and SvPangoRectangle.
+
+	* t/PangoLayout.t, xs/PangoLayout.xs: Wrap
+	pango_layout_get_line_readonly, pango_layout_get_lines_readonly,
+	and pango_layout_iter_get_line_readonly.
+
+	* t/PangoTypes.t, xs/PangoTypes.xs: Wrap pango_units_from_double,
+	pango_units_to_double, pango_extents_to_pixels,
+	pango_extents_to_pixels, pango_matrix_transform_distance,
+	pango_matrix_transform_point, pango_matrix_transform_rectangle,
+	and pango_matrix_transform_pixel_rectangle.
+
 2007-01-06  Emmanuele Bassi  <ebassi@gnome.org>
 
 	* xs/GtkRecentManager.xs: Add more documentation for the

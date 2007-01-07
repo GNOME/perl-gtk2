@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 65;
+use Gtk2::TestHelper tests => 68;
 
 # $Header$
 
@@ -179,6 +179,18 @@ SKIP: {
 
   $layout -> set_ellipsize("end");
   is($layout -> get_ellipsize(), "end");
+}
+
+SKIP: {
+  skip "1.16 stuff", 3
+    unless Gtk2::Pango -> CHECK_VERSION(1, 15, 2); # FIXME: 1.16
+
+
+  isa_ok($layout -> get_line_readonly(0), "Gtk2::Pango::LayoutLine");
+  my @lines = $layout -> get_lines_readonly();
+  is(scalar @lines, $layout -> get_line_count());
+  my $iter = $layout -> get_iter();
+  isa_ok($iter -> get_line_readonly(), "Gtk2::Pango::LayoutLine");
 }
 
 __END__

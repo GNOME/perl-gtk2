@@ -37,6 +37,32 @@ pango_find_base_dir (class, text)
 
 #endif
 
+#if PANGO_CHECK_VERSION (1, 15, 2) /* FIXME: 1.16 */
+
+=for object Gtk2::Pango::Font
+=cut
+
+=for apidoc __function__
+=cut
+int pango_units_from_double (double d);
+
+=for apidoc __function__
+=cut
+double pango_units_to_double (int i);
+
+=for apidoc __function__
+=cut
+##  void pango_extents_to_pixels (PangoRectangle *ink_rect, PangoRectangle *logical_rect)
+void
+pango_extents_to_pixels (PangoRectangle *ink_rect, PangoRectangle *logical_rect)
+    PPCODE:
+	pango_extents_to_pixels (ink_rect, logical_rect);
+	EXTEND (SP, 2);
+	PUSHs (sv_2mortal (newSVPangoRectangle (ink_rect)));
+	PUSHs (sv_2mortal (newSVPangoRectangle (logical_rect)));
+
+#endif
+
 MODULE = Gtk2::Pango::Types	PACKAGE = Gtk2::Pango::Language	PREFIX = pango_language_
 
 ##  PangoLanguage * pango_language_from_string (const char *language)
@@ -59,9 +85,21 @@ pango_language_matches (language, range_list)
 	PangoLanguage *language
 	const char *range_list
     ALIAS:
+	# FIXME: WTF is this doing here?  It's totally bogus, but has been in
+	# a stable release already ...
 	Gnome2::Pango::Language::matches = 0
     CLEANUP:
 	PERL_UNUSED_VAR (ix);
+
+#if PANGO_CHECK_VERSION (1, 15, 2) /* FIXME: 1.16 */
+
+##  PangoLanguage * pango_language_get_default (void)
+PangoLanguage *
+pango_language_get_default (class)
+    C_ARGS:
+	/* void */
+
+#endif
 
 MODULE = Gtk2::Pango::Types	PACKAGE = Gtk2::Pango::Matrix	PREFIX = pango_matrix_
 
@@ -148,5 +186,28 @@ void
 pango_matrix_concat (matrix, new_matrix)
 	PangoMatrix *matrix
 	PangoMatrix *new_matrix
+
+#endif
+
+#if PANGO_CHECK_VERSION (1, 15, 2) /* FIXME: 1.16 */
+
+void pango_matrix_transform_distance (const PangoMatrix *matrix, IN_OUTLIST double dx, IN_OUTLIST double dy);
+
+void pango_matrix_transform_point (const PangoMatrix *matrix, IN_OUTLIST double x, IN_OUTLIST double y);
+
+# void pango_matrix_transform_rectangle (const PangoMatrix *matrix, PangoRectangle *rect)
+PangoRectangle *
+pango_matrix_transform_rectangle (const PangoMatrix *matrix, PangoRectangle *rect)
+    ALIAS:
+	transform_pixel_rectangle = 1
+    CODE:
+	switch (ix) {
+		case 0: pango_matrix_transform_rectangle (matrix, rect); break;
+		case 1: pango_matrix_transform_pixel_rectangle (matrix, rect); break;
+		default: g_assert_not_reached ();
+	}
+	RETVAL = rect;
+    OUTPUT:
+	RETVAL
 
 #endif
