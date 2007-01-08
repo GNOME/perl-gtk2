@@ -1,3 +1,17 @@
+2007-01-08	kaffeetisch
+
+	Merge from HEAD:
+
+	* t/GtkIconView.t, xs/GtkIconView.xs: Fix the path handling in
+	Gtk2::IconView::get_selected_items.  Previously, the returned
+	paths were pointing to dead memory and any attempt to use them
+	caused havoc.
+
+	* xs/GtkRecentManager.xs: Add more documentation for the
+	Gtk2::RecentManager::add_item and Gtk2::RecentManager::add_full
+	methods; define the needed keys for the hashref to be passed
+	to the add_full method.
+
 2006-12-30	kaffeetisch
 
 	Merge from HEAD:

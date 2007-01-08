@@ -117,9 +117,8 @@ gtk_icon_view_get_selected_items (GtkIconView * icon_view)
 		GList * curr;
 
 		for (curr = list; curr; curr = g_list_next (curr))
-			XPUSHs (sv_2mortal (newSVGtkTreePath (curr->data)));
+			XPUSHs (sv_2mortal (newSVGtkTreePath_own (curr->data)));
 
-		g_list_foreach (list, (GFunc)gtk_tree_path_free, NULL);
 		g_list_free (list);
 	}
 	else
