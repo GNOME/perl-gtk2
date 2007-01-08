@@ -17,6 +17,7 @@ doctypes
 examples/accel_groups.pl
 examples/adding_stock_icons.pl
 examples/assistant.pl
+examples/attributes.pl
 examples/buttonbox.pl
 examples/cairo-rendering.pl
 examples/calendar.pl
@@ -96,6 +97,7 @@ maps-2.6
 maps-2.8
 maps_pango-1.0
 maps_pango-1.10
+maps_pango-1.16
 maps_pango-1.4
 maps_pango-1.6
 maps_pango-1.8

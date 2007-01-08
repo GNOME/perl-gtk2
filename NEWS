@@ -1,3 +1,21 @@
+Overview of changes in Gtk2 1.151
+=================================
+
+* Make the GET_SORT_COLUMN_ID vfunc handling in Gtk2::TreeSortable more robust.
+  [muppet]
+* Mark some widgets as deprecated in the documentation and suggest
+  alternatives.  [Emmanuele]
+* New API:  [Torsten]
+  - pango_units_from_double, pango_units_to_double, pango_extents_to_pixels,
+    pango_extents_to_pixels, pango_matrix_transform_distance,
+    pango_matrix_transform_point, pango_matrix_transform_rectangle, and
+    pango_matrix_transform_pixel_rectangle;
+  - pango_layout_get_line_readonly, pango_layout_get_lines_readonly, and
+    pango_layout_iter_get_line_readonly;
+  - gtk_cell_layout_get_cells.
+* Make the paths returned by Gtk2::IconView::get_selected_items usable.
+  [Torsten]
+
 Overview of changes in Gtk2 1.150
 =================================
 
