@@ -12,7 +12,7 @@
 use strict;
 use warnings;
 
-use Gtk2::TestHelper tests => 53,
+use Gtk2::TestHelper tests => 54,
     at_least_version => [2, 6, 0, "GtkIconView is new in 2.6"],
     ;
 
@@ -91,7 +91,7 @@ run_main sub {
     my $path = $iview->get_path_at_pos (50, 50);
 
     SKIP: {
-	skip 'get_path_at_pos (50, 50) returned undef', 29
+	skip 'get_path_at_pos (50, 50) returned undef', 30
 		unless defined $path;
 
 	isa_ok ($path, 'Gtk2::TreePath', '$iview->get_path_at_pos (50, 50)');
@@ -114,6 +114,8 @@ run_main sub {
 	@sels = $iview->get_selected_items;
 	is (scalar (@sels), 14, '$iview->get_selected_items, count 14');
 	isa_ok ($sels[0], 'Gtk2::TreePath', '$iview->get_selected_items, type');
+	# make sure it's actually a valid path
+	ok (defined $sels[0]->to_string);
 
 	$iview->unselect_all;
 	@sels = $iview->get_selected_items;

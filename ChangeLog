@@ -1,3 +1,10 @@
+2007-01-08	kaffeetisch
+
+	* t/GtkIconView.t, xs/GtkIconView.xs: Fix the path handling in
+	Gtk2::IconView::get_selected_items.  Previously, the returned
+	paths were pointing to dead memory and any attempt to use them
+	caused havoc.
+
 2007-01-07	kaffeetisch
 
 	* t/GtkCellLayout.t, xs/GtkCellLayout.xs: Wrap
