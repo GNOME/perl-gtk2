@@ -1,3 +1,13 @@
+Overview of changes in Gtk2 1.142
+=================================
+
+* Avoid segfaults in the GET_SORT_COLUMN_ID marshaller for custom
+  Gtk2::TreeSortable implementations.  [muppet]
+* Expand documentation for Gtk2::RecentManager::add_item and
+  Gtk2::RecentManager::add_full.  [Emmanuele]
+* Make the paths returned by Gtk2::IconView::get_selected_items usable.
+  [Torsten]
+
 Overview of changes in Gtk2 1.141
 =================================
 
