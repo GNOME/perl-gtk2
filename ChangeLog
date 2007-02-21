@@ -1,3 +1,8 @@
+2007-02-21	kaffeetisch
+
+	* t/GtkTreeModelSort.t: Test that the iter and path converters do
+	the right thing.
+
 2007-02-21	muppetman
 
 	* xs/GtkTreeModelSort.xs: fix copy and paste error that made
