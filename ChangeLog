@@ -1,3 +1,12 @@
+2007-02-21	kaffeetisch
+
+	Merge from HEAD:
+
+	* t/GtkTreeModelSort.t, xs/GtkTreeModelSort.xs: fix copy and paste
+	error that made gtk_tree_model_sort_convert_child_iter_to_iter()
+	unusable.  Reported by Adrian Priscak.  Also, make sure we got it
+	right this time.
+
 2007-01-21	kaffeetisch
 
 	* Gtk2.pm, NEWS, README, copyright.pod: Stable release 1.142.

@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 11, noinit => 1;
+use Gtk2::TestHelper tests => 15, noinit => 1;
 
 # $Header$
 
@@ -14,13 +14,26 @@ isa_ok($sort, "Gtk2::TreeModelSort");
 ginterfaces_ok($sort);
 is($sort -> get_model(), $list);
 
-my $path = Gtk2::TreePath -> new_from_string("1");
-my $iter = $sort -> get_iter($path);
+$sort -> set_sort_column_id(0, "ascending");
 
-isa_ok($sort -> convert_child_path_to_path($path), "Gtk2::TreePath");
-isa_ok($sort -> convert_child_iter_to_iter($iter), "Gtk2::TreeIter");
-isa_ok($sort -> convert_path_to_child_path($path), "Gtk2::TreePath");
-isa_ok($sort -> convert_iter_to_child_iter($iter), "Gtk2::TreeIter");
+my $path = Gtk2::TreePath -> new_from_string("1");
+my $iter = $list -> get_iter($path);
+
+my $sort_path = $sort -> convert_child_path_to_path($path);
+isa_ok($sort_path, "Gtk2::TreePath");
+is(Gtk2::TreeModel::get($sort, $sort -> get_iter($sort_path), 0), 23);
+
+my $sort_iter = $sort -> convert_child_iter_to_iter($iter);
+isa_ok($sort_iter, "Gtk2::TreeIter");
+is(Gtk2::TreeModel::get($sort, $sort_iter, 0), 23);
+
+my $child_path = $sort -> convert_path_to_child_path($sort_path);
+isa_ok($child_path, "Gtk2::TreePath");
+is($list -> get($list -> get_iter($child_path), 0), 23);
+
+my $child_iter = $sort -> convert_iter_to_child_iter($sort_iter);
+isa_ok($child_iter, "Gtk2::TreeIter");
+is($list -> get($child_iter, 0), 23);
 
 $sort -> reset_default_sort_func();
 $sort -> clear_cache();
