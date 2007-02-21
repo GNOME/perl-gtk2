@@ -88,7 +88,7 @@ gtk_tree_model_sort_convert_child_iter_to_iter (tree_model_sort, child_iter)
     PREINIT:
 	GtkTreeIter sort_iter;
     CODE:
-	gtk_tree_model_sort_convert_iter_to_child_iter (tree_model_sort,
+	gtk_tree_model_sort_convert_child_iter_to_iter (tree_model_sort,
 	                                                &sort_iter,
 	                                                child_iter);
 	RETVAL = &sort_iter;
