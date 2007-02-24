@@ -1,3 +1,8 @@
+2007-02-24	kaffeetisch
+
+	* xs/PangoTypes.xs: Move a comment out of the ALIAS section to
+	avoid confusing the docs generator.
+
 2007-02-21	kaffeetisch
 
 	* t/GtkTreeModelSort.t: Test that the iter and path converters do

@@ -79,14 +79,14 @@ const char *
 pango_language_to_string (language)
 	PangoLanguage *language
 
+# FIXME: WTF is the Gnome2::Pango::Language::matches alias doing here?  It's
+# totally bogus, but has been in a stable release already ...
 ##  gboolean pango_language_matches (PangoLanguage *language, const char *range_list)
 gboolean
 pango_language_matches (language, range_list)
 	PangoLanguage *language
 	const char *range_list
     ALIAS:
-	# FIXME: WTF is this doing here?  It's totally bogus, but has been in
-	# a stable release already ...
 	Gnome2::Pango::Language::matches = 0
     CLEANUP:
 	PERL_UNUSED_VAR (ix);
