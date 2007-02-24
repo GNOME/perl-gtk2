@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 15, noinit => 1;
+use Gtk2::TestHelper tests => 17, noinit => 1;
 
 # $Header$
 
@@ -15,6 +15,10 @@ ginterfaces_ok($sort);
 is($sort -> get_model(), $list);
 
 $sort -> set_sort_column_id(0, "ascending");
+
+# Make sure get() always resolves to the correct method.
+is($sort -> get($sort -> get_iter_from_string("0"), 0), 23);
+is($sort -> get("model"), $list);
 
 my $path = Gtk2::TreePath -> new_from_string("1");
 my $iter = $list -> get_iter($path);

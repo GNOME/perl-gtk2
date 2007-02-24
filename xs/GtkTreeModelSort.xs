@@ -23,6 +23,10 @@
 
 MODULE = Gtk2::TreeModelSort	PACKAGE = Gtk2::TreeModelSort	PREFIX = gtk_tree_model_sort_
 
+# gperl_prepend_isa ("Gtk2::TreeModelSort", "Gtk2::TreeModel") should be here
+# but isn't and can't be added now since that'd break compatibility.  Instead,
+# we handle get() at runtime in Gtk2.pm.
+
 GtkTreeModelSort_noinc *
 gtk_tree_model_sort_new_with_model (class, child_model)
 	GtkTreeModel * child_model

@@ -1,5 +1,12 @@
 2007-02-24	kaffeetisch
 
+	* Gtk2.pm, t/GtkTreeModelSort.t, xs/GtkTreeModelSort.xs: Make sure
+	calling get() on a Gtk2::TreeModelSort resolves to
+	Gtk2::TreeModel::get if appropriate, and, to keep backwards
+	compatibility, to Glib::Object::get otherwise.
+
+2007-02-24	kaffeetisch
+
 	* xs/PangoTypes.xs: Move a comment out of the ALIAS section to
 	avoid confusing the docs generator.
 
