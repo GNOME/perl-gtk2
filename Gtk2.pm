@@ -102,6 +102,22 @@ use overload
 	'&{}' => sub { \&Gtk2::TreeSortable::IterCompareFunc::invoke },
 	fallback => 1;
 
+package Gtk2::TreeModelSort;
+
+# We forgot to prepend Gtk2::TreeModel to @Gtk2::TreeModelSort::ISA.  So this
+# hack is here to make sure that $model_sort->get resolves to
+# Gtk2::TreeModel::get when appropriate and to Glib::Object::get otherwise, so
+# we stay backwards compatible.
+sub get {
+	if (@_ > 1 and ref $_[1] eq 'Gtk2::TreeIter') {
+		# called as $model->get ($iter, columns...);
+		return Gtk2::TreeModel::get (@_);
+	} else {
+		# called as $model->get (names...);
+		return Glib::Object::get (@_);
+	}
+}
+
 package Gtk2;
 
 
