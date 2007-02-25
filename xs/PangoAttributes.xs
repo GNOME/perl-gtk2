@@ -178,6 +178,12 @@ gtk2perl_pango_attribute_get_package (PangoAttribute * attr)
 	    case PANGO_ATTR_STRIKETHROUGH_COLOR:
 		return "Gtk2::Pango::AttrStrikethroughColor";
 #endif
+#if PANGO_CHECK_VERSION (1, 15, 2) /* FIXME: 1.16 */
+	    case PANGO_ATTR_GRAVITY:
+		return "Gtk2::Pango::AttrGravity";
+	    case PANGO_ATTR_GRAVITY_HINT:
+		return "Gtk2::Pango::AttrGravityHint";
+#endif
 	    default:
 	    {
 		const char *package =
@@ -296,6 +302,16 @@ pango_color_parse (class, const gchar * spec)
 	RETVAL = &color;
     OUTPUT:
 	RETVAL
+
+#if PANGO_CHECK_VERSION (1, 15, 2) /* FIXME: 1.16 */
+
+##gchar *pango_color_to_string(const PangoColor *color);
+gchar_own *
+pango_color_to_string (class, const PangoColor *color)
+    C_ARGS:
+	color
+
+#endif
 
 # --------------------------------------------------------------------------- #
 # First, the base class of all attributes
@@ -792,6 +808,52 @@ PangoAttribute_own * pango_attr_strikethrough_color_new (class, guint16 red, gui
 	red, green, blue
     POSTCALL:
 	GTK2PERL_PANGO_ATTR_STORE_INDICES (4, RETVAL);
+
+#endif
+
+# --------------------------------------------------------------------------- #
+
+#if PANGO_CHECK_VERSION (1, 15, 2) /* FIXME: 1.16 */
+
+MODULE = Gtk2::Pango::Attributes	PACKAGE = Gtk2::Pango::AttrGravity	PREFIX = pango_attr_gravity_
+
+BOOT:
+	gperl_set_isa ("Gtk2::Pango::AttrGravity", "Gtk2::Pango::Attribute");
+
+PangoAttribute_own * pango_attr_gravity_new (class, PangoGravity gravity, ...)
+    C_ARGS:
+	gravity
+    POSTCALL:
+	GTK2PERL_PANGO_ATTR_STORE_INDICES (2, RETVAL);
+
+PangoGravity
+value (PangoAttribute * attr, ...)
+    CODE:
+	RETVAL = ((PangoAttrInt*)attr)->value;
+	if (items > 1)
+		((PangoAttrInt*)attr)->value = SvPangoGravity (ST (1));
+    OUTPUT:
+	RETVAL
+
+MODULE = Gtk2::Pango::Attributes	PACKAGE = Gtk2::Pango::AttrGravityHint	PREFIX = pango_attr_gravity_hint_
+
+BOOT:
+	gperl_set_isa ("Gtk2::Pango::AttrGravityHint", "Gtk2::Pango::Attribute");
+
+PangoAttribute_own * pango_attr_gravity_hint_new (class, PangoGravityHint hint, ...)
+    C_ARGS:
+	hint
+    POSTCALL:
+	GTK2PERL_PANGO_ATTR_STORE_INDICES (2, RETVAL);
+
+PangoGravityHint
+value (PangoAttribute * attr, ...)
+    CODE:
+	RETVAL = ((PangoAttrInt*)attr)->value;
+	if (items > 1)
+		((PangoAttrInt*)attr)->value = SvPangoGravityHint (ST (1));
+    OUTPUT:
+	RETVAL
 
 #endif
 

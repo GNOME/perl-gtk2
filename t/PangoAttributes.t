@@ -1,16 +1,23 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 185;
+use Gtk2::TestHelper tests => 200;
 
 # $Header$
 
 #
-# pango_color_parse()
+# pango_color_parse(), pango_color_to_string()
 #
 
 my $color = Gtk2::Pango::Color->parse ('white');
 isa_ok ($color, 'ARRAY');
 is_deeply ($color, [0xffff, 0xffff, 0xffff]);
+
+SKIP: {
+	skip 'new 1.16 stuff', 1
+		unless Gtk2::Pango->CHECK_VERSION (1, 15, 2); # FIXME: 1.16
+
+	is (Gtk2::Pango::Color->to_string ($color), '#ffffffffffff');
+}
 
 #
 # PangoAttrLanguage
@@ -367,6 +374,39 @@ SKIP: {
 	is_deeply ($attr->value, [0xffff, 0xffff, 0xffff]);
 
 	$attr = Gtk2::Pango::AttrStrikethroughColor->new (0, 0, 0, 23, 42);
+	is ($attr->start_index, 23);
+	is ($attr->end_index, 42);
+}
+
+#
+# PangoAttrGravity, PangoAttrGravityHint
+#
+
+SKIP: {
+	skip 'PangoAttrGravity, PangoAttrGravityHint', 14
+		unless Gtk2::Pango->CHECK_VERSION (1, 15, 2); # FIXME: 1.16
+
+	$attr = Gtk2::Pango::AttrGravity->new ('south');
+	isa_ok ($attr, 'Gtk2::Pango::AttrGravity');
+	isa_ok ($attr, 'Gtk2::Pango::Attribute');
+	is ($attr->value, 'south');
+
+	is ($attr->value ('north'), 'south');
+	is ($attr->value, 'north');
+
+	$attr = Gtk2::Pango::AttrGravity->new ('south', 23, 42);
+	is ($attr->start_index, 23);
+	is ($attr->end_index, 42);
+
+	$attr = Gtk2::Pango::AttrGravityHint->new ('strong');
+	isa_ok ($attr, 'Gtk2::Pango::AttrGravityHint');
+	isa_ok ($attr, 'Gtk2::Pango::Attribute');
+	is ($attr->value, 'strong');
+
+	is ($attr->value ('line'), 'strong');
+	is ($attr->value, 'line');
+
+	$attr = Gtk2::Pango::AttrGravityHint->new ('strong', 23, 42);
 	is ($attr->start_index, 23);
 	is ($attr->end_index, 42);
 }

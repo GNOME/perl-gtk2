@@ -490,6 +490,16 @@ PangoLayoutIter *
 pango_layout_get_iter (layout)
 	PangoLayout *layout
 
+#if PANGO_CHECK_VERSION (1, 15, 4) /* FIXME: 1.16 */
+
+gboolean pango_layout_is_wrapped (PangoLayout *layout);
+
+gboolean pango_layout_is_ellipsized (PangoLayout *layout);
+
+int pango_layout_get_unknown_glyphs_count (PangoLayout *layout);
+
+#endif
+
 # --------------------------------------------------------------------------- #
 
 MODULE = Gtk2::Pango::Layout	PACKAGE = Gtk2::Pango::LayoutLine	PREFIX = pango_layout_line_

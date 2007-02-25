@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 14;
+use Gtk2::TestHelper tests => 15;
 
 # $Header$
 
@@ -48,13 +48,16 @@ SKIP: {
 }
 
 SKIP: {
-  skip("new 1.16 stuff", 2)
-    unless (Gtk2::Pango -> CHECK_VERSION(1, 15, 0)); # FIXME: 1.16
+  skip("new 1.16 stuff", 3)
+    unless (Gtk2::Pango -> CHECK_VERSION(1, 15, 2)); # FIXME: 1.16
 
   ok(defined $context -> get_gravity());
 
   $context -> set_base_gravity("north");
   is($context -> get_base_gravity(), "north");
+
+  $context -> set_gravity_hint("natural");
+  is($context -> get_gravity_hint(), "natural");
 }
 
 __END__

@@ -1,3 +1,36 @@
+2007-02-25	kaffeetisch
+
+	* Makefile.PL
+	* xs_files-2.0
+	* xs_files-2.8
+	* xs_files_pango-1.0
+	* xs_files_pango-1.6
+	* xs_files_pango-1.10: Split pango's xs file list out into
+	separate files.
+
+	* maps_pango-1.16:
+	* xs_files_pango-1.16:
+	* t/PangoAttributes.t,
+	* xs/PangoAttributes.xs:
+	* t/PangoContext.t:
+	* xs/PangoContext.xs,
+	* t/PangoGravity.t:
+	* xs/PangoGravity.xs: Add support for the new gravity API:
+	PangoGravityHint, PangoAttrGravity, PangoAttrGravityHint,
+	pango_context_set_gravity_hint, pango_context_get_gravity_hint,
+	PANGO_GRAVITY_IS_VERTICAL (wrapped as
+	Gtk2::Pango::Gravity::is_vertical), pango_gravity_to_rotation,
+	pango_gravity_get_for_matrix, pango_gravity_get_for_script.
+
+	* t/PangoAttributes.t:
+	* xs/PangoAttributes.xs: Wrap pango_color_to_string.
+
+	* t/PangoTypes.t:
+	* xs/PangoTypes.xs:
+	* t/PangoMatrix.t,
+	* xs/PangoMatrix.xs: Follow upstream and split out the matrix
+	stuff into separate files.
+
 2007-02-24	kaffeetisch
 
 	* Gtk2.pm, t/GtkTreeModelSort.t, xs/GtkTreeModelSort.xs: Make sure
