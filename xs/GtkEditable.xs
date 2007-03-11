@@ -60,7 +60,7 @@ gtk2perl_editable_insert_text_marshal (GClosure * closure,
 	GPERL_CLOSURE_MARSHAL_PUSH_INSTANCE (param_values);
 
 	/* new_text */
-	string = newSVpv (g_value_get_string (param_values+1), 0);
+	string = newSVGChar (g_value_get_string (param_values+1));
 	XPUSHs (string);
 
 	/* text length is redundant, but documented.  it doesn't hurt

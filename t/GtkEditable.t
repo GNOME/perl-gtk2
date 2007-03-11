@@ -1,6 +1,8 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 9;
+use Gtk2::TestHelper tests => 10;
+
+use utf8; # for the umlaut test
 
 # $Header$
 
@@ -37,6 +39,10 @@ $entry -> cut_clipboard();
 $entry -> copy_clipboard();
 $entry -> paste_clipboard();
 $entry -> delete_selection();
+
+$entry -> signal_connect(insert_text => sub { return (); });
+$entry -> set_text("äöü");
+is($entry -> get_text(), "äöü");
 
 __END__
 
