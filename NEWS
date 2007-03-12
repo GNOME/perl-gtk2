@@ -1,3 +1,9 @@
+Overview of changes in Gtk2 1.144
+=================================
+
+* Fix a string encoding problem in Gtk2::Editable's insert-text signal
+  marshaller.  [Roderich Schupp]
+
 Overview of changes in Gtk2 1.143
 =================================
 
