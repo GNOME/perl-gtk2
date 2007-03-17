@@ -1,5 +1,15 @@
 2007-03-17	kaffeetisch
 
+	* t/GdkEvent.t
+	* xs/GdkEvent.xs: Wrap gdk_event_request_motions.
+
+	* t/GtkWidget.t
+	* xs/GtkWidget.xs: Wrap gtk_widget_set_tooltip_window,
+	gtk_widget_get_tooltip_window, and
+	gtk_widget_trigger_tooltip_query.
+
+2007-03-17	kaffeetisch
+
 	* t/GtkAccelLabel.t
 	* t/GtkBox.t
 	* t/GtkButtonBox.t

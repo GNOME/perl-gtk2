@@ -1127,4 +1127,10 @@ gboolean gtk_widget_keynav_failed (GtkWidget *widget, GtkDirectionType direction
 
 void gtk_widget_error_bell (GtkWidget *widget);
 
+void gtk_widget_set_tooltip_window (GtkWidget *widget, GtkWindow_ornull *custom_window);
+
+GtkWindow_ornull *gtk_widget_get_tooltip_window (GtkWidget *widget);
+
+void gtk_widget_trigger_tooltip_query (GtkWidget *widget);
+
 #endif

@@ -941,6 +941,16 @@ y (GdkEvent * event, gdouble newvalue=0.0)
     OUTPUT:
 	RETVAL
 
+#if GTK_CHECK_VERSION (2, 11, 0) /* FIXME: 2.12 */
+
+# void gdk_event_request_motions (GdkEventMotion *event);
+void
+request_motions (GdkEvent *event)
+    CODE:
+	gdk_event_request_motions ((GdkEventMotion *) event);
+
+#endif
+
 MODULE = Gtk2::Gdk::Event	PACKAGE = Gtk2::Gdk::Event::Button
 
 =for position post_hierarchy

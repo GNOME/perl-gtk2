@@ -3,7 +3,7 @@
 
 use warnings;
 use strict;
-use Gtk2::TestHelper tests => 124;
+use Gtk2::TestHelper tests => 126;
 
 # we can't instantiate Gtk2::Widget, it's abstract.  use a DrawingArea instead.
 
@@ -415,10 +415,20 @@ SKIP: {
 }
 
 SKIP: {
-	skip "new 2.12 stuff", 1
+	skip "new 2.12 stuff", 3
 		unless Gtk2->CHECK_VERSION (2, 11, 0); # FIXME: 2.12
 
 	ok (defined $widget->keynav_failed ('tab-backward'));
+
+	$widget->set_tooltip_window (undef);
+	is ($widget->get_tooltip_window, undef);
+
+	my $window = Gtk2::Window->new;
+	$widget->set_tooltip_window ($window);
+	is ($widget->get_tooltip_window, $window);
+
+	$widget->trigger_tooltip_query;
+
 	$widget->error_bell;
 }
 

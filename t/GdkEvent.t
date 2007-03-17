@@ -42,6 +42,13 @@ is ($event->state, 'partial', '$visibility_event->state');
 
 # Motion #######################################################################
 
+my $window = Gtk2::Gdk::Window->new (undef, {
+			width => 20,
+			height => 20,
+			wclass => "output",
+			window_type => "toplevel"
+		});
+
 my $device = Gtk2::Gdk::Device -> get_core_pointer();
 
 isa_ok ($event = Gtk2::Gdk::Event->new ('motion-notify'),
@@ -61,6 +68,15 @@ is ($event->x, 13, '$motion_event->x');
 
 $event->y (13);
 is ($event->y, 13, '$motion_event->y');
+
+SKIP: {
+	skip "new 2.12 stuff", 0
+		unless Gtk2->CHECK_VERSION (2, 11, 0); # FIXME: 2.12
+
+	$event->device ($device);
+	$event->window ($window);
+	$event->request_motions;
+}
 
 # Button #######################################################################
 
@@ -120,13 +136,6 @@ is ($event->group, 11, '$key_event->group');
 
 isa_ok ($event = Gtk2::Gdk::Event->new ('enter-notify'),
 	'Gtk2::Gdk::Event::Crossing', 'Gtk2::Gdk::Event->new crossing');
-
-my $window = Gtk2::Gdk::Window->new (undef, {
-			width => 20,
-			height => 20,
-			wclass => "output",
-			window_type => "toplevel"
-		});
 
 $event->subwindow ($window);
 is ($event->subwindow, $window, '$crossing_event->window');
