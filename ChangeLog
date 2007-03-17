@@ -1,3 +1,8 @@
+2007-03-17	kaffeetisch
+
+	* xs/GtkTextBufferRichText.xs: Patch from Mario Fischer fixes a
+	compilation problem that occurs when using MS' compiler.
+
 2007-03-11	kaffeetisch
 
 	* t/GtkEditable.t
