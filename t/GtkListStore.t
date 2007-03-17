@@ -1,5 +1,5 @@
 #!/usr/bin/perl -w
-use Gtk2::TestHelper tests => 47, noinit => 1;
+use Gtk2::TestHelper tests => 47;
 
 # $Header$
 

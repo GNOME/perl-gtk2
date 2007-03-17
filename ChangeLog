@@ -1,5 +1,19 @@
 2007-03-17	kaffeetisch
 
+	* t/GtkAccelLabel.t
+	* t/GtkBox.t
+	* t/GtkButtonBox.t
+	* t/GtkCheckButton.t
+	* t/GtkCheckMenuItem.t
+	* t/GtkListStore.t
+	* t/GtkRadioMenuItem.t
+	* t/GtkTable.t
+	* t/GtkTextTag.t
+	* t/GtkTreeSelection.t: Remove the -noinit option for tests which
+	now need an initialized gtk+.
+
+2007-03-17	kaffeetisch
+
 	* xs/GtkTextBufferRichText.xs: Patch from Mario Fischer fixes a
 	compilation problem that occurs when using MS' compiler.
 

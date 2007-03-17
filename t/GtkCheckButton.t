@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 8, noinit => 1;
+use Gtk2::TestHelper tests => 8;
 
 # $Header$
 
