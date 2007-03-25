@@ -1,3 +1,10 @@
+2007-03-25	kaffeetisch
+
+	* maps-2.12
+	* xs_files-2.12
+	* t/GtkTooltip.t
+	* xs/GtkTooltip.xs: Wrap the new GtkTooltip API.
+
 2007-03-17	kaffeetisch
 
 	* t/GdkEvent.t
