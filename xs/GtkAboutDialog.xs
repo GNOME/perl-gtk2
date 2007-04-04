@@ -31,6 +31,22 @@ MODULE = Gtk2::AboutDialog PACKAGE = Gtk2 PREFIX = gtk_
 =for object Gtk2::AboutDialog
 =cut
 
+=for position post_methods
+
+=head1 URL AND EMAIL HOOKS
+
+When setting the website and email hooks for the Gtk2::AboutDialog widget, you
+should remember that the order is important: you should set the hook functions
+B<before> setting the website and email URL properties, like this:
+
+  $about_dialog->set_url_hook(\&launch_web_browser);
+  $about_dialog->set_website($app_website);
+
+otherwise the AboutDialog will not display the website and the email addresses
+as clickable.
+
+=cut
+
 =for apidoc
 =for arg first_property_name (string)
 =for arg ... the rest of a list of name=>property value pairs.
