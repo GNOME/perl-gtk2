@@ -1,5 +1,8 @@
 2007-06-12	kaffeetisch
 
+	* t/GtkAction.t
+	* xs/GtkAction.xs: Wrap gtk_action_create_menu.
+
 	* t/GtkEntry.t
 	* xs/GtkEntry.xs: Wrap gtk_entry_set_cursor_hadjustment and
 	gtk_entry_get_cursor_hadjustment.
