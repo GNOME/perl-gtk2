@@ -4,7 +4,7 @@
 
 use Gtk2::TestHelper
 	at_least_version => [2, 4, 0, "GtkEntryCompletion is new in 2.4"],
-	tests => 10;
+	tests => 12;
 
 sub match_func {
 	my ($completion, $key, $iter, $data) = @_;
@@ -71,6 +71,16 @@ SKIP: {
 
 	$completion->set_popup_single_match (TRUE);
 	is ($completion->get_popup_single_match, TRUE);
+}
+
+SKIP: {
+	skip 'new 2.12 stuff', 2
+		unless Gtk2->CHECK_VERSION (2, 11, 0); # FIXME: 2.12
+
+	$completion->set_inline_selection (TRUE);
+	is ($completion->get_inline_selection, TRUE);
+
+	is ($completion->get_completion_prefix, undef);
 }
 
 __END__

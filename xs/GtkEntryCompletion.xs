@@ -112,3 +112,13 @@ void gtk_entry_completion_set_popup_single_match (GtkEntryCompletion *completion
 gboolean gtk_entry_completion_get_popup_single_match (GtkEntryCompletion *completion);
 
 #endif
+
+#if GTK_CHECK_VERSION(2, 11, 0) /* FIXME: 2.12 */
+
+void gtk_entry_completion_set_inline_selection (GtkEntryCompletion *completion, gboolean inline_selection);
+
+gboolean gtk_entry_completion_get_inline_selection (GtkEntryCompletion *completion);
+
+const gchar_ornull *gtk_entry_completion_get_completion_prefix (GtkEntryCompletion *completion);
+
+#endif

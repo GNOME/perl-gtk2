@@ -1,5 +1,11 @@
 2007-06-12	kaffeetisch
 
+	* t/GtkEntryCompletion.t
+	* xs/GtkEntryCompletion.xs: Wrap
+	gtk_entry_completion_set_inline_selection,
+	gtk_entry_completion_get_inline_selection, and
+	gtk_entry_completion_get_completion_prefix.
+
 	* t/01.GtkWindow.t
 	* xs/GtkWindow.xs: Wrap gtk_window_set_startup_id,
 	gtk_window_set_opacity, and gtk_window_get_opacity.
