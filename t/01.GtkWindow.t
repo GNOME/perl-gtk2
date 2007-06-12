@@ -9,7 +9,7 @@
 
 #########################
 
-use Gtk2::TestHelper tests => 109;
+use Gtk2::TestHelper tests => 110;
 
 ok( my $win = Gtk2::Window->new );
 ok( $win = Gtk2::Window->new('popup') );
@@ -354,6 +354,16 @@ SKIP: {
 	is ($win->get_deletable, TRUE);
 
 	isa_ok ($win->get_group, "Gtk2::WindowGroup");
+}
+
+SKIP: {
+	skip("new 2.12 stuff", 1)
+		unless Gtk2->CHECK_VERSION (2, 11, 0); # FIXME: 2.12
+
+	$win->set_startup_id('Start me!');
+
+	$win->set_opacity (0.5);
+	is ($win->get_opacity, 0.5);
 }
 
 __END__

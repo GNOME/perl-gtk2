@@ -668,6 +668,16 @@ GtkWindowGroup_ornull * gtk_window_get_group (GtkWindow *window);
 
 #endif
 
+#if GTK_CHECK_VERSION (2, 11, 0) /* FIXME: 2.12 */
+
+void gtk_window_set_startup_id (GtkWindow *window, const gchar *startup_id);
+
+void gtk_window_set_opacity (GtkWindow *window, gdouble opacity);
+
+gdouble gtk_window_get_opacity (GtkWindow *window);
+
+#endif
+
 MODULE = Gtk2::Window	PACKAGE = Gtk2::WindowGroup	PREFIX = gtk_window_group_
 
 ## GtkWindowGroup * gtk_window_group_new (void)
