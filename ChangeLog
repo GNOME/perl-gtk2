@@ -1,5 +1,9 @@
 2007-06-12	kaffeetisch
 
+	* t/PangoLayout.t
+	* xs/PangoLayout.xs: Add support for the new PangoLogAttr property
+	is_expandable_space.
+
 	* t/GtkAction.t
 	* xs/GtkAction.xs: Wrap gtk_action_create_menu.
 

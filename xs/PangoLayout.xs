@@ -136,19 +136,27 @@ newSVPangoLogAttr (PangoLogAttr * logattr)
 {
 	HV * hv = newHV ();
 
-	hv_store (hv, "is_line_break",               13, newSVuv (logattr->is_line_break),               0);
-	hv_store (hv, "is_mandatory_break",          18, newSVuv (logattr->is_mandatory_break),          0);
-	hv_store (hv, "is_char_break",               13, newSVuv (logattr->is_char_break),               0);
-	hv_store (hv, "is_white",                     8, newSVuv (logattr->is_white),                    0);
-	hv_store (hv, "is_cursor_position",          18, newSVuv (logattr->is_cursor_position),          0);
-	hv_store (hv, "is_word_start",               13, newSVuv (logattr->is_word_start),               0);
-	hv_store (hv, "is_word_end",                 11, newSVuv (logattr->is_word_end),                 0);
-	hv_store (hv, "is_sentence_boundary",        20, newSVuv (logattr->is_sentence_boundary),        0);
-	hv_store (hv, "is_sentence_start",           17, newSVuv (logattr->is_sentence_start),           0);
-	hv_store (hv, "is_sentence_end",             15, newSVuv (logattr->is_sentence_end),             0);
+#define STORE_BIT(key) \
+	hv_store (hv, #key, sizeof (#key) - 1, newSVuv (logattr->key), 0)
+
+	STORE_BIT (is_line_break);
+	STORE_BIT (is_mandatory_break);
+	STORE_BIT (is_char_break);
+	STORE_BIT (is_white);
+	STORE_BIT (is_cursor_position);
+	STORE_BIT (is_word_start);
+	STORE_BIT (is_word_end);
+	STORE_BIT (is_sentence_boundary);
+	STORE_BIT (is_sentence_start);
+	STORE_BIT (is_sentence_end);
 #if PANGO_CHECK_VERSION (1, 4, 0)
-	hv_store (hv, "backspace_deletes_character", 27, newSVuv (logattr->backspace_deletes_character), 0);
+	STORE_BIT (backspace_deletes_character);
 #endif
+#if PANGO_CHECK_VERSION (1, 17, 0) /* FIXME: 1.18 */
+	STORE_BIT (is_expandable_space);
+#endif
+
+#undef STORE_BIT
 
 	return newRV_noinc ((SV*) hv);
 }
