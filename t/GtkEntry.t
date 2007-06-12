@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 19;
+use Gtk2::TestHelper tests => 21;
 
 # $Header$
 
@@ -72,6 +72,18 @@ SKIP: {
   is($entry -> get_inner_border(), undef);
   $entry -> set_inner_border({left=>1, right=>2, top=>3, bottom=>4});
   is_deeply($entry -> get_inner_border(), {left=>1, right=>2, top=>3, bottom=>4});
+}
+
+SKIP: {
+  skip("cursor hadjustment stuff", 2)
+    unless Gtk2->CHECK_VERSION (2, 11, 0); # FIXME: 2.12
+
+  $entry -> set_cursor_hadjustment(undef);
+  is($entry -> get_cursor_hadjustment(), undef);
+
+  my $adj = Gtk2::Adjustment -> new(0.0, -1.0, 1.0, 0.1, 0.2, 0.5);
+  $entry -> set_cursor_hadjustment($adj);
+  is($entry -> get_cursor_hadjustment(), $adj);
 }
 
 __END__

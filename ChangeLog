@@ -1,5 +1,9 @@
 2007-06-12	kaffeetisch
 
+	* t/GtkEntry.t
+	* xs/GtkEntry.xs: Wrap gtk_entry_set_cursor_hadjustment and
+	gtk_entry_get_cursor_hadjustment.
+
 	* t/GtkEntryCompletion.t
 	* xs/GtkEntryCompletion.xs: Wrap
 	gtk_entry_completion_set_inline_selection,
