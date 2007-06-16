@@ -8,6 +8,9 @@
 	* xs/GtkVolumeButton.xs: Add support for GtkScaleButton and
 	GtkVolumeButton.
 
+	* t/GdkPixbufLoader.t: Use more adapted size values to test
+	load-time scaling in order to avoid test failures due to rounding.
+
 2007-06-12	kaffeetisch
 
 	* t/PangoLayout.t

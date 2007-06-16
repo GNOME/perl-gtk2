@@ -91,7 +91,7 @@ SKIP: {
 
     $loader = Gtk2::Gdk::PixbufLoader->new;
     $loader->set_size (48, 32);
-    $loader->write (make_ppm_data (100, 100));
+    $loader->write (make_ppm_data (96, 64));
     $loader->close;
     $pixbuf = $loader->get_pixbuf;
     is ($pixbuf->get_width, 48);
