@@ -1,5 +1,7 @@
 2007-06-16	kaffeetisch
 
+	* maps-2.12
+	* xs_files-2.12
 	* t/GtkScaleButton.t
 	* t/GtkVolumeButton.t
 	* xs/GtkScaleButton.xs

@@ -1,1 +1,3 @@
+xs/GtkScaleButton.xs
 xs/GtkTooltip.xs
+xs/GtkVolumeButton.xs

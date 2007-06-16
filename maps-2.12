@@ -1,1 +1,3 @@
+GTK_TYPE_SCALE_BUTTON	GtkScaleButton	GtkObject	Gtk2::ScaleButton
 GTK_TYPE_TOOLTIP	GtkTooltip	GObject	Gtk2::Tooltip
+GTK_TYPE_VOLUME_BUTTON	GtkVolumeButton	GtkObject	Gtk2::VolumeButton
