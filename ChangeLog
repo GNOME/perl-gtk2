@@ -8,6 +8,11 @@
 	* xs/GtkVolumeButton.xs: Add support for GtkScaleButton and
 	GtkVolumeButton.
 
+	* maps-2.12
+	* xs_files-2.12
+	* t/GtkRecentAction.t
+	* xs/GtkRecentAction.xs: Add support for GtkRecentAction.
+
 	* t/GdkPixbufLoader.t: Use more adapted size values to test
 	load-time scaling in order to avoid test failures due to rounding.
 
