@@ -26,6 +26,14 @@
 	and gtk_print_settings_to_key_file.  Also fix the test fail to
 	actually run any tests.
 
+	* t/GtkTooltip.t
+	* xs/GtkTooltip.xs: Wrap gtk_tooltip_set_text.
+
+	* t/GtkWidget.t
+	* xs/GtkWidget.xs: Wrap gtk_widget_set_tooltip_text,
+	gtk_widget_get_tooltip_text, gtk_widget_set_tooltip_markup,
+	gtk_widget_get_tooltip_markup, and gtk_widget_modify_cursor.
+
 2007-06-12	kaffeetisch
 
 	* t/PangoLayout.t

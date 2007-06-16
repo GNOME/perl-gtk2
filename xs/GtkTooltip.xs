@@ -12,6 +12,8 @@ MODULE = Gtk2::Tooltip	PACKAGE = Gtk2::Tooltip	PREFIX = gtk_tooltip_
 
 void gtk_tooltip_set_markup (GtkTooltip *tooltip, const gchar_ornull *markup);
 
+void gtk_tooltip_set_text (GtkTooltip *tooltip, const gchar_ornull *text);
+
 void gtk_tooltip_set_icon (GtkTooltip *tooltip, GdkPixbuf_ornull *pixbuf);
 
 void gtk_tooltip_set_icon_from_stock (GtkTooltip *tooltip, const gchar_ornull *stock_id, GtkIconSize size);

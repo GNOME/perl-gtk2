@@ -1133,4 +1133,14 @@ GtkWindow_ornull *gtk_widget_get_tooltip_window (GtkWidget *widget);
 
 void gtk_widget_trigger_tooltip_query (GtkWidget *widget);
 
+void gtk_widget_set_tooltip_text (GtkWidget *widget, const gchar_ornull *text);
+
+gchar_own * gtk_widget_get_tooltip_text (GtkWidget *widget);
+
+void gtk_widget_set_tooltip_markup (GtkWidget *widget, const gchar_ornull *markup);
+
+gchar_own * gtk_widget_get_tooltip_markup (GtkWidget *widget);
+
+void gtk_widget_modify_cursor (GtkWidget *widget, const GdkColor *primary, const GdkColor *secondary);
+
 #endif

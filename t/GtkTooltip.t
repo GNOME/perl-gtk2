@@ -17,6 +17,9 @@ $window->signal_connect (query_tooltip => sub {
   $tip->set_markup ("<b>Alb!</b>");
   $tip->set_markup (undef);
 
+  $tip->set_text ('Alb!');
+  $tip->set_text (undef);
+
   $tip->set_icon (Gtk2::Gdk::Pixbuf->new ("rgb", TRUE, 8, 12, 12));
   $tip->set_icon (undef);
 
