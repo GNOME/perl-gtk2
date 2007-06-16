@@ -34,6 +34,10 @@
 	gtk_widget_get_tooltip_text, gtk_widget_set_tooltip_markup,
 	gtk_widget_get_tooltip_markup, and gtk_widget_modify_cursor.
 
+	* t/GtkIconTheme.t
+	* xs/GtkIconTheme.xs: Wrap gtk_icon_theme_list_contexts and
+	gtk_icon_theme_choose_icon.
+
 2007-06-12	kaffeetisch
 
 	* t/PangoLayout.t

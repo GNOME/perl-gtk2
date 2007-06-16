@@ -134,6 +134,52 @@ gtk_icon_theme_get_icon_sizes (GtkIconTheme *icon_theme, const gchar *icon_name)
 
 #endif
 
+#if GTK_CHECK_VERSION (2, 11, 0) /* FIXME: 2.12 */
+
+# GList * gtk_icon_theme_list_contexts (GtkIconTheme *icon_theme);
+void
+gtk_icon_theme_list_contexts (GtkIconTheme *icon_theme)
+    PREINIT:
+	GList *list, *i;
+    PPCODE:
+	list = gtk_icon_theme_list_contexts (icon_theme);
+	for (i = list; i != NULL; i = i->next) {
+		XPUSHs (sv_2mortal (newSVGChar (i->data)));
+		g_free (i->data);
+	}
+	g_list_free (list);
+
+# GtkIconInfo * gtk_icon_theme_choose_icon (GtkIconTheme *icon_theme, const gchar *icon_names[], gint size, GtkIconLookupFlags flags);
+GtkIconInfo_own_ornull *
+gtk_icon_theme_choose_icon (GtkIconTheme *icon_theme, SV *icon_names, gint size, GtkIconLookupFlags flags)
+    PREINIT:
+	gchar **names;
+	AV *av;
+	int length, i;
+    CODE:
+	if (!SvRV (icon_names) || SvTYPE (SvRV (icon_names)) != SVt_PVAV)
+		croak ("icon_names must be an array reference of icon names");
+	av = (AV *) SvRV (icon_names);
+	length = av_len (av) + 1;
+	names = g_new0 (gchar *, length + 1);
+	for (i = 0; i < length; i++) {
+		SV **sv = av_fetch (av, i, 0);
+		names[i] = sv && SvOK (*sv) ? SvPV_nolen (*sv) : "";
+	}
+	names[length] = NULL;
+
+	RETVAL = gtk_icon_theme_choose_icon (
+			icon_theme,
+			(const char **) names,
+			size,
+			flags);
+
+	g_free (names);
+    OUTPUT:
+	RETVAL
+
+#endif
+
 MODULE = Gtk2::IconTheme	PACKAGE = Gtk2::IconInfo	PREFIX = gtk_icon_info_
 
  ## don't need to bind these -- they are automagical
