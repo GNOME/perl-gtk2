@@ -53,3 +53,36 @@ gdouble gtk_paper_size_get_default_right_margin (GtkPaperSize *size, GtkUnit uni
 const gchar *gtk_paper_size_get_default (class)
     C_ARGS:
 	/* void */
+
+#if GTK_CHECK_VERSION (2, 11, 0) /* FIXME: 2.12 */
+
+# GtkPaperSize * gtk_paper_size_new_from_key_file (GKeyFile *key_file, const gchar *group_name, GError **error);
+=for apidoc __gerror__
+=cut
+GtkPaperSize_own * gtk_paper_size_new_from_key_file (class, GKeyFile *key_file, const gchar *group_name)
+    PREINIT:
+	GError *error = NULL;
+    CODE:
+	RETVAL = gtk_paper_size_new_from_key_file (key_file, group_name, &error);
+	if (error)
+		gperl_croak_gerror (NULL, error);
+    OUTPUT:
+	RETVAL
+
+void gtk_paper_size_to_key_file (GtkPaperSize *size, GKeyFile *key_file, const gchar *group_name);
+
+# GList * gtk_paper_size_get_paper_sizes (gboolean include_custom);
+=for apidoc __function__
+=cut
+void
+gtk_paper_size_get_paper_sizes (gboolean include_custom)
+    PREINIT:
+	GList *list, *i;
+    PPCODE:
+	list = gtk_paper_size_get_paper_sizes (include_custom);
+	for (i = list; i != NULL; i = i->next) {
+		XPUSHs (sv_2mortal (newSVGtkPaperSize_own (i->data)));
+	}
+	g_list_free (list);
+
+#endif

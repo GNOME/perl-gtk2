@@ -1,39 +1,78 @@
 #!/usr/bin/perl -w
 use strict;
 use Gtk2::TestHelper
-  tests => 7,
-  at_least_version => [2, 10, 0, "GtkPrintSettings is new in 2.10"];
+  tests => 15,
+  at_least_version => [2, 10, 0, 'GtkPrintSettings: it is new in 2.10'];
 
 # $Header$
 
 my $settings = Gtk2::PrintSettings -> new();
-isa_ok($settings, "Gtk2::PrintSettings");
+isa_ok($settings, 'Gtk2::PrintSettings');
 
-my $key = "printer";
+my $key = 'printer';
+my $value = 'Bla DeskJet';
+
+$settings -> set($key, $value);
+is($settings -> get($key), $value);
+
+ok($settings -> has_key($key));
+
+$settings -> set($key, undef);
+is($settings -> get($key), undef);
+
+$settings -> unset($key);
+is($settings -> get($key), undef);
+
+my $i_know_you = 0;
+my $callback = sub {
+  my ($c_key, $c_value, $data) = @_;
+  return if $i_know_you++;
+  is($c_key, $key);
+  is($c_value, $value);
+  is($data, 'blub');
+};
+
+$settings -> set($key, $value);
+$settings -> foreach($callback, 'blub');
+
 SKIP: {
-  skip "settings tests", 6
-    unless $settings -> has_key($key);
+  skip 'new 2.12 stuff', 7
+    unless Gtk2->CHECK_VERSION (2, 11, 0); # FIXME: 2.12
 
-  my $value = $settings -> get($key);
-  ok(defined $value);
   $settings -> set($key, $value);
-  is($settings -> get($key), $value);
 
-  $settings -> set($key, undef);
-  is($settings -> get($key), undef);
+  my $new_settings;
+  my $file = 'tmp.settings';
 
-  $settings -> unset($key);
-  is($settings -> get($key), undef);
-
-  my $i_know_you = 0;
-  my $callback = sub {
-    my ($key, $value, $data) = @_;
-    return if $i_know_you++;
-    ok(defined $key);
-    ok(defined $value);
-    is($data, "blub");
+  eval {
+    $settings -> to_file($file);
   };
-  $settings -> foreach($callback, "blub");
+  is($@, '');
+
+  eval {
+    $new_settings = Gtk2::PrintSettings -> new_from_file($file);
+  };
+  is($@, '');
+  isa_ok($new_settings, 'Gtk2::PrintSettings');
+  is($new_settings -> get($key), $value);
+
+  my $key_file = Glib::KeyFile -> new();
+  my $group = undef;
+  $settings -> to_key_file($key_file, $group);
+  open my $fh, '>', $file or skip 'key file tests', 3;
+  print $fh $key_file -> to_data();
+  close $fh;
+
+  $key_file = Glib::KeyFile -> new();
+  eval {
+    $key_file -> load_from_file($file, 'none');
+    $new_settings = Gtk2::PrintSettings -> new_from_key_file($key_file, $group);
+  };
+  is($@, '');
+  isa_ok($new_settings, 'Gtk2::PrintSettings');
+  is($new_settings -> get($key), $value);
+
+  unlink $file;
 }
 
 __END__

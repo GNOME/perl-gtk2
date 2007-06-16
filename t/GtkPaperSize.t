@@ -1,7 +1,7 @@
 #!/usr/bin/perl -w
 use strict;
 use Gtk2::TestHelper
-  tests => 16,
+  tests => 20,
   at_least_version => [2, 10, 0, "GtkPaperSize is new in 2.10"];
 
 # $Header$
@@ -31,6 +31,26 @@ ok(defined $size -> get_default_left_margin("inch"));
 ok(defined $size -> get_default_right_margin("mm"));
 
 ok(defined Gtk2::PaperSize -> get_default());
+
+SKIP: {
+  skip 'new 2.12 stuff', 4
+    unless Gtk2->CHECK_VERSION (2, 11, 0); # FIXME: 2.12
+
+  my $key_file = Glib::KeyFile -> new();
+  my $group = 'bla';
+  $size -> to_key_file($key_file, $group);
+
+  my $new_size;
+  eval {
+    $new_size = Gtk2::PaperSize -> new_from_key_file($key_file, $group);
+  };
+  is($@, '');
+  isa_ok($new_size, 'Gtk2::PaperSize');
+  is($new_size -> get_name(), 'iso_a4');
+
+  my @sizes = Gtk2::PaperSize::get_paper_sizes(FALSE);
+  isa_ok($sizes[0], 'Gtk2::PaperSize');
+}
 
 __END__
 

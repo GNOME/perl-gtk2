@@ -11,6 +11,21 @@
 	* t/GdkPixbufLoader.t: Use more adapted size values to test
 	load-time scaling in order to avoid test failures due to rounding.
 
+	* t/GtkPageSetup.t
+	* xs/GtkPageSetup.xs: Wrap gtk_page_setup_new_from_file,
+	gtk_page_setup_to_file, gtk_page_setup_new_from_key_file, and
+	gtk_page_setup_to_key_file.
+
+	* t/GtkPaperSize.t
+	* xs/GtkPaperSize.xs: Wrap gtk_paper_size_new_from_key_file,
+	gtk_paper_size_to_key_file, and gtk_paper_size_get_paper_sizes.
+
+	* t/GtkPrintSettings.t
+	* xs/GtkPrintSettings.xs: Wrap gtk_print_settings_new_from_file,
+	gtk_print_settings_to_file, gtk_print_settings_new_from_key_file,
+	and gtk_print_settings_to_key_file.  Also fix the test fail to
+	actually run any tests.
+
 2007-06-12	kaffeetisch
 
 	* t/PangoLayout.t
