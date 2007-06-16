@@ -1,3 +1,11 @@
+2007-06-16	kaffeetisch
+
+	* t/GtkScaleButton.t
+	* t/GtkVolumeButton.t
+	* xs/GtkScaleButton.xs
+	* xs/GtkVolumeButton.xs: Add support for GtkScaleButton and
+	GtkVolumeButton.
+
 2007-06-12	kaffeetisch
 
 	* t/PangoLayout.t
