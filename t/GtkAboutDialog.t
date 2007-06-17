@@ -12,18 +12,18 @@
 use strict;
 use warnings;
 
-use Gtk2::TestHelper tests => 30,
+use Gtk2::TestHelper tests => 34,
     at_least_version => [2, 6, 0, "GtkAboutDialog is new in 2.6"];
 
 isa_ok (my $dialog = Gtk2::AboutDialog->new, 'Gtk2::AboutDialog',
 	'Gtk2::AboutDialog->new');
 
-$dialog->set_name ('AboutDialog');
-is ($dialog->get_name, 'AboutDialog', '$dialog->set|get_name');
+$dialog->set_program_name ('AboutDialog');
+is ($dialog->get_program_name, 'AboutDialog', '$dialog->set|get_program_name');
 
-$dialog->set_name (undef);
+$dialog->set_program_name (undef);
 # according to the docs, name falls back to g_get_application_name().
-is ($dialog->get_name, Glib::get_application_name, 'fallback');
+is ($dialog->get_program_name, Glib::get_application_name, 'fallback');
 
 $dialog->set_version ('Ver: 1.2');
 is ($dialog->get_version, 'Ver: 1.2', '$dialog->set|get_version');
@@ -137,7 +137,21 @@ ok (eq_array ($dialog->get ('artists'), \@artists), 'artists property');
 
 
 Gtk2->show_about_dialog (undef,
-			 name => 'Foo',
+			 program_name => 'Foo',
 			 version => '42',
 			 authors => [qw/me myself i/],
 			);
+
+
+SKIP: {
+	skip 'new 2.12 stuff', 4
+		unless Gtk2->CHECK_VERSION (2, 11, 0); # FIXME: 2.12
+
+	# Called 3 times
+	$SIG{__WARN__} = sub { like shift, qr/Deprecation warning/; };
+
+	$dialog->set_name ('AboutDialogAbout');
+	is ($dialog->get_name, 'AboutDialogAbout', '$dialog->set|get_name');
+
+	Gtk2->show_about_dialog (Gtk2::Window->new, name => 'AboutFoo');
+}

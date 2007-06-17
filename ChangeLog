@@ -20,6 +20,15 @@
 	* t/GtkActionGroup.t
 	* t/GtkPrintOperation.t: Fix test failures and assertions.
 
+	* t/GtkAboutDialog.t
+	* xs/GtkAboutDialog.xs: Respond to the recent deprecation of
+	gtk_about_dialog_[sg]et_name and the removal of the "name"
+	property: Make [sg]et_program_name the canonical method names for
+	all gtk+ versions; warn if the old names are used.  For new gtk+
+	versions, map the "name" property to "program-name" and issue a
+	warning.  For old gtk+ versions, map "program-name" to "name".  In
+	short: always use program-name in Perl code.
+
 2007-06-16	kaffeetisch
 
 	* maps-2.12
