@@ -18,7 +18,7 @@ is($language -> matches("*"), 1);
 
 SKIP: {
   skip "1.16 stuff", 5
-    unless Gtk2::Pango -> CHECK_VERSION(1, 15, 2); # FIXME: 1.16
+    unless Gtk2::Pango -> CHECK_VERSION(1, 16, 0);
 
   isa_ok(Gtk2::Pango::Language -> get_default(), "Gtk2::Pango::Language");
 

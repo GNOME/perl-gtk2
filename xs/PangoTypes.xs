@@ -37,7 +37,7 @@ pango_find_base_dir (class, text)
 
 #endif
 
-#if PANGO_CHECK_VERSION (1, 15, 2) /* FIXME: 1.16 */
+#if PANGO_CHECK_VERSION (1, 16, 0)
 
 =for object Gtk2::Pango::Font
 =cut
@@ -91,7 +91,7 @@ pango_language_matches (language, range_list)
     CLEANUP:
 	PERL_UNUSED_VAR (ix);
 
-#if PANGO_CHECK_VERSION (1, 15, 2) /* FIXME: 1.16 */
+#if PANGO_CHECK_VERSION (1, 16, 0)
 
 ##  PangoLanguage * pango_language_get_default (void)
 PangoLanguage *

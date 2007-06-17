@@ -6,7 +6,7 @@ use Gtk2::TestHelper tests => 4, noinit => 1;
 
 SKIP: {
   skip "PangoGravity", 4
-    unless Gtk2::Pango->CHECK_VERSION (1, 15, 2); # FIXME: 1.16
+    unless Gtk2::Pango->CHECK_VERSION (1, 16, 0);
 
   is (Gtk2::Pango::Gravity::to_rotation ('south'), 0.0);
   ok (!Gtk2::Pango::Gravity::is_vertical ('south'));

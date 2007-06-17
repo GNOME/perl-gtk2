@@ -105,7 +105,7 @@ pango_matrix_concat (matrix, new_matrix)
 	PangoMatrix *matrix
 	PangoMatrix *new_matrix
 
-#if PANGO_CHECK_VERSION (1, 15, 2) /* FIXME: 1.16 */
+#if PANGO_CHECK_VERSION (1, 16, 0)
 
 void pango_matrix_transform_distance (const PangoMatrix *matrix, IN_OUTLIST double dx, IN_OUTLIST double dy);
 

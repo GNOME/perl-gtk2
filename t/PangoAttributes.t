@@ -14,7 +14,7 @@ is_deeply ($color, [0xffff, 0xffff, 0xffff]);
 
 SKIP: {
 	skip 'new 1.16 stuff', 1
-		unless Gtk2::Pango->CHECK_VERSION (1, 15, 2); # FIXME: 1.16
+		unless Gtk2::Pango->CHECK_VERSION (1, 16, 0);
 
 	is (Gtk2::Pango::Color->to_string ($color), '#ffffffffffff');
 }
@@ -384,7 +384,7 @@ SKIP: {
 
 SKIP: {
 	skip 'PangoAttrGravity, PangoAttrGravityHint', 14
-		unless Gtk2::Pango->CHECK_VERSION (1, 15, 2); # FIXME: 1.16
+		unless Gtk2::Pango->CHECK_VERSION (1, 16, 0);
 
 	$attr = Gtk2::Pango::AttrGravity->new ('south');
 	isa_ok ($attr, 'Gtk2::Pango::AttrGravity');

@@ -49,7 +49,7 @@ SKIP: {
 
 SKIP: {
   skip("new 1.16 stuff", 3)
-    unless (Gtk2::Pango -> CHECK_VERSION(1, 15, 2)); # FIXME: 1.16
+    unless (Gtk2::Pango -> CHECK_VERSION(1, 16, 0));
 
   ok(defined $context -> get_gravity());
 

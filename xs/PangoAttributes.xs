@@ -178,7 +178,7 @@ gtk2perl_pango_attribute_get_package (PangoAttribute * attr)
 	    case PANGO_ATTR_STRIKETHROUGH_COLOR:
 		return "Gtk2::Pango::AttrStrikethroughColor";
 #endif
-#if PANGO_CHECK_VERSION (1, 15, 2) /* FIXME: 1.16 */
+#if PANGO_CHECK_VERSION (1, 16, 0)
 	    case PANGO_ATTR_GRAVITY:
 		return "Gtk2::Pango::AttrGravity";
 	    case PANGO_ATTR_GRAVITY_HINT:
@@ -303,7 +303,7 @@ pango_color_parse (class, const gchar * spec)
     OUTPUT:
 	RETVAL
 
-#if PANGO_CHECK_VERSION (1, 15, 2) /* FIXME: 1.16 */
+#if PANGO_CHECK_VERSION (1, 16, 0)
 
 ##gchar *pango_color_to_string(const PangoColor *color);
 gchar_own *
@@ -813,7 +813,7 @@ PangoAttribute_own * pango_attr_strikethrough_color_new (class, guint16 red, gui
 
 # --------------------------------------------------------------------------- #
 
-#if PANGO_CHECK_VERSION (1, 15, 2) /* FIXME: 1.16 */
+#if PANGO_CHECK_VERSION (1, 16, 0)
 
 MODULE = Gtk2::Pango::Attributes	PACKAGE = Gtk2::Pango::AttrGravity	PREFIX = pango_attr_gravity_
 

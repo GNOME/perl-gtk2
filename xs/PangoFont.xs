@@ -224,7 +224,7 @@ gboolean pango_font_description_get_size_is_absolute (const PangoFontDescription
 
 #endif
 
-#if PANGO_CHECK_VERSION (1, 15, 0) /* FIXME: 1.16 */
+#if PANGO_CHECK_VERSION (1, 16, 0)
 
 void pango_font_description_set_gravity (PangoFontDescription *desc, PangoGravity gravity);
 

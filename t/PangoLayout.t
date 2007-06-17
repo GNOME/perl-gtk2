@@ -186,7 +186,7 @@ SKIP: {
 
 SKIP: {
   skip "1.16 stuff", 3
-    unless Gtk2::Pango -> CHECK_VERSION(1, 15, 2); # FIXME: 1.16
+    unless Gtk2::Pango -> CHECK_VERSION(1, 16, 0);
 
 
   isa_ok($layout -> get_line_readonly(0), "Gtk2::Pango::LayoutLine");

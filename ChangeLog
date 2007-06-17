@@ -1,3 +1,19 @@
+2007-06-17	kaffeetisch
+
+	* t/PangoAttributes.t
+	* t/PangoContext.t
+	* t/PangoFont.t
+	* t/PangoGravity.t
+	* t/PangoLayout.t
+	* t/PangoMatrix.t
+	* t/PangoTypes.t
+	* xs/PangoAttributes.xs
+	* xs/PangoContext.xs
+	* xs/PangoFont.xs
+	* xs/PangoLayout.xs
+	* xs/PangoMatrix.xs
+	* xs/PangoTypes.xs: Refer to stable releases in version checks.
+
 2007-06-16	kaffeetisch
 
 	* maps-2.12

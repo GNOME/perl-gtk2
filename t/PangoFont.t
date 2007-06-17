@@ -54,7 +54,7 @@ SKIP: {
 
 SKIP: {
   skip("new 1.16 stuff", 1)
-    unless (Gtk2::Pango -> CHECK_VERSION(1, 15, 0)); # FIXME: 1.16
+    unless (Gtk2::Pango -> CHECK_VERSION(1, 16, 0));
 
   $description -> set_gravity("south");
   is($description -> get_gravity(), "south");

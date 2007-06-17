@@ -471,7 +471,7 @@ pango_layout_get_lines (layout)
 		XPUSHs (sv_2mortal (newSVPangoLayoutLine (i->data)));
 	/* the list is owned by the layout. */
 
-#if PANGO_CHECK_VERSION (1, 15, 2) /* FIXME: 1.16 */
+#if PANGO_CHECK_VERSION (1, 16, 0)
 
 ##  PangoLayoutLine *pango_layout_get_line_readonly (PangoLayout *layout, int line) 
 PangoLayoutLine_ornull *
@@ -498,7 +498,7 @@ PangoLayoutIter *
 pango_layout_get_iter (layout)
 	PangoLayout *layout
 
-#if PANGO_CHECK_VERSION (1, 15, 4) /* FIXME: 1.16 */
+#if PANGO_CHECK_VERSION (1, 16, 0)
 
 gboolean pango_layout_is_wrapped (PangoLayout *layout);
 
@@ -589,7 +589,7 @@ PangoLayoutLine *
 pango_layout_iter_get_line (iter)
 	PangoLayoutIter *iter
 
-#if PANGO_CHECK_VERSION (1, 15, 2) /* FIXME: 1.16 */
+#if PANGO_CHECK_VERSION (1, 16, 0)
 
 # FIXME: no typemap for PangoLayoutRun / PangoGlyphItem.
 # ##  PangoLayoutRun *pango_layout_iter_get_run_readonly (PangoLayoutIter *iter) 
