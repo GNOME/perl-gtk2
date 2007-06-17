@@ -14,6 +14,9 @@
 	* xs/PangoMatrix.xs
 	* xs/PangoTypes.xs: Refer to stable releases in version checks.
 
+	* t/PangoCairo.t
+	* xs/PangoCairo.xs: Wrap pango_cairo_context_set_shape_renderer.
+
 2007-06-16	kaffeetisch
 
 	* maps-2.12

@@ -6,9 +6,9 @@ use Test::More;
 
 if (UNIVERSAL::can("Gtk2::Pango::Cairo::FontMap", "new") &&
     Gtk2::Pango -> CHECK_VERSION(1, 10, 0)) {
-  plan tests => 13;
+  plan tests => 17;
 } else {
-  plan skip_all => "Need Cairo";
+  plan skip_all => "PangoCairo stuff: need Cairo and pango >= 1.10.0";
 }
 
 # $Header$
@@ -78,6 +78,39 @@ SKIP: {
 
   Gtk2::Pango::Cairo::show_error_underline($cr, 23, 42, 5, 5);
   Gtk2::Pango::Cairo::error_underline_path($cr, 23, 42, 5, 5);
+}
+
+SKIP: {
+  skip 'set_shape_renderer', 4
+    unless Gtk2::Pango -> CHECK_VERSION(1, 17, 0); # FIXME: 1.18
+
+  $context -> set_shape_renderer(undef, undef);
+
+  my $target = Cairo::ImageSurface -> create('argb32', 100, 100);
+  my $cr = Cairo::Context -> create($target);
+
+  my $layout = Gtk2::Pango::Cairo::create_layout($cr);
+  Gtk2::Pango::Cairo::Context::set_shape_renderer(
+    $layout -> get_context(),
+    sub {
+      my ($cr, $shape, $do_path, $data) = @_;
+
+      isa_ok($cr, 'Cairo::Context');
+      isa_ok($shape, 'Gtk2::Pango::AttrShape');
+      ok(defined $do_path);
+      is($data, 'bla');
+    },
+    'bla');
+  $layout -> set_text('Bla');
+
+  my $ink     = { x => 23, y => 42, width => 10, height => 15 };
+  my $logical = { x => 42, y => 23, width => 15, height => 10 };
+  my $attr = Gtk2::Pango::AttrShape -> new($ink, $logical, 0, 1);
+  my $list = Gtk2::Pango::AttrList -> new();
+  $list -> insert($attr);
+  $layout -> set_attributes($list);
+
+  Gtk2::Pango::Cairo::show_layout($cr, $layout);
 }
 
 __END__

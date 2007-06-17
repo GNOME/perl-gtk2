@@ -8,6 +8,46 @@
 
 #include "gtk2perl.h"
 #include <cairo-perl.h>
+#include <gperl_marshal.h>
+
+/* ------------------------------------------------------------------------- */
+
+#if PANGO_CHECK_VERSION (1, 17, 0)
+
+static void
+gtk2perl_pango_cairo_shape_renderer_func (cairo_t        *cr,
+					  PangoAttrShape *attr,
+					  gboolean        do_path,
+					  gpointer        data)
+{
+	dGPERL_CALLBACK_MARSHAL_SP;
+	GPerlCallback *callback = (GPerlCallback *) data;
+
+	GPERL_CALLBACK_MARSHAL_INIT (callback);
+
+	ENTER;
+	SAVETMPS;
+
+	PUSHMARK (SP);
+
+	EXTEND (SP, 3);
+	PUSHs (sv_2mortal (newSVCairo (cr)));
+	PUSHs (sv_2mortal (newSVPangoAttribute (attr)));
+	PUSHs (sv_2mortal (newSVuv (do_path)));
+	if (callback->data)
+		XPUSHs (sv_2mortal (newSVsv (callback->data)));
+
+	PUTBACK;
+
+	call_sv (callback->func, G_DISCARD);
+
+	FREETMPS;
+	LEAVE;
+}
+
+#endif
+
+/* ------------------------------------------------------------------------- */
 
 MODULE = Gtk2::Pango::Cairo	PACKAGE = Gtk2::Pango::Cairo::FontMap	PREFIX = pango_cairo_font_map_
 
@@ -129,8 +169,12 @@ MODULE = Gtk2::Pango::Cairo	PACKAGE = Gtk2::Pango::Cairo::Context	PREFIX = pango
 BOOT:
 	gperl_set_isa ("Gtk2::Pango::Cairo::Context", "Gtk2::Pango::Context");
 
+=for apidoc __function__
+=cut
 void pango_cairo_context_set_font_options (PangoContext *context, const cairo_font_options_t *options);
 
+=for apidoc __function__
+=cut
 # const cairo_font_options_t *pango_cairo_context_get_font_options (PangoContext *context);
 const cairo_font_options_t *pango_cairo_context_get_font_options (PangoContext *context);
     CODE:
@@ -139,6 +183,42 @@ const cairo_font_options_t *pango_cairo_context_get_font_options (PangoContext *
     OUTPUT:
 	RETVAL
 
+=for apidoc __function__
+=cut
 void pango_cairo_context_set_resolution (PangoContext *context, double dpi);
 
+=for apidoc __function__
+=cut
 double pango_cairo_context_get_resolution (PangoContext *context);
+
+#if PANGO_CHECK_VERSION (1, 17, 0) /* FIXME: 1.18 */
+
+=for apidoc __function__
+=cut
+# void pango_cairo_context_set_shape_renderer (PangoContext *context, PangoCairoShapeRendererFunc func, gpointer data, GDestroyNotify dnotify)
+void
+pango_cairo_context_set_shape_renderer (PangoContext *context, SV *func=NULL, SV *data=NULL)
+    PREINIT:
+	GPerlCallback *callback;
+	GDestroyNotify dnotify;
+    CODE:
+	if (func && SvOK (func)) {
+		callback = gperl_callback_new (func, data, 0, NULL, 0);
+		dnotify = (GDestroyNotify) gperl_callback_destroy;
+	} else {
+		callback = NULL;
+		dnotify = NULL;
+	}
+	pango_cairo_context_set_shape_renderer (
+		context,
+		gtk2perl_pango_cairo_shape_renderer_func,
+		callback,
+		dnotify);
+
+# Is this useful?  You can't use it to store away the old renderer while you
+# temporarily install your own, since when you call set_shape_renderer(), the
+# old renderer's destruction notification is executed.  So the stuff you got
+# from get_shape_renderer() is now garbage.
+# PangoCairoShapeRendererFunc pango_cairo_context_get_shape_renderer (PangoContext *context, gpointer *data)
+
+#endif
