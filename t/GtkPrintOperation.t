@@ -21,27 +21,31 @@ is($op -> get_print_settings(), undef);
 $op -> set_print_settings($settings);
 is($op -> get_print_settings(), $settings);
 
-$op -> set_job_name("Test");
-$op -> set_n_pages(2);
-$op -> set_current_page(1);
-$op -> set_use_full_page(TRUE);
-$op -> set_unit("mm");
-$op -> set_export_filename("test.pdf");
-$op -> set_track_print_status(TRUE);
-$op -> set_show_progress(FALSE);
-$op -> set_allow_async(TRUE);
-$op -> set_custom_tab_label("Print");
-
 ok(defined $op -> get_status());
 ok(defined $op -> get_status_string());
 ok(defined $op -> is_finished());
 
-my $window = Gtk2::Window -> new();
+sub get_op {
+  my $op = Gtk2::PrintOperation -> new();
+  $op -> set_job_name("Test");
+  $op -> set_n_pages(2);
+  $op -> set_current_page(1);
+  $op -> set_use_full_page(TRUE);
+  $op -> set_unit("mm");
+  $op -> set_export_filename("test.pdf");
+  $op -> set_track_print_status(TRUE);
+  $op -> set_show_progress(FALSE);
+  $op -> set_allow_async(TRUE);
+  $op -> set_custom_tab_label("Print");
+  return $op;
+}
 
+$op = get_op();
 ok(defined $op -> run("export", undef));
 $op -> cancel();
 
-ok(defined $op -> run("export", $window));
+$op = get_op();
+ok(defined $op -> run("export", Gtk2::Window -> new()));
 $op -> cancel();
 
 # FIXME: Don't know how to trigger an actual error.

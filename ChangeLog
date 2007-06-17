@@ -17,6 +17,9 @@
 	* t/PangoCairo.t
 	* xs/PangoCairo.xs: Wrap pango_cairo_context_set_shape_renderer.
 
+	* t/GtkActionGroup.t
+	* t/GtkPrintOperation.t: Fix test failures and assertions.
+
 2007-06-16	kaffeetisch
 
 	* maps-2.12
