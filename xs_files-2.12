@@ -1,3 +1,5 @@
+xs/GtkBuildable.xs
+xs/GtkBuilder.xs
 xs/GtkRecentAction.xs
 xs/GtkScaleButton.xs
 xs/GtkTooltip.xs

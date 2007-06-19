@@ -118,8 +118,82 @@ sub get {
 	}
 }
 
-package Gtk2;
+package Gtk2::Builder;
 
+sub _do_connect {
+  my ($object,
+      $signal_name,
+      $user_data,
+      $connect_object,
+      $flags,
+      $handler) = @_;
+
+  my $func = $flags & qw/after/ ? 'signal_connect_after' : 'signal_connect';
+
+  # we get connect_object when we're supposed to call
+  # signal_connect_object, which ensures that the data (an object)
+  # lives as long as the signal is connected.  the bindings take
+  # care of that for us in all cases, so we only have signal_connect.
+  # if we get a connect_object, just use that instead of user_data.
+  $object->$func($signal_name => $handler,
+                 $connect_object ? $connect_object : $user_data);
+}
+
+sub connect_signals {
+  my $builder = shift;
+  my $user_data = shift;
+
+  # $builder->connect_signals ($user_data)
+  # $builder->connect_signals ($user_data, $package)
+  if ($#_ <= 0) {
+    my $package = shift;
+    $package = 'main' unless defined $package;
+
+    $builder->connect_signals_full(sub {
+      my ($builder,
+          $object,
+          $signal_name,
+          $handler_name,
+          $connect_object,
+          $flags) = @_;
+
+      no strict qw/refs/;
+
+      my $handler = $handler_name;
+      if (ref $package) {
+        $handler = sub { $package->$handler_name(@_) };
+      } else {
+        if ($package && $handler !~ /::/) {
+          $handler = $package.'::'.$handler_name;
+        }
+      }
+
+      _do_connect ($object, $signal_name, $user_data, $connect_object,
+                   $flags, $handler);
+    });
+  }
+
+  # $builder->connect_signals ($user_data, %handlers)
+  else {
+    my %handlers = @_;
+
+    $builder->connect_signals_full(sub {
+      my ($builder,
+          $object,
+          $signal_name,
+          $handler_name,
+          $connect_object,
+          $flags) = @_;
+
+      return unless exists $handlers{$handler_name};
+
+      _do_connect ($object, $signal_name, $user_data, $connect_object,
+                   $flags, $handlers{$handler_name});
+    });
+  }
+}
+
+package Gtk2;
 
 1;
 __END__

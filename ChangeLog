@@ -1,3 +1,13 @@
+2007-06-18	kaffeetisch
+
+	* Gtk2.pm
+	* maps-2.12
+	* xs_files-2.12
+	* t/GtkBuildable.t
+	* t/GtkBuilder.t
+	* xs/GtkBuildable.xs
+	* xs/GtkBuilder.xs: Add support for GtkBuilder.
+
 2007-06-17	kaffeetisch
 
 	* t/PangoAttributes.t
