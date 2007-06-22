@@ -270,14 +270,14 @@ void
 gtk_tree_store_move_before (tree_store, iter, position)
 	GtkTreeStore *tree_store
 	GtkTreeIter *iter
-	GtkTreeIter *position
+	GtkTreeIter_ornull *position
 
 ## void gtk_tree_store_move_after (GtkTreeStore *tree_store, GtkTreeIter *iter, GtkTreeIter *position)
 void
 gtk_tree_store_move_after (tree_store, iter, position)
 	GtkTreeStore *tree_store
 	GtkTreeIter *iter
-	GtkTreeIter *position
+	GtkTreeIter_ornull *position
 
 #endif /* >= 2.2.0 */
 
