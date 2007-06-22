@@ -4,7 +4,7 @@
 
 use Gtk2::TestHelper
 	at_least_version => [2, 4, 0, 'GtkIconTheme is new in 2.4'],
-	tests => 16;
+	tests => 15;
 
 my $icon_theme = Gtk2::IconTheme->new;
 isa_ok ($icon_theme, 'Gtk2::IconTheme');
@@ -77,7 +77,8 @@ is_deeply ([$icon_theme->get_search_path], \@paths);
 $icon_theme = Gtk2::IconTheme->new;
 $icon_theme->set_custom_theme ('crazy custom theme');
 
-is ($icon_theme->get_example_icon_name, undef);
+# Ignore result.  Might be anything, including undef.
+$icon_theme->get_example_icon_name;
 
 ok (!$icon_theme->rescan_if_needed);
 
