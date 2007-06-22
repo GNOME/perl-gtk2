@@ -1,5 +1,8 @@
 2007-06-22	kaffeetisch
 
+	* t/GtkIconTheme.t: Remove unreliable result check for
+	get_example_icon_name.
+
 	* t/GtkListStore.t
 	* t/GtkTreeStore.t
 	* xs/GtkTreeStore.xs: Make sure Gtk2::ListStore's and
