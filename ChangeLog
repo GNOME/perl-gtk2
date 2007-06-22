@@ -1,3 +1,13 @@
+2007-06-22	kaffeetisch
+
+	Merge from HEAD:
+
+	* t/GtkListStore.t
+	* t/GtkTreeStore.t
+	* xs/GtkTreeStore.xs: Make sure Gtk2::ListStore's and
+	Gtk2::TreeStore's move_before() and move_after() accept undef for
+	the position parameter.  Reported by Dave Howorth.
+
 2007-03-17	kaffeetisch
 
 	Merge from HEAD:

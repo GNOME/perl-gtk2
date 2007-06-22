@@ -87,6 +87,9 @@ SKIP: {
 	is($model -> get($model -> get_iter_from_string("1:0"), 0), "blee");
 	is($model -> get($model -> get_iter_from_string("2:0"), 0), "bliii");
 	is($model -> get($model -> get_iter_from_string("3:0"), 0), "blabla");
+
+	$model -> move_before($model -> get_iter_from_string("0"), undef);
+	$model -> move_after($model -> get_iter_from_string("3"), undef);
 }
 
 ###############################################################################
