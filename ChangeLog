@@ -8,6 +8,9 @@
 	Gtk2::TreeStore's move_before() and move_after() accept undef for
 	the position parameter.  Reported by Dave Howorth.
 
+	* t/GdkPixbufLoader.t: Use more adapted size values to test
+	load-time scaling in order to avoid test failures due to rounding.
+
 2007-03-17	kaffeetisch
 
 	Merge from HEAD:
