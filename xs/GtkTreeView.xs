@@ -867,4 +867,16 @@ void gtk_tree_view_set_level_indentation (GtkTreeView *tree_view, gint indentati
 
 gint gtk_tree_view_get_level_indentation (GtkTreeView *tree_view);
 
+void gtk_tree_view_convert_widget_to_tree_coords (GtkTreeView *tree_view, gint wx, gint wy, OUTLIST gint tx, OUTLIST gint ty);
+
+void gtk_tree_view_convert_tree_to_widget_coords (GtkTreeView *tree_view, gint tx, gint ty, OUTLIST gint wx, OUTLIST gint wy);
+
+void gtk_tree_view_convert_widget_to_bin_window_coords (GtkTreeView *tree_view, gint wx, gint wy, OUTLIST gint bx, OUTLIST gint by);
+
+void gtk_tree_view_convert_bin_window_to_widget_coords (GtkTreeView *tree_view, gint bx, gint by, OUTLIST gint wx, OUTLIST gint wy);
+
+void gtk_tree_view_convert_tree_to_bin_window_coords (GtkTreeView *tree_view, gint tx, gint ty, OUTLIST gint bx, OUTLIST gint by);
+
+void gtk_tree_view_convert_bin_window_to_tree_coords (GtkTreeView *tree_view, gint bx, gint by, OUTLIST gint tx, OUTLIST gint ty);
+
 #endif /* 2.12 */

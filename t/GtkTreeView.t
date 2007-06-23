@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 145;
+use Gtk2::TestHelper tests => 153;
 
 # $Header$
 
@@ -117,6 +117,13 @@ SKIP: {
 	$view_column -> queue_resize();
 }
 
+SKIP: {
+	skip('new 2.12 stuff', 1)
+		unless Gtk2->CHECK_VERSION (2, 11, 0); # FIXME: 2.12
+
+	is($view_column -> get_tree_view(), undef);
+}
+
 ###############################################################################
 
 my $cell_renderer = Gtk2::CellRendererText -> new();
@@ -189,6 +196,13 @@ $view -> insert_column_with_data_func(1,
 				      "Blub",
 				      Gtk2::CellRendererText -> new(),
 				      sub {});
+
+SKIP: {
+	skip('new 2.12 stuff', 1)
+		unless Gtk2->CHECK_VERSION (2, 11, 0); # FIXME: 2.12
+
+	is($view_column_one -> get_tree_view(), $view);
+}
 
 $view -> move_column_after($view_column_one, $view_column_two);
 
@@ -377,7 +391,7 @@ SKIP: {
 }
 
 SKIP: {
-	skip "new 2.12 stuff", 2
+	skip "new 2.12 stuff", 8
 		unless Gtk2 -> CHECK_VERSION(2, 11, 0); # FIXME: 2.12
 
 	$view -> set_show_expanders(TRUE);
@@ -385,6 +399,13 @@ SKIP: {
 
 	$view -> set_level_indentation(23);
 	is($view -> get_level_indentation(), 23);
+
+	is_deeply([$view -> convert_widget_to_tree_coords(0, 0)], [0, 0]);
+	is_deeply([$view -> convert_tree_to_widget_coords(0, 0)], [0, 0]);
+	is_deeply([$view -> convert_widget_to_bin_window_coords(0, 0)], [0, 0]);
+	is_deeply([$view -> convert_bin_window_to_widget_coords(0, 0)], [0, 0]);
+	is_deeply([$view -> convert_tree_to_bin_window_coords(0, 0)], [0, 0]);
+	is_deeply([$view -> convert_bin_window_to_tree_coords(0, 0)], [0, 0]);
 }
 
 ###############################################################################

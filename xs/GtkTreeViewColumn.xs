@@ -398,6 +398,12 @@ void gtk_tree_view_column_queue_resize (GtkTreeViewColumn *tree_column);
 
 #endif
 
+#if GTK_CHECK_VERSION (2, 11, 0) /* FIXME: 2.13 */
+
+GtkWidget_ornull * gtk_tree_view_column_get_tree_view (GtkTreeViewColumn *tree_column);
+
+#endif
+
 MODULE = Gtk2::TreeViewColumn	PACKAGE = Gtk2::TreeView	PREFIX = gtk_tree_view_
 
 ### this is implemented in here instead of GtkTreeView.xs so it can
