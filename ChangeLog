@@ -1,5 +1,8 @@
 2007-06-23	kaffeetisch
 
+	* t/GtkTextMark.t
+	* xs/GtkTextMark.xs: Wrap gtk_text_mark_new.
+
 	* t/GtkTreeView.t
 	* xs/GtkTreeViewColumn.xs
 	* xs/GtkTreeView.xs: Wrap gtk_tree_view_column_get_tree_view,
