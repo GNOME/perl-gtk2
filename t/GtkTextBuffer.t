@@ -148,6 +148,15 @@ SKIP: {
   isa_ok($buffer -> get('paste-target-list'), 'Gtk2::TargetList');
 }
 
+SKIP: {
+  skip 'new 2.12 stuff', 0
+    unless Gtk2->CHECK_VERSION (2, 11, 0); # FIXME: 2.12
+
+  my $mark = Gtk2::TextMark -> new('bla', TRUE);
+  my $iter = $buffer -> get_end_iter();
+  $buffer -> add_mark($mark, $iter);
+}
+
 __END__
 
 Copyright (C) 2003-2006 by the gtk2-perl team (see the file AUTHORS for the

@@ -1,5 +1,8 @@
 2007-06-23	kaffeetisch
 
+	* t/GtkTextBuffer.t
+	* xs/GtkTextBuffer.xs: Wrap gtk_text_buffer_add_mark.
+
 	* t/GtkTextMark.t
 	* xs/GtkTextMark.xs: Wrap gtk_text_mark_new.
 
