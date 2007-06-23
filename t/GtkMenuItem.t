@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 12;
+use Gtk2::TestHelper tests => 13;
 
 # $Header$
 
@@ -29,6 +29,14 @@ my $menu = Gtk2::Menu -> new();
 
 $item -> set_submenu($menu);
 is($item -> get_submenu(), $menu);
+
+SKIP: {
+  skip '2.12 stuff', 1
+    unless Gtk2 -> CHECK_VERSION(2, 11, 0); # FIXME: 2.12
+
+  $item -> set_submenu(undef);
+  is($item -> get_submenu(), undef);
+}
 
 $item -> remove_submenu();
 $item -> set_accel_path("<bla/bla/bla>");

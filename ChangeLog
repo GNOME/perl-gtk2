@@ -1,5 +1,9 @@
 2007-06-23	kaffeetisch
 
+	* t/GtkMenuItem.t
+	* xs/GtkMenuItem.xs: gtk_menu_item_set_submenu now accepts NULL
+	for submenu.  Adjust the wrapper accordingly.
+
 	* t/GtkTextBuffer.t
 	* xs/GtkTextBuffer.xs: Wrap gtk_text_buffer_add_mark.
 

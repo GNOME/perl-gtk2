@@ -102,7 +102,7 @@ gtk_menu_item_new (class, label=NULL)
 void
 gtk_menu_item_set_submenu (menu_item, submenu)
 	GtkMenuItem *menu_item
-	GtkWidget *submenu
+	GtkWidget_ornull *submenu
 
 GtkWidget_ornull*
 gtk_menu_item_get_submenu (menu_item)
