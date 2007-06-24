@@ -1,3 +1,52 @@
+Overview of changes in Gtk2 1.152
+=================================
+
+* Make Gtk2::TreeModelSort::convert_child_iter_to_iter usable.  [Adrian
+  Priscak, muppet]
+* Make sure calling get() on a Gtk2::TreeModelSort resolves to
+  Gtk2::TreeModel::get if appropriate.  [Torsten]
+* Fix string encoding problems in Gtk2::Editable's insert-text signal
+  marshaller.  [Roderich Schupp]
+* Handle the recent deprecation of gtk_about_dialog_[sg]et_name and the removal
+  of the "name" property.  [Torsten, muppet]
+* Add support for GtkTooltip.  [Torsten]
+* Add support for the pango gravity stuff.  [Torsten]
+* Add support for GtkRecentAction.  [Torsten]
+* Add support for GtkScaleButton and GtkVolumeButton.  [Torsten]
+* Add support for GtkBuilder.  [Torsten]
+* New API:  [Torsten]
+  - gdk_event_request_motions
+  - gtk_action_create_menu
+  - gtk_entry_completion_set_inline_selection,
+    gtk_entry_completion_get_inline_selection,
+    gtk_entry_completion_get_completion_prefix,
+    gtk_entry_set_cursor_hadjustment and gtk_entry_get_cursor_hadjustment
+  - gtk_icon_theme_list_contexts and gtk_icon_theme_choose_icon
+  - gtk_page_setup_new_from_file, gtk_page_setup_to_file,
+    gtk_page_setup_new_from_key_file, and gtk_page_setup_to_key_file
+  - gtk_paper_size_new_from_key_file, gtk_paper_size_to_key_file, and
+    gtk_paper_size_get_paper_sizes
+  - gtk_print_settings_new_from_file, gtk_print_settings_to_file,
+    gtk_print_settings_new_from_key_file, and gtk_print_settings_to_key_file
+  - gtk_text_mark_new
+  - gtk_text_buffer_add_mark
+  - gtk_tree_view_column_get_tree_view,
+    gtk_tree_view_convert_widget_to_tree_coords,
+    gtk_tree_view_convert_tree_to_widget_coords,
+    gtk_tree_view_convert_widget_to_bin_window_coords,
+    gtk_tree_view_convert_bin_window_to_widget_coords,
+    gtk_tree_view_convert_tree_to_bin_window_coords, and
+    gtk_tree_view_convert_bin_window_to_tree_coords
+  - gtk_widget_set_tooltip_window, gtk_widget_get_tooltip_window,
+    gtk_widget_trigger_tooltip_query, gtk_widget_set_tooltip_text,
+    gtk_widget_get_tooltip_text, gtk_widget_set_tooltip_markup,
+    gtk_widget_get_tooltip_markup, and gtk_widget_modify_cursor
+  - gtk_window_set_startup_id, gtk_window_set_opacity, and
+    gtk_window_get_opacity
+  - PangoLogAttr property is_expandable_space
+  - pango_cairo_context_set_shape_renderer
+  - pango_color_to_string
+
 Overview of changes in Gtk2 1.151
 =================================
 
@@ -37,6 +86,30 @@ Overview of changes in Gtk2 1.150
 * When building on Win32, also look for Cairo.lib to make linking work.
   [Torsten]
 * Fix a few test suite issues.  [Torsten]
+
+Overview of changes in Gtk2 1.144
+=================================
+
+* Fix a string encoding problem in Gtk2::Editable's insert-text signal
+  marshaller.  [Roderich Schupp]
+
+Overview of changes in Gtk2 1.143
+=================================
+
+* Make Gtk2::TreeModelSort::convert_child_iter_to_iter work correctly.
+  [muppet]
+* Make sure calling get() on a Gtk2::TreeModelSort resolves to
+  Gtk2::TreeModel::get if appropriate.  [Torsten]
+
+Overview of changes in Gtk2 1.142
+=================================
+
+* Avoid segfaults in the GET_SORT_COLUMN_ID marshaller for custom
+  Gtk2::TreeSortable implementations.  [muppet]
+* Expand documentation for Gtk2::RecentManager::add_item and
+  Gtk2::RecentManager::add_full.  [Emmanuele]
+* Make the paths returned by Gtk2::IconView::get_selected_items usable.
+  [Torsten]
 
 Overview of changes in Gtk2 1.141
 =================================
