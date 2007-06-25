@@ -1,3 +1,9 @@
+2007-06-25	kaffeetisch
+
+	* exampels/cellrenderer_popup.pl: Slightly modified patch from
+	Grant McLean makes sure the popup works properly when using simple
+	clicks instead of click-and-hold.
+
 2007-06-24	kaffeetisch
 
 	* Gtk2.pm, MANIFEST, Makefile.PL, NEWS, README: Unstable release
