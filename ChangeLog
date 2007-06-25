@@ -1,5 +1,9 @@
 2007-06-25	kaffeetisch
 
+	* t/GtkIconView.t
+	* xs/GtkIconView.xs: Supply default values for scroll_to_path.
+	Suggested by Jeffrey Ratcliffe.
+
 	* exampels/cellrenderer_popup.pl: Slightly modified patch from
 	Grant McLean makes sure the popup works properly when using simple
 	clicks instead of click-and-hold.

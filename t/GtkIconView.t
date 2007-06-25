@@ -164,6 +164,7 @@ run_main sub {
 		isa_ok ($tmp[1], "Gtk2::TreePath");
 
 		$iview->scroll_to_path ($path, TRUE, 0.5, 0.5);
+		$iview->scroll_to_path ($path);
 
 		$iview->enable_model_drag_source ([qw/shift-mask/], "copy",
 		  { target => "STRING", flags => ["same-app", "same-widget"], info => 42 });
