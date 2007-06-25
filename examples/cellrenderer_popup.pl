@@ -209,7 +209,8 @@ sub START_EDITING {
 	$menu->set_active ($cell->{index});
 	$menu->popup (undef, undef,
 	              \&menu_pos_func, [$widget, $cell_area],
-	              $event ? $event->button : 0, 0);
+	              $event ? $event->button : 0,
+	              $event ? $event->time : 0);
 	$item = $menu->get_active;
 	$menu->select_item ($item) if $item;
 
