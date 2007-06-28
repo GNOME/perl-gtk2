@@ -192,9 +192,9 @@ gdk_pixbuf_render_pixmap_and_mask_for_colormap (pixbuf, colormap, alpha_threshol
         GdkBitmap *bm;
 
         gdk_pixbuf_render_pixmap_and_mask_for_colormap (pixbuf, colormap, &pm, GIMME_V == G_ARRAY ? &bm : 0, alpha_threshold);
-        XPUSHs (newSVGdkPixmap (pm));
+        XPUSHs (newSVGdkPixmap_noinc (pm));
         if (GIMME_V == G_ARRAY)
-          XPUSHs (newSVGdkBitmap (bm));
+                XPUSHs (newSVGdkBitmap_noinc (bm));
 }
 
 
@@ -212,9 +212,9 @@ gdk_pixbuf_render_pixmap_and_mask (pixbuf, alpha_threshold)
         GdkBitmap *bm;
 
         gdk_pixbuf_render_pixmap_and_mask (pixbuf, &pm, GIMME_V == G_ARRAY ? &bm : 0, alpha_threshold);
-        XPUSHs (newSVGdkPixmap (pm));
+        XPUSHs (newSVGdkPixmap_noinc (pm));
         if (GIMME_V == G_ARRAY)
-          XPUSHs (newSVGdkBitmap (bm));
+                XPUSHs (newSVGdkBitmap_noinc (bm));
 }
 
 =for apidoc get_from_image
@@ -781,7 +781,8 @@ gdk_pixbuf_composite_color (src, dest, dest_x, dest_y, dest_width, dest_height, 
 	guint32 color1
 	guint32 color2
 
-### returns NULL if there's not enough memory
+## FIXME this can return NULL if there's not enough memory; the typemap doesn't
+##       handle that gracefully.
 ##  GdkPixbuf *gdk_pixbuf_scale_simple (const GdkPixbuf *src, int dest_width, int dest_height, GdkInterpType interp_type) 
 GdkPixbuf_noinc *
 gdk_pixbuf_scale_simple (src, dest_width, dest_height, interp_type)
@@ -790,6 +791,8 @@ gdk_pixbuf_scale_simple (src, dest_width, dest_height, interp_type)
 	int dest_height
 	GdkInterpType interp_type
 
+## FIXME this can return NULL if there's not enough memory; the typemap doesn't
+##       handle that gracefully.
 ##  GdkPixbuf *gdk_pixbuf_composite_color_simple (const GdkPixbuf *src, int dest_width, int dest_height, GdkInterpType interp_type, int overall_alpha, int check_size, guint32 color1, guint32 color2) 
 GdkPixbuf_noinc *
 gdk_pixbuf_composite_color_simple (src, dest_width, dest_height, interp_type, overall_alpha, check_size, color1, color2)
