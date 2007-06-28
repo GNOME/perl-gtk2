@@ -53,6 +53,8 @@ as clickable.
 This is a convenience function for showing an application's about box. The
 constructed dialog is associated with the parent window and reused for
 future invocations of this function.
+
+The dialog is shown nonmodally, and will be hidden by any response.
 =cut
 void gtk_show_about_dialog (class, GtkWindow_ornull * parent, first_property_name, ...);
     PREINIT:
@@ -73,6 +75,12 @@ void gtk_show_about_dialog (class, GtkWindow_ornull * parent, first_property_nam
 
 		g_signal_connect (dialog, "delete_event",
 				  G_CALLBACK (gtk_widget_hide_on_delete), NULL);
+
+		/* See http://svn.gnome.org/viewcvs/gtk%2B?revision=14919&view=revision .
+		 * We can't actually do this fully correctly, because the
+		 * license and credits subdialogs are private. */
+		g_signal_connect (dialog, "response",
+				  G_CALLBACK (gtk_widget_hide), NULL);
 
 		for (i = 2; i < items ; i+=2) {
 			GParamSpec * pspec;
