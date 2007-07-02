@@ -1,3 +1,16 @@
+2007-07-02	kaffeetisch
+
+	Merge from HEAD:
+
+	* xs/GtkAboutDialog.xs: Hide the AboutDialog on any reponse.
+	See http://svn.gnome.org/viewcvs/gtk%2B?revision=14919&view=revision
+	which changed the behavior of the dialog in gtk+ between 2.8 and 2.10.
+
+	* xs/GdkPixbuf.xs: Plug reference leaks on the pixmap and bitmap
+	returned from Gtk2::Gdk::Pixbuf::render_pixmap_and_mask() and
+	render_pixmap_and_mask_for_colormap().  Also add a couple of
+	FIXMEs.
+
 2007-06-25	kaffeetisch
 
 	Merge from HEAD:

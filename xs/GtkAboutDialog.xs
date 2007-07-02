@@ -31,12 +31,30 @@ MODULE = Gtk2::AboutDialog PACKAGE = Gtk2 PREFIX = gtk_
 =for object Gtk2::AboutDialog
 =cut
 
+=for position post_methods
+
+=head1 URL AND EMAIL HOOKS
+
+When setting the website and email hooks for the Gtk2::AboutDialog widget, you
+should remember that the order is important: you should set the hook functions
+B<before> setting the website and email URL properties, like this:
+
+  $about_dialog->set_url_hook(\&launch_web_browser);
+  $about_dialog->set_website($app_website);
+
+otherwise the AboutDialog will not display the website and the email addresses
+as clickable.
+
+=cut
+
 =for apidoc
 =for arg first_property_name (string)
 =for arg ... the rest of a list of name=>property value pairs.
 This is a convenience function for showing an application's about box. The
 constructed dialog is associated with the parent window and reused for
 future invocations of this function.
+
+The dialog is shown nonmodally, and will be hidden by any response.
 =cut
 void gtk_show_about_dialog (class, GtkWindow_ornull * parent, first_property_name, ...);
     PREINIT:
@@ -57,6 +75,12 @@ void gtk_show_about_dialog (class, GtkWindow_ornull * parent, first_property_nam
 
 		g_signal_connect (dialog, "delete_event",
 				  G_CALLBACK (gtk_widget_hide_on_delete), NULL);
+
+		/* See http://svn.gnome.org/viewcvs/gtk%2B?revision=14919&view=revision .
+		 * We can't actually do this fully correctly, because the
+		 * license and credits subdialogs are private. */
+		g_signal_connect (dialog, "response",
+				  G_CALLBACK (gtk_widget_hide), NULL);
 
 		for (i = 2; i < items ; i+=2) {
 			GParamSpec * pspec;
