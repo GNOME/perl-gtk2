@@ -1,5 +1,9 @@
 2007-07-02	kaffeetisch
 
+	* Gtk2.pm, NEWS, README: Stable release 1.145.
+
+2007-07-02	kaffeetisch
+
 	Merge from HEAD:
 
 	* xs/GtkAboutDialog.xs: Hide the AboutDialog on any reponse.

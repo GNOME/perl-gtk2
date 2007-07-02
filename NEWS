@@ -1,3 +1,16 @@
+Overview of changes in Gtk2 1.145
+=================================
+
+* Fix test failures and compilation problems.  [Torsten, Mario Fischer]
+* Make Gtk2::ListStore's and Gtk2::TreeStore's move_before() and move_after()
+  accept undef for the position parameter.  [Torsten]
+* Supply default values for Gtk2::IconView::scroll_to_path().  [Torsten]
+* Plug reference leaks on the pixmap and bitmap returned from
+  Gtk2::Gdk::Pixbuf::render_pixmap_and_mask() and
+  render_pixmap_and_mask_for_colormap().  [muppet]
+* Hide Gtk2::AboutDialogs constructed with Gtk2::show_about_dialog on any
+  reponse.  [muppet]
+
 Overview of changes in Gtk2 1.144
 =================================
 
