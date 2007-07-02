@@ -147,7 +147,7 @@ sub connect_signals {
   # $builder->connect_signals ($user_data, $package)
   if ($#_ <= 0) {
     my $package = shift;
-    $package = 'main' unless defined $package;
+    $package = caller unless defined $package;
 
     $builder->connect_signals_full(sub {
       my ($builder,

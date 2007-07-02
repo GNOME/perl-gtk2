@@ -1,11 +1,18 @@
-2007-07-27	muppetman
+2007-07-02	kaffeetisch
+
+	* Gtk2.pm
+	* t/GtkBuilder.t
+	* xs/GtkBuilder.xs: Make Gtk2::Builder::connect_signals default to
+	the calling package (instead of main) if none was specified.
+
+2007-06-27	muppetman
 
 	* xs/GdkPixbuf.xs: Plug reference leaks on the pixmap and bitmap
 	returned from Gtk2::Gdk::Pixbuf::render_pixmap_and_mask() and
 	render_pixmap_and_mask_for_colormap().  Also add a couple of
 	FIXMEs.
 
-2007-07-27	muppetman
+2007-06-27	muppetman
 
 	* xs/GtkAboutDialog.xs: Hide the AboutDialog on any reponse.
 	See http://svn.gnome.org/viewcvs/gtk%2B?revision=14919&view=revision

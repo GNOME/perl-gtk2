@@ -134,7 +134,7 @@ you:
 =item C<< $builder->connect_signals ($user_data) >>
 
 When invoked like this, Gtk2::Builder will connect signals to functions in the
-main package whose names are specified in the UI description.
+calling package.  The callbacks names are specified in the UI description.
 
 =item C<< $builder->connect_signals ($user_data, $package) >>
 

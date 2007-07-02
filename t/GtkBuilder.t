@@ -113,6 +113,11 @@ EOD
 
 # --------------------------------------------------------------------------- #
 
+package BuilderTestCaller;
+
+use Test::More; # for is(), isa_ok(), etc.
+use Glib qw/:constants/;
+
 sub value_changed {
   my ($spin, $data) = @_;
 
@@ -203,7 +208,7 @@ $builder = Gtk2::Builder->new;
 $builder->add_from_string ($ui);
 $builder->connect_signals ('!alb',
   value_changed => \&BuilderTest::value_changed,
-  wrapped => \&main::wrapped
+  wrapped => \&BuilderTestCaller::wrapped
 );
 
 $spin = $builder->get_object ('spinbutton1');
