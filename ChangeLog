@@ -1,3 +1,9 @@
+2007-07-05	kaffeetisch
+
+	* xs/GdkPixbuf.xs: Really plug the leaks in
+	Gtk2::Gdk::Pixbuf::render_pixmap_and_mask() and
+	render_pixmap_and_mask_for_colormap().
+
 2007-07-02	kaffeetisch
 
 	* Gtk2.pm
