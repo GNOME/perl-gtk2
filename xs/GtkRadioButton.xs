@@ -195,5 +195,5 @@ gtk_radio_button_get_group (radio_button)
 	{
 		av_push(av, newSVGtkRadioButton(GTK_RADIO_BUTTON(i->data)));
 	}
-	XPUSHs(newRV_noinc((SV*)av));
+	PUSHs(sv_2mortal(newRV_noinc((SV*)av)));
 

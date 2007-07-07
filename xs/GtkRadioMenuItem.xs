@@ -101,7 +101,7 @@ gtk_radio_menu_item_get_group (radio_menu_item)
 	{
 		av_push(av, newSVGtkRadioMenuItem(GTK_RADIO_MENU_ITEM(i->data)));
 	}
-	XPUSHs(newRV_noinc((SV*)av));
+	PUSHs(sv_2mortal(newRV_noinc((SV*)av)));
 
 void
 gtk_radio_menu_item_set_group (radio_menu_item, member_or_listref)

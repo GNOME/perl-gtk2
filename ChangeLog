@@ -21,6 +21,11 @@
 	* t/PangoFont.t
 	* xs/PangoFont.xs: Wrap pango_font_face_is_synthesized.
 
+	* xs/GtkRadioAction.xs
+	* xs/GtkRadioButton.xs
+	* xs/GtkRadioMenuItem.xs: Plug leaks in the get_group() methods:
+	Mark new SVs as mortal when we put them on the stack.
+
 2007-07-05	kaffeetisch
 
 	* xs/GdkPixbuf.xs: Really plug the leaks in
