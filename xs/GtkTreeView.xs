@@ -879,4 +879,6 @@ void gtk_tree_view_convert_tree_to_bin_window_coords (GtkTreeView *tree_view, gi
 
 void gtk_tree_view_convert_bin_window_to_tree_coords (GtkTreeView *tree_view, gint bx, gint by, OUTLIST gint tx, OUTLIST gint ty);
 
+gboolean gtk_tree_view_is_rubber_banding_active (GtkTreeView *tree_view);
+
 #endif /* 2.12 */

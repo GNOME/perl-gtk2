@@ -3,6 +3,9 @@
 	* t/GdkKeys.t
 	* xs/GdkKeys.xs: Wrap gdk_keymap_have_bidi_layouts.
 
+	* t/GtkTreeView.t
+	* xs/GtkTreeView.xs: Wrap gtk_tree_view_is_rubber_banding_active.
+
 2007-07-05	kaffeetisch
 
 	* xs/GdkPixbuf.xs: Really plug the leaks in

@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 153;
+use Gtk2::TestHelper tests => 154;
 
 # $Header$
 
@@ -391,7 +391,7 @@ SKIP: {
 }
 
 SKIP: {
-	skip "new 2.12 stuff", 8
+	skip "new 2.12 stuff", 9
 		unless Gtk2 -> CHECK_VERSION(2, 11, 0); # FIXME: 2.12
 
 	$view -> set_show_expanders(TRUE);
@@ -406,6 +406,8 @@ SKIP: {
 	is_deeply([$view -> convert_bin_window_to_widget_coords(0, 0)], [0, 0]);
 	is_deeply([$view -> convert_tree_to_bin_window_coords(0, 0)], [0, 0]);
 	is_deeply([$view -> convert_bin_window_to_tree_coords(0, 0)], [0, 0]);
+
+        is($view -> is_rubber_banding_active(), FALSE);
 }
 
 ###############################################################################
