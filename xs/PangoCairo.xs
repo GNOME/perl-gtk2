@@ -51,38 +51,15 @@ gtk2perl_pango_cairo_shape_renderer_func (cairo_t        *cr,
 
 MODULE = Gtk2::Pango::Cairo	PACKAGE = Gtk2::Pango::Cairo::FontMap	PREFIX = pango_cairo_font_map_
 
-BOOT:
-	gperl_set_isa ("Gtk2::Pango::Cairo::FontMap", "Gtk2::Pango::FontMap");
-
 # PangoFontMap *pango_cairo_font_map_new (void);
-SV *
-pango_cairo_font_map_new (class)
-    ALIAS:
-	Gtk2::Pango::Cairo::FontMap::get_default = 1
-    PREINIT:
-	PangoFontMap *fontmap;
-	HV *stash;
-    CODE:
-	switch (ix) {
-	    case 0:
-		fontmap = pango_cairo_font_map_new ();
-		RETVAL = newSVPangoFontMap_noinc (fontmap);
-		break;
+PangoFontMap_noinc * pango_cairo_font_map_new (class)
+    C_ARGS:
+	/* void */
 
-	    case 1:
-		fontmap = pango_cairo_font_map_get_default();
-		RETVAL = newSVPangoFontMap (fontmap);
-		break;
-
-	    default:
-		fontmap = NULL; stash = NULL; RETVAL = NULL;
-		g_assert_not_reached ();
-	}
-
-	stash = gperl_object_stash_from_type (PANGO_TYPE_CAIRO_FONT_MAP);
-	sv_bless (RETVAL, stash);
-    OUTPUT:
-	RETVAL
+# PangoFontMap *pango_cairo_font_map_get_default (void);
+PangoFontMap * pango_cairo_font_map_get_default (class)
+    C_ARGS:
+	/* void */
 
 void pango_cairo_font_map_set_resolution (PangoCairoFontMap *fontmap, double dpi);
 

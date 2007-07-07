@@ -23,9 +23,6 @@
 
 MODULE = Gtk2::Pango::FontMap	PACKAGE = Gtk2::Pango::FontMap	PREFIX = pango_font_map_
 
-BOOT:
-	gperl_object_set_no_warn_unreg_subclass (PANGO_TYPE_FONT_MAP, TRUE);
-
 ##  PangoFont * pango_font_map_load_font (PangoFontMap *fontmap, PangoContext *context, const PangoFontDescription *desc)
 PangoFont_ornull *
 pango_font_map_load_font (fontmap, context, desc)

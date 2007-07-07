@@ -6,6 +6,14 @@
 	* t/GtkTreeView.t
 	* xs/GtkTreeView.xs: Wrap gtk_tree_view_is_rubber_banding_active.
 
+	* xs/PangoCairo.xs
+	* xs/PangoFontMap.xs: Don't set the
+	no-warnings-for-unregistered-subclasses flag for PangoFontMap so
+	that subclasses are registered and get their ancestry set up
+	correctly (especially with respect to interfaces).  This enables
+	us to stop jumping through hoops to handle
+	pango_cairo_font_map_new and pango_cairo_font_map_get_default.
+
 2007-07-05	kaffeetisch
 
 	* xs/GdkPixbuf.xs: Really plug the leaks in
