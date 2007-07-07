@@ -845,6 +845,8 @@ void gdk_window_merge_child_input_shapes (GdkWindow *window);
 
 void gdk_window_beep (GdkWindow *window);
 
+void gdk_window_set_startup_id (GdkWindow *window, const gchar *startup_id);
+
 #endif
 
 MODULE = Gtk2::Gdk::Window	PACKAGE = Gtk2::Gdk	PREFIX = gdk_

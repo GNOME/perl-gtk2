@@ -128,6 +128,12 @@ guint32 gdk_x11_display_get_user_time (GdkDisplay *display);
 
 #endif /* 2.8.0 */
 
+#if GTK_CHECK_VERSION (2, 11, 0) /* FIXME: 2.12 */
+
+const gchar *gdk_x11_display_get_startup_notification_id (GdkDisplay *display);
+
+#endif
+
 #endif /* GDK_WINDOWING_X11, GDK_TYPE_DISPLAY */
 
 # --------------------------------------------------------------------------- #

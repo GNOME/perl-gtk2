@@ -26,6 +26,15 @@
 	* xs/GtkRadioMenuItem.xs: Plug leaks in the get_group() methods:
 	Mark new SVs as mortal when we put them on the stack.
 
+	* t/Gdk.t
+	* xs/Gdk.xs: Wrap gdk_notify_startup_complete_with_id.
+
+	* t/GdkWindow.t
+	* xs/GdkWindow.xs: Wrap gdk_window_set_startup_id.
+
+	* t/GdkX11.t
+	* xs/GdkX11.xs: Wrap gdk_x11_display_get_startup_notification_id.
+
 2007-07-05	kaffeetisch
 
 	* xs/GdkPixbuf.xs: Really plug the leaks in

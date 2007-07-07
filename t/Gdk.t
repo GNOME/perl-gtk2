@@ -51,6 +51,13 @@ SKIP: {
   Gtk2::Gdk -> notify_startup_complete();
 }
 
+SKIP: {
+  skip 'new 2.12 stuff', 1
+    unless Gtk2 -> CHECK_VERSION(2, 11, 0); # FIXME: 2.12
+
+  Gtk2::Gdk -> notify_startup_complete_with_id('bla');
+}
+
 ok(Gtk2::Gdk -> set_locale());
 Gtk2::Gdk -> set_sm_client_id("blub");
 Gtk2::Gdk -> set_sm_client_id(undef);

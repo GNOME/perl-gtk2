@@ -92,9 +92,16 @@ void
 gdk_notify_startup_complete (class)
     C_ARGS:
 	/* void */
-	
 
 #endif /* 2.2.0 */
+
+#if GTK_CHECK_VERSION(2,11,0) /* FIXME: 2.12 */
+
+void gdk_notify_startup_complete_with_id (class, const gchar* startup_id)
+    C_ARGS:
+	startup_id
+
+#endif
 
 const char *
 gdk_get_program_class (class)
