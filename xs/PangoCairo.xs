@@ -81,6 +81,17 @@ pango_cairo_font_map_create_context (PangoCairoFontMap *fontmap)
     OUTPUT:
 	RETVAL
 
+#if PANGO_CHECK_VERSION (1, 17, 0) /* FIXME: 1.18 */
+
+# PangoFontMap *pango_cairo_font_map_new_for_font_type (cairo_font_type_t fonttype);
+PangoFontMap_noinc * pango_cairo_font_map_new_for_font_type (class, cairo_font_type_t fonttype)
+    C_ARGS:
+	fonttype
+
+cairo_font_type_t pango_cairo_font_map_get_font_type (PangoCairoFontMap *fontmap);
+
+#endif
+
 # --------------------------------------------------------------------------- #
 
 MODULE = Gtk2::Pango::Cairo	PACKAGE = Gtk2::Pango::Cairo	PREFIX = pango_cairo_
