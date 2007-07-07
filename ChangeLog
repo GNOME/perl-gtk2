@@ -1,3 +1,8 @@
+2007-07-07	kaffeetisch
+
+	* t/GdkKeys.t
+	* xs/GdkKeys.xs: Wrap gdk_keymap_have_bidi_layouts.
+
 2007-07-05	kaffeetisch
 
 	* xs/GdkPixbuf.xs: Really plug the leaks in

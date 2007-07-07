@@ -12,8 +12,8 @@
  * Library General Public License for more details.
  *
  * You should have received a copy of the GNU Library General Public
- * License along with this library; if not, write to the 
- * Free Software Foundation, Inc., 59 Temple Place - Suite 330, 
+ * License along with this library; if not, write to the
+ * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
  * Boston, MA  02111-1307  USA.
  *
  * $Header$
@@ -69,7 +69,7 @@ MODULE = Gtk2::Gdk::Keys PACKAGE = Gtk2::Gdk::Keymap PREFIX = gdk_keymap_
 BOOT:
 	gperl_object_set_no_warn_unreg_subclass (GDK_TYPE_KEYMAP, TRUE);
 
-##  GdkKeymap* gdk_keymap_get_default (void) 
+##  GdkKeymap* gdk_keymap_get_default (void)
 GdkKeymap*
 gdk_keymap_get_default (class)
     C_ARGS:
@@ -77,7 +77,7 @@ gdk_keymap_get_default (class)
 
 #if GTK_CHECK_VERSION(2,2,0)
 
-##  GdkKeymap* gdk_keymap_get_for_display (GdkDisplay *display) 
+##  GdkKeymap* gdk_keymap_get_for_display (GdkDisplay *display)
 GdkKeymap*
 gdk_keymap_get_for_display (class, display)
 	GdkDisplay *display
@@ -99,7 +99,7 @@ gdk_keymap_lookup_key (keymap, key)
     OUTPUT:
 	RETVAL
 
-##  gboolean gdk_keymap_translate_keyboard_state (GdkKeymap *keymap, guint hardware_keycode, GdkModifierType state, gint group, guint *keyval, gint *effective_group, gint *level, GdkModifierType *consumed_modifiers) 
+##  gboolean gdk_keymap_translate_keyboard_state (GdkKeymap *keymap, guint hardware_keycode, GdkModifierType state, gint group, guint *keyval, gint *effective_group, gint *level, GdkModifierType *consumed_modifiers)
 =for apidoc
 =for signature (keyval, effective_group, level, consumed_modifiers) = $keymap->translate_keyboard_state (hardware_keycode, state, group)
 =cut
@@ -115,8 +115,8 @@ gdk_keymap_translate_keyboard_state (keymap, hardware_keycode, state, group)
 	gint level;
 	GdkModifierType consumed_modifiers;
     PPCODE:
-	if (!gdk_keymap_translate_keyboard_state (keymap, hardware_keycode, 
-						  state, group, &keyval, 
+	if (!gdk_keymap_translate_keyboard_state (keymap, hardware_keycode,
+						  state, group, &keyval,
 						  &effective_group, &level,
 						  &consumed_modifiers))
 		XSRETURN_EMPTY;
@@ -140,7 +140,7 @@ example.  Gtk2::Gdk::Event::Key contains a group field that indicates
 the active keyboard group.  The level is computed from the modifier
 mask.
 =cut
-##  gboolean gdk_keymap_get_entries_for_keyval (GdkKeymap *keymap, guint keyval, GdkKeymapKey **keys, gint *n_keys) 
+##  gboolean gdk_keymap_get_entries_for_keyval (GdkKeymap *keymap, guint keyval, GdkKeymapKey **keys, gint *n_keys)
 void
 gdk_keymap_get_entries_for_keyval (keymap, keyval)
 	GdkKeymap_orclass * keymap
@@ -162,7 +162,7 @@ gdk_keymap_get_entries_for_keyval (keymap, keyval)
 Returns a list of hash references, each with two keys: "key" pointing to a
 I<GdkKeymapKey> and "keyval" pointing to the corresponding key value.
 =cut
-##  gboolean gdk_keymap_get_entries_for_keycode (GdkKeymap *keymap, guint hardware_keycode, GdkKeymapKey **keys, guint **keyvals, gint *n_entries) 
+##  gboolean gdk_keymap_get_entries_for_keycode (GdkKeymap *keymap, guint hardware_keycode, GdkKeymapKey **keys, guint **keyvals, gint *n_entries)
 void
 gdk_keymap_get_entries_for_keycode (keymap, hardware_keycode)
 	GdkKeymap_orclass * keymap
@@ -174,7 +174,7 @@ gdk_keymap_get_entries_for_keycode (keymap, hardware_keycode)
 	int i;
 	HV * hv;
     PPCODE:
-	if (!gdk_keymap_get_entries_for_keycode (keymap, hardware_keycode, 
+	if (!gdk_keymap_get_entries_for_keycode (keymap, hardware_keycode,
 						 &keys, &keyvals, &n_entries))
 		XSRETURN_EMPTY;
 	EXTEND (SP, n_entries);
@@ -184,11 +184,16 @@ gdk_keymap_get_entries_for_keycode (keymap, hardware_keycode)
 		hv_store (hv, "keyval", 6, newSVuv (keyvals[i]), 0);
 		PUSHs (sv_2mortal (newRV_noinc ((SV*) hv)));
 	}
-	
+
 PangoDirection
 gdk_keymap_get_direction (keymap)
 	GdkKeymap_orclass *keymap
 
+#if GTK_CHECK_VERSION (2, 11, 0) /* FIXME: 2.12 */
+
+gboolean gdk_keymap_have_bidi_layouts (GdkKeymap *keymap);
+
+#endif
 
 MODULE = Gtk2::Gdk::Keys PACKAGE = Gtk2::Gdk PREFIX = gdk_
 
@@ -198,14 +203,14 @@ gdk_keyval_name (class, keyval)
     C_ARGS:
 	keyval
 
-##  guint gdk_keyval_from_name (const gchar *keyval_name) 
+##  guint gdk_keyval_from_name (const gchar *keyval_name)
 guint
 gdk_keyval_from_name (class, keyval_name)
 	const gchar * keyval_name
     C_ARGS:
 	keyval_name
 
-##  void gdk_keyval_convert_case (guint symbol, guint *lower, guint *upper) 
+##  void gdk_keyval_convert_case (guint symbol, guint *lower, guint *upper)
 =for apidoc
 =for signature (lower, upper) = Gtk2::Gdk::Keyval->convert_case ($symbol)
 =cut
@@ -221,42 +226,42 @@ gdk_keyval_convert_case (class, symbol)
 	PUSHs (sv_2mortal (newSViv (lower)));
 	PUSHs (sv_2mortal (newSViv (upper)));
 
-##  guint gdk_keyval_to_upper (guint keyval) G_GNUC_CONST 
+##  guint gdk_keyval_to_upper (guint keyval) G_GNUC_CONST
 guint
 gdk_keyval_to_upper (class, keyval)
 	guint keyval
     C_ARGS:
 	keyval
 
-##  guint gdk_keyval_to_lower (guint keyval) G_GNUC_CONST 
+##  guint gdk_keyval_to_lower (guint keyval) G_GNUC_CONST
 guint
 gdk_keyval_to_lower (class, keyval)
 	guint keyval
     C_ARGS:
 	keyval
 
-##  gboolean gdk_keyval_is_upper (guint keyval) G_GNUC_CONST 
+##  gboolean gdk_keyval_is_upper (guint keyval) G_GNUC_CONST
 gboolean
 gdk_keyval_is_upper (class, keyval)
 	guint keyval
     C_ARGS:
 	keyval
 
-##  gboolean gdk_keyval_is_lower (guint keyval) G_GNUC_CONST 
+##  gboolean gdk_keyval_is_lower (guint keyval) G_GNUC_CONST
 gboolean
 gdk_keyval_is_lower (class, keyval)
 	guint keyval
     C_ARGS:
 	keyval
 
-##  guint32 gdk_keyval_to_unicode (guint keyval) G_GNUC_CONST 
+##  guint32 gdk_keyval_to_unicode (guint keyval) G_GNUC_CONST
 guint32
 gdk_keyval_to_unicode (class, keyval)
 	guint keyval
     C_ARGS:
 	keyval
 
-##  guint gdk_unicode_to_keyval (guint32 wc) G_GNUC_CONST 
+##  guint gdk_unicode_to_keyval (guint32 wc) G_GNUC_CONST
 guint
 gdk_unicode_to_keyval (class, wc)
 	guint32 wc

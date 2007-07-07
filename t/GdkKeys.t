@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 42;
+use Gtk2::TestHelper tests => 43;
 
 # $Header$
 
@@ -73,6 +73,13 @@ like($entries[0] -> { key } -> { level }, qr/^\d+$/);
 
 ok(defined($map -> get_direction()));
 ok(defined(Gtk2::Gdk::Keymap -> get_direction()));
+
+SKIP: {
+  skip "new 2.12 stuff", 1
+    unless Gtk2 -> CHECK_VERSION(2, 11, 0); # FIXME: 2.12
+
+  ok(defined($map -> have_bidi_layouts()));
+}
 
 my $a = $Gtk2::Gdk::Keysyms{ a };
 my $A = $Gtk2::Gdk::Keysyms{ A };
