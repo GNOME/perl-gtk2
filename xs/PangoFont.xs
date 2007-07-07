@@ -355,6 +355,12 @@ pango_font_face_list_sizes (PangoFontFace *face)
 
 #endif
 
+#if PANGO_CHECK_VERSION(1, 17, 0) /* FIXME: 1.18 */
+
+gboolean pango_font_face_is_synthesized (PangoFontFace *face);
+
+#endif
+
 MODULE = Gtk2::Pango::Font	PACKAGE = Gtk2::Pango::Font	PREFIX = pango_font_
 
 ## PangoFontMetrics * pango_font_get_metrics (PangoFont *font, PangoLanguage *language)

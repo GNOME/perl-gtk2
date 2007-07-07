@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 56;
+use Gtk2::TestHelper tests => 57;
 
 # $Header$
 
@@ -153,6 +153,13 @@ SKIP: {
   my @sizes = $faces[0]->list_sizes;
   #print "sizes @sizes\n";
   ok (1, 'list_sizes did not crash');
+}
+
+SKIP: {
+  skip("new 1.18 stuff", 1)
+    unless (Gtk2::Pango -> CHECK_VERSION(1, 17, 0)); # FIXME: 1.18
+
+  ok(defined $faces[0]->is_synthesized);
 }
 
 __END__
