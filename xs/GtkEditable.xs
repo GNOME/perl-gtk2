@@ -59,6 +59,9 @@ gtk2perl_editable_insert_text_marshal (GClosure * closure,
 
 	GPERL_CLOSURE_MARSHAL_PUSH_INSTANCE (param_values);
 
+	/* string and position are cleaned up manually further down, so they
+	 * don't need sv_2mortal. */
+
 	/* new_text */
 	string = newSVGChar (g_value_get_string (param_values+1));
 	XPUSHs (string);
