@@ -1,6 +1,9 @@
 2007-07-08	kaffeetisch
 
-	* xs/GtkBuilder.xs: Correct a grammo (grammar mistake).
+	* xs/GtkBuilder.xs: Document the <<
+	$builder->connect_signals ($user_data, $object) >> way of
+	connecting signals.  (Reported by Grant McLean.)  Also correct a
+	grammar mistake.
 
 	* xs/GtkCellRenderer.xs: Mortalize all SVs we put on the stack.
 	In the past, we had to be careful not to cause destruction of

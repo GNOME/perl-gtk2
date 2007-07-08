@@ -141,6 +141,11 @@ calling package.  The callback names are specified in the UI description.
 When invoked like this, Gtk2::Builder will connect signals to functions in the
 package I<$package>.
 
+=item C<< $builder->connect_signals ($user_data, $object) >>
+
+When invoked like this, Gtk2::Builder will connect signals to method calls
+against the object $object.
+
 =item C<< $builder->connect_signals ($user_data, %handlers) >>
 
 When invoked like this, I<%handlers> is used as a mapping from handler names to
