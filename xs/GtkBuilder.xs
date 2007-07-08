@@ -126,8 +126,7 @@ gtk_builder_get_objects (GtkBuilder *builder)
 =for signature $builder->connect_signals ($user_data, %handlers)
 =for arg ... (__hide__)
 
-There are three ways to let Gtk2::Builder do the signal connecting work for
-you:
+There are four ways to let Gtk2::Builder do the signal connecting work for you:
 
 =over
 
