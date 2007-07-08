@@ -1,3 +1,22 @@
+Overview of changes in Gtk2 1.153
+=================================
+
+* Supply default values for Gtk2::IconView::scroll_to_path.
+  [Torsten, Jeffrey Ratcliffe]
+* Hide Gtk2::AboutDialogs constructed with Gtk2::show_about_dialog on any
+  reponse.  [muppet]
+* Make Gtk2::Builder::connect_signals default to the calling package (instead
+  of main) if none was specified.  [Torsten]
+* New API:  [Torsten]
+  - gdk_keymap_have_bidi_layouts
+  - gdk_notify_startup_complete_with_id
+  - gdk_window_set_startup_id
+  - gdk_x11_display_get_startup_notification_id
+  - gtk_tree_view_is_rubber_banding_active
+  - pango_cairo_font_map_new_for_font_type, pango_cairo_font_map_get_font_type
+  - pango_font_face_is_synthesized
+* Plug memory leaks.  [muppet, Torsten]
+
 Overview of changes in Gtk2 1.152
 =================================
 
@@ -86,6 +105,19 @@ Overview of changes in Gtk2 1.150
 * When building on Win32, also look for Cairo.lib to make linking work.
   [Torsten]
 * Fix a few test suite issues.  [Torsten]
+
+Overview of changes in Gtk2 1.145
+=================================
+
+* Fix test failures and compilation problems.  [Torsten, Mario Fischer]
+* Make Gtk2::ListStore's and Gtk2::TreeStore's move_before() and move_after()
+  accept undef for the position parameter.  [Torsten]
+* Supply default values for Gtk2::IconView::scroll_to_path().  [Torsten]
+* Plug reference leaks on the pixmap and bitmap returned from
+  Gtk2::Gdk::Pixbuf::render_pixmap_and_mask() and
+  render_pixmap_and_mask_for_colormap().  [muppet]
+* Hide Gtk2::AboutDialogs constructed with Gtk2::show_about_dialog on any
+  reponse.  [muppet]
 
 Overview of changes in Gtk2 1.144
 =================================
