@@ -134,7 +134,7 @@ you:
 =item C<< $builder->connect_signals ($user_data) >>
 
 When invoked like this, Gtk2::Builder will connect signals to functions in the
-calling package.  The callbacks names are specified in the UI description.
+calling package.  The callback names are specified in the UI description.
 
 =item C<< $builder->connect_signals ($user_data, $package) >>
 
@@ -169,7 +169,7 @@ void gtk_builder_set_translation_domain (GtkBuilder *builder, const gchar_ornull
 
 const gchar_ornull * gtk_builder_get_translation_domain (GtkBuilder *builder);
 
-# FIXME: Are these needed?
+# Are these needed?
 # GType gtk_builder_get_type_from_name (GtkBuilder *builder, const char *type_name);
 # gboolean gtk_builder_value_from_string (GParamSpec *pspec, const gchar *string, GValue *value);
 # gboolean gtk_builder_value_from_string_type (GType type, const gchar *string, GValue *value);
