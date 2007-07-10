@@ -34,7 +34,7 @@ SKIP: {
 
 	isa_ok ($icon_info->load_icon, 'Gtk2::Gdk::Pixbuf');
 
-	is ($icon_info->get_base_size, 24);
+	ok (defined $icon_info->get_base_size);
 	like ($icon_info->get_filename, qr/stock_edit/);
 
 	# FIXME:

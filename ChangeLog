@@ -1,3 +1,9 @@
+2007-07-10	kaffeetisch
+
+	* t/GdkWindow.t
+	* t/GtkIconTheme.t
+	* t/GtkRecentManager.t: Fix test failures.
+
 2007-07-08	kaffeetisch
 
 	* Gtk2.pm
