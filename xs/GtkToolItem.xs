@@ -67,3 +67,11 @@ void gtk_tool_item_set_proxy_menu_item (GtkToolItem *tool_item, const gchar *men
 void gtk_tool_item_rebuild_menu (GtkToolItem *tool_item);
 
 #endif
+
+#if GTK_CHECK_VERSION(2, 11, 0) /* FIXME: 2.12 */
+
+void gtk_tool_item_set_tooltip_text (GtkToolItem *tool_item, const gchar_ornull *text);
+
+void gtk_tool_item_set_tooltip_markup (GtkToolItem *tool_item, const gchar_ornull *markup);
+
+#endif

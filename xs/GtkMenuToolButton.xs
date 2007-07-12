@@ -30,3 +30,11 @@ void gtk_menu_tool_button_set_menu (GtkMenuToolButton *button, GtkWidget_ornull 
 GtkWidget_ornull * gtk_menu_tool_button_get_menu (GtkMenuToolButton *button);
 
 void gtk_menu_tool_button_set_arrow_tooltip (GtkMenuToolButton *button, GtkTooltips *tooltips, const gchar *tip_text, const gchar *tip_private);
+
+#if GTK_CHECK_VERSION(2, 11, 0) /* FIXME: 2.12 */
+
+void gtk_menu_tool_button_set_arrow_tooltip_text (GtkMenuToolButton *button, const gchar_ornull *text);
+
+void gtk_menu_tool_button_set_arrow_tooltip_markup (GtkMenuToolButton *button, const gchar_ornull *markup);
+
+#endif

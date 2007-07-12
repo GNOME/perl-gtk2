@@ -1143,4 +1143,8 @@ gchar_own * gtk_widget_get_tooltip_markup (GtkWidget *widget);
 
 void gtk_widget_modify_cursor (GtkWidget *widget, const GdkColor *primary, const GdkColor *secondary);
 
+void gtk_widget_set_has_tooltip (GtkWidget *widget, gboolean has_tooltip);
+
+gboolean gtk_widget_get_has_tooltip (GtkWidget *widget);
+
 #endif

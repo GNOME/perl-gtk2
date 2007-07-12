@@ -75,6 +75,16 @@ SKIP: {
     $tool_item->rebuild_menu;
 }
 
+SKIP: {
+    skip 'new 2.12 stuff', 0
+        unless Gtk2->CHECK_VERSION (2, 11, 0); # FIXME: 2.12
+
+    $tool_item->set_tooltip_text ('Bla!');
+    $tool_item->set_tooltip_text (undef);
+    $tool_item->set_tooltip_markup ('<b>Bla!</b>');
+    $tool_item->set_tooltip_markup (undef);
+}
+
 __END__
 
 Copyright (C) 2003-2005 by the gtk2-perl team (see the file AUTHORS for the

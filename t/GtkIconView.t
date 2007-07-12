@@ -12,7 +12,7 @@
 use strict;
 use warnings;
 
-use Gtk2::TestHelper tests => 54,
+use Gtk2::TestHelper tests => 55,
     at_least_version => [2, 6, 0, "GtkIconView is new in 2.6"],
     ;
 
@@ -190,6 +190,14 @@ run_main sub {
 	}
     }
 };
+
+SKIP: {
+	skip 'new 2.12 stuff', 1
+		unless Gtk2->CHECK_VERSION (2, 11, 0); # FIXME: 2.12
+
+	my ($bx, $by) = $iview->convert_widget_to_bin_window_coords (0, 0);
+	is_deeply ([$bx, $by], [0, 0]);
+}
 
 sub create_store
 {

@@ -1,3 +1,22 @@
+2007-07-12	kaffeetisch
+
+	* t/GtkIconView.t
+	* xs/GtkIconView.xs: Wrap
+	gtk_icon_view_convert_widget_to_bin_window_coords.
+
+	* t/GtkMenuToolButton.t
+	* xs/GtkMenuToolButton.xs: Wrap
+	gtk_menu_tool_button_set_arrow_tooltip_text and
+	gtk_menu_tool_button_set_arrow_tooltip_markup.
+
+	* t/GtkToolItem.t
+	* xs/GtkToolItem.xs: Wrap gtk_tool_item_set_tooltip_text and
+	gtk_tool_item_set_tooltip_markup.
+
+	* t/GtkWidget.t
+	* xs/GtkWidget.xs: Wrap gtk_widget_set_has_tooltip and
+	gtk_widget_get_has_tooltip.
+
 2007-07-10	kaffeetisch
 
 	* t/GdkWindow.t

@@ -29,6 +29,16 @@ my $tooltips = Gtk2::Tooltips -> new();
 
 $button -> set_arrow_tooltip($tooltips, "Urgs", "Urgs");
 
+SKIP: {
+  skip 'new 2.12 stuff', 0
+    unless Gtk2 -> CHECK_VERSION(2, 11, 0); # FIXME: 2.12
+
+  $button -> set_arrow_tooltip_text('Bla!');
+  $button -> set_arrow_tooltip_text(undef);
+  $button -> set_arrow_tooltip_markup('<b>Bla!</b>');
+  $button -> set_arrow_tooltip_markup(undef);
+}
+
 __END__
 
 Copyright (C) 2004 by the gtk2-perl team (see the file AUTHORS for the
