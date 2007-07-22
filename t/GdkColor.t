@@ -7,7 +7,7 @@
 # 	- muppet
 #########################
 
-use Gtk2::TestHelper tests => 17;
+use Gtk2::TestHelper tests => 18;
 
 my $cmap = Gtk2::Gdk::Colormap->get_system;
 ok ($cmap, 'system colormap');
@@ -53,6 +53,13 @@ like($black->pixel, qr/^\d+$/);
 is($black->red, 0);
 is($black->green, 0);
 is($black->blue, 0);
+
+SKIP: {
+	skip 'new 2.12 stuff', 1
+		unless Gtk2 -> CHECK_VERSION(2, 11, 0); # FIXME: 2.12
+
+	is($black->to_string, '#000000000000');
+}
 
 __END__
 

@@ -1,5 +1,8 @@
 2007-07-22	kaffeetisch
 
+	* t/GdkColor.t
+	* xs/GdkColor.xs: Wrap gdk_color_to_string.
+
 	* t/GdkDisplay.t
 	* xs/GdkDisplay.xs: Wrap gdk_display_supports_composite.
 
