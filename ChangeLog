@@ -1,5 +1,12 @@
 2007-07-22	kaffeetisch
 
+	* xs/PangoMatrix.xs: Since pango uses GSlice starting with 1.12,
+	use g_slice_new0 instead of g_new0 in Gtk2::Pango::Matrix::new
+	when appropriate to avoid memory corruption.  (#458458, reported
+	by Quentin Sculo)
+
+2007-07-22	kaffeetisch
+
 	* xs/PangoFont.xs: Don't prevent registering subclasses of
 	PangoFont so that instances get their hierarchy set up correctly,
 	especially wrt. interfaces.
