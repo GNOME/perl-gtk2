@@ -1,5 +1,8 @@
 2007-07-22	kaffeetisch
 
+	* t/GdkWindow.t
+	* xs/GdkWindow.xs: Wrap gdk_window_set_composited.
+
 	* t/GtkIconView.t
 	* xs/GtkIconView.xs: Wrap gtk_icon_view_set_tooltip_item,
 	gtk_icon_view_set_tooltip_cell, gtk_icon_view_get_tooltip_context,

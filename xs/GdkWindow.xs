@@ -847,6 +847,8 @@ void gdk_window_beep (GdkWindow *window);
 
 void gdk_window_set_startup_id (GdkWindow *window, const gchar *startup_id);
 
+void gdk_window_set_composited (GdkWindow *window, gboolean composited);
+
 #endif
 
 MODULE = Gtk2::Gdk::Window	PACKAGE = Gtk2::Gdk	PREFIX = gdk_

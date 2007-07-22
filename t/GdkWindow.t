@@ -301,6 +301,7 @@ SKIP: {
     unless Gtk2 -> CHECK_VERSION(2, 11, 0); # FIXME: 2.12
 
   $window -> set_startup_id('bla');
+  $window -> set_composited(FALSE);
   $window -> beep();
 }
 
