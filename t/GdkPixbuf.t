@@ -38,7 +38,7 @@ SKIP: {
 }
 
 eval {
-  Gtk2::Gdk::PixbufAnimation -> new_from_file("aslkhaklh.gif");
+	Gtk2::Gdk::PixbufAnimation -> new_from_file("aslkhaklh.gif");
 };
 isa_ok ($@, "Glib::File::Error");
 
@@ -294,72 +294,6 @@ $pixbuf = $pixbuf2->composite_color_simple (24, 25, 'hyper', 0.4,
 isa_ok ($pixbuf, 'Gtk2::Gdk::Pixbuf', 'composite_color_simple');
 
 
-####################
-### Animations
-###
-#
-###  GdkPixbufAnimation *gdk_pixbuf_animation_new_from_file (const char *filename, GError **error) 
-#GdkPixbufAnimation_noinc *
-#gdk_pixbuf_animation_new_from_file (class, filename)
-#	GPerlFilename filename
-#    PREINIT:
-#	GError * error = NULL;
-#    CODE:
-#	RETVAL = gdk_pixbuf_animation_new_from_file (filename, &error);
-#	if (!RETVAL)
-#		gperl_croak_gerror (filename, error);
-#    OUTPUT:
-#	RETVAL
-#
-#
-#$animation->get_width
-#$animation->get_height
-#$animation->is_static_image
-#$animation->get_static_image
-#
-### there's no typemap for GTimeVal.
-### GTimeVal is in GLib, same as unix' struct timeval.
-### timeval is seconds and microseconds, which we can get from Time::HiRes.
-### so, we'll take seconds and microseconds.  if neither is available,
-### pass NULL to the wrapped function to get the current time.
-####  GdkPixbufAnimationIter *gdk_pixbuf_animation_get_iter (GdkPixbufAnimation *animation, const GTimeVal *start_time) 
-#=for apidoc
-#
-#The seconds and microseconds values are available from Time::HiRes, which is
-#standard since perl 5.8.0.  If both are undef or omitted, the function uses the
-#current time.
-#
-#=cut
-#GdkPixbufAnimationIter_noinc *
-#gdk_pixbuf_animation_get_iter (animation, start_time_seconds=0, start_time_microseconds=0)
-#	GdkPixbufAnimation *animation
-#	guint start_time_seconds
-#	guint start_time_microseconds
-#    CODE:
-#	if (start_time_microseconds) {
-#		GTimeVal start_time;
-#		start_time.tv_sec = start_time_seconds;
-#		start_time.tv_usec = start_time_microseconds;
-#		RETVAL = gdk_pixbuf_animation_get_iter (animation,
-#		                                        &start_time);
-#	} else
-#		RETVAL = gdk_pixbuf_animation_get_iter (animation, NULL);
-#    OUTPUT:
-#	RETVAL
-
-####
-#### Gtk2::Gdk::PixbufAnimationIter
-####
-
-#int $iter->get_delay_time (GdkPixbufAnimationIter *iter) 
-#
-#GdkPixbuf $iter->get_pixbuf
-#
-#gboolean $iter->on_currently_loading_frame
-#
-#gboolean $iter->advance (current_time_seconds=0, current_time_microseconds=0)
-#
-
 SKIP: {
   skip "GdkPixbufFormat stuff is new in 2.2.0", 12
     unless Gtk2->CHECK_VERSION (2,2,0);
@@ -473,6 +407,13 @@ SKIP: {
         $pixbuf = $loader->get_pixbuf;
         is ($pixbuf->get_width, $width);
         is ($pixbuf->get_height, $height);
+}
+
+SKIP: {
+        skip 'new 2.12 stuff', 0
+                unless Gtk2->CHECK_VERSION (2, 11, 0); # FIXME: 2.12
+
+	$pixbuf->apply_embedded_orientation;
 }
 
 # vim: set ft=perl :

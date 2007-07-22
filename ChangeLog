@@ -1,5 +1,8 @@
 2007-07-22	kaffeetisch
 
+	* t/GdkPixbuf.t
+	* xs/GdkPixbuf.xs: Wrap gdk_pixbuf_apply_embedded_orientation.
+
 	* t/GdkWindow.t
 	* xs/GdkWindow.xs: Wrap gdk_window_set_composited.
 

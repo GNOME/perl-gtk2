@@ -781,20 +781,16 @@ gdk_pixbuf_composite_color (src, dest, dest_x, dest_y, dest_width, dest_height, 
 	guint32 color1
 	guint32 color2
 
-## FIXME this can return NULL if there's not enough memory; the typemap doesn't
-##       handle that gracefully.
 ##  GdkPixbuf *gdk_pixbuf_scale_simple (const GdkPixbuf *src, int dest_width, int dest_height, GdkInterpType interp_type) 
-GdkPixbuf_noinc *
+GdkPixbuf_noinc_ornull *
 gdk_pixbuf_scale_simple (src, dest_width, dest_height, interp_type)
 	GdkPixbuf *src
 	int dest_width
 	int dest_height
 	GdkInterpType interp_type
 
-## FIXME this can return NULL if there's not enough memory; the typemap doesn't
-##       handle that gracefully.
 ##  GdkPixbuf *gdk_pixbuf_composite_color_simple (const GdkPixbuf *src, int dest_width, int dest_height, GdkInterpType interp_type, int overall_alpha, int check_size, guint32 color1, guint32 color2) 
-GdkPixbuf_noinc *
+GdkPixbuf_noinc_ornull *
 gdk_pixbuf_composite_color_simple (src, dest_width, dest_height, interp_type, overall_alpha, check_size, color1, color2)
 	GdkPixbuf *src
 	int dest_width
@@ -804,6 +800,12 @@ gdk_pixbuf_composite_color_simple (src, dest_width, dest_height, interp_type, ov
 	int check_size
 	guint32 color1
 	guint32 color2
+
+#if GTK_CHECK_VERSION (2, 11, 0)
+
+GdkPixbuf_noinc * gdk_pixbuf_apply_embedded_orientation (GdkPixbuf *src);
+
+#endif
 
 
 MODULE = Gtk2::Gdk::Pixbuf	PACKAGE = Gtk2::Gdk::PixbufAnimation	PREFIX = gdk_pixbuf_animation_
