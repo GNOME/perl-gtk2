@@ -94,6 +94,16 @@ cairo_font_type_t pango_cairo_font_map_get_font_type (PangoCairoFontMap *fontmap
 
 # --------------------------------------------------------------------------- #
 
+MODULE = Gtk2::Pango::Cairo	PACKAGE = Gtk2::Pango::Cairo::Font	PREFIX = pango_cairo_font_
+
+#if PANGO_CHECK_VERSION (1, 17, 0) /* FIXME: 1.18 */
+
+cairo_scaled_font_t *pango_cairo_font_get_scaled_font (PangoCairoFont *font);
+
+#endif
+
+# --------------------------------------------------------------------------- #
+
 MODULE = Gtk2::Pango::Cairo	PACKAGE = Gtk2::Pango::Cairo	PREFIX = pango_cairo_
 
 =for position DESCRIPTION

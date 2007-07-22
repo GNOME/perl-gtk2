@@ -6,7 +6,7 @@ use Test::More;
 
 if (UNIVERSAL::can("Gtk2::Pango::Cairo::FontMap", "new") &&
     Gtk2::Pango -> CHECK_VERSION(1, 10, 0)) {
-  plan tests => 20;
+  plan tests => 22;
 } else {
   plan skip_all => "PangoCairo stuff: need Cairo and pango >= 1.10.0";
 }
@@ -91,7 +91,7 @@ SKIP: {
 }
 
 SKIP: {
-  skip 'set_shape_renderer', 4
+  skip 'new 1.18 stuff', 6
     unless Gtk2::Pango -> CHECK_VERSION(1, 17, 0); # FIXME: 1.18
 
   $context -> set_shape_renderer(undef, undef);
@@ -121,6 +121,11 @@ SKIP: {
   $layout -> set_attributes($list);
 
   Gtk2::Pango::Cairo::show_layout($cr, $layout);
+
+  my $desc = Gtk2::Pango::FontDescription -> from_string('Sans 10');
+  my $font = $fontmap -> load_font($context, $desc);
+  isa_ok($font, 'Gtk2::Pango::Cairo::Font');
+  isa_ok($font -> get_scaled_font(), 'Cairo::ScaledFont');
 }
 
 __END__

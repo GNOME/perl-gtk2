@@ -23,9 +23,6 @@
 
 MODULE = Gtk2::Pango::Font	PACKAGE = Gtk2::Pango
 
-BOOT:
-	gperl_object_set_no_warn_unreg_subclass (PANGO_TYPE_FONT, TRUE);
-
 =for object Gtk2::Pango::FontDescription
 =cut
 

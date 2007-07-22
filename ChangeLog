@@ -1,3 +1,13 @@
+2007-07-22	kaffeetisch
+
+	* xs/PangoFont.xs: Don't prevent registering subclasses of
+	PangoFont so that instances get their hierarchy set up correctly,
+	especially wrt. interfaces.
+
+	* maps_pango-1.18
+	* t/PangoCairo.t
+	* xs/PangoCairo.xs: Wrap pango_cairo_font_get_scaled_font.
+
 2007-07-12	kaffeetisch
 
 	* t/GtkIconView.t
