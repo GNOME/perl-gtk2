@@ -33,7 +33,7 @@ pango_color_wrap (GType gtype,
 		  gboolean own)
 {
 	PangoColor *color = boxed;
-	AV * av;
+	AV *av;
 
 	if (!color)
 		return &PL_sv_undef;
@@ -47,12 +47,13 @@ pango_color_wrap (GType gtype,
 	if (own)
 		pango_color_free (color);
 
-	return newRV_noinc ((SV *) av);
+	return sv_bless (newRV_noinc ((SV *) av),
+	       		 gv_stashpv ("Gtk2::Pango::Color", TRUE));
 }
 
 /* This uses gperl_alloc_temp so make sure you don't hold on to pointers
  * returned by SvPangoColor for too long. */
-static void *
+static gpointer
 pango_color_unwrap (GType gtype,
 		    const char * package,
 		    SV * sv)
@@ -85,6 +86,12 @@ pango_color_unwrap (GType gtype,
 		color->blue = SvUV (*v);
 
 	return color;
+}
+
+static void
+pango_color_destroy (SV * sv)
+{
+	/* We allocated nothing in wrap, so do nothing here. */
 }
 
 /* ------------------------------------------------------------------------- */
@@ -285,9 +292,9 @@ MODULE = Gtk2::Pango::Attributes	PACKAGE = Gtk2::Pango::Color	PREFIX = pango_col
 
 BOOT:
 	PERL_UNUSED_VAR (file);
-	pango_color_wrapper_class = * gperl_default_boxed_wrapper_class ();
 	pango_color_wrapper_class.wrap = pango_color_wrap;
 	pango_color_wrapper_class.unwrap = pango_color_unwrap;
+	pango_color_wrapper_class.destroy = pango_color_destroy;
 	gperl_register_boxed (PANGO_TYPE_COLOR, "Gtk2::Pango::Color",
 	                      &pango_color_wrapper_class);
 
@@ -305,11 +312,21 @@ pango_color_parse (class, const gchar * spec)
 
 #if PANGO_CHECK_VERSION (1, 16, 0)
 
+=for apidoc
+=for signature string = $color->to_string
+=cut
 ##gchar *pango_color_to_string(const PangoColor *color);
 gchar_own *
-pango_color_to_string (class, const PangoColor *color)
-    C_ARGS:
-	color
+pango_color_to_string (...)
+    CODE:
+	if (items == 1)
+		RETVAL = pango_color_to_string (SvPangoColor (ST (0)));
+	else if (items == 2)
+		RETVAL = pango_color_to_string (SvPangoColor (ST (1)));
+	else
+		croak ("Usage: Gtk2::Pango::Color::to_string($color)");
+    OUTPUT:
+	RETVAL
 
 #endif
 

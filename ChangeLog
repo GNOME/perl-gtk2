@@ -1,5 +1,11 @@
 2007-07-22	kaffeetisch
 
+	* t/PangoAttributes.t
+	* xs/PangoAttributes.xs: Bless the array used to represent
+	PangoColor so it becomes possible to call methods on it.
+	Introduce some stack fiddling so you can use
+	Gtk2::Pango::Color::to_string as a method and a class function.
+
 	* xs/PangoMatrix.xs: Since pango uses GSlice starting with 1.12,
 	use g_slice_new0 instead of g_new0 in Gtk2::Pango::Matrix::new
 	when appropriate to avoid memory corruption.  (#458458, reported

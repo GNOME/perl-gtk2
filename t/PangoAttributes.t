@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 200;
+use Gtk2::TestHelper tests => 202;
 
 # $Header$
 
@@ -9,14 +9,16 @@ use Gtk2::TestHelper tests => 200;
 #
 
 my $color = Gtk2::Pango::Color->parse ('white');
+isa_ok ($color, 'Gtk2::Pango::Color');
 isa_ok ($color, 'ARRAY');
 is_deeply ($color, [0xffff, 0xffff, 0xffff]);
 
 SKIP: {
-	skip 'new 1.16 stuff', 1
+	skip 'new 1.16 stuff', 2
 		unless Gtk2::Pango->CHECK_VERSION (1, 16, 0);
 
 	is (Gtk2::Pango::Color->to_string ($color), '#ffffffffffff');
+	is ($color->to_string, '#ffffffffffff');
 }
 
 #
