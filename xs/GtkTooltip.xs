@@ -20,6 +20,8 @@ void gtk_tooltip_set_icon_from_stock (GtkTooltip *tooltip, const gchar_ornull *s
 
 void gtk_tooltip_set_custom (GtkTooltip *tooltip, GtkWidget_ornull *custom_widget);
 
+void gtk_tooltip_set_tip_area (GtkTooltip *tooltip, GdkRectangle_ornull *rect);
+
 =for apidoc __function__
 =cut
 void gtk_tooltip_trigger_tooltip_query (GdkDisplay *display);

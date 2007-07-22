@@ -1,5 +1,8 @@
 2007-07-22	kaffeetisch
 
+	* t/GtkTooltip.t
+	* xs/GtkTooltip.xs: Wrap gtk_tooltip_set_tip_area.
+
 	* t/GtkTreeView.t
 	* xs/GtkTreeView.xs: Wrap gtk_tree_view_set_tooltip_row,
 	gtk_tree_view_set_tooltip_cell, gtk_tree_view_get_tooltip_context,

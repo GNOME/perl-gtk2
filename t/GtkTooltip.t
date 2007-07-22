@@ -29,6 +29,9 @@ $window->signal_connect (query_tooltip => sub {
   $tip->set_custom (Gtk2::Button->new ("Bla!"));
   $tip->set_custom (undef);
 
+  $tip->set_tip_area (Gtk2::Gdk::Rectangle->new (0, 0, 10, 10));
+  $tip->set_tip_area (undef);
+
   Glib::Idle->add (sub { Gtk2->main_quit; });
 
   return TRUE;
