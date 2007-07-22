@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 154;
+use Gtk2::TestHelper tests => 160;
 
 # $Header$
 
@@ -391,7 +391,7 @@ SKIP: {
 }
 
 SKIP: {
-	skip "new 2.12 stuff", 9
+	skip "new 2.12 stuff", 15
 		unless Gtk2 -> CHECK_VERSION(2, 11, 0); # FIXME: 2.12
 
 	$view -> set_show_expanders(TRUE);
@@ -408,6 +408,44 @@ SKIP: {
 	is_deeply([$view -> convert_bin_window_to_tree_coords(0, 0)], [0, 0]);
 
         is($view -> is_rubber_banding_active(), FALSE);
+
+	$view -> append_column($view_column);
+
+	my $window = Gtk2::Window->new;
+	$window->set (tooltip_markup => "<b>Bla!</b>");
+
+	$window->signal_connect (query_tooltip => sub {
+		my ($window, $x, $y, $keyboard_mode, $tip) = @_;
+
+		my $path = Gtk2::TreePath -> new_from_indices(0);
+		$view->set_tooltip_row ($tip, $path);
+		$view->set_tooltip_cell ($tip, $path, $view_column, $cell_renderer);
+
+		my ($bx, $by, $model, $tpath, $iter) = $view->get_tooltip_context (0, 0, TRUE);
+		is ($bx, 0);
+		is ($by, 0);
+		isa_ok ($model, 'Gtk2::TreeModel');
+		isa_ok ($tpath, 'Gtk2::TreePath');
+		isa_ok ($iter, 'Gtk2::TreeIter');
+
+		$view->set_tooltip_column (1);
+		is ($view->get_tooltip_column, 1);
+
+		Glib::Idle->add (sub { Gtk2->main_quit; });
+
+		return TRUE;
+	});
+
+	$window->realize;
+
+	my $event = Gtk2::Gdk::Event->new ('motion-notify');
+	$event->window ($window->window);
+	Gtk2->main_do_event ($event);
+	Gtk2->main_do_event ($event);
+
+	Gtk2->main;
+
+	$view -> remove_column($view_column);
 }
 
 ###############################################################################

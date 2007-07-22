@@ -1,5 +1,12 @@
 2007-07-22	kaffeetisch
 
+	* t/GtkTreeView.t
+	* xs/GtkTreeView.xs: Wrap gtk_tree_view_set_tooltip_row,
+	gtk_tree_view_set_tooltip_cell, gtk_tree_view_get_tooltip_context,
+	gtk_tree_view_get_tooltip_context,
+	gtk_tree_view_set_tooltip_column, and
+	gtk_tree_view_get_tooltip_column.
+
 	* t/PangoAttributes.t
 	* xs/PangoAttributes.xs: Bless the array used to represent
 	PangoColor so it becomes possible to call methods on it.

@@ -881,4 +881,29 @@ void gtk_tree_view_convert_bin_window_to_tree_coords (GtkTreeView *tree_view, gi
 
 gboolean gtk_tree_view_is_rubber_banding_active (GtkTreeView *tree_view);
 
+void gtk_tree_view_set_tooltip_row (GtkTreeView *tree_view, GtkTooltip *tooltip, GtkTreePath *path);
+
+void gtk_tree_view_set_tooltip_cell (GtkTreeView *tree_view, GtkTooltip *tooltip, GtkTreePath *path, GtkTreeViewColumn *column, GtkCellRenderer *cell);
+
+# gboolean gtk_tree_view_get_tooltip_context (GtkTreeView *tree_view, gint *x, gint *y, gboolean keyboard_tip, GtkTreeModel **model, GtkTreePath **path, GtkTreeIter *iter);
+void
+gtk_tree_view_get_tooltip_context (GtkTreeView *tree_view, gint x, gint y, gboolean keyboard_tip)
+    PREINIT:
+	GtkTreeModel *model = NULL;
+	GtkTreePath *path = NULL;
+	GtkTreeIter iter = {0, };
+    PPCODE:
+	if (! gtk_tree_view_get_tooltip_context (tree_view, &x, &y, keyboard_tip, &model, &path, &iter))
+		XSRETURN_EMPTY;
+	EXTEND (sp, 5);
+	PUSHs (sv_2mortal (newSViv (x)));
+	PUSHs (sv_2mortal (newSViv (y)));
+	PUSHs (sv_2mortal (newSVGtkTreeModel (model)));
+	PUSHs (sv_2mortal (newSVGtkTreePath_own (path)));
+	PUSHs (sv_2mortal (newSVGtkTreeIter_copy (&iter)));
+
+void gtk_tree_view_set_tooltip_column (GtkTreeView *tree_view, gint column);
+
+gint gtk_tree_view_get_tooltip_column (GtkTreeView *tree_view);
+
 #endif /* 2.12 */
