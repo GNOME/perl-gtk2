@@ -2,6 +2,20 @@
 
 	Merge from HEAD:
 
+	* t/GdkWindow.t
+	* t/GtkIconTheme.t
+	* t/GtkActionGroup.t
+	* t/GtkRecentManager.t: Fix test failures.
+
+	* xs/GtkCellRenderer.xs: Mortalize all SVs we put on the stack.
+	In the past, we had to be careful not to cause destruction of
+	pre-existing C objects, but that's not necessary anymore.
+
+	* xs/GtkRadioAction.xs
+	* xs/GtkRadioButton.xs
+	* xs/GtkRadioMenuItem.xs: Plug leaks in the get_group() methods:
+	Mark new SVs as mortal when we put them on the stack.
+
 	* xs/PangoTypes.xs: Since pango uses GSlice starting with 1.12,
 	use g_slice_new0 instead of g_new0 in Gtk2::Pango::Matrix::new
 	when appropriate to avoid memory corruption.  (#458458, reported

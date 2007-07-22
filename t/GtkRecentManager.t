@@ -11,6 +11,7 @@
 
 use strict;
 use warnings;
+use File::Basename qw(basename);
 
 use Gtk2::TestHelper tests => 36,
     at_least_version => [2, 10, 0, "GtkRecentManager is new in 2.10"],
@@ -78,7 +79,7 @@ SKIP: {
 	is($recent_info->get_display_name, 'Stock edit',               'check name');
 	is($recent_info->get_description,  'GTK+ stock icon for edit', 'check description');
 	is($recent_info->get_mime_type,    'image/png',                'check MIME');
-	is($recent_info->get_short_name,   'stock_edit.png',           'check short name');
+	is($recent_info->get_short_name,   basename $icon_file,        'check short name');
 
 	ok(defined $recent_info->get_uri_display, 'check display uri');
 	ok(defined $recent_info->get_age,         'check age');

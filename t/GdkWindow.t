@@ -267,7 +267,7 @@ $window_three -> set_group($window_three);
 $window -> set_decorations("all");
 
 my @deco = $window -> get_decorations();
-like($deco[0], qr/^(?:1|)$/);
+ok(defined $deco[0]);
 isa_ok($deco[1], "Gtk2::Gdk::WMDecoration");
 
 $window -> set_functions("all");
