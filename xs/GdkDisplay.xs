@@ -203,3 +203,9 @@ gboolean gdk_display_supports_shapes (GdkDisplay *display);
 gboolean gdk_display_supports_input_shapes (GdkDisplay *display);
 
 #endif
+
+#if GTK_CHECK_VERSION (2, 11, 0) /* FIXME: 2.12 */
+
+gboolean gdk_display_supports_composite (GdkDisplay *display);
+
+#endif
