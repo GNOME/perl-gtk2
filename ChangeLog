@@ -1,12 +1,17 @@
 2007-07-22	kaffeetisch
 
+	* t/GtkIconView.t
+	* xs/GtkIconView.xs: Wrap gtk_icon_view_set_tooltip_item,
+	gtk_icon_view_set_tooltip_cell, gtk_icon_view_get_tooltip_context,
+	gtk_icon_view_set_tooltip_column, and
+	gtk_icon_view_get_tooltip_column.
+
 	* t/GtkTooltip.t
 	* xs/GtkTooltip.xs: Wrap gtk_tooltip_set_tip_area.
 
 	* t/GtkTreeView.t
 	* xs/GtkTreeView.xs: Wrap gtk_tree_view_set_tooltip_row,
 	gtk_tree_view_set_tooltip_cell, gtk_tree_view_get_tooltip_context,
-	gtk_tree_view_get_tooltip_context,
 	gtk_tree_view_set_tooltip_column, and
 	gtk_tree_view_get_tooltip_column.
 

@@ -264,4 +264,29 @@ GdkPixmap_noinc *gtk_icon_view_create_drag_icon (GtkIconView *icon_view, GtkTree
 
 void gtk_icon_view_convert_widget_to_bin_window_coords (GtkIconView *icon_view, gint wx, gint wy, OUTLIST gint bx, OUTLIST gint by);
 
+void gtk_icon_view_set_tooltip_item (GtkIconView *icon_view, GtkTooltip *tooltip, GtkTreePath *path);
+
+void gtk_icon_view_set_tooltip_cell (GtkIconView *icon_view, GtkTooltip *tooltip, GtkTreePath *path, GtkCellRenderer *cell);
+
+# gboolean gtk_icon_view_get_tooltip_context (GtkIconView *icon_view, gint *x, gint *y, gboolean keyboard_tip, GtkTreeModel **model, GtkTreePath **path, GtkTreeIter *iter);
+void
+gtk_icon_view_get_tooltip_context (GtkIconView *icon_view, gint x, gint y, gboolean keyboard_tip)
+    PREINIT:
+	GtkTreeModel *model = NULL;
+	GtkTreePath *path = NULL;
+	GtkTreeIter iter = {0, };
+    PPCODE:
+	if (! gtk_icon_view_get_tooltip_context (icon_view, &x, &y, keyboard_tip, &model, &path, &iter))
+		XSRETURN_EMPTY;
+	EXTEND (sp, 5);
+	PUSHs (sv_2mortal (newSViv (x)));
+	PUSHs (sv_2mortal (newSViv (y)));
+	PUSHs (sv_2mortal (newSVGtkTreeModel (model)));
+	PUSHs (sv_2mortal (newSVGtkTreePath_own (path)));
+	PUSHs (sv_2mortal (newSVGtkTreeIter_copy (&iter)));
+
+void gtk_icon_view_set_tooltip_column (GtkIconView *icon_view, gint column);
+
+gint gtk_icon_view_get_tooltip_column (GtkIconView *icon_view);
+
 #endif
