@@ -113,7 +113,11 @@ pango_matrix_new (class, xx = 1., xy = 0., yx = 0., yy = 1., x0 = 0., y0 = 0.)
 	double x0
 	double y0
     CODE:
+#if PANGO_CHECK_VERSION (1, 12, 0)
+	RETVAL = g_slice_new0 (PangoMatrix);
+#else
 	RETVAL = g_new0 (PangoMatrix, 1);
+#endif
 	RETVAL->xx = xx;
 	RETVAL->xy = xy;
 	RETVAL->yx = yx;
