@@ -1,5 +1,11 @@
 2007-07-29	kaffeetisch
 
+	* Gtk2.pm
+	* NEWS
+	* README: Unstable release 1.154.
+
+2007-07-29	kaffeetisch
+
 	* Makefile.PL: Don't print how many XS files were loaded from
 	which XS file list.
 

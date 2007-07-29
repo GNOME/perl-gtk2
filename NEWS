@@ -1,3 +1,30 @@
+Overview of changes in Gtk2 1.154
+=================================
+
+* New API:  [Torsten]
+  - gdk_color_to_string
+  - gdk_display_supports_composite
+  - gdk_pixbuf_apply_embedded_orientation
+  - gdk_window_set_composited
+  - gtk_icon_view_convert_widget_to_bin_window_coords,
+    gtk_icon_view_set_tooltip_item, gtk_icon_view_set_tooltip_cell,
+    gtk_icon_view_get_tooltip_context, gtk_icon_view_set_tooltip_column,
+    gtk_icon_view_get_tooltip_column
+  - gtk_menu_tool_button_set_arrow_tooltip_text,
+    gtk_menu_tool_button_set_arrow_tooltip_markup
+  - gtk_tool_item_set_tooltip_text, gtk_tool_item_set_tooltip_markup
+  - gtk_tooltip_set_tip_area
+  - gtk_tree_view_set_tooltip_row, gtk_tree_view_set_tooltip_cell,
+    gtk_tree_view_get_tooltip_context, gtk_tree_view_set_tooltip_column,
+    gtk_tree_view_get_tooltip_column
+  - gtk_widget_set_has_tooltip, gtk_widget_get_has_tooltip
+  - pango_cairo_font_get_scaled_font
+* Make it possible to call methods on the arrays used to represent PangoColor.
+  [Torsten]
+* Fix Gtk2::Pango::Matrix::new so it doesn't cause memory errors with pango >=
+  1.12.  [Torsten, Quentin Sculo]
+* Fix a few test failures.  [Torsten]
+
 Overview of changes in Gtk2 1.153
 =================================
 
