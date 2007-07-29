@@ -1,3 +1,8 @@
+2007-07-29	kaffeetisch
+
+	* Makefile.PL: Don't print how many XS files were loaded from
+	which XS file list.
+
 2007-07-22	kaffeetisch
 
 	* t/GdkColor.t

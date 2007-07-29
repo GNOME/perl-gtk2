@@ -83,7 +83,7 @@ our @xs_lists = (
 );
 foreach my $filename (@xs_lists) {
 	my @names = Glib::MakeHelper->read_source_list_file ($filename);
-	print "Loaded ".scalar(@names)." xs files from $filename\n";
+	#print "Loaded ".scalar(@names)." xs files from $filename\n";
 	push @xs_files, @names;
 }
 my $target = ExtUtils::PkgConfig->variable ('gtk+-2.0', 'target');
@@ -107,12 +107,12 @@ if ($gtk_version[0] > 2 || ($gtk_version[0] == 2 && $gtk_version[1] >= 8)) {
 }
 
 #
-# create version macros for pango
+# create version macros for pango and atk
 #
 ExtUtils::PkgConfig->write_version_macros(
 	"build/gtk2perl-versions.h",
 	pango => "PANGO",
-	atk => "ATK"
+	atk => "ATK",
 );
 
 #
