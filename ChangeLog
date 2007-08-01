@@ -1,3 +1,8 @@
+2007-08-01	kaffeetisch
+
+	* MANIFEST: Add forgotten maps_pango-1.18.  Its absence caused
+	compilation errors.  (Reported by Thierry Vignaud)
+
 2007-07-29	kaffeetisch
 
 	* Gtk2.pm
