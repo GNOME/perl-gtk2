@@ -3,6 +3,9 @@
 	* MANIFEST: Add forgotten maps_pango-1.18.  Its absence caused
 	compilation errors.  (Reported by Thierry Vignaud)
 
+	* t/GtkTooltips.t: Fix test failure due to change of semantics in
+	gtk+.
+
 2007-07-29	kaffeetisch
 
 	* Gtk2.pm
