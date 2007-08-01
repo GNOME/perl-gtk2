@@ -1,5 +1,11 @@
 2007-08-01	kaffeetisch
 
+	* Gtk2.pm
+	* NEWS
+	* README: Unstable release 1.155.
+
+2007-08-01	kaffeetisch
+
 	* MANIFEST: Add forgotten maps_pango-1.18.  Its absence caused
 	compilation errors.  (Reported by Thierry Vignaud)
 

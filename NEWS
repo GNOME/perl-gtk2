@@ -1,3 +1,9 @@
+Overview of changes in Gtk2 1.155
+=================================
+
+* Fix a compilation problem.  [Torsten, Thierry Vignaud]
+* Fix a few test failures.  [Torsten]
+
 Overview of changes in Gtk2 1.154
 =================================
 
