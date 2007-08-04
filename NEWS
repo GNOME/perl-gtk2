@@ -1,3 +1,11 @@
+Overview of changes in Gtk2 1.146
+=================================
+
+* Avoid memory corruption in Gtk2::Pango::Matrix::new.
+  [Torsten, Quentin Sculo]
+* Plug a few memory leaks.  [muppet, Torsten]
+* Fix some test failures.  [Torsten]
+
 Overview of changes in Gtk2 1.145
 =================================
 

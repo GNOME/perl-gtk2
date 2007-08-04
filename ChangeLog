@@ -1,5 +1,11 @@
 2007-08-04	kaffeetisch
 
+	* Gtk2.pm
+	* NEWS
+	* README: Stable release 1.146.
+
+2007-08-04	kaffeetisch
+
 	Merge from HEAD:
 
 	* t/GtkTooltips.t: Fix test failure due to change of semantics in
