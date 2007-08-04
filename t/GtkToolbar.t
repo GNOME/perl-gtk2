@@ -2,7 +2,7 @@
 # $Header$
 #
 
-use Gtk2::TestHelper tests => 53;
+use Gtk2::TestHelper tests => 52;
 
 use strict;
 use warnings;
@@ -224,9 +224,6 @@ $toolbar->unset_icon_size;
 
 $toolbar->set_tooltips (TRUE);
 ok ($toolbar->get_tooltips, '[sg]et_tooltips');
-
-$toolbar->set_tooltips (FALSE);
-ok (!$toolbar->get_tooltips, '[sg]et_tooltips');
 
 $toolbar->set_orientation ('vertical');
 is ('vertical', $toolbar->get_orientation, '[sg]et_orientation');
