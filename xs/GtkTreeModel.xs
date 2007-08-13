@@ -1307,7 +1307,7 @@ gtk_tree_model_row_deleted (tree_model, path)
 =for apidoc
 =for arg path the tree node whose children have been reordered
 =for arg iter the tree node whose children have been reordered
-=for arg ... (integers) array of integers mapping the current position of each child to its old position before the re-ordering, i.e. $new_order[$newpos] = $oldpos.  There should be as many elements in this list as there are rows in I<$tree_model>.
+=for arg ... (list) list of integers mapping the current position of each child to its old position before the re-ordering, i.e. $new_order[$newpos] = $oldpos.  There should be as many elements in this list as there are rows in I<$tree_model>.
 
 Emits the "rows-reordered" signal on I<$tree_model>/  This should be called
 by models with their rows have been reordered.

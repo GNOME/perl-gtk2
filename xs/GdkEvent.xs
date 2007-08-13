@@ -443,7 +443,7 @@ gdk_event_copy (event)
 =for apidoc Gtk2::Gdk::Event::set_time
 =for signature $event->set_time ($newtime)
 =for arg ... (hide)
-=for arg newtime (timestamp)
+=for arg newtime (integer) timestamp
 =cut
 
 # we'll doc this one below with get_time

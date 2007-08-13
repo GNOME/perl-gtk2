@@ -417,7 +417,7 @@ gdk_pixbuf_new_from_file_at_scale (class, GPerlFilename filename, int width, int
 
 ###  GdkPixbuf *gdk_pixbuf_new_from_data (const guchar *data, GdkColorspace colorspace, gboolean has_alpha, int bits_per_sample, int width, int height, int rowstride, GdkPixbufDestroyNotify destroy_fn, gpointer destroy_fn_data) 
 =for apidoc
-=for arg data (string of packed binary data) pixel data, usually made with pack()
+=for arg data (scalar) packed binary pixel data, usually made with pack()
 =for arg has_alpha true if the image data includes an alpha channel (opacity information).
 =for arg width in pixels.
 =for arg height in pixels.
@@ -523,7 +523,7 @@ gdk_pixbuf_new_from_xpm_data (class, ...)
 ## croaks on error
 ##  GdkPixbuf* gdk_pixbuf_new_from_inline (gint data_length, const guint8 *data, gboolean copy_pixels, GError **error) 
 =for apidoc __gerror__
-=for arg data (packed binary data) the format is special, see discussion
+=for arg data (scalar) packed binary data, the format is special, see discussion
 =for arg copy_pixels whether I<$data> should be copied, defaults to true
 
 Gtk+ ships with a tool called C<gdk-pixbuf-csource>, which turns any image

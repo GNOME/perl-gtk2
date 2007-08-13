@@ -1,3 +1,10 @@
+2007-08-13	kaffeetisch
+
+	* xs/GdkEvent.xs
+	* xs/GdkPixbuf.xs
+	* xs/GtkTreeModel.xs: Alter some type names in the POD so that
+	Glib::GenPod recognizes them.
+
 2007-08-01	kaffeetisch
 
 	* Gtk2.pm
