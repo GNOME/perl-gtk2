@@ -4,7 +4,7 @@
 use strict;
 use warnings;
 use Gtk2::TestHelper
-  tests => 21,
+  tests => 22,
   at_least_version => [2, 10, 0, "Gtk2::StatusIcon is new in 2.10"];
 
 # $Header$
@@ -84,6 +84,9 @@ my $callback = sub {
 };
 $menu -> popup(undef, undef, $callback, $icon, 0, 0);
 $menu -> popdown();
+
+# Make sure the convenient way of calling works, too.
+ok (defined Gtk2::StatusIcon::position_menu($menu, $icon));
 
 # --------------------------------------------------------------------------- #
 

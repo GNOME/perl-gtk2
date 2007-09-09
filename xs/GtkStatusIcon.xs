@@ -61,16 +61,38 @@ gboolean gtk_status_icon_get_blinking (GtkStatusIcon *status_icon);
 
 gboolean gtk_status_icon_is_embedded (GtkStatusIcon *status_icon);
 
-=for apidoc __function__
+=for apidoc
+
+=for signature (x, y, push_in) = Gtk2::StatusIcon::position_menu (menu, icon)
+=for signature (x, y, push_in) = Gtk2::StatusIcon::position_menu (menu, x, y, icon)
+
+=for arg menu (Gtk2::Menu)
+=for arg x (integer)
+=for arg y (integer)
+=for arg icon (Gtk2::StatusIcon)
+
+This function takes four arguments so that it may be passed directly as the
+menu position callback to Gtk2::Menu::popup(), which passes in initial x and y
+values for historical reasons.  Otherwise, you need only pass two arguments.
+
 This function can be used as the I<menu_pos_func> argument to
 I<Gtk2::Menu::popup>.
+
 =cut
-##void gtk_status_icon_position_menu (GtkMenu *menu, gint *x, gint *y, gboolean *push_in, gpointer user_data)
 void
-gtk_status_icon_position_menu (GtkMenu *menu, gint x, gint y, GtkStatusIcon *icon)
-    PREINIT:
+gtk_status_icon_position_menu (GtkMenu *menu, ...)
+     PREINIT:
 	gboolean push_in;
-    PPCODE:
+	gint x, y;
+	GtkStatusIcon *icon;
+     PPCODE:
+	if (items == 4) {
+		/* Compatibility mode */
+		x = SvIV (ST (1));
+		y = SvIV (ST (2));
+		icon = SvGtkStatusIcon (ST (3));
+	} else
+		icon = SvGtkStatusIcon (ST (1));
 	gtk_status_icon_position_menu (menu, &x, &y, &push_in, icon);
 	EXTEND (sp, 3);
 	PUSHs (sv_2mortal (newSViv (x)));

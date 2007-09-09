@@ -1,5 +1,9 @@
 2007-09-09	kaffeetisch
 
+	* t/GtkStatusIcon.t
+	* xs/GtkStatusIcon.xs: Make the x, y arguments to
+	Gtk2::StatusIcon::position_menu optional.  Patch by muppet.
+
 	* t/GdkWindow.t: Fix a reported test failure in the
 	get_decorations() checks.
 
