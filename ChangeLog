@@ -1,3 +1,10 @@
+2007-09-09	kaffeetisch
+
+	Merge from HEAD:
+
+	* t/GdkWindow.t: Fix a reported test failure in the
+	get_decorations() checks.
+
 2007-08-04	kaffeetisch
 
 	* Gtk2.pm

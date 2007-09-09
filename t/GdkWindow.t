@@ -267,7 +267,7 @@ $window_three -> set_group($window_three);
 $window -> set_decorations("all");
 
 my @deco = $window -> get_decorations();
-ok(defined $deco[0]);
+is(scalar @deco, 2);
 isa_ok($deco[1], "Gtk2::Gdk::WMDecoration");
 
 $window -> set_functions("all");
