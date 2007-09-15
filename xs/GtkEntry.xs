@@ -209,7 +209,7 @@ const GtkBorder_ornull * gtk_entry_get_inner_border (GtkEntry *entry);
 
 #endif
 
-#if GTK_CHECK_VERSION(2, 11, 0) /* FIXME: 2.12 */
+#if GTK_CHECK_VERSION(2, 12, 0)
 
 void gtk_entry_set_cursor_hadjustment (GtkEntry *entry, GtkAdjustment_ornull *adjustment);
 

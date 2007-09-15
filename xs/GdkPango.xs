@@ -94,7 +94,7 @@ embossed (PangoAttribute * attr, ...)
 
 # --------------------------------------------------------------------------- #
 
-#if GTK_CHECK_VERSION (2, 11, 0) /* FIXME: 2.12 */
+#if GTK_CHECK_VERSION (2, 12, 0)
 
 MODULE = Gtk2::Gdk::Pango	PACKAGE = Gtk2::Gdk::Pango::AttrEmbossColor	PREFIX = gdk_pango_attr_emboss_color_
 

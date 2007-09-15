@@ -74,7 +74,7 @@ void gtk_cell_layout_clear_attributes (GtkCellLayout *cell_layout, GtkCellRender
 
 void gtk_cell_layout_reorder (GtkCellLayout *cell_layout, GtkCellRenderer *cell, gint position)
 
-#if GTK_CHECK_VERSION (2, 11, 0) /* FIXME: 2.12 */
+#if GTK_CHECK_VERSION (2, 12, 0)
 
 ###GList * gtk_cell_layout_get_cells (GtkCellLayout *cell_layout);
 void

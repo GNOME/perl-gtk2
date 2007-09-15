@@ -53,7 +53,7 @@ gtk_print_settings_foreach (GtkPrintSettings *settings, SV *func, SV *data=NULL)
 	                            callback);
 	gperl_callback_destroy (callback);
 
-#if GTK_CHECK_VERSION (2, 11, 0) /* FIXME: 2.12 */
+#if GTK_CHECK_VERSION (2, 12, 0)
 
 # GtkPrintSettings * gtk_print_settings_new_from_file (const gchar *file_name, GError **error);
 =for apidoc __gerror__

@@ -195,7 +195,7 @@ run_main sub {
 
 SKIP: {
 	skip 'new 2.12 stuff', 7
-		unless Gtk2->CHECK_VERSION (2, 11, 0); # FIXME: 2.12
+		unless Gtk2->CHECK_VERSION (2, 12, 0);
 
 	my ($bx, $by) = $iview->convert_widget_to_bin_window_coords (0, 0);
 	is_deeply ([$bx, $by], [0, 0]);

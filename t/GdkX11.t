@@ -63,7 +63,7 @@ SKIP: {
 
   SKIP: {
     skip '2.12 stuff', 1
-      unless Gtk2->CHECK_VERSION(2, 11, 0); # FIXME: 2.12
+      unless Gtk2->CHECK_VERSION(2, 12, 0);
 
     my $display = Gtk2::Gdk::Display -> get_default();
 

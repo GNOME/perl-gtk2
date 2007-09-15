@@ -22,7 +22,7 @@ is($mark -> get_deleted(), 1);
 
 SKIP: {
   skip 'new 2.12 stuff', 2
-    unless Gtk2 -> CHECK_VERSION(2, 11, 0); # FIXME: 2.12
+    unless Gtk2 -> CHECK_VERSION(2, 12, 0);
 
   my $mark = Gtk2::TextMark -> new(undef, TRUE);
   isa_ok($mark, 'Gtk2::TextMark');

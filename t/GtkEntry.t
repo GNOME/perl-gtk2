@@ -76,7 +76,7 @@ SKIP: {
 
 SKIP: {
   skip("cursor hadjustment stuff", 2)
-    unless Gtk2->CHECK_VERSION (2, 11, 0); # FIXME: 2.12
+    unless Gtk2->CHECK_VERSION (2, 12, 0);
 
   $entry -> set_cursor_hadjustment(undef);
   is($entry -> get_cursor_hadjustment(), undef);

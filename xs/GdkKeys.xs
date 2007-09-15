@@ -189,7 +189,7 @@ PangoDirection
 gdk_keymap_get_direction (keymap)
 	GdkKeymap_orclass *keymap
 
-#if GTK_CHECK_VERSION (2, 11, 0) /* FIXME: 2.12 */
+#if GTK_CHECK_VERSION (2, 12, 0)
 
 gboolean gdk_keymap_have_bidi_layouts (GdkKeymap *keymap);
 

@@ -19,7 +19,7 @@ isa_ok($fontmap, "Gtk2::Pango::FontMap");
 
 SKIP: {
   skip 'new 1.18 stuff', 3
-    unless Gtk2::Pango -> CHECK_VERSION(1, 17, 0); # FIXME: 1.18
+    unless Gtk2::Pango -> CHECK_VERSION(1, 18, 0);
 
   $fontmap = Gtk2::Pango::Cairo::FontMap -> new_for_font_type('ft');
   isa_ok($fontmap, "Gtk2::Pango::Cairo::FontMap");
@@ -92,7 +92,7 @@ SKIP: {
 
 SKIP: {
   skip 'new 1.18 stuff', 6
-    unless Gtk2::Pango -> CHECK_VERSION(1, 17, 0); # FIXME: 1.18
+    unless Gtk2::Pango -> CHECK_VERSION(1, 18, 0);
 
   $context -> set_shape_renderer(undef, undef);
 

@@ -134,7 +134,7 @@ gtk_icon_theme_get_icon_sizes (GtkIconTheme *icon_theme, const gchar *icon_name)
 
 #endif
 
-#if GTK_CHECK_VERSION (2, 11, 0) /* FIXME: 2.12 */
+#if GTK_CHECK_VERSION (2, 12, 0)
 
 # GList * gtk_icon_theme_list_contexts (GtkIconTheme *icon_theme);
 void

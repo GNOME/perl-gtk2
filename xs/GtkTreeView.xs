@@ -857,7 +857,7 @@ void gtk_tree_view_set_enable_tree_lines (GtkTreeView *tree_view, gboolean enabl
 
 #endif /* 2.10 */
 
-#if GTK_CHECK_VERSION (2, 11, 0) /* FIXME: 2.12 */
+#if GTK_CHECK_VERSION (2, 12, 0)
 
 void gtk_tree_view_set_show_expanders (GtkTreeView *tree_view, gboolean enabled);
 

@@ -95,7 +95,7 @@ gdk_notify_startup_complete (class)
 
 #endif /* 2.2.0 */
 
-#if GTK_CHECK_VERSION(2,11,0) /* FIXME: 2.12 */
+#if GTK_CHECK_VERSION(2, 12, 0)
 
 void gdk_notify_startup_complete_with_id (class, const gchar* startup_id)
     C_ARGS:

@@ -398,7 +398,7 @@ void gtk_tree_view_column_queue_resize (GtkTreeViewColumn *tree_column);
 
 #endif
 
-#if GTK_CHECK_VERSION (2, 11, 0) /* FIXME: 2.13 */
+#if GTK_CHECK_VERSION (2, 12, 0)
 
 GtkWidget_ornull * gtk_tree_view_column_get_tree_view (GtkTreeViewColumn *tree_column);
 

@@ -668,7 +668,7 @@ GtkWindowGroup_ornull * gtk_window_get_group (GtkWindow *window);
 
 #endif
 
-#if GTK_CHECK_VERSION (2, 11, 0) /* FIXME: 2.12 */
+#if GTK_CHECK_VERSION (2, 12, 0)
 
 void gtk_window_set_startup_id (GtkWindow *window, const gchar *startup_id);
 

@@ -93,7 +93,7 @@ is_deeply($attribute, {
   Gtk2::Pango -> CHECK_VERSION(1, 4, 0) ?
     (backspace_deletes_character => 1) :
     (),
-  Gtk2::Pango -> CHECK_VERSION(1, 17, 0) ? # FIXME: 1.18
+  Gtk2::Pango -> CHECK_VERSION(1, 18, 0) ?
     (is_expandable_space => 0) :
     ()
 });

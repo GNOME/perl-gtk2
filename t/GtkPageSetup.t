@@ -38,7 +38,7 @@ ok(defined $setup -> get_page_height("mm"));
 
 SKIP: {
   skip "new 2.12 stuff", 7
-    unless Gtk2->CHECK_VERSION (2, 11, 0); # FIXME: 2.12
+    unless Gtk2->CHECK_VERSION (2, 12, 0);
 
   my $new_setup;
   $setup -> set_top_margin(23, 'mm');

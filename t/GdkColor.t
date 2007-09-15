@@ -56,7 +56,7 @@ is($black->blue, 0);
 
 SKIP: {
 	skip 'new 2.12 stuff', 1
-		unless Gtk2 -> CHECK_VERSION(2, 11, 0); # FIXME: 2.12
+		unless Gtk2 -> CHECK_VERSION(2, 12, 0);
 
 	is($black->to_string, '#000000000000');
 }

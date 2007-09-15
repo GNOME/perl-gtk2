@@ -93,7 +93,7 @@ void gtk_range_set_upper_stepper_sensitivity (GtkRange *range, GtkSensitivityTyp
 
 #endif
 
-#if GTK_CHECK_VERSION (2, 11, 0) /* FIXME: 2.12 */
+#if GTK_CHECK_VERSION (2, 12, 0)
 
 void gtk_range_set_show_fill_level (GtkRange *range, gboolean show_fill_level);
 

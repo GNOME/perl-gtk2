@@ -151,7 +151,7 @@ gtk_about_dialog_get_program_name (GtkAboutDialog * about)
 		      "Gtk2::AboutDialog::get_program_name instead of "
 		      "get_name");
 	}
-#if GTK_CHECK_VERSION (2, 11, 0) /* FIXME: 2.12 */
+#if GTK_CHECK_VERSION (2, 12, 0)
 	RETVAL = gtk_about_dialog_get_program_name (about);
 #else
 	RETVAL = gtk_about_dialog_get_name (about);
@@ -172,7 +172,7 @@ gtk_about_dialog_set_program_name (GtkAboutDialog * about, const gchar_ornull * 
 		      "Gtk2::AboutDialog::set_program_name instead of "
 		      "set_name");
 	}
-#if GTK_CHECK_VERSION (2, 11, 0) /* FIXME: 2.12 */
+#if GTK_CHECK_VERSION (2, 12, 0)
 	gtk_about_dialog_set_program_name (about, name);
 #else
 	gtk_about_dialog_set_name (about, name);

@@ -145,7 +145,7 @@ Gtk2->show_about_dialog (undef,
 
 SKIP: {
 	skip 'new 2.12 stuff', 4
-		unless Gtk2->CHECK_VERSION (2, 11, 0); # FIXME: 2.12
+		unless Gtk2->CHECK_VERSION (2, 12, 0);
 
 	# Called 3 times
 	$SIG{__WARN__} = sub { like shift, qr/Deprecation warning/; };

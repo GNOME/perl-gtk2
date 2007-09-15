@@ -55,7 +55,7 @@ gdouble gtk_page_setup_get_page_width (GtkPageSetup *setup, GtkUnit unit);
 
 gdouble gtk_page_setup_get_page_height (GtkPageSetup *setup, GtkUnit unit);
 
-#if GTK_CHECK_VERSION (2, 11, 0) /* FIXME: 2.12 */
+#if GTK_CHECK_VERSION (2, 12, 0)
 
 # GtkPageSetup * gtk_page_setup_new_from_file (const gchar *file_name, GError **error);
 =for apidoc __gerror__

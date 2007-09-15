@@ -941,7 +941,7 @@ y (GdkEvent * event, gdouble newvalue=0.0)
     OUTPUT:
 	RETVAL
 
-#if GTK_CHECK_VERSION (2, 11, 0) /* FIXME: 2.12 */
+#if GTK_CHECK_VERSION (2, 12, 0)
 
 # void gdk_event_request_motions (GdkEventMotion *event);
 void

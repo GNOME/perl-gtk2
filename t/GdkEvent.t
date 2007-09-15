@@ -71,7 +71,7 @@ is ($event->y, 13, '$motion_event->y');
 
 SKIP: {
 	skip "new 2.12 stuff", 0
-		unless Gtk2->CHECK_VERSION (2, 11, 0); # FIXME: 2.12
+		unless Gtk2->CHECK_VERSION (2, 12, 0);
 
 	$event->device ($device);
 	$event->window ($window);

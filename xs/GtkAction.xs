@@ -26,7 +26,7 @@ GtkWidget* gtk_action_create_icon (GtkAction *action, GtkIconSize icon_size);
 
 GtkWidget* gtk_action_create_menu_item (GtkAction *action);
 
-#if GTK_CHECK_VERSION (2, 11, 0) /* FIXME: 2.12 */
+#if GTK_CHECK_VERSION (2, 12, 0)
 
 GtkWidget* gtk_action_create_menu (GtkAction *action);
 

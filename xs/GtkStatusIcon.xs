@@ -116,7 +116,7 @@ gtk_status_icon_get_geometry (GtkStatusIcon *status_icon)
 	PUSHs (sv_2mortal (newSVGdkRectangle (&area)));
 	PUSHs (sv_2mortal (newSVGtkOrientation (orientation)));
 
-#if GTK_CHECK_VERSION (2, 11, 0) /* FIXME: 2.12 */
+#if GTK_CHECK_VERSION (2, 12, 0)
 
 void gtk_status_icon_set_screen (GtkStatusIcon *status_icon, GdkScreen *screen);
 

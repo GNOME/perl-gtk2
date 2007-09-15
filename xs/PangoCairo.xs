@@ -81,7 +81,7 @@ pango_cairo_font_map_create_context (PangoCairoFontMap *fontmap)
     OUTPUT:
 	RETVAL
 
-#if PANGO_CHECK_VERSION (1, 17, 0) /* FIXME: 1.18 */
+#if PANGO_CHECK_VERSION (1, 18, 0)
 
 # PangoFontMap *pango_cairo_font_map_new_for_font_type (cairo_font_type_t fonttype);
 PangoFontMap_noinc * pango_cairo_font_map_new_for_font_type (class, cairo_font_type_t fonttype)
@@ -96,7 +96,7 @@ cairo_font_type_t pango_cairo_font_map_get_font_type (PangoCairoFontMap *fontmap
 
 MODULE = Gtk2::Pango::Cairo	PACKAGE = Gtk2::Pango::Cairo::Font	PREFIX = pango_cairo_font_
 
-#if PANGO_CHECK_VERSION (1, 17, 0) /* FIXME: 1.18 */
+#if PANGO_CHECK_VERSION (1, 18, 0)
 
 cairo_scaled_font_t *pango_cairo_font_get_scaled_font (PangoCairoFont *font);
 
@@ -189,7 +189,7 @@ void pango_cairo_context_set_resolution (PangoContext *context, double dpi);
 =cut
 double pango_cairo_context_get_resolution (PangoContext *context);
 
-#if PANGO_CHECK_VERSION (1, 17, 0) /* FIXME: 1.18 */
+#if PANGO_CHECK_VERSION (1, 18, 0)
 
 =for apidoc __function__
 =cut

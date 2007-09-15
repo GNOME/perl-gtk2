@@ -75,7 +75,7 @@ SKIP: {
 
 SKIP: {
 	skip 'new 2.12 stuff', 2
-		unless Gtk2->CHECK_VERSION (2, 11, 0); # FIXME: 2.12
+		unless Gtk2->CHECK_VERSION (2, 12, 0);
 
 	$completion->set_inline_selection (TRUE);
 	is ($completion->get_inline_selection, TRUE);

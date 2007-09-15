@@ -113,7 +113,7 @@ gboolean gtk_entry_completion_get_popup_single_match (GtkEntryCompletion *comple
 
 #endif
 
-#if GTK_CHECK_VERSION(2, 11, 0) /* FIXME: 2.12 */
+#if GTK_CHECK_VERSION(2, 12, 0)
 
 void gtk_entry_completion_set_inline_selection (GtkEntryCompletion *completion, gboolean inline_selection);
 

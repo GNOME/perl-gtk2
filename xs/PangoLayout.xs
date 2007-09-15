@@ -152,7 +152,7 @@ newSVPangoLogAttr (PangoLogAttr * logattr)
 #if PANGO_CHECK_VERSION (1, 4, 0)
 	STORE_BIT (backspace_deletes_character);
 #endif
-#if PANGO_CHECK_VERSION (1, 17, 0) /* FIXME: 1.18 */
+#if PANGO_CHECK_VERSION (1, 18, 0)
 	STORE_BIT (is_expandable_space);
 #endif
 

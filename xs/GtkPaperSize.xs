@@ -54,7 +54,7 @@ const gchar *gtk_paper_size_get_default (class)
     C_ARGS:
 	/* void */
 
-#if GTK_CHECK_VERSION (2, 11, 0) /* FIXME: 2.12 */
+#if GTK_CHECK_VERSION (2, 12, 0)
 
 # GtkPaperSize * gtk_paper_size_new_from_key_file (GKeyFile *key_file, const gchar *group_name, GError **error);
 =for apidoc __gerror__

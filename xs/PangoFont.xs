@@ -352,7 +352,7 @@ pango_font_face_list_sizes (PangoFontFace *face)
 
 #endif
 
-#if PANGO_CHECK_VERSION(1, 17, 0) /* FIXME: 1.18 */
+#if PANGO_CHECK_VERSION(1, 18, 0)
 
 gboolean pango_font_face_is_synthesized (PangoFontFace *face);
 

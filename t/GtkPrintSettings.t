@@ -37,7 +37,7 @@ $settings -> foreach($callback, 'blub');
 
 SKIP: {
   skip 'new 2.12 stuff', 7
-    unless Gtk2->CHECK_VERSION (2, 11, 0); # FIXME: 2.12
+    unless Gtk2->CHECK_VERSION (2, 12, 0);
 
   $settings -> set($key, $value);
 

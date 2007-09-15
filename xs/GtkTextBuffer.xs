@@ -535,7 +535,7 @@ GtkTargetList* gtk_text_buffer_get_paste_target_list (GtkTextBuffer *buffer);
 
 #endif /* 2.10 */
 
-#if GTK_CHECK_VERSION (2, 11, 0) /* FIXME: 2.12 */
+#if GTK_CHECK_VERSION (2, 12, 0)
 
 void gtk_text_buffer_add_mark (GtkTextBuffer *buffer, GtkTextMark *mark, GtkTextIter *where);
 

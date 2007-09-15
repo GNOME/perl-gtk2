@@ -23,7 +23,7 @@
 
 MODULE = Gtk2::TextMark	PACKAGE = Gtk2::TextMark	PREFIX = gtk_text_mark_
 
-#if GTK_CHECK_VERSION (2, 11, 0) /* FIXME: 2.12 */
+#if GTK_CHECK_VERSION (2, 12, 0)
 
 ## GtkTextMark * gtk_text_mark_new (const gchar *name, gboolean left_gravity)
 GtkTextMark_noinc *

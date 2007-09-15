@@ -119,7 +119,7 @@ SKIP: {
 
 SKIP: {
 	skip('new 2.12 stuff', 1)
-		unless Gtk2->CHECK_VERSION (2, 11, 0); # FIXME: 2.12
+		unless Gtk2->CHECK_VERSION (2, 12, 0);
 
 	is($view_column -> get_tree_view(), undef);
 }
@@ -199,7 +199,7 @@ $view -> insert_column_with_data_func(1,
 
 SKIP: {
 	skip('new 2.12 stuff', 1)
-		unless Gtk2->CHECK_VERSION (2, 11, 0); # FIXME: 2.12
+		unless Gtk2->CHECK_VERSION (2, 12, 0);
 
 	is($view_column_one -> get_tree_view(), $view);
 }
@@ -392,7 +392,7 @@ SKIP: {
 
 SKIP: {
 	skip "new 2.12 stuff", 15
-		unless Gtk2 -> CHECK_VERSION(2, 11, 0); # FIXME: 2.12
+		unless Gtk2 -> CHECK_VERSION(2, 12, 0);
 
 	$view -> set_show_expanders(TRUE);
 	ok($view -> get_show_expanders());

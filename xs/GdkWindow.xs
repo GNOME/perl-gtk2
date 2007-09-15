@@ -841,7 +841,7 @@ void gdk_window_merge_child_input_shapes (GdkWindow *window);
 
 #endif
 
-#if GTK_CHECK_VERSION (2, 11, 0) /* FIXME: 2.12 */
+#if GTK_CHECK_VERSION (2, 12, 0)
 
 void gdk_window_beep (GdkWindow *window);
 

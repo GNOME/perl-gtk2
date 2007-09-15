@@ -150,7 +150,7 @@ SKIP: {
 
 SKIP: {
   skip 'new 2.12 stuff', 0
-    unless Gtk2->CHECK_VERSION (2, 11, 0); # FIXME: 2.12
+    unless Gtk2->CHECK_VERSION (2, 12, 0);
 
   my $mark = Gtk2::TextMark -> new('bla', TRUE);
   my $iter = $buffer -> get_end_iter();

@@ -1,3 +1,68 @@
+2007-09-15	kaffeetisch
+
+	* t/01.GtkWindow.t
+	* t/Gdk.t
+	* t/GdkColor.t
+	* t/GdkDisplay.t
+	* t/GdkEvent.t
+	* t/GdkKeys.t
+	* t/GdkPango.t
+	* t/GdkPixbuf.t
+	* t/GdkWindow.t
+	* t/GdkX11.t
+	* t/GtkAboutDialog.t
+	* t/GtkAction.t
+	* t/GtkCellLayout.t
+	* t/GtkEntry.t
+	* t/GtkEntryCompletion.t
+	* t/GtkIconTheme.t
+	* t/GtkIconView.t
+	* t/GtkMenuItem.t
+	* t/GtkMenuToolButton.t
+	* t/GtkPageSetup.t
+	* t/GtkPaperSize.t
+	* t/GtkPrintSettings.t
+	* t/GtkRange.t
+	* t/GtkStatusIcon.t
+	* t/GtkTextBuffer.t
+	* t/GtkTextMark.t
+	* t/GtkToolItem.t
+	* t/GtkTreeView.t
+	* t/GtkWidget.t
+	* t/PangoCairo.t
+	* t/PangoFont.t
+	* t/PangoLayout.t
+	* xs/Gdk.xs
+	* xs/GdkDisplay.xs
+	* xs/GdkEvent.xs
+	* xs/GdkKeys.xs
+	* xs/GdkPango.xs
+	* xs/GdkWindow.xs
+	* xs/GdkX11.xs
+	* xs/GtkAboutDialog.xs
+	* xs/GtkAction.xs
+	* xs/GtkCellLayout.xs
+	* xs/GtkEntry.xs
+	* xs/GtkEntryCompletion.xs
+	* xs/GtkIconTheme.xs
+	* xs/GtkMenuToolButton.xs
+	* xs/GtkPageSetup.xs
+	* xs/GtkPaperSize.xs
+	* xs/GtkPrintSettings.xs
+	* xs/GtkRange.xs
+	* xs/GtkStatusIcon.xs
+	* xs/GtkTextBuffer.xs
+	* xs/GtkTextMark.xs
+	* xs/GtkToolItem.xs
+	* xs/GtkTreeView.xs
+	* xs/GtkTreeViewColumn.xs
+	* xs/GtkWidget.xs
+	* xs/GtkWindow.xs
+	* xs/PangoCairo.xs
+	* xs/PangoFont.xs
+	* xs/PangoLayout.xs: Change version checks to refer to gtk+ 2.12
+	instead of 2.11.  Thanks, perl -pi.
+
 2007-09-09	kaffeetisch
 
 	* t/GtkStatusIcon.t

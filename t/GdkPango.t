@@ -62,7 +62,7 @@ ok (!$attr->embossed);
 
 SKIP: {
   skip "2.12 stuff", 4
-    unless Gtk2->CHECK_VERSION (2, 11, 0); # FIXME: 2.12
+    unless Gtk2->CHECK_VERSION (2, 12, 0);
 
   my $color = Gtk2::Gdk::Color->new (0xffff, 0xffff, 0xffff);
   my $attr = Gtk2::Gdk::Pango::AttrEmbossColor->new ($color);

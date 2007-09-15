@@ -157,7 +157,7 @@ SKIP: {
 
 SKIP: {
   skip("new 1.18 stuff", 1)
-    unless (Gtk2::Pango -> CHECK_VERSION(1, 17, 0)); # FIXME: 1.18
+    unless (Gtk2::Pango -> CHECK_VERSION(1, 18, 0));
 
   ok(defined $faces[0]->is_synthesized);
 }

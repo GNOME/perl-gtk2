@@ -1121,7 +1121,7 @@ void gtk_widget_input_shape_combine_mask (GtkWidget *widget, GdkBitmap_ornull *s
 
 #endif /* 2.10 */
 
-#if GTK_CHECK_VERSION(2, 11, 0) /* FIXME: 2.12 */
+#if GTK_CHECK_VERSION(2, 12, 0)
 
 gboolean gtk_widget_keynav_failed (GtkWidget *widget, GtkDirectionType direction);
 

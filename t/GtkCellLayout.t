@@ -38,7 +38,7 @@ $completion -> set_cell_data_func($renderer, sub { warn @_; }, 23);
 
 SKIP: {
   skip "2.12 stuff", 1
-    unless Gtk2 -> CHECK_VERSION (2, 11, 0); # FIXME: 2.12
+    unless Gtk2 -> CHECK_VERSION (2, 12, 0);
 
   # GtkEntryCompletion doesn't seem to implement get_cells yet, so we use the
   # GtkTreeViewColumn.
