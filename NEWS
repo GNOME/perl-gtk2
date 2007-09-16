@@ -1,3 +1,26 @@
+Overview of changes in Gtk2 1.160
+=================================
+
+ Since 1.14x (the previous stable series)
+ ----------------------------------------
+  * Add Gtk2::Pango::LayoutLine, Gtk2::Gdk::Pango::AttrEmbossColor,
+    Gtk2::Builder, Gtk2::RecentAction, Gtk2::ScaleButton, and Gtk2::Tooltip.
+  * Add new API in: Gtk2::Gdk, Gtk2::Gdk::Color, Gtk2::Gdk::Display,
+    Gtk2::Gdk::Event, Gtk2::Gdk::Keymap, Gtk2::Gdk::Pixbuf, Gtk2::Gdk::Window,
+    Gtk2::Gdk::X11, Gtk2::Pango, Gtk2::Pango::Cairo, Gtk2::Pango::Color,
+    Gtk2::Pango::Context, Gtk2::Pango::FontFace, Gtk2::Action,
+    Gtk2::CellLayout, Gtk2::EntryCompletion, Gtk2::IconTheme, Gtk2::IconView,
+    Gtk2::Layout, Gtk2::MenuToolButton, Gtk2::PageSetup, Gtk2::PrintSettings,
+    Gtk2::Range, Gtk2::TextBuffer, Gtk2::TextMark, Gtk2::ToolItem,
+    Gtk2::TreeView, Gtk2::Widget, and Gtk2::Window.
+  * Add support for pango attributes and pango gravity.
+
+ Since 1.155
+ -----------
+  * Make the x, y arguments to Gtk2::StatusIcon::position_menu optional.
+    [muppet]
+  * Fix a test failure or two.  [Torsten]
+
 Overview of changes in Gtk2 1.155
 =================================
 

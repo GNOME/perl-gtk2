@@ -1,5 +1,12 @@
 2007-09-16	kaffeetisch
 
+	* Gtk2.pm
+	* Makefile.PL
+	* NEWS
+	* README: Stable release 1.160.
+
+2007-09-16	kaffeetisch
+
 	* t/GtkIconView.t: Fix a test failure.
 
 2007-09-15	kaffeetisch
