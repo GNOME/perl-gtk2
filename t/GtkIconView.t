@@ -1,3 +1,5 @@
+#!/usr/bin/perl
+
 #
 # $Header$
 #
@@ -203,10 +205,13 @@ SKIP: {
 	my $window = Gtk2::Window->new;
 	$window->set (tooltip_markup => "<b>Bla!</b>");
 
+	my ($path, $cell) = $iview->get_item_at_pos (ICON_COORD, ICON_COORD);
+	skip 'get_item_at_pos returned undef', 6
+		unless defined $path && defined $cell;
+
 	$window->signal_connect (query_tooltip => sub {
 		my ($window, $x, $y, $keyboard_mode, $tip) = @_;
 
-		my ($path, $cell) = $iview->get_item_at_pos (ICON_COORD, ICON_COORD);
 		$iview->set_tooltip_item ($tip, $path);
 		$iview->set_tooltip_cell ($tip, $path, $cell);
 

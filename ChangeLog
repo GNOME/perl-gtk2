@@ -1,3 +1,7 @@
+2007-09-16	kaffeetisch
+
+	* t/GtkIconView.t: Fix a test failure.
+
 2007-09-15	kaffeetisch
 
 	* t/01.GtkWindow.t
