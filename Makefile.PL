@@ -306,10 +306,12 @@ sub MY::postamble
 Makefile : ".join(" ", @xs_lists)."
 
 \$(INST_LIB)/\$(FULLEXT)/enums.pod : \$(BLIB_DONE) @used_maps @used_maps_pango tools/podifyenums.pl
-	\$(PERLRUNINST) -M\$(NAME) tools/podifyenums.pl \$(NAME) @used_maps @used_maps_pango > \$@
+	\$(NOECHO) \$(ECHO) Creating enum POD...
+	\$(NOECHO) \$(PERLRUNINST) -M\$(NAME) tools/podifyenums.pl \$(NAME) @used_maps @used_maps_pango > \$@
 
 build/stock_items.podi: \$(BLIB_DONE) tools/podifystockitems.pl
-	\$(PERLRUNINST) -M\$(NAME) tools/podifystockitems.pl > \$@
+	\$(NOECHO) \$(ECHO) Creating stock items POD...
+	\$(NOECHO) \$(PERLRUNINST) -M\$(NAME) tools/podifystockitems.pl > \$@
 
 build/FAQ.pod: tools/fetch_faq.pl
 	$^X \$<

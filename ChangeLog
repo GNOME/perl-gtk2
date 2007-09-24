@@ -1,3 +1,13 @@
+2007-09-24	kaffeetisch
+
+	* Makefile.PL: Prettify build output by summarizing what is done
+	instead of printing executed command lines.
+
+	* tools/genkeysyms.pl
+	* tools/podifyenums.pl: Don't put timestamps into generated files
+	so they don't get installed every single time even though there
+	are no real changes.
+
 2007-09-16	kaffeetisch
 
 	* Gtk2.pm
