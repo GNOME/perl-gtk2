@@ -1,3 +1,9 @@
+2007-10-03  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
+	* xs/PangoLayout.xs: Fix leak in
+	Gtk2::Pango::Layout::get_iter.  (Reported by Quentin Sculo in
+	#482795)
+
 2007-09-24	kaffeetisch
 
 	* Makefile.PL: Prettify build output by summarizing what is done
