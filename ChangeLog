@@ -1,5 +1,7 @@
 2007-10-07  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
+	* t/GdkDnd.t: Handle get_selection() returning undef.
+
 	* Makefile.PL: Tell EU::MM to put correct configure_requires and
 	no_index information into the generated META.yml file.
 
