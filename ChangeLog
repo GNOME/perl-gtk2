@@ -1,3 +1,8 @@
+2007-10-07  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
+	* Makefile.PL: Tell EU::MM to put correct configure_requires and
+	no_index information into the generated META.yml file.
+
 2007-10-03  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
 	* xs/PangoLayout.xs: Fix leak in

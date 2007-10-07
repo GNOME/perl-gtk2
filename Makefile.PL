@@ -238,6 +238,9 @@ $gtk2->save_config ('build/IFiles.pm');
 our @exports;
 require 'Gtk2.exports';
 
+my $configure_requires =
+  Glib::MakeHelper->get_configure_requires_yaml(%PREREQ_PM);
+
 WriteMakefile(
     NAME          => 'Gtk2',
     VERSION_FROM  => 'Gtk2.pm', # finds $VERSION
@@ -247,7 +250,16 @@ WriteMakefile(
     MAN3PODS      => \%pod_files,
     FUNCLIST      => \@exports,
     DL_FUNCS      => { Gtk2 => [] },
+
     $gtk2->get_makefile_vars,
+
+    EXTRA_META    => qq/
+$configure_requires
+no_index:
+    directory:
+    - tools
+    - xs
+/,
 );
 
 =unstable
