@@ -1,4 +1,4 @@
-
+#!/usr/bin/perl
 use Gtk2::TestHelper tests => 59;
 
 # $Header$
@@ -97,10 +97,10 @@ $window->signal_connect (size_allocate => sub {
 	$this = shift @framesizes;
 
 	if ($i++) {
-	TODO: {
-		local $TODO = Gtk2->CHECK_VERSION (2, 2, 0)
-			? "paned fails remote/non-gnome-desktop/2.2.3 ???"
-			: undef;
+	SKIP: {
+		skip 'unreliable paned verifications', 6
+			if Gtk2->CHECK_VERSION (2, 2, 0);
+
 		# don't validate the first wave -- the window probably
 		# hasn't had time to get properly sized.
 		($w, $h) = sizeof ($hframe);

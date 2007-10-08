@@ -1,3 +1,8 @@
+2007-10-08  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
+	* t/GtkPaned.t: Use SKIP instead of TODO for the unreliable resize
+	verification tests.  TODOs that pass look like failures.
+
 2007-10-07  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
 	* t/GdkDnd.t: Handle get_selection() returning undef.
