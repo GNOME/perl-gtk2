@@ -1,5 +1,11 @@
 2007-10-14  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
+	* Gtk2.pm
+	* NEWS
+	* README: Stable release 1.161.
+
+2007-10-14  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
 	Merge from HEAD:
 
 	* Makefile.PL: Use BEGIN { require 5.008; } instead of use 5.008;
