@@ -75,10 +75,11 @@ SKIP: {
   }
 
   is($context -> dest_window(), $destination);
+  my $selection = $context -> get_selection();
   SKIP: {
-    skip "selection test; it seems to fail with Apple's X11", 1
-      if $^O eq 'darwin';
-    isa_ok($context -> get_selection(), "Gtk2::Gdk::Atom");
+    skip "selection test: get_selection returned undef", 1
+      unless defined $selection;
+    isa_ok($selection, "Gtk2::Gdk::Atom");
   }
 
   $context -> status(qw(move), 0);

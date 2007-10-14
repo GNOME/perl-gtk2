@@ -4,9 +4,7 @@
 #print join("\n", @dirs, "\n");
 foreach (@dirs) {
 	if (-f "$_/gdk/gdkkeysyms.h") {
-		print "# generated "
-		    . scalar(localtime)
-		    . " from $_/gdk/gdkkeysyms.h\n";
+		print "# generated from $_/gdk/gdkkeysyms.h\n";
 		open IN, "$_/gdk/gdkkeysyms.h" 
 			or die "can't read $_/gdk/gdkkeysyms.h: $!\n";
 		print "package Gtk2::Gdk::Keysyms;\n";

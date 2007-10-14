@@ -18,7 +18,8 @@
 # $Header$
 #
 
-use 5.008;
+BEGIN { require 5.008; }
+
 use strict;
 use warnings;
 # use only standard modules here!  any non-standard module, or anything which is

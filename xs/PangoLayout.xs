@@ -494,7 +494,7 @@ pango_layout_get_lines_readonly (layout)
 #endif
 
 ##  PangoLayoutIter *pango_layout_get_iter (PangoLayout *layout)
-PangoLayoutIter *
+PangoLayoutIter_own *
 pango_layout_get_iter (layout)
 	PangoLayout *layout
 

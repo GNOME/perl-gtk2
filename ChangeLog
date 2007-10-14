@@ -1,3 +1,24 @@
+2007-10-14  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
+	Merge from HEAD:
+
+	* Makefile.PL: Use BEGIN { require 5.008; } instead of use 5.008;
+	so automatic CPAN testers know which perl version we need.
+
+	* t/GdkDnd.t: Handle get_selection() returning undef.
+
+	* t/GtkPaned.t: Use SKIP instead of TODO for the unreliable resize
+	verification tests.  TODOs that pass look like failures.
+
+	* tools/genkeysyms.pl
+	* tools/podifyenums.pl: Don't put timestamps into generated files
+	so they don't get installed every single time even though there
+	are no real changes.
+
+	* xs/PangoLayout.xs: Fix leak in
+	Gtk2::Pango::Layout::get_iter.  (Reported by Quentin Sculo in
+	#482795)
+
 2007-09-16	kaffeetisch
 
 	* Gtk2.pm
