@@ -1,3 +1,8 @@
+2007-10-16  Emmanuele Bassi  <ebassi@gnome.org>
+
+	* tools/genkeysyms.pl: Fix the SYNOPSIS example (from Debian
+	bug #422223).
+
 2007-10-14  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
 	* Makefile.PL: Use BEGIN { require 5.008; } instead of use 5.008;

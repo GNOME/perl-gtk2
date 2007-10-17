@@ -44,15 +44,17 @@ Gtk2::Gdk::Keysyms - key codes for Gtk2 programs
          if ($event->keyval == $Gtk2::Gdk::Keysyms{Escape}) {
                  abort_whatever ();
                  return 1;
+         }
          elsif ($event->keyval == $Gtk2::Gdk::Keysyms{F1}) {
                  do_help_thing ();
                  return 1;
+         }
          elsif ($event->keyval == $Gtk2::Gdk::Keysyms{KP_Enter}) {
                  execute_selected_text_as_command ();
                  return 1;
          }
          # we didn't handle it, pass it on...
-	 return 0;
+         return 0;
  }
 
 =head1 DESCRIPTION
