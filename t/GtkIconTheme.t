@@ -1,10 +1,11 @@
+#!/usr/bin/perl
 #
 # $Header$
 #
 
 use Gtk2::TestHelper
 	at_least_version => [2, 4, 0, 'GtkIconTheme is new in 2.4'],
-	tests => 17;
+	tests => 16;
 
 my $icon_theme = Gtk2::IconTheme->new;
 isa_ok ($icon_theme, 'Gtk2::IconTheme');
@@ -61,10 +62,11 @@ SKIP: {
 }
 
 SKIP: {
-	skip 'new 2.12 stuff', 2
+	skip 'new 2.12 stuff', 1
 		unless Gtk2->CHECK_VERSION (2, 12, 0);
 
-	ok (defined $icon_theme->list_contexts);
+	my @contexts = $icon_theme->list_contexts;
+	# @contexts might be undef and can contain anything
 
 	my $info = $icon_theme->choose_icon (['gtk-bla', 'gtk-cancel'], 24, 'use-builtin');
 	isa_ok ($info, 'Gtk2::IconInfo');
