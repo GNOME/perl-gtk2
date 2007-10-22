@@ -73,10 +73,10 @@ MODULE = Gtk2::MessageDialog	PACKAGE = Gtk2::MessageDialog	PREFIX = gtk_message_
              }
              $self->destroy;
   });
-
-
+  $dialog->show_all;
 
 =cut
+
 
 =for position DESCRIPTION
 
@@ -92,7 +92,6 @@ consistent look and feel for your application.
 The easiest way to do a modal message dialog is to use C<< $dialog->run >>, which
 automatically makes your dialog modal and waits for the user to respond to it.
 You can also pass in the GTK_DIALOG_MODAL flag when creating the MessageDialog.
-
 
 =cut
 

@@ -1,3 +1,8 @@
+2007-10-22  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
+	* xs/GtkMessageDialog.xs (SYNOPSIS): Add a show_all() call to the
+	non-modal dialog example.  (Spotted by Dave Howorth)
+
 2007-10-21  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
 	* t/GtkIconTheme.t (list_contexts test): Fix test failure.
