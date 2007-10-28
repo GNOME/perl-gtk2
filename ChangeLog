@@ -1,3 +1,10 @@
+2007-10-29  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
+	* Gtk2.pm
+	* Makefile.PL
+	* NEWS
+	* README: Unstable release 1.170.
+
 2007-10-22  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
 	* xs/GtkMessageDialog.xs (SYNOPSIS): Add a show_all() call to the
