@@ -128,7 +128,7 @@ sub _do_connect {
       $flags,
       $handler) = @_;
 
-  my $func = $flags & qw/after/ ? 'signal_connect_after' : 'signal_connect';
+  my $func = ($flags & 'after') ? 'signal_connect_after' : 'signal_connect';
 
   # we get connect_object when we're supposed to call
   # signal_connect_object, which ensures that the data (an object)

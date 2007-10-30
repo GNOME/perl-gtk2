@@ -1,3 +1,9 @@
+2007-10-30  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
+	* Gtk2.pm (Gtk2::Builder::_do_connect): Don't use the qw//
+	operator to qoute a flag value as it seems to cause parse failures
+	on some perls.
+
 2007-10-29  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
 	* Gtk2.pm
