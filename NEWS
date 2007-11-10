@@ -1,3 +1,9 @@
+Overview of changes in Gtk2 1.162
+=================================
+
+* Fix a strange parse error related to the use of qw// that occured on some
+  versions of perl.  [Jeffrey Ratcliffe]
+
 Overview of changes in Gtk2 1.161
 =================================
 

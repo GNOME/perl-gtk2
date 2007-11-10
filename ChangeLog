@@ -1,3 +1,9 @@
+2007-11-10  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
+	* Gtk2.pm
+	* NEWS
+	* README: Stable release 1.162.
+
 2007-10-30  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
 	Merge from HEAD:
