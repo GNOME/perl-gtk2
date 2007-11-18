@@ -90,6 +90,9 @@ xs/GtkHandleBox.xs
 xs/GtkIconFactory.xs
 xs/GtkImage.xs
 xs/GtkImageMenuItem.xs
+xs/GtkIMContext.xs
+xs/GtkIMContextSimple.xs
+xs/GtkIMMulticontext.xs
 xs/GtkInputDialog.xs
 xs/GtkInvisible.xs
 xs/GtkItem.xs

@@ -1,3 +1,15 @@
+2007-04-15  muppetman
+
+	* xs/GtkIMContext.xs
+	* xs/GtkIMContextSimple.xs
+	* xs/GtkIMMulticontext.xs
+	* t/GtkIMContext.t
+	* MANIFEST
+	* xs_files-2.0: Bindings for GtkIMContext, GtkIMContextSimple, and
+	GtkIMMulticontext, with tests.  gtk_im_context_simple_add_table is
+	not bound; it's unclear as to whether it's actually useful, and i
+	don't have a way to test it.
+
 2007-10-30  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
 	* Gtk2.pm (Gtk2::Builder::_do_connect): Don't use the qw//
