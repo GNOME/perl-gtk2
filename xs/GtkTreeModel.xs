@@ -501,10 +501,17 @@ third node.
 By contrast, a Gtk2::TreeIter is a reference to a specific node on a specific
 model.  To the user of a model, the iter is merely an opaque object.
 One can convert a path to an iterator by calling C<Gtk2::TreeModel::get_iter>.
-These iterators are the primary way of accessing a model and are similar to
-the iterators used by Gtk2::TextBuffer.  They are generally used only for a
-short time, and are valid only as long as the model is unchanged.  The model
-interface defines a set of operations using them for navigating the model.
+These iterators are the primary way of accessing a model and are
+similar to the iterators used by Gtk2::TextBuffer. The model interface
+defines a set of operations using them for navigating the model.
+
+The iterators are generally used only for a short time, and their
+behaviour is different to that suggested by the Gtk+ documentation. They
+are not valid when the model is changed, even though get_flags returns
+'iters-persist'. Iterators obtained within a GtkTreeModelForeachFunc are
+also invalid after the foreach terminates. There may be other such
+cases. In the foreach case, and perhaps others, a persistent iterator
+may be obtained by copying it (see Glib::Boxed->copy).
 
 (The preceding description and most of the method descriptions have been
 adapted directly from the Gtk+ C API reference.)

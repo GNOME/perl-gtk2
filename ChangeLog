@@ -1,3 +1,9 @@
+2007-11-18  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
+	* xs/GtkTreeModel.xs (POD section DESCRIPTION): Include additional
+	information provided by Dave Howorth about the lifetime of
+	iterators.
+
 2007-04-15  muppetman
 
 	* xs/GtkIMContext.xs
