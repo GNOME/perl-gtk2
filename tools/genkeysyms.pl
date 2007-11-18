@@ -68,7 +68,9 @@ usable as an accelerator, or when you don't have accelerators, or if you're
 trying to write an easter egg, or whatever.
 
 As the list of keycodes is quite large and rather rarely used in application
-code, we've put it in a separately-loaded module to save space.
+code, we've put it in a separately-loaded module to save space.  As an
+alternative, you might want to investigate L<Gtk2::Gdk->keyval_from_name> which
+offers basically the same functionality as the hash.
 
 To get a list of all available keys, either dump C<%Gtk2::Gdk::Keysyms>, or
 look at the source of this module with C<perldoc -m Gtk2::Gdk::Keysyms>.
