@@ -1,3 +1,10 @@
+2007-12-08  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
+	* xs/GtkDialog.xs: Correct the response id mentioned in the docs
+	on delete-event.  (Patch by Kevin Ryde)
+
+	* AUTHORS: Add Kevin.
+
 2007-11-18  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
 	* tools/genkeysyms.pl: Mention Gtk2::Gdk->keyval_from_name in the
