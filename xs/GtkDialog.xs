@@ -159,8 +159,7 @@ will emit a signal called "response" with a response ID that you specified.
 GTK+ will never assign a meaning to positive response IDs; these are entirely
 user-defined.  But for convenience, you can use the response IDs in the
 Gtk2::ResponseType enumeration.  If a dialog receives a delete event, the
-"response" signal will be emitted with a response ID of 'GTK_RESPONSE_NONE'
-(except within C<run> -- see below). 
+"response" signal will be emitted with a response ID of 'delete-event'.
 
 If you want to block waiting for a dialog to return before returning control
 flow to your code, you can call C<< $dialog->run >>.  This function enters a
@@ -330,7 +329,7 @@ any children of the dialog yourself.
 
 During C<run>, the default behavior of "delete_event" is disabled; if the
 dialog receives "delete_event", it will not be destroyed as windows usually
-are, and C<run> will return 'GTK_RESPONSE_DELETE_EVENT' ('delete-event').
+are, and C<run> will return 'delete-event'.
 Also, during C<run> the dialog will be modal.  You can force C<run> to return
 at any time by calling C<< $dialog->response >> to emit the "response" signal.
 Destroying the dialog during C<run> is a very bad idea, because your post-run

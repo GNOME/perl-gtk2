@@ -1,3 +1,12 @@
+2007-12-08  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
+	Merge from HEAD:
+
+	* xs/GtkDialog.xs: Correct the response id mentioned in the docs
+	on delete-event.  (Patch by Kevin Ryde)
+
+	* AUTHORS: Add Kevin.
+
 2007-11-10  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
 	* Gtk2.pm
