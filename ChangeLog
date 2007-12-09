@@ -1,5 +1,8 @@
 2007-12-09  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
+	* xs/Gtk2.xs: gtk_check_version's return value recently acquired a
+	const, so add some casting to hush compiler warnings.
+
 	* xs/GdkColor.xs: Make Gtk2::Gdk::Color::new take an optional
 	pixel value.  (Patch from Kevin Ryde)
 
