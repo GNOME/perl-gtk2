@@ -186,19 +186,18 @@ saturation.  If you are used to dealing with colors on the range of 0 to
 =cut
 
 GdkColor_own *
-gdk_color_new (class, red, green, blue)
+gdk_color_new (class, red, green, blue, pixel=0)
 	guint16 red
 	guint16 green
 	guint16 blue
+	guint32 pixel
     PREINIT:
 	GdkColor c;
     CODE:
-	/* pixel==0 for unallocated color is not enforced by gdk, but
-	 * doing this hushes valgrind about using uninitialized values. */
-	c.pixel = 0;
 	c.red = red;
 	c.green = green;
 	c.blue = blue;
+	c.pixel = pixel;
 	RETVAL = gdk_color_copy (&c);
     OUTPUT:
 	RETVAL

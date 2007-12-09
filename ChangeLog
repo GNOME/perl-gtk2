@@ -1,7 +1,12 @@
+2007-12-09  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
+	* xs/GdkColor.xs: Make Gtk2::Gdk::Color::new take an optional
+	pixel value.  (Patch from Kevin Ryde)
+
 2007-12-08  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
 	* xs/GtkDialog.xs: Correct the response id mentioned in the docs
-	on delete-event.  (Patch by Kevin Ryde)
+	on delete-event.  (Patch from Kevin Ryde)
 
 	* AUTHORS: Add Kevin.
 
