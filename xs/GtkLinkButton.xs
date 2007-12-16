@@ -71,7 +71,7 @@ This means that there is no way to restore an old hook once you overwrote it.
 void
 gtk_link_button_set_uri_hook (class, SV *func, SV *data=NULL)
     CODE:
-        if (!SvOK (func)) {
+        if (!gperl_sv_defined (func)) {
 		gtk_link_button_set_uri_hook (NULL, NULL, NULL);
 	} else {
 		GPerlCallback * callback;

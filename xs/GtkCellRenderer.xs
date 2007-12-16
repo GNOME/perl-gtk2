@@ -270,7 +270,7 @@ gtk2perl_cell_renderer_start_editing (GtkCellRenderer      * cell,
 		SPAGAIN;
 
 		sv = POPs;
-		if (SvOK (sv)) {
+		if (gperl_sv_defined (sv)) {
 			editable = SvGtkCellEditable (sv);
 			/* if the object returned here was newly created by
 			 * the called code, then the wrapper (pointed to by

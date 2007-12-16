@@ -54,7 +54,7 @@ gtk2perl_border_unwrap (GType gtype, const char * package, SV * sv)
 	SV **value;
 	GtkBorder *border;
 
-	if (!SvOK (sv) || !SvRV (sv))
+	if (!gperl_sv_defined (sv) || !SvRV (sv))
 		return NULL;
 
 	if (SvTYPE (SvRV (sv)) != SVt_PVHV)
@@ -66,19 +66,19 @@ gtk2perl_border_unwrap (GType gtype, const char * package, SV * sv)
 	border = gperl_alloc_temp (sizeof (GtkBorder));
 
 	value = hv_fetch (hv, "left", 4, 0);
-	if (value && SvOK (*value))
+	if (value && gperl_sv_defined (*value))
 		border->left = SvIV (*value);
 
 	value = hv_fetch (hv, "right", 5, 0);
-	if (value && SvOK (*value))
+	if (value && gperl_sv_defined (*value))
 		border->right = SvIV (*value);
 
 	value = hv_fetch (hv, "top", 3, 0);
-	if (value && SvOK (*value))
+	if (value && gperl_sv_defined (*value))
 		border->top = SvIV (*value);
 
 	value = hv_fetch (hv, "bottom", 6, 0);
-	if (value && SvOK (*value))
+	if (value && gperl_sv_defined (*value))
 		border->bottom = SvIV (*value);
 
 	return border;

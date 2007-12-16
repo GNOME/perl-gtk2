@@ -209,7 +209,7 @@ gtk_window_set_geometry_hints (window, geometry_widget, geometry_ref, geom_mask_
 	GdkGeometry *geometry;
 	GdkWindowHints geom_mask;
     CODE:
-	if (! (geom_mask_sv && SvOK (geom_mask_sv))) {
+	if (!gperl_sv_defined (geom_mask_sv)) {
 		geometry = SvGdkGeometryReal (geometry_ref, &geom_mask);
 	} else {
 		geometry = SvGdkGeometry (geometry_ref);

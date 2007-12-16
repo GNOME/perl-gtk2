@@ -68,7 +68,7 @@ SvGdkWindowAttrReal (SV *object, GdkWindowAttributesType *mask)
 	/* better start with an empty mask */
 	if (mask) *mask = 0;
 
-	if (object && SvOK (object) && SvROK (object) && SvTYPE (SvRV (object)) == SVt_PVHV) {
+	if (gperl_sv_defined (object) && SvROK (object) && SvTYPE (SvRV (object)) == SVt_PVHV) {
 		GTK2PERL_WINDOW_ATTR_FETCH (title, "title", SvGChar);
 		GTK2PERL_WINDOW_ATTR_FETCH (event_mask, "event_mask", SvGdkEventMask);
 		GTK2PERL_WINDOW_ATTR_FETCH (x, "x", SvIV);
@@ -423,7 +423,7 @@ gdk_window_set_geometry_hints (window, geometry_ref, geom_mask_sv=NULL)
 	GdkGeometry *geometry;
 	GdkWindowHints geom_mask;
     CODE:
-	if (! (geom_mask_sv && SvOK (geom_mask_sv))) {
+	if (!gperl_sv_defined (geom_mask_sv)) {
 		geometry = SvGdkGeometryReal (geometry_ref, &geom_mask);
 	} else {
 		geometry = SvGdkGeometry (geometry_ref);

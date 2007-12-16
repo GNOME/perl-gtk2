@@ -49,7 +49,7 @@ gtk_tooltips_set_tip (tooltips, widget, tip_text, tip_private=NULL)
     PREINIT:
 	const gchar * real_tip_private = NULL;
     CODE:
-	if (tip_private && SvOK (tip_private))
+	if (gperl_sv_defined (tip_private))
 		real_tip_private = SvGChar (tip_private);
 	gtk_tooltips_set_tip (tooltips, widget, tip_text, real_tip_private);
 	/* gtk+'s widgets do not hold a reference on the tooltips object,

@@ -62,7 +62,7 @@ pango_color_unwrap (GType gtype,
 	AV * av;
 	SV ** v;
 
-	if (!sv || !SvOK (sv))
+	if (!gperl_sv_defined (sv))
 		return NULL;
 
 	if (!SvRV (sv) || SvTYPE (SvRV (sv)) != SVt_PVAV)
@@ -74,15 +74,15 @@ pango_color_unwrap (GType gtype,
 	av = (AV *) SvRV (sv);
 
 	v = av_fetch (av, 0, 0);
-	if (v && SvOK (*v))
+	if (v && gperl_sv_defined (*v))
 		color->red = SvUV (*v);
 
 	v = av_fetch (av, 1, 0);
-	if (v && SvOK (*v))
+	if (v && gperl_sv_defined (*v))
 		color->green = SvUV (*v);
 
 	v = av_fetch (av, 2, 0);
-	if (v && SvOK (*v))
+	if (v && gperl_sv_defined (*v))
 		color->blue = SvUV (*v);
 
 	return color;

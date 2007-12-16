@@ -104,13 +104,13 @@ gtk2perl_translate_func (const gchar *path,
 #define HV_FETCH_AND_CHECK(_member, _sv) \
 	if (hv_exists (hv, #_member, strlen (#_member))) { \
 		value = hv_fetch (hv, #_member, strlen (#_member), FALSE); \
-		if (value && SvOK (*value)) \
+		if (value && gperl_sv_defined (*value)) \
 			entry->_member = _sv; \
 	}
 
 #define AV_FETCH_AND_CHECK(_index, _member, _sv) \
 	value = av_fetch (av, _index, 0); \
-	if (value && SvOK (*value)) \
+	if (value && gperl_sv_defined (*value)) \
 		entry->_member = _sv;
 
 GtkItemFactoryEntry *
@@ -119,7 +119,7 @@ SvGtkItemFactoryEntry (SV *data, SV **callback)
 	GtkItemFactoryEntry *entry = gperl_alloc_temp (sizeof (GtkItemFactoryEntry));
 	memset (entry, 0, sizeof (GtkItemFactoryEntry));
 
-	if (!(data && SvOK (data)))
+	if (!gperl_sv_defined (data))
 		return entry; /* fail silently if undef */
 
 	if ((!SvRV (data)) ||
@@ -148,7 +148,7 @@ SvGtkItemFactoryEntry (SV *data, SV **callback)
 		if (hv_exists (hv, "callback", 8)) {
 			value = hv_fetch (hv, "callback", 8, FALSE);
 
-			if (callback && value && SvOK (*value)) {
+			if (callback && value && gperl_sv_defined (*value)) {
 				*callback = *value;
 				entry->callback = gtk2perl_item_factory_item_activate;
 			}
@@ -166,7 +166,7 @@ SvGtkItemFactoryEntry (SV *data, SV **callback)
 
 		value = av_fetch (av, 2, 0);
 
-		if (callback && value && SvOK (*value)) {
+		if (callback && value && gperl_sv_defined (*value)) {
 			*callback = *value;
 			entry->callback = gtk2perl_item_factory_item_activate;
 		}
@@ -362,7 +362,7 @@ gtk_item_factory_popup (ifactory, x, y, mouse_button, time_, popup_data=NULL)
     PREINIT:
 	SV * real_popup_data = NULL;
     CODE:
-	if (popup_data && SvOK (popup_data))
+	if (gperl_sv_defined (popup_data))
 		real_popup_data = gperl_sv_copy (popup_data);
 	gtk_item_factory_popup_with_data (ifactory,
 	                                  real_popup_data, 

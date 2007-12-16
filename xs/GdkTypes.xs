@@ -62,7 +62,7 @@ SvGdkGeometryReal (SV *object, GdkWindowHints *hints)
 	if (hints)
 		*hints = 0;
 
-	if (object && SvOK (object) && SvROK (object) && SvTYPE (SvRV (object)) == SVt_PVHV) {
+	if (gperl_sv_defined (object) && SvROK (object) && SvTYPE (SvRV (object)) == SVt_PVHV) {
 		GTK2PERL_GEOMETRY_FETCH (min_width, "min_width", SvIV);
 		GTK2PERL_GEOMETRY_FETCH (min_height, "min_height", SvIV);
 		GTK2PERL_GEOMETRY_FETCH (max_width, "max_width", SvIV);
@@ -118,7 +118,7 @@ newSVGdkAtom (GdkAtom atom)
 GdkAtom
 SvGdkAtom (SV * sv)
 {
-	if (!sv || !SvOK (sv))
+	if (!gperl_sv_defined (sv))
 		return (GdkAtom)NULL;
 	else if (sv_derived_from (sv, "Gtk2::Gdk::Atom"))
                 return INT2PTR (GdkAtom, SvIV ((SV*)SvRV (sv)));
@@ -263,7 +263,7 @@ min_width (SV *object, SV *newvalue=NULL)
 			g_assert_not_reached ();
 	}
 
-	if (value && SvOK (*value))
+	if (value && gperl_sv_defined (*value))
 		RETVAL = newSVsv (*value);
 
 	if (items > 1) {
@@ -314,7 +314,7 @@ constrain_size (geometry_ref, ...)
 	gint new_height;
     PPCODE:
 	if (items == 4) {
-		if (! (ST (1) && SvOK (ST (1))))
+		if (!gperl_sv_defined (ST (1)))
 			warn ("Warning: You passed undef for the flags parameter.  Consider simply omitting it instead.");
 
 		geometry = SvGdkGeometry (geometry_ref);

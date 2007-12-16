@@ -92,7 +92,7 @@ SvGdkPixbufFormat (SV * sv)
 {
 	MAGIC *mg;
 
-	if (!sv || !SvOK (sv) || !SvROK (sv) || !(mg = mg_find (SvRV (sv), PERL_MAGIC_ext)))
+	if (!gperl_sv_defined (sv) || !SvROK (sv) || !(mg = mg_find (SvRV (sv), PERL_MAGIC_ext)))
 		return NULL;
 
 	return (GdkPixbufFormat *) mg->mg_ptr;

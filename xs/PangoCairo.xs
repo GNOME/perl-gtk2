@@ -200,7 +200,7 @@ pango_cairo_context_set_shape_renderer (PangoContext *context, SV *func=NULL, SV
 	GPerlCallback *callback;
 	GDestroyNotify dnotify;
     CODE:
-	if (func && SvOK (func)) {
+	if (gperl_sv_defined (func)) {
 		callback = gperl_callback_new (func, data, 0, NULL, 0);
 		dnotify = (GDestroyNotify) gperl_callback_destroy;
 	} else {

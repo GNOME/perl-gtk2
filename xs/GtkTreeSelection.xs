@@ -135,7 +135,7 @@ gtk_tree_selection_get_user_data (selection)
 	GPerlCallback *callback = NULL;
     CODE:
 	callback = (GPerlCallback *) gtk_tree_selection_get_user_data (selection);
-	RETVAL = callback && callback->data && SvOK (callback->data) ?
+	RETVAL = callback && gperl_sv_defined (callback->data) ?
 	           callback->data :
 	           &PL_sv_undef;
     OUTPUT:

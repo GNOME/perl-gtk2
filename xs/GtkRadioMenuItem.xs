@@ -34,7 +34,7 @@ gtk_radio_menu_item_new (class, member_or_listref=NULL, label=NULL)
 	GSList           * group = NULL;
 	GtkRadioMenuItem * member = NULL;
     CODE:
-	if( member_or_listref && SvOK (member_or_listref)
+	if( gperl_sv_defined (member_or_listref)
 	    && SvROK (member_or_listref)
 	    && SvRV (member_or_listref) != &PL_sv_undef )
 	{
@@ -42,7 +42,7 @@ gtk_radio_menu_item_new (class, member_or_listref=NULL, label=NULL)
 		{
 			AV * av = (AV*)SvRV(member_or_listref);
 			SV ** svp = av_fetch(av, 0, 0);
-			if( svp && SvOK(*svp) )
+			if( svp && gperl_sv_defined(*svp) )
 				member = SvGtkRadioMenuItem(*svp);
 		}
 		else
@@ -111,13 +111,13 @@ gtk_radio_menu_item_set_group (radio_menu_item, member_or_listref)
 	GSList         * group = NULL;
 	GtkRadioMenuItem * member = NULL;
     CODE:
-	if( member_or_listref && SvOK (member_or_listref) )
+	if( gperl_sv_defined (member_or_listref) )
 	{
 		if( SvTYPE(SvRV(member_or_listref)) == SVt_PVAV )
 		{
 			AV * av = (AV*)SvRV(member_or_listref);
 			SV ** svp = av_fetch(av, 0, 0);
-			if( svp && SvOK(*svp) )
+			if( svp && gperl_sv_defined(*svp) )
 			{
 				member = SvGtkRadioMenuItem(*svp);
 			}

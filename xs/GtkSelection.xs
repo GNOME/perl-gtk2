@@ -57,7 +57,7 @@ gtk2perl_read_gtk_target_entry (SV * sv,
 	SV ** s;
 	STRLEN len;
 
-	if ((!sv) || (!SvOK (sv)) || (!SvRV (sv)) || 
+	if ((!gperl_sv_defined (sv)) || (!SvRV (sv)) || 
 	    (SvTYPE (SvRV (sv)) != SVt_PVHV && SvTYPE (SvRV(sv)) != SVt_PVAV))
 		croak ("a target entry must be a reference to a hash "
 		       "containing the keys 'target', 'flags', and 'info', "
@@ -66,19 +66,19 @@ gtk2perl_read_gtk_target_entry (SV * sv,
 
 	if (SvTYPE (SvRV (sv)) == SVt_PVHV) {
 		h = (HV*) SvRV (sv);
-		if ((s=hv_fetch (h, "target", 6, 0)) && SvOK (*s))
+		if ((s=hv_fetch (h, "target", 6, 0)) && gperl_sv_defined (*s))
 			e->target = SvPV (*s, len);
-		if ((s=hv_fetch (h, "flags", 5, 0)) && SvOK (*s))
+		if ((s=hv_fetch (h, "flags", 5, 0)) && gperl_sv_defined (*s))
 			e->flags = SvGtkTargetFlags (*s);
-		if ((s=hv_fetch (h, "info", 4, 0)) && SvOK (*s))
+		if ((s=hv_fetch (h, "info", 4, 0)) && gperl_sv_defined (*s))
 			e->info = SvUV (*s);
 	} else {
 		a = (AV*)SvRV (sv);
-		if ((s=av_fetch (a, 0, 0)) && SvOK (*s))
+		if ((s=av_fetch (a, 0, 0)) && gperl_sv_defined (*s))
 			e->target = SvPV (*s, len);
-		if ((s=av_fetch (a, 1, 0)) && SvOK (*s))
+		if ((s=av_fetch (a, 1, 0)) && gperl_sv_defined (*s))
 			e->flags = SvGtkTargetFlags (*s);
-		if ((s=av_fetch (a, 2, 0)) && SvOK (*s))
+		if ((s=av_fetch (a, 2, 0)) && gperl_sv_defined (*s))
 			e->info = SvUV (*s);
 	}
 }

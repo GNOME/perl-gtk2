@@ -631,7 +631,7 @@ gdk_event_handler_set (class, func, data=NULL)
 	GType params[1];
     CODE:
     	params[0] = GDK_TYPE_EVENT;
-	if (SvOK (func)) {
+	if (gperl_sv_defined (func)) {
 		callback = gperl_callback_new (func, data,
 		                               G_N_ELEMENTS (params),
 		                               params, 0);
