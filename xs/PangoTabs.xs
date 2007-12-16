@@ -66,7 +66,16 @@ pango_tab_array_set_tab (tab_array, tab_index, alignment, location)
 	gint location
 
 ##  void pango_tab_array_get_tab (PangoTabArray *tab_array, gint tab_index, PangoTabAlign *alignment, gint *location) 
-void pango_tab_array_get_tab (PangoTabArray *tab_array, gint tab_index, OUTLIST PangoTabAlign alignment, OUTLIST gint location) 
+void
+pango_tab_array_get_tab (PangoTabArray *tab_array, gint tab_index) 
+    PREINIT:
+	PangoTabAlign alignment;
+	gint location;
+    PPCODE:
+	pango_tab_array_get_tab (tab_array, tab_index, &alignment, &location);
+	EXTEND (SP, 2);
+	PUSHs (sv_2mortal (newSVPangoTabAlign (alignment)));
+	PUSHs (sv_2mortal (newSViv (location)));
 
 ##  void pango_tab_array_get_tabs (PangoTabArray *tab_array, PangoTabAlign **alignments, gint **locations) 
 =for apidoc

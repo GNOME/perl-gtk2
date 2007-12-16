@@ -1,3 +1,45 @@
+2007-12-16  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
+	Merge from HEAD:
+
+	* t/GtkIconTheme.t (list_contexts test): Fix test failure.
+
+	* tools/genkeysyms.pl: Fix the SYNOPSIS example (from Debian
+	bug #422223).
+
+	* tools/genkeysyms.pl: Mention Gtk2::Gdk->keyval_from_name in the
+	DESCRIPTION section of Gtk2::Gdk::Keysyms, as suggested by Kevin
+	Ryde.
+
+	* xs/Gtk2.xs: gtk_check_version's return value recently acquired a
+	const, so add some casting to hush compiler warnings.
+
+	* xs/GtkMessageDialog.xs (SYNOPSIS): Add a show_all() call to the
+	non-modal dialog example.  (Spotted by Dave Howorth)
+
+	* xs/GtkTreeModel.xs (POD section DESCRIPTION): Include additional
+	information provided by Dave Howorth about the lifetime of
+	iterators.
+
+	* xs/GdkDisplay.xs
+	* xs/GdkWindow.xs
+	* xs/GtkBox.xs
+	* xs/GtkIconView.xs
+	* xs/GtkImage.xs
+	* xs/GtkNotebook.xs
+	* xs/GtkScrolledWindow.xs
+	* xs/PangoTabs.xs: Fix memory leaks that were due to the use of
+	OUTLIST for types which have typemaps that create a new SV rather
+	than overwrite an existing one -- i.e. nearly all non-standard
+	types and even some standard types like bool.  The following
+	functions' xsubs were affected: gdk_display_get_pointer,
+	gdk_window_get_decorations, gdk_window_get_internal_paint_info,
+	gtk_box_query_child_packing, gtk_icon_view_get_drag_dest_item,
+	gtk_image_get_pixmap, gtk_image_get_image, gtk_image_get_icon_set,
+	gtk_image_get_icon_name, gtk_notebook_query_tab_label_packing,
+	gtk_scrolled_window_get_policy, pango_tab_array_get_tab.  (Fixes
+	bug #498334, reported by Quentin Sculo)
+
 2007-12-08  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
 	Merge from HEAD:

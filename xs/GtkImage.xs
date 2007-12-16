@@ -121,10 +121,28 @@ gtk_image_get_storage_type (image)
 	GtkImage *image
 
  ## void gtk_image_get_pixmap (GtkImage *image, GdkPixmap **pixmap, GdkBitmap **mask)
-void gtk_image_get_pixmap (GtkImage *image, OUTLIST GdkPixmap * pixmap, OUTLIST GdkBitmap * mask)
+void
+gtk_image_get_pixmap (GtkImage *image)
+    PREINIT:
+	GdkPixmap * pixmap = NULL;
+	GdkBitmap * mask = NULL;
+    PPCODE:
+	gtk_image_get_pixmap (image, &pixmap, &mask);
+	EXTEND (SP, 2);
+	PUSHs (sv_2mortal (newSVGdkPixmap (pixmap)));
+	PUSHs (sv_2mortal (newSVGdkBitmap (mask)));
 
  ## void gtk_image_get_image (GtkImage *image, GdkImage **gdk_image, GdkBitmap **mask)
-void gtk_image_get_image (GtkImage *image, OUTLIST GdkImage *gdk_image, OUTLIST GdkBitmap *mask)
+void
+gtk_image_get_image (GtkImage *image)
+    PREINIT:
+	GdkImage * gdk_image = NULL;
+	GdkBitmap * mask = NULL;
+    PPCODE:
+	gtk_image_get_image (image, &gdk_image, &mask);
+	EXTEND (SP, 2);
+	PUSHs (sv_2mortal (newSVGdkImage (gdk_image)));
+	PUSHs (sv_2mortal (newSVGdkBitmap (mask)));
 
 GdkPixbuf*
 gtk_image_get_pixbuf (image)
@@ -147,7 +165,16 @@ gtk_image_get_stock (image)
 	PUSHs (sv_2mortal (newSVGtkIconSize (size)));
 
  ## void gtk_image_get_icon_set (GtkImage *image, GtkIconSet **icon_set, GtkIconSize *size)
-void gtk_image_get_icon_set (GtkImage *image, OUTLIST GtkIconSet *icon_set, OUTLIST GtkIconSize size)
+void
+gtk_image_get_icon_set (GtkImage *image)
+    PREINIT:
+	GtkIconSet *icon_set = NULL;
+	GtkIconSize size;
+    PPCODE:
+	gtk_image_get_icon_set (image, &icon_set, &size);
+	EXTEND (SP, 2);
+	PUSHs (sv_2mortal (newSVGtkIconSet (icon_set)));
+	PUSHs (sv_2mortal (newSVGtkIconSize (size)));
 
 GdkPixbufAnimation* gtk_image_get_animation (GtkImage *image)
 
@@ -167,7 +194,17 @@ gtk_image_new_from_icon_name (class, icon_name, size)
 
 void gtk_image_set_from_icon_name (GtkImage *image, const gchar *icon_name, GtkIconSize size)
 
-void gtk_image_get_icon_name (GtkImage *image, OUTLIST const gchar *icon_name, OUTLIST GtkIconSize size)
+# void gtk_image_get_icon_name (GtkImage *image, const gchar **icon_name, GtkIconSize *size)
+void
+gtk_image_get_icon_name (GtkImage *image)
+    PREINIT:
+	const gchar *icon_name = NULL;
+	GtkIconSize size;
+    PPCODE:
+	gtk_image_get_icon_name (image, &icon_name, &size);
+	EXTEND (SP, 2);
+	PUSHs (sv_2mortal (newSVGChar (icon_name)));
+	PUSHs (sv_2mortal (newSVGtkIconSize (size)));
 
 void gtk_image_set_pixel_size (GtkImage *image, gint pixel_size)
 

@@ -62,7 +62,15 @@ gtk_scrolled_window_set_policy (scrolled_window, hscrollbar_policy, vscrollbar_p
 
 ## void gtk_scrolled_window_get_policy (GtkScrolledWindow *scrolled_window, GtkPolicyType *hscrollbar_policy, GtkPolicyType *vscrollbar_policy)
 void
-gtk_scrolled_window_get_policy (GtkScrolledWindow * scrolled_window, OUTLIST GtkPolicyType hscrollbar_policy, OUTLIST GtkPolicyType vscrollbar_policy)
+gtk_scrolled_window_get_policy (GtkScrolledWindow * scrolled_window)
+    PREINIT:
+	GtkPolicyType hscrollbar_policy;
+	GtkPolicyType vscrollbar_policy;
+    PPCODE:
+	gtk_scrolled_window_get_policy (scrolled_window, &hscrollbar_policy, &vscrollbar_policy);
+	EXTEND (SP, 2);
+	PUSHs (sv_2mortal (newSVGtkPolicyType (hscrollbar_policy)));
+	PUSHs (sv_2mortal (newSVGtkPolicyType (vscrollbar_policy)));
 
 ## void gtk_scrolled_window_set_placement (GtkScrolledWindow *scrolled_window, GtkCornerType window_placement)
 void

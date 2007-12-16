@@ -210,8 +210,10 @@ gtk_check_version (class, required_major, required_minor, required_micro)
 	guint   required_major
 	guint   required_minor
 	guint   required_micro
-    C_ARGS:
-	required_major, required_minor, required_micro
+    CODE:
+	RETVAL = (gchar *) gtk_check_version (required_major, required_minor, required_micro);
+    OUTPUT:
+	RETVAL
 
 =for apidoc Gtk2::MAJOR_VERSION __function__
 The major version of the gtk+ library against which Gtk2 was compiled.

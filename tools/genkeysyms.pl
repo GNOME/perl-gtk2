@@ -44,15 +44,17 @@ Gtk2::Gdk::Keysyms - key codes for Gtk2 programs
          if ($event->keyval == $Gtk2::Gdk::Keysyms{Escape}) {
                  abort_whatever ();
                  return 1;
+         }
          elsif ($event->keyval == $Gtk2::Gdk::Keysyms{F1}) {
                  do_help_thing ();
                  return 1;
+         }
          elsif ($event->keyval == $Gtk2::Gdk::Keysyms{KP_Enter}) {
                  execute_selected_text_as_command ();
                  return 1;
          }
          # we didn't handle it, pass it on...
-	 return 0;
+         return 0;
  }
 
 =head1 DESCRIPTION
@@ -66,7 +68,9 @@ usable as an accelerator, or when you don't have accelerators, or if you're
 trying to write an easter egg, or whatever.
 
 As the list of keycodes is quite large and rather rarely used in application
-code, we've put it in a separately-loaded module to save space.
+code, we've put it in a separately-loaded module to save space.  As an
+alternative, you might want to investigate L<Gtk2::Gdk->keyval_from_name> which
+offers basically the same functionality as the hash.
 
 To get a list of all available keys, either dump C<%Gtk2::Gdk::Keysyms>, or
 look at the source of this module with C<perldoc -m Gtk2::Gdk::Keysyms>.

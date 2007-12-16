@@ -107,7 +107,19 @@ gdk_display_get_core_pointer (display)
 	GdkDisplay *display
 
 ##  void gdk_display_get_pointer (GdkDisplay *display, GdkScreen **screen, gint *x, gint *y, GdkModifierType *mask) 
-void gdk_display_get_pointer (GdkDisplay *display, OUTLIST GdkScreen *screen, OUTLIST gint x, OUTLIST gint y, OUTLIST GdkModifierType mask) 
+void gdk_display_get_pointer (GdkDisplay *display)
+    PREINIT:
+	GdkScreen *screen = NULL;
+	gint x;
+	gint y;
+	GdkModifierType mask;
+    PPCODE:
+	gdk_display_get_pointer (display, &screen, &x, &y, &mask);
+	EXTEND (SP, 4);
+	PUSHs (sv_2mortal (newSVGdkScreen (screen)));
+	PUSHs (sv_2mortal (newSViv (x)));
+	PUSHs (sv_2mortal (newSViv (y)));
+	PUSHs (sv_2mortal (newSVGdkModifierType (mask)));
 
 ##  GdkWindow * gdk_display_get_window_at_pointer (GdkDisplay *display, gint *win_x, gint *win_y) 
 ###GdkWindow * gdk_display_get_window_at_pointer (GdkDisplay *display, OUTLIST gint win_x, OUTLIST gint win_y) 
