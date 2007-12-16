@@ -1,5 +1,12 @@
 2007-12-16  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
+	* Gtk2.pm
+	* Makefile.PL
+	* NEWS
+	* README: Unstable release 1.171.
+
+2007-12-16  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
 	* xs/GdkDisplay.xs
 	* xs/GdkWindow.xs
 	* xs/GtkBox.xs

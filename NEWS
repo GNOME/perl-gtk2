@@ -1,3 +1,16 @@
+Overview of changes in Gtk2 1.171
+=================================
+
+* Avoid syntax that was causing perl errors in Gtk2::Builder::_do_connect on
+  some platforms.
+* Add bindings for GtkIMContext, GtkIMContextSimple, and GtkIMMulticontext.
+* Improve the documentation in various places.
+* Make Gtk2::Gdk::Color::new take an optional pixel value.
+* Correct the way we check values for definedness: use Glib's
+  gperl_sv_defined(), an XS version of perl's defined().  Among other things,
+  this should fix the problems where tied values were reported as undefined.
+* Plug memory leaks.
+
 Overview of changes in Gtk2 1.170
 =================================
 
@@ -6,6 +19,12 @@ Overview of changes in Gtk2 1.170
   configure_requires.
 * Fix leak in Gtk2::Pango::Layout::get_iter.
 * Fix a few test failures.
+
+Overview of changes in Gtk2 1.162
+=================================
+
+* Fix a strange parse error related to the use of qw// that occured on some
+  versions of perl.  [Jeffrey Ratcliffe]
 
 Overview of changes in Gtk2 1.161
 =================================
