@@ -238,7 +238,16 @@ gboolean gtk_icon_view_get_reorderable (GtkIconView *icon_view);
 void gtk_icon_view_set_drag_dest_item (GtkIconView *icon_view, GtkTreePath *path, GtkIconViewDropPosition pos);
 
 ## void gtk_icon_view_get_drag_dest_item (GtkIconView *icon_view, GtkTreePath **path, GtkIconViewDropPosition *pos);
-void gtk_icon_view_get_drag_dest_item (GtkIconView *icon_view, OUTLIST GtkTreePath *path, OUTLIST GtkIconViewDropPosition pos);
+void
+gtk_icon_view_get_drag_dest_item (GtkIconView *icon_view)
+    PREINIT:
+	GtkTreePath *path = NULL;
+	GtkIconViewDropPosition pos;
+    PPCODE:
+	gtk_icon_view_get_drag_dest_item (icon_view, &path, &pos);
+	EXTEND (SP, 2);
+	PUSHs (sv_2mortal (newSVGtkTreePath_own (path)));
+	PUSHs (sv_2mortal (newSVGtkIconViewDropPosition (pos)));
 
 ## gboolean gtk_icon_view_get_dest_item_at_pos (GtkIconView *icon_view, gint drag_x, gint drag_y, GtkTreePath **path, GtkIconViewDropPosition *pos);
 void

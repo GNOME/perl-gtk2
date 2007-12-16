@@ -89,7 +89,7 @@ is ($iview->get_margin, 23);
 
 #$win->show_all;
 
-use constant ICON_COORD => 30;
+use constant ICON_COORD => 50;
 
 run_main sub {
     my $path = $iview->get_path_at_pos (ICON_COORD, ICON_COORD);

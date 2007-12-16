@@ -532,7 +532,7 @@ gdk_window_get_frame_extents (window)
 Returns window_at_pointer, a Gtk2::Gdk::Window or undef, x and y, integers, and
 mask, a Gtk2::Gdk::ModifierType.
 =cut
-##GdkWindow_ornull* gdk_window_get_pointer (GdkWindow *window, OUTLIST gint x, OUTLIST gint y, OUTLIST GdkModifierType mask)
+ ## GdkWindow * gdk_window_get_pointer (GdkWindow *window, gint *x, gint *y, GdkModifierType *mask)
 void
 gdk_window_get_pointer (GdkWindow *window)
     PREINIT:
@@ -649,7 +649,17 @@ gdk_window_set_decorations (window, decorations)
 	GdkWindow *window
 	GdkWMDecoration decorations
 
-gboolean gdk_window_get_decorations (GdkWindow *window, OUTLIST GdkWMDecoration decorations)
+ ## gboolean gdk_window_get_decorations (GdkWindow *window, GdkWMDecoration *decorations)
+void
+gdk_window_get_decorations (GdkWindow *window)
+    PREINIT:
+	gboolean result;
+	GdkWMDecoration decorations;
+    PPCODE:
+	result = gdk_window_get_decorations (window, &decorations);
+	EXTEND (SP, 2);
+	PUSHs (sv_2mortal (boolSV (result)));
+	PUSHs (sv_2mortal (newSVGdkWMDecoration (decorations)));
 
  ## void gdk_window_set_functions (GdkWindow *window, GdkWMFunction functions)
 void
@@ -807,7 +817,18 @@ void
 gdk_window_process_updates (GdkWindow * window, gboolean update_children)
 
  ## void gdk_window_get_internal_paint_info (GdkWindow *window, GdkDrawable **real_drawable, gint *x_offset, gint *y_offset)
-void gdk_window_get_internal_paint_info (GdkWindow *window, OUTLIST GdkDrawable *real_drawable, OUTLIST gint x_offset, OUTLIST gint y_offset)
+void
+gdk_window_get_internal_paint_info (GdkWindow *window)
+    PREINIT:
+	GdkDrawable *real_drawable = NULL;
+	gint x_offset;
+	gint y_offset;
+    PPCODE:
+	gdk_window_get_internal_paint_info (window, &real_drawable, &x_offset, &y_offset);
+	EXTEND (SP, 3);
+	PUSHs (sv_2mortal (newSVGdkDrawable (real_drawable)));
+	PUSHs (sv_2mortal (newSViv (x_offset)));
+	PUSHs (sv_2mortal (newSViv (y_offset)));
 
 #if GTK_CHECK_VERSION (2, 6, 0)
 

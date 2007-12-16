@@ -73,8 +73,21 @@ gtk_box_reorder_child (box, child, position)
 	GtkWidget *child
 	gint position
 
+# void gtk_box_query_child_packing (GtkBox * box, GtkWidget * child, gboolean &expand, gboolean &fill, guint &padding, GtkPackType &pack_type)
 void
-gtk_box_query_child_packing (GtkBox * box, GtkWidget * child, OUTLIST gboolean expand, OUTLIST gboolean fill, OUTLIST guint padding, OUTLIST GtkPackType pack_type)
+gtk_box_query_child_packing (GtkBox * box, GtkWidget * child)
+    PREINIT:
+	gboolean expand;
+	gboolean fill;
+	guint padding;
+	GtkPackType pack_type;
+    PPCODE:
+	gtk_box_query_child_packing (box, child, &expand, &fill, &padding, &pack_type);
+	EXTEND (SP, 4);
+	PUSHs (sv_2mortal (boolSV (expand)));
+	PUSHs (sv_2mortal (boolSV (fill)));
+	PUSHs (sv_2mortal (newSVuv (padding)));
+	PUSHs (sv_2mortal (newSVGtkPackType (pack_type)));
 
 void
 gtk_box_set_child_packing (box, child, expand, fill, padding, pack_type)

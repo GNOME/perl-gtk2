@@ -353,7 +353,17 @@ gtk_notebook_set_menu_label_text (notebook, child, menu_text)
 
 ## void gtk_notebook_query_tab_label_packing (GtkNotebook *notebook, GtkWidget *child, gboolean *expand, gboolean *fill, GtkPackType *pack_type)
 void
-gtk_notebook_query_tab_label_packing (GtkNotebook * notebook, GtkWidget * child, OUTLIST gboolean expand, OUTLIST gboolean fill, OUTLIST GtkPackType pack_type)
+gtk_notebook_query_tab_label_packing (GtkNotebook * notebook, GtkWidget * child)
+    PREINIT:
+	gboolean expand;
+	gboolean fill;
+	GtkPackType pack_type;
+    PPCODE:
+	gtk_notebook_query_tab_label_packing (notebook, child, &expand, &fill, &pack_type);
+	EXTEND (SP, 3);
+	PUSHs (sv_2mortal (boolSV (expand)));
+	PUSHs (sv_2mortal (boolSV (fill)));
+	PUSHs (sv_2mortal (newSVGtkPackType (pack_type)));
 
 ## void gtk_notebook_set_tab_label_packing (GtkNotebook *notebook, GtkWidget *child, gboolean expand, gboolean fill, GtkPackType pack_type)
 void

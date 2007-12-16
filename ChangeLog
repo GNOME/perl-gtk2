@@ -1,5 +1,24 @@
 2007-12-16  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
+	* xs/GdkDisplay.xs
+	* xs/GdkWindow.xs
+	* xs/GtkBox.xs
+	* xs/GtkIconView.xs
+	* xs/GtkImage.xs
+	* xs/GtkNotebook.xs
+	* xs/GtkScrolledWindow.xs
+	* xs/PangoTabs.xs: Fix memory leaks that were due to the use of
+	OUTLIST for types which have typemaps that create a new SV rather
+	than overwrite an existing one -- i.e. nearly all non-standard
+	types and even some standard types like bool.  The following
+	functions' xsubs were affected: gdk_display_get_pointer,
+	gdk_window_get_decorations, gdk_window_get_internal_paint_info,
+	gtk_box_query_child_packing, gtk_icon_view_get_drag_dest_item,
+	gtk_image_get_pixmap, gtk_image_get_image, gtk_image_get_icon_set,
+	gtk_image_get_icon_name, gtk_notebook_query_tab_label_packing,
+	gtk_scrolled_window_get_policy, pango_tab_array_get_tab.  (Fixes
+	bug #498334, reported by Quentin Sculo)
+
 	* CodeGen.pm
 	* gtk2perl.h
 	* xs/GdkEvent.xs
