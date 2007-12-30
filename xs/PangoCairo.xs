@@ -20,8 +20,8 @@ gtk2perl_pango_cairo_shape_renderer_func (cairo_t        *cr,
 					  gboolean        do_path,
 					  gpointer        data)
 {
-	dGPERL_CALLBACK_MARSHAL_SP;
 	GPerlCallback *callback = (GPerlCallback *) data;
+	dGPERL_CALLBACK_MARSHAL_SP;
 
 	GPERL_CALLBACK_MARSHAL_INIT (callback);
 

@@ -1,3 +1,11 @@
+2007-12-30  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
+	Merge from HEAD:
+
+	* xs/PangoCairo.xs (gtk2perl_pango_cairo_shape_renderer_func): Put
+	dGPERL_CALLBACK_MARSHAL_SP at the end of the list of declarations
+	to avoid a compilation failure on Win32.
+
 2007-12-16  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
 	Merge from HEAD:
