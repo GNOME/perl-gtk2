@@ -517,6 +517,23 @@ gtk_widget_queue_draw_area (widget, x, y, width, height)
 	gint width
 	gint height
 
+
+=for apidoc
+This function is typically used when implementing a GtkContainer subclass.
+Obtains the preferred size of a widget. The container uses this information to
+arrange its child widgets and decide what size allocations to give them with
+size_allocate ().
+
+You can also call this function from an application, with some caveats. Most
+notably, getting a size request requires the widget to be associated with a
+screen, because font information may be needed. Multihead-aware applications
+should keep this in mind.
+
+Also remember that the size request is not necessarily the size a widget will
+actually be allocated.
+
+See also L<get_child_requisition ()|requisistion = $widget-E<gt>get_child_requisition ()>
+=cut
 GtkRequisition_copy *
 gtk_widget_size_request (widget)
 	GtkWidget * widget
@@ -537,6 +554,26 @@ gtk_widget_size_allocate (widget, allocation)
 
 ## function is only useful for widget implementations
 ##void gtk_widget_get_child_requisition (GtkWidget *widget, GtkRequisition *requisition);
+=for apidoc
+This function is only for use in widget implementations.  Obtains
+C<< $widget->requisition >>, unless someone has forced a particular geometry
+on the widget (e.g., with C<set_usize()>, in which case it returns that
+geometry instead of the widget's requisition.
+
+This function differs from
+L<size_request()|requisition = $widget-E<gt>size_request ()>
+in that it retrieves the last size request value from
+C<< $widget->requisition >>,
+while C<size_request()> actually calls the C<size_request> virtual method
+(that is, emits the "size-request" signal) on the I<$widget> to compute
+the size request and fill in C<< $widget->requisition >>, and only then
+returns C<< $widget->requisition >>.
+
+Because this function does not call the C<size_request> method, it can only
+be used when you know that C<< $widget->requisition >> is up-to-date.  In
+general, only container implementations have this information; applications
+should use C<size_request ()>.
+=cut
 GtkRequisition_copy*
 gtk_widget_get_child_requisition (GtkWidget * widget)
     PREINIT:
@@ -686,20 +723,16 @@ gtk_widget_set_size_request (widget, width=-1, height=-1)
 	gint height
 
 =for apidoc
-This function is typically used when implementing a GtkContainer subclass.
-Obtains the preferred size of a widget. The container uses this information to
-arrange its child widgets and decide what size allocations to give them with
-size_allocate ().
+=for signature (width, height) = $widget->get_size_request
 
-You can also call this function from an application, with some caveats. Most
-notably, getting a size request requires the widget to be associated with a
-screen, because font information may be needed. Multihead-aware applications
-should keep this in mind.
-
-Also remember that the size request is not necessarily the size a widget will
-actually be allocated.
-
-See also L<get_child_requisition ()|requisistion = $widget-E<gt>get_child_requisition>
+Gets the size request that was explicitly set for the widget using
+C<set_size_request()>.  A value of -1 for I<width> or I<height> indicates
+that the dimension has not been explicitly set and the natural requisition
+of the widget will be used instead.
+See L<set_size_request()|$widget-E<gt>set_size_request ($width-=1, $height=-1)>.
+To get the size a widget will actually use, call
+L<size_request()|requisition = $widget-E<gt>size_request ()> instead of
+this function.
 =cut
 void
 gtk_widget_get_size_request (widget)

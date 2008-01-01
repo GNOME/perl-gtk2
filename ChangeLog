@@ -1,3 +1,16 @@
+2008-01-01  muppetman
+
+	* xs/GtkWidget.xs:  Doc fixes; the docs on
+	gtk_widget_get_size_request() actually belonged on
+	gtk_widget_size_request().  Swap that and add docs for
+	get_size_request() and get_child_requisition(), copied
+	from gtk+.  Also fix the signature for get_size_request(),
+	as suggested by Kevin Ryde.
+
+	* xs/GdkPixbuf.xs: Fix the signature docs for get_file_info(),
+	suggested by Kevin Ryde.  Also add a brief description of the
+	function.
+
 2007-12-30  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
 	* xs/PangoCairo.xs (gtk2perl_pango_cairo_shape_renderer_func): Put
