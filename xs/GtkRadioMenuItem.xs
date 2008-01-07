@@ -38,7 +38,7 @@ gtk_radio_menu_item_new (class, member_or_listref=NULL, label=NULL)
 	    && SvROK (member_or_listref)
 	    && SvRV (member_or_listref) != &PL_sv_undef )
 	{
-		if( SvTYPE(SvRV(member_or_listref)) == SVt_PVAV )
+		if( gperl_sv_is_array_ref (member_or_listref) )
 		{
 			AV * av = (AV*)SvRV(member_or_listref);
 			SV ** svp = av_fetch(av, 0, 0);
@@ -113,7 +113,7 @@ gtk_radio_menu_item_set_group (radio_menu_item, member_or_listref)
     CODE:
 	if( gperl_sv_is_defined (member_or_listref) )
 	{
-		if( SvTYPE(SvRV(member_or_listref)) == SVt_PVAV )
+		if( gperl_sv_is_array_ref (member_or_listref) )
 		{
 			AV * av = (AV*)SvRV(member_or_listref);
 			SV ** svp = av_fetch(av, 0, 0);

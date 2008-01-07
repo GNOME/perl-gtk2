@@ -84,7 +84,7 @@ gdk_region_polygon (class, points_ref, fill_rule)
 	AV *array;
 	SV **value;
     CODE:
-	if (! (SvRV (points_ref) && SvTYPE (SvRV (points_ref)) == SVt_PVAV))
+	if (!gperl_sv_is_array_ref (points_ref))
 		croak ("point list has to be a reference to an array");
 
 	array = (AV *) SvRV (points_ref);
@@ -229,7 +229,7 @@ gdk_region_spans_intersect_foreach (region, spans_ref, sorted, func, data=NULL)
 	SV **value;
 	GPerlCallback * callback;
     CODE:
-	if (! (SvRV (spans_ref) && SvTYPE (SvRV (spans_ref)) == SVt_PVAV))
+	if (!gperl_sv_is_array_ref (spans_ref))
 		croak ("span list has to be a reference to an array of GdkPoint's");
 
 	array = (AV *) SvRV (spans_ref);

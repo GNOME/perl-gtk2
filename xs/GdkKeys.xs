@@ -33,7 +33,7 @@ SvGdkKeymapKey (SV *sv)
 	SV **value;
 	GdkKeymapKey *key;
 
-	if (! (gperl_sv_is_defined (sv) && SvROK (sv) && SvTYPE (SvRV (sv)) == SVt_PVHV))
+	if (!gperl_sv_is_hash_ref (sv))
 		croak ("GdkKeymapKey must be a hash reference");
 
 	key = gperl_alloc_temp (sizeof (GdkKeymapKey));

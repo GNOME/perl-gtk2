@@ -83,12 +83,9 @@ SvPangoRectangle (SV * sv)
 	if (!gperl_sv_is_defined (sv))
 		return NULL;
 
-	if (!SvRV (sv) || !(SvTYPE (SvRV (sv)) == SVt_PVHV || SvTYPE (SvRV (sv)) == SVt_PVAV))
-		croak ("a PangoRectangle must be a reference to a hash or an array");
-
 	rectangle = gperl_alloc_temp (sizeof (PangoRectangle));
 
-	if (SvTYPE (SvRV (sv)) == SVt_PVHV) {
+	if (gperl_sv_is_hash_ref (sv)) {
 		HV * hv = (HV *) SvRV (sv);
 
 		v = hv_fetch (hv, "x", 1, 0);
@@ -106,7 +103,7 @@ SvPangoRectangle (SV * sv)
 		v = hv_fetch (hv, "height", 6, 0);
 		if (v && gperl_sv_is_defined (*v))
 			rectangle->height = SvIV (*v);
-	} else {
+	} else if (gperl_sv_is_array_ref (sv)) {
 		AV * av = (AV *) SvRV (sv);
 
 		v = av_fetch (av, 0, 0);
@@ -124,6 +121,9 @@ SvPangoRectangle (SV * sv)
 		v = av_fetch (av, 3, 0);
 		if (v && gperl_sv_is_defined (*v))
 			rectangle->height = SvIV (*v);
+	} else {
+		croak ("a PangoRectangle must be a reference to a hash "
+		       "or a reference to an array");
 	}
 
 	return rectangle;

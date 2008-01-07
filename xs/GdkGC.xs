@@ -67,8 +67,7 @@ SvGdkGCValues (SV * data, GdkGCValues * v, GdkGCValuesMask * m)
 	SV ** s;
 	GdkGCValuesMask mask = 0;
 
-	if ((!gperl_sv_is_defined (data)) || (!SvRV (data)) ||
-	     (SvTYPE (SvRV (data)) != SVt_PVHV))
+	if (!gperl_sv_is_hash_ref (data))
 		return;
 
 	h = (HV*) SvRV (data);

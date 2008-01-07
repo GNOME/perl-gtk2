@@ -45,8 +45,7 @@ void gtk_radio_action_set_group (GtkRadioAction *action, SV *member_or_listref);
     CODE:
 	if (member_or_listref && SvTRUE (member_or_listref)) {
 		GtkRadioAction * member = NULL;
-		if (SvROK (member_or_listref) &&
-		    SvTYPE (SvRV (member_or_listref)) == SVt_PVAV) {
+		if (gperl_sv_is_array_ref (member_or_listref)) {
 			AV * av = (AV*) SvRV (member_or_listref);
 			SV ** svp = av_fetch (av, 0, 0);
 			if (svp && gperl_sv_is_defined (*svp))

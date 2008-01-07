@@ -51,7 +51,7 @@ SvGdkRgbCmap (SV *sv)
 	AV *av;
 	int length, i;
 
-	if (!gperl_sv_is_defined (sv) || !SvRV (sv) || SvTYPE (SvRV (sv)) != SVt_PVAV)
+	if (!gperl_sv_is_array_ref (sv))
 		croak ("cmap must be an array reference");
 
 	av = (AV *) SvRV (sv);

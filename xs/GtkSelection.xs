@@ -57,14 +57,7 @@ gtk2perl_read_gtk_target_entry (SV * sv,
 	SV ** s;
 	STRLEN len;
 
-	if ((!gperl_sv_is_defined (sv)) || (!SvRV (sv)) || 
-	    (SvTYPE (SvRV (sv)) != SVt_PVHV && SvTYPE (SvRV(sv)) != SVt_PVAV))
-		croak ("a target entry must be a reference to a hash "
-		       "containing the keys 'target', 'flags', and 'info', "
-		       "or a reference to a three-element list containing "
-		       "the information in the order target, flags, info");
-
-	if (SvTYPE (SvRV (sv)) == SVt_PVHV) {
+	if (gperl_sv_is_hash_ref (sv)) {
 		h = (HV*) SvRV (sv);
 		if ((s=hv_fetch (h, "target", 6, 0)) && gperl_sv_is_defined (*s))
 			e->target = SvPV (*s, len);
@@ -72,7 +65,7 @@ gtk2perl_read_gtk_target_entry (SV * sv,
 			e->flags = SvGtkTargetFlags (*s);
 		if ((s=hv_fetch (h, "info", 4, 0)) && gperl_sv_is_defined (*s))
 			e->info = SvUV (*s);
-	} else {
+	} else if (gperl_sv_is_array_ref (sv)) {
 		a = (AV*)SvRV (sv);
 		if ((s=av_fetch (a, 0, 0)) && gperl_sv_is_defined (*s))
 			e->target = SvPV (*s, len);
@@ -80,6 +73,11 @@ gtk2perl_read_gtk_target_entry (SV * sv,
 			e->flags = SvGtkTargetFlags (*s);
 		if ((s=av_fetch (a, 2, 0)) && gperl_sv_is_defined (*s))
 			e->info = SvUV (*s);
+	} else {
+		croak ("a target entry must be a reference to a hash "
+		       "containing the keys 'target', 'flags', and 'info', "
+		       "or a reference to a three-element list containing "
+		       "the information in the order target, flags, info");
 	}
 }
 

@@ -14,7 +14,7 @@ group_from_sv (SV * member_or_listref)
 	GSList * group = NULL;
 	if (gperl_sv_is_defined (member_or_listref)) {
 		GtkRadioToolButton * member = NULL;
-		if (SvTYPE (SvRV (member_or_listref)) == SVt_PVAV) {
+		if (gperl_sv_is_array_ref (member_or_listref)) {
 			AV * av = (AV*) SvRV (member_or_listref);
 			SV ** svp = av_fetch (av, 0, FALSE);
 			if (svp && gperl_sv_is_defined (*svp))

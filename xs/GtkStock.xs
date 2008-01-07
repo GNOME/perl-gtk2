@@ -57,8 +57,7 @@ SvGtkStockItem (SV * sv)
 	SV ** svp;
 	GtkStockItem * item;
 
-	if (! (gperl_sv_is_defined (sv) && SvROK (sv) &&
-	       SvTYPE (SvRV (sv)) == SVt_PVHV))
+	if (!gperl_sv_is_hash_ref (sv))
 		croak ("malformed stock item; use a reference to a hash as a stock item");
 
 	hv = (HV*) SvRV (sv);

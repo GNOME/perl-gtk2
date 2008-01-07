@@ -57,7 +57,7 @@ gtk2perl_border_unwrap (GType gtype, const char * package, SV * sv)
 	if (!gperl_sv_is_defined (sv) || !SvRV (sv))
 		return NULL;
 
-	if (SvTYPE (SvRV (sv)) != SVt_PVHV)
+	if (!gperl_sv_is_hash_ref (sv))
 		croak ("GtkBorder must be a hash reference with four keys: "
 		       "left, right, top, bottom");
 

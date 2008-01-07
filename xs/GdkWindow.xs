@@ -68,7 +68,7 @@ SvGdkWindowAttrReal (SV *object, GdkWindowAttributesType *mask)
 	/* better start with an empty mask */
 	if (mask) *mask = 0;
 
-	if (gperl_sv_is_defined (object) && SvROK (object) && SvTYPE (SvRV (object)) == SVt_PVHV) {
+	if (gperl_sv_is_hash_ref (object)) {
 		GTK2PERL_WINDOW_ATTR_FETCH (title, "title", SvGChar);
 		GTK2PERL_WINDOW_ATTR_FETCH (event_mask, "event_mask", SvGdkEventMask);
 		GTK2PERL_WINDOW_ATTR_FETCH (x, "x", SvIV);

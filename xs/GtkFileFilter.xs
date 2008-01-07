@@ -55,7 +55,7 @@ SvGtkFileFilterInfo (SV * sv)
 	SV ** svp;
 	GtkFileFilterInfo * info;
 
-	if (!gperl_sv_is_defined (sv) || !SvROK (sv) || SvTYPE (SvRV (sv)) != SVt_PVHV)
+	if (!gperl_sv_is_hash_ref (sv))
 		croak ("invalid file filter info - expecting a hash reference");
 
 	hv = (HV*) SvRV (sv);

@@ -122,23 +122,7 @@ SvGtkItemFactoryEntry (SV *data, SV **callback)
 	if (!gperl_sv_is_defined (data))
 		return entry; /* fail silently if undef */
 
-	if ((!SvRV (data)) ||
-	    (SvTYPE (SvRV (data)) != SVt_PVHV && SvTYPE (SvRV (data)) != SVt_PVAV))
-		croak ("badly formed GtkItemFactoryEntry; use either list for for hash form:\n"
-		       "    list form:\n"
-		       "        [ path, accel, callback, action, type ]\n"
-		       "    hash form:\n"
-		       "        {\n"
-		       "           path            => $path,\n"
-		       "           accelerator     => $accel,   # optional\n"
-		       "           callback        => $callback,\n"
-		       "           callback_action => $action,\n"
-		       "           item_type       => $type,    # optional\n"
-		       "           extra_data      => $extra,   # optional\n"
-		       "         }\n"
-		       "  ");
-
-	if (SvTYPE (SvRV (data)) == SVt_PVHV) {
+	if (gperl_sv_is_hash_ref (data)) {
 		HV *hv = (HV *) SvRV (data);
 		SV **value;
 
@@ -157,7 +141,7 @@ SvGtkItemFactoryEntry (SV *data, SV **callback)
 		HV_FETCH_AND_CHECK (callback_action, SvIV (*value));
 		HV_FETCH_AND_CHECK (item_type, SvGChar (*value));
 		HV_FETCH_AND_CHECK (extra_data, SvPOK (*value) ? SvGChar (*value) : NULL);
-	} else if (SvTYPE (SvRV (data)) == SVt_PVAV) {
+	} else if (gperl_sv_is_array_ref (data)) {
 		AV *av = (AV *) SvRV (data);
 		SV **value;
 
@@ -174,6 +158,20 @@ SvGtkItemFactoryEntry (SV *data, SV **callback)
 		AV_FETCH_AND_CHECK (3, callback_action, SvIV (*value));
 		AV_FETCH_AND_CHECK (4, item_type, SvGChar (*value));
 		AV_FETCH_AND_CHECK (5, extra_data, SvPOK (*value) ? SvGChar (*value) : NULL);
+	} else {
+		croak ("badly formed GtkItemFactoryEntry; use either list or hash form:\n"
+		       "    list form:\n"
+		       "        [ path, accel, callback, action, type ]\n"
+		       "    hash form:\n"
+		       "        {\n"
+		       "           path            => $path,\n"
+		       "           accelerator     => $accel,   # optional\n"
+		       "           callback        => $callback,\n"
+		       "           callback_action => $action,\n"
+		       "           item_type       => $type,    # optional\n"
+		       "           extra_data      => $extra,   # optional\n"
+		       "         }\n"
+		       "  ");
 	}
 
 	return entry;

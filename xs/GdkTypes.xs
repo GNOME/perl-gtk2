@@ -62,7 +62,7 @@ SvGdkGeometryReal (SV *object, GdkWindowHints *hints)
 	if (hints)
 		*hints = 0;
 
-	if (gperl_sv_is_defined (object) && SvROK (object) && SvTYPE (SvRV (object)) == SVt_PVHV) {
+	if (gperl_sv_is_hash_ref (object)) {
 		GTK2PERL_GEOMETRY_FETCH (min_width, "min_width", SvIV);
 		GTK2PERL_GEOMETRY_FETCH (min_height, "min_height", SvIV);
 		GTK2PERL_GEOMETRY_FETCH (max_width, "max_width", SvIV);

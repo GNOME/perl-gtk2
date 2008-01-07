@@ -267,8 +267,7 @@ gtk_action_group_add_actions (action_group, action_entries, user_data=NULL)
 	GtkActionEntry * entries;
 	gint n_actions, i;
     CODE:
-	if (!gperl_sv_is_defined (action_entries) || !SvROK (action_entries)
-	    || SvTYPE (SvRV (action_entries)) != SVt_PVAV)
+	if (!gperl_sv_is_array_ref (action_entries))
 		croak ("actions must be a reference to an array of action entries");
 	av = (AV*) SvRV (action_entries);
 	n_actions = av_len (av) + 1;
@@ -343,8 +342,7 @@ gtk_action_group_add_toggle_actions (action_group, toggle_action_entries, user_d
 	GtkToggleActionEntry * entries;
 	gint n_actions, i;
     CODE:
-	if (!gperl_sv_is_defined (toggle_action_entries) || !SvROK (toggle_action_entries) ||
-	    SvTYPE (SvRV (toggle_action_entries)) != SVt_PVAV)
+	if (!gperl_sv_is_array_ref (toggle_action_entries))
 		croak ("entries must be a reference to an array of toggle action entries");
 	av = (AV*) SvRV (toggle_action_entries);
 	n_actions = av_len (av) + 1;
@@ -427,8 +425,7 @@ gtk_action_group_add_radio_actions (action_group, radio_action_entries, value, o
 	GSList * group = NULL;
 	gint n_actions, i;
     CODE:
-	if (!gperl_sv_is_defined (radio_action_entries) || !SvROK (radio_action_entries) ||
-	    SvTYPE (SvRV (radio_action_entries)) != SVt_PVAV)
+	if (!gperl_sv_is_array_ref (radio_action_entries))
 		croak ("radio_action_entries must be a reference to an array of action entries");
 	av = (AV*) SvRV (radio_action_entries);
 	n_actions = av_len (av) + 1;

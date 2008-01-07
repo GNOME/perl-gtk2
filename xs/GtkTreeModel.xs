@@ -197,7 +197,7 @@ iter_from_sv (GtkTreeIter * iter,
 	if (gperl_sv_is_defined (sv)) {
 		SV ** svp;
 		AV * av;
-		if (!SvROK (sv) || SvTYPE (SvRV (sv)) != SVt_PVAV)
+		if (!gperl_sv_is_array_ref (sv))
 			croak ("expecting a reference to an ARRAY to describe "
 			       "a tree iter, not a %s",
 			       sv_reftype (SvRV (sv), 0));

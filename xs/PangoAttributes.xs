@@ -65,7 +65,7 @@ pango_color_unwrap (GType gtype,
 	if (!gperl_sv_is_defined (sv))
 		return NULL;
 
-	if (!SvRV (sv) || SvTYPE (SvRV (sv)) != SVt_PVAV)
+	if (!gperl_sv_is_array_ref (sv))
 		croak ("a PangoColor must be an array reference with three values: "
 		       "red, green, and blue");
 
