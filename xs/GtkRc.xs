@@ -196,14 +196,14 @@ name (style, new=NULL)
 		    case 0:
 			if (style->name)
 				g_free (style->name);
-			style->name = gperl_sv_defined (new)
+			style->name = gperl_sv_is_defined (new)
 			            ? g_strdup (SvGChar (new))
 				    : NULL;
 			break;
 		    case 1:
 			if (style->font_desc)
 				pango_font_description_free (style->font_desc);
-			style->font_desc = gperl_sv_defined (new)
+			style->font_desc = gperl_sv_is_defined (new)
 			                 ? SvPangoFontDescription (new)
 					 : NULL;
 			if (style->font_desc)

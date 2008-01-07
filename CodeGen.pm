@@ -221,7 +221,7 @@ gperl_register_object ($typemacro, \"$package\");
 # define Sv$classname(sv)	(($classname*)gperl_get_object_check (sv, $typemacro))
 # define newSV$classname(val)	($get_wrapper)
   typedef $classname $classname\_ornull;
-# define Sv$classname\_ornull(sv)	(gperl_sv_defined (sv) ? Sv$classname(sv) : NULL)
+# define Sv$classname\_ornull(sv)	(gperl_sv_is_defined (sv) ? Sv$classname(sv) : NULL)
 # define newSV$classname\_ornull(val)	(((val) == NULL) ? &PL_sv_undef : $get_wrapper)
 #endif /* $typemacro */
 ";

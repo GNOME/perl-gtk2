@@ -66,7 +66,7 @@ SvGtkRecentFilterInfo (SV *sv)
   SV **svp;
   GtkRecentFilterInfo *info;
 
-  if (!gperl_sv_defined (sv) || !SvROK (sv) || SvTYPE (SvRV (sv)) != SVt_PVHV)
+  if (!gperl_sv_is_defined (sv) || !SvROK (sv) || SvTYPE (SvRV (sv)) != SVt_PVHV)
     croak ("invalid recent filter info - expecting a hash reference");
 
   hv = (HV *) SvRV (sv);

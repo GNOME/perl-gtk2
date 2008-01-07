@@ -29,7 +29,7 @@ gtk2perl_sv_to_strv (SV *sv)
 	int i;
 	gchar **retval;
 
-	if (!gperl_sv_defined (sv) || !SvROK (sv) || SvTYPE (SvRV (sv)) != SVt_PVAV)
+	if (!gperl_sv_is_defined (sv) || !SvROK (sv) || SvTYPE (SvRV (sv)) != SVt_PVAV)
 		croak ("invalid groups value - expecting an array reference");
 
 	av = (AV *) SvRV (sv);
@@ -81,7 +81,7 @@ SvGtkRecentData (SV *sv)
   HV *hv;
   SV **svp;
 
-  if (!gperl_sv_defined (sv) || !SvROK (sv) || SvTYPE (SvRV (sv)) != SVt_PVHV)
+  if (!gperl_sv_is_defined (sv) || !SvROK (sv) || SvTYPE (SvRV (sv)) != SVt_PVHV)
 	  croak ("invalid recent data - expecting a hash reference");
 
   hv = (HV *) SvRV (sv);

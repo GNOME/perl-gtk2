@@ -67,7 +67,7 @@ SvGdkGCValues (SV * data, GdkGCValues * v, GdkGCValuesMask * m)
 	SV ** s;
 	GdkGCValuesMask mask = 0;
 
-	if ((!gperl_sv_defined (data)) || (!SvRV (data)) ||
+	if ((!gperl_sv_is_defined (data)) || (!SvRV (data)) ||
 	     (SvTYPE (SvRV (data)) != SVt_PVHV))
 		return;
 
@@ -76,75 +76,75 @@ SvGdkGCValues (SV * data, GdkGCValues * v, GdkGCValuesMask * m)
 	if (!v)
 		v = gperl_alloc_temp (sizeof(GdkGCValues));
 
-	if ((s=hv_fetch (h, "foreground", 10, 0)) && gperl_sv_defined (*s)) {
+	if ((s=hv_fetch (h, "foreground", 10, 0)) && gperl_sv_is_defined (*s)) {
 		v->foreground = *((GdkColor*) SvGdkColor (*s));
 		mask |= GDK_GC_FOREGROUND;
 	}
-	if ((s=hv_fetch (h, "background", 10, 0)) && gperl_sv_defined (*s)) {
+	if ((s=hv_fetch (h, "background", 10, 0)) && gperl_sv_is_defined (*s)) {
 		v->background = *((GdkColor*) SvGdkColor (*s));
 		mask |= GDK_GC_BACKGROUND;
 	}
-	if ((s=hv_fetch (h, "font", 4, 0)) && gperl_sv_defined (*s)) {
+	if ((s=hv_fetch (h, "font", 4, 0)) && gperl_sv_is_defined (*s)) {
 		v->font = SvGdkFont (*s);
 		mask |= GDK_GC_FONT;
 	}
-	if ((s=hv_fetch (h, "function", 8, 0)) && gperl_sv_defined (*s)) {
+	if ((s=hv_fetch (h, "function", 8, 0)) && gperl_sv_is_defined (*s)) {
 		v->function = SvGdkFunction (*s);
 		mask |= GDK_GC_FUNCTION;
 	}
-	if ((s=hv_fetch (h, "fill", 4, 0)) && gperl_sv_defined (*s)) {
+	if ((s=hv_fetch (h, "fill", 4, 0)) && gperl_sv_is_defined (*s)) {
 		v->fill = SvGdkFill (*s);
 		mask |= GDK_GC_FILL;
 	}
-	if ((s=hv_fetch (h, "tile", 4, 0)) && gperl_sv_defined (*s)) {
+	if ((s=hv_fetch (h, "tile", 4, 0)) && gperl_sv_is_defined (*s)) {
 		v->tile = SvGdkPixmap (*s);
 		mask |= GDK_GC_TILE;
 	}
-	if ((s=hv_fetch (h, "stipple", 7, 0)) && gperl_sv_defined (*s)) {
+	if ((s=hv_fetch (h, "stipple", 7, 0)) && gperl_sv_is_defined (*s)) {
 		v->stipple = SvGdkPixmap (*s);
 		mask |= GDK_GC_STIPPLE;
 	}
-	if ((s=hv_fetch (h, "clip_mask", 9, 0)) && gperl_sv_defined (*s)) {
+	if ((s=hv_fetch (h, "clip_mask", 9, 0)) && gperl_sv_is_defined (*s)) {
 		v->clip_mask = SvGdkPixmap (*s);
 		mask |= GDK_GC_CLIP_MASK;
 	}
-	if ((s=hv_fetch (h, "subwindow_mode", 14, 0)) && gperl_sv_defined (*s)) {
+	if ((s=hv_fetch (h, "subwindow_mode", 14, 0)) && gperl_sv_is_defined (*s)) {
 		v->subwindow_mode = SvGdkSubwindowMode (*s);
 		mask |= GDK_GC_SUBWINDOW;
 	}
-	if ((s=hv_fetch (h, "ts_x_origin", 11, 0)) && gperl_sv_defined (*s)) {
+	if ((s=hv_fetch (h, "ts_x_origin", 11, 0)) && gperl_sv_is_defined (*s)) {
 		v->ts_x_origin = SvIV (*s);
 		mask |= GDK_GC_TS_X_ORIGIN;
 	}
-	if ((s=hv_fetch (h, "ts_y_origin", 11, 0)) && gperl_sv_defined (*s)) {
+	if ((s=hv_fetch (h, "ts_y_origin", 11, 0)) && gperl_sv_is_defined (*s)) {
 		v->ts_y_origin = SvIV (*s);
 		mask |= GDK_GC_TS_Y_ORIGIN;
 	}
-	if ((s=hv_fetch (h, "clip_x_origin", 13, 0)) && gperl_sv_defined (*s)) {
+	if ((s=hv_fetch (h, "clip_x_origin", 13, 0)) && gperl_sv_is_defined (*s)) {
 		v->clip_x_origin = SvIV (*s);
 		mask |= GDK_GC_CLIP_X_ORIGIN;
 	}
-	if ((s=hv_fetch (h, "clip_y_origin", 13, 0)) && gperl_sv_defined (*s)) {
+	if ((s=hv_fetch (h, "clip_y_origin", 13, 0)) && gperl_sv_is_defined (*s)) {
 		v->clip_y_origin = SvIV (*s);
 		mask |= GDK_GC_CLIP_Y_ORIGIN;
 	}
-	if ((s=hv_fetch (h, "graphics_exposures", 18, 0)) && gperl_sv_defined (*s)) {
+	if ((s=hv_fetch (h, "graphics_exposures", 18, 0)) && gperl_sv_is_defined (*s)) {
 		v->graphics_exposures = SvIV (*s);
 		mask |= GDK_GC_EXPOSURES;
 	}
-	if ((s=hv_fetch (h, "line_width", 10, 0)) && gperl_sv_defined (*s)) {
+	if ((s=hv_fetch (h, "line_width", 10, 0)) && gperl_sv_is_defined (*s)) {
 		v->line_width= SvIV (*s);
 		mask |= GDK_GC_LINE_WIDTH;
 	}
-	if ((s=hv_fetch (h, "line_style", 10, 0)) && gperl_sv_defined (*s)) {
+	if ((s=hv_fetch (h, "line_style", 10, 0)) && gperl_sv_is_defined (*s)) {
 		v->line_style= SvGdkLineStyle (*s);
 		mask |= GDK_GC_LINE_STYLE;
 	}
-	if ((s=hv_fetch (h, "cap_style", 9, 0)) && gperl_sv_defined (*s)) {
+	if ((s=hv_fetch (h, "cap_style", 9, 0)) && gperl_sv_is_defined (*s)) {
 		v->cap_style = SvGdkCapStyle (*s);
 		mask |= GDK_GC_CAP_STYLE;
 	}
-	if ((s=hv_fetch (h, "join_style", 10, 0)) && gperl_sv_defined (*s)) {
+	if ((s=hv_fetch (h, "join_style", 10, 0)) && gperl_sv_is_defined (*s)) {
 		v->join_style = SvGdkJoinStyle (*s);
 		mask |= GDK_GC_JOIN_STYLE;
 	}
@@ -173,7 +173,7 @@ gdk_gc_new (class, GdkDrawable * drawable, SV * values=NULL)
     ALIAS:
 	new_with_values = 1
     CODE:
-	if (gperl_sv_defined (values)) {
+	if (gperl_sv_is_defined (values)) {
 		GdkGCValuesMask m;
 		GdkGCValues v;
 		SvGdkGCValues (values, &v, &m);

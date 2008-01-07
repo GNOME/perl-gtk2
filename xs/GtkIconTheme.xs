@@ -164,7 +164,7 @@ gtk_icon_theme_choose_icon (GtkIconTheme *icon_theme, SV *icon_names, gint size,
 	names = g_new0 (gchar *, length + 1);
 	for (i = 0; i < length; i++) {
 		SV **sv = av_fetch (av, i, 0);
-		names[i] = sv && gperl_sv_defined (*sv) ? SvPV_nolen (*sv) : "";
+		names[i] = sv && gperl_sv_is_defined (*sv) ? SvPV_nolen (*sv) : "";
 	}
 	names[length] = NULL;
 

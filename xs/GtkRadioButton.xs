@@ -97,7 +97,7 @@ gtk_radio_button_new (class, member_or_listref=NULL, label=NULL)
 	GSList         * group = NULL;
 	GtkRadioButton * member = NULL;
     CODE:
-	if( gperl_sv_defined (member_or_listref)
+	if( gperl_sv_is_defined (member_or_listref)
 	    && SvROK (member_or_listref)
 	    && SvRV (member_or_listref) != &PL_sv_undef )
 	{
@@ -105,7 +105,7 @@ gtk_radio_button_new (class, member_or_listref=NULL, label=NULL)
 		{
 			AV * av = (AV*)SvRV(member_or_listref);
 			SV ** svp = av_fetch(av, 0, 0);
-			if( svp && gperl_sv_defined(*svp) )
+			if( svp && gperl_sv_is_defined(*svp) )
 				member = SvGtkRadioButton(*svp);
 		}
 		else
@@ -155,13 +155,13 @@ gtk_radio_button_set_group (radio_button, member_or_listref)
 	GSList         * group = NULL;
 	GtkRadioButton * member = NULL;
     CODE:
-	if( gperl_sv_defined (member_or_listref) )
+	if( gperl_sv_is_defined (member_or_listref) )
 	{
 		if( SvTYPE(SvRV(member_or_listref)) == SVt_PVAV )
 		{
 			AV * av = (AV*)SvRV(member_or_listref);
 			SV ** svp = av_fetch(av, 0, 0);
-			if( svp && gperl_sv_defined(*svp) )
+			if( svp && gperl_sv_is_defined(*svp) )
 			{
 				member = SvGtkRadioButton(*svp);
 			}

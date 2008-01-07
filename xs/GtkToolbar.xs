@@ -43,7 +43,7 @@ typedef enum {
 	INSERT
 } WhichOp;
 
-#define SvGChar_ornull(sv)   (gperl_sv_defined((sv)) ? SvGChar ((sv)) : NULL)
+#define SvGChar_ornull(sv)   (gperl_sv_is_defined((sv)) ? SvGChar ((sv)) : NULL)
 
 static GtkWidget *
 gtk2perl_toolbar_insert_internal (GtkToolbar * toolbar,
@@ -175,7 +175,7 @@ gtk2perl_toolbar_insert_internal (GtkToolbar * toolbar,
 		default:
 			g_assert_not_reached ();
 	}
-	if (gperl_sv_defined (callback))
+	if (gperl_sv_is_defined (callback))
 		gperl_signal_connect (newSVGtkWidget (w), "clicked",
 		                      callback, user_data, 0);
 

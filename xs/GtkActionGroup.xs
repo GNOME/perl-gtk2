@@ -18,34 +18,34 @@
 
 #define HFETCHPV(hv, key)	\
 	(((svp = hv_fetch ((hv), (key), strlen ((key)), FALSE))	\
-	  && gperl_sv_defined (*svp))					\
+	  && gperl_sv_is_defined (*svp))					\
 	  ? SvPV_nolen (*svp)					\
 	  : NULL)
 
 #define HFETCHCV(hv, key)	\
 	(((svp = hv_fetch ((hv), (key), strlen ((key)), FALSE))	\
-	  && gperl_sv_defined (*svp))					\
+	  && gperl_sv_is_defined (*svp))					\
 	  ? (gpointer)(*svp)					\
 	  : NULL)
 
 #define HFETCHIV(hv, key)	\
 	(((svp = hv_fetch ((hv), (key), strlen ((key)), FALSE))	\
-	  && gperl_sv_defined (*svp))					\
+	  && gperl_sv_is_defined (*svp))					\
 	  ? SvIV (*svp)						\
 	  : 0)
 
 #define AFETCHPV(av, index)	\
-	(((svp = av_fetch ((av), (index), FALSE)) && gperl_sv_defined (*svp))	\
+	(((svp = av_fetch ((av), (index), FALSE)) && gperl_sv_is_defined (*svp))	\
 	 ? SvPV_nolen (*svp)						\
 	 : NULL)
 
 #define AFETCHCV(av, index)	\
-	(((svp = av_fetch ((av), (index), FALSE)) && gperl_sv_defined (*svp))	\
+	(((svp = av_fetch ((av), (index), FALSE)) && gperl_sv_is_defined (*svp))	\
 	 ? (gpointer)(*svp)						\
 	 : NULL)
 
 #define AFETCHIV(av, index)	\
-	(((svp = av_fetch ((av), (index), FALSE)) && gperl_sv_defined (*svp))	\
+	(((svp = av_fetch ((av), (index), FALSE)) && gperl_sv_is_defined (*svp))	\
 	 ? SvIV (*svp)							\
 	 : 0)
 
@@ -67,7 +67,7 @@ read_action_entry_from_sv (SV * sv,
                            GtkActionEntry * action)
 {
 	SV ** svp;
-	if (!gperl_sv_defined (sv) || !SvROK (sv))
+	if (!gperl_sv_is_defined (sv) || !SvROK (sv))
 		croak ("invalid action entry");
 
 	switch (SvTYPE (SvRV (sv))) {
@@ -117,7 +117,7 @@ read_toggle_action_entry_from_sv (SV * sv,
                                   GtkToggleActionEntry * action)
 {
 	SV ** svp;
-	if (!gperl_sv_defined (sv) || !SvROK (sv))
+	if (!gperl_sv_is_defined (sv) || !SvROK (sv))
 		croak ("invalid toggle action entry");
 
 	switch (SvTYPE (SvRV (sv))) {
@@ -172,7 +172,7 @@ read_radio_action_entry_from_sv (SV * sv,
                                  GtkRadioActionEntry * action)
 {
 	SV ** svp;
-	if (!gperl_sv_defined (sv) || !SvROK (sv))
+	if (!gperl_sv_is_defined (sv) || !SvROK (sv))
 		croak ("invalid radio action entry");
 
 	switch (SvTYPE (SvRV (sv))) {
@@ -267,7 +267,7 @@ gtk_action_group_add_actions (action_group, action_entries, user_data=NULL)
 	GtkActionEntry * entries;
 	gint n_actions, i;
     CODE:
-	if (!gperl_sv_defined (action_entries) || !SvROK (action_entries)
+	if (!gperl_sv_is_defined (action_entries) || !SvROK (action_entries)
 	    || SvTYPE (SvRV (action_entries)) != SVt_PVAV)
 		croak ("actions must be a reference to an array of action entries");
 	av = (AV*) SvRV (action_entries);
@@ -343,7 +343,7 @@ gtk_action_group_add_toggle_actions (action_group, toggle_action_entries, user_d
 	GtkToggleActionEntry * entries;
 	gint n_actions, i;
     CODE:
-	if (!gperl_sv_defined (toggle_action_entries) || !SvROK (toggle_action_entries) ||
+	if (!gperl_sv_is_defined (toggle_action_entries) || !SvROK (toggle_action_entries) ||
 	    SvTYPE (SvRV (toggle_action_entries)) != SVt_PVAV)
 		croak ("entries must be a reference to an array of toggle action entries");
 	av = (AV*) SvRV (toggle_action_entries);
@@ -427,7 +427,7 @@ gtk_action_group_add_radio_actions (action_group, radio_action_entries, value, o
 	GSList * group = NULL;
 	gint n_actions, i;
     CODE:
-	if (!gperl_sv_defined (radio_action_entries) || !SvROK (radio_action_entries) ||
+	if (!gperl_sv_is_defined (radio_action_entries) || !SvROK (radio_action_entries) ||
 	    SvTYPE (SvRV (radio_action_entries)) != SVt_PVAV)
 		croak ("radio_action_entries must be a reference to an array of action entries");
 	av = (AV*) SvRV (radio_action_entries);
@@ -497,7 +497,7 @@ gtk_action_group_add_radio_actions (action_group, radio_action_entries, value, o
 		g_object_unref (action);
 	}
 
-	if (gperl_sv_defined (on_change))
+	if (gperl_sv_is_defined (on_change))
 		gperl_signal_connect (WRAPINSTANCE (first_action),
 		                      "changed", on_change, user_data, 0);
 

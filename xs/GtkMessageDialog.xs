@@ -111,7 +111,7 @@ gtk_message_dialog_new (class, parent, flags, type, buttons, format, ...)
 	GtkButtonsType buttons
 	SV * format
     CODE:
-	if (gperl_sv_defined (format))
+	if (gperl_sv_is_defined (format))
 		/* the double-indirection is necessary to avoid % chars in the
 		 * message string being misinterpreted. */
 		RETVAL = gtk_message_dialog_new (
@@ -160,7 +160,7 @@ gtk_message_dialog_format_secondary_text (message_dialog, message_format, ...)
 	GtkMessageDialog *message_dialog
 	SV * message_format
     CODE:
-	if (gperl_sv_defined (message_format))
+	if (gperl_sv_is_defined (message_format))
 		gtk_message_dialog_format_secondary_text (
 		  message_dialog,
 		  "%s",

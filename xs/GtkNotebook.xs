@@ -24,7 +24,7 @@
 static GtkWidget *
 ensure_label_widget (SV * sv)
 {
-	if (!gperl_sv_defined (sv))
+	if (!gperl_sv_is_defined (sv))
 		return NULL;
 	if (sv_derived_from (sv, "Gtk2::Widget"))
 		return SvGtkWidget (sv);

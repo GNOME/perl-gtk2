@@ -1,3 +1,48 @@
+2008-01-07  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
+	* CodeGen.pm
+	* gtk2perl.h
+	* xs/GdkEvent.xs
+	* xs/GdkGC.xs
+	* xs/GdkKeys.xs
+	* xs/GdkPixbuf.xs
+	* xs/GdkRegion.xs
+	* xs/GdkRgb.xs
+	* xs/GdkTypes.xs
+	* xs/GdkWindow.xs
+	* xs/GtkActionGroup.xs
+	* xs/GtkCellRenderer.xs
+	* xs/GtkEntry.xs
+	* xs/GtkFileFilter.xs
+	* xs/GtkIconTheme.xs
+	* xs/GtkItemFactory.xs
+	* xs/GtkLinkButton.xs
+	* xs/GtkMenu.xs
+	* xs/GtkMessageDialog.xs
+	* xs/GtkNotebook.xs
+	* xs/GtkRadioAction.xs
+	* xs/GtkRadioButton.xs
+	* xs/GtkRadioMenuItem.xs
+	* xs/GtkRadioToolButton.xs
+	* xs/GtkRc.xs
+	* xs/GtkRecentFilter.xs
+	* xs/GtkRecentManager.xs
+	* xs/GtkSelection.xs
+	* xs/GtkStock.xs
+	* xs/GtkTextBufferRichText.xs
+	* xs/GtkToolbar.xs
+	* xs/GtkTooltips.xs
+	* xs/GtkTreeModel.xs
+	* xs/GtkTreeModelFilter.xs
+	* xs/GtkTreeSelection.xs
+	* xs/GtkTreeSortable.xs
+	* xs/GtkTreeView.xs
+	* xs/GtkWindow.xs
+	* xs/PangoAttributes.xs
+	* xs/PangoCairo.xs
+	* xs/PangoLayout.xs: gperl_sv_defined was renamed to
+	gperl_sv_is_defined -- adjust callers.
+
 2008-01-01  muppetman
 
 	* xs/GtkWidget.xs:  Doc fixes; the docs on

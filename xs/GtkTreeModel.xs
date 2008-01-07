@@ -194,7 +194,7 @@ iter_from_sv (GtkTreeIter * iter,
 	 * to return FALSE from the C vfuncs.  for anything else, it *must*
 	 * be an array reference or we croak with an informative message
 	 * (since that would be caused by a programming bug). */
-	if (gperl_sv_defined (sv)) {
+	if (gperl_sv_is_defined (sv)) {
 		SV ** svp;
 		AV * av;
 		if (!SvROK (sv) || SvTYPE (SvRV (sv)) != SVt_PVAV)
@@ -257,7 +257,7 @@ gtk2perl_tree_model_get_path (GtkTreeModel *tree_model,
 	 * might croak.  FREETMPS will destroy the path, though, so we need
 	 * to copy it, first. */
 	PUTBACK;
-	if (gperl_sv_defined (sv))
+	if (gperl_sv_is_defined (sv))
 		ret = gtk_tree_path_copy (SvGtkTreePath (sv));
 	FREETMPS;
 	LEAVE;

@@ -80,7 +80,7 @@ SvPangoRectangle (SV * sv)
 	PangoRectangle *rectangle;
 	SV ** v;
 
-	if (!gperl_sv_defined (sv))
+	if (!gperl_sv_is_defined (sv))
 		return NULL;
 
 	if (!SvRV (sv) || !(SvTYPE (SvRV (sv)) == SVt_PVHV || SvTYPE (SvRV (sv)) == SVt_PVAV))
@@ -92,37 +92,37 @@ SvPangoRectangle (SV * sv)
 		HV * hv = (HV *) SvRV (sv);
 
 		v = hv_fetch (hv, "x", 1, 0);
-		if (v && gperl_sv_defined (*v))
+		if (v && gperl_sv_is_defined (*v))
 			rectangle->x = SvIV (*v);
 
 		v = hv_fetch (hv, "y", 1, 0);
-		if (v && gperl_sv_defined (*v))
+		if (v && gperl_sv_is_defined (*v))
 			rectangle->y = SvIV (*v);
 
 		v = hv_fetch (hv, "width", 5, 0);
-		if (v && gperl_sv_defined (*v))
+		if (v && gperl_sv_is_defined (*v))
 			rectangle->width = SvIV (*v);
 
 		v = hv_fetch (hv, "height", 6, 0);
-		if (v && gperl_sv_defined (*v))
+		if (v && gperl_sv_is_defined (*v))
 			rectangle->height = SvIV (*v);
 	} else {
 		AV * av = (AV *) SvRV (sv);
 
 		v = av_fetch (av, 0, 0);
-		if (v && gperl_sv_defined (*v))
+		if (v && gperl_sv_is_defined (*v))
 			rectangle->x = SvIV (*v);
 
 		v = av_fetch (av, 1, 0);
-		if (v && gperl_sv_defined (*v))
+		if (v && gperl_sv_is_defined (*v))
 			rectangle->y = SvIV (*v);
 
 		v = av_fetch (av, 2, 0);
-		if (v && gperl_sv_defined (*v))
+		if (v && gperl_sv_is_defined (*v))
 			rectangle->width = SvIV (*v);
 
 		v = av_fetch (av, 3, 0);
-		if (v && gperl_sv_defined (*v))
+		if (v && gperl_sv_is_defined (*v))
 			rectangle->height = SvIV (*v);
 	}
 

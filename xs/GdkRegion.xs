@@ -92,9 +92,9 @@ gdk_region_polygon (class, points_ref, fill_rule)
 	points = g_new0 (GdkPoint, npoints);
 
 	for (i = 0; i < npoints; i++) {
-		if ((value = av_fetch (array, 2*i, 0)) && gperl_sv_defined (*value))
+		if ((value = av_fetch (array, 2*i, 0)) && gperl_sv_is_defined (*value))
 			points[i].x = SvIV (*value);
-		if ((value = av_fetch (array, 2*i + 1, 0)) && gperl_sv_defined (*value))
+		if ((value = av_fetch (array, 2*i + 1, 0)) && gperl_sv_is_defined (*value))
 			points[i].y = SvIV (*value);
 	}
 
@@ -237,11 +237,11 @@ gdk_region_spans_intersect_foreach (region, spans_ref, sorted, func, data=NULL)
 	spans = g_new0 (GdkSpan, n_spans);
 
 	for (i = 0; i < n_spans; i++) {
-		if ((value = av_fetch (array, 3*i, 0)) && gperl_sv_defined (*value))
+		if ((value = av_fetch (array, 3*i, 0)) && gperl_sv_is_defined (*value))
 			spans[i].x = SvIV (*value);
-		if ((value = av_fetch (array, 3*i + 1, 0)) && gperl_sv_defined (*value))
+		if ((value = av_fetch (array, 3*i + 1, 0)) && gperl_sv_is_defined (*value))
 			spans[i].y = SvIV (*value);
-		if ((value = av_fetch (array, 3*i + 2, 0)) && gperl_sv_defined (*value))
+		if ((value = av_fetch (array, 3*i + 2, 0)) && gperl_sv_is_defined (*value))
 			spans[i].width = SvIV (*value);
 	}
 

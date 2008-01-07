@@ -97,7 +97,7 @@ custom handling for GdkBitmaps, since there are no typemacros for them.
 /* GObject derivative GdkBitmap */
 #define SvGdkBitmap(sv)       ((GdkBitmap*)gperl_get_object_check (sv, GDK_TYPE_DRAWABLE))
 typedef GdkBitmap GdkBitmap_ornull;
-#define SvGdkBitmap_ornull(sv)        (gperl_sv_defined (sv) ? SvGdkBitmap(sv) : NULL)
+#define SvGdkBitmap_ornull(sv)        (gperl_sv_is_defined (sv) ? SvGdkBitmap(sv) : NULL)
 typedef GdkBitmap GdkBitmap_noinc;
 /* these are real functions, rather than macros, because there's some extra
  * work involved in making sure it's blessed into Gtk2::Gdk::Bitmap when no
@@ -185,7 +185,7 @@ void gtk2perl_read_gtk_target_entry (SV * sv, GtkTargetEntry * entry);
 SV * newSVGtkTargetList (GtkTargetList * list);
 #define newSVGtkTargetList_ornull(list)	((list) ? newSVGtkTargetList (list) : &PL_sv_undef)
 GtkTargetList * SvGtkTargetList (SV * sv);
-#define SvGtkTargetList_ornull(sv)	(gperl_sv_defined (sv) ? SvGtkTargetList (sv) : NULL)
+#define SvGtkTargetList_ornull(sv)	(gperl_sv_is_defined (sv) ? SvGtkTargetList (sv) : NULL)
 
 /*
  * exported so Gnome2 can reuse it in wrappers.  other modules might want to

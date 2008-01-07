@@ -51,7 +51,7 @@ gtk2perl_text_buffer_serialize_func (GtkTextBuffer     *register_buffer,
         gperl_callback_invoke (callback, &value,
                                register_buffer, content_buffer, start, end);
         ret_sv = g_value_get_boxed (&value);
-        if (gperl_sv_defined (ret_sv)) {
+        if (gperl_sv_is_defined (ret_sv)) {
                 data = (guint8 *) g_strdup (SvPV (ret_sv, (*length)));
         } else {
                 *length = 0;

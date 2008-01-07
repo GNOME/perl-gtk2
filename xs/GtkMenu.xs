@@ -117,7 +117,7 @@ gtk_menu_popup (menu, parent_menu_shell, parent_menu_item, menu_pos_func, data, 
 	guint activate_time
 	###guint32 activate_time
     CODE:
-	if (!gperl_sv_defined (menu_pos_func)) {
+	if (!gperl_sv_is_defined (menu_pos_func)) {
 		gtk_menu_popup (menu, parent_menu_shell, parent_menu_item,
 		                NULL, NULL, button, activate_time);
 	} else {
