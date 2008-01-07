@@ -1,3 +1,18 @@
+2008-01-07  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
+	Merge from HEAD:
+
+	* xs/GtkWidget.xs:  Doc fixes; the docs on
+	gtk_widget_get_size_request() actually belonged on
+	gtk_widget_size_request().  Swap that and add docs for
+	get_size_request() and get_child_requisition(), copied
+	from gtk+.  Also fix the signature for get_size_request(),
+	as suggested by Kevin Ryde.
+
+	* xs/GdkPixbuf.xs: Fix the signature docs for get_file_info(),
+	suggested by Kevin Ryde.  Also add a brief description of the
+	function.
+
 2007-12-30  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
 	Merge from HEAD:

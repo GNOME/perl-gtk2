@@ -954,6 +954,13 @@ gdk_pixbuf_get_formats (class=NULL)
 #if GTK_CHECK_VERSION(2,4,0)
 
 ###  GdkPixbufFormat *gdk_pixbuf_get_file_info (const gchar *filename, gint *width, gint *height)
+=for apidoc
+=for signature (format, width, height) = $pixbuf->get_file_info ($filename)
+
+Parses enough of I<$filename> to determine and return the format and size.
+If the format is unknown or the file can't be opened, returns an empty list.
+
+=cut
 void gdk_pixbuf_get_file_info (class, filename)
 	GPerlFilename filename
     PREINIT:
