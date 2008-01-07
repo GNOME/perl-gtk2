@@ -1,3 +1,10 @@
+Overview of changes in Gtk2 1.163
+=================================
+
+* Improve the documentation in many places.
+* Fix many small memory leaks.
+* Fix a few build and test suite issues.
+
 Overview of changes in Gtk2 1.162
 =================================
 

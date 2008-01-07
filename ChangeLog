@@ -1,5 +1,11 @@
 2008-01-07  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
+	* Gtk2.pm
+	* NEWS
+	* README: Stable release 1.163.
+
+2008-01-07  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
 	Merge from HEAD:
 
 	* xs/GtkWidget.xs:  Doc fixes; the docs on
