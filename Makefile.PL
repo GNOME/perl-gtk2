@@ -33,7 +33,7 @@ use Cwd;
 our %build_reqs = (
 	'perl-ExtUtils-Depends'   => '0.2',
 	'perl-ExtUtils-PkgConfig' => '1.03',
-	'perl-Glib'               => '1.160',
+	'perl-Glib'               => '1.163',
 	'perl-Cairo'              => '1.00',
 	'Gtk+'                    => '2.0.0',
 );
@@ -92,9 +92,10 @@ if ($target =~ /x11/) {
 	push @xs_files, 'xs/GdkX11.xs';
 }
 
-# if gtk+ >= 2.8, we depend on Cairo
+# if gtk+ >= 2.8 or pango >= 1.10, we depend on Cairo
 my $have_cairo = 0;
-if ($gtk_version[0] > 2 || ($gtk_version[0] == 2 && $gtk_version[1] >= 8)) {
+if (($gtk_version[0] > 2 || ($gtk_version[0] == 2 && $gtk_version[1] >= 8)) ||
+    ($pango_version[0] > 1 || ($pango_version[0] == 1 && $pango_version[1] >= 10))) {
 	$PREREQ_PM{Cairo} = $build_reqs{'perl-Cairo'};
 	unless (eval "use Cairo '$build_reqs{'perl-Cairo'}'; 1;") {
 		warn "$@\n";

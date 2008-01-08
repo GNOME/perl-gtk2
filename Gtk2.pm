@@ -29,8 +29,9 @@ use warnings;
 
 use Glib;
 
-# if the gtk+ we've been compiled against is at least as new as 2.8.0, we need
-# to import the Cairo module for the cairo glue in gtk+ and pango.
+# if the gtk+ we've been compiled against is at 2.8.0 or newer or if pango is
+# at 1.10.0 or newer, we need to import the Cairo module for the cairo glue in
+# gtk+ and pango.
 eval "use Cairo;";
 
 require DynaLoader;

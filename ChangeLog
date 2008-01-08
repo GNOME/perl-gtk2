@@ -1,3 +1,22 @@
+2008-01-08  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
+	Merge from HEAD:
+
+	* xs/PangoLayout.xs: Work around what appears to be a bug in
+	ExtUtils::ParseXS' xsubpp (used by default in perl 5.10.0) for the
+	pango_layout_line_x_to_index xsub: manually handle output
+	arguments, i.e. dont't rely on OUTLIST.  This should fix the
+	"Modification of a read-only value attempted" issue.
+
+	* Gtk2.pm
+	* Makefile.PL: Require Cairo if gtk+ >= 2.8 or pango >= 1.10.
+	Previously, we just checked for gtk+ >= 2.8.  A new pango usually
+	implies a new gtk+, but that's not necessarily the case.  So check
+	both independently and require Cairo if either is new enough.
+
+	* Makefile.PL
+	* README: Require Glib 1.163.
+
 2008-01-07  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
 	* Gtk2.pm
