@@ -2,6 +2,10 @@
 
 	* examples/simplelist.pl:  Add a button to toggle reorderable columns.
 
+	* t/GdkDrawable.t:  Wait until the drawable is onscreen before
+	attempting to draw to it.  This fixes test failures related to
+	sync issues with some X servers.
+
 2008-01-07  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
 	* CodeGen.pm
