@@ -24,6 +24,11 @@
 	* t/GtkCellLayout.t:  Allow and test passing undef to clear the
 	cell layout's cell data func.
 
+	* xs/GtkCellLayout.xs
+	* t/GtkCellLayout.t:  Honor the semantics of set_attributes()
+	and clear all previous attributes.  Also allow passing an empty
+	key/val pair list.
+
 2008-01-07  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
 	* CodeGen.pm

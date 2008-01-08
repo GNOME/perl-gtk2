@@ -42,9 +42,10 @@ void gtk_cell_layout_set_attributes (GtkCellLayout *cell_layout, GtkCellRenderer
     PREINIT:
 	gint i;
     CODE:
-	if (items < 4 || 0 != (items - 2) % 2)
+	if (items < 2 || 0 != (items - 2) % 2)
 		croak ("usage: $cell_layout->set_attributes (name => column, ...)\n"
 		       "   expecting a list of name => column pairs"); 
+	gtk_cell_layout_clear_attributes (cell_layout, cell);
 	for (i = 2 ; i < items ; i+=2) {
 		gtk_cell_layout_add_attribute (cell_layout, cell,
 		                               SvPV_nolen (ST (i)),

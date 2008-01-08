@@ -31,6 +31,7 @@ $completion -> clear();
 $completion -> pack_end($renderer, 1);
 
 $completion -> set_attributes($renderer, stock_id => 0);
+$completion -> set_attributes($renderer);  # like calling clear
 $completion -> add_attribute($renderer, activatable => 1);
 $completion -> clear_attributes($renderer);
 
