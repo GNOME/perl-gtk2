@@ -77,12 +77,26 @@ void
 gtk_container_check_resize (container)
 	GtkContainer *container
 
- ## void gtk_container_foreach (GtkContainer *container, GtkCallback callback, gpointer callback_data)
+
+=for apidoc forall
+=for arg callback (subroutine) Code to invoke on each child widget
+Invoke I<$callback> on each child of I<$container>, including "internal"
+children.  Most applications should not use this function.  Compare
+with I<Gtk2::Container::foreach>.
+=cut
+
+=for apidoc
+=for arg callback (subroutine) Code to invoke on each child widget
+Invoke I<$callback> on each child of I<$container>, ignoring "internal"
+children.
+=cut
 void
 gtk_container_foreach (container, callback, callback_data=NULL)
 	GtkContainer *container
 	SV * callback
 	SV * callback_data
+    ALIAS:
+	forall = 1
     PREINIT:
 	GPerlCallback * real_callback;
 	GType param_types [1];
@@ -90,9 +104,14 @@ gtk_container_foreach (container, callback, callback_data=NULL)
     	param_types[0] = GTK_TYPE_WIDGET;
 	real_callback = gperl_callback_new (callback, callback_data,
 	                                    1, param_types, G_TYPE_NONE);
-	gtk_container_foreach (container, 
-	                       (GtkCallback)gtk2perl_foreach_callback,
-	                       real_callback);
+	if (ix == 1)
+		gtk_container_forall (container, 
+				      (GtkCallback)gtk2perl_foreach_callback,
+				      real_callback);
+	else
+		gtk_container_foreach (container, 
+				       (GtkCallback)gtk2perl_foreach_callback,
+				       real_callback);
 	gperl_callback_destroy (real_callback);
 
  ## deprecated
@@ -332,11 +351,6 @@ gtk_container_child_set (container, child, ...)
 
 		g_value_unset (&value);
 	}
-
-# works on all children, including the internal ones.
- ##void gtk_container_forall (GtkContainer *container,
- ##	GtkCallback callback,
- ##	gpointer callback_data);
 
 ##GtkType gtk_container_get_type (void) G_GNUC_CONST
 

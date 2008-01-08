@@ -9,6 +9,10 @@
 	* t/GtkTreeView.t:  Avoid an assertion failure in gtk+ by making
 	sure there's a node visible when testing get_visible_range().
 
+	* xs/GtkContainer.xs
+	* t/02.GtkContainer.t:  Bind, test, and document
+	gtk_container_forall().
+
 2008-01-07  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
 	* CodeGen.pm

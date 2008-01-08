@@ -1,8 +1,9 @@
 #!/usr/bin/perl -w
+# vim: set filetype=perl :
 
 # $Header$
 
-use Gtk2::TestHelper tests => 23;
+use Gtk2::TestHelper tests => 28;
 
 # we'll create some containers (windows and boxes are containers) and
 # mess around with some of the methods to make sure they do things.
@@ -102,6 +103,13 @@ is ($nremoved, 1, 'removed one toggle');
 @children = $vbox->get_children;
 is (scalar (@children), 4, 'four children remain');
 
+my $n_total = 0;
+$vbox->forall (sub {
+	isa_ok ($_[0], Gtk2::Widget::);
+	$n_total++;
+	});
+is ($n_total, 4, 'forall walks all children');
+
 is ($vbox->get_resize_mode, 'parent');
 $vbox->set_resize_mode ('queue');
 is ($vbox->get_resize_mode, 'queue');
@@ -117,5 +125,5 @@ ok(1);
 
 __END__
 
-Copyright (C) 2003 by the gtk2-perl team (see the file AUTHORS for the
+Copyright (C) 2003-2008 by the gtk2-perl team (see the file AUTHORS for the
 full list).  See LICENSE for more information.
