@@ -6,6 +6,9 @@
 	attempting to draw to it.  This fixes test failures related to
 	sync issues with some X servers.
 
+	* t/GtkTreeView.t:  Avoid an assertion failure in gtk+ by making
+	sure there's a node visible when testing get_visible_range().
+
 2008-01-07  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
 	* CodeGen.pm
