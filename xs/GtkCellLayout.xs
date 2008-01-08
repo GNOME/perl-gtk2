@@ -53,22 +53,25 @@ void gtk_cell_layout_set_attributes (GtkCellLayout *cell_layout, GtkCellRenderer
 
 void gtk_cell_layout_add_attribute (GtkCellLayout *cell_layout, GtkCellRenderer *cell, const gchar *attribute, gint column);
 
-###void gtk_cell_layout_set_cell_data_func (GtkCellLayout *cell_layout, GtkCellRenderer *cell, GtkCellLayoutDataFunc func, gpointer func_data, GDestroyNotify destroy);
 void gtk_cell_layout_set_cell_data_func (GtkCellLayout *cell_layout, GtkCellRenderer *cell, SV * func, SV * func_data=NULL);
-    PREINIT:
-	GType param_types[4];
-	GPerlCallback * callback;
     CODE:
-	param_types[0] = GTK_TYPE_CELL_LAYOUT;
-	param_types[1] = GTK_TYPE_CELL_RENDERER;
-	param_types[2] = GTK_TYPE_TREE_MODEL;
-	param_types[3] = GTK_TYPE_TREE_ITER;
-	callback = gperl_callback_new (func, func_data, 4, param_types,
-	                               G_TYPE_NONE);
-	gtk_cell_layout_set_cell_data_func
-	                    (cell_layout, cell,
-	                     gtk2perl_cell_layout_data_func, callback,
-		             (GDestroyNotify) gperl_callback_destroy);
+	if (gperl_sv_is_defined (func)) {
+		GType param_types[4];
+		GPerlCallback * callback;
+
+		param_types[0] = GTK_TYPE_CELL_LAYOUT;
+		param_types[1] = GTK_TYPE_CELL_RENDERER;
+		param_types[2] = GTK_TYPE_TREE_MODEL;
+		param_types[3] = GTK_TYPE_TREE_ITER;
+		callback = gperl_callback_new (func, func_data, 4, param_types,
+		                               G_TYPE_NONE);
+		gtk_cell_layout_set_cell_data_func
+		                    (cell_layout, cell,
+		                     gtk2perl_cell_layout_data_func, callback,
+			             (GDestroyNotify) gperl_callback_destroy);
+	} else
+		gtk_cell_layout_set_cell_data_func (cell_layout, cell,
+						    NULL, NULL, NULL);
 
 void gtk_cell_layout_clear_attributes (GtkCellLayout *cell_layout, GtkCellRenderer *cell);
 

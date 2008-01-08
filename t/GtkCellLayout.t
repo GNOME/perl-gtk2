@@ -35,6 +35,7 @@ $completion -> add_attribute($renderer, activatable => 1);
 $completion -> clear_attributes($renderer);
 
 $completion -> set_cell_data_func($renderer, sub { warn @_; }, 23);
+$completion -> set_cell_data_func($renderer, undef);
 
 SKIP: {
   skip "2.12 stuff", 1

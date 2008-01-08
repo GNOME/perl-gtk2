@@ -20,6 +20,10 @@
 	API with accessors that look like actions, these accessors
 	take the form $assistant->get_foo_button().
 
+	* xs/GtkCellLayout.xs
+	* t/GtkCellLayout.t:  Allow and test passing undef to clear the
+	cell layout's cell data func.
+
 2008-01-07  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
 	* CodeGen.pm
