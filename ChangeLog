@@ -29,6 +29,12 @@
 	and clear all previous attributes.  Also allow passing an empty
 	key/val pair list.
 
+	* xs/GtkCellLayout.xs
+	* t/GtkCellLayoutIface.t
+	* Gtk2.pm
+	* MANIFEST:  Allow perl code to implement GtkCellLayoutIface.
+	Includes a major doc update for Gtk2::CellLayout.
+
 2008-01-07  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
 	* CodeGen.pm

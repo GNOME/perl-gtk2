@@ -157,6 +157,7 @@ t/GtkButtonBox.t
 t/GtkCalendar.t
 t/GtkCellEditable.t
 t/GtkCellLayout.t
+t/GtkCellLayoutIface.t
 t/GtkCellRenderer.t
 t/GtkCellRendererAccel.t
 t/GtkCellRendererCombo.t
