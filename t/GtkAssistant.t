@@ -3,29 +3,23 @@
 
 use strict;
 use Gtk2::TestHelper
-  tests => 21,
+  tests => 27,
   at_least_version => [2, 10, 0, "GtkAssistant is new in 2.10"];
-
-#struct _GtkAssistant
-#{
-#  GtkWindow  parent;
-#
-#  GtkWidget *cancel;
-#  GtkWidget *forward;
-#  GtkWidget *back;
-#  GtkWidget *apply;
-#  GtkWidget *close;
-#  GtkWidget *last;
-#
-#  /*< private >*/
-#  GtkAssistantPrivate *priv;
-#};
 
 #typedef gint (*GtkAssistantPageFunc) (gint current_page, gpointer data);
 
 my $assistant = Gtk2::Assistant->new;
 isa_ok ($assistant, 'Gtk2::Assistant');
 isa_ok ($assistant, 'Gtk2::Window');
+
+
+isa_ok ($assistant->get_cancel_button (), 'Gtk2::Button');
+isa_ok ($assistant->get_forward_button (), 'Gtk2::Button');
+isa_ok ($assistant->get_back_button (), 'Gtk2::Button');
+isa_ok ($assistant->get_apply_button (), 'Gtk2::Button');
+isa_ok ($assistant->get_close_button (), 'Gtk2::Button');
+isa_ok ($assistant->get_last_button (), 'Gtk2::Button');
+
 
 # add some pages...
 sub make_a_page {

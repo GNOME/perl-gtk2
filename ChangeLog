@@ -13,6 +13,13 @@
 	* t/02.GtkContainer.t:  Bind, test, and document
 	gtk_container_forall().
 
+	* xs/GtkAssistant.xs
+	* t/GtkAssistant.t:  Bind and test accessors for the cancel,
+	forward, back, apply, close, and last buttons that live only
+	as public members of struct _GtkAssistant.  To avoid confusing
+	API with accessors that look like actions, these accessors
+	take the form $assistant->get_foo_button().
+
 2008-01-07  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
 	* CodeGen.pm
