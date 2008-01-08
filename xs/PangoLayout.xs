@@ -513,7 +513,18 @@ int pango_layout_get_unknown_glyphs_count (PangoLayout *layout);
 MODULE = Gtk2::Pango::Layout	PACKAGE = Gtk2::Pango::LayoutLine	PREFIX = pango_layout_line_
 
 ##  gboolean pango_layout_line_x_to_index (PangoLayoutLine *line, int x_pos, int *index_, int *trailing)
-gboolean pango_layout_line_x_to_index (PangoLayoutLine *line, int x_pos, OUTLIST int index_, OUTLIST int trailing);
+void
+pango_layout_line_x_to_index (PangoLayoutLine *line, int x_pos)
+    PREINIT:
+	gboolean retval;
+	int index_;
+	int trailing;
+    PPCODE:
+	retval = pango_layout_line_x_to_index (line, x_pos, &index_, &trailing);
+	EXTEND (SP, 3);
+	PUSHs (sv_2mortal (boolSV (retval)));
+	PUSHs (sv_2mortal (newSViv (index_)));
+	PUSHs (sv_2mortal (newSViv (trailing)));
 
 ##  void pango_layout_line_index_to_x (PangoLayoutLine *line, int index_, gboolean trailing, int *x_pos)
 void pango_layout_line_index_to_x (PangoLayoutLine *line, int index_, gboolean trailing, OUTLIST int x_pos);
