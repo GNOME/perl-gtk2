@@ -152,6 +152,17 @@ $chk->signal_connect (toggled => sub {
 $vbox->pack_start ($chk, 0, 0, 0);
 $tooltips->set_tip ($chk, 'set whether the list is reorderable');
 
+# toggle the reorderable-ness of the columns
+$chk = Gtk2::CheckButton->new ('drag columns');
+$chk->set_active (0);
+$chk->signal_connect (toggled => sub {
+		foreach my $column ($slist->get_columns) {
+			$column->set_reorderable ($_[0]->get_active);
+		}
+		});
+$vbox->pack_start ($chk, 0, 0, 0);
+$tooltips->set_tip ($chk, 'set whether the list is reorderable');
+
 # finally, a button to end it all
 $btn = Gtk2::Button->new_from_stock ('gtk-quit');
 $btn->signal_connect (clicked => sub  { Gtk2->main_quit; });
