@@ -14,6 +14,9 @@
 	that interface (e.g., if you want to implement Buildable on a
 	Widget).
 
+	* t/GdkCairo.t:  Improve skip message on GdkCairo.t; don't claim
+	Cairo is missing when the problem is actually an empty DISPLAY.
+
 2008-01-08  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
 	* xs/PangoLayout.xs: Work around what appears to be a bug in
