@@ -1,3 +1,19 @@
+2008-01-09  muppetman
+
+	* MANIFEST
+	* t/GtkBuildableIface.t
+	* xs/GtkBuildable.xs:  Allow perl code to implement GtkBuildableIface.
+
+	Lots of documentation.  Hide docs for the normal GtkBuildable
+	methods, as they are really only useful for GtkBuilder to call.
+	Add a new unit test for the iface stuff.
+
+	This change requires the deferral of class instantiation in
+	Glib::Type::register_object() if you are going to implement the
+	interface on a class derived from a class that already implements
+	that interface (e.g., if you want to implement Buildable on a
+	Widget).
+
 2008-01-08  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
 	* xs/PangoLayout.xs: Work around what appears to be a bug in

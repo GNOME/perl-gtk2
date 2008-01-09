@@ -151,6 +151,7 @@ t/GtkAssistant.t
 t/GtkBin.t
 t/GtkBox.t
 t/GtkBuildable.t
+t/GtkBuildableIface.t
 t/GtkBuilder.t
 t/GtkButton.t
 t/GtkButtonBox.t
