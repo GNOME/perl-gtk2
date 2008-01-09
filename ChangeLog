@@ -1,5 +1,11 @@
 2008-01-09  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
+	* Gtk2.pm
+	* NEWS
+	* README: Stable release 1.164.
+
+2008-01-09  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
 	Merge from HEAD:
 
 	* t/GdkVisual.t
