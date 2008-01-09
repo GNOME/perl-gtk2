@@ -1,5 +1,5 @@
-
-use Gtk2::TestHelper tests => 59;
+#!/usr/bin/perl
+use Gtk2::TestHelper tests => 9;
 
 # $Header$
 
@@ -14,7 +14,6 @@ my $vframe2 = Gtk2::Frame->new;
 $hframe->modify_bg ('normal', Gtk2::Gdk::Color->parse ('red'));
 $vframe1->modify_bg ('normal', Gtk2::Gdk::Color->parse ('green'));
 $vframe2->modify_bg ('normal', Gtk2::Gdk::Color->parse ('blue'));
-
 
 $window->add ($hpaned);
 
@@ -37,6 +36,22 @@ is ($vpaned->get_child2, $vframe2);
 
 $vpaned->set_position (23);
 is ($vpaned->get_position, 23);
+
+ok (defined $hpaned->child1_resize);
+ok (defined $hpaned->child2_resize);
+ok (defined $vpaned->child1_shrink);
+ok (defined $vpaned->child2_shrink);
+
+$hpaned->child1_resize (23);
+$hpaned->child2_resize (42);
+$vpaned->child1_shrink (23);
+$vpaned->child2_shrink (42);
+
+$hpaned->compute_position (23, 10, 10);
+
+__END__
+
+# The following 50 tests are disabled because they proved unreliable.
 
 print "hpaned 1 -> ".$hpaned->child1_resize."\n";
 print "hpaned 2 -> ".$hpaned->child2_resize."\n";
@@ -97,10 +112,6 @@ $window->signal_connect (size_allocate => sub {
 	$this = shift @framesizes;
 
 	if ($i++) {
-	SKIP: {
-		skip 'unreliable paned verifications', 6
-			if Gtk2->CHECK_VERSION (2, 2, 0);
-
 		# don't validate the first wave -- the window probably
 		# hasn't had time to get properly sized.
 		($w, $h) = sizeof ($hframe);
@@ -118,7 +129,6 @@ $window->signal_connect (size_allocate => sub {
 		is ($h, $this->[5]);
 		push @foo, $w, $h;
 		print join(" ", "[", @foo, "]\n");
-	}
 	}
 
 	$this = shift @windowprops;

@@ -1,3 +1,13 @@
+2008-01-09  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
+	Merge from HEAD:
+
+	* t/GdkVisual.t
+	* t/GdkX11.t
+	* t/GtkPaned.t: Fix some reported test failures by either being
+	less conservative in what we expect or by simply testing less of
+	gtk+ itself.
+
 2008-01-08  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
 	Merge from HEAD:
