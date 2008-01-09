@@ -1,3 +1,16 @@
+Overview of changes in Gtk2 1.172
+=================================
+
+* Improve the documentation significantly in many places.
+* Allow Perl code to implement GtkCellLayoutIface.
+* Allow Perl code to implement GtkBuildableIface.
+* Make Gtk2::CellLayout::set_attributes() properly clear all previous
+  attributes.
+* Add accessors for Gtk2::Assistant's cancel, forward, back, apply, close, and
+  last buttons.
+* Add Gtk2::Container::forall.
+* Fix build and test suite issues.
+
 Overview of changes in Gtk2 1.171
 =================================
 
@@ -19,6 +32,18 @@ Overview of changes in Gtk2 1.170
   configure_requires.
 * Fix leak in Gtk2::Pango::Layout::get_iter.
 * Fix a few test failures.
+
+Overview of changes in Gtk2 1.164
+=================================
+
+* Fix build and test suite issues.
+
+Overview of changes in Gtk2 1.163
+=================================
+
+* Improve the documentation in many places.
+* Fix many small memory leaks.
+* Fix a few build and test suite issues.
 
 Overview of changes in Gtk2 1.162
 =================================

@@ -1,5 +1,12 @@
 2008-01-09  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
+	* Gtk2.pm
+	* Makefile.PL
+	* NEWS
+	* README: Unstable release 1.172.
+
+2008-01-09  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
 	* t/GdkVisual.t
 	* t/GdkX11.t
 	* t/GtkPaned.t: Fix some reported test failures by either being
