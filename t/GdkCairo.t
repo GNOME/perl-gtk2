@@ -5,12 +5,13 @@ use Glib qw/TRUE FALSE/;
 use Gtk2;
 use Test::More;
 
-if (UNIVERSAL::can("Gtk2::Gdk::Cairo::Context", "create") &&
-    Gtk2 -> CHECK_VERSION(2, 8, 0) &&
-    Gtk2->init_check ) {
-  plan tests => 2;
-} else {
+if (! (UNIVERSAL::can("Gtk2::Gdk::Cairo::Context", "create") &&
+       Gtk2 -> CHECK_VERSION(2, 8, 0))) {
   plan skip_all => "Need Cairo";
+} elsif (! Gtk2->init_check) {
+  plan skip_all => "Gtk2->init_check failed, probably unable to open DISPLAY";
+} else {
+  plan tests => 2;
 }
 
 # $Header$
@@ -48,5 +49,5 @@ SKIP: {
 
 __END__
 
-Copyright (C) 2005-2006 by the gtk2-perl team (see the file AUTHORS for the
+Copyright (C) 2005-2008 by the gtk2-perl team (see the file AUTHORS for the
 full list).  See LICENSE for more information.

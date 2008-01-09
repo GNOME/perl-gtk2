@@ -8,6 +8,9 @@
 	less conservative in what we expect or by simply testing less of
 	gtk+ itself.
 
+	* t/GdkCairo.t: Improve skip message on GdkCairo.t; don't claim
+	Cairo is missing when the problem is actually an empty DISPLAY.
+
 2008-01-08  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
 	Merge from HEAD:
