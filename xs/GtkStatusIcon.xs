@@ -113,7 +113,7 @@ gtk_status_icon_get_geometry (GtkStatusIcon *status_icon)
 
 	EXTEND (sp, 3);
 	PUSHs (sv_2mortal (newSVGdkScreen (screen)));
-	PUSHs (sv_2mortal (newSVGdkRectangle (&area)));
+	PUSHs (sv_2mortal (newSVGdkRectangle_copy (&area)));
 	PUSHs (sv_2mortal (newSVGtkOrientation (orientation)));
 
 #if GTK_CHECK_VERSION (2, 12, 0)

@@ -5,6 +5,9 @@
 	a pointer, to avoid garbage values from get_clipbox().  Patch from
 	Kevin Ryde.
 
+	* xs/GtkStatusIcon.xs
+	* t/GtkStatusIcon.t:  Fix similar stack copy bug.
+
 2008-01-11  muppetman
 
 	* xs/GtkCellLayout.xs:  Fix usage message bug reported by Kevin Ryde.
