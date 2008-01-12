@@ -1,3 +1,10 @@
+2008-01-12  muppetman
+
+	* xs/GdkRegion.xs
+	* t/GdkRegion.t:  Return copy of stack rectangle instead of just
+	a pointer, to avoid garbage values from get_clipbox().  Patch from
+	Kevin Ryde.
+
 2008-01-11  muppetman
 
 	* xs/GtkCellLayout.xs:  Fix usage message bug reported by Kevin Ryde.
