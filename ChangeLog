@@ -1,3 +1,7 @@
+2008-01-11  muppetman
+
+	* xs/GtkCellLayout.xs:  Fix usage message bug reported by Kevin Ryde.
+
 2008-01-09  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
 	* Gtk2.pm
