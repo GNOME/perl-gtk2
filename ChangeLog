@@ -1,3 +1,10 @@
+2008-01-14  muppetman
+
+	* xs/GdkPixbuf.xs
+	* t/GdkPixbuf.t:  Add a NULL terminator to keep GdkPixbuf from
+	crashing on incomplete xpm data.  Add unit tests.  Patch from
+	Kevin Ryde.
+
 2008-01-12  muppetman
 
 	* xs/GdkRegion.xs

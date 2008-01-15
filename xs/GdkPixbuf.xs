@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003-2006 by the gtk2-perl team (see the file AUTHORS)
+ * Copyright (c) 2003-2008 by the gtk2-perl team (see the file AUTHORS)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -512,9 +512,14 @@ gdk_pixbuf_new_from_xpm_data (class, ...)
 	char ** lines;
 	int i;
     CODE:
-	lines = g_new (char *, items - 1);
+	/* Add a NULL terminator to protect against a segv if too few lines
+	 * are supplied.  GdkPixbuf's io-xpm.c's mem_buffer() recognizes that
+	 * as an end of data.  (Not documented, so far as i can tell, but
+	 * still a pretty good idea.) */
+	lines = g_new (char *, items - 1 + 1);
 	for (i = 1; i < items; i++)
 		lines[i-1] = SvPV_nolen (ST (i));
+	lines[i-1] = NULL;
 	RETVAL = gdk_pixbuf_new_from_xpm_data((const char**)lines);
 	g_free(lines);
     OUTPUT:
