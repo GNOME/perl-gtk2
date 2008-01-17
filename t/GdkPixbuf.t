@@ -1,6 +1,6 @@
 use strict;
 use warnings;
-use Gtk2::TestHelper tests => 101, noinit => 1;
+use Gtk2::TestHelper tests => 103, noinit => 1;
 
 my $show = 0;
 
@@ -110,6 +110,19 @@ is ($pixbuf->get_width, 4);
 is ($pixbuf->get_height, 5);
 ok ($pixbuf->get_has_alpha);
 $vbox->add (Gtk2::Image->new_from_pixbuf ($pixbuf)) if $show;
+
+
+#
+# Don't crash if we get partial data.  Eat the any warnings from GdkPixbuf
+# to avoid scary messages on stderr from the test suite.
+#
+my $log = Glib::Log->set_handler ('GdkPixbuf', ['warning'], sub {print "@_\n"});
+$pixbuf = Gtk2::Gdk::Pixbuf->new_from_xpm_data (@test_xpm[0..2]);
+ok (! defined ($pixbuf), "Don't crash on broken pixmap data");
+$pixbuf = Gtk2::Gdk::Pixbuf->new_from_xpm_data (@test_xpm[0..5]);
+ok (defined $pixbuf, "Don't crash on partial pixmap data");
+Glib::Log->remove_handler ('GdkPixbuf', $log);
+
 
 # raw pixel values to make the xpm above
 my $rawdata = pack 'C*',

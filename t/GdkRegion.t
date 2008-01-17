@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 21, noinit => 1;
+use Gtk2::TestHelper tests => 22, noinit => 1;
 
 # $Header$
 
@@ -26,7 +26,15 @@ is($region -> rect_in(Gtk2::Gdk::Rectangle -> new(5, 5, 6, 6)), "part");
 
 $region = Gtk2::Gdk::Region -> rectangle($rectangle_one);
 isa_ok($region, "Gtk2::Gdk::Region");
+
 isa_ok($region -> get_clipbox(), "Gtk2::Gdk::Rectangle");
+{
+  my $empty = Gtk2::Gdk::Region->new;
+  ok (eq_array ([$empty->get_clipbox->values],
+		[0, 0, 0, 0]),
+		'$empty->get_clipbox returns valid rectangle');
+}
+
 isa_ok(($region -> get_rectangles())[0], "Gtk2::Gdk::Rectangle");
 ok($region -> equal($region));
 ok($region -> point_in(30, 50));

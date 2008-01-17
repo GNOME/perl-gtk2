@@ -4,7 +4,7 @@
 use strict;
 use warnings;
 use Gtk2::TestHelper
-  tests => 22,
+  tests => 26,
   at_least_version => [2, 10, 0, "Gtk2::StatusIcon is new in 2.10"];
 
 # $Header$
@@ -92,12 +92,20 @@ ok (defined Gtk2::StatusIcon::position_menu($menu, $icon));
 
 my ($screen, $area, $orientation) = $icon -> get_geometry();
 SKIP: {
-  skip "geometry tests", 3
+  skip "geometry tests", 7
     unless defined $screen;
 
   isa_ok ($screen, "Gtk2::Gdk::Screen");
   isa_ok ($area, "Gtk2::Gdk::Rectangle");
   ok (defined $orientation);
+
+  # Make sure the returned rectangle is valid.  It's a copy of a stack
+  # object, so we just need to ensure that the values are in some sane
+  # range, rather than garbage.
+  ok ($area->x >= 0);
+  ok ($area->y >= 0);
+  ok ($area->width < Gtk2::Gdk->screen_width ());
+  ok ($area->height < Gtk2::Gdk->screen_height ());
 }
 
 # --------------------------------------------------------------------------- #

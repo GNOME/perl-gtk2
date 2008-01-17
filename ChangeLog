@@ -1,3 +1,23 @@
+2008-01-17  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
+	Merge from HEAD:
+
+	* xs/GdkPixbuf.xs
+	* t/GdkPixbuf.t:  Add a NULL terminator to keep GdkPixbuf from
+	crashing on incomplete xpm data.  Add unit tests.  Patch from
+	Kevin Ryde.
+
+	* xs/GdkRegion.xs
+	* t/GdkRegion.t:  Return copy of stack rectangle instead of just
+	a pointer, to avoid garbage values from get_clipbox().  Patch from
+	Kevin Ryde.
+
+	* xs/GtkStatusIcon.xs
+	* t/GtkStatusIcon.t:  Fix similar stack copy bug.
+
+	* t/GtkTreeView.t:  Avoid an assertion failure in gtk+ by making
+	sure there's a node visible when testing get_visible_range().
+
 2008-01-09  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
 	* Gtk2.pm

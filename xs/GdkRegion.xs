@@ -116,7 +116,7 @@ gdk_region_rectangle (class, rectangle)
 ##  void gdk_region_destroy (GdkRegion *region) 
 
 ##  void gdk_region_get_clipbox (GdkRegion *region, GdkRectangle *rectangle) 
-GdkRectangle *
+GdkRectangle_copy *
 gdk_region_get_clipbox (region)
 	GdkRegion *region
     PREINIT:

@@ -362,9 +362,23 @@ SKIP: {
 	skip("new 2.8 stuff", 2)
 		unless Gtk2 -> CHECK_VERSION(2, 8, 0);
 
+        # get_visible_range() doesn't like to be called with no data and
+        # no columns; you get a failed assertion about the node being null
+        # in _gtk_tree_view_find_path().  So, add some data and a column. 
+        my $m = $view->get_model ();
+        $m->set ($m->append (undef), 0, $_)
+            foreach qw(one two three four five);
+        $view->insert_column_with_attributes
+                (0, "", Gtk2::CellRendererText->new, text => 0);
+        Gtk2->main_iteration () while Gtk2->events_pending ();
+
 	my ($start, $end) = $view -> get_visible_range();
         isa_ok($start, "Gtk2::TreePath");
         isa_ok($end, "Gtk2::TreePath");
+
+        # Remove this column to keep from confusing some of the later tests,
+        # which expect the view to have no columns.
+        $view->remove_column ($view->get_column (0));
 }
 
 SKIP: {
