@@ -1,3 +1,8 @@
+2008-01-19  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
+	* t/PangoLayout.t
+	* xs/PangoLayout.xs: Wrap pango_layout_iter_get_layout.
+
 2008-01-14  muppetman
 
 	* xs/GdkPixbuf.xs

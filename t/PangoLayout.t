@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 68;
+use Gtk2::TestHelper tests => 70;
 
 # $Header$
 
@@ -188,12 +188,20 @@ SKIP: {
   skip "1.16 stuff", 3
     unless Gtk2::Pango -> CHECK_VERSION(1, 16, 0);
 
-
   isa_ok($layout -> get_line_readonly(0), "Gtk2::Pango::LayoutLine");
   my @lines = $layout -> get_lines_readonly();
   is(scalar @lines, $layout -> get_line_count());
   my $iter = $layout -> get_iter();
   isa_ok($iter -> get_line_readonly(), "Gtk2::Pango::LayoutLine");
+}
+
+SKIP: {
+  skip 'new 1.20 stuff', 2
+    unless (Gtk2::Pango -> CHECK_VERSION(1, 19, 0)); # FIXME: 1.20
+
+  my $iter = $layout -> get_iter();
+  is($iter -> get_layout(), $layout);
+  isa_ok($iter -> copy(), 'Gtk2::Pango::LayoutIter');
 }
 
 __END__
