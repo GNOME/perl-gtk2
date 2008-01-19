@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 5;
+use Gtk2::TestHelper tests => 7;
 
 # $Header$
 
@@ -53,6 +53,16 @@ SKIP: {
   isa_ok($renderer -> get_matrix(), "Gtk2::Pango::Matrix");
 
   $renderer -> deactivate();
+
+  SKIP: {
+    skip 'new 1.20 stuff', 2
+      unless (Gtk2::Pango -> CHECK_VERSION(1, 19, 0)); # FIXME: 1.20
+
+    # These always return undef unless called from inside a subclass' drawing
+    # function.  How do we test that?
+    is($renderer -> get_layout(), undef);
+    is($renderer -> get_layout_line(), undef);
+  }
 }
 
 __END__

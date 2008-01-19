@@ -1,7 +1,12 @@
 2008-01-19  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
 	* t/PangoLayout.t
-	* xs/PangoLayout.xs: Wrap pango_layout_iter_get_layout.
+	* xs/PangoLayout.xs: Wrap pango_layout_iter_get_layout and make
+	use of pango_layout_iter_copy if available.
+
+	* t/PangoRenderer.t
+	* xs/PangoRenderer.xs: Wrap pango_renderer_get_layout and
+	pango_renderer_get_layout_line.
 
 2008-01-14  muppetman
 
