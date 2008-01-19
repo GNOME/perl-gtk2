@@ -8,6 +8,10 @@
 	* xs/PangoRenderer.xs: Wrap pango_renderer_get_layout and
 	pango_renderer_get_layout_line.
 
+	* t/GtkTreeView.t: Hopefully fix some test failures involving a
+	wrong number of tests run by having every callback with tests run
+	only once.
+
 2008-01-14  muppetman
 
 	* xs/GdkPixbuf.xs

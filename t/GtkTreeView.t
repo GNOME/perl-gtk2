@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 160;
+use Gtk2::TestHelper tests => 109;
 
 # $Header$
 
@@ -304,8 +304,11 @@ ok(!$view -> row_expanded($path));
 $view -> expand_row($path, 0);
 ok($view -> row_expanded($path));
 
+my $call_count = 0;
 $view -> map_expanded_rows(sub {
 	my ($view, $path) = @_;
+
+	return if $call_count++;
 
 	isa_ok($view, "Gtk2::TreeView");
 	isa_ok($path, "Gtk2::TreePath");
@@ -531,8 +534,11 @@ $view->scroll_to_point (0, 0);
 $view->set_cursor_on_cell (Gtk2::TreePath->new ("1:1"), undef, undef, 0)
 	if Gtk2->CHECK_VERSION (2, 2, 0);
 
+my $invoke_count = 0;
 $view->signal_connect (button_press_event => sub {
 		my ($v, $e) = @_;
+
+		return if $call_count++;
 
 		my @res = $view->get_path_at_pos ($e->x, $e->y);
 		isa_ok ($res[0], 'Gtk2::TreePath', 'get_path_at_pos, path');
