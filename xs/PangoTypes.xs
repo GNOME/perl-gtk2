@@ -52,14 +52,14 @@ double pango_units_to_double (int i);
 
 =for apidoc __function__
 =cut
-##  void pango_extents_to_pixels (PangoRectangle *ink_rect, PangoRectangle *logical_rect)
+##  void pango_extents_to_pixels (PangoRectangle *inclusive, PangoRectangle *nearest)
 void
-pango_extents_to_pixels (PangoRectangle *ink_rect, PangoRectangle *logical_rect)
+pango_extents_to_pixels (PangoRectangle *inclusive, PangoRectangle *nearest)
     PPCODE:
-	pango_extents_to_pixels (ink_rect, logical_rect);
+	pango_extents_to_pixels (inclusive, nearest);
 	EXTEND (SP, 2);
-	PUSHs (sv_2mortal (newSVPangoRectangle (ink_rect)));
-	PUSHs (sv_2mortal (newSVPangoRectangle (logical_rect)));
+	PUSHs (sv_2mortal (newSVPangoRectangle (inclusive)));
+	PUSHs (sv_2mortal (newSVPangoRectangle (nearest)));
 
 #endif
 

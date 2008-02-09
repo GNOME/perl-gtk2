@@ -4,6 +4,10 @@
 	* xs/PangoLayout.xs: Wrap pango_layout_set_height and
 	pango_layout_get_height.
 
+	* xs/PangoTypes.xs (Gtk2::Pango::extents_to_pixel): Change the
+	names of the arguments from "ink_rect, logical_rect" to
+	"inclusive, nearest" as suggested by upstream.
+
 2008-01-19  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
 	* t/PangoLayout.t
