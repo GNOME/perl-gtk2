@@ -516,6 +516,14 @@ int pango_layout_get_unknown_glyphs_count (PangoLayout *layout);
 
 #endif
 
+#if PANGO_CHECK_VERSION (1, 19, 3) /* FIXME: 1.20 */
+
+void pango_layout_set_height (PangoLayout *layout, int height);
+
+int pango_layout_get_height (PangoLayout *layout);
+
+#endif
+
 # --------------------------------------------------------------------------- #
 
 MODULE = Gtk2::Pango::Layout	PACKAGE = Gtk2::Pango::LayoutLine	PREFIX = pango_layout_line_

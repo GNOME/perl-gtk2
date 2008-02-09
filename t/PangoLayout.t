@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 70;
+use Gtk2::TestHelper tests => 71;
 
 # $Header$
 
@@ -202,6 +202,14 @@ SKIP: {
   my $iter = $layout -> get_iter();
   is($iter -> get_layout(), $layout);
   isa_ok($iter -> copy(), 'Gtk2::Pango::LayoutIter');
+}
+
+SKIP: {
+  skip 'new 1.20 stuff', 1
+    unless (Gtk2::Pango -> CHECK_VERSION(1, 19, 3)); # FIXME: 1.20
+
+  $layout -> set_height(23);
+  is($layout -> get_height(), 23);
 }
 
 __END__

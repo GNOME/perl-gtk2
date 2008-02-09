@@ -1,3 +1,9 @@
+2008-02-09  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
+	* t/PangoLayout.t
+	* xs/PangoLayout.xs: Wrap pango_layout_set_height and
+	pango_layout_get_height.
+
 2008-01-19  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
 	* t/PangoLayout.t
