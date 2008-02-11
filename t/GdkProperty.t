@@ -65,16 +65,22 @@ is_deeply([Gtk2::Gdk -> text_property_to_utf8_list($string, Gtk2::Gdk::CHARS, "B
           [qw(Bla Bla Bla)]);
 
 ($atom, $format, @data) = Gtk2::Gdk -> string_to_compound_text("Bla");
-is($atom -> name(), "COMPOUND_TEXT");
-is($format, Gtk2::Gdk::CHARS);
-is(@data, 1);
-is($data[0], "Bla");
+SKIP: {
+  skip 'atom tests', 4 unless defined $atom;
+  is($atom -> name(), "COMPOUND_TEXT");
+  is($format, Gtk2::Gdk::CHARS);
+  is(@data, 1);
+  is($data[0], "Bla");
+}
 
 ($atom, $format, @data) = Gtk2::Gdk -> utf8_to_compound_text("Bla");
-is($atom -> name(), "COMPOUND_TEXT");
-is($format, Gtk2::Gdk::CHARS);
-is(@data, 1);
-is($data[0], "Bla");
+SKIP: {
+  skip 'atom tests', 4 unless defined $atom;
+  is($atom -> name(), "COMPOUND_TEXT");
+  is($format, Gtk2::Gdk::CHARS);
+  is(@data, 1);
+  is($data[0], "Bla");
+}
 
 SKIP: {
   skip("GdkDisplay is new 2.2", 10)

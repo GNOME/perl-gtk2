@@ -1,3 +1,12 @@
+2008-02-11  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
+	Merge from HEAD:
+
+	* t/GdkProperty.t
+	* t/GdkVisual.t
+	* t/GtkClipboard.t
+	* t/GtkTreeView.t: Fix test failures.
+
 2008-01-19  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
 	Merge from HEAD:

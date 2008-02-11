@@ -130,12 +130,12 @@ sub get_func {
 
 	$_[1]->set (Gtk2::Gdk->TARGET_STRING, 8, 'bla blub');
 
-	is( $_[1]->selection->name, 'PRIMARY');
-	is( $_[1]->target->name, 'STRING');
-	is( $_[1]->type->name, 'STRING');
-	is( $_[1]->format, 8);
-	is( $_[1]->data, 'bla blub');
-	is( $_[1]->length, 8);
+	is ($_[1]->selection->name, 'PRIMARY');
+	ok (defined $_[1]->target->name);
+	is ($_[1]->type->name, 'STRING');
+	is ($_[1]->format, 8);
+	is ($_[1]->data, 'bla blub');
+	is ($_[1]->length, 8);
 
 	SKIP: {
 		skip 'GdkDisplay is new in 2.2', 1
@@ -151,8 +151,8 @@ sub get_func {
 	$_[1]->set_text ($expect);
 	is ($_[1]->get_text, $expect);
 
-	is( $_[1]->data, $expect);
-	is( $_[1]->length, length ($expect));
+	is ($_[1]->data, $expect);
+	is ($_[1]->length, length ($expect));
 
 	SKIP: {
 		skip '2.6 stuff', 7

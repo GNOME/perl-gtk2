@@ -385,7 +385,7 @@ SKIP: {
 }
 
 SKIP: {
-	skip("new 2.10 stuff", 1)
+	skip("new 2.10 stuff", 4)
 		unless Gtk2 -> CHECK_VERSION(2, 10, 0);
 
 	my $entry = Gtk2::Entry -> new();
