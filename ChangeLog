@@ -1,3 +1,10 @@
+2008-02-12  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
+	* Gtk2.pm
+	* Makefile.PL
+	* NEWS
+	* README: Unstable release 1.173.
+
 2008-02-11  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
 	* t/GdkProperty.t

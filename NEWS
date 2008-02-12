@@ -1,3 +1,17 @@
+Overview of changes in Gtk2 1.173
+=================================
+
+* Fix memory handling bugs in Gtk2::Gdk::Region::get_clipbox and
+  Gtk2::StatusIcon::get_geometry.
+* Make Gtk2::Gdk::Pixbuf::new_from_xpm_data handle incomplete XPM data
+  gracefully.
+* Wrap new API:
+  - pango_layout_set_height, pango_layout_get_height
+  - pango_layout_iter_get_layout
+  - pango_renderer_get_layout, pango_renderer_get_layout_line
+* Improve documentation in many places.
+* Fix some test failures.
+
 Overview of changes in Gtk2 1.172
 =================================
 
