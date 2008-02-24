@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 109;
+use Gtk2::TestHelper tests => 115;
 
 # $Header$
 
@@ -431,8 +431,12 @@ SKIP: {
 	my $window = Gtk2::Window->new;
 	$window->set (tooltip_markup => "<b>Bla!</b>");
 
+	my $times_tooltip_queried = 0;
+
 	$window->signal_connect (query_tooltip => sub {
 		my ($window, $x, $y, $keyboard_mode, $tip) = @_;
+
+		return TRUE if $times_tooltip_queried++;
 
 		my $path = Gtk2::TreePath -> new_from_indices(0);
 		$view->set_tooltip_row ($tip, $path);
@@ -538,7 +542,7 @@ my $invoke_count = 0;
 $view->signal_connect (button_press_event => sub {
 		my ($v, $e) = @_;
 
-		return if $call_count++;
+		return if $invoke_count++;
 
 		my @res = $view->get_path_at_pos ($e->x, $e->y);
 		isa_ok ($res[0], 'Gtk2::TreePath', 'get_path_at_pos, path');
