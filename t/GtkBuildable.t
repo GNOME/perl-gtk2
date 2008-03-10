@@ -3,7 +3,7 @@ use strict;
 use warnings;
 use Gtk2::TestHelper
   tests => 7,
-  at_least_version => [2, 11, 0, 'GtkBuildable: it appeared in 2.12']; # FIXME: 2.12
+  at_least_version => [2, 12, 0, 'GtkBuildable: it appeared in 2.12'];
 
 # $Id$
 

@@ -3,7 +3,7 @@ use strict;
 use warnings;
 use Gtk2::TestHelper
   tests => 1,
-  at_least_version => [2, 11, 0, 'GtkVolumeButton appeared in 2.12']; # FIXME: 2.12
+  at_least_version => [2, 12, 0, 'GtkVolumeButton appeared in 2.12'];
 
 # $Id$
 

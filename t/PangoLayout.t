@@ -197,7 +197,7 @@ SKIP: {
 
 SKIP: {
   skip 'new 1.20 stuff', 2
-    unless (Gtk2::Pango -> CHECK_VERSION(1, 19, 0)); # FIXME: 1.20
+    unless (Gtk2::Pango -> CHECK_VERSION(1, 20, 0));
 
   my $iter = $layout -> get_iter();
   is($iter -> get_layout(), $layout);
@@ -206,7 +206,7 @@ SKIP: {
 
 SKIP: {
   skip 'new 1.20 stuff', 1
-    unless (Gtk2::Pango -> CHECK_VERSION(1, 19, 3)); # FIXME: 1.20
+    unless (Gtk2::Pango -> CHECK_VERSION(1, 20, 0));
 
   $layout -> set_height(23);
   is($layout -> get_height(), 23);

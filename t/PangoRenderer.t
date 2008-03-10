@@ -56,7 +56,7 @@ SKIP: {
 
   SKIP: {
     skip 'new 1.20 stuff', 2
-      unless (Gtk2::Pango -> CHECK_VERSION(1, 19, 0)); # FIXME: 1.20
+      unless (Gtk2::Pango -> CHECK_VERSION(1, 20, 0));
 
     # These always return undef unless called from inside a subclass' drawing
     # function.  How do we test that?

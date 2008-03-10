@@ -1,3 +1,19 @@
+2008-03-10  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
+	* t/GtkBuildable.t
+	* t/GtkBuilder.t
+	* t/GtkRecentAction.t
+	* t/GtkScaleButton.t
+	* t/GtkTooltip.t
+	* t/GtkVolumeButton.t
+	* t/PangoLayout.t
+	* t/PangoRenderer.t
+	* xs/GtkAboutDialog.xs
+	* xs/GtkBuildable.xs
+	* xs/PangoLayout.xs
+	* xs/PangoRenderer.xs: Make version checks refer to stable
+	releases.
+
 2008-02-24  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
 	* t/GtkTreeView.t: Fix remaining test failures.  (Patch by

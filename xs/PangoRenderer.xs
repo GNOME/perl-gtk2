@@ -61,7 +61,7 @@ const PangoMatrix_ornull *pango_renderer_get_matrix (PangoRenderer *renderer);
 
 #endif /* 1.8.0 */
 
-#if PANGO_CHECK_VERSION (1, 19, 0) /* FIXME: 1.20 */
+#if PANGO_CHECK_VERSION (1, 20, 0)
 
 PangoLayout * pango_renderer_get_layout (PangoRenderer *renderer);
 

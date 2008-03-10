@@ -23,7 +23,7 @@
 
 /* ------------------------------------------------------------------------- */
 
-#if !PANGO_CHECK_VERSION (1, 19, 0) /* FIXME: 1.20 */
+#if !PANGO_CHECK_VERSION (1, 20, 0)
 
 static gpointer
 gtk2perl_pango_layout_iter_copy (gpointer boxed)
@@ -40,7 +40,7 @@ gtk2perl_pango_layout_iter_get_type (void)
 	static GType t = 0;
 	if (!t)
 		t = g_boxed_type_register_static ("PangoLayoutIter",
-#if PANGO_CHECK_VERSION (1, 19, 0) /* FIXME: 1.20 */
+#if PANGO_CHECK_VERSION (1, 20, 0)
 		      (GBoxedCopyFunc) pango_layout_iter_copy,
 #else
 		      (GBoxedCopyFunc) gtk2perl_pango_layout_iter_copy,
@@ -516,7 +516,7 @@ int pango_layout_get_unknown_glyphs_count (PangoLayout *layout);
 
 #endif
 
-#if PANGO_CHECK_VERSION (1, 19, 3) /* FIXME: 1.20 */
+#if PANGO_CHECK_VERSION (1, 20, 0)
 
 void pango_layout_set_height (PangoLayout *layout, int height);
 
@@ -708,7 +708,7 @@ int
 pango_layout_iter_get_baseline (iter)
 	PangoLayoutIter *iter
 
-#if PANGO_CHECK_VERSION (1, 19, 0) /* FIXME: 1.20 */
+#if PANGO_CHECK_VERSION (1, 20, 0)
 
 PangoLayout * pango_layout_iter_get_layout (PangoLayoutIter *iter);
 

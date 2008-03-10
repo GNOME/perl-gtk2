@@ -89,7 +89,7 @@ void gtk_show_about_dialog (class, GtkWindow_ornull * parent, first_property_nam
 
 			/* Evil swizzling for #345822 */
 			if (gtk_major_version > 2 ||
-			    (gtk_major_version == 2 && gtk_minor_version >= 11)) /* FIXME: 2.12 */
+			    (gtk_major_version == 2 && gtk_minor_version >= 12))
 			{
 				/* map name to program-name. */
 				if (strEQ (name, "name")) {

@@ -697,7 +697,7 @@ const gchar * g_markup_parse_context_get_element (SV * sv);
 	SvGtkBuildableParseContext (sv)
 
 
-#if GLIB_CHECK_VERSION(2, 15, 0) /* FIXME 2.16 */
+#if GLIB_CHECK_VERSION(2, 16, 0)
 
 =for apidoc
 =for signature list = $parse_context->get_element_stack

@@ -3,7 +3,7 @@
 # $Id$
 
 use Gtk2::TestHelper
-	at_least_version => [2, 11, 0, 'GtkRecentAtionc: new in 2.12'], # FIXME: 2.12
+	at_least_version => [2, 12, 0, 'GtkRecentAtionc: new in 2.12'],
 	tests => 1;
 
 
