@@ -1,3 +1,24 @@
+Overview of changes in Gtk2 1.180
+=================================
+
+ Since 1.16x (the previous stable series)
+ ----------------------------------------
+  * Add bindings for GtkIMContext, GtkIMContextSimple, and GtkIMMulticontext.
+  * Correct the way we check values for definedness.
+  * Allow Perl code to implement GtkCellLayoutIface.
+  * Allow Perl code to implement GtkBuildableIface.
+  * Add accessors for Gtk2::Assistant's buttons.
+  * Add Gtk2::Container::forall, Gtk2::Pango::Layout::set_height,
+    Gtk2::Pango::Layout::get_height, Gtk2::Pango::LayoutIter_get_layout,
+    Gtk2::Pango::Renderer::get_layout, and
+    Gtk2::Pango::Renderer::get_layout_line.
+  * Improve documentation.
+  * Fix many leaks and other memory handling issues.
+
+ Since 1.173
+ -----------
+  * Fix test failures.
+
 Overview of changes in Gtk2 1.173
 =================================
 

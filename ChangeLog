@@ -1,5 +1,13 @@
 2008-03-10  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
+	* Gtk2.pm
+	* Makefile.PL
+	* NEWS
+	* README
+	* copyright.pod: Stable release 1.180.
+
+2008-03-10  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
 	* t/GtkBuildable.t
 	* t/GtkBuilder.t
 	* t/GtkRecentAction.t
