@@ -257,10 +257,6 @@ WriteMakefile(
 
     EXTRA_META    => qq/
 $configure_requires
-no_index:
-    directory:
-    - tools
-    - xs
 /,
 );
 
