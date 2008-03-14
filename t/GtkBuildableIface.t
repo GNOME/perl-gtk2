@@ -1,6 +1,94 @@
 #!/usr/bin/perl
 # vim: set filetype=perl expandtab softtabstop=4 shiftwidth=4 :
 
+use strict;
+use warnings;
+use Gtk2::TestHelper
+  tests => 89,
+  at_least_version => [2, 12, 0, 'GtkBuildable appeared in 2.12'];
+
+my $builder = Gtk2::Builder->new ();
+
+my $ui = <<EOD;
+<interface>
+    <object class="TestThing" id="thing1">
+        <property name="a">7</property>
+        <property name="b">ftang</property>
+        <property name="c">left</property>
+        <signal name="changed" handler="on_thing1_changed" />
+    </object>
+
+    <object class="TestThingView" id="view1">
+        <property name="visible">FALSE</property>
+        <property name="thing">thing1</property>
+        <property name="color-string">purple</property>
+    </object>
+
+    <object class="TestComplexThing" id="fancy-thing">
+        <option name="x">10</option>
+        <option name="y" selected="TRUE">15</option>
+        <option name="z">20</option>
+    </object>
+
+    <object class="TestComplexWidget" id="fancy-widget">
+        <property name="shadow-type">in</property>
+        <child type="label">
+            <object class="GtkCheckButton" id="check-label">
+                <property name="label">Woohoo</property>
+            </object>
+        </child>
+        <child>
+            <object class="GtkLabel" id="content-label">
+                <property name="label">&lt;b&gt;Bold text&lt;/b&gt;</property>
+                <property name="use-markup">TRUE</property>
+            </object>
+        </child>
+    </object>
+</interface>
+EOD
+
+$builder->add_from_string ($ui);
+$builder->connect_signals ();
+
+
+my $thing1 = $builder->get_object ('thing1');
+isa_ok ($thing1, 'TestThing');
+is ($thing1->get_name(), 'thing1');
+is ($thing1->get ('a'), 7);
+is ($thing1->get ('b'), 'ftang');
+is ($thing1->get ('c'), 'left');
+$thing1->changed ();
+
+sub on_thing1_changed {
+    my $thing = shift;
+    ok (1, "on_thing1_changed connected correctly");
+    isa_ok ($thing, 'TestThing');
+}
+
+
+my $view1 = $builder->get_object ('view1');
+isa_ok ($view1, 'TestThingView');
+is ($view1->get_name (), 'view1');
+ok (! $view1->get ('visible'));
+is ($view1->get ('thing'), $thing1);
+is ($view1->get ('color-string'), 'purple');
+
+
+my $fancything = $builder->get_object ('fancy-thing');
+isa_ok ($fancything, 'TestComplexThing');
+is ($fancything->get_name (), 'fancy-thing');
+use Data::Dumper;
+print Dumper($fancything);
+is ($fancything->{options}{x}, 10);
+is ($fancything->{options}{y}, 15);
+is ($fancything->{options}{z}, 20);
+is ($fancything->{selected}, 'y');
+
+
+my $fancywidget = $builder->get_object ('fancy-widget');
+isa_ok ($fancywidget, 'TestComplexWidget');
+is ($fancywidget->get_name (), 'fancy-widget');
+
 package TestThing;
 
 use strict;
@@ -272,92 +360,3 @@ sub SET_BUILDABLE_PROPERTY {
 
     $self->set ($name, $value);
 }
-
-package main;
-
-use strict;
-use warnings;
-use Gtk2::TestHelper tests => 89;
-
-my $builder = Gtk2::Builder->new ();
-
-my $ui = <<EOD;
-<interface>
-    <object class="TestThing" id="thing1">
-        <property name="a">7</property>
-        <property name="b">ftang</property>
-        <property name="c">left</property>
-        <signal name="changed" handler="on_thing1_changed" />
-    </object>
-
-    <object class="TestThingView" id="view1">
-        <property name="visible">FALSE</property>
-        <property name="thing">thing1</property>
-        <property name="color-string">purple</property>
-    </object>
-
-    <object class="TestComplexThing" id="fancy-thing">
-        <option name="x">10</option>
-        <option name="y" selected="TRUE">15</option>
-        <option name="z">20</option>
-    </object>
-
-    <object class="TestComplexWidget" id="fancy-widget">
-        <property name="shadow-type">in</property>
-        <child type="label">
-            <object class="GtkCheckButton" id="check-label">
-                <property name="label">Woohoo</property>
-            </object>
-        </child>
-        <child>
-            <object class="GtkLabel" id="content-label">
-                <property name="label">&lt;b&gt;Bold text&lt;/b&gt;</property>
-                <property name="use-markup">TRUE</property>
-            </object>
-        </child>
-    </object>
-</interface>
-EOD
-
-$builder->add_from_string ($ui);
-$builder->connect_signals ();
-
-
-my $thing1 = $builder->get_object ('thing1');
-isa_ok ($thing1, TestThing::);
-is ($thing1->get_name(), 'thing1');
-is ($thing1->get ('a'), 7);
-is ($thing1->get ('b'), 'ftang');
-is ($thing1->get ('c'), 'left');
-$thing1->changed ();
-
-sub on_thing1_changed {
-    my $thing = shift;
-    ok (1, "on_thing1_changed connected correctly");
-    isa_ok ($thing, TestThing::);
-}
-
-
-my $view1 = $builder->get_object ('view1');
-isa_ok ($view1, TestThingView::);
-is ($view1->get_name (), 'view1');
-ok (! $view1->get ('visible'));
-is ($view1->get ('thing'), $thing1);
-is ($view1->get ('color-string'), 'purple');
-
-
-my $fancything = $builder->get_object ('fancy-thing');
-isa_ok ($fancything, TestComplexThing::);
-is ($fancything->get_name (), 'fancy-thing');
-use Data::Dumper;
-print Dumper($fancything);
-is ($fancything->{options}{x}, 10);
-is ($fancything->{options}{y}, 15);
-is ($fancything->{options}{z}, 20);
-is ($fancything->{selected}, 'y');
-
-
-
-my $fancywidget = $builder->get_object ('fancy-widget');
-isa_ok ($fancywidget, TestComplexWidget::);
-is ($fancywidget->get_name (), 'fancy-widget');

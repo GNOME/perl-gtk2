@@ -1,5 +1,7 @@
 2008-03-14  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
+	* t/GtkBuildableIface.t: Fix test failure on gtk+ < 2.12.
+
 	* Makefile.PL: Remove the no_index specification from EXTRA_META
 	because the YAML implementations currently in use don't seem to
 	support this syntax yet.
