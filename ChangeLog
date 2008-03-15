@@ -1,3 +1,9 @@
+2008-03-15  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
+	* Gtk2.pm
+	* NEWS
+	* README: Stable release 1.181.
+
 2008-03-14  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
 	* t/GtkBuildableIface.t: Fix test failure on gtk+ < 2.12.
