@@ -66,12 +66,22 @@ require './CodeGen.pm'; # other modules should 'use Gtk2::CodeGen;' --
 mkdir 'build', 0777;
 
 #
+# look for our packages.  if they can't be found, warn and exit with status 0
+# to indicate to CPAN testers that their system isn't supported.
+#
+my (%pkgcfg_gtk, %pkgcfg_pango);
+unless (eval { %pkgcfg_gtk = ExtUtils::PkgConfig->find ("gtk+-2.0 >= $build_reqs{'Gtk+'}");
+               %pkgcfg_pango = ExtUtils::PkgConfig->find ('pango');
+               1; })
+{
+	warn $@;
+	exit 0;
+}
+
+#
 # retrieve gtk's and pango's version
 #
-my %pkgcfg_gtk = ExtUtils::PkgConfig->find ('gtk+-2.0 >= '.$build_reqs{'Gtk+'});
 my @gtk_version = split /\./, $pkgcfg_gtk{modversion};
-
-my %pkgcfg_pango = ExtUtils::PkgConfig->find ('pango');
 my @pango_version = split /\./, $pkgcfg_pango{modversion};
 
 #
