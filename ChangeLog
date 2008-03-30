@@ -3,6 +3,9 @@
 	* xs/GtkScaleButton.xs: NULL-terminate the icon list passed to
 	gtk_scale_button_new and gtk_scale_button_set_icons.
 
+	* xs/GtkBuildable.xs (gtk2perl_buildable_custom_tag_start): Don't
+	declare variables after expressions.
+
 2008-03-22  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
 	* Makefile.PL: Trap exceptions thrown by EU::PkgConfig->find.
