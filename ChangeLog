@@ -1,5 +1,11 @@
 2008-03-30  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
+	* Gtk2.pm
+	* NEWS
+	* README: Stable release 1.182.
+
+2008-03-30  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
 	* xs/GtkScaleButton.xs: NULL-terminate the icon list passed to
 	gtk_scale_button_new and gtk_scale_button_set_icons.
 
