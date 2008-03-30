@@ -6,6 +6,9 @@
 	* xs/GtkBuildable.xs (gtk2perl_buildable_custom_tag_start): Don't
 	declare variables after expressions.
 
+	* Makefile.PL: Depend on ExtUtils::Depends 0.300 and thereby void
+	the need for the find_extra_libs stuff.
+
 2008-03-22  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
 	* Makefile.PL: Trap exceptions thrown by EU::PkgConfig->find.
