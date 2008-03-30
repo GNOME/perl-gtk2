@@ -547,7 +547,7 @@ $view->signal_connect (button_press_event => sub {
 		my @res = $view->get_path_at_pos ($e->x, $e->y);
 		isa_ok ($res[0], 'Gtk2::TreePath', 'get_path_at_pos, path');
 		isa_ok ($res[1], 'Gtk2::TreeViewColumn', 'get_path_at_pos, col');
-		ok ($res[2] == 0 && $res[3] == 0, 'get_path_at_pos, pos');
+		ok (defined $res[2] && defined $res[3], 'get_path_at_pos, pos');
 
 		@res = $view->tree_to_widget_coords (10, 10);
 		is (scalar (@res), 2, 'tree_to_widget_coords, num returns');

@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 16;
+use Gtk2::TestHelper tests => 14;
 
 # $Header$
 
@@ -38,9 +38,7 @@ $window -> realize();
 
 my ($mask, @positions) = $device -> get_state($window -> window());
 isa_ok($mask, "Gtk2::Gdk::ModifierType");
-is(@positions, 2);
-like($positions[0], qr/^\d+$/);
-like($positions[1], qr/^\d+$/);
+is(scalar @positions, 2);
 
 # FIXME: warn $device -> get_history($window -> window(), 0, time());
 

@@ -24,7 +24,7 @@ is($icon -> get_visible(), TRUE);
 $icon -> set_blinking(TRUE);
 is($icon -> get_blinking(), TRUE);
 
-is($icon -> is_embedded(), FALSE);
+ok(defined $icon -> is_embedded());
 
 # --------------------------------------------------------------------------- #
 
@@ -102,10 +102,10 @@ SKIP: {
   # Make sure the returned rectangle is valid.  It's a copy of a stack
   # object, so we just need to ensure that the values are in some sane
   # range, rather than garbage.
-  ok ($area->x >= 0);
-  ok ($area->y >= 0);
-  ok ($area->width < Gtk2::Gdk->screen_width ());
-  ok ($area->height < Gtk2::Gdk->screen_height ());
+  ok (abs $area->x <= Gtk2::Gdk->screen_width ());
+  ok (abs $area->y <= Gtk2::Gdk->screen_height ());
+  ok ($area->width <= Gtk2::Gdk->screen_width ());
+  ok ($area->height <= Gtk2::Gdk->screen_height ());
 }
 
 # --------------------------------------------------------------------------- #

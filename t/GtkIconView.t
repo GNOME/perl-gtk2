@@ -209,8 +209,11 @@ SKIP: {
 	skip 'get_item_at_pos returned undef', 6
 		unless defined $path && defined $cell;
 
+	my $handler_called = 0;
 	$window->signal_connect (query_tooltip => sub {
 		my ($window, $x, $y, $keyboard_mode, $tip) = @_;
+
+		return TRUE if $handler_called++;
 
 		$iview->set_tooltip_item ($tip, $path);
 		$iview->set_tooltip_cell ($tip, $path, $cell);

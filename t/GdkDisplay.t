@@ -6,12 +6,17 @@ use Gtk2::TestHelper
 
 # $Header$
 
-my $display = Gtk2::Gdk::Display -> open($ENV{DISPLAY});
+my $display = Gtk2::Gdk::Display -> get_default();
 isa_ok($display, "Gtk2::Gdk::Display");
 ok(defined($display -> get_name()));
 
-$display = Gtk2::Gdk::Display -> get_default();
-isa_ok($display, "Gtk2::Gdk::Display");
+SKIP: {
+  skip '$ENV{DISPLAY} is not set', 1
+    unless exists $ENV{DISPLAY};
+
+  isa_ok(Gtk2::Gdk::Display -> open($ENV{DISPLAY}),
+         "Gtk2::Gdk::Display");
+}
 
 like($display -> get_n_screens(), qr/^\d+$/);
 
@@ -57,7 +62,10 @@ SKIP: {
   like($width, qr/^\d+$/);
   like($height, qr/^\d+$/);
 
-  isa_ok($display -> get_default_group(), "Gtk2::Gdk::Window");
+  my $default_group = $display -> get_default_group();
+  skip 'no default group', 1
+    unless defined $default_group;
+  isa_ok($default_group, "Gtk2::Gdk::Window");
 }
 
 SKIP: {

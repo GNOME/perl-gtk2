@@ -22,6 +22,10 @@ SKIP: {
     unless Gtk2::Pango -> CHECK_VERSION(1, 18, 0);
 
   $fontmap = Gtk2::Pango::Cairo::FontMap -> new_for_font_type('ft');
+  
+  skip 'new_for_font_type returned undef', 3
+    unless defined $fontmap;
+
   isa_ok($fontmap, "Gtk2::Pango::Cairo::FontMap");
   isa_ok($fontmap, "Gtk2::Pango::FontMap");
   is($fontmap -> get_font_type(), 'ft');

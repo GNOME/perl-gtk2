@@ -75,6 +75,7 @@ like(Gtk2::Gdk -> screen_width_mm(), $number);
 like(Gtk2::Gdk -> screen_height_mm(), $number);
 
 my $window = Gtk2::Window -> new();
+$window -> show_all();
 $window -> show_now();
 
 my $result = Gtk2::Gdk -> pointer_grab($window -> window(),
@@ -105,17 +106,25 @@ $event -> message_type(Gtk2::Gdk::Atom -> new("string"));
 $event -> data_format(Gtk2::Gdk::CHARS);
 $event -> data("01234567890123456789");
 
-is(Gtk2::Gdk::Event -> send_client_message($event, $window -> window() -> get_xid()), 1);
-Gtk2::Gdk::Event -> send_clientmessage_toall($event);
-
 SKIP: {
+  skip("X11 stuff", 2)
+    unless $window -> window() -> can("get_xid");
+
+  is(Gtk2::Gdk::Event -> send_client_message(
+       $event, $window -> window() -> get_xid()),
+     1);
+  Gtk2::Gdk::Event -> send_clientmessage_toall($event);
+
   skip("GdkDisplay is new in 2.2", 1)
     unless Gtk2 -> CHECK_VERSION(2, 2, 0);
 
-  is(Gtk2::Gdk::Event -> send_client_message_for_display(Gtk2::Gdk::Display -> get_default(), $event, $window -> window() -> get_xid()), 1);
+  is(Gtk2::Gdk::Event -> send_client_message_for_display(
+       Gtk2::Gdk::Display -> get_default(), $event,
+       $window -> window() -> get_xid()),
+     1);
 }
 
-Gtk2::Gdk -> beep();
+# Gtk2::Gdk -> beep();
 
 __END__
 

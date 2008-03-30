@@ -49,6 +49,9 @@ use strict;
 use warnings;
 
 my $pid = fork;
+
+skip 'fork failed', 1 unless defined $pid;
+
 if( $pid < 0 )
 {
 	die "fork failed, no use trying";

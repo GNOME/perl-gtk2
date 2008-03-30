@@ -44,10 +44,18 @@ SKIP: {
   is(Gtk2::Gdk::Selection -> owner_set_for_display($display, $window -> window(), $primary, 0, 0), 1);
   is(Gtk2::Gdk::Selection -> owner_get_for_display($display, $primary), $window -> window());
 
-  Gtk2::Gdk::Selection -> send_notify_for_display($display, $window -> window() -> get_xid(), $primary, $target, $property, 0);
+  if ($window -> window() -> can("get_xid")) {
+    Gtk2::Gdk::Selection -> send_notify_for_display(
+      $display, $window -> window() -> get_xid(),
+      $primary, $target, $property, 0);
+  }
 }
 
-Gtk2::Gdk::Selection -> send_notify($window -> window() -> get_xid(), $primary, $target, $property, 0);
+if ($window -> window() -> can("get_xid")) {
+  Gtk2::Gdk::Selection -> send_notify(
+    $window -> window() -> get_xid(),
+    $primary, $target, $property, 0);
+}
 
 # FIXME: warn Gtk2::Gdk::Selection -> property_get($window -> window());
 

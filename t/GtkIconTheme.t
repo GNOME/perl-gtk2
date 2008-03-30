@@ -5,7 +5,7 @@
 
 use Gtk2::TestHelper
 	at_least_version => [2, 4, 0, 'GtkIconTheme is new in 2.4'],
-	tests => 16;
+	tests => 15;
 
 my $icon_theme = Gtk2::IconTheme->new;
 isa_ok ($icon_theme, 'Gtk2::IconTheme');
@@ -18,7 +18,8 @@ isa_ok ($icon_theme, 'Gtk2::IconTheme');
 
 $icon_theme->set_screen (Gtk2::Gdk::Screen->get_default);
 
-ok ($icon_theme->list_icons (undef));
+my @icons = $icon_theme->list_icons (undef);
+# @icons can be anything, even empty
 
 ok (!$icon_theme->has_icon ('something crazy'));
 
