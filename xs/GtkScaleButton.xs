@@ -11,7 +11,8 @@
 #define ICONS_FROM_STACK(offset, icons)					\
 	if (items > offset) {						\
 		int i;							\
-		icons = g_new0 (gchar *, items - offset);		\
+		/* icons is supposed to be NULL-terminated */		\
+		icons = g_new0 (gchar *, items - offset + 1);		\
 		for (i = offset; i < items; i++) {			\
 			icons[i - offset] = SvPV_nolen (ST (i));	\
 		}							\
