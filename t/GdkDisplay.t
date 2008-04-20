@@ -1,7 +1,7 @@
 #!/usr/bin/perl -w
 use strict;
 use Gtk2::TestHelper
-  tests => 24,
+  tests => 25,
   at_least_version => [2, 2, 0, "GdkDisplay is new in 2.2"];
 
 # $Header$
@@ -11,10 +11,12 @@ isa_ok($display, "Gtk2::Gdk::Display");
 ok(defined($display -> get_name()));
 
 SKIP: {
-  skip '$ENV{DISPLAY} is not set', 1
+  skip '$ENV{DISPLAY} is not set', 2
     unless exists $ENV{DISPLAY};
 
   isa_ok(Gtk2::Gdk::Display -> open($ENV{DISPLAY}),
+         "Gtk2::Gdk::Display");
+  isa_ok(Gtk2::Gdk::Display -> open(undef),
          "Gtk2::Gdk::Display");
 }
 

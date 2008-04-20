@@ -1,3 +1,9 @@
+2008-04-20  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
+	* t/GdkDisplay.t
+	* xs/GdkDisplay.xs: Allow undef for the display name parameter of
+	Gtk2::Gdk::Display::open.  Patch by Kevin Ryde.
+
 2008-03-30  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
 	* Gtk2.pm

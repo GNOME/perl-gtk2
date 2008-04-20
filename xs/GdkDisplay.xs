@@ -32,7 +32,7 @@ BOOT:
 
 ##  GdkDisplay *gdk_display_open (const gchar *display_name) 
 GdkDisplay_ornull *
-gdk_display_open (class, const gchar * display_name)
+gdk_display_open (class, const gchar_ornull * display_name)
     C_ARGS:
 	display_name
 
