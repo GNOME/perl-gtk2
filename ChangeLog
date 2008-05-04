@@ -1,5 +1,8 @@
 2008-05-04  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
+	* xs/GtkTreeView.xs: Describe the return values of
+	get_visible_range and get_tooltip_context.  Patch by Kevin Ryde.
+
 	* xs/GtkTreeModel.xs: In the POD section about tree iterators, add
 	a paragraph explaining how data put into iterators needs to be
 	kept alive by the model.  Patch by Kevin Ryde.
