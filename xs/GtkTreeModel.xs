@@ -565,13 +565,21 @@ An arbitrary integer value.
 
 =item o user_data2 (scalar)
 
-An arbitrary scalar.  Will not persist.  May be undef.
+An arbitrary reference.  Will not persist.  May be undef.
 
 =item o user_data3 (scalar)
 
-An arbitrary scalar.  Will not persist.  May be undef.
+An arbitrary reference.  Will not persist.  May be undef.
 
 =back
+
+The two references, if used, will generally be to data within the model,
+like a row array, or a node object in a tree or linked list.  Keeping the
+things referred to alive is the model's responsibility.  An iter doesn't
+make them persist, and if the things are destroyed then any iters still
+containing them will become invalid (and result in memory corruption if
+used).  An iter only has to remain valid until the model contents change, so
+generally anything internal to the model is fine.
 
 =head2 VIRTUAL METHODS
 

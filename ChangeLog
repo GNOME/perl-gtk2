@@ -1,3 +1,9 @@
+2008-05-04  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
+	* xs/GtkTreeModel.xs: In the POD section about tree iterators, add
+	a paragraph explaining how data put into iterators needs to be
+	kept alive by the model.  Patch by Kevin Ryde.
+
 2008-04-20  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
 	* t/GdkDisplay.t
