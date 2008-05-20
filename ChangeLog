@@ -1,5 +1,8 @@
 2008-05-20  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
+	* xs/GdkWindow.xs: Add documentation for Gtk2::Gdk::Window::new.
+	Patch by Kevin Ryde.
+
 	* t/GtkTreeModelIface.t
 	* xs/GtkTreeModel.xs (gtk2perl_tree_model_iter_has_child): Accept
 	all the usual boolean values for the return value of

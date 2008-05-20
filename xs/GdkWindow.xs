@@ -139,6 +139,44 @@ gtk2perl_gdk_window_invalidate_maybe_recurse_func (GdkWindow *window,
 MODULE = Gtk2::Gdk::Window	PACKAGE = Gtk2::Gdk::Window	PREFIX = gdk_window_
 
  ## GdkWindow* gdk_window_new (GdkWindow *parent, GdkWindowAttr *attributes, gint attributes_mask)
+=for apidoc
+Create and return a new window.  parent can be undef to mean the root
+window of the default screen.  attributes_ref is a hashref containing
+some of the following keys,
+
+    title              string
+    event_mask         Gtk2::Gdk::EventMask flags
+    x                  integer
+    y                  integer
+    width              integer
+    height             integer
+    wclass             Gtk2::Gdk::WindowClass enum
+    visual             Gtk2::Gdk::Visual
+    colormap           Gtk2::Gdk::Colormap
+    window_type        Gtk2::Gdk::WindowType enum
+    cursor             Gtk2::Gdk::Cursor
+    wmclass_name       string
+    wmclass_class      string
+    override_redirect  boolean (integer 0 or 1)
+
+window_type is mandatory because it defaults to "root" but of course
+it's not possible to create a new root window.  The other fields get default
+values zero, empty, unset, etc.
+
+    my $win = Gtk2::Gdk::Window->new
+                (undef, { window_type => 'toplevel,
+                          wclass => 'GDK_INPUT_OUTPUT',
+                          x => 0,
+                          y => 0,
+                          width => 200,
+                          height => 100 });
+
+Incidentally, the nicknames for wclass Gtk2::Gdk::WindowClass really
+are "output" for input-output and "only" for input-only.  Those names
+are a bit odd, but that's what Gtk has.  You can, as for any enum,
+give the full names like "GDK_INPUT_OUTPUT" if desired, for some
+clarity.
+=cut
 GdkWindow_noinc *
 gdk_window_new (class, parent, attributes_ref)
 	GdkWindow_ornull *parent
