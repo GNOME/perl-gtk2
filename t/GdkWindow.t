@@ -18,7 +18,7 @@ my $attributes = {
   colormap => Gtk2::Gdk::Colormap -> get_system(),
   window_type => "toplevel",
   cursor => Gtk2::Gdk::Cursor -> new("arrow"),
-  override_redirect => 0
+  override_redirect => ''
 };
 
 my $attributes_small = {

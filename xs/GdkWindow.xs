@@ -43,7 +43,7 @@ newSVGdkWindowAttr (GdkWindowAttr *attr)
 		hv_store (object, "cursor", 6, newSVGdkCursor (attr->cursor), 0);
 		hv_store (object, "wmclass_name", 12, newSVGChar (attr->wmclass_name), 0);
 		hv_store (object, "wmclass_class", 13, newSVGChar (attr->wmclass_class), 0);
-		hv_store (object, "override_redirect", 17, newSVuv (attr->override_redirect), 0);
+		hv_store (object, "override_redirect", 17, boolSV (attr->override_redirect), 0);
 	}
 
 	return sv_bless (newRV_noinc ((SV *) object),
@@ -82,7 +82,7 @@ SvGdkWindowAttrReal (SV *object, GdkWindowAttributesType *mask)
 		GTK2PERL_WINDOW_ATTR_FETCH (cursor, "cursor", SvGdkCursor);
 		GTK2PERL_WINDOW_ATTR_FETCH (wmclass_name, "wmclass_name", SvGChar);
 		GTK2PERL_WINDOW_ATTR_FETCH (wmclass_class, "wmclass_class", SvGChar);
-		GTK2PERL_WINDOW_ATTR_FETCH (override_redirect, "override_redirect", SvUV);
+		GTK2PERL_WINDOW_ATTR_FETCH (override_redirect, "override_redirect", sv_2bool);
 
 		if (mask) {
 			if (title) *mask |= GDK_WA_TITLE;

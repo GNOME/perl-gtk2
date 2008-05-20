@@ -3,6 +3,10 @@
 	* xs/GdkWindow.xs: Add documentation for Gtk2::Gdk::Window::new.
 	Patch by Kevin Ryde.
 
+	* t/GdkWindow.t
+	* xs/GdkWindow.xs (SvGdkWindowAttrReal): Use sv_2bool instead of
+	SvUV to convert override_redirect values.
+
 	* t/GtkTreeModelIface.t
 	* xs/GtkTreeModel.xs (gtk2perl_tree_model_iter_has_child): Accept
 	all the usual boolean values for the return value of
