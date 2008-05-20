@@ -1,3 +1,7 @@
+2008-05-20  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
+	* t/PangoLayout.t: Fix test failure on newer pango versions.
+
 2008-05-04  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
 	* xs/GtkTreeView.xs: Describe the return values of
