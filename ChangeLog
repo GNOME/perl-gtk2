@@ -1,5 +1,10 @@
 2008-05-20  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
+	* t/GtkTreeModelIface.t
+	* xs/GtkTreeModel.xs (gtk2perl_tree_model_iter_has_child): Accept
+	all the usual boolean values for the return value of
+	ITER_HAS_CHILD.
+
 	* t/PangoLayout.t: Fix test failure on newer pango versions.
 
 2008-05-04  Torsten Schoenfeld  <kaffeetisch@gmx.de>

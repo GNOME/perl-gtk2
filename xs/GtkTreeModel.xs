@@ -313,11 +313,13 @@ static gboolean
 gtk2perl_tree_model_iter_has_child (GtkTreeModel *tree_model,
                                     GtkTreeIter  *iter)
 {
+	SV *sv;
 	gboolean ret;
 	PREP (tree_model);
 	XPUSHs (sv_2mortal (sv_from_iter (iter)));
 	CALL ("ITER_HAS_CHILD", G_SCALAR);
-	ret = POPi;
+	sv = POPs;
+	ret = sv_2bool (sv);
 	FINISH;
 	return ret;
 }
