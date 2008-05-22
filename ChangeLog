@@ -1,3 +1,13 @@
+2008-05-23  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
+	* t/GtkTreeModelFilter.t
+	* xs/GtkTreeModelFilter.xs: Fix the marshalling of modify
+	callbacks.  Technically, this is an API change since an input
+	argument turned into a return value.  The previous version was not
+	usable, however, so nothing should be affected by this.  If this
+	change does break your code, please let us know.  Patch by Kevin
+	Ryde.
+
 2008-05-22  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
 	* Gtk2.pm

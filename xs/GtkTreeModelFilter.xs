@@ -55,8 +55,7 @@ gtk2perl_tree_model_filter_modify_func (GtkTreeModel *model,
                                         gpointer      data)
 {
 	GPerlCallback * callback = (GPerlCallback*) data;
-	SV * sv = sv_2mortal (gperl_sv_from_value (value));
-	gperl_callback_invoke (callback, NULL, model, iter, sv, column);
+	gperl_callback_invoke (callback, value, model, iter, column);
 }
 
 MODULE = Gtk2::TreeModelFilter	PACKAGE = Gtk2::TreeModelFilter	PREFIX = gtk_tree_model_filter_
@@ -87,6 +86,17 @@ gtk_tree_model_filter_set_visible_func (GtkTreeModelFilter *filter, SV * func, S
 			 callback, (GtkDestroyNotify)gperl_callback_destroy);
 
  ## void gtk_tree_model_filter_set_modify_func (GtkTreeModelFilter *filter, gint n_columns, GType *types, GtkTreeModelFilterModifyFunc func, gpointer data, GtkDestroyNotify destroy);
+=for apidoc
+=for arg types (scalar) type name string for one column, or an arrayref of type names for multiple columns
+func is called as
+
+    sub myfunc {
+      my ($filter, $iter, $column_num, $data) = @_;
+      ...
+
+and should return the value from the filtered model that iter row and
+column number.
+=cut
 void gtk_tree_model_filter_set_modify_func (GtkTreeModelFilter *filter, SV * types, SV * func=NULL, SV * data=NULL);
     PREINIT:
 	GType * real_types = NULL;
@@ -119,10 +129,9 @@ void gtk_tree_model_filter_set_modify_func (GtkTreeModelFilter *filter, SV * typ
 		GType param_types[4];
 		param_types[0] = GTK_TYPE_TREE_MODEL;
 		param_types[1] = GTK_TYPE_TREE_ITER;
-		param_types[2] = GPERL_TYPE_SV;
-		param_types[3] = G_TYPE_INT;
-		callback = gperl_callback_new (func, data, 4, param_types,
-		                               G_TYPE_NONE);
+		param_types[2] = G_TYPE_INT;
+		callback = gperl_callback_new (func, data, 3, param_types,
+		                               G_TYPE_VALUE);
 		gtk_tree_model_filter_set_modify_func
 				(filter, n_columns, real_types,
 				 gtk2perl_tree_model_filter_modify_func,
