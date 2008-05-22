@@ -95,6 +95,7 @@ package Gtk2::Gdk::Atom;
 
 use overload
 	'==' => \&Gtk2::Gdk::Atom::eq,
+	'!=' => \&Gtk2::Gdk::Atom::ne,
 	fallback => 1;
 
 package Gtk2::CellLayout::DataFunc;

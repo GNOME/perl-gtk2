@@ -1,3 +1,10 @@
+2008-05-22  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
+	* Gtk2.pm
+	* t/GdkProperty.t
+	* xs/GdkProperty.xs: Overload '!=' for GdkAtoms.  Patch by Kevin
+	Ryde.
+
 2008-05-20  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
 	* xs/GdkWindow.xs: Add documentation for Gtk2::Gdk::Window::new.

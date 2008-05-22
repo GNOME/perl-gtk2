@@ -66,8 +66,14 @@ gboolean
 eq (left, right, swap=FALSE)
 	GdkAtom left
 	GdkAtom right
+    ALIAS:
+	ne = 1
     CODE:
-	RETVAL = left == right;
+	switch (ix) {
+	    case 0: RETVAL = left == right; break;
+	    case 1: RETVAL = left != right; break;
+	    default: croak ("incorrect alias value encountered"); RETVAL = FALSE;
+	}
     OUTPUT:
 	RETVAL
 
