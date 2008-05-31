@@ -1,3 +1,9 @@
+2008-05-31  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
+	* t/GtkRecentChooser.t
+	* t/GtkRecentManager.t: Fix test failures due to the asynchronous
+	nature of the manager's add_item().
+
 2008-05-23  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
 	* t/GtkTreeModelFilter.t
