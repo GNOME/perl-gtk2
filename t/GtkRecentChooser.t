@@ -49,6 +49,9 @@ $manager -> purge_items();
 $manager -> add_item($uri_one);
 $manager -> add_item($uri_two);
 
+# add_item() is asynchronous, so let the main loop spin for a while
+run_main while !$manager->get_items;
+
 $chooser -> set_select_multiple(FALSE);
 
 run_main(sub {

@@ -1,3 +1,11 @@
+2008-05-31  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
+	Merge from HEAD:
+
+	* t/GtkRecentChooser.t
+	* t/GtkRecentManager.t: Fix test failures due to the asynchronous
+	nature of the manager's add_item().
+
 2008-05-22  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
 	* Gtk2.pm
