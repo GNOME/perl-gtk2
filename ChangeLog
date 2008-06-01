@@ -1,5 +1,9 @@
 2008-06-01  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
+	* xs/GtkWidget.xs: Document why signal_chain_from_overridden
+	doesn't quite work when used in a size-request handler.  Patch by
+	Kevin Ryde.
+
 	* xs/GtkGC.xs
 	* t/GtkGC.t: Automatically handle releasing of GCs returned by
 	Gtk2::GC->get.  Patch by muppet, idea and initial implementation
