@@ -105,6 +105,17 @@ new (class, width=0, height=0)
 
 MODULE = Gtk2::Widget	PACKAGE = Gtk2::Widget	PREFIX = gtk_widget_
 
+=for position post_signals
+
+Note that currently signal_chain_from_overridden doesn't work from a
+size-request class closure, because the Gtk2::Requisition parameter
+you pass ends up getting copied, so changes made to it by the
+superclass are lost.  You can still write a class closure for
+size-request, but you'll have to calculate the desired size by
+yourself, you can't chain up to ask your superclass what it thinks.
+
+=cut
+
 =for apidoc __hide__
 =cut
 void

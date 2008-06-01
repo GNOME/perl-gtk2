@@ -5,6 +5,10 @@
 	* xs/GtkAdjustment.xs: Improve the documentation for the
 	accessors.  Patch by Kevin Ryde.
 
+	* xs/GtkWidget.xs: Document why signal_chain_from_overridden
+	doesn't quite work when used in a size-request handler.  Patch by
+	Kevin Ryde.
+
 2008-05-31  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
 	Merge from HEAD:
