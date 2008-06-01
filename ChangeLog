@@ -1,5 +1,9 @@
 2008-06-01  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
+	* xs/GdkEvent.xs
+	* t/GdkEvent.t: Provide Gtk2::Gdk::Event::GrabBroken::implicit and
+	grab_window accessors.  Patch by Kevin Ryde.
+
 	* xs/GtkAdjustment.xs: Improve the documentation for the
 	accessors.  Patch by Kevin Ryde.
 

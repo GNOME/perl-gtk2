@@ -1852,6 +1852,34 @@ keyboard (GdkEvent * event, gboolean newvalue=0)
     OUTPUT:
 	RETVAL
 
+gboolean
+implicit (GdkEvent * event, gboolean newvalue=0)
+    CODE:
+	RETVAL = event->grab_broken.implicit;
+
+	if (items == 2 && newvalue != RETVAL)
+		event->grab_broken.implicit = newvalue;
+    OUTPUT:
+	RETVAL
+
+=for apidoc
+When you set a window into a GrabBroken event make sure you keep a
+reference to it for as long as that event object or any copies exist,
+because the event doesn't add its own reference.
+=cut
+GdkWindow_ornull *
+grab_window (GdkEvent * event, GdkWindow_ornull * newvalue=NULL)
+    CODE:
+	RETVAL = event->grab_broken.grab_window;
+
+	/* GdkEventGrabBroken doesn't hold a ref on grab_window, so
+	 * just plonk the new value in, unlike for any.window above.
+         */
+	if (items == 2 && newvalue != RETVAL)
+		event->grab_broken.grab_window = newvalue;
+    OUTPUT:
+	RETVAL
+
 #endif
 
 # --------------------------------------------------------------------------- #

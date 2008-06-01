@@ -8,7 +8,7 @@
 # 	- rm
 #########################
 
-use Gtk2::TestHelper tests => 118;
+use Gtk2::TestHelper tests => 121;
 use Data::Dumper;
 
 # Expose #######################################################################
@@ -432,7 +432,7 @@ SKIP: {
 # GrabBroken ##################################################################
 
 SKIP: {
-	skip ("the grab-broken event is new in 2.8", 2)
+	skip ("the grab-broken event is new in 2.8", 3)
 		unless (Gtk2->CHECK_VERSION (2, 8, 0));
 
 	isa_ok ($event = Gtk2::Gdk::Event->new ("grab-broken"),
@@ -440,6 +440,16 @@ SKIP: {
 
 	$event->keyboard (TRUE);
 	is ($event->keyboard, TRUE);
+
+	$event->implicit (FALSE);
+	is ($event->implicit, FALSE);
+
+	$event->grab_window (undef);
+	is ($event->grab_window, undef);
+
+	my $window = Gtk2::Gdk::Window->new (undef, {window_type => "toplevel"});
+	$event->grab_window ($window);
+	is ($event->grab_window, $window);
 }
 
 __END__
