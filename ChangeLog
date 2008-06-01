@@ -1,6 +1,8 @@
 2008-06-01  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
-	* xs/GdkEvent.xs
+	* xs/GdkEvent.xs (gtk2perl_gdk_event_set_state)
+	(gtk2perl_gdk_event_set_time): Handle the new GDK_DAMAGE type.
+
 	* t/GdkEvent.t: Provide Gtk2::Gdk::Event::GrabBroken::implicit and
 	grab_window accessors.  Patch by Kevin Ryde.
 
