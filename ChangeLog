@@ -1,3 +1,10 @@
+2008-06-01  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
+	Merge from HEAD:
+
+	* xs/GtkAdjustment.xs: Improve the documentation for the
+	accessors.  Patch by Kevin Ryde.
+
 2008-05-31  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
 	Merge from HEAD:
