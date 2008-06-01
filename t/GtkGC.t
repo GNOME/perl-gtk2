@@ -1,6 +1,9 @@
 #!/usr/bin/perl -w
+# vim: set filetype=perl :
 use strict;
-use Gtk2::TestHelper tests => 1;
+use Gtk2::TestHelper tests => 3;
+
+use Scalar::Util;
 
 # $Header$
 
@@ -26,8 +29,31 @@ my $values = {
 
 my $gc = Gtk2::GC -> get(16, $colormap, $values);
 isa_ok($gc, "Gtk2::Gdk::GC");
+isa_ok($gc, "Gtk2::GC");
 
 Gtk2::GC -> release($gc);
+
+# regression tests for the automatic releasing of GCs
+my ($save, $weak_ref);
+{
+  my $one = Gtk2::GC -> get(16, $colormap, $values);
+  Gtk2::GC -> get(16, $colormap, $values);
+  Gtk2::GC -> get(16, $colormap, $values);
+  Gtk2::GC -> release($one);
+  Gtk2::GC -> release($one);
+  Gtk2::GC -> release($one);
+  $one = undef;
+
+  my $two = Gtk2::GC -> get(32, $colormap, $values);
+  Gtk2::GC -> get(32, $colormap, $values);
+  { my $three = Gtk2::GC -> get(32, $colormap, $values); }
+  $save = Gtk2::GC -> get(32, $colormap, $values);
+  Gtk2::GC -> get(32, $colormap, $values);
+
+  Scalar::Util::weaken ($weak_ref = $two);
+}
+$save = undef;
+is ($weak_ref, undef);
 
 __END__
 

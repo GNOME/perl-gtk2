@@ -1,5 +1,10 @@
 2008-06-01  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
+	* xs/GtkGC.xs
+	* t/GtkGC.t: Automatically handle releasing of GCs returned by
+	Gtk2::GC->get.  Patch by muppet, idea and initial implementation
+	by Kevin Ryde.
+
 	* xs/GdkEvent.xs (gtk2perl_gdk_event_set_state)
 	(gtk2perl_gdk_event_set_time): Handle the new GDK_DAMAGE type.
 
