@@ -1,3 +1,12 @@
+Overview of changes in Gtk2 1.183
+=================================
+
+* Overload '!=' for Gtk2::Gdk::Atom.
+* Accept all the usual values for booleans in a few places.
+* Allow undef for the display name parameter of Gtk2::Gdk::Display::open.
+* Improve the documentation in many places.
+* Fix some test failures.
+
 Overview of changes in Gtk2 1.182
 =================================
 
