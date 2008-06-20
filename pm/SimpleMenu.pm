@@ -201,19 +201,19 @@ application menus
 			callback => \&mode_callback,
 			callback_action => 4,
 			groupid => 1,
-		}
+		},
 		_Second => {
 			item_type => '<RadioItem>',
 			callback => \&mode_callback,
 			callback_action => 5,
 			groupid => 1,
-		}
+		},
 		_Third => {
 			item_type => '<RadioItem>',
 			callback => \&mode_callback,
 			callback_action => 6,
 			groupid => 1,
-		}
+		},
 	}
 	_Help => {
 		children => [
