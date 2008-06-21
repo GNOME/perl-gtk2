@@ -1,3 +1,8 @@
+2008-06-21  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
+	* t/GtkIconView.t: Fix test failures by not running certain
+	unreliable tests.  Also avoid running unnecessary main loops.
+
 2008-06-01  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
 	* xs/GtkWidget.xs: Document why signal_chain_from_overridden
