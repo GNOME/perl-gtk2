@@ -1,5 +1,12 @@
 2008-06-22  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
+	* t/GtkClipboard.t: Fix test failure that's presumably due to
+	get_func being run more often than expected.  Also use
+	Gtk2::TestHelper's run_main to replace equivalent Glib::Timeout
+	constructs.
+
+2008-06-22  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
 	* CodeGen.pm (generate_constants_wrappers): Also allow more than
 	one tab as a separator between constant name and converter.
 
