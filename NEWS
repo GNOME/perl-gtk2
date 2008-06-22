@@ -1,3 +1,32 @@
+Overview of changes in Gtk2 1.190
+=================================
+
+* Add exportable constants: GTK_PRIORITY_RESIZE, GDK_PRIORITY_EVENTS,
+  GDK_PRIORITY_REDRAW, and GDK_CURRENT_TIME.
+
+* Automatically handle releasing of GCs returned by Gtk2::GC->get.
+
+* Provide Gtk2::Gdk::Event::GrabBroken::implicit and grab_window accessors.
+
+* Fix the marshalling of modify callbacks in Gtk2::TreeModelFilter.
+  Technically, this is an API change since an input argument turned into a
+  return value.  The previous version was not usable, however, so nothing
+  should be affected by this.  If this change does break your code, please let
+  us know.
+
+* Improve the documentation in a few places.
+
+* Fix some test failures.
+
+Overview of changes in Gtk2 1.183
+=================================
+
+* Overload '!=' for Gtk2::Gdk::Atom.
+* Accept all the usual values for booleans in a few places.
+* Allow undef for the display name parameter of Gtk2::Gdk::Display::open.
+* Improve the documentation in many places.
+* Fix some test failures.
+
 Overview of changes in Gtk2 1.182
 =================================
 

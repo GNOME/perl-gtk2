@@ -33,7 +33,7 @@ use Cwd;
 our %build_reqs = (
 	'perl-ExtUtils-Depends'   => '0.300',
 	'perl-ExtUtils-PkgConfig' => '1.030',
-	'perl-Glib'               => '1.180',
+	'perl-Glib'               => '1.190',
 	'perl-Cairo'              => '1.000',
 	'Gtk+'                    => '2.0.0',
 );
@@ -284,7 +284,7 @@ $configure_requires
 /,
 );
 
-=unstable
+#=unstable
 
 print <<__EOW__;
 WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING
@@ -292,12 +292,12 @@ WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING
    This is an unstable development release of Gtk2.  The API is not
    frozen and things are subject to change at any time.  Report any
    bugs to gtk-perl-list AT gnome DOT org as soon as possible.
-   Please use the 1.16x series for important work.
+   Please use the 1.18x series for important work.
 
 WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING
 __EOW__
 
-=cut
+#=cut
 
 =frozen
 

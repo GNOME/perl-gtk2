@@ -1,5 +1,13 @@
 2008-06-22  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
+	* Gtk2.pm
+	* Makefile.PL
+	* MANIFEST
+	* NEWS
+	* README: Unstable release 1.190.
+
+2008-06-22  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
 	* xs/GtkGC.xs: Refer to release 1.200 (instead of 1.180) in the
 	compatibility paragraph about Gtk2::GC->release.
 

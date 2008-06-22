@@ -2,6 +2,7 @@ api.pod
 AUTHORS
 ChangeLog
 CodeGen.pm
+constants-2.0
 copyright.pod
 devel.pod
 doctypes
@@ -318,6 +319,7 @@ t/PangoScript.t
 t/PangoTabs.t
 t/PangoTypes.t
 t/set-scroll-adjustments-signal.t
+t/version-checks.t
 TODO
 tools/fetch_faq.pl
 tools/genkeysyms.pl

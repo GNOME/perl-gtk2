@@ -1,4 +1,4 @@
-Gtk2 version 1.182
+Gtk2 version 1.190
 ==================
 
 Perl bindings to the 2.x series of the Gtk+ graphical user interface library.
@@ -61,7 +61,7 @@ DEPENDENCIES
 This module requires these other modules and libraries:
 
   perl >= 5.8.0
-  Glib >= 1.180 (Perl module)
+  Glib >= 1.190 (Perl module)
   GTK+ > 2.x (C library)
 
 If GTK+ is as new or newer as 2.8, the Cairo module is also required:
@@ -70,8 +70,8 @@ If GTK+ is as new or newer as 2.8, the Cairo module is also required:
 
 In order to build it from source, you'll also need
 
-  ExtUtils::Depends >= 0.2
-  ExtUtils::PkgConfig >= 1.03
+  ExtUtils::Depends >= 0.300
+  ExtUtils::PkgConfig >= 1.030
 
 
 BUG REPORTS
