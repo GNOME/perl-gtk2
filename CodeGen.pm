@@ -228,6 +228,151 @@ gperl_register_object ($typemacro, \"$package\");
 }
 
 
+=item Gtk2::CodeGen->generate_constants_wrappers (KEY => VAL, ...)
+
+Generates an XS file with XSUB wrappers for C constants.  The key-value pairs
+may contain one or more of the following keys:
+
+=over
+
+=item I<prefix>: Specifies the package name the functions should be put into.
+
+=item I<lists>: Reference to an array of filenames which specify the constants
+that should be wrapped.
+
+=item I<xs_file>: The name of the XS file that should be created.
+
+=item I<header>: The name of the header file that should be included in the
+generated XS file.
+
+=item I<export_tag>: The name of the L<Exporter> tag that should be used for
+the constants wrappers.
+
+=back
+
+All of the keys have mostly sane defaults.
+
+Don't forget to add the generated XS file to the list of XS files to be
+compiled.
+
+The lists describing the constants to be wrapped should have the following
+format:
+
+  CONSTANT_NAME [ \t CONSTANT_CONVERTER ]
+
+That is, the constant's name optionally followed by a tab and the converter
+that is to be used to convert the constant to a Perl scalar.  If
+CONSTANT_CONVERTER is a simple string like 'newSViv' it will be used as follows
+to get a Perl scalar: CONSTANT_CONVERTER (CONSTANT_NAME).  If it contains
+'$var', as in 'newSVpv ($var, PL_na)', then '$var' will be replaced with
+CONSTANT_NAME and the resulting string will be used for conversion.
+
+The default for CONSTANT_CONVERTER is 'newSViv'.
+
+=cut
+
+sub generate_constants_wrappers {
+    my $class = shift @_;
+
+    require File::Spec;
+    my %options = (
+        prefix => 'Glib',
+        lists => ['constants'],
+        xs_file => File::Spec->catfile ('build', 'constants.xs'),
+        header => 'gperl.h',
+        export_tag => 'constants',
+        @_,
+    );
+
+    my $xsub_code = '';
+    my @constants = ();
+    foreach my $list (@{ $options{lists} }) {
+        open my $list_fh, '<', $list
+            or croak "Unable to open `$list´ for reading: $!";
+
+        DESCRIPTION:
+        while (my $description = <$list_fh>) {
+            chomp $description;
+
+            # skip comments and blanks
+            next DESCRIPTION if $description =~ m/\A#|\A\s*\z/;
+
+            my ($constant, $converter) = split "\t", $description;
+            push @constants, [$constant, $converter];
+        }
+
+        close $list_fh
+            or croak "Unable to close `$list´: $!";
+    }
+
+    my $boot_code = <<"__EOD__";
+{
+	HV *stash = gv_stashpv ("$options{prefix}", TRUE); /* create if needed */
+	HV *tags_hv = get_hv ("$options{prefix}::EXPORT_TAGS", 1);
+	AV *constants_av = NULL;
+	SV *constants_ref_sv = NULL;
+	SV **constants_svp = hv_fetch (tags_hv, "$options{export_tag}", strlen ("$options{export_tag}"), 0);
+	if (constants_svp && gperl_sv_is_array_ref (*constants_svp)) {
+		constants_av = (AV *) SvRV (*constants_svp);
+		constants_ref_sv = *constants_svp;
+	} else {
+		constants_av = newAV ();
+		constants_ref_sv = newRV_noinc ((SV *) constants_av);
+	}
+__EOD__
+
+    foreach my $pair (@constants) {
+        my ($constant, $converter) = @$pair;
+
+        # default to ints
+        $converter = 'newSViv' unless defined $converter;
+
+        my $conversion;
+        if ($converter =~ m/\$var/) {
+            ($conversion = $converter) =~ s/\$var/$constant/;
+        } else {
+            $conversion = "$converter ($constant)";
+        }
+
+        $boot_code .= <<"__EOD__";
+	newCONSTSUB (stash, "$constant", $conversion);
+	av_push (constants_av, newSVpv ("$constant", PL_na));
+__EOD__
+    }
+
+    if (!@constants) {
+        $boot_code .= <<'__EOD__';
+        PERL_UNUSED_VAR (stash);
+__EOD__
+    }
+
+    $boot_code .= <<"__EOD__";
+	hv_store (tags_hv, "$options{export_tag}", strlen ("$options{export_tag}"), constants_ref_sv, 0);
+}
+__EOD__
+
+    open my $xs_fh, '>', $options{xs_file}
+        or croak "Unable to open `$options{xs_file}´ for writing: $!";
+
+    print $xs_fh <<"__EOD__";
+/**
+ * This is a generated file.  Do not edit.
+ */
+
+#include "$options{header}"
+
+MODULE = $options{prefix}::Constants	PACKAGE = $options{prefix}
+
+BOOT:
+$boot_code
+
+__EOD__
+
+    close $xs_fh
+        or croak "Unable to close `$options{xs_file}´: $!";
+}
+
+
 1;
 __END__
 

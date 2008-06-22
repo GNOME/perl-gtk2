@@ -119,6 +119,20 @@ if (($gtk_version[0] > 2 || ($gtk_version[0] == 2 && $gtk_version[1] >= 8)) ||
 }
 
 #
+# generate the constants wrappers
+#
+my @gtk_constants_lists =
+	Glib::MakeHelper->select_files_by_version ('constants', @gtk_version);
+my $gtk_constants_file = File::Spec->catfile ('build', 'constants.xs');
+Gtk2::CodeGen->generate_constants_wrappers (
+	prefix => 'Gtk2',
+	lists => \@gtk_constants_lists,
+	xs_file => $gtk_constants_file,
+	header => 'gtk2perl.h',
+        export_tag => 'constants');
+push @xs_files, $gtk_constants_file;
+
+#
 # create version macros for pango and atk
 #
 ExtUtils::PkgConfig->write_version_macros(

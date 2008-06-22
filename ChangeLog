@@ -1,3 +1,11 @@
+2008-06-22  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
+	* CodeGen.pm: Add Gtk2::CodeGen->generate_constants_wrappers which
+	creates XSUBs for C constants.
+
+	* Makefile.PL: Use Gtk2::CodeGen->generate_constants_wrappers to
+	wrap constants specified in files named constants-x.y.
+
 2008-06-21  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
 	* t/GtkIconView.t: Fix test failures by not running certain
