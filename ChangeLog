@@ -2,6 +2,15 @@
 
 	Merge from HEAD:
 
+	* t/GtkClipboard.t: Fix test failure that's presumably due to
+	get_func being run more often than expected.  Also use
+	Gtk2::TestHelper's run_main to replace equivalent Glib::Timeout
+	constructs.
+
+2008-06-22  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
+	Merge from HEAD:
+
 	* t/GtkIconView.t: Fix test failures by not running certain
 	unreliable tests.  Also avoid running unnecessary main loops.
 

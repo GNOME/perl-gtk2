@@ -113,14 +113,16 @@ SKIP: {
 	is ($clipboard->wait_for_rich_text ($buffer), undef);
 }
 
-Glib::Timeout->add (200, sub {Gtk2->main_quit;1});
-Gtk2->main;
+run_main;
 
 #print "----------------------------------\n";
 
 $expect = 'whee';
 
+my $get_func_call_count = 0;
 sub get_func {
+	return if ++$get_func_call_count == 3;
+
 	is ($_[0], $clipboard);
 	isa_ok ($_[1], 'Gtk2::SelectionData');
 	is ($_[2], 0);
@@ -223,9 +225,7 @@ ok(1);
 
 $clipboard->request_contents (Gtk2::Gdk->SELECTION_TYPE_STRING,
 			      \&received_func, 'user data!');
-
-Glib::Timeout->add (200, sub {Gtk2->main_quit;1});
-Gtk2->main;
+run_main;
 
 my $widget = Gtk2::Window->new;
 $clipboard->set_with_owner (\&get_func, \&clear_func, $widget,
@@ -236,9 +236,7 @@ is ($clipboard->get_owner, $widget);
 
 $clipboard->request_contents (Gtk2::Gdk->SELECTION_TYPE_STRING,
                               \&received_func, 'user data!');
-
-Glib::Timeout->add (200, sub {Gtk2->main_quit;1});
-Gtk2->main;
+run_main;
 
 SKIP: {
 	skip "new 2.6 stuff", 0
