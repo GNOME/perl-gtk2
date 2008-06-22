@@ -1,5 +1,10 @@
 2008-06-22  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
+	* xs/GtkGC.xs: Refer to release 1.200 (instead of 1.180) in the
+	compatibility paragraph about Gtk2::GC->release.
+
+2008-06-22  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
 	* t/GtkClipboard.t: Fix test failure that's presumably due to
 	get_func being run more often than expected.  Also use
 	Gtk2::TestHelper's run_main to replace equivalent Glib::Timeout

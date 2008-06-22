@@ -116,9 +116,9 @@ DESTROY (SV * sv)
 
 =head2 Compatibility
 
-Before version 1.180 of the Gtk2 perl module, it was necessary to call
+Before version 1.200 of the Gtk2 perl module, it was necessary to call
 C<Gtk2::GC::release()> on GCs obtained from C<Gtk2::GC::get()>.  As of
-version 1.180, this is no longer necessary; a GC will be released when
+version 1.200, this is no longer necessary; a GC will be released when
 the last perl reference goes away.  Old-style code continues to work,
 but C<Gtk2::GC::release()> is deprecated.
 
