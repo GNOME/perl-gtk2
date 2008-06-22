@@ -1,5 +1,10 @@
 2008-06-22  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
+	* CodeGen.pm (generate_constants_wrappers): Also allow more than
+	one tab as a separator between constant name and converter.
+
+2008-06-22  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
 	* CodeGen.pm: Add Gtk2::CodeGen->generate_constants_wrappers which
 	creates XSUBs for C constants.
 

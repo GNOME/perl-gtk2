@@ -258,7 +258,7 @@ compiled.
 The lists describing the constants to be wrapped should have the following
 format:
 
-  CONSTANT_NAME [ \t CONSTANT_CONVERTER ]
+  CONSTANT_NAME [ \t+ CONSTANT_CONVERTER ]
 
 That is, the constant's name optionally followed by a tab and the converter
 that is to be used to convert the constant to a Perl scalar.  If
@@ -297,7 +297,7 @@ sub generate_constants_wrappers {
             # skip comments and blanks
             next DESCRIPTION if $description =~ m/\A#|\A\s*\z/;
 
-            my ($constant, $converter) = split "\t", $description;
+            my ($constant, $converter) = split /\t+/, $description;
             push @constants, [$constant, $converter];
         }
 
