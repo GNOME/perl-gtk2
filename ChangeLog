@@ -10,6 +10,11 @@
 	* t/version-checks.t: Use Exporter to handle version checking and
 	exporting.  Test.
 
+	* constants-2.0
+	* Gtk2.pm
+	* t/00.Gtk2.t: Export GTK_PRIORITY_RESIZE, GDK_PRIORITY_EVENTS,
+	and GDK_PRIORITY_REDRAW.
+
 2008-06-21  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
 	* t/GtkIconView.t: Fix test failures by not running certain

@@ -1,3 +1,4 @@
+#!/usr/bin/perl
 #
 # $Header$
 #
@@ -14,8 +15,8 @@ use warnings;
 
 # NOTE: this is the bootstrap test -- no Gtk2::TestHelper here!
 
-use Test::More tests => 35;
-BEGIN { use_ok('Gtk2') };
+use Test::More tests => 41;
+BEGIN { use_ok('Gtk2', ':constants') };
 
 #########################
 
@@ -42,6 +43,15 @@ is (Gtk2::MICRO_VERSION, $version[2], 'MICRO_VERSION');
 is (@version, 3, 'version info is three items long');
 ok (Gtk2::Pango->CHECK_VERSION(0,0,0), 'CHECK_VERSION pass');
 ok (!Gtk2::Pango->CHECK_VERSION(50,0,0), 'CHECK_VERSION fail');
+
+# Test some of the exported constants
+my $number = qr/^\d+$/;
+like (Gtk2::GTK_PRIORITY_RESIZE, $number);
+like (Gtk2::GDK_PRIORITY_EVENTS, $number);
+like (Gtk2::GDK_PRIORITY_REDRAW, $number);
+like (GTK_PRIORITY_RESIZE, $number);
+like (GDK_PRIORITY_EVENTS, $number);
+like (GDK_PRIORITY_REDRAW, $number);
 
 SKIP:
 {

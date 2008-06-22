@@ -282,6 +282,22 @@ called, if done by "use Gtk2 -init -threads-init" order does not matter.
 
 =back
 
+=head1 EXPORTS
+
+Gtk2 exports nothing by default, but some constants are available upon request.
+
+=over
+
+=item Tag: constants
+
+  GTK_PRIORITY_RESIZE
+  GDK_PRIORITY_EVENTS
+  GDK_PRIORITY_REDRAW
+
+=back
+
+See L<Glib> for other standard priority levels.
+
 =head1 SEE ALSO
 
 L<perl>(1), L<Glib>(3pm).
