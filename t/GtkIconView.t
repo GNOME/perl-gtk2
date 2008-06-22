@@ -14,13 +14,15 @@
 use strict;
 use warnings;
 
-use Gtk2::TestHelper tests => 61,
+use Gtk2::TestHelper tests => 59,
     at_least_version => [2, 6, 0, "GtkIconView is new in 2.6"],
     ;
 
 use constant TEXT => 0;
 use constant PIXBUF => 1;
 use constant BOOLEAN => 2;
+
+use constant ICON_COORD => 30;
 
 my $win = Gtk2::Window->new;
 #my $swin = Gtk2::ScrolledWindow->new;
@@ -87,130 +89,150 @@ is ($iview->get_column_spacing, 23);
 $iview->set_margin (23);
 is ($iview->get_margin, 23);
 
-#$win->show_all;
+my $path = $iview->get_path_at_pos (ICON_COORD, ICON_COORD);
+$path = Gtk2::TreePath->new_first unless defined $path;
+isa_ok ($path, 'Gtk2::TreePath');
 
-use constant ICON_COORD => 50;
+is ($iview->path_is_selected ($path), '',
+    '$iview->path_is_selected, no');
+$iview->select_path ($path);
+is ($iview->path_is_selected ($path), 1,
+    '$iview->path_is_selected, yes');
+$iview->unselect_path ($path);
+is ($iview->path_is_selected ($path), '',
+    '$iview->path_is_selected, no');
 
-run_main sub {
-    my $path = $iview->get_path_at_pos (ICON_COORD, ICON_COORD);
+$iview->item_activated ($path);
 
-    SKIP: {
-	skip 'get_path_at_pos (ICON_COORD, ICON_COORD) returned undef', 30
-		unless defined $path;
+my @sels = $iview->get_selected_items;
+is (scalar (@sels), 0, '$iview->get_selected_items, count 0');
 
-	isa_ok ($path, 'Gtk2::TreePath', '$iview->get_path_at_pos (ICON_COORD, ICON_COORD)');
+$iview->select_all;
+@sels = $iview->get_selected_items;
+is (scalar (@sels), 14, '$iview->get_selected_items, count 14');
+isa_ok ($sels[0], 'Gtk2::TreePath', '$iview->get_selected_items, type');
+# make sure it's actually a valid path
+ok (defined $sels[0]->to_string);
 
-	is ($iview->path_is_selected ($path), '',
-	    '$iview->path_is_selected, no');
-	$iview->select_path ($path);
-	is ($iview->path_is_selected ($path), 1,
-	    '$iview->path_is_selected, yes');
-	$iview->unselect_path ($path);
-	is ($iview->path_is_selected ($path), '',
-	    '$iview->path_is_selected, no');
+$iview->unselect_all;
+@sels = $iview->get_selected_items;
+is (scalar (@sels), 0, '$iview->get_selected_items, count 0');
 
-	$iview->item_activated ($path);
+$iview->select_path ($path);
+$iview->selected_foreach (sub {
+    my ($view, $path, $data) = @_;
+    isa_ok ($view, 'Gtk2::IconView');
+    isa_ok ($path, 'Gtk2::TreePath');
+    isa_ok ($data, 'HASH');
+    is ($data->{foo}, 'bar', 'callback data intact');
+}, { foo => 'bar' });
+$iview->select_all;
+my $ncalls = 0;
+$iview->selected_foreach (sub { $ncalls++ });
+my @selected_items = $iview->get_selected_items;
+is ($ncalls, scalar(@selected_items),
+    'called once for each selected child');
 
-	my @sels = $iview->get_selected_items;
-	is (scalar (@sels), 0, '$iview->get_selected_items, count 0');
+SKIP: {
+	skip 'new 2.8 stuff', 14
+		unless Gtk2->CHECK_VERSION (2, 8, 0);
 
-	$iview->select_all;
-	@sels = $iview->get_selected_items;
-	is (scalar (@sels), 14, '$iview->get_selected_items, count 14');
-	isa_ok ($sels[0], 'Gtk2::TreePath', '$iview->get_selected_items, type');
-	# make sure it's actually a valid path
-	ok (defined $sels[0]->to_string);
+	# For some reason, get_item_at_pos seems to occasionally run into
+	# uninitialized memory when used non-interactively.  So it's not tested
+	# here.
+	# run_main sub { warn $iview->get_item_at_pos (ICON_COORD, ICON_COORD); };
 
-	$iview->unselect_all;
-	@sels = $iview->get_selected_items;
-	is (scalar (@sels), 0, '$iview->get_selected_items, count 0');
+	my $win = Gtk2::Window->new;
+	my $model = create_store ();
+	fill_store ($model, get_pixbufs ($win));
 
-	$iview->select_path ($path);
-	$iview->selected_foreach (sub {
-		my ($view, $path, $data) = @_;
-		isa_ok ($view, 'Gtk2::IconView');
-		isa_ok ($path, 'Gtk2::TreePath');
-		isa_ok ($data, 'HASH');
-		is ($data->{foo}, 'bar', 'callback data intact');
-	}, { foo => 'bar' });
-	$iview->select_all;
-	my $ncalls = 0;
-	$iview->selected_foreach (sub { $ncalls++ });
-	my @selected_items = $iview->get_selected_items;
-	is ($ncalls, scalar(@selected_items),
-	    'called once for each selected child');
+	my $iview = Gtk2::IconView->new_with_model ($model);
+	$iview->set_text_column (TEXT);
+	$iview->set_pixbuf_column (PIXBUF);
 
-	SKIP: {
-		skip 'new 2.8 stuff', 16
-			unless Gtk2->CHECK_VERSION (2, 8, 0);
+	$win->add ($iview);
+	$win->show_all;
 
-		$win->add ($iview);
-		$win->show_all;
+	my $path = Gtk2::TreePath->new_first;
+	my $cell = ($iview->get_cells)[PIXBUF];
 
-		my ($path, $cell) = $iview->get_item_at_pos (ICON_COORD, ICON_COORD);
-		isa_ok ($path, "Gtk2::TreePath");
-		isa_ok ($cell, "Gtk2::CellRenderer");
+	$iview->set_cursor ($path, undef, FALSE);
+	my @tmp = $iview->get_cursor;
+	is (@tmp, 2);
+	isa_ok ($tmp[0], "Gtk2::TreePath");
+	is ($tmp[1], undef);
 
-		$iview->set_cursor ($path, undef, FALSE);
-		my @tmp = $iview->get_cursor;
-		is (@tmp, 2);
-		isa_ok ($tmp[0], "Gtk2::TreePath");
-		is ($tmp[1], undef);
+	$iview->set_cursor ($path, $cell, TRUE);
+	@tmp = $iview->get_cursor;
+	is (@tmp, 2);
+	isa_ok ($tmp[0], "Gtk2::TreePath");
+	is ($tmp[1], $cell);
 
-		$iview->set_cursor ($path, $cell, TRUE);
-		@tmp = $iview->get_cursor;
-		is (@tmp, 2);
-		isa_ok ($tmp[0], "Gtk2::TreePath");
-		is ($tmp[1], $cell);
+	@tmp = $iview->get_visible_range;
+	isa_ok ($tmp[0], "Gtk2::TreePath");
+	isa_ok ($tmp[1], "Gtk2::TreePath");
 
-		@tmp = $iview->get_visible_range;
-		isa_ok ($tmp[0], "Gtk2::TreePath");
-		isa_ok ($tmp[1], "Gtk2::TreePath");
+	$iview->scroll_to_path ($path, TRUE, 0.5, 0.5);
+	$iview->scroll_to_path ($path);
 
-		$iview->scroll_to_path ($path, TRUE, 0.5, 0.5);
-		$iview->scroll_to_path ($path);
+	$iview->enable_model_drag_source ([qw/shift-mask/], "copy",
+	  { target => "STRING", flags => ["same-app", "same-widget"], info => 42 });
+	$iview->enable_model_drag_dest ("copy",
+	  { target => "STRING", flags => ["same-app", "same-widget"], info => 42 });
 
-		$iview->enable_model_drag_source ([qw/shift-mask/], "copy",
-		  { target => "STRING", flags => ["same-app", "same-widget"], info => 42 });
-		$iview->enable_model_drag_dest ("copy",
-		  { target => "STRING", flags => ["same-app", "same-widget"], info => 42 });
+	$iview->unset_model_drag_source;
+	$iview->unset_model_drag_dest;
 
-		$iview->unset_model_drag_source;
-		$iview->unset_model_drag_dest;
+	$iview->set_reorderable (TRUE);
+	ok ($iview->get_reorderable);
 
-		$iview->set_reorderable (TRUE);
-		ok ($iview->get_reorderable);
+	$iview->set_drag_dest_item ($path, "drop-into");
+	@tmp = $iview->get_drag_dest_item;
+	isa_ok ($tmp[0], "Gtk2::TreePath");
+	is ($tmp[1], "drop-into");
 
-		$iview->set_drag_dest_item ($path, "drop-into");
-		@tmp = $iview->get_drag_dest_item;
-		isa_ok ($tmp[0], "Gtk2::TreePath");
-		is ($tmp[1], "drop-into");
+	my ($tmp_path, $pos) = $iview->get_dest_item_at_pos (ICON_COORD, ICON_COORD);
+	isa_ok ($tmp_path, "Gtk2::TreePath");
+	like ($pos, qr/drop/);
 
-		my ($tmp_path, $pos) = $iview->get_dest_item_at_pos (ICON_COORD, ICON_COORD);
-		isa_ok ($tmp_path, "Gtk2::TreePath");
-		like ($pos, qr/drop/);
+	isa_ok ($iview->create_drag_icon ($path), "Gtk2::Gdk::Pixmap");
 
-		isa_ok ($iview->create_drag_icon ($path), "Gtk2::Gdk::Pixmap");
-	}
-    }
-};
+	$win->destroy;
+}
 
 SKIP: {
 	skip 'new 2.12 stuff', 7
 		unless Gtk2->CHECK_VERSION (2, 12, 0);
 
+        my $win = Gtk2::Window->new;
+	my $model = create_store ();
+	fill_store ($model, get_pixbufs ($win));
+
+	my $iview = Gtk2::IconView->new_with_model ($model);
+
+	$iview->set_tooltip_column (TEXT);
+	is ($iview->get_tooltip_column, TEXT);
+
 	my ($bx, $by) = $iview->convert_widget_to_bin_window_coords (0, 0);
 	is_deeply ([$bx, $by], [0, 0]);
+}
 
-	my $window = Gtk2::Window->new;
-	$window->set (tooltip_markup => "<b>Bla!</b>");
+SKIP: {
+	skip 'query-tooltip is hard to test automatically', 5;
 
-	my ($path, $cell) = $iview->get_item_at_pos (ICON_COORD, ICON_COORD);
-	skip 'get_item_at_pos returned undef', 6
-		unless defined $path && defined $cell;
+        my $win = Gtk2::Window->new;
+	$win->set (tooltip_markup => "<b>Bla!</b>");
+
+	my $model = create_store ();
+	fill_store ($model, get_pixbufs ($win));
+
+	my $iview = Gtk2::IconView->new_with_model ($model);
+
+	my $path = Gtk2::TreePath->new_first;
+	my $cell = ($iview->get_cells)[PIXBUF];
 
 	my $handler_called = 0;
-	$window->signal_connect (query_tooltip => sub {
+	$win->signal_connect (query_tooltip => sub {
 		my ($window, $x, $y, $keyboard_mode, $tip) = @_;
 
 		return TRUE if $handler_called++;
@@ -218,29 +240,29 @@ SKIP: {
 		$iview->set_tooltip_item ($tip, $path);
 		$iview->set_tooltip_cell ($tip, $path, $cell);
 
-		my ($bx, $by, $model, $tpath, $iter) = $iview->get_tooltip_context (0, 0, TRUE);
+		my ($bx, $by, $model, $tpath, $iter) =
+			$iview->get_tooltip_context ($x, $y, $keyboard_mode);
 		is ($bx, 0);
 		is ($by, 0);
 		isa_ok ($model, 'Gtk2::TreeModel');
 		isa_ok ($tpath, 'Gtk2::TreePath');
 		isa_ok ($iter, 'Gtk2::TreeIter');
 
-		$iview->set_tooltip_column (1);
-		is ($iview->get_tooltip_column, 1);
-
 		Glib::Idle->add (sub { Gtk2->main_quit; });
 
 		return TRUE;
 	});
 
-	$window->realize;
+	$win->add ($iview);
+	$win->show_all;
 
 	my $event = Gtk2::Gdk::Event->new ('motion-notify');
-	$event->window ($window->window);
-	Gtk2->main_do_event ($event);
+	$event->window ($win->window);
 	Gtk2->main_do_event ($event);
 
 	Gtk2->main;
+
+	$win->destroy;
 }
 
 sub create_store

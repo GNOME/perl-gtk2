@@ -1,3 +1,10 @@
+2008-06-22  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
+	Merge from HEAD:
+
+	* t/GtkIconView.t: Fix test failures by not running certain
+	unreliable tests.  Also avoid running unnecessary main loops.
+
 2008-06-02  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
 	* Gtk2.pm
