@@ -15,7 +15,7 @@ use warnings;
 
 # NOTE: this is the bootstrap test -- no Gtk2::TestHelper here!
 
-use Test::More tests => 41;
+use Test::More tests => 43;
 BEGIN { use_ok('Gtk2', ':constants') };
 
 #########################
@@ -44,14 +44,16 @@ is (@version, 3, 'version info is three items long');
 ok (Gtk2::Pango->CHECK_VERSION(0,0,0), 'CHECK_VERSION pass');
 ok (!Gtk2::Pango->CHECK_VERSION(50,0,0), 'CHECK_VERSION fail');
 
-# Test some of the exported constants
+# Test the exported constants
+my @constants = qw/GDK_CURRENT_TIME
+                   GDK_PRIORITY_EVENTS
+                   GDK_PRIORITY_REDRAW
+                   GTK_PRIORITY_RESIZE/;
 my $number = qr/^\d+$/;
-like (Gtk2::GTK_PRIORITY_RESIZE, $number);
-like (Gtk2::GDK_PRIORITY_EVENTS, $number);
-like (Gtk2::GDK_PRIORITY_REDRAW, $number);
-like (GTK_PRIORITY_RESIZE, $number);
-like (GDK_PRIORITY_EVENTS, $number);
-like (GDK_PRIORITY_REDRAW, $number);
+foreach my $constant (@constants) {
+  like (eval "Gtk2::$constant", $number);
+  like (eval "$constant", $number);
+}
 
 SKIP:
 {

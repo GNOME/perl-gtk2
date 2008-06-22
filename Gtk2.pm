@@ -293,6 +293,7 @@ Gtk2 exports nothing by default, but some constants are available upon request.
   GTK_PRIORITY_RESIZE
   GDK_PRIORITY_EVENTS
   GDK_PRIORITY_REDRAW
+  GDK_CURRENT_TIME
 
 =back
 
