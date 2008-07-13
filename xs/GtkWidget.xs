@@ -638,10 +638,30 @@ gboolean gtk_widget_event (GtkWidget * widget, GdkEvent	*event);
  #gint       gtk_widget_send_expose         (GtkWidget           *widget,
  #					   GdkEvent            *event);
 
+=for apidoc
+This function works by emitting an action signal nominated by the various
+widget subclasses.  The signal is normally called C<activate>, but it
+doesn't have to be.
+
+Currently if you make a widget subclass in Perl there's no way to
+nominate a signal to be emitted by C<< $widget->activate >>.  A signal
+merely named C<activate> is not automatically hooked up.
+=cut
 gboolean
 gtk_widget_activate (widget)
 	GtkWidget * widget
 
+=for apidoc
+This function works by emitting a setter signal nominated by the
+various widget types which have "native" scrolling.  The signal is
+normally called C<set-scroll-adjustments>, but it doesn't have to be.
+
+If you make a widget subclass in Perl and create a signal in it called
+C<set-scroll-adjustments> taking two Gtk2::Adjustment parameters then
+the subclassing automatically hooks that up to be emitted by
+C<< $widget->set_scroll_adjustments >>.  (Your "class closure" default
+handler code should then store the adjustment objects somewhere.)
+=cut
 gboolean
 gtk_widget_set_scroll_adjustments (widget, hadjustment, vadjustment)
 	GtkWidget     * widget
