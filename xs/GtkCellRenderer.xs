@@ -652,36 +652,64 @@ GET_SIZE (GtkCellRenderer * cell, ...)
 	Gtk2::CellRenderer::parent_activate      = 6
 	Gtk2::CellRenderer::parent_start_editing = 7
     PREINIT:
-	GtkCellRendererClass * class;
-	GType thisclass, parent_class;
-	SV * saveddefsv;
+	GtkCellRendererClass *parent_class = NULL;
+	GType this, parent;
     PPCODE:
-	/* may i ask who's calling? */
-	saveddefsv = newSVsv (DEFSV);
-	eval_pv ("$_ = caller;", 0);
-	thisclass = gperl_type_from_package (SvPV_nolen (DEFSV));
-	SvSetSV (DEFSV, saveddefsv);
-	if (!thisclass)
-		thisclass = G_OBJECT_TYPE (cell);
-	/* look up his parent */
-	parent_class = g_type_parent (thisclass);
-	if (! g_type_is_a (parent_class, GTK_TYPE_CELL_RENDERER))
-		croak ("parent of %s is not a GtkCellRenderer",
-		       g_type_name (thisclass));
-	/* that's our boy.  call one of his functions. */
-	class = g_type_class_peek (parent_class);
+	/* look up the parent.
+	 *
+	 * FIXME: this approach runs into an endless loop with a hierarchy
+	 * where a Perl class inherits from a C class which inherits from a
+	 * Perl class.  Like this:
+	 *
+	 *   ...
+	 *   +- GtkCellRenderer
+	 *      +- Foo::RendererOne		(Perl subclass)
+	 *         +- FooRendererTwo		(C subclass)
+	 *            +- Foo::RendererThree	(Perl subclass)
+	 *
+	 * yes, this is contrived.  but possible!
+	 */
+	this = G_OBJECT_TYPE (cell);
+	while ((parent = g_type_parent (this))) {
+		if (! g_type_is_a (parent, GTK_TYPE_CELL_RENDERER))
+			croak ("parent of %s is not a GtkCellRenderer",
+			       g_type_name (this));
+
+		parent_class = g_type_class_peek (parent);
+
+		/* check if this class isn't actually one of ours.  if it is a
+		 * Perl class, then we must not chain up to it: if it had a sub
+		 * defined for the current vfunc, we wouldn't be in this
+		 * fallback one here since perl's method resolution machinery
+		 * would have found and called the sub.  so chaining up would
+		 * result in the fallback being called again.  this will lead
+		 * to an endless loop.
+		 *
+		 * so, if it's not a Perl class, we're done.  if it is,
+		 * continue in the while loop to the next parent. */
+		if (parent_class->get_size != gtk2perl_cell_renderer_get_size) {
+			break;
+		}
+
+		this = parent;
+	}
+
+	/* the ancestry will always contain GtkCellRenderer, so parent and
+	 * parent_class should never be NULL. */
+	assert (parent != NULL && parent_class != NULL);
+
 	switch (ix) {
 	    case 4: /* deprecated parent_get_size */
 	    case 0: /* GET_SIZE */
-		if (class->get_size) {
+		if (parent_class->get_size) {
 			gint x_offset, y_offset, width, height;
-			class->get_size (cell,
-			                 SvGtkWidget (ST (1)),
-					 SvGdkRectangle_ornull (ST (2)),
-					 &x_offset,
-					 &y_offset,
-					 &width,
-					 &height);
+			parent_class->get_size (cell,
+						SvGtkWidget (ST (1)),
+						SvGdkRectangle_ornull (ST (2)),
+						&x_offset,
+						&y_offset,
+						&width,
+						&height);
 			EXTEND (SP, 4);
 			PUSHs (sv_2mortal (newSViv (x_offset)));
 			PUSHs (sv_2mortal (newSViv (y_offset)));
@@ -691,41 +719,41 @@ GET_SIZE (GtkCellRenderer * cell, ...)
 		break;
 	    case 5: /* deprecated parent_render */
 	    case 1: /* RENDER */
-		if (class->render)
-			class->render (cell,
-			               SvGdkDrawable_ornull (ST (1)), /* drawable */
-				       SvGtkWidget_ornull (ST (2)), /* widget */
-				       SvGdkRectangle_ornull (ST (3)), /* background_area */
-				       SvGdkRectangle_ornull (ST (4)), /* cell_area */
-				       SvGdkRectangle_ornull (ST (5)), /* expose_area */
-				       SvGtkCellRendererState (ST (6))); /* flags */
+		if (parent_class->render)
+			parent_class->render (cell,
+					      SvGdkDrawable_ornull (ST (1)), /* drawable */
+					      SvGtkWidget_ornull (ST (2)), /* widget */
+					      SvGdkRectangle_ornull (ST (3)), /* background_area */
+					      SvGdkRectangle_ornull (ST (4)), /* cell_area */
+					      SvGdkRectangle_ornull (ST (5)), /* expose_area */
+					      SvGtkCellRendererState (ST (6))); /* flags */
 		break;
 	    case 6: /* deprecated parent_activate */
 	    case 2: /* ACTIVATE */
-		if (class->activate) {
+		if (parent_class->activate) {
 			gboolean ret;
-			ret = class->activate (cell,
-			                       SvGdkEvent (ST (1)),
-					       SvGtkWidget (ST (2)),
-					       SvGChar (ST (3)),
-					       SvGdkRectangle_ornull (ST (4)),
-					       SvGdkRectangle_ornull (ST (5)),
-					       SvGtkCellRendererState (ST (6)));
+			ret = parent_class->activate (cell,
+						      SvGdkEvent (ST (1)),
+						      SvGtkWidget (ST (2)),
+						      SvGChar (ST (3)),
+						      SvGdkRectangle_ornull (ST (4)),
+						      SvGdkRectangle_ornull (ST (5)),
+						      SvGtkCellRendererState (ST (6)));
 			EXTEND (SP, 1);
 			PUSHs (sv_2mortal (newSViv (ret)));
 		}
 		break;
 	    case 7: /* deprecated parent_start_editing */
 	    case 3: /* START_EDITING */
-		if (class->start_editing) {
+		if (parent_class->start_editing) {
 			GtkCellEditable * editable;
-			editable = class->start_editing (cell,
-				                         SvGdkEvent_ornull (ST (1)),
-						         SvGtkWidget (ST (2)),
-						         SvGChar (ST (3)),
-						         SvGdkRectangle_ornull (ST (4)),
-						         SvGdkRectangle_ornull (ST (5)),
-						         SvGtkCellRendererState (ST (6)));
+			editable = parent_class->start_editing (cell,
+								SvGdkEvent_ornull (ST (1)),
+								SvGtkWidget (ST (2)),
+								SvGChar (ST (3)),
+								SvGdkRectangle_ornull (ST (4)),
+								SvGdkRectangle_ornull (ST (5)),
+								SvGtkCellRendererState (ST (6)));
 			EXTEND (SP, 1);
 			PUSHs (sv_2mortal (newSVGtkCellEditable_ornull (editable)));
 		}

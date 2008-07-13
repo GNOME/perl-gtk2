@@ -1,5 +1,12 @@
 2008-07-13  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
+	* xs/GtkCellRenderer.xs
+	* t/GtkCellRendererIface-Chaining.t: In the fallback xsubs for the
+	GtkCellRenderer interface vfuncs, use a more robust approach for
+	chaining up to the parent.  Idea by Kevin Ryde.
+
+2008-07-13  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
 	* xs/GtkWidget.xs: Document some aspects of Gtk2::Widget::activate
 	and set_scroll_adjustments that are relevant to Perl subclasses.
 	Patch by Kevin Ryde.
