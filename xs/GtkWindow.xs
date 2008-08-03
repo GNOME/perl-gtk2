@@ -23,6 +23,55 @@
 
 MODULE = Gtk2::Window	PACKAGE = Gtk2::Window	PREFIX = gtk_window_
 
+=for position DESCRIPTION
+
+=head1 DESCRIPTION
+
+A Gtk2::Window is a top-level window displayed on the root window and
+interacting (or not) with the window manager.  It can be an
+application's main window, a dialog, or a temporary such as a popup
+menu.
+
+=head2 Delete Event and Destroy
+
+The default action for a C<delete-event> (normally from the window
+manager close button) is to destroy the window with
+C<< $window->destroy >>.  In your main window you might want to exit
+the main loop when that happens.
+
+    $toplevel->signal_connect (destroy => sub { Gtk2->main_quit });
+
+If you install a handler for C<delete-event> and return true, meaning
+"don't propagate", you can do something other than destroy the window.
+For example
+
+    $toplevel->signal_connect (delete_event => sub {
+       if (any_unsaved_documents()) {
+         popup_ask_save_before_exit_dialog();
+         return 1;  # don't propagate to default destroy
+       }
+       return 0;  # do propagate
+    });
+
+In a dialog or secondary app window you might not want to destroy but
+instead just hide ready for later re-use.
+
+    $dialog->signal_connect (delete_event =>
+			       sub { $dialog->hide (); TRUE; });
+
+The choice between destroying or hiding is normally just a matter of
+memory saved against the time to re-create, and how likely the dialog
+might be needed again.  (However if you build windows with Glade it's
+not particularly easy to re-create them there, so you'll mostly want
+to just hide in that case.)
+
+A hidden toplevel window is still in
+C<< Gtk2::Window->list_toplevels >> and that's a good place to search
+for an existing window of a desired type to C<< $window->present >>
+again.
+
+=cut
+
 =for enum GtkWindowPosition
 =cut
 
