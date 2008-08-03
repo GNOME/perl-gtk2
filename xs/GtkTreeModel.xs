@@ -629,6 +629,18 @@ Optional.
 
 =cut
 
+=for position post_signals
+
+Note that currently in a Perl subclass of an object implementing
+C<Gtk2::TreeModel>, the class closure, ie. class default signal
+handler, for the C<rows-reordered> signal is called only with an
+integer address for the reorder array parameter, not a Perl arrayref
+like a handler installed with C<signal_connect> receives.  It works to
+C<signal_chain_from_overridden> with the address, but it's otherwise
+fairly useless and will likely change in the future.
+
+=cut
+
 =for apidoc __hide__
 =cut
 void
