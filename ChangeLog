@@ -1,5 +1,8 @@
 2008-08-03  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
+	* xs/GtkAboutDialog.xs: Don't define macros inside a MODULE
+	section.  Older xsubpp can't handle that.
+
 	* xs/GtkMenu.xs (gtk2perl_menu_position_func): The push_in return
 	value is a boolean, not an integer.  Marshal it accordingly.
 
