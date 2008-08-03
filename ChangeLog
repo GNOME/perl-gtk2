@@ -2,6 +2,9 @@
 
 	Merge from HEAD:
 
+	* xs/GtkAboutDialog.xs: Don't define macros inside a MODULE
+	section.  Older xsubpp can't handle that.
+
 	* xs/GtkDialog.xs: Add documentation about closing dialogs, and
 	mention that class closures for the response signal receive
 	unconverted response ids.  Patch by Kevin Ryde.
