@@ -64,10 +64,15 @@ gtk2perl_menu_position_func (GtkMenu * menu,
 	SPAGAIN;
 
 	if (n < 2 || n > 3)
-		croak ("menu position callback must return two integers (x, and y) or three integers (x, y, and push_in)");
+		croak ("menu position callback must return two integers "
+		       "(x, and y) or two integers and a boolean (x, y, and "
+		       "push_in)");
 
-	/* POPi takes things off the *end* of the stack! */
-	if (n > 2) *push_in = POPi;
+	/* POPs and POPi take things off the *end* of the stack! */
+	if (n > 2) {
+		SV *sv = POPs;
+		*push_in = sv_2bool (sv);
+	}
 	if (n > 1) *y = POPi;
 	if (n > 0) *x = POPi;
 
