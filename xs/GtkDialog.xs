@@ -186,6 +186,46 @@ dialog contents manually if you had more than a simple message in the dialog.
     $dialog->show_all;
  }
 
+=head2 Delete, Close and Destroy
+
+In the default keybindings the "Esc" key calls the C<close> action
+signal.  The default in that signal is to synthesise a C<delete-event>
+like a window manager close would do.
+
+A delete-event first runs the C<response> signal with ID
+C<"delete-event">, but the handler there can't influence the default
+destroy behaviour of the C<delete-event> signal.  See L<Gtk2::Window>
+for notes on destroy vs hide.
+
+If you add your own "Close" button to the dialog, perhaps using the
+builtin C<close> response ID, you must make your C<response> signal
+handler do whatever's needed for closing.  Often a good thing is just
+to run the C<close> action signal the same as the Esc key.
+
+    sub my_response_handler {
+      my ($dialog, $response) = @_;
+      if ($response eq 'close') {
+        $self->signal_emit ('close');
+
+      } elsif ...
+    }
+
+=cut
+
+=for position post_signals
+
+Note that currently in a Perl subclass of C<Gtk2::Dialog> a class
+closure, ie. class default signal handler, for the C<response> signal
+will be called with the response ID just as an integer, it's not
+turned into an enum string like C<"ok"> the way a handler setup with
+C<signal_connect> receives.
+
+Hopefully this will change in the future, so don't count on it.  In
+the interim the easiest thing to do is install your default handler in
+C<INIT_INSTANCE> with a C<signal_connect>.  (The subtleties of what
+order handlers are called in will differ, but often that doesn't
+matter.)
+
 =cut
 
 =for enum GtkResponseType

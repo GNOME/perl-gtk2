@@ -2,6 +2,14 @@
 
 	Merge from HEAD:
 
+	* xs/GtkDialog.xs: Add documentation about closing dialogs, and
+	mention that class closures for the response signal receive
+	unconverted response ids.  Patch by Kevin Ryde.
+
+	* xs/GtkWindow.xs: Add a couple of words about the delete-event
+	signal and its relation to window destruction and hidden windows.
+	Patch by Kevin Ryde.
+
 	* xs/GtkTreeModel.xs: Document that class closures in Perl
 	subclasses for the rows-reordered signal receive an incorrect
 	reorder array parameter, unlike normal signal handlers.  Patch by
