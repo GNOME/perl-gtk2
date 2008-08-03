@@ -1,5 +1,9 @@
 2008-08-03  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
+	* xs/GtkTreeModel.xs (gtk2perl_tree_model_rows_reordered_marshal)
+	* t/GtkTreeModelIface.t: Fix marshaling of the rows-reordered
+	signal for custom Perl tree models.  Patch by Kevin Ryde.
+
 	* xs/GtkAboutDialog.xs: Don't define macros inside a MODULE
 	section.  Older xsubpp can't handle that.
 
