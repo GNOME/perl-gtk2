@@ -42,6 +42,13 @@ gtk2perl_tree_model_rows_reordered_marshal (GClosure * closure,
 	int n_children, i;
 	dGPERL_CLOSURE_MARSHAL_ARGS;
 
+	/* If model is a Perl object then gtk_tree_model_iter_n_children()
+	   will call out to ITER_N_CHILDREN in the class, so do that before
+	   trying to build the stack here. */
+	model = g_value_get_object (param_values);
+	iter = g_value_get_boxed (param_values+2);
+	n_children = gtk_tree_model_iter_n_children (model, iter);
+
 	GPERL_CLOSURE_MARSHAL_INIT (closure, marshal_data);
 
 	PERL_UNUSED_VAR (return_value);
@@ -55,18 +62,15 @@ gtk2perl_tree_model_rows_reordered_marshal (GClosure * closure,
 
 	/* instance */
 	GPERL_CLOSURE_MARSHAL_PUSH_INSTANCE (param_values);
-	model = SvGtkTreeModel(instance);
 
 	/* treepath */
 	XPUSHs (sv_2mortal (gperl_sv_from_value (param_values+1)));
 
 	/* treeiter */
 	XPUSHs (sv_2mortal (gperl_sv_from_value (param_values+2)));
-	iter = g_value_get_boxed (param_values+2);
 
 	/* gint * new_order */
 	new_order = g_value_get_pointer (param_values+3);
-	n_children = gtk_tree_model_iter_n_children (model, iter);
 	av = newAV ();
 	av_extend (av, n_children-1);
 	for (i = 0; i < n_children; i++)

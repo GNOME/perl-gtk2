@@ -346,7 +346,7 @@ sub sort {
 
 package main;
 
-use Gtk2::TestHelper tests => 166, noinit => 1;
+use Gtk2::TestHelper tests => 174, noinit => 1;
 use strict;
 use warnings;
 
@@ -392,6 +392,24 @@ is ($model->get($iter, 1), '12th');
 
 $model->ref_node ($iter);
 $model->unref_node ($iter);
+
+{ my $signal_finished = 0;
+  my $len = @{$model->{data}};
+  my @array = (0 .. $len-1);
+  my $id = $model->signal_connect (rows_reordered => sub {
+                                     my ($s_model, $path, $iter, $aref) = @_;
+                                     is ($s_model, $model);
+                                     isa_ok ($path, "Gtk2::TreePath");
+                                     my @indices = $path->get_indices;
+                                     is_deeply (\@indices, []);
+                                     is ($iter, undef);
+                                     is_deeply ($aref, \@array);
+                                     $signal_finished = 1;
+                                   });
+  $model->rows_reordered (Gtk2::TreePath->new, undef, @array);
+  ok ($signal_finished, 'rows-reordered signal ran');
+  $model->signal_handler_disconnect ($id);
+}
 
 my $sorter_two = sub {
 	my ($list, $a, $b, $data) = @_;
