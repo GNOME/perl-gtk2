@@ -1,3 +1,12 @@
+2008-08-03  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
+	Merge from HEAD:
+
+	* xs/GtkTreeModel.xs: Document that class closures in Perl
+	subclasses for the rows-reordered signal receive an incorrect
+	reorder array parameter, unlike normal signal handlers.  Patch by
+	Kevin Ryde.
+
 2008-07-13  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
 	Merge from HEAD:
