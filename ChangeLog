@@ -1,3 +1,9 @@
+2008-08-05  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
+	* t/GtkAccelGroup.t
+	* xs/GtkAccelGroup.xs: Wrap gtk_accel_group_get_is_locked and
+	gtk_accel_group_get_modifier_mask.
+
 2008-08-03  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
 	* xs/GtkTreeModel.xs (gtk2perl_tree_model_rows_reordered_marshal)

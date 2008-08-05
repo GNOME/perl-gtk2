@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 17;
+use Gtk2::TestHelper tests => 19;
 
 # $Header$
 
@@ -61,6 +61,14 @@ SKIP: {
 
 is($group -> disconnect($closure), 1);
 ok(not $group -> disconnect($closure));
+
+SKIP: {
+  skip 'new 2.14 stuff', 2
+    unless Gtk2->CHECK_VERSION (2, 13, 6); # FIXME: 2.14
+
+  is ($group->get_is_locked, FALSE);
+  ok (defined $group->get_modifier_mask);
+}
 
 __END__
 

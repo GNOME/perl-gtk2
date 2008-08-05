@@ -154,6 +154,14 @@ gtk_accel_group_disconnect_key (accel_group, accel_key, accel_mods)
 # the perl level.
 ## GtkAccelGroup* gtk_accel_group_from_accel_closure (GClosure *closure)
 
+#if GTK_CHECK_VERSION (2, 13, 6) /* FIXME: 2.14 */
+
+gboolean gtk_accel_group_get_is_locked (GtkAccelGroup *accel_group);
+
+GdkModifierType gtk_accel_group_get_modifier_mask (GtkAccelGroup *accel_group);
+
+#endif
+
 MODULE = Gtk2::AccelGroup	PACKAGE = Gtk2::Accelerator	PREFIX = gtk_accelerator_
 
 ## void gtk_accelerator_parse (const gchar *accelerator, guint *accelerator_key, GdkModifierType *accelerator_mods)
