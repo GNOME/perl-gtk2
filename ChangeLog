@@ -3,6 +3,10 @@
 	* t/GtkBuilder.t: Merge the UI definitions and, more importantly,
 	make it work correctly with newer gtk+.
 
+	* t/GtkBuilder.t
+	* xs/GtkBuilder.xs: Wrap gtk_builder_add_objects_from_file and
+	gtk_builder_add_objects_from_string.
+
 2008-08-05  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
 	* t/GtkAccelGroup.t

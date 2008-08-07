@@ -2,7 +2,7 @@
 use strict;
 use warnings;
 use Gtk2::TestHelper
-  tests => 37,
+  tests => 45,
   at_least_version => [2, 12, 0, 'GtkBuildable: it appeared in 2.12'];
 
 # $Id$
@@ -51,6 +51,37 @@ $builder->set_translation_domain (undef);
 is ($builder->get_translation_domain, undef);
 $builder->set_translation_domain ('de');
 is ($builder->get_translation_domain, 'de');
+
+SKIP: {
+  skip 'new 2.14 stuff', 8
+    unless Gtk2->CHECK_VERSION (2, 13, 6); # FIXME: 2.14
+
+  my $builder = Gtk2::Builder->new;
+  eval {
+    ok ($builder->add_objects_from_file ($ui_file, qw/adjustment1 spinbutton1/));
+  };
+  is ($@, '');
+  ok (defined $builder->get_object ('adjustment1') &&
+      defined $builder->get_object ('spinbutton1'));
+
+  eval {
+    $builder->add_objects_from_file ('bla.ui', qw/adjustment1 spinbutton1/);
+  };
+  like ($@, qr/bla\.ui/);
+
+  $builder = Gtk2::Builder->new;
+  eval {
+    ok ($builder->add_objects_from_string ($ui, qw/adjustment1 spinbutton1/));
+  };
+  is ($@, '');
+  ok (defined $builder->get_object ('adjustment1') &&
+      defined $builder->get_object ('spinbutton1'));
+
+  eval {
+    $builder->add_objects_from_string ('<bla>', qw/adjustment1 spinbutton1/);
+  };
+  like ($@, qr/bla/);
+}
 
 unlink $ui_file;
 
