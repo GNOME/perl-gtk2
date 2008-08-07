@@ -1,3 +1,10 @@
+2008-08-07  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
+	Merge from HEAD:
+
+	* t/GtkBuilder.t: Merge the UI definitions and, more importantly,
+	make it work correctly with newer gtk+.
+
 2008-08-03  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
 	Merge from HEAD:

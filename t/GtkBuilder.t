@@ -12,16 +12,15 @@ my $ui = <<EOD;
 <interface>
   <object class="GtkAdjustment" id="adjustment1">
     <property name="lower">0</property>
-    <property name="upper">10</property>
-    <property name="step-increment">2</property>
-    <property name="page-increment">3</property>
-    <property name="page-size">5</property>
-    <property name="value">1</property>
+    <property name="upper">5</property>
+    <property name="step-increment">1</property>
+    <property name="value">5</property>
   </object>
   <object class="GtkSpinButton" id="spinbutton1">
     <property name="visible">True</property>
     <property name="adjustment">adjustment1</property>
     <signal name="value-changed" handler="value_changed" object="adjustment1" after="yes"/>
+    <signal name="wrapped" handler="wrapped"/>
   </object>
 </interface>
 EOD
@@ -81,6 +80,10 @@ $builder->connect_signals_full(sub {
       $flags,
       $data) = @_;
 
+  if ($signal_name ne 'value-changed') {
+    return;
+  }
+
   isa_ok ($builder, 'Gtk2::Builder');
   isa_ok ($object, 'Gtk2::SpinButton');
   is ($signal_name, 'value-changed');
@@ -89,27 +92,6 @@ $builder->connect_signals_full(sub {
   ok ($flags == [ qw/after swapped/ ]);
   is ($data, 'data');
 }, 'data');
-
-# --------------------------------------------------------------------------- #
-
-$ui = <<EOD;
-<interface>
-  <object class="GtkAdjustment" id="adjustment1">
-    <property name="lower">0</property>
-    <property name="upper">10</property>
-    <property name="step-increment">2</property>
-    <property name="page-increment">3</property>
-    <property name="page-size">5</property>
-    <property name="value">10</property>
-  </object>
-  <object class="GtkSpinButton" id="spinbutton1">
-    <property name="visible">True</property>
-    <property name="adjustment">adjustment1</property>
-    <signal name="value-changed" handler="value_changed" object="adjustment1" after="yes"/>
-    <signal name="wrapped" handler="wrapped"/>
-  </object>
-</interface>
-EOD
 
 # --------------------------------------------------------------------------- #
 
