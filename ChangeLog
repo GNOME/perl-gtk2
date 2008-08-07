@@ -1,3 +1,10 @@
+2008-08-08  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
+	* xs/GdkCairo.xs
+	* xs/GdkProperty.xs
+	* xs/GtkBuilder.xs
+	* xs/GtkSelection.xs: Fix some POD glitches.
+
 2008-08-07  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
 	* t/GtkBuilder.t: Merge the UI definitions and, more importantly,

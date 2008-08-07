@@ -184,7 +184,7 @@ const gchar_ornull * gtk_builder_get_translation_domain (GtkBuilder *builder);
 =cut
 # guint gtk_builder_add_objects_from_file (GtkBuilder *builder, const gchar *filename, gchar **object_ids, GError **error);
 guint
-gtk_builder_add_objects_from_file (GtkBuilder *builder, const gchar *filename, const gchar *first_object_id, ...)
+gtk_builder_add_objects_from_file (GtkBuilder *builder, const gchar *filename, gchar *first_object_id, ...)
     PREINIT:
 	gchar **object_ids = NULL;
 	GError *error = NULL;
@@ -192,7 +192,8 @@ gtk_builder_add_objects_from_file (GtkBuilder *builder, const gchar *filename, c
     CODE:
 #define FIRST_ITEM 2
 	object_ids = g_new0 (gchar *, items - FIRST_ITEM + 1); /* NULL-terminate */
-	for (i = FIRST_ITEM; i < items; i++) {
+	object_ids[0] = first_object_id;
+	for (i = FIRST_ITEM + 1; i < items; i++) {
 		object_ids[i - FIRST_ITEM] = SvGChar (ST (i));
 	}
 	RETVAL = gtk_builder_add_objects_from_file (
@@ -207,7 +208,7 @@ gtk_builder_add_objects_from_file (GtkBuilder *builder, const gchar *filename, c
 
 # guint gtk_builder_add_objects_from_string (GtkBuilder *builder, const gchar *buffer, gsize length, gchar **object_ids, GError **error);
 guint
-gtk_builder_add_objects_from_string (GtkBuilder *builder, const gchar *buffer, const gchar *first_object_id, ...)
+gtk_builder_add_objects_from_string (GtkBuilder *builder, const gchar *buffer, gchar *first_object_id, ...)
     PREINIT:
 	gchar **object_ids = NULL;
 	GError *error = NULL;
@@ -215,7 +216,8 @@ gtk_builder_add_objects_from_string (GtkBuilder *builder, const gchar *buffer, c
     CODE:
 #define FIRST_ITEM 2
 	object_ids = g_new0 (gchar *, items - FIRST_ITEM + 1); /* NULL-terminate */
-	for (i = FIRST_ITEM; i < items; i++) {
+	object_ids[0] = first_object_id;
+	for (i = FIRST_ITEM + 1; i < items; i++) {
 		object_ids[i - FIRST_ITEM] = SvGChar (ST (i));
 	}
 	RETVAL = gtk_builder_add_objects_from_string (

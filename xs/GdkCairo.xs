@@ -32,8 +32,9 @@ void gdk_cairo_set_source_color (cairo_t *cr, GdkColor *color);
 void gdk_cairo_set_source_pixbuf (cairo_t *cr, GdkPixbuf *pixbuf, double pixbuf_x, double pixbuf_y);
 
 =for apidoc
-=for signature $cr->rectangle (rectangle)
-=for arg rectangle Gtk2::Gdk::Rectangle
+=for signature $cr->rectangle ($rectangle)
+=for arg rectangle (Gtk2::Gdk::Rectangle)
+=for arg ... (__hide__)
 =cut
 # void gdk_cairo_rectangle (cairo_t *cr, GdkRectangle *rectangle);
 void

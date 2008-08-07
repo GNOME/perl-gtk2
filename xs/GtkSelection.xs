@@ -338,7 +338,7 @@ MODULE = Gtk2::Selection	PACKAGE = Gtk2	PREFIX = gtk_
 =for object Gtk2::Selection
 =cut
 
-gboolean gtk_targets_include_text (class, first_target_atom, ...)
+gboolean gtk_targets_include_text (class, GdkAtom first_target_atom, ...)
     ALIAS:
         targets_include_uri = 1
     PREINIT:
@@ -348,7 +348,8 @@ gboolean gtk_targets_include_text (class, first_target_atom, ...)
     CODE:
         n_targets = items - 1;
         targets = g_new (GdkAtom, n_targets);
-        for (i = 1; i < items ; i++)
+	targets[0] = first_target_atom;
+        for (i = 2; i < items ; i++)
                 targets[i-1] = SvGdkAtom (ST (i));
         if (ix == 1)
                 RETVAL = gtk_targets_include_uri (targets, n_targets);
@@ -358,7 +359,7 @@ gboolean gtk_targets_include_text (class, first_target_atom, ...)
     OUTPUT:
         RETVAL
 
-gboolean gtk_targets_include_rich_text (class, GtkTextBuffer * buffer, first_target_atom, ...)
+gboolean gtk_targets_include_rich_text (class, GtkTextBuffer * buffer, GdkAtom first_target_atom, ...)
     PREINIT:
         GdkAtom * targets;
         gint n_targets;
@@ -366,14 +367,15 @@ gboolean gtk_targets_include_rich_text (class, GtkTextBuffer * buffer, first_tar
     CODE:
         n_targets = items - 2;
         targets = g_new (GdkAtom, n_targets);
-        for (i = 2; i < items ; i++)
+	targets[0] = first_target_atom;
+        for (i = 3; i < items ; i++)
                 targets[i-2] = SvGdkAtom (ST (i));
         RETVAL = gtk_targets_include_rich_text (targets, n_targets, buffer);
         g_free (targets);
     OUTPUT:
         RETVAL
 
-gboolean gtk_targets_include_image (class, gboolean writable, first_target_atom, ...)
+gboolean gtk_targets_include_image (class, gboolean writable, GdkAtom first_target_atom, ...)
     PREINIT:
         GdkAtom * targets;
         gint n_targets;
@@ -381,7 +383,8 @@ gboolean gtk_targets_include_image (class, gboolean writable, first_target_atom,
     CODE:
         n_targets = items - 2;
         targets = g_new (GdkAtom, n_targets);
-        for (i = 2; i < items ; i++)
+	targets[0] = first_target_atom;
+        for (i = 3; i < items ; i++)
                 targets[i-2] = SvGdkAtom (ST (i));
         RETVAL = gtk_targets_include_image (targets, n_targets, writable);
         g_free (targets);
