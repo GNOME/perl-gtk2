@@ -1,3 +1,8 @@
+2008-08-07  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
+	* t/GtkBuilder.t: Merge the UI definitions and, more importantly,
+	make it work correctly with newer gtk+.
+
 2008-08-05  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
 	* t/GtkAccelGroup.t
