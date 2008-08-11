@@ -1,5 +1,10 @@
 2008-08-11  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
+	* t/02.GtkContainer.t
+	* xs/GtkContainer.xs: Wrap gtk_container_get_focus_child.  Allow
+	undef for the focus child argument to
+	gtk_container_set_focus_child.
+
 	* t/GtkClipboard.t
 	* xs/GtkClipboard.xs: Wrap gtk_clipboard_request_uris,
 	gtk_clipboard_wait_for_uris, and
