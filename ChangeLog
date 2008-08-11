@@ -1,3 +1,8 @@
+2008-08-11  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
+	* t/GtkCalendar.t
+	* xs/GtkCalendar.xs: Wrap gtk_calendar_set_detail_func.
+
 2008-08-08  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
 	* xs/GdkCairo.xs

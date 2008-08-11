@@ -8,6 +8,42 @@
 
 #include "gtk2perl.h"
 
+#if GTK_CHECK_VERSION (2, 13, 6) /* FIXME: 2.14*/
+
+static GPerlCallback *
+gtk2perl_calendar_detail_func_create (SV * func, SV * data)
+{
+	GType param_types [4];
+	param_types[0] = GTK_TYPE_CALENDAR;
+	param_types[1] = G_TYPE_UINT;
+	param_types[2] = G_TYPE_UINT;
+	param_types[3] = G_TYPE_UINT;
+	return gperl_callback_new (func, data, G_N_ELEMENTS (param_types),
+				   param_types, G_TYPE_STRING);
+}
+
+static gchar *
+gtk2perl_calendar_detail_func (GtkCalendar *calendar,
+			       guint year,
+			       guint month,
+			       guint day,
+			       gpointer user_data)
+{
+	GPerlCallback * callback = (GPerlCallback*)user_data;
+	GValue value = {0,};
+	gchar * retval;
+
+	g_value_init (&value, callback->return_type);
+	gperl_callback_invoke (callback, &value, calendar, year, month, day);
+	/* caller owns return value */
+	retval = g_value_dup_string (&value);
+	g_value_unset (&value);
+
+	return retval;
+}
+
+#endif /* 2.14 */
+
 MODULE = Gtk2::Calendar	PACKAGE = Gtk2::Calendar	PREFIX = gtk_calendar_
 
 =for apidoc marked_date
@@ -151,3 +187,17 @@ void
 gtk_calendar_thaw (calendar)
 	GtkCalendar * calendar
 
+#if GTK_CHECK_VERSION (2, 13, 6) /* FIXME: 2.14*/
+
+## void gtk_calendar_set_detail_func (GtkCalendar *calendar, GtkCalendarDetailFunc func, gpointer data, GDestroyNotify destroy)
+void gtk_calendar_set_detail_func (GtkCalendar *calendar, SV *func, SV *data=NULL)
+    PREINIT:
+	GPerlCallback * callback;
+    CODE:
+	callback = gtk2perl_calendar_detail_func_create (func, data);
+	gtk_calendar_set_detail_func (calendar,
+				      gtk2perl_calendar_detail_func,
+				      callback,
+				      (GDestroyNotify) gperl_callback_destroy);
+
+#endif /* 2.14 */

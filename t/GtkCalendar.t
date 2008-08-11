@@ -1,3 +1,4 @@
+#!/usr/bin/perl
 #
 # $Header$
 #
@@ -7,7 +8,7 @@
 # 	- rm
 #########################
 
-use Gtk2::TestHelper tests => 11, noinit => 1;
+use Gtk2::TestHelper tests => 16;
 
 ok( my $cal = Gtk2::Calendar->new );
 
@@ -44,7 +45,32 @@ $cal->display_options ([qw/show-day-names no-month-change/]);
 $cal->set_display_options ([qw/show-day-names no-month-change/]);
 ok ($cal->get_display_options == [qw/show-day-names no-month-change/]);
 
-1;
+SKIP: {
+	skip 'new 2.14 stuff', 5
+		unless Gtk2->CHECK_VERSION(2, 13, 6); # FIXME: 2.14
+
+	my $cal = Gtk2::Calendar->new;
+
+	my $number = qr/\A\d+\z/;
+	my $called = 0;
+	$cal->set_detail_func(sub {
+		my ($tmp_cal, $year, $month, $day, $data) = @_;
+
+		unless ($called++) {
+			is ($tmp_cal, $cal);
+			like ($year, $number);
+			like ($month, $number);
+			like ($day, $number);
+			is ($data, undef);
+		}
+
+		return '<b>bla</b>';
+	});
+
+	my $window = Gtk2::Window->new;
+	$window->add ($cal);
+	$window->show_all;
+}
 
 __END__
 
