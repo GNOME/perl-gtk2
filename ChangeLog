@@ -1,5 +1,11 @@
 2008-08-11  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
+	* t/GtkClipboard.t
+	* xs/GtkClipboard.xs: Wrap gtk_clipboard_request_uris,
+	gtk_clipboard_wait_for_uris, and
+	gtk_clipboard_wait_is_uris_available.  Also fix the rich text
+	tests.
+
 	* t/GtkCalendar.t
 	* xs/GtkCalendar.xs: Wrap gtk_calendar_set_detail_func.
 

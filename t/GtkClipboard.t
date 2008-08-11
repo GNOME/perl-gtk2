@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 # vim: set ft=perl :
-use Gtk2::TestHelper tests => 95,
+use Gtk2::TestHelper tests => 101,
 	at_least_version => [2, 2, 0, "GtkClipboard didn't exist in 2.0.x"];
 
 # $Header$
@@ -88,29 +88,65 @@ SKIP: {
 }
 
 SKIP: {
-        skip "new stuff in 2.10", 6
+        skip "new stuff in 2.10", 7
                 unless Gtk2->CHECK_VERSION (2, 10, 0);
+
+	my $test_text = 'test test test';
 
 	my $buffer = Gtk2::TextBuffer->new;
 	$buffer->insert ($buffer->get_start_iter, 'bla!');
-	$buffer->register_serialize_format (
-		'text/rdf',
-		sub { warn "here"; return 'bla!'; });
 	$buffer->register_deserialize_format (
 		'text/rdf',
 		sub { warn "here"; $_[1]->insert ($_[2], 'bla!'); });
+
+	$clipboard->set_with_data (
+		sub {
+			my ($clipboard, $selection_data, $info, $data) = @_;
+			$selection_data->set (Gtk2::Gdk::Atom->new ('text/rdf'),
+					      8, $data);
+		},
+		sub {},
+		$test_text,
+		{target=>'text/rdf'});
 
 	$clipboard->request_rich_text ($buffer, sub {
 		# print "hello from the callback\n" . Dumper(\@_);
 		is ($_[0], $clipboard);
 		is ($_[1]->name, 'text/rdf');
-		is ($_[2], undef); # FIXME
-		is ($_[3], 'user data!');
-	}, 'user data!');
+		is ($_[2], $test_text);
+		is ($_[3], undef);
+	});
 
-	# FIXME
-	ok (!$clipboard->wait_is_rich_text_available ($buffer));
-	is ($clipboard->wait_for_rich_text ($buffer), undef);
+	ok ($clipboard->wait_is_rich_text_available ($buffer));
+
+	my ($data, $atom) = $clipboard->wait_for_rich_text ($buffer);
+	is ($data, $test_text);
+	is ($atom->name, 'text/rdf');
+}
+
+SKIP: {
+	skip 'new uris stuff', 5
+		unless Gtk2->CHECK_VERSION (2, 13, 6); # FIXME: 2.14
+
+	my @uris = ('file:///foo/bar', 'file:///bar/foo');
+	$clipboard->set_with_data (
+		sub {
+			my ($clipboard, $selection_data, $info, $data) = @_;
+			$selection_data->set_uris (@$data);
+		},
+		sub {},
+		\@uris,
+		{target=>'text/uri-list'});
+
+	is ($clipboard->wait_is_uris_available, TRUE);
+
+	is_deeply ($clipboard->wait_for_uris, \@uris);
+	$clipboard->request_uris (sub {
+		my ($tmp_clipboard, $tmp_uris, $data) = @_;
+		is ($tmp_clipboard, $clipboard);
+		is_deeply ($tmp_uris, \@uris);
+		is ($data, undef);
+	});
 }
 
 run_main;

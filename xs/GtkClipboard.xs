@@ -138,6 +138,19 @@ gtk2perl_clipboard_rich_text_received_func (GtkClipboard     *clipboard,
 
 #endif /* 2.10 */
 
+#if GTK_CHECK_VERSION (2, 13, 6) /* FIXME: 2.14*/
+
+static void
+gtk2perl_clipboard_uri_received_func (GtkClipboard *clipboard,
+				      gchar **uris,
+				      gpointer data)
+{
+	/* uris is not owned by us */
+        gperl_callback_invoke ((GPerlCallback*) data, NULL, clipboard, uris);
+}
+
+#endif /* 2.14 */
+
 #endif /* defined GTK_TYPE_CLIPBOARD */
 
 MODULE = Gtk2::Clipboard	PACKAGE = Gtk2::Clipboard	PREFIX = gtk_clipboard_
@@ -515,5 +528,38 @@ gtk_clipboard_wait_for_rich_text (clipboard, buffer)
 gboolean gtk_clipboard_wait_is_rich_text_available (GtkClipboard  *clipboard, GtkTextBuffer *buffer)
 
 #endif /* 2.10.0 */
+
+#if GTK_CHECK_VERSION (2, 13, 6) /* FIXME: 2.14*/
+
+# void gtk_clipboard_request_uris (GtkClipboard *clipboard, GtkClipboardURIReceivedFunc callback, gpointer user_data);
+void
+gtk_clipboard_request_uris (GtkClipboard *clipboard, SV *func, SV *data=NULL)
+    PREINIT:
+	GPerlCallback * callback;
+	GType param_types[2];
+    CODE:
+	param_types[0] = GTK_TYPE_CLIPBOARD;
+	param_types[1] = G_TYPE_STRV;
+	callback = gperl_callback_new (func, data,
+				       G_N_ELEMENTS (param_types),
+				       param_types, G_TYPE_NONE);
+	gtk_clipboard_request_uris (clipboard,
+				    gtk2perl_clipboard_uri_received_func,
+				    callback);
+
+# gchar** gtk_clipboard_wait_for_uris (GtkClipboard *clipboard);
+SV *
+gtk_clipboard_wait_for_uris (GtkClipboard *clipboard)
+    PREINIT:
+	gchar **strv;
+    CODE:
+	strv = gtk_clipboard_wait_for_uris (clipboard);
+	RETVAL = gperl_new_boxed (strv, G_TYPE_STRV, TRUE); /* we own the strv */
+    OUTPUT:
+	RETVAL
+
+gboolean gtk_clipboard_wait_is_uris_available (GtkClipboard *clipboard);
+
+#endif /* 2.14 */
 
 #endif /* defined GTK_TYPE_CLIPBOARD */
