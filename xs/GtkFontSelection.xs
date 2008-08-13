@@ -56,6 +56,28 @@ const gchar *
 gtk_font_selection_get_preview_text (fontsel)
 	GtkFontSelection * fontsel
 
+#if GTK_CHECK_VERSION (2, 13, 6) /* FIXME: 2.14*/
+
+# We don't own the face, so no _noinc.
+PangoFontFace * gtk_font_selection_get_face (GtkFontSelection *fontsel);
+
+GtkWidget * gtk_font_selection_get_face_list (GtkFontSelection *fontsel);
+
+# We don't own the family, so no _noinc.
+PangoFontFamily * gtk_font_selection_get_family (GtkFontSelection *fontsel);
+
+GtkWidget * gtk_font_selection_get_family_list (GtkFontSelection *fontsel);
+
+GtkWidget * gtk_font_selection_get_preview_entry (GtkFontSelection *fontsel);
+
+gint gtk_font_selection_get_size (GtkFontSelection *fontsel);
+
+GtkWidget * gtk_font_selection_get_size_entry (GtkFontSelection *fontsel);
+
+GtkWidget * gtk_font_selection_get_size_list (GtkFontSelection *fontsel);
+
+#endif /* 2.14 */
+
 MODULE = Gtk2::FontSelection	PACKAGE = Gtk2::FontSelectionDialog	PREFIX = gtk_font_selection_dialog_
 
 ## GtkWidget* gtk_font_selection_dialog_new (const gchar *title)
@@ -65,21 +87,54 @@ gtk_font_selection_dialog_new (class, title)
     C_ARGS:
 	title
 
+=for apidoc Gtk2::FontSelectionDialog::ok_button __hide__
+=cut
+
+=for apidoc Gtk2::FontSelectionDialog::apply_button __hide__
+=cut
+
+=for apidoc Gtk2::FontSelectionDialog::cancel_button __hide__
+=cut
+
 GtkWidget *
-ok_button (fsd)
+get_ok_button (fsd)
 	GtkFontSelectionDialog * fsd
     ALIAS:
-	Gtk2::FontSelectionDialog::apply_button = 1
-	Gtk2::FontSelectionDialog::cancel_button = 2
+	Gtk2::FontSelectionDialog::ok_button = 1
+	Gtk2::FontSelectionDialog::get_apply_button = 2
+	Gtk2::FontSelectionDialog::apply_button = 3
+	Gtk2::FontSelectionDialog::get_cancel_button = 4
+	Gtk2::FontSelectionDialog::cancel_button = 5
     CODE:
 	switch(ix)
 	{
-		case 0:	RETVAL = fsd->ok_button; break;
-		case 1:	RETVAL = fsd->apply_button; break;
-		case 2:	RETVAL = fsd->cancel_button; break;
-		default: 
-			RETVAL = NULL;
-			g_assert_not_reached ();
+	case 0:
+	case 1:
+#if GTK_CHECK_VERSION (2, 13, 6) /* FIXME: 2.14*/
+		RETVAL = gtk_font_selection_dialog_get_ok_button (fsd);
+#else
+		RETVAL = fsd->ok_button;
+#endif
+		break;
+	case 2:
+	case 3:
+#if GTK_CHECK_VERSION (2, 13, 6) /* FIXME: 2.14*/
+		RETVAL = gtk_font_selection_dialog_get_apply_button (fsd);
+#else
+		RETVAL = fsd->apply_button;
+#endif
+		break;
+	case 4:
+	case 5:
+#if GTK_CHECK_VERSION (2, 13, 6) /* FIXME: 2.14*/
+		RETVAL = gtk_font_selection_dialog_get_cancel_button (fsd);
+#else
+		RETVAL = fsd->cancel_button;
+#endif
+		break;
+	default:
+		RETVAL = NULL;
+		g_assert_not_reached ();
 	}
     OUTPUT:
 	RETVAL

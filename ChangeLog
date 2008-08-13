@@ -1,5 +1,20 @@
 2008-08-13  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
+	* t/GtkFontSelection.t
+	* xs/GtkFontSelection.xs: Wrap gtk_font_selection_get_face,
+	gtk_font_selection_get_face_list, gtk_font_selection_get_family,
+	gtk_font_selection_get_family_list,
+	gtk_font_selection_get_preview_entry, gtk_font_selection_get_size,
+	gtk_font_selection_get_size_entry, and
+	gtk_font_selection_get_size_list.  Use
+	gtk_font_selection_dialog_get_ok_button,
+	gtk_font_selection_dialog_get_apply_button, and
+	gtk_font_selection_dialog_get_cancel_button if available to
+	implement Gtk2::FontSelectionDialog->get_ok_button,
+	get_apply_button, and get_cancel_button.  Deprecate
+	Gtk2::FontSelectionDialog->ok_button, apply_button, and
+	cancel_button.
+
 	* t/GtkDialog.t
 	* xs/GtkDialog.xs: Use gtk_dialog_get_content_area and
 	gtk_dialog_get_action_area if available to implement
