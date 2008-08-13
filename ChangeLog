@@ -1,3 +1,12 @@
+2008-08-13  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
+	* t/GtkDialog.t
+	* xs/GtkDialog.xs: Use gtk_dialog_get_content_area and
+	gtk_dialog_get_action_area if available to implement
+	Gtk2::Dialog->get_content_area and Gtk2::Dialog->get_action_area,
+	and fallback to direct struct access otherwise.  Deprecate
+	Gtk2::Dialog->vbox and Gtk2::Dialog->action_area.
+
 2008-08-11  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
 	* t/02.GtkContainer.t

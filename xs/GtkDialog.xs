@@ -109,7 +109,7 @@ MODULE = Gtk2::Dialog	PACKAGE = Gtk2::Dialog	PREFIX = gtk_dialog_
                                'gtk-cancel' => 'cancel',
                                'Do it'      => 'ok');
   # create window contents for yourself.
-  $dialog->vbox->add ($some_widget);
+  $dialog->get_content_area ()->add ($some_widget);
 
   $dialog->set_default_response ('ok');
 
@@ -146,8 +146,8 @@ allows you to set the dialog title, some convenient flags, and add simple
 buttons all in one go.
 
 If I<$dialog> is a newly created dialog, the two primary areas of the window
-can be accessed as C<< $dialog->vbox >> and C<< $dialog->action_area >>, as can
-be seen from the example, below. 
+can be accessed as C<< $dialog->get_content_area () >> and
+C<< $dialog->get_action_area () >>, as can be seen from the example, below.
 
 A 'modal' dialog (that is, one which freezes the rest of the application from
 user input), can be created by calling the Gtk2::Window method C<set_modal> on
@@ -178,7 +178,7 @@ dialog contents manually if you had more than a simple message in the dialog.
                                     'destroy-with-parent',
                                     'gtk-ok' => 'none');
     my $label = Gtk2::Label->new (message);
-    $dialog->vbox->add ($label);
+    $dialog->get_content_area ()->add ($label);
 
     # Ensure that the dialog box is destroyed when the user responds.
     $dialog->signal_connect (response => sub { $_[0]->destroy });
@@ -247,16 +247,37 @@ BOOT:
 	gperl_signal_set_marshaller_for (GTK_TYPE_DIALOG, "response",
 	                                 gtk2perl_dialog_response_marshal);
 
+=for apidoc Gtk2::Dialog::vbox __hide__
+=cut
+
+=for apidoc Gtk2::Dialog::action_area __hide__
+=cut
+
 GtkWidget *
-vbox (dialog)
+get_content_area (dialog)
 	GtkDialog * dialog
     ALIAS:
-	Gtk2::Dialog::action_area = 1
+	Gtk2::Dialog::vbox = 1
+	Gtk2::Dialog::get_action_area = 2
+	Gtk2::Dialog::action_area = 3
     CODE:
-	switch(ix)
-	{
-	case(0): RETVAL = dialog->vbox; 	break;
-	case(1): RETVAL = dialog->action_area;	break;
+	switch(ix) {
+	case 0:
+	case 1:
+#if GTK_CHECK_VERSION (2, 13, 6) /* FIXME: 2.14*/
+		RETVAL = gtk_dialog_get_content_area (dialog);
+#else
+		RETVAL = dialog->vbox;
+#endif
+		break;
+	case 2:
+	case 3:
+#if GTK_CHECK_VERSION (2, 13, 6) /* FIXME: 2.14*/
+		RETVAL = gtk_dialog_get_action_area (dialog);
+#else
+		RETVAL = dialog->action_area;
+#endif
+		break;
 	default:
 		RETVAL = NULL;
 		g_assert_not_reached ();
@@ -291,7 +312,7 @@ Alias for the multi-argument version of C<< Gtk2::Dialog->new >>.
 
 The multi-argument form takes the same list of text => response-id pairs as
 C<< $dialog->add_buttons >>.  Do not pack widgets directly into the window;
-add them to C<< $dialog->vbox >>.
+add them to C<< $dialog->get_content_area () >>.
 
 Here's a simple example:
 
