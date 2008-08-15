@@ -1,5 +1,8 @@
 2008-08-15  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
+	* t/GtkSocket-GtkPlug.t
+	* xs/GtkSocket.xs: Wrap gtk_socket_get_plug_window.
+
 	* t/GtkScaleButton.t
 	* xs/GtkScaleButton.xs: Wrap gtk_scale_button_get_popup,
 	gtk_scale_button_get_plus_button, and

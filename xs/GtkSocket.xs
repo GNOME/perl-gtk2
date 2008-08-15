@@ -50,5 +50,11 @@ gtk_socket_steal (socket, wid)
 	GtkSocket       * socket
 	GdkNativeWindow   wid
 
+#if GTK_CHECK_VERSION (2, 13, 6) /* FIXME: 2.14*/
+
+GdkWindow_ornull * gtk_socket_get_plug_window (GtkSocket *socket_);
+
+#endif /* 2.14 */
+
 #endif
 

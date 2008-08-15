@@ -1,12 +1,10 @@
-#########################
+#!/usr/bin/perl
 #
 # $Header$
 #
 
-#########################
-
 # ...despite patches that have been around for a long time, no win32
-use Gtk2::TestHelper tests => 4, nowin32 => 1;
+use Gtk2::TestHelper tests => 6, nowin32 => 1;
 
 SKIP: {
 
@@ -19,6 +17,16 @@ ok( my $socket = Gtk2::Socket->new );
 $win->add($socket);
 
 ok( my $id = $socket->get_id );
+
+SKIP: {
+	skip 'new 2.14 stuff', 2
+		unless Gtk2->CHECK_VERSION(2, 13, 6); # FIXME: 2.14
+
+	is( $socket->get_plug_window, undef );
+	$socket->signal_connect (plug_added => sub {
+		isa_ok( $socket->get_plug_window, 'Gtk2::Gdk::Window' );
+	});
+}
 
 my $str = "$^X -Mblib -e '\$id = $id;\n\n".<<EOL;
 use Gtk2;
