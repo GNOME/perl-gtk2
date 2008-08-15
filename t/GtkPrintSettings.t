@@ -108,6 +108,8 @@ SKIP: {
   };
   is($@, '');
   is($copy -> get($key), $value);
+
+  unlink $file;
 }
 
 __END__
