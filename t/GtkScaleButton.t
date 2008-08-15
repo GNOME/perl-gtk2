@@ -2,7 +2,7 @@
 use strict;
 use warnings;
 use Gtk2::TestHelper
-  tests => 5,
+  tests => 8,
   at_least_version => [2, 12, 0, 'GtkScaleButton appeared in 2.12'];
 
 # $Id$
@@ -24,6 +24,15 @@ is ($button->get_value, 50);
 my $adj = Gtk2::Adjustment->new (50, 0, 100, 2, 10, 20);
 $button->set_adjustment ($adj);
 is ($button->get_adjustment, $adj);
+
+SKIP: {
+  skip 'new 2.14 stuff', 3
+    unless Gtk2->CHECK_VERSION(2, 13, 6); # FIXME: 2.14
+
+  isa_ok ($button->get_popup (), 'Gtk2::Widget');
+  isa_ok ($button->get_plus_button (), 'Gtk2::Widget');
+  isa_ok ($button->get_minus_button (), 'Gtk2::Widget');
+}
 
 __END__
 

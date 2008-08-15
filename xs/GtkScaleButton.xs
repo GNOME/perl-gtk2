@@ -49,3 +49,13 @@ void gtk_scale_button_set_value (GtkScaleButton *button, gdouble value);
 GtkAdjustment * gtk_scale_button_get_adjustment (GtkScaleButton *button);
 
 void gtk_scale_button_set_adjustment (GtkScaleButton *button, GtkAdjustment *adjustment);
+
+#if GTK_CHECK_VERSION (2, 13, 6) /* FIXME: 2.14*/
+
+GtkWidget * gtk_scale_button_get_popup (GtkScaleButton *button);
+
+GtkWidget * gtk_scale_button_get_plus_button (GtkScaleButton *button);
+
+GtkWidget * gtk_scale_button_get_minus_button (GtkScaleButton *button);
+
+#endif /* 2.14 */

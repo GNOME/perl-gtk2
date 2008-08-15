@@ -1,5 +1,10 @@
 2008-08-15  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
+	* t/GtkScaleButton.t
+	* xs/GtkScaleButton.xs: Wrap gtk_scale_button_get_popup,
+	gtk_scale_button_get_plus_button, and
+	gtk_scale_button_get_minus_button.
+
 	* t/GtkPrintSettings.t
 	* xs/GtkPrintSettings.xs: Wrap gtk_print_settings_load_file and
 	gtk_print_settings_load_key_file.
