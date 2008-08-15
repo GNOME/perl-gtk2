@@ -1,5 +1,8 @@
 2008-08-15  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
+	* xs/GtkIconTheme.xs
+	* t/GtkIconTheme.t: Wrap gtk_icon_info_new_for_pixbuf.
+
 	* t/GtkLayout.t
 	* xs/GtkLayout.xs: Use gtk_layout_get_bin_window if available to
 	implement Gtk2::Layout->get_bin_window.  Deprecate

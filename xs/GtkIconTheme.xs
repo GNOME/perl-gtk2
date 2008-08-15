@@ -244,3 +244,13 @@ gtk_icon_info_get_attach_points (GtkIconInfo *icon_info)
 
 const gchar *gtk_icon_info_get_display_name (GtkIconInfo *icon_info);
 
+#if GTK_CHECK_VERSION (2, 13, 6) /* FIXME: 2.14*/
+
+ ## GtkIconInfo* gtk_icon_info_new_for_pixbuf (GtkIconTheme *icon_theme,  GdkPixbuf *pixbuf)
+GtkIconInfo_own *
+gtk_icon_info_new_for_pixbuf (class, GtkIconTheme *icon_theme,  GdkPixbuf *pixbuf)
+    C_ARGS:
+	icon_theme, pixbuf
+
+#endif /* 2.14 */
+
