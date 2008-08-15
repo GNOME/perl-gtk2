@@ -109,6 +109,8 @@ SKIP: {
   };
   is($@, '');
   is($copy -> get_top_margin('mm'), 23);
+
+  unlink $file;
 }
 
 __END__
