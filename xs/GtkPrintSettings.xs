@@ -94,3 +94,29 @@ GtkPrintSettings_noinc * gtk_print_settings_new_from_key_file (class, GKeyFile *
 void gtk_print_settings_to_key_file (GtkPrintSettings *settings, GKeyFile *key_file, const gchar_ornull *group_name);
 
 #endif
+
+#if GTK_CHECK_VERSION (2, 13, 6) /* FIXME: 2.14*/
+
+=for apidoc __gerror__
+=cut
+# gboolean gtk_print_settings_load_file (GtkPrintSettings *settings, const char *file_name, GError **error);
+void
+gtk_print_settings_load_file (GtkPrintSettings *settings, const char *file_name)
+    PREINIT:
+	GError *error = NULL;
+    CODE:
+	if (!gtk_print_settings_load_file (settings, file_name, &error))
+		gperl_croak_gerror (NULL, error);
+
+=for apidoc __gerror__
+=cut
+# gboolean gtk_print_settings_load_key_file (GtkPrintSettings *settings, GKeyFile *key_file, const gchar *group_name, GError **error);
+void
+gtk_print_settings_load_key_file (GtkPrintSettings *settings, GKeyFile *key_file, const gchar_ornull *group_name)
+    PREINIT:
+	GError *error = NULL;
+    CODE:
+	if (!gtk_print_settings_load_key_file (settings, key_file, group_name, &error))
+		gperl_croak_gerror (NULL, error);
+
+#endif /* 2.14 */

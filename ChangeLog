@@ -1,5 +1,9 @@
 2008-08-15  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
+	* t/GtkPrintSettings.t
+	* xs/GtkPrintSettings.xs: Wrap gtk_print_settings_load_file and
+	gtk_print_settings_load_key_file.
+
 	* t/GtkPageSetup.t
 	* xs/GtkPageSetup.xs: Wrap gtk_page_setup_load_file and
 	gtk_page_setup_load_key_file.
