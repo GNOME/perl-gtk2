@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 8;
+use Gtk2::TestHelper tests => 9;
 
 # $Header$
 
@@ -29,12 +29,15 @@ $layout -> move($label, 5, 5);
 $layout -> set_size(10, 10);
 is_deeply([$layout -> get_size()], [10, 10]);
 
-is($layout -> bin_window(), undef);
+is($layout -> get_bin_window(), undef);
 
 my $window = Gtk2::Window -> new();
 $window -> add($layout);
 $layout -> realize();
-isa_ok($layout -> bin_window(), "Gtk2::Gdk::Window");
+isa_ok($layout -> get_bin_window(), "Gtk2::Gdk::Window");
+
+# deprecated but kept for backwards compatibility
+ok($layout -> bin_window() == $layout -> get_bin_window());
 
 __END__
 

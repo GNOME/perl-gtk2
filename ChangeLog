@@ -1,3 +1,10 @@
+2008-08-15  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
+	* t/GtkLayout.t
+	* xs/GtkLayout.xs: Use gtk_layout_get_bin_window if available to
+	implement Gtk2::Layout->get_bin_window.  Deprecate
+	Gtk2::Layout->bin_window.
+
 2008-08-13  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
 	* t/GtkFontSelection.t
