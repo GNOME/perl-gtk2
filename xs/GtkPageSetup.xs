@@ -96,3 +96,29 @@ GtkPageSetup_noinc * gtk_page_setup_new_from_key_file (class, GKeyFile *key_file
 void gtk_page_setup_to_key_file (GtkPageSetup *setup, GKeyFile *key_file, const gchar_ornull *group_name);
 
 #endif
+
+#if GTK_CHECK_VERSION (2, 13, 6) /* FIXME: 2.14*/
+
+=for apidoc __gerror__
+=cut
+# gboolean gtk_page_setup_load_file (GtkPageSetup *setup, const char *file_name, GError **error);
+void
+gtk_page_setup_load_file (GtkPageSetup *setup, const char *file_name)
+    PREINIT:
+	GError *error = NULL;
+    CODE:
+	if (!gtk_page_setup_load_file (setup, file_name, &error))
+		gperl_croak_gerror (NULL, error);
+
+=for apidoc __gerror__
+=cut
+# gboolean gtk_page_setup_load_key_file (GtkPageSetup *setup, GKeyFile *key_file, const gchar *group_name, GError **error);
+void
+gtk_page_setup_load_key_file (GtkPageSetup *setup, GKeyFile *key_file, const gchar_ornull *group_name)
+    PREINIT:
+	GError *error = NULL;
+    CODE:
+	if (!gtk_page_setup_load_key_file (setup, key_file, group_name, &error))
+		gperl_croak_gerror (NULL, error);
+
+#endif /* 2.14 */

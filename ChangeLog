@@ -1,7 +1,11 @@
 2008-08-15  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
-	* xs/GtkIconTheme.xs
-	* t/GtkIconTheme.t: Wrap gtk_icon_info_new_for_pixbuf.
+	* t/GtkPageSetup.t
+	* xs/GtkPageSetup.xs: Wrap gtk_page_setup_load_file and
+	gtk_page_setup_load_key_file.
+
+	* t/GtkIconTheme.t
+	* xs/GtkIconTheme.xs: Wrap gtk_icon_info_new_for_pixbuf.
 
 	* t/GtkLayout.t
 	* xs/GtkLayout.xs: Use gtk_layout_get_bin_window if available to
