@@ -1,3 +1,4 @@
+#!/usr/bin/perl
 #
 # $Header$
 #
@@ -9,7 +10,7 @@
 
 #########################
 
-use Gtk2::TestHelper tests => 110;
+use Gtk2::TestHelper tests => 114;
 
 ok( my $win = Gtk2::Window->new );
 ok( $win = Gtk2::Window->new('popup') );
@@ -364,6 +365,28 @@ SKIP: {
 
 	$win->set_opacity (0.5);
 	is ($win->get_opacity, 0.5);
+}
+
+SKIP: {
+	skip 'new 2.14 stuff', 4
+		unless Gtk2->CHECK_VERSION(2, 13, 6); # FIXME: 2.14
+
+	my $window = Gtk2::Window->new ();
+	is ($window->get_default_widget (), undef);
+
+	my $widget = Gtk2::Entry->new ();
+	$widget->set (can_default => TRUE);
+	$window->set_default ($widget);
+	is ($window->get_default_widget (), $widget);
+
+	my $group = Gtk2::WindowGroup->new ();
+	$group->add_window (Gtk2::Window->new ());
+	$group->add_window (Gtk2::Window->new ());
+	$group->add_window (Gtk2::Window->new ());
+
+	my @list = $group->list_windows ();
+	is (scalar @list, 3);
+	isa_ok ($list[0], 'Gtk2::Window');
 }
 
 __END__

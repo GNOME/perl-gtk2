@@ -1,5 +1,9 @@
 2008-08-16  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
+	* t/01.GtkWindow.t
+	* xs/GtkWindow.xs: Wrap gtk_window_get_default_widget and
+	gtk_window_group_list_windows.
+
 	* t/GtkWidget.t
 	* xs/GtkWidget.xs: Wrap gtk_widget_get_snapshot.
 

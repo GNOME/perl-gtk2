@@ -727,6 +727,12 @@ gdouble gtk_window_get_opacity (GtkWindow *window);
 
 #endif
 
+#if GTK_CHECK_VERSION (2, 13, 6) /* FIXME: 2.14 */
+
+GtkWidget_ornull * gtk_window_get_default_widget (GtkWindow *window);
+
+#endif /* 2.14 */
+
 MODULE = Gtk2::Window	PACKAGE = Gtk2::WindowGroup	PREFIX = gtk_window_group_
 
 ## GtkWindowGroup * gtk_window_group_new (void)
@@ -746,6 +752,22 @@ void
 gtk_window_group_remove_window (window_group, window)
 	GtkWindowGroup * window_group
 	GtkWindow      * window
+
+#if GTK_CHECK_VERSION (2, 13, 6) /* FIXME: 2.14 */
+
+# GList * gtk_window_group_list_windows (GtkWindowGroup *window_group)
+void
+gtk_window_group_list_windows (GtkWindowGroup *window_group)
+    PREINIT:
+	GList *i, *list;
+    PPCODE:
+	list = gtk_window_group_list_windows (window_group);
+	for (i = list; i != NULL; i = i->next) {
+		XPUSHs (sv_2mortal (newSVGtkWindow (i->data)));
+	}
+	g_list_free (list);
+
+#endif /* 2.14 */
 
  ## er... dunno about these.
  ##
