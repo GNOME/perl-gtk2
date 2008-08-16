@@ -1,11 +1,14 @@
-# $Header$
+#!/usr/bin/perl
 # vim: set ft=perl :
+#
+# $Header$
+#
 
 use warnings;
 use strict;
-use Gtk2::TestHelper tests => 131;
+use Gtk2::TestHelper tests => 134;
 
-# we can't instantiate Gtk2::Widget, it's abstract.  use a DrawingArea instead.
+# we can't instantiate Gtk2::Widget, it's abstract.  use a button instead.
 
 my $widget = Gtk2::Widget->new ('Gtk2::Button', label => 'Test');
 
@@ -446,6 +449,23 @@ SKIP: {
 
 	$widget->modify_cursor (Gtk2::Gdk::Color->new (0x0000, 0x0000, 0x0000),
 			        Gtk2::Gdk::Color->new (0xffff, 0xffff, 0xffff));
+}
+
+SKIP: {
+	skip 'new 2.14 stuff', 3
+		unless Gtk2->CHECK_VERSION(2, 13, 6); # FIXME: 2.14
+
+	my $widget = Gtk2::Label->new ('Bla');
+
+	is ($widget->get_snapshot (), undef);
+
+	my $window = Gtk2::Window->new ();
+	$window->add ($widget);
+	$window->show_all ();
+
+	isa_ok ($widget->get_snapshot (), 'Gtk2::Gdk::Pixmap');
+	isa_ok ($widget->get_snapshot (Gtk2::Gdk::Rectangle->new (0, 0, 1, 1)),
+		'Gtk2::Gdk::Pixmap');
 }
 
 __END__

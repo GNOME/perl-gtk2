@@ -1,5 +1,8 @@
 2008-08-16  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
+	* t/GtkWidget.t
+	* xs/GtkWidget.xs: Wrap gtk_widget_get_snapshot.
+
 	* MANIFEST
 	* maps-2.14
 	* xs_files-2.14
