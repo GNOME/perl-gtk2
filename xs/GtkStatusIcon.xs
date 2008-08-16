@@ -123,3 +123,9 @@ void gtk_status_icon_set_screen (GtkStatusIcon *status_icon, GdkScreen *screen);
 GdkScreen *gtk_status_icon_get_screen (GtkStatusIcon *status_icon);
 
 #endif
+
+#if GTK_CHECK_VERSION (2, 13, 6) /* FIXME: 2.14 */
+
+guint32 gtk_status_icon_get_x11_window_id (GtkStatusIcon *status_icon);
+
+#endif /* 2.14 */
