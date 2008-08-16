@@ -9,8 +9,11 @@ use Gtk2::TestHelper
 my $window = Gtk2::Window->new;
 $window->set (tooltip_markup => "<b>Bla!</b>");
 
+my $called = 0;
 $window->signal_connect (query_tooltip => sub {
   my ($window, $x, $y, $keyboard_mode, $tip) = @_;
+
+  return TRUE if $called++;
 
   isa_ok ($tip, "Gtk2::Tooltip");
 
@@ -25,6 +28,13 @@ $window->signal_connect (query_tooltip => sub {
 
   $tip->set_icon_from_stock ("gtk-open", "button");
   $tip->set_icon_from_stock (undef, "menu");
+
+ SKIP: {
+    skip 'new 2.14 stuff', 0
+      unless Gtk2->CHECK_VERSION(2, 13, 6); # FIXME: 2.14
+
+    $tip->set_icon_from_icon_name ("gtk-open", "menu");
+  }
 
   $tip->set_custom (Gtk2::Button->new ("Bla!"));
   $tip->set_custom (undef);
@@ -41,6 +51,9 @@ $window->realize;
 
 my $event = Gtk2::Gdk::Event->new ('motion-notify');
 $event->window ($window->window);
+Gtk2->main_do_event ($event);
+Gtk2->main_do_event ($event);
+Gtk2->main_do_event ($event);
 Gtk2->main_do_event ($event);
 Gtk2->main_do_event ($event);
 

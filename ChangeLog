@@ -1,5 +1,8 @@
 2008-08-16  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
+	* t/GtkTooltip.t
+	* xs/GtkTooltip.xs: Wrap gtk_tooltip_set_icon_from_icon_name.
+
 	* t/GtkStatusIcon.t
 	* xs/GtkStatusIcon.xs: Wrap gtk_status_icon_get_x11_window_id.
 

@@ -25,3 +25,9 @@ void gtk_tooltip_set_tip_area (GtkTooltip *tooltip, GdkRectangle_ornull *rect);
 =for apidoc __function__
 =cut
 void gtk_tooltip_trigger_tooltip_query (GdkDisplay *display);
+
+#if GTK_CHECK_VERSION (2, 13, 6) /* FIXME: 2.14 */
+
+void gtk_tooltip_set_icon_from_icon_name (GtkTooltip *tooltip, const gchar *icon_name, GtkIconSize size);
+
+#endif /* 2.14 */
