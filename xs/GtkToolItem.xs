@@ -75,3 +75,9 @@ void gtk_tool_item_set_tooltip_text (GtkToolItem *tool_item, const gchar_ornull 
 void gtk_tool_item_set_tooltip_markup (GtkToolItem *tool_item, const gchar_ornull *markup);
 
 #endif
+
+#if GTK_CHECK_VERSION (2, 13, 6) /* FIXME: 2.14 */
+
+void gtk_tool_item_toolbar_reconfigured (GtkToolItem *tool_item);
+
+#endif /* 2.14 */

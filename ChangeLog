@@ -1,5 +1,8 @@
 2008-08-16  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
+	* t/GtkToolItem.t
+	* xs/GtkToolItem.xs: Wrap gtk_tool_item_toolbar_reconfigured.
+
 	* t/GtkTooltip.t
 	* xs/GtkTooltip.xs: Wrap gtk_tooltip_set_icon_from_icon_name.
 
