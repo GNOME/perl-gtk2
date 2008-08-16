@@ -260,6 +260,7 @@ t/GtkScrolledWindow.t
 t/GtkSelection.t
 t/GtkSeparatorMenuItem.t
 t/GtkSeparatorToolItem.t
+t/GtkShow.t
 t/GtkSimpleList.t
 t/GtkSimpleMenu.t
 t/GtkSizeGroup.t
@@ -481,6 +482,7 @@ xs/GtkScrolledWindow.xs
 xs/GtkSelection.xs
 xs/GtkSeparatorMenuItem.xs
 xs/GtkSeparatorToolItem.xs
+xs/GtkShow.xs
 xs/GtkSizeGroup.xs
 xs/GtkSocket.xs
 xs/GtkSpinButton.xs

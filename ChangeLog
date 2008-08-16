@@ -1,5 +1,10 @@
 2008-08-16  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
+	* MANIFEST
+	* xs_files-2.14
+	* t/GtkShow.t
+	* xs/GtkShow.xs: Wrap gtk_show_uri.
+
 	* t/01.GtkWindow.t
 	* xs/GtkWindow.xs: Wrap gtk_window_get_default_widget and
 	gtk_window_group_list_windows.
