@@ -910,6 +910,14 @@ void gdk_window_set_composited (GdkWindow *window, gboolean composited);
 
 #endif
 
+#if GTK_CHECK_VERSION (2, 13, 6) /* FIXME: 2.14 */
+
+void gdk_window_redirect_to_drawable (GdkWindow *window, GdkDrawable *drawable, gint src_x, gint src_y, gint dest_x, gint dest_y, gint width, gint height);
+
+void gdk_window_remove_redirection (GdkWindow *window)
+
+#endif /* 2.14 */
+
 MODULE = Gtk2::Gdk::Window	PACKAGE = Gtk2::Gdk	PREFIX = gdk_
 
 GdkWindow *gdk_get_default_root_window (class)

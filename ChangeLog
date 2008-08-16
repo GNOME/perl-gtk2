@@ -1,5 +1,9 @@
 2008-08-16  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
+	* t/GdkWindow.t
+	* xs/GdkWindow.xs: Wrap gdk_window_redirect_to_drawable and
+	gdk_window_remove_redirection.
+
 	* t/GdkScreen.t
 	* xs/GdkScreen.xs: Wrap gdk_screen_get_monitor_height_mm,
 	gdk_screen_get_monitor_width_mm, and
