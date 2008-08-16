@@ -44,6 +44,16 @@ MODULE = Gtk2::GC	PACKAGE = Gtk2::GC	PREFIX = gtk_gc_
 BOOT:
 	gperl_set_isa ("Gtk2::GC", "Gtk2::Gdk::GC");
 
+=for position post_hierarchy
+
+=head1 HIERARCHY
+
+  Glib::Object
+  +----Gtk2::Gdk::GC
+       +----Gtk2::GC
+
+=cut
+
 =for position DESCRIPTION
 
 =head1 DESCRIPTION

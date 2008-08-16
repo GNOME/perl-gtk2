@@ -53,6 +53,17 @@ BOOT:
 	 * wanted.  otherwise, apps need to bless by hand. */
 	gperl_set_isa ("Gtk2::Gdk::Bitmap", "Gtk2::Gdk::Pixmap");
 
+=for position post_hierarchy
+
+=head1 HIERARCHY
+
+  Glib::Object
+  +----Gtk2::Gdk::Drawable
+       +----Gtk2::Gdk::Pixmap
+            +----Gtk2::Gdk::Bitmap
+
+=cut
+
  ## GdkBitmap* gdk_bitmap_create_from_data (class, GdkDrawable *drawable, const gchar *data, gint width, gint height)
 ### intentionally switched to char instead of gchar
 GdkBitmap_noinc *

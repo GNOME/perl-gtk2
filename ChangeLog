@@ -1,5 +1,11 @@
 2008-08-16  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
+	* xs/GdkPixmap.xs
+	* xs/GtkGC.xs
+	* xs/PangoCairo.xs: Add hierarchy sections to the unregistered
+	custom subclasses Gtk2::Gdk::Bitmap, Gtk2::GC, and
+	Gtk2::Pango::Cairo::Context.
+
 	* t/GdkWindow.t
 	* xs/GdkWindow.xs: Wrap gdk_window_redirect_to_drawable and
 	gdk_window_remove_redirection.
