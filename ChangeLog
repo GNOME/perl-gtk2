@@ -1,5 +1,10 @@
 2008-08-16  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
+	* t/GdkScreen.t
+	* xs/GdkScreen.xs: Wrap gdk_screen_get_monitor_height_mm,
+	gdk_screen_get_monitor_width_mm, and
+	gdk_screen_get_monitor_plug_name.
+
 	* t/GtkClipboard.t
 	* xs/GtkSelection.xs: Use gtk_selection_data_get_target,
 	gtk_selection_data_get_data_type, gtk_selection_data_get_format,

@@ -2,7 +2,7 @@
 # vim: set ft=perl :
 use strict;
 use Gtk2::TestHelper
-  tests => 25,
+  tests => 28,
   at_least_version => [2, 2, 0, "GdkScreen is new in 2.2"];
 
 # $Header$
@@ -78,6 +78,23 @@ SKIP: {
   is ($screen->get_font_options, undef);
   $screen->set_font_options ($options);
   isa_ok ($screen->get_font_options, "Cairo::FontOptions");
+}
+
+SKIP: {
+  skip 'new 2.14 stuff', 3
+    unless Gtk2->CHECK_VERSION(2, 13, 6); # FIXME: 2.14
+
+  my $screen = Gtk2::Gdk::Screen->get_default ();
+
+  skip 'no monitors found', 3
+    unless $screen->get_n_monitors ();
+
+  my $id = 0;
+  ok (defined $screen->get_monitor_height_mm ($id));
+  ok (defined $screen->get_monitor_width_mm ($id));
+
+  my $plug_name = $screen->get_monitor_plug_name ($id);
+  ok (TRUE);
 }
 
 __END__

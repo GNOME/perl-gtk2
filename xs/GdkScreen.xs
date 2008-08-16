@@ -223,3 +223,13 @@ gdk_screen_get_window_stack (GdkScreen *screen)
 gboolean gdk_screen_is_composited (GdkScreen *screen);
 
 #endif /* 2.10 */
+
+#if GTK_CHECK_VERSION (2, 13, 6) /* FIXME: 2.14 */
+
+gint gdk_screen_get_monitor_height_mm (GdkScreen *screen, gint monitor_num);
+
+gint gdk_screen_get_monitor_width_mm (GdkScreen *screen, gint monitor_num);
+
+gchar_own_ornull * gdk_screen_get_monitor_plug_name (GdkScreen *screen, gint monitor_num);
+
+#endif /* 2.14 */
