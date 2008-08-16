@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 # vim: set ft=perl :
-use Gtk2::TestHelper tests => 101,
+use Gtk2::TestHelper tests => 115,
 	at_least_version => [2, 2, 0, "GtkClipboard didn't exist in 2.0.x"];
 
 # $Header$
@@ -159,38 +159,51 @@ my $get_func_call_count = 0;
 sub get_func {
 	return if ++$get_func_call_count == 3;
 
-	is ($_[0], $clipboard);
-	isa_ok ($_[1], 'Gtk2::SelectionData');
-	is ($_[2], 0);
-	ok ($_[3]);
+	my ($cb, $sd, $info, $user_data_or_owner) = @_;
+
+	is ($cb, $clipboard);
+	isa_ok ($sd, 'Gtk2::SelectionData');
+	is ($info, 0);
+	ok (defined $user_data_or_owner);
 
 	# Tests for Gtk2::SelectionData:
 
-	$_[1]->set (Gtk2::Gdk->TARGET_STRING, 8, 'bla blub');
+	$sd->set (Gtk2::Gdk->TARGET_STRING, 8, 'bla blub');
 
-	is ($_[1]->selection->name, 'PRIMARY');
-	ok (defined $_[1]->target->name);
-	is ($_[1]->type->name, 'STRING');
-	is ($_[1]->format, 8);
-	is ($_[1]->data, 'bla blub');
-	is ($_[1]->length, 8);
+	is ($sd->get_selection ()->name, 'PRIMARY');
+	ok (defined $sd->get_target ()->name);
+	is ($sd->get_data_type ()->name, 'STRING');
+	is ($sd->get_format (), 8);
+	is ($sd->get_data (), 'bla blub');
+	is ($sd->get_length (), 8);
+
+	# Deprecated but provided for backwards compatibility
+	ok ($sd->selection () == $sd->get_selection ());
+	ok ($sd->target () == $sd->get_target ());
+	ok ($sd->type () == $sd->get_data_type ());
+	ok ($sd->format () == $sd->get_format ());
+	ok ($sd->data () eq $sd->get_data ());
+	ok ($sd->length () == $sd->get_length ());
 
 	SKIP: {
-		skip 'GdkDisplay is new in 2.2', 1
+		skip 'GdkDisplay is new in 2.2', 2
 			unless Gtk2->CHECK_VERSION (2, 2, 0);
 
-		isa_ok ($_[1]->display, 'Gtk2::Gdk::Display');
+		isa_ok ($sd->get_display (), 'Gtk2::Gdk::Display');
+
+		# Deprecated but provided for backwards compatibility
+		ok ($sd->display () == $sd->get_display ());
 	}
 
 	# FIXME: always empty and false?
-	# warn $_[1]->get_targets;
-	# warn $_[1]->targets_include_text;
+	# warn $sd->get_targets;
+	# warn $sd->targets_include_text;
 
-	$_[1]->set_text ($expect);
-	is ($_[1]->get_text, $expect);
+	$sd->set_text ($expect);
+	is ($sd->get_text, $expect);
 
-	is ($_[1]->data, $expect);
-	is ($_[1]->length, length ($expect));
+	is ($sd->data, $expect);
+	is ($sd->length, length ($expect));
 
 	SKIP: {
 		skip '2.6 stuff', 7
@@ -199,29 +212,29 @@ sub get_func {
 		# This won't work with a STRING selection, but I don't know
 		# what else to use, so we just check that both operations fail.
 		my $pixbuf = Gtk2::Gdk::Pixbuf->new ('rgb', FALSE, 8, 23, 42);
-		is ($_[1]->set_pixbuf ($pixbuf), FALSE);
-		is ($_[1]->get_pixbuf, undef);
+		is ($sd->set_pixbuf ($pixbuf), FALSE);
+		is ($sd->get_pixbuf, undef);
 
 		# Same here.
-		is ($_[1]->set_uris, FALSE);
-		is_deeply ([$_[1]->get_uris], []);
-		is ($_[1]->set_uris (qw(a b c)), FALSE);
-		is_deeply ([$_[1]->get_uris], []);
+		is ($sd->set_uris, FALSE);
+		is_deeply ([$sd->get_uris], []);
+		is ($sd->set_uris (qw(a b c)), FALSE);
+		is_deeply ([$sd->get_uris], []);
 
-		is ($_[1]->targets_include_image (TRUE), FALSE);
+		is ($sd->targets_include_image (TRUE), FALSE);
 	}
 
 	SKIP: {
 		skip '2.10 stuff', 2
 			unless Gtk2->CHECK_VERSION (2, 10, 0);
 
-		is ($_[1]->targets_include_uri, FALSE);
+		is ($sd->targets_include_uri, FALSE);
 
 		my $buffer = Gtk2::TextBuffer->new;
 		$buffer->register_deserialize_format (
 			'text/rdf',
-			sub { warn "here"; $_[1]->insert ($_[2], 'bla!'); });
-		is ($_[1]->targets_include_rich_text ($buffer), FALSE);
+			sub { warn "here"; $sd->insert ($info, 'bla!'); });
+		is ($sd->targets_include_rich_text ($buffer), FALSE);
 	}
 }
 
