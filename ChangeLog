@@ -1,5 +1,11 @@
 2008-08-16  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
+	* MANIFEST
+	* maps-2.14
+	* xs_files-2.14
+	* t/GtkToolShell.t
+	* xs/GtkToolShell.xs: Wrap GtkToolShell.
+
 	* t/GtkToolItem.t
 	* xs/GtkToolItem.xs: Wrap gtk_tool_item_toolbar_reconfigured.
 

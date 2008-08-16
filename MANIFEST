@@ -90,6 +90,7 @@ MANIFEST.SKIP
 maps-2.0
 maps-2.10
 maps-2.12
+maps-2.14
 maps-2.2
 maps-2.4
 maps-2.6
@@ -163,6 +164,7 @@ t/GtkCellLayoutIface.t
 t/GtkCellRenderer.t
 t/GtkCellRendererAccel.t
 t/GtkCellRendererCombo.t
+t/GtkCellRendererIface-Chaining.t
 t/GtkCellRendererPixbuf.t
 t/GtkCellRendererProgress.t
 t/GtkCellRendererSpin.t
@@ -283,6 +285,7 @@ t/GtkToggleToolButton.t
 t/GtkToolbar.t
 t/GtkToolButton.t
 t/GtkToolItem.t
+t/GtkToolShell.t
 t/GtkTooltip.t
 t/GtkTooltips.t
 t/GtkTreeModel.t
@@ -501,6 +504,7 @@ xs/GtkToggleToolButton.xs
 xs/GtkToolbar.xs
 xs/GtkToolButton.xs
 xs/GtkToolItem.xs
+xs/GtkToolShell.xs
 xs/GtkTooltip.xs
 xs/GtkTooltips.xs
 xs/GtkTreeDnd.xs
@@ -540,6 +544,7 @@ xs/PangoTypes.xs
 xs_files-2.0
 xs_files-2.10
 xs_files-2.12
+xs_files-2.14
 xs_files-2.2
 xs_files-2.4
 xs_files-2.6
