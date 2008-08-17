@@ -58,4 +58,8 @@ GtkWidget * gtk_scale_button_get_plus_button (GtkScaleButton *button);
 
 GtkWidget * gtk_scale_button_get_minus_button (GtkScaleButton *button);
 
+void gtk_scale_button_set_orientation (GtkScaleButton *button, GtkOrientation orientation);
+
+GtkOrientation gtk_scale_button_get_orientation (GtkScaleButton *button);
+
 #endif /* 2.14 */
