@@ -264,3 +264,11 @@ gtk_menu_get_for_attach_widget (class, widget)
 		XPUSHs (sv_2mortal (newSVGtkMenu (i->data)));
 
 #endif
+
+#if GTK_CHECK_VERSION (2, 13, 6) /* FIXME: 2.14 */
+
+const gchar* gtk_menu_get_accel_path (GtkMenu *menu);
+
+gint gtk_menu_get_monitor (GtkMenu *menu);
+
+#endif /* 2.14 */

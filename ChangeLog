@@ -1,5 +1,9 @@
 2008-08-17  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
+	* t/GtkMenu.t
+	* xs/GtkMenu.xs: Wrap gtk_menu_get_accel_path and
+	gtk_menu_get_monitor.
+
 	* xs/GtkHandleBox.xs: Use gtk_handle_box_get_child_detached if
 	available.
 
