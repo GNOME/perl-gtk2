@@ -1,5 +1,10 @@
 2008-08-17  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
+	* t/GtkColorSelectionDialog.t
+	* xs/GtkColorSelectionDialog.xs: Wrap
+	gtk_color_selection_dialog_get_color_selection; deprecate
+	Gtk2::ColorSelectionDialog->colorsel.
+
 	* t/GtkCalendar.t
 	* xs/GtkCalendar.xs: Wrap gtk_calendar_get_detail_width_chars,
 	gtk_calendar_set_detail_width_chars,
