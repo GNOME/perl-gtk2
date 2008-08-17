@@ -73,6 +73,10 @@ gboolean
 gtk_handle_box_get_child_detached (handle_box)
 	GtkHandleBox * handle_box
     CODE:
+#if GTK_CHECK_VERSION (2, 13, 6) /* FIXME: 2.14 */
+	RETVAL = gtk_handle_box_get_child_detached (handle_box);
+#else
 	RETVAL = handle_box->child_detached;
+#endif /* 2.14 */
     OUTPUT:
 	RETVAL

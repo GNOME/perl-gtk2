@@ -1,5 +1,8 @@
 2008-08-17  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
+	* xs/GtkHandleBox.xs: Use gtk_handle_box_get_child_detached if
+	available.
+
 	* t/GtkEntry.t
 	* xs/GtkEntry.xs: Wrap gtk_entry_set_overwrite_mode,
 	gtk_entry_get_overwrite_mode, and gtk_entry_get_text_length.
