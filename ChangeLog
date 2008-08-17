@@ -1,5 +1,7 @@
 2008-08-17  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
+	* t/GtkItemFactory.t: Fix test failures.
+
 	* t/GtkWidget.t
 	* xs/GtkWidget.xs: Wrap gtk_widget_hide_on_delete.
 
