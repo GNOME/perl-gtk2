@@ -1,6 +1,12 @@
 2008-08-17  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
 	* t/GtkSocket-GtkPlug.t
+	* xs/GtkPlug.xs: Fix the gtk_plug_new_for_display wrapper so it is
+	callable as Gtk2::Plug->new_for_display(display, socket_id).  For
+	backwards compatibility, also allow
+	Gtk2::Plug::new_for_display(display, socket_id).
+
+	* t/GtkSocket-GtkPlug.t
 	* xs/GtkPlug.xs: Wrap gtk_plug_get_embedded and
 	gtk_plug_get_socket_window.
 
