@@ -2,6 +2,8 @@
 
 	Merge from HEAD:
 
+	* t/GtkItemFactory.t: Fix test failures.
+
 	* xs/GtkWindow.xs: Fix small error in the description POD section.
 	Patch by Kevin Ryde.
 
