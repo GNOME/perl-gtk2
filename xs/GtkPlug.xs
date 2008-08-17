@@ -46,9 +46,20 @@ gtk_plug_new (class, socket_id)
 
 ##GtkWidget * gtk_plug_new_for_display (GdkDisplay *display, GdkNativeWindow socket_id)
 GtkWidget *
-gtk_plug_new_for_display (display, socket_id)
-	GdkDisplay *display
-	GdkNativeWindow socket_id
+gtk_plug_new_for_display (...)
+    CODE:
+	if (items == 2) {
+		RETVAL = gtk_plug_new_for_display (
+			SvGdkDisplay (ST (0)), SvUV (ST (1)));
+	} else if (items == 3) {
+		RETVAL = gtk_plug_new_for_display (
+			SvGdkDisplay (ST (1)), SvUV (ST (2)));
+	} else {
+		RETVAL = NULL;
+		croak ("Usage: Gtk2::Plug->new_for_display(display, socket_id)");
+	}
+    OUTPUT:
+	RETVAL
 
 ## void gtk_plug_construct_for_disaplay (GtkPlug *plug, GdkDisplay * display, GdkNativeWindow socket_id)
 void

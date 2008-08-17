@@ -1,3 +1,13 @@
+2008-08-17  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
+	Merge from HEAD:
+
+	* t/GtkSocket-GtkPlug.t
+	* xs/GtkPlug.xs: Fix the gtk_plug_new_for_display wrapper so it is
+	callable as Gtk2::Plug->new_for_display(display, socket_id).  For
+	backwards compatibility, also allow
+	Gtk2::Plug::new_for_display(display, socket_id).
+
 2008-08-07  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
 	Merge from HEAD:

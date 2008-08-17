@@ -6,7 +6,7 @@
 #########################
 
 # ...despite patches that have been around for a long time, no win32
-use Gtk2::TestHelper tests => 4, nowin32 => 1;
+use Gtk2::TestHelper tests => 6, nowin32 => 1;
 
 SKIP: {
 
@@ -72,6 +72,18 @@ else
 	ok( waitpid($pid, 0) );
 }
 
+}
+
+# Backwards compatibility tests.
+{
+	my $id = 23;
+	my $display = Gtk2::Gdk::Display->get_default;
+
+	isa_ok( Gtk2::Plug::new_for_display($display, $id),
+		'Gtk2::Plug' );
+
+	isa_ok( Gtk2::Plug->new_for_display($display, $id),
+		'Gtk2::Plug' );
 }
 
 __END__
