@@ -1,5 +1,8 @@
 2008-08-17  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
+	* t/GtkMessageDialog.t
+	* xs/GtkMessageDialog.xs: Wrap gtk_message_dialog_get_image.
+
 	* t/GtkMenuItem.t
 	* xs/GtkMenuItem.xs: Wrap gtk_menu_item_get_accel_path.
 

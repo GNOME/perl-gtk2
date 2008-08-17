@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 5;
+use Gtk2::TestHelper tests => 6;
 
 # $Header$
 
@@ -58,12 +58,20 @@ SKIP: {
   $dialog -> format_secondary_markup(undef);
 }
 
+my $image = Gtk2::Label -> new(":-)");
+
 SKIP: {
   skip("new 2.10 stuff", 0)
     unless Gtk2->CHECK_VERSION (2, 10, 0);
 
-  my $image = Gtk2::Label -> new(":-)");
   $dialog -> set_image($image);
+}
+
+SKIP: {
+  skip 'new 2.14 stuff', 1
+    unless Gtk2->CHECK_VERSION(2, 13, 6); # FIXME: 2.14
+
+  is ($dialog -> get_image(), $image);
 }
 
 __END__
