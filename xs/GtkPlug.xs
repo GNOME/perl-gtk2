@@ -64,6 +64,14 @@ GdkNativeWindow
 gtk_plug_get_id (plug)
 	GtkPlug * plug
 
+#if GTK_CHECK_VERSION (2, 13, 6) /* FIXME: 2.14 */
+
+gboolean gtk_plug_get_embedded (GtkPlug *plug);
+
+GdkWindow_ornull* gtk_plug_get_socket_window (GtkPlug *plug);
+
+#endif /* 2.14 */
+
 ## void _gtk_plug_add_to_socket (GtkPlug *plug, GtkSocket *socket)
 ## void _gtk_plug_remove_from_socket (GtkPlug *plug, GtkSocket *socket)
 

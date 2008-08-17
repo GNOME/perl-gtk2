@@ -4,7 +4,7 @@
 #
 
 # ...despite patches that have been around for a long time, no win32
-use Gtk2::TestHelper tests => 6, nowin32 => 1;
+use Gtk2::TestHelper tests => 10, nowin32 => 1;
 
 SKIP: {
 
@@ -28,34 +28,6 @@ SKIP: {
 	});
 }
 
-my $str = "$^X -Mblib -e '\$id = $id;\n\n".<<EOL;
-use Gtk2;
-
-Gtk2->init;
-
-\$plug = Gtk2::Plug->new($id);
-\$plug->set_border_width(10);
-
-\$btn = Gtk2::Button->new("gtk-quit");
-\$btn->signal_connect( "clicked" => sub {
-		Gtk2->main_quit;
-		1;
-	} );
-\$plug->add(\$btn);
-
-\$plug->show_all;
-
-Glib::Timeout->add( 100, sub {
-		\$btn->clicked;
-		0;
-	} );
-
-Gtk2->main;'
-EOL
-
-use strict;
-use warnings;
-
 my $pid = fork;
 
 skip 'fork failed', 1 unless defined $pid;
@@ -66,7 +38,23 @@ if( $pid < 0 )
 }
 if( $pid == 0 )
 {
-	exec($str);
+	exec("$^X -Mblib -e 'my \$id = $id;\n\n" . <<EOL);
+use Gtk2;
+
+Gtk2->init;
+
+my \$plug = Gtk2::Plug->new($id);
+
+my \$btn = Gtk2::Button->new("gtk-quit");
+\$btn->signal_connect("clicked" => sub { Gtk2->main_quit; 1; });
+\$plug->add(\$btn);
+
+\$plug->show_all;
+
+Glib::Idle->add(sub { \$btn->clicked; 0; });
+
+Gtk2->main;'
+EOL
 	exit 0;
 }
 else
@@ -80,6 +68,27 @@ else
 	ok( waitpid($pid, 0) );
 }
 
+}
+
+# Standalone GtkPlug tests.
+SKIP: {
+	my $id = 23;
+	my $display = Gtk2::Gdk::Display->get_default;
+
+	# Backwards compatibility tests
+	my $plug = Gtk2::Plug->new($id);
+	isa_ok( $plug, 'Gtk2::Plug' );
+
+	$plug->construct($id);
+	$plug->construct_for_display($display, $id);
+
+	ok( defined $plug->get_id );
+
+	skip 'new 2.14 stuff', 2
+		unless Gtk2->CHECK_VERSION(2, 13, 6); # FIXME: 2.14
+
+	is( $plug->get_embedded, FALSE );
+	is( $plug->get_socket_window, undef );
 }
 
 __END__

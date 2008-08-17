@@ -1,5 +1,9 @@
 2008-08-17  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
+	* t/GtkSocket-GtkPlug.t
+	* xs/GtkPlug.xs: Wrap gtk_plug_get_embedded and
+	gtk_plug_get_socket_window.
+
 	* t/GtkMessageDialog.t
 	* xs/GtkMessageDialog.xs: Wrap gtk_message_dialog_get_image.
 
