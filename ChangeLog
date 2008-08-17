@@ -1,5 +1,9 @@
 2008-08-17  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
+	* t/GtkEntry.t
+	* xs/GtkEntry.xs: Wrap gtk_entry_set_overwrite_mode,
+	gtk_entry_get_overwrite_mode, and gtk_entry_get_text_length.
+
 	* t/GtkColorSelectionDialog.t
 	* xs/GtkColorSelectionDialog.xs: Wrap
 	gtk_color_selection_dialog_get_color_selection; deprecate
