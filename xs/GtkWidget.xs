@@ -866,12 +866,16 @@ gtk_widget_translate_coordinates (GtkWidget *src_widget, GtkWidget *dest_widget,
 	PUSHs (sv_2mortal (newSViv (dest_x)));
 	PUSHs (sv_2mortal (newSViv (dest_y)));
 
+=for apidoc __function__
 
- # Hide widget and return TRUE.
- # intended for passing directly to g_signal_connect for handling
- # the delete event.  pointless in perl.
- #gboolean     gtk_widget_hide_on_delete	(GtkWidget	*widget);
+This is a helper function intended to be used as the callback for the
+C<delete-event> signal:
 
+  $wiget->signal_connect (
+    delete_event => \&Gtk2::Widget::hide_on_delete);
+
+=cut
+gboolean gtk_widget_hide_on_delete (GtkWidget *widget);
 
  #/* Widget styles.
  # */

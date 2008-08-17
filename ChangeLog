@@ -1,5 +1,8 @@
 2008-08-17  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
+	* t/GtkWidget.t
+	* xs/GtkWidget.xs: Wrap gtk_widget_hide_on_delete.
+
 	* xs/GtkWindow.xs: Fix small error in the description POD section.
 	Patch by Kevin Ryde.
 
