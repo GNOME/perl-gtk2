@@ -8,7 +8,7 @@
 # 	- rm
 #########################
 
-use Gtk2::TestHelper tests => 16;
+use Gtk2::TestHelper tests => 18;
 
 ok( my $cal = Gtk2::Calendar->new );
 
@@ -46,7 +46,7 @@ $cal->set_display_options ([qw/show-day-names no-month-change/]);
 ok ($cal->get_display_options == [qw/show-day-names no-month-change/]);
 
 SKIP: {
-	skip 'new 2.14 stuff', 5
+	skip 'new 2.14 stuff', 7
 		unless Gtk2->CHECK_VERSION(2, 13, 6); # FIXME: 2.14
 
 	my $cal = Gtk2::Calendar->new;
@@ -70,6 +70,13 @@ SKIP: {
 	my $window = Gtk2::Window->new;
 	$window->add ($cal);
 	$window->show_all;
+	$window->hide;
+
+	$cal->set_detail_height_rows (3);
+	is ($cal->get_detail_height_rows, 3);
+
+	$cal->set_detail_width_chars (5);
+	is ($cal->get_detail_width_chars, 5);
 }
 
 __END__

@@ -200,4 +200,13 @@ void gtk_calendar_set_detail_func (GtkCalendar *calendar, SV *func, SV *data=NUL
 				      callback,
 				      (GDestroyNotify) gperl_callback_destroy);
 
+gint gtk_calendar_get_detail_width_chars (GtkCalendar *calendar);
+
+void gtk_calendar_set_detail_width_chars (GtkCalendar *calendar, gint chars);
+
+gint gtk_calendar_get_detail_height_rows (GtkCalendar *calendar);
+
+void gtk_calendar_set_detail_height_rows (GtkCalendar *calendar, gint rows);
+
+
 #endif /* 2.14 */
