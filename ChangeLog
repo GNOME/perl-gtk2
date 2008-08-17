@@ -1,5 +1,8 @@
 2008-08-17  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
+	* t/GtkMenuItem.t
+	* xs/GtkMenuItem.xs: Wrap gtk_menu_item_get_accel_path.
+
 	* t/GtkMenu.t
 	* xs/GtkMenu.xs: Wrap gtk_menu_get_accel_path and
 	gtk_menu_get_monitor.

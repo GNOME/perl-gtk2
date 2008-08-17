@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 13;
+use Gtk2::TestHelper tests => 14;
 
 # $Header$
 
@@ -56,6 +56,15 @@ $item -> signal_connect(toggle_size_allocate => sub {
 }, "bla");
 
 $item -> toggle_size_allocate(23);
+
+SKIP: {
+  skip 'new 2.14 stuff', 1
+    unless Gtk2->CHECK_VERSION(2, 13, 6); # FIXME: 2.14
+
+  my $item = Gtk2::MenuItem -> new();
+  $item -> set_accel_path('<bla>/bla/bla');
+  is ($item -> get_accel_path(), '<bla>/bla/bla');
+}
 
 __END__
 

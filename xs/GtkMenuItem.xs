@@ -146,3 +146,9 @@ gtk_menu_item_set_accel_path (menu_item, accel_path)
 	const gchar *accel_path
 
  ##void _gtk_menu_item_refresh_accel_path (GtkMenuItem *menu_item, const gchar *prefix, GtkAccelGroup *accel_group, gboolean group_changed)
+
+#if GTK_CHECK_VERSION (2, 13, 6) /* FIXME: 2.14 */
+
+const gchar* gtk_menu_item_get_accel_path (GtkMenuItem *menu_item);
+
+#endif /* 2.14 */
