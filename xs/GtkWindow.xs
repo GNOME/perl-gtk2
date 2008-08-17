@@ -30,7 +30,7 @@ MODULE = Gtk2::Window	PACKAGE = Gtk2::Window	PREFIX = gtk_window_
 A Gtk2::Window is a top-level window displayed on the root window and
 interacting (or not) with the window manager.  It can be an
 application's main window, a dialog, or a temporary such as a popup
-menu.
+splash window.
 
 =head2 Delete Event and Destroy
 

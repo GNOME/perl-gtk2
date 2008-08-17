@@ -2,6 +2,9 @@
 
 	Merge from HEAD:
 
+	* xs/GtkWindow.xs: Fix small error in the description POD section.
+	Patch by Kevin Ryde.
+
 	* t/GtkSocket-GtkPlug.t
 	* xs/GtkPlug.xs: Fix the gtk_plug_new_for_display wrapper so it is
 	callable as Gtk2::Plug->new_for_display(display, socket_id).  For
