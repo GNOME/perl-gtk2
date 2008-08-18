@@ -1,3 +1,9 @@
+2008-08-18  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
+	* t/GtkTreeModelIface.t
+	* xs/GtkTreeModel.xs: Provide Gtk2::TreeIter::set for custom model
+	implementations to set the contents of an iter.  Patch by Kevin Ryde.
+
 2008-08-17  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
 	* t/GtkItemFactory.t: Fix test failures.

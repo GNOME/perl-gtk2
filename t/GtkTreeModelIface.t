@@ -346,7 +346,7 @@ sub sort {
 
 package main;
 
-use Gtk2::TestHelper tests => 174, noinit => 1;
+use Gtk2::TestHelper tests => 176, noinit => 1;
 use strict;
 use warnings;
 
@@ -455,5 +455,24 @@ ok ($model->has_default_sort_func);
 $model->sort(2);
 $model->sort(3);
 $model->sort(23);
+
+# Exercise Gtk2::TreeIter->set.
+{ my $myvar;
+  my $stamp = 123;
+  my $iter = Gtk2::TreeIter->new_from_arrayref ([$stamp, 999, \$stamp, undef]);
+  my $aref = [$stamp, 456, undef, \$myvar];
+  $iter->set ($aref);
+  is_deeply ($iter->to_arrayref($stamp), $aref,
+             'iter->set() from an array');
+}
+{ my $myvar;
+  my $stamp = 123;
+  my $iter = Gtk2::TreeIter->new_from_arrayref ([$stamp, 999, \$stamp, undef]);
+  my $aref = [$stamp, 456, undef, \$myvar];
+  my $other = Gtk2::TreeIter->new_from_arrayref ($aref);
+  $iter->set ($other);
+  is_deeply ($iter->to_arrayref($stamp), $other->to_arrayref($stamp),
+             'iter->set() from another iter');
+}
 
 # vim: set syntax=perl :

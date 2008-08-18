@@ -955,6 +955,30 @@ new_from_arrayref (class, SV * sv_iter)
 ## we get this from Glib::Boxed::DESTROY
 ## void gtk_tree_iter_free (GtkTreeIter *iter)
 
+=for apidoc
+Set the contents of $iter.  $from can be either another Gtk2::TreeIter
+or an "internal" arrayref form as above.
+
+Often you create a new iter instead of modifying an existing one, but
+C<set> lets you to implement things in the style of the C<remove>
+method of Gtk2::ListStore and Gtk2::TreeStore.
+
+A set can also explicitly invalidate an iter by zapping its stamp, so
+nobody can accidentally use it again.
+
+    $iter->set ([0,0,undef,undef]);
+
+=cut
+void
+set (GtkTreeIter *iter, SV *from)
+    CODE:
+	if (gperl_sv_is_array_ref (from)) {
+		iter_from_sv (iter, from);
+	} else {
+		GtkTreeIter *from_iter = SvGtkTreeIter (from);
+		memcpy (iter, from_iter, sizeof(*iter));
+	}
+
 
 MODULE = Gtk2::TreeModel	PACKAGE = Gtk2::TreeModel	PREFIX = gtk_tree_model_
 
