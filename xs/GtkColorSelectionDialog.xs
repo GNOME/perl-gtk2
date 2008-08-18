@@ -38,7 +38,7 @@ get_color_selection (dialog)
 	switch (ix) {
 	    case 0:
 	    case 1:
-#if GTK_CHECK_VERSION (2, 13, 6) /* FIXME: 2.14 */
+#if GTK_CHECK_VERSION (2, 13, 7) /* FIXME: 2.14 */
 		RETVAL = gtk_color_selection_dialog_get_color_selection (dialog);
 #else
 		RETVAL = dialog->colorsel;
