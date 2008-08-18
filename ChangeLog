@@ -1,5 +1,16 @@
 2008-08-18  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
+	* Gtk2.pm
+	* NEWS
+	* README: Unstable release 1.191.
+
+2008-08-18  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
+	* xs/GtkColorSelectionDialog.xs:
+	gtk_color_selection_dialog_get_color_selection is broken
+	currently, so make its use depend on gtk+ >= 2.13.7 (i.e. the next
+	version).  (See GNOME bug #548346)
+
 	* t/GtkTreeModelIface.t
 	* xs/GtkTreeModel.xs: Provide Gtk2::TreeIter::set for custom model
 	implementations to set the contents of an iter.  Patch by Kevin Ryde.

@@ -1,3 +1,30 @@
+Overview of changes in Gtk2 1.191
+=================================
+
+* Wrap a lot of new API from gtk+ 2.14, among which:
+  - gtk_builder_add_objects_from_file and gtk_builder_add_objects_from_string
+  - gtk_calendar_set_detail_func
+  - gtk_clipboard_request_uris, gtk_clipboard_wait_for_uris, and
+    gtk_clipboard_wait_is_uris_available
+  - gtk_icon_info_new_for_pixbuf
+  - gtk_page_setup_load_file and gtk_page_setup_load_key_file
+  - gtk_print_settings_load_file and gtk_print_settings_load_key_file
+  - gtk_widget_get_snapshot
+  - gtk_show_uri
+  - gdk_screen_get_monitor_height_mm, gdk_screen_get_monitor_width_mm, and
+    gdk_screen_get_monitor_plug_name
+  - gdk_window_redirect_to_drawable and gdk_window_remove_redirection
+* Improve the documentation in many places.
+* For Gtk2::CellRenderer subclasses, use a more robust approach for chaining up
+  in the fallback implementations of interface functions.
+* Correctly marshal the push_in return value of Gtk2::Menu position callback.
+* Fix marshaling of the rows-reordered signal for custom Perl tree models.
+* Fix the gtk_plug_new_for_display wrapper so it is callable as
+  Gtk2::Plug->new_for_display(display, socket_id).
+* Provide Gtk2::TreeIter::set for custom model implementations to set the
+  contents of an iter.
+* Wrap gtk_widget_hide_on_delete.
+
 Overview of changes in Gtk2 1.190
 =================================
 
