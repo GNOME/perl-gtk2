@@ -1,5 +1,9 @@
 2008-08-23  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
+	* t/GtkFileChooser.t
+	* t/GtkTreeView-Dnd.t: Improve the wording of the skip_all
+	messages.
+
 	* xs/GtkTreeDnd.xs: Change the wrapper for
 	gtk_tree_drag_source_drag_data_get so it also accepts a selection
 	data object that is to be filled in, instead of always just

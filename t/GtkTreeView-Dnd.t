@@ -1,7 +1,7 @@
 #!/usr/bin/perl -w
 use strict;
 use Gtk2::TestHelper tests => 5,
-	skip_all => 'how do we simulate a drag';
+	skip_all => 'this test is interactive';
 use Data::Dumper;
 
 my $win = Gtk2::Window->new;
