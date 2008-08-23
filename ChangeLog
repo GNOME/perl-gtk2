@@ -1,3 +1,10 @@
+2008-08-23  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
+	Merge from HEAD:
+
+	* xs/PangoLayout.xs: Fix a leak in the wrapper of
+	pango_layout_line_get_x_ranges.  Patch by Kevin Ryde.
+
 2008-08-17  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
 	Merge from HEAD:

@@ -563,6 +563,7 @@ pango_layout_line_get_x_ranges (line, start_index, end_index)
 		av_push (av, newSViv (ranges[i + 1]));
 		PUSHs (sv_2mortal (newRV_noinc ((SV *) av)));
 	}
+	g_free (ranges);
 
 
 ####  void pango_layout_line_get_extents (PangoLayoutLine *line, PangoRectangle *ink_rect, PangoRectangle *logical_rect)
