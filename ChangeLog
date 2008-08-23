@@ -1,5 +1,8 @@
 2008-08-23  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
+	* xs/PangoLayout.xs: Fix a leak in the wrapper of
+	pango_layout_line_get_x_ranges.  Patch by Kevin Ryde.
+
 	* t/GtkFileChooser.t
 	* t/GtkTreeView-Dnd.t: Improve the wording of the skip_all
 	messages.
