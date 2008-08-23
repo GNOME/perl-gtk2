@@ -1,5 +1,10 @@
 2008-08-23  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
+	* xs/GtkTreeDnd.xs: Change the wrapper for
+	gtk_tree_drag_source_drag_data_get so it also accepts a selection
+	data object that is to be filled in, instead of always just
+	returning a new one.  Patch by Kevin Ryde.
+
 	* t/GtkTreeView.t: Use separately created tree views for certain
 	parts of the test.  Properly test set_search_equal_func and
 	set_search_position_func.  Make the tests for the coordinate
