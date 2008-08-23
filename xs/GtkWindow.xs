@@ -56,8 +56,8 @@ For example
 In a dialog or secondary app window you might not want to destroy but
 instead just hide ready for later re-use.
 
-    $dialog->signal_connect (delete_event =>
-			       sub { $dialog->hide (); TRUE; });
+    $dialog->signal_connect
+      (delete_event => \&Gtk2::Widget::hide_on_delete);
 
 The choice between destroying or hiding is normally just a matter of
 memory saved against the time to re-create, and how likely the dialog
