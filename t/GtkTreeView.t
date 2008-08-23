@@ -1,49 +1,49 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 115;
+use Gtk2::TestHelper tests => 123;
 
 # $Header$
 
 ###############################################################################
 
-my $window = Gtk2::Window -> new("toplevel");
+sub setup {
+	my $window = Gtk2::Window -> new("toplevel");
 
-my $model = Gtk2::TreeStore -> new("Glib::String", "Glib::Boolean");
-my $view = Gtk2::TreeView -> new();
-isa_ok($view, "Gtk2::TreeView");
+	my $model = Gtk2::TreeStore -> new("Glib::String", "Glib::Boolean");
+	my $view = Gtk2::TreeView -> new();
 
-$view -> set_model($model);
-isa_ok($view -> get_model(), "Gtk2::TreeStore");
+	$view -> set_model($model);
 
-foreach (qw(bla blee bliii bloooo)) {
-	my $iter = $model -> append(undef);
+	foreach (qw(bla blee bliii bloooo)) {
+		my $iter = $model -> append(undef);
 
-	$model -> set($iter,
-		      0 => $_,
-		      1 => 0);
-
-	#######################################################################
-
-	foreach my $multiplier(1 .. 3) {
-		my $iter_child = $model -> append($iter);
-
-		$model -> set($iter_child,
-			      0 => $_ x $multiplier,
+		$model -> set($iter,
+			      0 => $_,
 			      1 => 0);
 
-		my $iter_child_child = $model -> append($iter_child);
+		foreach my $multiplier (1 .. 3) {
+			my $iter_child = $model -> append($iter);
 
-		$model -> set($iter_child_child,
-			      0 => reverse($_) x $multiplier,
-			      1 => 1);
+			$model -> set($iter_child,
+				      0 => $_ x $multiplier,
+				      1 => 0);
+
+			my $iter_child_child = $model -> append($iter_child);
+
+			$model -> set($iter_child_child,
+				      0 => reverse($_) x $multiplier,
+				      1 => 1);
+		}
 	}
+
+	$view -> insert_column_with_attributes(
+		0, "Bla", Gtk2::CellRendererText -> new(), text => 0);
+
+	$window -> add($view);
+	$view -> realize();
+
+	return ($window, $view, $model, $view -> get_column(0));
 }
-
-###############################################################################
-
-$window -> add($view);
-$view -> realize();
-$window -> show_all();
 
 ###############################################################################
 
@@ -186,6 +186,10 @@ $view_column -> signal_emit("clicked");
 
 ###############################################################################
 
+my ($window, $view, $model) = setup();
+isa_ok($view, "Gtk2::TreeView");
+isa_ok($view -> get_model(), "Gtk2::TreeStore");
+
 $view -> append_column(my $view_column_one = Gtk2::TreeViewColumn -> new());
 $view -> insert_column(my $view_column_two = Gtk2::TreeViewColumn -> new(), 1);
 $view -> insert_column_with_attributes(0,
@@ -321,8 +325,58 @@ ok(!$view -> row_expanded($path));
 
 ###############################################################################
 
-$view -> set_search_equal_func(sub { return 1; });
+# set_search_equal_func
+{
+	my ($window, $view, $model) = setup();
+
+	my $been_here = 0;
+	$view -> set_search_equal_func(sub {
+		return if $been_here++;
+
+		my ($callback_model, $column, $key, $iter, $data) = @_;
+
+		is($callback_model, $model);
+		is($column, 0);
+		is($key, 'test');
+		isa_ok($iter, 'Gtk2::TreeIter');
+		is($data, undef);
+
+		return 1;
+	});
+	my $entry = Gtk2::Entry -> new();
+	$view -> set_search_entry($entry);
+	$entry -> set_text ('test');
+	run_main sub { $view -> signal_emit('start_interactive_search') };
+
+	$view -> set_search_equal_func(undef);
+}
+
+# set_search_position_func
+SKIP: {
+	skip("new 2.10 stuff", 0)
+		unless Gtk2 -> CHECK_VERSION(2, 10, 0);
+
+	my ($window, $view, $model) = setup();
+
+	$window -> show_all();
+
+	$view -> set_search_position_func(sub {
+		my ($callback_view, $widget, $data) = @_;
+
+		is($callback_view, $view);
+		isa_ok($widget, 'Gtk2::Widget');
+		is($data, undef);
+	});
+	run_main sub { $view -> signal_emit('start_interactive_search') };
+
+	$view -> set_search_position_func(undef);
+}
+
+###############################################################################
+
+# FIXME
 $view -> set_column_drag_function(sub { return 1; });
+$view -> set_column_drag_function(undef);
 
 ###############################################################################
 
@@ -392,11 +446,6 @@ SKIP: {
 	$view -> set_search_entry($entry);
 	isa_ok($view -> get_search_entry(), "Gtk2::Entry");
 
-	# FIXME: This doesn't actually invoke the handler.
-	$view -> set_search_position_func(sub { warn @_; }, "bla");
-	run_main sub { $view -> signal_emit("start_interactive_search") };
-	$view -> set_search_position_func(undef);
-
 	$view -> set_rubber_banding(TRUE);
 	ok($view -> get_rubber_banding());
 
@@ -411,24 +460,28 @@ SKIP: {
 	skip "new 2.12 stuff", 15
 		unless Gtk2 -> CHECK_VERSION(2, 12, 0);
 
+	my ($window, $view, $model, $view_column) = setup();
+	$window -> show_all();
+
 	$view -> set_show_expanders(TRUE);
 	ok($view -> get_show_expanders());
 
 	$view -> set_level_indentation(23);
 	is($view -> get_level_indentation(), 23);
 
-	is_deeply([$view -> convert_widget_to_tree_coords(0, 0)], [0, 0]);
-	is_deeply([$view -> convert_tree_to_widget_coords(0, 0)], [0, 0]);
-	is_deeply([$view -> convert_widget_to_bin_window_coords(0, 0)], [0, 0]);
-	is_deeply([$view -> convert_bin_window_to_widget_coords(0, 0)], [0, 0]);
-	is_deeply([$view -> convert_tree_to_bin_window_coords(0, 0)], [0, 0]);
-	is_deeply([$view -> convert_bin_window_to_tree_coords(0, 0)], [0, 0]);
+	foreach my $converter (qw/convert_widget_to_tree_coords
+				  convert_tree_to_widget_coords
+				  convert_widget_to_bin_window_coords
+				  convert_bin_window_to_widget_coords
+				  convert_tree_to_bin_window_coords
+				  convert_bin_window_to_tree_coords/)
+	{
+		my ($x, $y) = $view -> $converter(0, 0);
+		ok(defined $x && defined $y, $converter);
+	}
 
         is($view -> is_rubber_banding_active(), FALSE);
 
-	$view -> append_column($view_column);
-
-	my $window = Gtk2::Window->new;
 	$window->set (tooltip_markup => "<b>Bla!</b>");
 
 	my $times_tooltip_queried = 0;
@@ -457,16 +510,15 @@ SKIP: {
 		return TRUE;
 	});
 
-	$window->realize;
-
 	my $event = Gtk2::Gdk::Event->new ('motion-notify');
 	$event->window ($window->window);
 	Gtk2->main_do_event ($event);
 	Gtk2->main_do_event ($event);
+	Gtk2->main_do_event ($event);
+	Gtk2->main_do_event ($event);
+	Gtk2->main_do_event ($event);
 
 	Gtk2->main;
-
-	$view -> remove_column($view_column);
 }
 
 ###############################################################################

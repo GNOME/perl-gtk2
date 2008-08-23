@@ -1,5 +1,10 @@
 2008-08-23  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
+	* t/GtkTreeView.t: Use separately created tree views for certain
+	parts of the test.  Properly test set_search_equal_func and
+	set_search_position_func.  Make the tests for the coordinate
+	converters and for the tooltip stuff more robust.
+
 	* xs/GtkWindow.xs: Use Gtk2::Widget::hide_on_delete in the POD.
 	Patch by Kevin Ryde.
 
