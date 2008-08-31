@@ -1,3 +1,13 @@
+2008-08-31  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
+	Merge from HEAD:
+
+	* t/GtkTreeModelIface.t
+	* xs/GtkTreeModel.xs: Fix the stack handling in the xsub for
+	gtk_tree_model_get.  We need to call SPAGAIN before and PUTBACK
+	after code that modifies the local stack pointer (PUSHs and XPUSHs
+	for example).  Patch by Kevin Ryde.
+
 2008-08-23  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
 	Merge from HEAD:
