@@ -1,5 +1,9 @@
 2008-08-31  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
+	* t/GtkLinkButton.t
+	* xs/GtkLinkButton.xs: Wrap gtk_link_button_set_visited and
+	gtk_link_button_get_visited.
+
 	* t/GtkTreeModelIface.t
 	* xs/GtkTreeModel.xs: Fix the stack handling in the xsub for
 	gtk_tree_model_get.  We need to call SPAGAIN before and PUTBACK

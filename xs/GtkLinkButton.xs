@@ -81,3 +81,11 @@ gtk_link_button_set_uri_hook (class, SV *func, SV *data=NULL)
 			 callback,
 			 (GDestroyNotify) gperl_callback_destroy);
 	}
+
+#if GTK_CHECK_VERSION (2, 13, 7) /* FIXME: 2.14 */
+
+gboolean gtk_link_button_get_visited (GtkLinkButton *link_button);
+
+void gtk_link_button_set_visited (GtkLinkButton *link_button, gboolean visited);
+
+#endif /* 2.14 */

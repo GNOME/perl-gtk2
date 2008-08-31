@@ -3,7 +3,7 @@
 
 use strict;
 use Gtk2::TestHelper
-  tests => 21,
+  tests => 22,
   at_least_version => [2, 10, 0, "GtkLinkButton is new in 2.10"];
 
 my $button;
@@ -51,3 +51,11 @@ $button->set_uri_hook (\&hook, { whee => "woo hoo" });
 $button->clicked;
 
 $button->set_uri_hook (undef);
+
+SKIP: {
+	skip 'new 2.14 stuff', 1
+		unless Gtk2->CHECK_VERSION(2, 13, 7); # FIXME: 2.14
+
+	$button->set_visited (TRUE);
+	is ($button->get_visited, TRUE);
+}
