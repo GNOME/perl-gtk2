@@ -419,7 +419,7 @@ MODULE = Gtk2::Selection	PACKAGE = Gtk2::SelectionData	PREFIX = gtk_selection_da
 # GdkAtom gtk_selection_data_get_target (GtkSelectionData *selection_data);
 # GdkAtom gtk_selection_data_get_data_type (GtkSelectionData *selection_data);
 # gint gtk_selection_data_get_format (GtkSelectionData *selection_data);
-# const guchar *gtk_selection_data_get_data (GtkSelectionData *selection_data, guint *length);
+# const guchar *gtk_selection_data_get_data (GtkSelectionData *selection_data, gint *length);
 # GdkDisplay *gtk_selection_data_get_display (GtkSelectionData *selection_data);
 SV *
 get_selection (d)
@@ -471,10 +471,10 @@ get_selection (d)
 		break;
 	    case 8:
 	    case 9:
-#if GTK_CHECK_VERSION (2, 13, 6) /* FIXME: 2.14 */
+#if GTK_CHECK_VERSION (2, 13, 8) /* FIXME: 2.14 */
 	    {
-		guint length = 0;
-		const guchar *data = gtk_selection_data_get_data (d, &length);
+		gint length = gtk_selection_data_get_length (d);
+		const guchar *data = gtk_selection_data_get_data (d);
 		RETVAL = newSVpv ((const gchar *) data, length);
 	    }
 #else
@@ -483,10 +483,9 @@ get_selection (d)
 		break;
 	    case 10:
 	    case 11:
-#if GTK_CHECK_VERSION (2, 13, 6) /* FIXME: 2.14 */
+#if GTK_CHECK_VERSION (2, 13, 8) /* FIXME: 2.14 */
 	    {
-		guint length = 0;
-		gtk_selection_data_get_data (d, &length);
+		gint length = gtk_selection_data_get_length (d);
 		RETVAL = newSViv (length);
 	    }
 #else
