@@ -1,5 +1,11 @@
 2008-08-31  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
+	* Gtk2.pm
+	* NEWS
+	* README: Unstable release 1.192.
+
+2008-08-31  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
 	* t/GtkLinkButton.t
 	* xs/GtkLinkButton.xs: Wrap gtk_link_button_set_visited and
 	gtk_link_button_get_visited.

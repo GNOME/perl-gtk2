@@ -1,3 +1,16 @@
+Overview of changes in Gtk2 1.192
+=================================
+
+* Wrap gtk_link_button_set_visited and gtk_link_button_get_visited.
+* Wrap gtk_selection_data_get_length, update the wrapper for
+  gtk_selection_data_get_data.
+* Change Gtk2::TreeDragSource::drag_data_get to also accept a selection data
+  object that is to be filled in, instead of always just returning a new one.
+* Fix a memory leak in Gtk2::Pango::LayoutLine::get_x_ranges.
+* Make Gtk2::Widget::hide_on_delete actually usable as a delete-event signal
+  handler.
+* Fix a stack handling issue in Gtk2::TreeModel::get.
+
 Overview of changes in Gtk2 1.191
 =================================
 
