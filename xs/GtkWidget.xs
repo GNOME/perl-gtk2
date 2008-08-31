@@ -874,8 +874,9 @@ C<delete-event> signal:
   $wiget->signal_connect (
     delete_event => \&Gtk2::Widget::hide_on_delete);
 
+=for arg ... other arguments ignored (event etc)
 =cut
-gboolean gtk_widget_hide_on_delete (GtkWidget *widget);
+gboolean gtk_widget_hide_on_delete (GtkWidget *widget, ...);
 
  #/* Widget styles.
  # */

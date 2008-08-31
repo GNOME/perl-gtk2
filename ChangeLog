@@ -1,5 +1,9 @@
 2008-08-31  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
+	* t/GtkWidget.t
+	* xs/GtkWidget.xs: Make Gtk2::Widget::hide_on_delete ignore excess
+	arguments so that it is actually usable.  Patch by Kevin Ryde.
+
 	* xs/GtkSelection.xs: gtk_selection_data_get_data was split up
 	into gtk_selection_data_get_data and
 	gtk_selection_data_get_length.  Update the wrappers accordingly.
