@@ -346,7 +346,7 @@ sub sort {
 
 package main;
 
-use Gtk2::TestHelper tests => 176, noinit => 1;
+use Gtk2::TestHelper tests => 177, noinit => 1;
 use strict;
 use warnings;
 
@@ -474,5 +474,42 @@ $model->sort(23);
   is_deeply ($iter->to_arrayref($stamp), $other->to_arrayref($stamp),
              'iter->set() from another iter');
 }
+
+###############################################################################
+
+package StackTestModel;
+use strict;
+use warnings;
+
+use Glib::Object::Subclass
+  Glib::Object::,
+  interfaces => [ Gtk2::TreeModel:: ];
+
+our @ROW = (100,200,300,400,500,600,700,800,900,1000);
+
+sub GET_N_COLUMNS { return 10; }
+
+sub GET_COLUMN_TYPE { return 'Glib::String'; }
+
+sub GET_ITER { return [ 123, undef, undef, undef ]; }
+
+sub proxy { }
+sub grow_the_stack { proxy (1 .. 500); }
+
+sub GET_VALUE {
+  my ($self, $iter, $col) = @_;
+  grow_the_stack();
+  return $ROW[$col];
+}
+
+package main;
+
+use strict;
+use warnings;
+
+$model = StackTestModel->new;
+is_deeply ([ $model->get ($model->get_iter_first) ],
+           \@StackTestModel::ROW,
+           '$model->get ($iter) does not result in stack corruption');
 
 # vim: set syntax=perl :

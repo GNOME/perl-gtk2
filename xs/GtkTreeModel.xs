@@ -1132,26 +1132,32 @@ gtk_tree_model_get (tree_model, iter, ...)
 	int i;
     PPCODE:
 	PERL_UNUSED_VAR (ix);
-	/* if column id's were passed, just return those columns */
-	if( items > 2 )
-	{
+	/* Update the global stack pointer so we can later use SPAGAIN.  This
+	 * is done so that other xsubs (invoked indirectly by
+	 * gtk_tree_model_get_value) don't overwrite what we put on the
+	 * stack. */
+	PUTBACK;
+	if (items > 2) {
+		/* if column id's were passed, just return those columns */
 		for (i = 2 ; i < items ; i++) {
 			GValue gvalue = {0, };
 			gtk_tree_model_get_value (tree_model, iter,
 			                          SvIV (ST (i)), &gvalue);
+			SPAGAIN;
 			XPUSHs (sv_2mortal (gperl_sv_from_value (&gvalue)));
+			PUTBACK;
 			g_value_unset (&gvalue);
 		}
-	}
-	else
-	{
+	} else {
 		/* otherwise return all of the columns */
-		for( i = 0; i < gtk_tree_model_get_n_columns(tree_model); i++ )
-		{
+		int n_columns = gtk_tree_model_get_n_columns (tree_model);
+		for (i = 0; i < n_columns; i++) {
 			GValue gvalue = {0, };
 			gtk_tree_model_get_value (tree_model, iter,
 			                          i, &gvalue);
+			SPAGAIN;
 			XPUSHs (sv_2mortal (gperl_sv_from_value (&gvalue)));
+			PUTBACK;
 			g_value_unset (&gvalue);
 		}
 	}
