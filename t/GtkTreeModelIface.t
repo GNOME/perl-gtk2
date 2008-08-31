@@ -474,12 +474,11 @@ sub GET_COLUMN_TYPE { return 'Glib::String'; }
 
 sub GET_ITER { return [ 123, undef, undef, undef ]; }
 
-sub proxy { }
-sub grow_the_stack { proxy (1 .. 500); }
+sub grow_the_stack { 1 .. 500; }
 
 sub GET_VALUE {
   my ($self, $iter, $col) = @_;
-  grow_the_stack();
+  my @list = grow_the_stack();
   return $ROW[$col];
 }
 
