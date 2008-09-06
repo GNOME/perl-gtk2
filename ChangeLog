@@ -1,5 +1,9 @@
 2008-09-06  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
+	* t/version-checks.t: Don't use the '-init' import switch since it
+	might abort the test.  Use '-threads-init' instead, and properly
+	quote it.
+
 	* xs/GtkTreeDnd.xs: Use gdk_atom_intern instead of
 	gdk_atom_intern_static_string; the latter is only available in
 	gtk+ >= 2.10.
