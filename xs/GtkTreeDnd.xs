@@ -156,7 +156,7 @@ gtk_tree_drag_source_drag_data_get (GtkTreeDragSource *drag_source, GtkTreePath 
 	} else {
 		GtkSelectionData new_selection_data = { 0, };
 		new_selection_data.target
-		  = gdk_atom_intern_static_string ("GTK_TREE_MODEL_ROW");
+		  = gdk_atom_intern ("GTK_TREE_MODEL_ROW", FALSE);
 		new_selection_data.length = -1;
 		if (gtk_tree_drag_source_drag_data_get (drag_source, path,
 		                                        &new_selection_data))
