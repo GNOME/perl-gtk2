@@ -10,12 +10,12 @@ SKIP: {
 
   my $matrix = Gtk2::Pango::Matrix -> new(2.3, 2.3, 2.3, 2.3, 2.3, 2.3);
   isa_ok($matrix, "Gtk2::Pango::Matrix");
-  is($matrix -> xx, 2.3);
-  is($matrix -> xy, 2.3);
-  is($matrix -> yx, 2.3);
-  is($matrix -> yy, 2.3);
-  is($matrix -> x0, 2.3);
-  is($matrix -> y0, 2.3);
+  delta_ok($matrix -> xx, 2.3);
+  delta_ok($matrix -> xy, 2.3);
+  delta_ok($matrix -> yx, 2.3);
+  delta_ok($matrix -> yy, 2.3);
+  delta_ok($matrix -> x0, 2.3);
+  delta_ok($matrix -> y0, 2.3);
 
   $matrix = Gtk2::Pango::Matrix -> new();
   isa_ok($matrix, "Gtk2::Pango::Matrix");
@@ -64,12 +64,12 @@ SKIP: {
   $matrix -> yy(2.3);
   $matrix -> x0(2.3);
   $matrix -> y0(2.3);
-  is($matrix -> xx, 2.3);
-  is($matrix -> xy, 2.3);
-  is($matrix -> yx, 2.3);
-  is($matrix -> yy, 2.3);
-  is($matrix -> x0, 2.3);
-  is($matrix -> y0, 2.3);
+  delta_ok($matrix -> xx, 2.3);
+  delta_ok($matrix -> xy, 2.3);
+  delta_ok($matrix -> yx, 2.3);
+  delta_ok($matrix -> yy, 2.3);
+  delta_ok($matrix -> x0, 2.3);
+  delta_ok($matrix -> y0, 2.3);
 }
 
 SKIP: {

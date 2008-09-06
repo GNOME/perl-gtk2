@@ -20,7 +20,7 @@ $range -> set_inverted(1);
 is($range -> get_inverted(), 1);
 
 $range -> set_value(23.42);
-is($range -> get_value(), 23.42);
+delta_ok($range -> get_value(), 23.42);
 
 $range -> set_increments(1, 5);
 $range -> set_range(0, 100);
@@ -47,7 +47,7 @@ SKIP: {
 	ok(!$range -> get_restrict_to_fill_level());
 
 	$range -> set_fill_level(0.23);
-	is($range -> get_fill_level(), 0.23);
+	delta_ok($range -> get_fill_level(), 0.23);
 }
 
 __END__

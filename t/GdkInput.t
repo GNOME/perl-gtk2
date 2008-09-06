@@ -42,7 +42,7 @@ is(scalar @positions, 2);
 
 # FIXME: warn $device -> get_history($window -> window(), 0, time());
 
-is($device -> get_axis("x", 1.23, 2, 3, 4), 1.23);
+delta_ok($device -> get_axis("x", 1.23, 2, 3, 4), 1.23);
 
 Gtk2::Gdk::Input -> set_extension_events($window -> window(), [qw/pointer-motion-mask/], "all");
 

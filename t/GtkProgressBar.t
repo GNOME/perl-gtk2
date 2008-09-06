@@ -32,7 +32,7 @@ foreach (@prog)
 	ok(1);
 
 	$_->set_fraction(0.23);
-	is( $_->get_fraction, 0.23 );
+	delta_ok( $_->get_fraction, 0.23 );
 
 	$_->set_text("Bla");
 	is( $_->get_text, "Bla" );
@@ -41,7 +41,7 @@ foreach (@prog)
 	ok( ! $_->get_text );
 
 	$_->set_pulse_step(0.42);
-	is( $_->get_pulse_step, 0.42 );
+	delta_ok( $_->get_pulse_step, 0.42 );
 }
 
 ok(1);
