@@ -28,7 +28,7 @@ is_deeply([$spin -> get_range()], [0, 100]);
 
 $spin -> set_value(23.42);
 is($spin -> get_value_as_int(), 23);
-is($spin -> get_value(), 23.42);
+delta_ok($spin -> get_value(), 23.42);
 
 $spin -> set_update_policy("if-valid");
 is($spin -> get_update_policy(), "if-valid");

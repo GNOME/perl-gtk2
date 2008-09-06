@@ -2,6 +2,24 @@
 
 	Merge from HEAD:
 
+	Fix some test failures related to floating point number
+	comparisons.
+
+	* pm/TestHelper.pm: Add delta_ok() for comparing floating point
+	numbers.
+
+	* t/GdkInput.t
+	* t/GtkProgressBar.t
+	* t/GtkRange.t
+	* t/GtkSpinButton.t
+	* t/PangoMatrix.t: Use delta_ok().
+
+	* t/GtkSimpleList.t: Simply don't use floating point numbers here.
+
+2008-09-06  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
+	Merge from HEAD:
+
 	* t/GdkPixbuf.t: If saving a pixbuf in 'jpeg' format is not
 	supported, try 'png'.  Patch by Flavio Poletti.  (RT #37135)
 

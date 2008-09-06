@@ -82,10 +82,10 @@ my $undef;
 my $scalar = 'scalar';
 
 @{$list->{data}} = (
-	[ 'one', 1, 1.1, 1, undef, $pixbuf, undef, [0, 1, 2], '<big>one</big>' ],
-	[ 'two', 2, 2.2, 0, undef, undef, $scalar, [1, 2, 3], '<big>two</big>' ],
-	[ 'three', 3, 3.3, 1, $scalar, $pixbuf, undef, [2, 3, 4], '<big>three</big>' ],
-	[ 'four', 4, 4.4, 0, $scalar, $undef, $scalar, [3, 4, 5], '<big>four</big>' ],
+	[ 'one', 1, 11, 1, undef, $pixbuf, undef, [0, 1, 2], '<big>one</big>' ],
+	[ 'two', 2, 22, 0, undef, undef, $scalar, [1, 2, 3], '<big>two</big>' ],
+	[ 'three', 3, 33, 1, $scalar, $pixbuf, undef, [2, 3, 4], '<big>three</big>' ],
+	[ 'four', 4, 44, 0, $scalar, $undef, $scalar, [3, 4, 5], '<big>four</big>' ],
 );
 ok( scalar(@{$list->{data}}) == 4 );
 
@@ -111,10 +111,10 @@ run_main sub {
 			$ldata->[1][1] == 2 and
 			$ldata->[2][1] == 3 and
 			$ldata->[3][1] == 4 and
-			$ldata->[0][2] == 1.1 and
-			$ldata->[1][2] == 2.2 and
-			$ldata->[2][2] == 3.3 and
-			$ldata->[3][2] == 4.4 and
+			$ldata->[0][2] == 11 and
+			$ldata->[1][2] == 22 and
+			$ldata->[2][2] == 33 and
+			$ldata->[3][2] == 44 and
 			$ldata->[0][3] == 1 and
 			$ldata->[1][3] == 0 and
 			$ldata->[2][3] == 1 and
@@ -137,14 +137,14 @@ run_main sub {
 			$ldata->[3][8] eq '<big>four</big>'
 		);
 
-		is (push (@$ldata, [ 'pushed', 1, 0.1, undef ]), 5);
+		is (push (@$ldata, [ 'pushed', 1, 10, undef ]), 5);
 		ok( scalar(@$ldata) == 5 );
-		push @$ldata, [ 'pushed', 2, 0.2, undef ];
+		push @$ldata, [ 'pushed', 2, 20, undef ];
 		ok( scalar(@$ldata) == 6 );
-		push @$ldata, [ 'pushed', 3, 0.3, undef ];
+		push @$ldata, [ 'pushed', 3, 30, undef ];
 		ok( scalar(@$ldata) == 7 );
 
-		ok (eq_array (pop @$ldata, ['pushed', 3, 0.3, 0, 
+		ok (eq_array (pop @$ldata, ['pushed', 3, 30, 0, 
 					undef, undef, undef, undef, undef]));
 		ok( scalar(@$ldata) == 6 );
 		pop @$ldata;
@@ -152,14 +152,14 @@ run_main sub {
 		pop @$ldata;
 		ok( scalar(@$ldata) == 4 );
 
-		is (unshift (@$ldata, [ 'unshifted', 1, 0.1, undef ]), 5);
+		is (unshift (@$ldata, [ 'unshifted', 1, 10, undef ]), 5);
 		ok( scalar(@$ldata) == 5 );
-		unshift @$ldata, [ 'unshifted', 2, 0.2, undef ];
+		unshift @$ldata, [ 'unshifted', 2, 20, undef ];
 		ok( scalar(@$ldata) == 6 );
-		unshift @$ldata, [ 'unshifted', 3, 0.3, undef ];
+		unshift @$ldata, [ 'unshifted', 3, 30, undef ];
 		ok( scalar(@$ldata) == 7 );
 
-		ok (eq_array (shift @$ldata, ['unshifted', 3, 0.3, 0, 
+		ok (eq_array (shift @$ldata, ['unshifted', 3, 30, 0, 
 					undef, undef, undef, undef, undef]));
 		ok( scalar(@$ldata) == 6 );
 		shift @$ldata;
@@ -177,10 +177,10 @@ run_main sub {
 			$ldata->[1][1] == 2 and
 			$ldata->[2][1] == 3 and
 			$ldata->[3][1] == 4 and
-			$ldata->[0][2] == 1.1 and
-			$ldata->[1][2] == 2.2 and
-			$ldata->[2][2] == 3.3 and
-			$ldata->[3][2] == 4.4 and
+			$ldata->[0][2] == 11 and
+			$ldata->[1][2] == 22 and
+			$ldata->[2][2] == 33 and
+			$ldata->[3][2] == 44 and
 			$ldata->[0][3] == 1 and
 			$ldata->[1][3] == 0 and
 			$ldata->[2][3] == 1 and
@@ -206,11 +206,11 @@ run_main sub {
 		$ldata->[1][0] = 'getting deleted';
 		ok( $ldata->[1][0] eq 'getting deleted' );
 
-		$ldata->[1] = [ 'right now', -1, -1.1, 1, undef ];
+		$ldata->[1] = [ 'right now', -1, -11, 1, undef ];
 		ok(
 			$ldata->[1][0] eq 'right now' and
 			$ldata->[1][1] == -1 and
-			$ldata->[1][2] == -1.1 and
+			$ldata->[1][2] == -11 and
 			$ldata->[1][3] == 1
 	       	);
 
@@ -227,16 +227,16 @@ run_main sub {
 		ok( scalar(@$ldata) == 0 );
 		
 		push @{$list->{data}}, (
-			[ 'pushed', 1, 0.1, undef ],
-			[ 'pushed', 2, 0.1, undef ],
-			[ 'pushed', 3, 0.1, undef ],
-			[ 'pushed', 4, 0.1, undef ],
+			[ 'pushed', 1, 10, undef ],
+			[ 'pushed', 2, 10, undef ],
+			[ 'pushed', 3, 10, undef ],
+			[ 'pushed', 4, 10, undef ],
 		);
 		unshift @{$list->{data}}, (
-			[ 'unshifted', 1, 0.1, undef ],
-			[ 'unshifted', 2, 0.1, undef ],
-			[ 'unshifted', 3, 0.1, undef ],
-			[ 'unshifted', 4, 0.1, undef ],
+			[ 'unshifted', 1, 10, undef ],
+			[ 'unshifted', 2, 10, undef ],
+			[ 'unshifted', 3, 10, undef ],
+			[ 'unshifted', 4, 10, undef ],
 		);
 
 		is( scalar(@{$list->{data}}), 8 );
@@ -244,58 +244,58 @@ run_main sub {
 		my @ret;
 		
 		@ret = splice @{$list->{data}}, 2, 2,
-				[ 'spliced', 1, 0.1, undef ],
-				[ 'spliced', 2, 0.1, undef ];
+				[ 'spliced', 1, 10, undef ],
+				[ 'spliced', 2, 10, undef ];
 		is_deeply (\@ret, 
-			[ [ 'unshifted', 2, 0.1, 0, 
+			[ [ 'unshifted', 2, 10, 0, 
 			    undef, undef, undef, undef, undef ],
-			  [ 'unshifted', 1, 0.1, 0, 
+			  [ 'unshifted', 1, 10, 0, 
 			    undef, undef, undef, undef, undef ] ], 'splice @, 2, 2 @');
 		
 		@ret = splice @{$list->{data}}, -2, 1,
-			[ 'negspliced', 1, 0.1, undef ],
-			[ 'negspliced', 2, 0.1, undef ],
-			[ 'negspliced', 3, 0.1, undef ];
+			[ 'negspliced', 1, 10, undef ],
+			[ 'negspliced', 2, 10, undef ],
+			[ 'negspliced', 3, 10, undef ];
 		is_deeply (\@ret, 
-			[ [ 'pushed', 3, 0.1, 0, 
+			[ [ 'pushed', 3, 10, 0, 
 			    undef, undef, undef, undef, undef ] ], 'splice @, -2, 1 @');
 
 		@ret = splice @{$list->{data}}, 8;
 		is_deeply (\@ret, 
-			[ [ 'negspliced', 3, 0.1, 0, 
+			[ [ 'negspliced', 3, 10, 0, 
 			    undef, undef, undef, undef, undef ],
-			  [ 'pushed', 4, 0.1, 0, 
+			  [ 'pushed', 4, 10, 0, 
 			    undef, undef, undef, undef, undef ] ], 'splice @, 8');
 
 		@ret = splice @{$list->{data}}, -2;
 		is_deeply (\@ret, 
-			[ [ 'negspliced', 1, 0.1, 0, 
+			[ [ 'negspliced', 1, 10, 0, 
 			    undef, undef, undef, undef, undef ],
-			  [ 'negspliced', 2, 0.1, 0, 
+			  [ 'negspliced', 2, 10, 0, 
 			    undef, undef, undef, undef, undef ] ], 'splice @, -2');
 		
 		@ret = splice @{$list->{data}}, -2, 0, 
-			[ 'norem', 1, 0.1, undef ],
-			[ 'norem', 2, 0.1, undef ];
+			[ 'norem', 1, 10, undef ],
+			[ 'norem', 2, 10, undef ];
 		is_deeply (\@ret, [], 'splice @, -2, 0, @');
 
 		@ret = splice @{$list->{data}};
 		is_deeply (\@ret, 
-			[ [ 'unshifted', 4, 0.1, 0,
+			[ [ 'unshifted', 4, 10, 0,
 			    undef, undef, undef, undef, undef ],
-			  [ 'unshifted', 3, 0.1, 0,
+			  [ 'unshifted', 3, 10, 0,
 			    undef, undef, undef, undef, undef ],
-			  [ 'spliced', 1, 0.1, 0,
+			  [ 'spliced', 1, 10, 0,
 			    undef, undef, undef, undef, undef ],
-			  [ 'spliced', 2, 0.1, 0,
+			  [ 'spliced', 2, 10, 0,
 			    undef, undef, undef, undef, undef ],
-			  [ 'norem', 1, 0.1, 0,
+			  [ 'norem', 1, 10, 0,
 			    undef, undef, undef, undef, undef ],
-			  [ 'norem', 2, 0.1, 0,
+			  [ 'norem', 2, 10, 0,
 			    undef, undef, undef, undef, undef ],
-			  [ 'pushed', 1, 0.1, 0,
+			  [ 'pushed', 1, 10, 0,
 			    undef, undef, undef, undef, undef ],
-			  [ 'pushed', 2, 0.1, 0,
+			  [ 'pushed', 2, 10, 0,
 			    undef, undef, undef, undef, undef ] ], 'splice @');
 };
 
