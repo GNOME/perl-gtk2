@@ -411,7 +411,11 @@ SKIP: {
         my $data = pack "C*", map { int rand 255 } 0..(3*$width*$height);
         my $pixbuf = Gtk2::Gdk::Pixbuf->new_from_data
                         ($data, 'rgb', FALSE, 8, $width, $height, $width*3);
-        my $buffer = $pixbuf->save_to_buffer ('jpeg', quality => 0.75);
+        my $buffer = eval {
+            $pixbuf->save_to_buffer ('jpeg', quality => 0.75);
+        } || eval {
+            $pixbuf->save_to_buffer ('png'); # fallback if jpeg not supported
+        };
         ok ($buffer, 'save_to_buffer');
 
         my $loader = Gtk2::Gdk::PixbufLoader->new;
