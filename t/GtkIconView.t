@@ -14,7 +14,7 @@
 use strict;
 use warnings;
 
-use Gtk2::TestHelper tests => 59,
+use Gtk2::TestHelper tests => 56,
     at_least_version => [2, 6, 0, "GtkIconView is new in 2.6"],
     ;
 
@@ -134,7 +134,7 @@ is ($ncalls, scalar(@selected_items),
     'called once for each selected child');
 
 SKIP: {
-	skip 'new 2.8 stuff', 14
+	skip 'new 2.8 stuff', 11
 		unless Gtk2->CHECK_VERSION (2, 8, 0);
 
 	# For some reason, get_item_at_pos seems to occasionally run into
@@ -154,19 +154,14 @@ SKIP: {
 	$win->show_all;
 
 	my $path = Gtk2::TreePath->new_first;
-	my $cell = ($iview->get_cells)[PIXBUF];
 
+	# We have no cell renderer to test with, since get_cells() is not
+	# available.
 	$iview->set_cursor ($path, undef, FALSE);
 	my @tmp = $iview->get_cursor;
 	is (@tmp, 2);
 	isa_ok ($tmp[0], "Gtk2::TreePath");
 	is ($tmp[1], undef);
-
-	$iview->set_cursor ($path, $cell, TRUE);
-	@tmp = $iview->get_cursor;
-	is (@tmp, 2);
-	isa_ok ($tmp[0], "Gtk2::TreePath");
-	is ($tmp[1], $cell);
 
 	@tmp = $iview->get_visible_range;
 	isa_ok ($tmp[0], "Gtk2::TreePath");
@@ -201,7 +196,7 @@ SKIP: {
 }
 
 SKIP: {
-	skip 'new 2.12 stuff', 7
+	skip 'new 2.12 stuff', 2
 		unless Gtk2->CHECK_VERSION (2, 12, 0);
 
         my $win = Gtk2::Window->new;

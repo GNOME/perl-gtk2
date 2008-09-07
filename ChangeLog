@@ -1,3 +1,9 @@
+2008-09-07  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
+	Merge from HEAD:
+
+	* t/GtkIconView.t: Fix test failure on older gtk+.
+
 2008-09-06  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
 	Merge from HEAD:
