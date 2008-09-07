@@ -1106,35 +1106,50 @@ gtk_tree_model_get (tree_model, iter, ...)
 	get_value = 1
     PREINIT:
 	int i;
-    PPCODE:
+    CODE:
+	/* we use CODE: instead of PPCODE: so we can handle the stack
+	 * ourselves. */
 	PERL_UNUSED_VAR (ix);
-	/* The code below uses PUTBACK and SPAGAIN to synchronize the local
-	 * with the global stack pointer.  This is done so that other xsubs
-	 * (invoked indirectly by gtk_tree_model_get_value) don't overwrite
-	 * what we put on the stack. */
-	if (items > 2) {
+#define OFFSET 2
+	if (items > OFFSET) {
 		/* if column id's were passed, just return those columns */
-		for (i = 2 ; i < items ; i++) {
+
+		/* the stack is big enough already due to the input arguments,
+		 * so we don't need to extend it.  nor do we need to care about
+		 * xsubs called by gtk_tree_model_get_value overwriting the
+		 * stuff we put on the stack. */
+		for (i = OFFSET ; i < items ; i++) {
 			GValue gvalue = {0, };
-			PUTBACK;
 			gtk_tree_model_get_value (tree_model, iter,
 			                          SvIV (ST (i)), &gvalue);
-			SPAGAIN;
-			XPUSHs (sv_2mortal (gperl_sv_from_value (&gvalue)));
+			ST (i - OFFSET) = sv_2mortal (gperl_sv_from_value (&gvalue));
 			g_value_unset (&gvalue);
 		}
-	} else {
+		XSRETURN (items - OFFSET);
+	}
+#undef OFFSET
+
+	else {
 		/* otherwise return all of the columns */
+
 		int n_columns = gtk_tree_model_get_n_columns (tree_model);
+		/* extend the stack so it can handle 'n_columns' items in
+		 * total.  the stack already contains 'items' elements so make
+		 * room for 'n_clumns - items' more, move our local stack
+		 * pointer forward to the new end, and update the global stack
+		 * pointer.  this way, xsubs called by gtk_tree_model_get_value
+		 * don't overwrite what we put on the stack. */
+		EXTEND (SP, n_columns - items);
+		SP += n_columns - items;
+		PUTBACK;
 		for (i = 0; i < n_columns; i++) {
 			GValue gvalue = {0, };
-			PUTBACK;
 			gtk_tree_model_get_value (tree_model, iter,
 			                          i, &gvalue);
-			SPAGAIN;
-			XPUSHs (sv_2mortal (gperl_sv_from_value (&gvalue)));
+			ST (i) = sv_2mortal (gperl_sv_from_value (&gvalue));
 			g_value_unset (&gvalue);
 		}
+		XSRETURN (n_columns);
 	}
 
  ## va_list means nothing to a perl developer, it's a c-specific thing.

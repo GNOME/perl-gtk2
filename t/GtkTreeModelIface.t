@@ -346,7 +346,7 @@ sub sort {
 
 package main;
 
-use Gtk2::TestHelper tests => 175, noinit => 1;
+use Gtk2::TestHelper tests => 176, noinit => 1;
 use strict;
 use warnings;
 
@@ -489,7 +489,11 @@ use warnings;
 
 $model = StackTestModel->new;
 is_deeply ([ $model->get ($model->get_iter_first) ],
-           \@StackTestModel::ROW,
+           [ @StackTestModel::ROW ],
            '$model->get ($iter) does not result in stack corruption');
+
+is_deeply ([ $model->get ($model->get_iter_first, reverse 0 .. 9) ],
+           [ reverse @StackTestModel::ROW ],
+           '$model->get ($iter, @columns) does not result in stack corruption');
 
 # vim: set syntax=perl :
