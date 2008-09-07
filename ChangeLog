@@ -1,5 +1,9 @@
 2008-09-07  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
+	* t/GtkTreeModelIface.t
+	* xs/GtkTreeModel.xs: The 2008-08-31 change broke the
+	explicit-columns case of Gtk2::TreeModel::get.  Fix it.  Test it.
+
 	* t/GtkLinkButton.t: Test that URI hooks can disconnect themselves
 	and modify the user data.  Patch by Kevin Ryde.
 
