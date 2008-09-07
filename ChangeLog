@@ -1,5 +1,11 @@
 2008-09-07  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
+	* Gtk2.pm
+	* NEWS
+	* README: Unstable release 1.193.
+
+2008-09-07  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
 	* t/GtkTreeModelIface.t
 	* xs/GtkTreeModel.xs: The 2008-08-31 change broke the
 	explicit-columns case of Gtk2::TreeModel::get.  Fix it.  Test it.

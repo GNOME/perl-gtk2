@@ -1,3 +1,10 @@
+Overview of changes in Gtk2 1.193
+=================================
+
+* Fix the explicit-columns case of Gtk2::TreeModel::get.
+* Add Gtk2::TestHelper::delta_ok for comparing floating point numbers.  Use it.
+* Fix compilation and test problems.
+
 Overview of changes in Gtk2 1.192
 =================================
 
