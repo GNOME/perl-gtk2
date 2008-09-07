@@ -1,5 +1,8 @@
 2008-09-07  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
+	* t/GtkLinkButton.t: Test that URI hooks can disconnect themselves
+	and modify the user data.  Patch by Kevin Ryde.
+
 	* t/GtkIconView.t: Fix test failure on older gtk+.
 
 2008-09-06  Torsten Schoenfeld  <kaffeetisch@gmx.de>
