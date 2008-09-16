@@ -1,5 +1,9 @@
 2008-09-16  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
+	* t/GtkTreeModelIface.t
+	* xs/GtkTreeSortable.xs: Fix a stack handling bug in
+	Gtk2::TreeSortable::get_sort_column_id.
+
 	* t/GtkCellLayoutIface.t
 	* xs/GtkCellLayout.xs: Fix a stack handling bug in
 	Gtk2::CellLayout::get_cells.
