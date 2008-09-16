@@ -477,7 +477,9 @@ gtk_cell_layout_get_cells (GtkCellLayout *cell_layout)
     PREINIT:
 	GList *result, *i;
     PPCODE:
+	PUTBACK;
 	result = gtk_cell_layout_get_cells (cell_layout);
+	SPAGAIN;
 	if (!result) /* can happen if the widget doesn't implement get_cells */
 		XSRETURN_UNDEF;
 	for (i = result; i != NULL; i = i->next)
