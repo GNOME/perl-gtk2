@@ -68,11 +68,14 @@ sub REORDER {
   is ($position, 42);
 }
 
+sub grow_the_stack { 0 .. 500 };
+
 sub GET_CELLS {
   my ($self) = @_;
   isa_ok ($self, __PACKAGE__);
   $self->{cell_one} = Gtk2::CellRendererText->new;
   $self->{cell_two} = Gtk2::CellRendererToggle->new;
+  my @list = grow_the_stack();
   return ($self->{cell_one}, $self->{cell_two});
 }
 

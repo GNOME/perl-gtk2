@@ -2,6 +2,10 @@
 
 	Merge from HEAD:
 
+	* t/GtkCellLayoutIface.t
+	* xs/GtkCellLayout.xs: Fix a stack handling bug in
+	Gtk2::CellLayout::get_cells.
+
 	* t/GtkTreeModelIface.t
 	* xs/GtkTreeModel.xs: Fix yet another stack handling bug in
 	Gtk2::TreeModel::get.  Patch by Kevin Ryde.
