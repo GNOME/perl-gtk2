@@ -1163,6 +1163,7 @@ gtk_tree_model_get (tree_model, iter, ...)
 		 * pointer forward to the new end, and update the global stack
 		 * pointer.  this way, xsubs called by gtk_tree_model_get_value
 		 * don't overwrite what we put on the stack. */
+		SPAGAIN;
 		EXTEND (SP, n_columns - items);
 		SP += n_columns - items;
 		PUTBACK;

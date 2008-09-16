@@ -1,3 +1,9 @@
+2008-09-16  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
+	* t/GtkTreeModelIface.t
+	* xs/GtkTreeModel.xs: Fix yet another stack handling bug in
+	Gtk2::TreeModel::get.  Patch by Kevin Ryde.
+
 2008-09-07  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
 	* Gtk2.pm

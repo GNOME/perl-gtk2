@@ -487,13 +487,16 @@ use Glib::Object::Subclass
 
 our @ROW = (100,200,300,400,500,600,700,800,900,1000);
 
-sub GET_N_COLUMNS { return 10; }
+sub grow_the_stack { 1 .. 500; };
+
+sub GET_N_COLUMNS {
+  my @list = grow_the_stack();
+  return scalar @ROW;
+}
 
 sub GET_COLUMN_TYPE { return 'Glib::String'; }
 
 sub GET_ITER { return [ 123, undef, undef, undef ]; }
-
-sub grow_the_stack { 1 .. 500; }
 
 sub GET_VALUE {
   my ($self, $iter, $col) = @_;
