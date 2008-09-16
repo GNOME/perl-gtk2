@@ -371,9 +371,11 @@ gtk_tree_sortable_get_sort_column_id (sortable)
 	gint sort_column_id;
 	GtkSortType order;
     PPCODE:
+	PUTBACK;
 	if (!gtk_tree_sortable_get_sort_column_id (sortable, &sort_column_id,
 	                                           &order))
 		XSRETURN_EMPTY;
+	SPAGAIN;
 	EXTEND (SP, 2);
 	PUSHs (sv_2mortal (newSViv (sort_column_id)));
 	PUSHs (sv_2mortal (newSVGtkSortType (order)));

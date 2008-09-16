@@ -2,6 +2,10 @@
 
 	Merge from HEAD:
 
+	* t/GtkTreeModelIface.t
+	* xs/GtkTreeSortable.xs: Fix a stack handling bug in
+	Gtk2::TreeSortable::get_sort_column_id.
+
 	* t/GtkCellLayoutIface.t
 	* xs/GtkCellLayout.xs: Fix a stack handling bug in
 	Gtk2::CellLayout::get_cells.

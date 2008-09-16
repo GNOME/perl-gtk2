@@ -346,7 +346,7 @@ sub sort {
 
 package main;
 
-use Gtk2::TestHelper tests => 176, noinit => 1;
+use Gtk2::TestHelper tests => 177, noinit => 1;
 use strict;
 use warnings;
 
@@ -461,10 +461,11 @@ $model->sort(23);
 package StackTestModel;
 use strict;
 use warnings;
+use Glib qw/TRUE FALSE/;
 
 use Glib::Object::Subclass
   Glib::Object::,
-  interfaces => [ Gtk2::TreeModel:: ];
+  interfaces => [ Gtk2::TreeModel::, Gtk2::TreeSortable:: ];
 
 our @ROW = (100,200,300,400,500,600,700,800,900,1000);
 
@@ -485,6 +486,11 @@ sub GET_VALUE {
   return $ROW[$col];
 }
 
+sub GET_SORT_COLUMN_ID {
+  my @list = grow_the_stack();
+  return TRUE, 3, 'ascending';
+}
+
 package main;
 
 use strict;
@@ -498,5 +504,9 @@ is_deeply ([ $model->get ($model->get_iter_first) ],
 is_deeply ([ $model->get ($model->get_iter_first, reverse 0 .. 9) ],
            [ reverse @StackTestModel::ROW ],
            '$model->get ($iter, @columns) does not result in stack corruption');
+
+is_deeply ([ $model->get_sort_column_id ],
+           [ 3, 'ascending' ],
+           '$model->get_sort_column_id does not result in stack corruption');
 
 # vim: set syntax=perl :
