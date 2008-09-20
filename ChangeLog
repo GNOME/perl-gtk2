@@ -1,5 +1,12 @@
 2008-09-20  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
+	* Gtk2.pm
+	* Makefile.PL
+	* NEWS
+	* README: Stable release 1.200.
+
+2008-09-20  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
 	* api.pod: Improve the explanation of callbacks and user data.
 	Patch by Kevin Ryde.
 

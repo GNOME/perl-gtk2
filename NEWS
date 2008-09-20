@@ -1,3 +1,32 @@
+Overview of changes in Gtk2 1.200
+=================================
+
+ Since 1.18x (the previous stable series)
+ ----------------------------------------
+  * Wrap new API from gtk+ 2.14.
+  * Add exportable constants: GTK_PRIORITY_RESIZE, GDK_PRIORITY_EVENTS,
+    GDK_PRIORITY_REDRAW, and GDK_CURRENT_TIME.
+  * Add Gtk2::Gdk::Event::GrabBroken::implicit and grab_window.
+  * Add Gtk2::Widget::hide_on_delete.
+  * Automatically handle releasing of GCs returned by Gtk2::GC->get.
+  * Fix the marshalling of modify callbacks in Gtk2::TreeModelFilter.
+  * Correctly marshal the push_in return value of Gtk2::Menu position callback.
+  * Fix marshaling of the rows-reordered signal for custom Perl tree models.
+  * Provide Gtk2::TreeIter::set for custom model implementations to set the
+    contents of an iter.
+  * Fix the gtk_plug_new_for_display wrapper so it is callable as
+    Gtk2::Plug->new_for_display(display, socket_id).
+  * Change Gtk2::TreeDragSource::drag_data_get to also accept a selection data
+    object that is to be filled in, instead of always just returning a new one.
+  * Improve the documentation in a lot of places.
+
+ Since 1.193
+ -----------
+  * Fix more stack handling bugs in Gtk2::TreeSortable::get_sort_column_id,
+    Gtk2::CellLayout::get_cells, and Gtk2::TreeModel::get.
+  * Improve the explanation of callbacks and user data in the POD page
+    Gtk2::api.
+
 Overview of changes in Gtk2 1.193
 =================================
 
