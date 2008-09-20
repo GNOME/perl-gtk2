@@ -145,6 +145,49 @@ object lifetimes, but all you need to know as perl developer is that it's
 handled for you, and the object will be alive so long as you have a perl scalar
 pointing to it or the object is referenced in another way, e.g. from a container.
 
+=head2 Callbacks
+
+Use normal perl callback/closure tricks with callbacks.  The most common use
+you'll have for callbacks is with the Glib C<signal_connect> method:
+
+  $widget->signal_connect (event => \&event_handler, $user_data);
+  $button->signal_connect (clicked => sub { warn "hi!\n" });
+
+$user_data is optional, and with perl closures you don't often need it
+(see L<perlsub/Persistent variables with closures>).
+
+The userdata is held in a scalar, initialized from what you give in
+C<signal_connect> etc.  It's passed to the callback in usual Perl
+"call by reference" style which means the callback can modify its last
+argument, ie. $_[-1], to modify the held userdata.  This is a little
+subtle, but you can use it for some "state" associated with the
+connection.
+
+    $widget->signal_connect (activate => \&my_func, 1);
+    sub my_func {
+      print "activation count: $_[-1]\n";
+      $_[-1] ++;
+    }
+
+Because the held userdata is a new scalar there's no change to the
+variable (etc) you originally passed to C<signal_connect>.
+
+If you have a parent object in the userdata (or closure) you have to
+be careful about circular references preventing parent and child being
+destroyed.  See L<perlobj/Two-Phased Garbage Collection> about this
+generally.  In Gtk2-Perl toplevel widgets like C<Gtk2::Window> always
+need an explicit C<< $widget->destroy >> so their C<destroy> signal is
+a good place to break circular references.  But for other widgets
+using weak references to avoid circularities in the first place is
+usually friendliest.
+
+A major change from gtk-perl (the bindings for Gtk+-1.x) is that callbacks
+take their arguments in the order proscribed by the C documentation, and only
+one value is available for user data.  gtk-perl allowed you to pass multiple
+values for user_data, and always brought in the user_data immediately after
+the instance reference; this proved to be rather confusing, and did not follow
+the C API reference, so we decided not to do that for gtk2-perl.
+
 =head2 Miscellaneous
 
 In C you can only return one value from a function, and it is a common practice
@@ -192,22 +235,6 @@ with a try/throw/catch block in C++ -- you get cleaner code.  By using
 Glib::Error exception objects, you don't have to rely on string matching
 on a possibly localized error message; you can match errors by explicit and
 predictable conditions.  See L<Glib::Error> for more information.
-
-Use normal perl callback/closure tricks with callbacks.  The most common use
-you'll have for callbacks is with the Glib signal_connect method:
-
-  $widget->signal_connect (event => \&event_handler, $user_data);
-  $button->signal_connect (clicked => sub { warn "hi!\n" });
-
-Note that the $user_data is optional, and with perl closures, you don't often
-need it.
-
-A major change from gtk-perl (the bindings for Gtk+-1.x) is that callbacks
-take their arguments in the order proscribed by the C documentation, and only
-one value is available for user data.  gtk-perl allowed you to pass multiple
-values for user_data, and always brought in the user_data immediately after
-the instance reference; this proved to be rather confusing, and did not follow
-the C API reference, so we decided not to do that for gtk2-perl.
 
 =head1 MISSING METHODS
 
