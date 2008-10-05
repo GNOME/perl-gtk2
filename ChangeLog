@@ -1,5 +1,8 @@
 2008-10-05  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
+	* xs/GdkRgb.xs (SvImageDataPointer): Add a return statement even
+	if it cannot be reached, to hush compiler warnings.
+
 	* t/version-checks.t: Use -init instead of -threads-init in the
 	version check tests to avoid issues on systems with a glib without
 	thread support.

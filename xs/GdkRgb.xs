@@ -42,6 +42,7 @@ SvImageDataPointer (SV * sv)
 		       "an integer pointing to the underlying C image data "
 		       "buffer");
 	/* not reached */
+	return NULL;
 }
 
 static GdkRgbCmap *
