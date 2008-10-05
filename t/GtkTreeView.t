@@ -326,7 +326,10 @@ ok(!$view -> row_expanded($path));
 ###############################################################################
 
 # set_search_equal_func
-{
+SKIP: {
+	skip 'set_search_equal_func test; need set_search_entry', 5
+		unless Gtk2 -> CHECK_VERSION(2, 10, 0);
+
 	my ($window, $view, $model) = setup();
 
 	my $been_here = 0;

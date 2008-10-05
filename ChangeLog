@@ -1,5 +1,8 @@
 2008-10-05  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
+	* t/GtkTreeView.t: Skip the set_search_equal_func() test when gtk+
+	< 2.10 since the test uses and needs set_search_entry().
+
 	* t/00.Gtk2.t: Print version information to aid in debugging test
 	failure reports.
 
