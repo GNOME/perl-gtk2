@@ -356,7 +356,7 @@ SKIP: {
 
 # set_search_position_func
 SKIP: {
-	skip("new 2.10 stuff", 0)
+	skip("new 2.10 stuff", 3)
 		unless Gtk2 -> CHECK_VERSION(2, 10, 0);
 
 	my ($window, $view, $model) = setup();
