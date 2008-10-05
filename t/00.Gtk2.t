@@ -20,8 +20,17 @@ BEGIN { use_ok('Gtk2', ':constants') };
 
 #########################
 
-my @version = Gtk2->get_version_info;
-is( @version, 3, 'version info is three items long' );
+my @run_version = Gtk2->get_version_info;
+my @compile_version = Gtk2->GET_VERSION_INFO;
+# Pango has only a compile-time version
+my @pango_compile_version = Gtk2::Pango->GET_VERSION_INFO;
+
+diag 'Testing Gtk2 ', $Gtk2::VERSION;
+diag '   Running against gtk+ ', join '.', @run_version;
+diag '  Compiled against gtk+ ', join '.', @compile_version;
+diag '              and pango ', join '.', @pango_compile_version;
+
+is( @run_version, 3, 'version info is three items long' );
 is (Gtk2->check_version(0,0,0), 'Gtk+ version too new (major mismatch)',
     'check_version pass');
 is (Gtk2->check_version(50,0,0), 'Gtk+ version too old (major mismatch)',
@@ -30,19 +39,18 @@ ok (defined (Gtk2::major_version), 'major_version');
 ok (defined (Gtk2::minor_version), 'minor_version');
 ok (defined (Gtk2::micro_version), 'micro_version');
 
-@version = Gtk2->GET_VERSION_INFO;
-is (@version, 3, 'version info is three items long');
+is (@compile_version, 3, 'version info is three items long');
 ok (Gtk2->CHECK_VERSION(0,0,0), 'CHECK_VERSION pass');
 ok (!Gtk2->CHECK_VERSION(50,0,0), 'CHECK_VERSION fail');
-is (Gtk2::MAJOR_VERSION, $version[0], 'MAJOR_VERSION');
-is (Gtk2::MINOR_VERSION, $version[1], 'MINOR_VERSION');
-is (Gtk2::MICRO_VERSION, $version[2], 'MICRO_VERSION');
+is (Gtk2::MAJOR_VERSION, $compile_version[0], 'MAJOR_VERSION');
+is (Gtk2::MINOR_VERSION, $compile_version[1], 'MINOR_VERSION');
+is (Gtk2::MICRO_VERSION, $compile_version[2], 'MICRO_VERSION');
 
-# Pango has only a compile-time version
-@version = Gtk2::Pango->GET_VERSION_INFO;
-is (@version, 3, 'version info is three items long');
+is (@pango_compile_version, 3, 'version info is three items long');
 ok (Gtk2::Pango->CHECK_VERSION(0,0,0), 'CHECK_VERSION pass');
 ok (!Gtk2::Pango->CHECK_VERSION(50,0,0), 'CHECK_VERSION fail');
+
+#########################
 
 # Test the exported constants
 my @constants = qw/GDK_CURRENT_TIME
