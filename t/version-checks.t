@@ -6,7 +6,7 @@ use Test::More tests => 2;
 eval "use Gtk2 ':constants', 1.00;";
 is ($@, '');
 
-eval "use Gtk2 '-threads-init', 10.00;";
+eval "use Gtk2 '-init', 10.00;";
 like ($@, qr/this is only version/);
 
 __END__

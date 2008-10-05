@@ -1,5 +1,9 @@
 2008-10-05  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
+	* t/version-checks.t: Use -init instead of -threads-init in the
+	version check tests to avoid issues on systems with a glib without
+	thread support.
+
 	* t/GtkTreeView.t: Skip the set_search_equal_func() test when gtk+
 	< 2.10 since the test uses and needs set_search_entry().  Fix the
 	skip count for the set_search_position_func() test.
