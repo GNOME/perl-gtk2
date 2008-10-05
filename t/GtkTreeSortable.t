@@ -2,7 +2,7 @@
 use strict;
 use Gtk2::TestHelper tests => 5, noinit => 1;
 
-# $Header$
+# $Id$
 
 my $list = Gtk2::ListStore -> new("Glib::Int");
 isa_ok($list, "Gtk2::TreeSortable");

@@ -2,7 +2,7 @@
 use strict;
 use Gtk2::TestHelper tests => 57;
 
-# $Header$
+# $Id$
 
 my $description = Gtk2::Pango::FontDescription -> new();
 isa_ok($description, "Gtk2::Pango::FontDescription");

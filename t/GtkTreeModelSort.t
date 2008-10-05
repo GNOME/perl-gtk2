@@ -2,7 +2,7 @@
 use strict;
 use Gtk2::TestHelper tests => 17, noinit => 1;
 
-# $Header$
+# $Id$
 
 my $list = Gtk2::ListStore -> new("Glib::Int");
 

@@ -18,7 +18,7 @@
 # Free Software Foundation, Inc., 59 Temple Place - Suite 330,
 # Boston, MA 02111-1307, USA.
 #
-# $Header$
+# $Id$
 #
 
 # this was originally gtk-2.2.1/examples/buttonbox/buttonbox.c

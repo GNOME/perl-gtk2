@@ -2,7 +2,7 @@
 use strict;
 use Gtk2::TestHelper tests => 14;
 
-# $Header$
+# $Id$
 
 use Gtk2::Gdk::Keysyms;
 

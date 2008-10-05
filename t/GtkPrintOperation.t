@@ -4,7 +4,7 @@ use Gtk2::TestHelper
   tests => 10,
   at_least_version => [2, 10, 0, "GtkPrintOperation is new in 2.10"];
 
-# $Header$
+# $Id$
 
 my $op = Gtk2::PrintOperation -> new();
 isa_ok($op, "Gtk2::PrintOperation");

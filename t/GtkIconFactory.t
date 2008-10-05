@@ -2,7 +2,7 @@
 use strict;
 use Gtk2::TestHelper tests => 24;
 
-# $Header$
+# $Id$
 
 my $pixbuf = Gtk2::Gdk::Pixbuf -> new("rgb", 0, 8, 10, 10);
 my $style = Gtk2::Style -> new();

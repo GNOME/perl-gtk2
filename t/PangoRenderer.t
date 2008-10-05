@@ -2,7 +2,7 @@
 use strict;
 use Gtk2::TestHelper tests => 7;
 
-# $Header$
+# $Id$
 
 SKIP: {
   skip("PangoRenderer is new in 1.8", 5)

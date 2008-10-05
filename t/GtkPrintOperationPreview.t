@@ -4,7 +4,7 @@ use Gtk2::TestHelper
   tests => 4,
   at_least_version => [2, 10, 0, "GtkPrintOperationPreview is new in 2.10"];
 
-# $Header$
+# $Id$
 
 my $op = Gtk2::PrintOperation -> new();
 $op -> signal_connect(preview => sub {

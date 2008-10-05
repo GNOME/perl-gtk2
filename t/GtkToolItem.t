@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 #
-# $Header$
+# $Id$
 #
 
 use Gtk2::TestHelper

@@ -2,7 +2,7 @@
 use strict;
 use Gtk2::TestHelper tests => 40;
 
-# $Header$
+# $Id$
 
 my $attributes = {
   title => "Bla",

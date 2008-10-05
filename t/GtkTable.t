@@ -2,7 +2,7 @@
 use strict;
 use Gtk2::TestHelper tests => 5;
 
-# $Header$
+# $Id$
 
 my $table = Gtk2::Table -> new(5, 5, 1);
 

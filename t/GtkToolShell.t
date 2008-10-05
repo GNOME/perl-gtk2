@@ -6,7 +6,7 @@ use Gtk2::TestHelper
   at_least_version => [2, 13, 6, 'GtkToolShell is new in 2.14'], # FIXME: 2.14
   ;
 
-# $Header$
+# $Id$
 
 my $toolbar = Gtk2::Toolbar->new ();
 isa_ok ($toolbar, 'Gtk2::ToolShell');

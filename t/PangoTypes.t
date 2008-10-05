@@ -2,7 +2,7 @@
 use strict;
 use Gtk2::TestHelper tests => 9, noinit => 1;
 
-# $Header$
+# $Id$
 
 SKIP: {
   skip("find_base_dir is new in 1.4", 1)

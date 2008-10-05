@@ -2,7 +2,7 @@
 use strict;
 use Gtk2::TestHelper tests => 3;
 
-# $Header$
+# $Id$
 
 my $buffer = Gtk2::TextBuffer -> new();
 my $view = Gtk2::TextView -> new_with_buffer($buffer);

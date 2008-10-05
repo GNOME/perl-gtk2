@@ -3,7 +3,7 @@
 use strict;
 use Gtk2::TestHelper tests => 37;
 
-# $Header$
+# $Id$
 
 my $table = Gtk2::TextTagTable -> new();
 

@@ -2,7 +2,7 @@
 use strict;
 use Gtk2::TestHelper tests => 4;
 
-# $Header$
+# $Id$
 
 my $label = Gtk2::Label -> new("Bla");
 

@@ -2,7 +2,7 @@
 use strict;
 use Gtk2::TestHelper tests => 3, noinit => 1;
 
-# $Header$
+# $Id$
 
 my $toggle = Gtk2::CellRendererToggle -> new();
 isa_ok($toggle, "Gtk2::CellRendererToggle");

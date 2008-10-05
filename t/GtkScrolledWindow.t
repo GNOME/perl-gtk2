@@ -2,7 +2,7 @@
 use strict;
 use Gtk2::TestHelper tests => 10;
 
-# $Header$
+# $Id$
 
 my $window = Gtk2::ScrolledWindow -> new();
 isa_ok($window, "Gtk2::ScrolledWindow");

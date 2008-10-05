@@ -2,7 +2,7 @@
 use strict;
 use Gtk2::TestHelper tests => 9;
 
-# $Header$
+# $Id$
 
 my $item_one = Gtk2::RadioMenuItem -> new();
 isa_ok($item_one, "Gtk2::RadioMenuItem");

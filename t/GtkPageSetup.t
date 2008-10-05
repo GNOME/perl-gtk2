@@ -4,7 +4,7 @@ use Gtk2::TestHelper
   tests => 23,
   at_least_version => [2, 10, 0, "GtkPageSetup is new in 2.10"];
 
-# $Header$
+# $Id$
 
 my $setup = Gtk2::PageSetup -> new();
 isa_ok($setup, "Gtk2::PageSetup");

@@ -1,5 +1,5 @@
 #
-# $Header$
+# $Id$
 #
 # TODO: 
 #	(set|get)_attributes

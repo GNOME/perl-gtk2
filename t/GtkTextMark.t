@@ -2,7 +2,7 @@
 use strict;
 use Gtk2::TestHelper tests => 7, noinit => 1;
 
-# $Header$
+# $Id$
 
 my $buffer = Gtk2::TextBuffer -> new();
 my $iter = $buffer -> get_start_iter();

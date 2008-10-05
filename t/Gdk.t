@@ -4,7 +4,7 @@ use strict;
 use Test::More;
 use Gtk2;
 
-# $Header$
+# $Id$
 
 use Config;
 my $have_threads = $Config{usethreads};

@@ -2,7 +2,7 @@
 use strict;
 use Gtk2::TestHelper tests => 9, noinit => 1;
 
-# $Header$
+# $Id$
 
 my $frame = Gtk2::Frame -> new();
 isa_ok($frame, "Gtk2::Frame");

@@ -2,7 +2,7 @@
 use strict;
 use Gtk2::TestHelper tests => 2;
 
-# $Header$
+# $Id$
 
 my $container = Gtk2::Container -> new(Gtk2::Window::);
 my $label = Gtk2::Label -> new("Bla");

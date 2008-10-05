@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 # vim: set ft=perl :
 #
-# $Header$
+# $Id$
 #
 
 use warnings;

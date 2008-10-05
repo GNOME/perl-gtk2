@@ -6,7 +6,7 @@
 # 
 # -rm
 # 
-# $Header$
+# $Id$
 #
 
 use strict;

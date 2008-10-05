@@ -1,5 +1,5 @@
 #
-# $Header$
+# $Id$
 #
 
 package Gtk2::Pango;

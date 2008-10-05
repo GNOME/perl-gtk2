@@ -11,7 +11,7 @@ if (UNIVERSAL::can("Gtk2::Pango::Cairo::FontMap", "new") &&
   plan skip_all => "PangoCairo stuff: need Cairo and pango >= 1.10.0";
 }
 
-# $Header$
+# $Id$
 
 my $fontmap = Gtk2::Pango::Cairo::FontMap -> new();
 isa_ok($fontmap, "Gtk2::Pango::Cairo::FontMap");

@@ -1,5 +1,5 @@
 #
-# $Header$
+# $Id$
 #
 
 use Gtk2::TestHelper tests => 52;

@@ -1,7 +1,7 @@
 #!/usr/bin/perl -w
 # vim: set filetype=perl :
 
-# $Header$
+# $Id$
 
 use Gtk2::TestHelper tests => 30;
 

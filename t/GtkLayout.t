@@ -2,7 +2,7 @@
 use strict;
 use Gtk2::TestHelper tests => 9;
 
-# $Header$
+# $Id$
 
 my $layout = Gtk2::Layout -> new();
 isa_ok($layout, "Gtk2::Layout");

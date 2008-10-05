@@ -3,7 +3,7 @@
 use Gtk2::TestHelper tests => 115,
 	at_least_version => [2, 2, 0, "GtkClipboard didn't exist in 2.0.x"];
 
-# $Header$
+# $Id$
 
 my $clipboard;
 

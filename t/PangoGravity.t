@@ -2,7 +2,7 @@
 use strict;
 use Gtk2::TestHelper tests => 4, noinit => 1;
 
-# $Header$
+# $Id$
 
 SKIP: {
   skip "PangoGravity", 4

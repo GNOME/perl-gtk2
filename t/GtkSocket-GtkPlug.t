@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 #
-# $Header$
+# $Id$
 #
 
 # ...despite patches that have been around for a long time, no win32

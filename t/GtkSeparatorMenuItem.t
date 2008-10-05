@@ -2,7 +2,7 @@
 use strict;
 use Gtk2::TestHelper tests => 1, noinit => 1;
 
-# $Header$
+# $Id$
 
 my $item = Gtk2::SeparatorMenuItem -> new();
 isa_ok($item, "Gtk2::SeparatorMenuItem");

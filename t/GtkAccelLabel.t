@@ -2,7 +2,7 @@
 use strict;
 use Gtk2::TestHelper tests => 4;
 
-# $Header$
+# $Id$
 
 my $button = Gtk2::Button -> new("Blub");
 

@@ -2,7 +2,7 @@
 use strict;
 use Gtk2::TestHelper tests => 3;
 
-# $Header$
+# $Id$
 
 my $shell = Gtk2::Menu -> new();
 isa_ok($shell, "Gtk2::MenuShell");

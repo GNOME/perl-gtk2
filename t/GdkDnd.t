@@ -2,7 +2,7 @@
 use strict;
 use Gtk2::TestHelper tests => 20;
 
-# $Header$
+# $Id$
 
 my $window = Gtk2::Window -> new();
 $window -> realize();

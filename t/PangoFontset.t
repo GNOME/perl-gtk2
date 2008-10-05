@@ -2,7 +2,7 @@
 use strict;
 use Gtk2::TestHelper tests => 7;
 
-# $Header$
+# $Id$
 
 my $label = Gtk2::Label -> new("Bla");
 my $context = $label -> create_pango_context();

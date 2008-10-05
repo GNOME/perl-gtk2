@@ -2,7 +2,7 @@
 use strict;
 use Gtk2::TestHelper tests => 8;
 
-# $Header$
+# $Id$
 
 SKIP: {
   skip("PangoScript is new in 1.4", 8)

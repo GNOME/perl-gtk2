@@ -2,7 +2,7 @@
 use strict;
 use Gtk2::TestHelper tests => 45;
 
-# $Header$
+# $Id$
 
 my $window = Gtk2::Window -> new();
 my $buffer = Gtk2::TextBuffer -> new();

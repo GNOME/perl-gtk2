@@ -2,7 +2,7 @@
 use strict;
 use Gtk2::TestHelper tests => 2, noinit => 1;
 
-# $Header$
+# $Id$
 
 my $misc = Gtk2::Misc -> new(Gtk2::Label::);
 

@@ -4,7 +4,7 @@ use Gtk2::TestHelper
   at_least_version => [2, 4, 0, "GtkCellLayout is new in 2.4"],
   tests => 5;
 
-# $Header$
+# $Id$
 
 my $column = Gtk2::TreeViewColumn -> new();
 isa_ok($column, "Gtk2::CellLayout");

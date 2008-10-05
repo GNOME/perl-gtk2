@@ -2,7 +2,7 @@
 use strict;
 use Gtk2::TestHelper tests => 16;
 
-# $Header$
+# $Id$
 
 my $list = Gtk2::TargetList -> new();
 isa_ok($list, "Gtk2::TargetList");

@@ -2,7 +2,7 @@
 use strict;
 use Gtk2::TestHelper tests => 19;
 
-# $Header$
+# $Id$
 
 package EditableTest;
 

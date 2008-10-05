@@ -2,7 +2,7 @@
 use strict;
 use Gtk2::TestHelper tests => 23;
 
-# $Header$
+# $Id$
 
 my $entry = Gtk2::Entry -> new();
 isa_ok($entry, "Gtk2::Entry");

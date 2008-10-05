@@ -4,7 +4,7 @@ use Gtk2::TestHelper
   tests => 20,
   at_least_version => [2, 10, 0, "GtkPaperSize is new in 2.10"];
 
-# $Header$
+# $Id$
 
 my $size = Gtk2::PaperSize -> new(undef);
 isa_ok($size, "Gtk2::PaperSize");

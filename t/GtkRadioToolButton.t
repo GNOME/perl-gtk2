@@ -4,7 +4,7 @@ use Gtk2::TestHelper
   at_least_version => [2, 4, 0, "Action-based menus are new in 2.4"],
   tests => 8;
 
-# $Header$
+# $Id$
 
 my $item = Gtk2::RadioToolButton -> new();
 isa_ok($item, "Gtk2::RadioToolButton");

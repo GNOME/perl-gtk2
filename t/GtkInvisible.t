@@ -2,7 +2,7 @@
 use strict;
 use Gtk2::TestHelper tests => 3;
 
-# $Header$
+# $Id$
 
 my $invisible = Gtk2::Invisible -> new();
 isa_ok($invisible, "Gtk2::Invisible");

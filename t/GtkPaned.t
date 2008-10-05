@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 use Gtk2::TestHelper tests => 9;
 
-# $Header$
+# $Id$
 
 my $window = Gtk2::Window->new;
 my $hpaned = Gtk2::HPaned->new;

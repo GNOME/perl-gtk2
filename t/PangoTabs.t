@@ -2,7 +2,7 @@
 use strict;
 use Gtk2::TestHelper tests => 6, noinit => 1;
 
-# $Header$
+# $Id$
 
 SKIP: {
   skip("PangoTabs was broken prior to 1.3.3", 6)

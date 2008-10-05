@@ -2,7 +2,7 @@
 use strict;
 use Gtk2::TestHelper tests => 6;
 
-# $Header$
+# $Id$
 
 my $adjustment = Gtk2::Adjustment -> new(0, 0, 100, 1, 5, 10);
 

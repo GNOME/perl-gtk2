@@ -2,7 +2,7 @@
 use strict;
 use Gtk2::TestHelper tests => 202;
 
-# $Header$
+# $Id$
 
 #
 # pango_color_parse(), pango_color_to_string()

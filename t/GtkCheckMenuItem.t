@@ -2,7 +2,7 @@
 use strict;
 use Gtk2::TestHelper tests => 7;
 
-# $Header$
+# $Id$
 
 my $item = Gtk2::CheckMenuItem -> new();
 isa_ok($item, "Gtk2::CheckMenuItem");

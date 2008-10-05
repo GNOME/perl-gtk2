@@ -2,7 +2,7 @@
 use strict;
 use Gtk2::TestHelper tests => 3, noinit => 1;
 
-# $Header$
+# $Id$
 
 # From Ross' original test.
 

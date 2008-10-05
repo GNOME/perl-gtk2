@@ -3,7 +3,7 @@
 use strict;
 use Gtk2::TestHelper tests => 5, noinit => 1;
 
-# $Header$
+# $Id$
 
 my $group = Gtk2::SizeGroup -> new("vertical");
 isa_ok($group, "Gtk2::SizeGroup");

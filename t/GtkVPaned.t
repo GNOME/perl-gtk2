@@ -2,7 +2,7 @@
 use strict;
 use Gtk2::TestHelper tests => 1, noinit => 1;
 
-# $Header$
+# $Id$
 
 my $box = Gtk2::VPaned -> new();
 isa_ok($box, "Gtk2::VPaned");
