@@ -1230,7 +1230,7 @@ gboolean gtk_widget_get_has_tooltip (GtkWidget *widget);
 
 #endif
 
-#if GTK_CHECK_VERSION (2, 13, 6) /* FIXME: 2.14 */
+#if GTK_CHECK_VERSION (2, 14, 0)
 
 GdkPixmap_noinc_ornull * gtk_widget_get_snapshot (GtkWidget *widget,  GdkRectangle_ornull *clip_rect=NULL);
 

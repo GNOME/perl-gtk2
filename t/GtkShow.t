@@ -3,7 +3,7 @@ use strict;
 use warnings;
 use Gtk2::TestHelper
   tests => 1,
-  at_least_version => [2, 13, 6, 'GtkShow is new in 2.14'], # FIXME: 2.14
+  at_least_version => [2, 14, 0, 'GtkShow is new in 2.14'],
   skip_all => 'can only test interactively',
   ;
 

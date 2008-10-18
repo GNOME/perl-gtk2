@@ -96,7 +96,7 @@ $button->set_uri_hook (undef);
 
 SKIP: {
 	skip 'new 2.14 stuff', 1
-		unless Gtk2->CHECK_VERSION(2, 13, 7); # FIXME: 2.14
+		unless Gtk2->CHECK_VERSION(2, 14, 0);
 
 	$button->set_visited (TRUE);
 	is ($button->get_visited, TRUE);

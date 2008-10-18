@@ -36,7 +36,7 @@ is($dialog -> get_preview_text(), "Quick brown gtk2-perl.");
 
 SKIP: {
   skip 'new 2.14 stuff', 8
-    unless Gtk2->CHECK_VERSION(2, 13, 6); # FIXME: 2.14
+    unless Gtk2->CHECK_VERSION(2, 14, 0);
 
   isa_ok($fs -> get_face(), 'Gtk2::Pango::FontFace');
   isa_ok($fs -> get_face_list(), 'Gtk2::Widget');

@@ -447,7 +447,7 @@ get_selection (d)
 		break;
 	    case 2:
 	    case 3:
-#if GTK_CHECK_VERSION (2, 13, 6) /* FIXME: 2.14 */
+#if GTK_CHECK_VERSION (2, 14, 0)
 		RETVAL = newSVGdkAtom (gtk_selection_data_get_target (d));
 #else
 		RETVAL = newSVGdkAtom (d->target);
@@ -455,7 +455,7 @@ get_selection (d)
 		break;
 	    case 4:
 	    case 5:
-#if GTK_CHECK_VERSION (2, 13, 6) /* FIXME: 2.14 */
+#if GTK_CHECK_VERSION (2, 14, 0)
 		RETVAL = newSVGdkAtom (gtk_selection_data_get_data_type (d));
 #else
 		RETVAL = newSVGdkAtom (d->type);
@@ -463,7 +463,7 @@ get_selection (d)
 		break;
 	    case 6:
 	    case 7:
-#if GTK_CHECK_VERSION (2, 13, 6) /* FIXME: 2.14 */
+#if GTK_CHECK_VERSION (2, 14, 0)
 		RETVAL = newSViv (gtk_selection_data_get_format (d));
 #else
 		RETVAL = newSViv (d->format);
@@ -471,7 +471,7 @@ get_selection (d)
 		break;
 	    case 8:
 	    case 9:
-#if GTK_CHECK_VERSION (2, 13, 8) /* FIXME: 2.14 */
+#if GTK_CHECK_VERSION (2, 14, 0)
 	    {
 		gint length = gtk_selection_data_get_length (d);
 		const guchar *data = gtk_selection_data_get_data (d);
@@ -483,7 +483,7 @@ get_selection (d)
 		break;
 	    case 10:
 	    case 11:
-#if GTK_CHECK_VERSION (2, 13, 8) /* FIXME: 2.14 */
+#if GTK_CHECK_VERSION (2, 14, 0)
 	    {
 		gint length = gtk_selection_data_get_length (d);
 		RETVAL = newSViv (length);
@@ -495,7 +495,7 @@ get_selection (d)
 #if GTK_CHECK_VERSION(2, 2, 0)
 	    case 12:
 	    case 13:
-#if GTK_CHECK_VERSION (2, 13, 6) /* FIXME: 2.14 */
+#if GTK_CHECK_VERSION (2, 14, 0)
 		RETVAL = newSVGdkDisplay (gtk_selection_data_get_display (d));
 #else
 		RETVAL = newSVGdkDisplay (d->display);

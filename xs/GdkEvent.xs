@@ -183,7 +183,7 @@ gtk2perl_gdk_event_set_state (GdkEvent * event,
 #if GTK_CHECK_VERSION (2, 8, 0)
 		    case GDK_GRAB_BROKEN:
 #endif
-#if GTK_CHECK_VERSION (2, 13, 1) /* FIXME: 2.14 */
+#if GTK_CHECK_VERSION (2, 14, 0)
 		    case GDK_DAMAGE:
 #endif
 			/* no state field */
@@ -258,7 +258,7 @@ gtk2perl_gdk_event_set_time (GdkEvent * event,
 #if GTK_CHECK_VERSION (2, 8, 0)
 		     case GDK_GRAB_BROKEN:
 #endif
-#if GTK_CHECK_VERSION (2, 13, 1) /* FIXME: 2.14 */
+#if GTK_CHECK_VERSION (2, 14, 0)
 		    case GDK_DAMAGE:
 #endif
 			/* no time */

@@ -3,7 +3,7 @@ use strict;
 use warnings;
 use Gtk2::TestHelper
   tests => 5,
-  at_least_version => [2, 13, 6, 'GtkToolShell is new in 2.14'], # FIXME: 2.14
+  at_least_version => [2, 14, 0, 'GtkToolShell is new in 2.14'],
   ;
 
 # $Id$

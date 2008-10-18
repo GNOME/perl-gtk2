@@ -34,7 +34,7 @@ get_bin_window (layout)
 	bin_window = 1
     CODE:
 	PERL_UNUSED_VAR (ix);
-#if GTK_CHECK_VERSION (2, 13, 6) /* FIXME: 2.14*/
+#if GTK_CHECK_VERSION (2, 14, 0)
 	RETVAL = gtk_layout_get_bin_window (layout);
 #else
 	RETVAL = layout->bin_window;

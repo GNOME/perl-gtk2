@@ -20,7 +20,7 @@ ok( my $id = $socket->get_id );
 
 SKIP: {
 	skip 'new 2.14 stuff', 2
-		unless Gtk2->CHECK_VERSION(2, 13, 6); # FIXME: 2.14
+		unless Gtk2->CHECK_VERSION(2, 14, 0);
 
 	is( $socket->get_plug_window, undef );
 	$socket->signal_connect (plug_added => sub {
@@ -85,7 +85,7 @@ SKIP: {
 	ok( defined $plug->get_id );
 
 	skip 'new 2.14 stuff', 2
-		unless Gtk2->CHECK_VERSION(2, 13, 6); # FIXME: 2.14
+		unless Gtk2->CHECK_VERSION(2, 14, 0);
 
 	is( $plug->get_embedded, FALSE );
 	is( $plug->get_socket_window, undef );

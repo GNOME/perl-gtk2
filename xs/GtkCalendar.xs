@@ -8,7 +8,7 @@
 
 #include "gtk2perl.h"
 
-#if GTK_CHECK_VERSION (2, 13, 6) /* FIXME: 2.14*/
+#if GTK_CHECK_VERSION (2, 14, 0)
 
 static GPerlCallback *
 gtk2perl_calendar_detail_func_create (SV * func, SV * data)
@@ -187,7 +187,7 @@ void
 gtk_calendar_thaw (calendar)
 	GtkCalendar * calendar
 
-#if GTK_CHECK_VERSION (2, 13, 6) /* FIXME: 2.14*/
+#if GTK_CHECK_VERSION (2, 14, 0)
 
 ## void gtk_calendar_set_detail_func (GtkCalendar *calendar, GtkCalendarDetailFunc func, gpointer data, GDestroyNotify destroy)
 void gtk_calendar_set_detail_func (GtkCalendar *calendar, SV *func, SV *data=NULL)

@@ -54,7 +54,7 @@ is ($builder->get_translation_domain, 'de');
 
 SKIP: {
   skip 'new 2.14 stuff', 8
-    unless Gtk2->CHECK_VERSION (2, 13, 6); # FIXME: 2.14
+    unless Gtk2->CHECK_VERSION (2, 14, 0);
 
   my $builder = Gtk2::Builder->new;
   eval {

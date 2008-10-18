@@ -224,7 +224,7 @@ gboolean gdk_screen_is_composited (GdkScreen *screen);
 
 #endif /* 2.10 */
 
-#if GTK_CHECK_VERSION (2, 13, 6) /* FIXME: 2.14 */
+#if GTK_CHECK_VERSION (2, 14, 0)
 
 gint gdk_screen_get_monitor_height_mm (GdkScreen *screen, gint monitor_num);
 

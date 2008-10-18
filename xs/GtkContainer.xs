@@ -190,7 +190,7 @@ gtk_container_set_focus_child (container, child)
 	GtkContainer *container
 	GtkWidget_ornull *child
 
-#if GTK_CHECK_VERSION (2, 13, 6) /* FIXME: 2.14*/
+#if GTK_CHECK_VERSION (2, 14, 0)
 
 GtkWidget_ornull * gtk_container_get_focus_child (GtkContainer *container);
 

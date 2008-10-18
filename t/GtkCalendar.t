@@ -47,7 +47,7 @@ ok ($cal->get_display_options == [qw/show-day-names no-month-change/]);
 
 SKIP: {
 	skip 'new 2.14 stuff', 7
-		unless Gtk2->CHECK_VERSION(2, 13, 6); # FIXME: 2.14
+		unless Gtk2->CHECK_VERSION(2, 14, 0);
 
 	my $cal = Gtk2::Calendar->new;
 

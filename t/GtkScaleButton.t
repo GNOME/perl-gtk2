@@ -27,7 +27,7 @@ is ($button->get_adjustment, $adj);
 
 SKIP: {
   skip 'new 2.14 stuff', 4
-    unless Gtk2->CHECK_VERSION(2, 13, 6); # FIXME: 2.14
+    unless Gtk2->CHECK_VERSION(2, 14, 0);
 
   isa_ok ($button->get_popup (), 'Gtk2::Widget');
   isa_ok ($button->get_plus_button (), 'Gtk2::Widget');

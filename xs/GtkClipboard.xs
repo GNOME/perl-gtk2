@@ -138,7 +138,7 @@ gtk2perl_clipboard_rich_text_received_func (GtkClipboard     *clipboard,
 
 #endif /* 2.10 */
 
-#if GTK_CHECK_VERSION (2, 13, 6) /* FIXME: 2.14*/
+#if GTK_CHECK_VERSION (2, 14, 0)
 
 static void
 gtk2perl_clipboard_uri_received_func (GtkClipboard *clipboard,
@@ -529,7 +529,7 @@ gboolean gtk_clipboard_wait_is_rich_text_available (GtkClipboard  *clipboard, Gt
 
 #endif /* 2.10.0 */
 
-#if GTK_CHECK_VERSION (2, 13, 6) /* FIXME: 2.14*/
+#if GTK_CHECK_VERSION (2, 14, 0)
 
 # void gtk_clipboard_request_uris (GtkClipboard *clipboard, GtkClipboardURIReceivedFunc callback, gpointer user_data);
 void

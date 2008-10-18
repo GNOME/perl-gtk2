@@ -97,7 +97,7 @@ void gtk_page_setup_to_key_file (GtkPageSetup *setup, GKeyFile *key_file, const 
 
 #endif
 
-#if GTK_CHECK_VERSION (2, 13, 6) /* FIXME: 2.14*/
+#if GTK_CHECK_VERSION (2, 14, 0)
 
 =for apidoc __gerror__
 =cut

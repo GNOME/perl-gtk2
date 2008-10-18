@@ -727,7 +727,7 @@ gdouble gtk_window_get_opacity (GtkWindow *window);
 
 #endif
 
-#if GTK_CHECK_VERSION (2, 13, 6) /* FIXME: 2.14 */
+#if GTK_CHECK_VERSION (2, 14, 0)
 
 GtkWidget_ornull * gtk_window_get_default_widget (GtkWindow *window);
 
@@ -753,7 +753,7 @@ gtk_window_group_remove_window (window_group, window)
 	GtkWindowGroup * window_group
 	GtkWindow      * window
 
-#if GTK_CHECK_VERSION (2, 13, 6) /* FIXME: 2.14 */
+#if GTK_CHECK_VERSION (2, 14, 0)
 
 # GList * gtk_window_group_list_windows (GtkWindowGroup *window_group)
 void

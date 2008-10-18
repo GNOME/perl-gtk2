@@ -265,7 +265,7 @@ gtk_menu_get_for_attach_widget (class, widget)
 
 #endif
 
-#if GTK_CHECK_VERSION (2, 13, 6) /* FIXME: 2.14 */
+#if GTK_CHECK_VERSION (2, 14, 0)
 
 const gchar* gtk_menu_get_accel_path (GtkMenu *menu);
 

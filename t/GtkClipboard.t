@@ -126,7 +126,7 @@ SKIP: {
 
 SKIP: {
 	skip 'new uris stuff', 5
-		unless Gtk2->CHECK_VERSION (2, 13, 6); # FIXME: 2.14
+		unless Gtk2->CHECK_VERSION (2, 14, 0);
 
 	my @uris = ('file:///foo/bar', 'file:///bar/foo');
 	$clipboard->set_with_data (

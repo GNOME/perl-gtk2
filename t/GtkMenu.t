@@ -133,7 +133,7 @@ unless ($i_know_you) {
 
 SKIP: {
 	skip 'new 2.14 stuff', 2
-		unless Gtk2->CHECK_VERSION(2, 13, 6); # FIXME: 2.14
+		unless Gtk2->CHECK_VERSION(2, 14, 0);
 
 	my $menu = Gtk2::Menu->new;
 	$menu->set_accel_path ('<gtk2perl>/main/menu');

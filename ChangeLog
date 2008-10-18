@@ -1,3 +1,63 @@
+2008-10-19  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
+	* t/01.GtkWindow.t
+	* t/02.GtkContainer.t
+	* t/GdkScreen.t
+	* t/GdkWindow.t
+	* t/GtkAccelGroup.t
+	* t/GtkBuilder.t
+	* t/GtkCalendar.t
+	* t/GtkClipboard.t
+	* t/GtkEntry.t
+	* t/GtkFontSelection.t
+	* t/GtkIconTheme.t
+	* t/GtkLinkButton.t
+	* t/GtkMenu.t
+	* t/GtkMenuItem.t
+	* t/GtkMessageDialog.t
+	* t/GtkPageSetup.t
+	* t/GtkPrintSettings.t
+	* t/GtkScaleButton.t
+	* t/GtkShow.t
+	* t/GtkSocket-GtkPlug.t
+	* t/GtkStatusIcon.t
+	* t/GtkToolItem.t
+	* t/GtkToolShell.t
+	* t/GtkTooltip.t
+	* t/GtkWidget.t
+	* t/PangoLayout.t
+	* xs/GdkEvent.xs
+	* xs/GdkScreen.xs
+	* xs/GdkWindow.xs
+	* xs/GtkAccelGroup.xs
+	* xs/GtkBuilder.xs
+	* xs/GtkCalendar.xs
+	* xs/GtkClipboard.xs
+	* xs/GtkColorSelectionDialog.xs
+	* xs/GtkContainer.xs
+	* xs/GtkDialog.xs
+	* xs/GtkEntry.xs
+	* xs/GtkFontSelection.xs
+	* xs/GtkHandleBox.xs
+	* xs/GtkIconTheme.xs
+	* xs/GtkLayout.xs
+	* xs/GtkLinkButton.xs
+	* xs/GtkMenu.xs
+	* xs/GtkMenuItem.xs
+	* xs/GtkMessageDialog.xs
+	* xs/GtkPageSetup.xs
+	* xs/GtkPlug.xs
+	* xs/GtkPrintSettings.xs
+	* xs/GtkScaleButton.xs
+	* xs/GtkSelection.xs
+	* xs/GtkSocket.xs
+	* xs/GtkStatusIcon.xs
+	* xs/GtkToolItem.xs
+	* xs/GtkTooltip.xs
+	* xs/GtkWidget.xs
+	* xs/GtkWindow.xs: Refer to stable versions of gtk+ and pango in
+	version checks.
+
 2008-10-18  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
 	* xs/GtkTreeDnd.xs: Document that

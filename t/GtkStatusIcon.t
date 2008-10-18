@@ -129,7 +129,7 @@ SKIP: {
 
 SKIP: {
   skip 'new 2.14 stuff', 1
-    unless Gtk2->CHECK_VERSION(2, 13, 6); # FIXME: 2.14
+    unless Gtk2->CHECK_VERSION(2, 14, 0);
 
   ok (defined $icon -> get_x11_window_id());
 }

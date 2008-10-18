@@ -23,7 +23,7 @@ ok(1);
 
 SKIP: {
 	skip 'new 2.14 stuff', 2
-		unless Gtk2->CHECK_VERSION(2, 13, 6); # FIXME: 2.14
+		unless Gtk2->CHECK_VERSION(2, 14, 0);
 
 	is ($window->get_focus_child, $vbox);
 	$window->set_focus_child (undef);

@@ -95,7 +95,7 @@ void gtk_print_settings_to_key_file (GtkPrintSettings *settings, GKeyFile *key_f
 
 #endif
 
-#if GTK_CHECK_VERSION (2, 13, 6) /* FIXME: 2.14*/
+#if GTK_CHECK_VERSION (2, 14, 0)
 
 =for apidoc __gerror__
 =cut

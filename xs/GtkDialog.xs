@@ -264,7 +264,7 @@ get_content_area (dialog)
 	switch(ix) {
 	case 0:
 	case 1:
-#if GTK_CHECK_VERSION (2, 13, 6) /* FIXME: 2.14*/
+#if GTK_CHECK_VERSION (2, 14, 0)
 		RETVAL = gtk_dialog_get_content_area (dialog);
 #else
 		RETVAL = dialog->vbox;
@@ -272,7 +272,7 @@ get_content_area (dialog)
 		break;
 	case 2:
 	case 3:
-#if GTK_CHECK_VERSION (2, 13, 6) /* FIXME: 2.14*/
+#if GTK_CHECK_VERSION (2, 14, 0)
 		RETVAL = gtk_dialog_get_action_area (dialog);
 #else
 		RETVAL = dialog->action_area;

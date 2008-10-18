@@ -97,7 +97,7 @@ ok (!$icon_theme->rescan_if_needed);
 
 SKIP: {
   skip 'new 2.14 stuff', 2
-    unless Gtk2->CHECK_VERSION(2, 13, 6); # FIXME: 2.14
+    unless Gtk2->CHECK_VERSION(2, 14, 0);
 
   my $pixbuf = $icon_theme->load_icon ('stock_edit', 24, 'use-builtin');
   isa_ok (Gtk2::IconInfo->new_for_pixbuf ($icon_theme, $pixbuf),

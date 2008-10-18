@@ -183,7 +183,7 @@ void gtk_message_dialog_set_image (GtkMessageDialog *dialog, GtkWidget *image);
 
 #endif
 
-#if GTK_CHECK_VERSION (2, 13, 6) /* FIXME: 2.14 */
+#if GTK_CHECK_VERSION (2, 14, 0)
 
 GtkWidget* gtk_message_dialog_get_image (GtkMessageDialog *dialog);
 

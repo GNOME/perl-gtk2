@@ -308,7 +308,7 @@ SKIP: {
 
 SKIP: {
   skip 'new 2.14 stuff', 0
-    unless Gtk2->CHECK_VERSION(2, 13, 6); # FIXME: 2.14
+    unless Gtk2->CHECK_VERSION(2, 14, 0);
 
   $window -> redirect_to_drawable($window_two, 0, 0, 0, 0, 10, 10);
   $window -> remove_redirection();

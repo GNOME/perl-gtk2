@@ -453,7 +453,7 @@ SKIP: {
 
 SKIP: {
 	skip 'new 2.14 stuff', 3
-		unless Gtk2->CHECK_VERSION(2, 13, 6); # FIXME: 2.14
+		unless Gtk2->CHECK_VERSION(2, 14, 0);
 
 	my $widget = Gtk2::Label->new ('Bla');
 
