@@ -1,10 +1,11 @@
+#!/usr/bin/perl
 #
 # $Id$
 #
 
 use Gtk2::TestHelper
 	at_least_version => [2, 4, 0, "Action-based menus are new in 2.4"],
-	tests => 18, noinit => 0;
+	tests => 19, noinit => 0;
 
 my $action = Gtk2::Action->new (name => 'Open',
                                 label => '_Open',
@@ -57,6 +58,37 @@ $action->unblock_activate_from ($proxy);
 $action->set_accel_path ('<Action>/');
 $action->set_accel_group (undef);
 $action->set_accel_group (Gtk2::AccelGroup->new);
+
+# call $action->get_proxies within an ActionGroup connect_proxy signal, to
+# check the ref-counting/sinking/not-sinking on that get_proxies is ok there.
+{
+  my $actions = Gtk2::ActionGroup->new ("Actions");
+  $actions->add_actions
+    ([ [ 'FileMenu', undef, '_File' ] ]);
+  $actions->signal_connect (connect_proxy => \&connect_get_proxies);
+  my $proxies_called = 0;
+  sub connect_get_proxies {
+    my ($actions, $action, $widget) = @_;
+    $action->get_proxies;
+    $proxies_called++;
+  }
+  my $ui = Gtk2::UIManager->new;
+  $ui->insert_action_group ($actions, 0);
+  $ui->add_ui_from_string (<<'HERE');
+<ui>
+  <menubar name='MenuBar'>
+    <menu action='FileMenu'>
+    </menu>
+  </menubar>
+</ui>
+HERE
+  # dodgy refs result in g_critical logs
+  my $old_fatal = Glib::Log->set_always_fatal (['critical', 'fatal-mask']);
+  $ui->get_widget('/MenuBar');
+  Glib::Log->set_always_fatal ($old_fatal);
+  is ($proxies_called, 1,
+      '$action->get_proxies ok under a connect_proxy signal');
+}
 
 SKIP: {
 	skip "new 2.6 stuff", 3

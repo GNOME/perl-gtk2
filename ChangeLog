@@ -1,5 +1,11 @@
 2008-10-18  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
+	* t/GtkAction.t
+	* xs/GtkAction.xs: Don't sink the widgets returned by
+	gtk_action_get_proxies.  This fixes the problems with using
+	Gtk2::Action::get_proxies in the "connect-proxy" signal.  Patch by
+	Kevin Ryde.
+
 	* api.pod (Memory Handling): Explain the lifespan issues
 	associated with Glib::Boxed.  Patch by Kevin Ryde.
 
