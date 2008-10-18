@@ -1,5 +1,10 @@
 2008-10-19  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
+	* t/GtkEditable.t
+	* t/GtkSpinButton.t: Don't use adjustments with a non-zero page
+	size for spin buttons to hush the warnings gtk+ recently started
+	issuing.
+
 	* t/01.GtkWindow.t
 	* t/02.GtkContainer.t
 	* t/GdkScreen.t

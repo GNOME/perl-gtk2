@@ -4,7 +4,7 @@ use Gtk2::TestHelper tests => 12;
 
 # $Id$
 
-my $adjustment = Gtk2::Adjustment -> new(0, 0, 100, 1, 5, 10);
+my $adjustment = Gtk2::Adjustment -> new(0, 0, 100, 1, 5, 0);
 
 my $spin = Gtk2::SpinButton -> new($adjustment, 0.2, 1);
 isa_ok($spin, "Gtk2::SpinButton");
