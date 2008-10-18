@@ -1,5 +1,9 @@
 2008-10-18  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
+	* xs/GtkTreeDnd.xs: Document that
+	Gtk2::SelectionData::get_row_drag_data works only on selection
+	data objects with target type GTK_TREE_MODEL_ROW.  Patch by Kevin Ryde.
+
 	* MANIFEST
 	* t/GtkTreeDnd.t: Tests for Gtk2::TreeDragSource::drag_data_get by
 	Kevin Ryde.

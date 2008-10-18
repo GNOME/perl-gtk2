@@ -207,6 +207,8 @@ gtk_tree_set_row_drag_data (selection_data, tree_model, path)
 
 ## gboolean gtk_tree_get_row_drag_data (GtkSelectionData *selection_data, GtkTreeModel **tree_model, GtkTreePath **path)
 =for apidoc
+If $selection_data is not of target type GTK_TREE_MODEL_ROW then the return is
+an empty list.
 =for signature (tree_model, path) = $selection_data->get_row_drag_data
 =cut
 void
