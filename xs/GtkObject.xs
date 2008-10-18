@@ -50,12 +50,16 @@ SV *
 gtk2perl_new_gtkobject (GtkObject * object)
 {
 #ifdef NOISY
-	warn ("gtk2perl_new_gtkobject (%s(%p)[%d])\n",
-	      G_OBJECT_TYPE_NAME (object),
-	      object,
-	      G_OBJECT (object)->ref_count);
-	g_signal_connect (object, "destroy", G_CALLBACK (destroy_notify), NULL);
-	g_object_weak_ref (object, weak_ref, NULL);
+	if (object) {
+		warn ("gtk2perl_new_gtkobject (%s(%p)[%d])\n",
+		      G_OBJECT_TYPE_NAME (object),
+		      object,
+		      G_OBJECT (object)->ref_count);
+		g_signal_connect (object, "destroy", G_CALLBACK (destroy_notify), NULL);
+		g_object_weak_ref (G_OBJECT (object), weak_ref, NULL);
+	} else {
+		warn ("gtk2perl_new_gtkobject (NULL)\n");
+	}
 #endif
 	/* always sink the object.  if it's not floating, then nothing
 	 * happens and we get a ref.  if it is floating, then the
