@@ -148,6 +148,15 @@ window (widget, new=NULL)
     CLEANUP:
 	if (RETVAL) g_object_unref (RETVAL);
 
+=for apidoc
+Return the currently desired width and height of $widget.  Basically
+this is the result from the last C<size_request> call on $widget, and
+therefore may not be up-to-date if $widget has asked for a resize but
+its container parent has not yet called C<size_request>.
+
+The returned requisition object points into $widget and can only be
+used as long as $widget exists.
+=cut
 GtkRequisition *
 requisition (widget)
 	GtkWidget * widget
@@ -157,9 +166,12 @@ requisition (widget)
 	RETVAL
 
 =for apidoc
-=for signature allocation = $widget->allocation
-Returns I<$widget>'s current allocated size as a read-only rectangle; the
-allocated size is not necessarily the same as the requested size.
+Return the current allocated size and position of $widget within its
+parent widget.  The allocated size is not necessarily the same as the
+requested size.
+
+The returned rect object points into $widget and can only be used as
+long as $widget exists.
 =cut
 GdkRectangle *
 allocation (widget)

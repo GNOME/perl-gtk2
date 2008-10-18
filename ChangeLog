@@ -1,3 +1,12 @@
+2008-10-18  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
+	* api.pod (Memory Handling): Explain the lifespan issues
+	associated with Glib::Boxed.  Patch by Kevin Ryde.
+
+	* xs/GtkWidget.xs: Mention that the objects returned by
+	requisition() and allocation() are only valid as long as the
+	widget lives (unless they are copied).
+
 2008-10-05  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
 	* xs/GdkRgb.xs (SvImageDataPointer): Add a return statement even

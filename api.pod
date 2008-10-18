@@ -145,6 +145,14 @@ object lifetimes, but all you need to know as perl developer is that it's
 handled for you, and the object will be alive so long as you have a perl scalar
 pointing to it or the object is referenced in another way, e.g. from a container.
 
+The only thing you have to be careful about is the lifespan of non
+reference counted structures, which means most things derived from
+C<Glib::Boxed>.  If it comes from a signal callback it might be good
+only until you return, or if it's the insides of another object then
+it might be good only while that object lives.  If in doubt you can
+C<copy>.  Structs from C<copy> or C<new> are yours and live as long as
+referred to from Perl.
+
 =head2 Callbacks
 
 Use normal perl callback/closure tricks with callbacks.  The most common use
