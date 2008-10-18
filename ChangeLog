@@ -1,5 +1,15 @@
 2008-10-18  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
+	* t/GtkStatusIcon.t
+	* xs/GtkStatusIcon.xs
+	* xs/GtkTreeDnd.xs
+	* xs/GtkTreeView.xs
+	* xs/GtkTreeViewColumn.xs: Fix stack handling bugs in
+	Gtk2::StatusIcon::position_menu,
+	Gtk2::TreeDragSource::drag_data_get,
+	Gtk2::TreeView::get_tooltip_context, and
+	Gtk2::TreeViewColumn::cell_get_size.  Patch by Kevin Ryde.
+
 	* xs/GdkGC.xs
 	* xs/GtkGC.xs: Document the hash structure used to represent
 	GdkGCValues.  Patch by Kevin Ryde.

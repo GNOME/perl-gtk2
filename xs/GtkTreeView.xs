@@ -899,8 +899,12 @@ gtk_tree_view_get_tooltip_context (GtkTreeView *tree_view, gint x, gint y, gbool
 	GtkTreePath *path = NULL;
 	GtkTreeIter iter = {0, };
     PPCODE:
+	/* PUTBACK/SPAGAIN because gtk_tree_view_get_tooltip_context() calls
+	   out to its model get_iter(), which may be perl */
+	PUTBACK;
 	if (! gtk_tree_view_get_tooltip_context (tree_view, &x, &y, keyboard_tip, &model, &path, &iter))
 		XSRETURN_EMPTY;
+	SPAGAIN;
 	EXTEND (sp, 5);
 	PUSHs (sv_2mortal (newSViv (x)));
 	PUSHs (sv_2mortal (newSViv (y)));

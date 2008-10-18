@@ -93,7 +93,11 @@ gtk_status_icon_position_menu (GtkMenu *menu, ...)
 		icon = SvGtkStatusIcon (ST (3));
 	} else
 		icon = SvGtkStatusIcon (ST (1));
+	/* PUTBACK/SPAGAIN because gtk_status_icon_position_menu() calls out
+	   to menu->size_request, which may be a perl class closure */
+	PUTBACK;
 	gtk_status_icon_position_menu (menu, &x, &y, &push_in, icon);
+	SPAGAIN;
 	EXTEND (sp, 3);
 	PUSHs (sv_2mortal (newSViv (x)));
 	PUSHs (sv_2mortal (newSViv (y)));

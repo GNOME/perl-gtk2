@@ -360,7 +360,11 @@ gtk_tree_view_column_cell_get_size (tree_column)
 	GdkRectangle cell_area = {0};
 	gint x_offset = 0, y_offset = 0, width = 0, height = 0;
     PPCODE:
+	/* PUTBACK/SPAGAIN because gtk_tree_view_column_cell_get_size()
+	   calls out to its renderers, which may be perl */
+	PUTBACK;
 	gtk_tree_view_column_cell_get_size (tree_column, &cell_area, &x_offset, &y_offset, &width, &height);
+	SPAGAIN;
 	EXTEND (sp, 5);
 	PUSHs (sv_2mortal (newSViv (x_offset)));
 	PUSHs (sv_2mortal (newSViv (y_offset)));

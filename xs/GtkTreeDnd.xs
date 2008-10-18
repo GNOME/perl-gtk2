@@ -148,7 +148,7 @@ void
 gtk_tree_drag_source_drag_data_get (GtkTreeDragSource *drag_source, GtkTreePath *path, GtkSelectionData *selection_data = NULL)
     PREINIT:
 	SV *ret = &PL_sv_undef;
-    PPCODE:
+    CODE:
 	if (selection_data) {
 		if (gtk_tree_drag_source_drag_data_get (drag_source, path,
 		                                        selection_data))
@@ -162,7 +162,8 @@ gtk_tree_drag_source_drag_data_get (GtkTreeDragSource *drag_source, GtkTreePath 
 		                                        &new_selection_data))
 			ret = sv_2mortal (newSVGtkSelectionData_copy (&new_selection_data));
 	}
-	PUSHs (ret);
+	ST(0) = ret;
+	XSRETURN(1);
 
 MODULE = Gtk2::TreeDnd	PACKAGE = Gtk2::TreeDragDest	PREFIX = gtk_tree_drag_dest_
 
