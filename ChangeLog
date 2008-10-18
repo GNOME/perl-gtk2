@@ -1,5 +1,9 @@
 2008-10-18  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
+	* MANIFEST
+	* t/GtkTreeDnd.t: Tests for Gtk2::TreeDragSource::drag_data_get by
+	Kevin Ryde.
+
 	* t/GtkStatusIcon.t
 	* xs/GtkStatusIcon.xs
 	* xs/GtkTreeDnd.xs

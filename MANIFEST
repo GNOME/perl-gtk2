@@ -289,6 +289,7 @@ t/GtkToolItem.t
 t/GtkToolShell.t
 t/GtkTooltip.t
 t/GtkTooltips.t
+t/GtkTreeDnd.t
 t/GtkTreeModel.t
 t/GtkTreeModelFilter.t
 t/GtkTreeModelIface.t
