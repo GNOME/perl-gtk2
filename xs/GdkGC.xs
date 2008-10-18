@@ -167,6 +167,45 @@ BOOT:
 
  ##GdkGC * gdk_gc_new (GdkDrawable * drawable);
  ##GdkGC * gdk_gc_new_with_values (GdkDrawable * drawable, GdkGCValues * values);
+=for apidoc
+Create and return a new GC.
+
+C<$drawable> is used for the depth and the display
+(C<Gtk2::Gdk::Display>) for the GC.  The GC can then be used with any
+drawable of the same depth on that display.
+
+C<$values> is a hashref containing some of the following keys,
+
+    foreground          Gtk2::Gdk::Color
+    background          Gtk2::Gdk::Color
+    font                Gtk2::Gdk::Font
+    function            Gtk2::Gdk::Function enum
+    fill                Gtk2::Gdk::Fill enum
+    tile                Gtk2::Gdk::Pixmap
+    stipple             Gtk2::Gdk::Pixmap
+    clip_mask           Gtk2::Gdk::Pixmap
+    subwindow_mode      Gtk2::Gdk::SubwindowMode enum
+    ts_x_origin         integer
+    ts_y_origin         integer
+    clip_x_origin       integer
+    clip_y_origin       integer
+    graphics_exposures  boolean integer 1 or 0
+    line_width          integer
+    line_style          Gtk2::Gdk::LineStyle enum
+    cap_style           Gtk2::Gdk::CapStyle enum
+    join_style          Gtk2::Gdk::JoinStyle enum
+
+Keys not given get default values.  For the C<foreground> and
+C<background> colour objects only the C<pixel> field is used; the red,
+green and blue are ignored.  For example
+
+    my $pixel = 0x123456;
+    my $color = Gtk2::Gdk::Color->new (0,0,0, $pixel);
+    my $gc = Gtk2::Gdk::GC->new_with_values
+      ($win, { foreground => $color,
+               line_style => 'on_off_dash' });
+
+=cut
 GdkGC_noinc*
 gdk_gc_new (class, GdkDrawable * drawable, SV * values=NULL)
     ALIAS:
@@ -187,6 +226,14 @@ gdk_gc_new (class, GdkDrawable * drawable, SV * values=NULL)
 
 
 # ## void gdk_gc_get_values (GdkGC *gc, GdkGCValues *values)
+=for apidoc
+Return the attributes of C<$gc> in the form of a hashref with keys and
+values as described with C<new> above.
+
+In the C<foreground> and C<background> colour objects returned only
+the C<pixel> fields are set; the red, green and blue fields are
+garbage.
+=cut
 SV *
 gdk_gc_get_values (gc)
 	GdkGC *gc
@@ -199,6 +246,11 @@ gdk_gc_get_values (gc)
 	RETVAL
 
  ## void gdk_gc_set_values (GdkGC *gc, GdkGCValues *values, GdkGCValuesMask values_mask)
+=for apidoc
+Set some of the attributes of C<$gc>.  C<$values> is a hashref of keys
+and values as described for C<new> and C<new_with_values> above.
+Fields not present in C<$values> are left unchanged.
+=cut
 void
 gdk_gc_set_values (gc, values)
 	GdkGC *gc

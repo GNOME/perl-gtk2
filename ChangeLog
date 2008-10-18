@@ -1,5 +1,9 @@
 2008-10-18  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
+	* xs/GdkGC.xs
+	* xs/GtkGC.xs: Document the hash structure used to represent
+	GdkGCValues.  Patch by Kevin Ryde.
+
 	* xs/GtkObject.xs (gtk2perl_new_gtkobject): Make the debugging
 	code cope with NULL objects.
 

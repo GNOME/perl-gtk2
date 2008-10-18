@@ -72,6 +72,8 @@ returned. If not, a new L<Gtk2::Gdk::GC> is created.
 =for apidoc
 =for signature gc = Gtk2::GC->get ($depth, $colormap, $values)
 =for arg values (Gtk2::Gdk::GCValues) Values to match
+C<$values> is a hashref with keys and values as per
+C<< Gtk2::Gdk::GC->new >> (see L<Gtk2::Gdk::GC>).
 =cut
 SV *
 gtk_gc_get (class, depth, colormap, values)
