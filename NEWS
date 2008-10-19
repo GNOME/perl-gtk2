@@ -1,3 +1,14 @@
+Overview of changes in Gtk2 1.201
+=================================
+
+* Improve documentation in a few places.
+* Fix another round of stack handling bugs in Gtk2::StatusIcon::position_menu,
+  Gtk2::TreeDragSource::drag_data_get, Gtk2::TreeView::get_tooltip_context, and
+  Gtk2::TreeViewColumn::cell_get_size.
+* Fix Gtk2::Action::get_proxies to correctly handle the returned widgets.  This
+  fixes problems with using it in the "connect-proxy" signal.
+* Fix some test failures.
+
 Overview of changes in Gtk2 1.200
 =================================
 
