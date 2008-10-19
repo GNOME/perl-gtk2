@@ -1,5 +1,10 @@
 2008-10-19  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
+	* Makefile.PL: ExtUtils::MakeMaker 6.46 removed support for
+	EXTRA_META in favor of the new META_MERGE and META_ADD.  Adapt.
+
+2008-10-19  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
 	* t/GdkProperty.t: Fix some test failures reported to occur on
 	sun4-solaris.
 
