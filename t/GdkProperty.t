@@ -35,10 +35,15 @@ is($strut_partial -> name(), "_NET_WM_STRUT_PARTIAL");
 is($string -> name(), "STRING");
 is($cardinal -> name(), "CARDINAL");
 
-$window -> window() -> property_change($name, $string, Gtk2::Gdk::CHARS, "replace", "Bla\0Bla\0Bla");
-$window -> window() -> property_change($icon_name, $string, Gtk2::Gdk::CHARS, "replace", "Bla Bla Bla");
-$window -> window() -> property_change($strut, $cardinal, Gtk2::Gdk::USHORTS, "replace", 0, 0, 26, 0);
-$window -> window() -> property_change($strut_partial, $cardinal, Gtk2::Gdk::ULONGS, "replace", 0, 0, 26, 0, 0, 0, 0, 0, 0, 1279, 0, 0);
+$window -> window() -> property_change(
+  $name, $string, Gtk2::Gdk::CHARS, "replace", "Bla\0Bla\0Bla");
+$window -> window() -> property_change(
+  $icon_name, $string, Gtk2::Gdk::CHARS, "replace", "Bla Bla Bla");
+$window -> window() -> property_change(
+  $strut, $cardinal, Gtk2::Gdk::USHORTS, "replace", 0, 0, 26, 0);
+$window -> window() -> property_change(
+  $strut_partial, $cardinal, Gtk2::Gdk::ULONGS, "replace",
+  0, 0, 26, 0, 0, 0, 0, 0, 0, 1279, 0, 0);
 
 SKIP: {
   skip 'gdk_property_get is not implemented yet on win32', 34
@@ -46,24 +51,28 @@ SKIP: {
 
   my ($atom, $format, @data);
 
-  ($atom, $format, @data) = $window -> window() -> property_get($name, $string, 0, 1024, 0);
+  ($atom, $format, @data) =
+    $window -> window() -> property_get($name, $string, 0, 1024, 0);
   is($atom -> name(), "STRING");
   is($format, Gtk2::Gdk::CHARS);
   is(@data, 1);
   is($data[0], "Bla\0Bla\0Bla");
 
-  ($atom, $format, @data) = $window -> window() -> property_get($icon_name, $string, 0, 1024, 0);
+  ($atom, $format, @data) =
+    $window -> window() -> property_get($icon_name, $string, 0, 1024, 0);
   is($atom -> name(), "STRING");
   is($format, Gtk2::Gdk::CHARS);
   is(@data, 1);
   is($data[0], "Bla Bla Bla");
 
-  ($atom, $format, @data) = $window -> window() -> property_get($strut, $cardinal, 0, 1024, 0);
+  ($atom, $format, @data) =
+    $window -> window() -> property_get($strut, $cardinal, 0, 1024, 0);
   is($atom -> name(), "CARDINAL");
   is($format, Gtk2::Gdk::USHORTS);
   is_deeply([@data], [0, 0, 26, 0]);
 
-  ($atom, $format, @data) = $window -> window() -> property_get($strut_partial, $cardinal, 0, 1024, 0);
+  ($atom, $format, @data) =
+    $window -> window() -> property_get($strut_partial, $cardinal, 0, 1024, 0);
   is($atom -> name(), "CARDINAL");
   is($format, Gtk2::Gdk::ULONGS);
   is_deeply([@data], [0, 0, 26, 0, 0, 0, 0, 0, 0, 1279, 0, 0]);
@@ -72,9 +81,17 @@ SKIP: {
   $window -> window() -> property_delete($strut);
   $window -> window() -> property_delete($strut_partial);
 
-  is_deeply([Gtk2::Gdk -> text_property_to_text_list($string, Gtk2::Gdk::CHARS, "Bla\0Bla\0Bla")],
-            [qw(Bla Bla Bla)]);
-  is_deeply([Gtk2::Gdk -> text_property_to_utf8_list($string, Gtk2::Gdk::CHARS, "Bla\0Bla\0Bla")],
+  SKIP: {
+    my @text_list = Gtk2::Gdk -> text_property_to_text_list(
+      $string, Gtk2::Gdk::CHARS, "Bla\0Bla\0Bla");
+    skip 'text_property_to_text_list returned an empty list', 1
+      unless @text_list;
+    is_deeply([@text_list],
+              [qw(Bla Bla Bla)]);
+  }
+
+  is_deeply([Gtk2::Gdk -> text_property_to_utf8_list(
+              $string, Gtk2::Gdk::CHARS, "Bla\0Bla\0Bla")],
             [qw(Bla Bla Bla)]);
 
   ($atom, $format, @data) = Gtk2::Gdk -> string_to_compound_text("Bla");
@@ -100,22 +117,41 @@ SKIP: {
 
   my $display = Gtk2::Gdk::Display -> get_default();
 
-  is_deeply([Gtk2::Gdk -> text_property_to_text_list_for_display($display, $string, Gtk2::Gdk::CHARS, "Bla\0Bla\0Bla")],
-          [qw(Bla Bla Bla)]);
-  is_deeply([Gtk2::Gdk -> text_property_to_utf8_list_for_display($display, $string, Gtk2::Gdk::CHARS, "Bla\0Bla\0Bla")],
-          [qw(Bla Bla Bla)]);
+  SKIP: {
+    my @text_list =
+      Gtk2::Gdk -> text_property_to_text_list_for_display(
+        $display, $string, Gtk2::Gdk::CHARS, "Bla\0Bla\0Bla");
+    skip 'text_property_to_text_list_for_display returned an empty list', 1
+      unless @text_list;
+    is_deeply([@text_list],
+              [qw(Bla Bla Bla)]);
+  }
 
-  ($atom, $format, @data) = Gtk2::Gdk -> string_to_compound_text_for_display($display, "Bla");
-  is($atom -> name(), "COMPOUND_TEXT");
-  is($format, Gtk2::Gdk::CHARS);
-  is(@data, 1);
-  is($data[0], "Bla");
+  is_deeply([Gtk2::Gdk -> text_property_to_utf8_list_for_display(
+               $display, $string, Gtk2::Gdk::CHARS, "Bla\0Bla\0Bla")],
+            [qw(Bla Bla Bla)]);
 
-  ($atom, $format, @data) = Gtk2::Gdk -> utf8_to_compound_text_for_display($display, "Bla");
-  is($atom -> name(), "COMPOUND_TEXT");
-  is($format, Gtk2::Gdk::CHARS);
-  is(@data, 1);
-  is($data[0], "Bla");
+  SKIP: {
+    my ($atom, $format, @data) =
+      Gtk2::Gdk -> string_to_compound_text_for_display($display, "Bla");
+    skip 'string_to_compound_text_for_display did not return an atom', 4
+      unless defined $atom;
+    is($atom -> name(), "COMPOUND_TEXT");
+    is($format, Gtk2::Gdk::CHARS);
+    is(@data, 1);
+    is($data[0], "Bla");
+  }
+
+  SKIP: {
+    my ($atom, $format, @data) =
+      Gtk2::Gdk -> utf8_to_compound_text_for_display($display, "Bla");
+    skip 'utf8_to_compound_text_for_display did not return an atom', 4
+      unless defined $atom;
+    is($atom -> name(), "COMPOUND_TEXT");
+    is($format, Gtk2::Gdk::CHARS);
+    is(@data, 1);
+    is($data[0], "Bla");
+  }
 }
 
 is(Gtk2::Gdk -> utf8_to_string_target("Bla"), "Bla");

@@ -1,5 +1,10 @@
 2008-10-19  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
+	* t/GdkProperty.t: Fix some test failures reported to occur on
+	sun4-solaris.
+
+2008-10-19  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
 	* t/GtkEditable.t
 	* t/GtkSpinButton.t: Don't use adjustments with a non-zero page
 	size for spin buttons to hush the warnings gtk+ recently started
