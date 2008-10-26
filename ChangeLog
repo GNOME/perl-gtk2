@@ -1,5 +1,12 @@
 2008-10-26  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
+	* t/GtkTreeView.t
+	* xs/GtkTreeView.xs: Handle undef for callbacks correctly in
+	Gtk2::TreeView::set_column_drag_function() and
+	set_row_separator_func().
+
+2008-10-26  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
 	* t/version-checks.t: Don't use the -init flag as this breaks the
 	test when run without DISPLAY.
 

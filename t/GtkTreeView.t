@@ -361,7 +361,7 @@ SKIP: {
 			unless $been_here++;
 	}
 
-	$view -> set_search_equal_func(undef);
+	$view -> set_search_equal_func(sub {});
 }
 
 # set_search_position_func
@@ -446,7 +446,7 @@ SKIP: {
 			unless $i_know_this_place++;
 	}
 
-	# FIXME: $view->set_row_separator_func (undef);
+	$view->set_row_separator_func (undef);
 }
 
 SKIP: {

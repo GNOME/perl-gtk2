@@ -368,13 +368,23 @@ gtk_tree_view_set_column_drag_function (tree_view, func, data=NULL)
 	SV * func
 	SV * data
     PREINIT:
-	GPerlCallback * callback;
+	GtkTreeViewColumnDropFunc real_func;
+	gpointer real_data;
+	GtkDestroyNotify destroy;
     CODE:
-	callback = gtk2perl_tree_view_column_drop_func_create (func, data);
+	if (gperl_sv_is_defined (func)) {
+		real_func = gtk2perl_tree_view_column_drop_func;
+		real_data =
+			gtk2perl_tree_view_column_drop_func_create
+				(func, data);
+		destroy = (GDestroyNotify) gperl_callback_destroy;
+	} else {
+		real_func = real_data = destroy = NULL;
+	}
 	gtk_tree_view_set_column_drag_function (tree_view,
-						gtk2perl_tree_view_column_drop_func,
-						callback,
-						(GDestroyNotify) gperl_callback_destroy);
+						real_func,
+						real_data,
+						destroy);
 
 #### also allow undef instead of -1 to specify no scrolling
 ## void gtk_tree_view_scroll_to_point (GtkTreeView *tree_view, gint tree_x, gint tree_y)
@@ -778,14 +788,21 @@ gboolean gtk_tree_view_get_hover_expand (GtkTreeView *treeview);
 void
 gtk_tree_view_set_row_separator_func (GtkTreeView *tree_view, SV * func, SV * data=NULL);
     PREINIT:
-	GPerlCallback * callback;
+	GtkTreeViewRowSeparatorFunc real_func;
+	gpointer real_data;
+	GtkDestroyNotify destroy;
     CODE:
-	callback = gtk2perl_tree_view_row_separator_func_create (func, data);
-	gtk_tree_view_set_row_separator_func
-				(tree_view, 
-				 gtk2perl_tree_view_row_separator_func,
-				 callback,
-				 (GDestroyNotify) gperl_callback_destroy);
+	if (gperl_sv_is_defined (func)) {
+		real_func = gtk2perl_tree_view_row_separator_func;
+		real_data =
+			gtk2perl_tree_view_row_separator_func_create (
+				func, data);
+		destroy = (GtkDestroyNotify) gperl_callback_destroy;
+        } else {
+                real_func = real_data = destroy = NULL;
+        }
+	gtk_tree_view_set_row_separator_func (
+		tree_view, real_func, real_data, destroy);
 
 
 #endif
