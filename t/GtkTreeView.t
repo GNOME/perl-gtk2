@@ -320,6 +320,11 @@ $view -> map_expanded_rows(sub {
 	is($view -> row_expanded($path), 1);
 });
 
+SKIP: {
+	skip 'map_expanded_rows callback was not called', 3
+		unless $call_count++;
+}
+
 $view -> collapse_all();
 ok(!$view -> row_expanded($path));
 
@@ -351,6 +356,11 @@ SKIP: {
 	$entry -> set_text ('test');
 	run_main sub { $view -> signal_emit('start_interactive_search') };
 
+	SKIP: {
+		skip 'set_search_equal_func callback was not called', 5
+			unless $been_here++;
+	}
+
 	$view -> set_search_equal_func(undef);
 }
 
@@ -363,7 +373,10 @@ SKIP: {
 
 	$window -> show_all();
 
+	my $been_here = 0;
 	$view -> set_search_position_func(sub {
+		return if $been_here++;
+
 		my ($callback_view, $widget, $data) = @_;
 
 		is($callback_view, $view);
@@ -371,6 +384,11 @@ SKIP: {
 		is($data, undef);
 	});
 	run_main sub { $view -> signal_emit('start_interactive_search') };
+
+	SKIP: {
+		skip 'set_search_position_func callback was not called', 3
+			unless $been_here++;
+	}
 
 	$view -> set_search_position_func(undef);
 }
@@ -416,6 +434,19 @@ SKIP: {
 		my $path = $model->get_path ($iter);
 		return 1 == ($path->get_indices)[0];
 	}, {thing=>'foo'});
+
+	# trigger the callback
+	$view->insert_column_with_attributes
+		(0, "", Gtk2::CellRendererText->new, text => 0);
+	run_main;
+	$view->remove_column ($view->get_column (0));
+
+	SKIP: {
+		skip 'set_row_separator_func callback was not called', 3
+			unless $i_know_this_place++;
+	}
+
+	# FIXME: $view->set_row_separator_func (undef);
 }
 
 SKIP: {
@@ -489,7 +520,7 @@ SKIP: {
 
 	my $times_tooltip_queried = 0;
 
-	$window->signal_connect (query_tooltip => sub {
+	my $sid = $window->signal_connect (query_tooltip => sub {
 		my ($window, $x, $y, $keyboard_mode, $tip) = @_;
 
 		return TRUE if $times_tooltip_queried++;
@@ -508,8 +539,6 @@ SKIP: {
 		$view->set_tooltip_column (1);
 		is ($view->get_tooltip_column, 1);
 
-		Glib::Idle->add (sub { Gtk2->main_quit; });
-
 		return TRUE;
 	});
 
@@ -521,7 +550,14 @@ SKIP: {
 	Gtk2->main_do_event ($event);
 	Gtk2->main_do_event ($event);
 
-	Gtk2->main;
+	run_main;
+
+	SKIP: {
+		skip 'query_tooltip was not called', 6
+			unless $times_tooltip_queried++;
+	}
+
+	$window->signal_handler_disconnect ($sid);
 }
 
 ###############################################################################
