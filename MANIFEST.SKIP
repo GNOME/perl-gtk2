@@ -4,7 +4,6 @@ blib
 \.bs$
 build
 \.c$
-CVS
 \.cvsignore$
 Makefile$
 Makefile\.old$
@@ -12,4 +11,4 @@ Makefile\.old$
 \.spec$
 \.sw.$
 \.tar\.gz$
-.releaserc
+.svn

@@ -84,6 +84,7 @@ Gtk2.pm
 gtk2perl-private.h
 gtk2perl.h
 LICENSE
+MAINTAINERS
 Makefile.PL
 MANIFEST
 MANIFEST.SKIP
