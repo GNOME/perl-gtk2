@@ -1,5 +1,11 @@
 2008-10-26  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
+	* Gtk2.pm
+	* NEWS
+	* README: Stable release 1.202.
+
+2008-10-26  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
 	* t/GtkTreeView.t
 	* xs/GtkTreeView.xs: Handle undef for callbacks correctly in
 	Gtk2::TreeView::set_column_drag_function() and

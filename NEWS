@@ -1,3 +1,10 @@
+Overview of changes in Gtk2 1.202
+=================================
+
+* Correctly handle undef for callbacks in
+  Gtk2::TreeView::set_column_drag_function() and set_row_separator_func().
+* Fix more test failures.
+
 Overview of changes in Gtk2 1.201
 =================================
 
