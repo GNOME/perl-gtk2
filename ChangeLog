@@ -1,5 +1,11 @@
 2008-11-01  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
+	* t/GtkCellRenderer.t
+	* xs/GtkCellRenderer.xs: Fix the stack handling in
+	Gtk2::CellRenderer::get_size().  Patch by Kevin Ryde.
+
+2008-11-01  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
 	* xs/GtkCellRenderer.xs: Hush compiler warning.
 
 2008-11-01  Torsten Schoenfeld  <kaffeetisch@gmx.de>
