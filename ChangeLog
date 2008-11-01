@@ -1,3 +1,11 @@
+2008-11-01  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
+	Merge from trunk:
+
+	* xs/GtkBuildable.xs: Mention in the POD that chaining up to the
+	parent does not work yet for custom Gtk2::Buildable
+	implementations.  Patch by Kevin Ryde.
+
 2008-10-26  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
 	* Gtk2.pm
