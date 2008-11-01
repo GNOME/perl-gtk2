@@ -105,6 +105,22 @@ new (class, width=0, height=0)
 
 MODULE = Gtk2::Widget	PACKAGE = Gtk2::Widget	PREFIX = gtk_widget_
 
+=for position post_interfaces
+
+=head1 CONSTANTS
+
+C<EVENT_STOP> and C<EVENT_PROPAGATE> are designed for the return from
+widget event signal handlers and similar, being true to stop or false
+to propagate.  The names can help you avoid confusion over which way
+is true and which is false.  (You can also remember the return as
+meaning "handled", which is the jargon in a few other signal handler
+types.)
+
+    Gtk2::EVENT_STOP         # true
+    Gtk2::EVENT_PROPAGATE    # false
+
+=cut
+
 =for position post_signals
 
 Note that currently signal_chain_from_overridden doesn't work from a

@@ -62,6 +62,21 @@ Gtk2->bootstrap ($VERSION);
 our @EXPORT_OK = map { @$_ } values %Gtk2::EXPORT_TAGS;
 $Gtk2::EXPORT_TAGS{all} = \@EXPORT_OK;
 
+# Names "STOP" and "PROPAGATE" here are per the GtkWidget event signal
+# descriptions.  In some other flavours of signals the jargon is "handled"
+# instead of "stop".  "Handled" matches g_signal_accumulator_true_handled(),
+# though that function doesn't rate a mention in the Gtk docs.  There's
+# nothing fixed in the idea of "true means cease emission" (whether it's
+# called "stop" or "handled").  You can just as easily have false for cease
+# (the way the underlying GSignalAccumulator func in fact operates).  The
+# upshot being don't want to attempt to be too universal with the names
+# here; "EVENT" is meant to hint at the context or signal flavour they're
+# for use with.
+use constant {
+  EVENT_STOP      => 1,
+  EVENT_PROPAGATE => !1,
+};
+
 sub import {
 	my $class = shift;
 
