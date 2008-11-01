@@ -696,7 +696,7 @@ GET_SIZE (GtkCellRenderer * cell, ...)
 
 	/* the ancestry will always contain GtkCellRenderer, so parent and
 	 * parent_class should never be NULL. */
-	assert (parent != NULL && parent_class != NULL);
+	assert (parent != 0 && parent_class != NULL);
 
 	switch (ix) {
 	    case 4: /* deprecated parent_get_size */
