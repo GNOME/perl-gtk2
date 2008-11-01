@@ -868,6 +868,14 @@ tags to express configuration.  In these cases, add the Gtk2::Buildable
 interface to your object declaration, and implement the following methods
 as necessary.
 
+Note that in the current implementation the custom tags code doesn't
+chain up to any buildable interfaces in superclasses.  This means for
+instance if you implement Gtk2::Buildable on a new widget subclass
+then you lose the <accelerator> and <accessibility> tags normally
+available from Gtk2::Widget.  This will likely change in the future,
+probably by chaining up by default for unhandled tags, maybe with a
+way to ask deliberately not to chain.
+
 =over
 
 =item SET_NAME ($self, $name)
