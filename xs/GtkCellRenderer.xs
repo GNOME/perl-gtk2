@@ -508,8 +508,10 @@ gtk_cell_renderer_get_size (cell, widget, cell_area)
 	gint width;
 	gint height;
     PPCODE:
+	PUTBACK;
 	gtk_cell_renderer_get_size(cell, widget, cell_area,
 		&x_offset, &y_offset, &width, &height);
+	SPAGAIN;
 	EXTEND(SP,4);
 	PUSHs(sv_2mortal(newSViv(x_offset)));
 	PUSHs(sv_2mortal(newSViv(y_offset)));

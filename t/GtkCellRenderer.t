@@ -2,7 +2,7 @@
 
 # $Id$
 
-use Gtk2::TestHelper tests => 9;
+use Gtk2::TestHelper tests => 13;
 use strict;
 
 package Mup::CellRendererPopup;
@@ -119,6 +119,10 @@ isa_ok ($renderer, "Gtk2::CellRenderer");
 my $rect = Gtk2::Gdk::Rectangle->new (5, 5, 10, 10);
 my @size = $renderer->get_size ($treeview, $rect);
 is (@size, 4);
+like($size[0], qr/^\d+$/);
+like($size[1], qr/^\d+$/);
+like($size[2], qr/^\d+$/);
+like($size[3], qr/^\d+$/);
 
 my $event = Gtk2::Gdk::Event->new ("button-press");
 
