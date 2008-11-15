@@ -104,7 +104,6 @@ maps_pango-1.4
 maps_pango-1.6
 maps_pango-1.8
 NEWS
-pango.typemap
 perl-Gtk2.spec.in
 pm/Helper.pm
 pm/Pango.pm
@@ -311,6 +310,7 @@ t/GtkVScale.t
 t/GtkVScrollbar.t
 t/GtkVSeparator.t
 t/GtkWidget.t
+t/pango-compat.t
 t/PangoAttributes.t
 t/PangoCairo.t
 t/PangoContext.t
@@ -532,19 +532,6 @@ xs/GtkVScrollbar.xs
 xs/GtkVSeparator.xs
 xs/GtkWidget.xs
 xs/GtkWindow.xs
-xs/PangoAttributes.xs
-xs/PangoCairo.xs
-xs/PangoContext.xs
-xs/PangoFont.xs
-xs/PangoFontMap.xs
-xs/PangoFontset.xs
-xs/PangoGravity.xs
-xs/PangoLayout.xs
-xs/PangoMatrix.xs
-xs/PangoRenderer.xs
-xs/PangoScript.xs
-xs/PangoTabs.xs
-xs/PangoTypes.xs
 xs_files-2.0
 xs_files-2.10
 xs_files-2.12
@@ -553,7 +540,3 @@ xs_files-2.2
 xs_files-2.4
 xs_files-2.6
 xs_files-2.8
-xs_files_pango-1.0
-xs_files_pango-1.10
-xs_files_pango-1.16
-xs_files_pango-1.6

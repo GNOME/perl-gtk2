@@ -122,7 +122,6 @@ BOOT:
 	gperl_handle_logs_for ("Gtk");
 	gperl_handle_logs_for ("Gdk");
 	gperl_handle_logs_for ("GdkPixbuf");
-	gperl_handle_logs_for ("Pango");
 
 	/* make sure that we're running/linked against a version at least as 
 	 * new as we built against, otherwise bad things can happen. */
@@ -595,34 +594,833 @@ gtk_propagate_event (widget, event)
 	GtkWidget * widget
 	GdkEvent * event
 
-MODULE = Gtk2		PACKAGE = Gtk2::Pango		PREFIX = PANGO_
+# --------------------------------------------------------------------------- #
 
-# Don't doc these in Gtk2::Pango, or we'll clobber the docs for the
-# pango constants module!
+MODULE = Gtk2	PACKAGE = Gtk2::Pango
+
+# All the stuff below is to create POD stubs for Gtk2::Pango::* that link to
+# the new Pango::* POD pages.
+
+=for object Gtk2::Pango::AttrBackground
+=cut
+
+=for position DESCRIPTION
+
+=head1 DESCRIPTION
+
+As of Gtk2 1.220, pango bindings are provided by the standalone Pango module.
+This namespace is provided for backwards compatibility.  The relevant
+documentation moved to Pango and is linked to below.
+
+=cut
+
+=for see_also Pango::AttrBackground
+=cut
+
+
+=for object Gtk2::Pango::AttrColor
+=cut
+
+=for position DESCRIPTION
+
+=head1 DESCRIPTION
+
+As of Gtk2 1.220, pango bindings are provided by the standalone Pango module.
+This namespace is provided for backwards compatibility.  The relevant
+documentation moved to Pango and is linked to below.
+
+=cut
+
+=for see_also Pango::AttrColor
+=cut
+
+
+=for object Gtk2::Pango::AttrFallback
+=cut
+
+=for position DESCRIPTION
+
+=head1 DESCRIPTION
+
+As of Gtk2 1.220, pango bindings are provided by the standalone Pango module.
+This namespace is provided for backwards compatibility.  The relevant
+documentation moved to Pango and is linked to below.
+
+=cut
+
+=for see_also Pango::AttrFallback
+=cut
+
+
+=for object Gtk2::Pango::AttrFamily
+=cut
+
+=for position DESCRIPTION
+
+=head1 DESCRIPTION
+
+As of Gtk2 1.220, pango bindings are provided by the standalone Pango module.
+This namespace is provided for backwards compatibility.  The relevant
+documentation moved to Pango and is linked to below.
+
+=cut
+
+=for see_also Pango::AttrFamily
+=cut
+
+
+=for object Gtk2::Pango::AttrFontDesc
+=cut
+
+=for position DESCRIPTION
+
+=head1 DESCRIPTION
+
+As of Gtk2 1.220, pango bindings are provided by the standalone Pango module.
+This namespace is provided for backwards compatibility.  The relevant
+documentation moved to Pango and is linked to below.
+
+=cut
+
+=for see_also Pango::AttrFontDesc
+=cut
+
+
+=for object Gtk2::Pango::AttrForeground
+=cut
+
+=for position DESCRIPTION
+
+=head1 DESCRIPTION
+
+As of Gtk2 1.220, pango bindings are provided by the standalone Pango module.
+This namespace is provided for backwards compatibility.  The relevant
+documentation moved to Pango and is linked to below.
+
+=cut
+
+=for see_also Pango::AttrForeground
+=cut
+
+
+=for object Gtk2::Pango::AttrGravity
+=cut
+
+=for position DESCRIPTION
+
+=head1 DESCRIPTION
+
+As of Gtk2 1.220, pango bindings are provided by the standalone Pango module.
+This namespace is provided for backwards compatibility.  The relevant
+documentation moved to Pango and is linked to below.
+
+=cut
+
+=for see_also Pango::AttrGravity
+=cut
+
+
+=for object Gtk2::Pango::AttrGravityHint
+=cut
+
+=for position DESCRIPTION
+
+=head1 DESCRIPTION
+
+As of Gtk2 1.220, pango bindings are provided by the standalone Pango module.
+This namespace is provided for backwards compatibility.  The relevant
+documentation moved to Pango and is linked to below.
+
+=cut
+
+=for see_also Pango::AttrGravityHint
+=cut
+
+
+=for object Gtk2::Pango::Attribute
+=cut
+
+=for position DESCRIPTION
+
+=head1 DESCRIPTION
+
+As of Gtk2 1.220, pango bindings are provided by the standalone Pango module.
+This namespace is provided for backwards compatibility.  The relevant
+documentation moved to Pango and is linked to below.
+
+=cut
+
+=for see_also Pango::Attribute
+=cut
+
+
+=for object Gtk2::Pango::AttrInt
+=cut
+
+=for position DESCRIPTION
+
+=head1 DESCRIPTION
+
+As of Gtk2 1.220, pango bindings are provided by the standalone Pango module.
+This namespace is provided for backwards compatibility.  The relevant
+documentation moved to Pango and is linked to below.
+
+=cut
+
+=for see_also Pango::AttrInt
+=cut
+
+
+=for object Gtk2::Pango::AttrIterator
+=cut
+
+=for position DESCRIPTION
+
+=head1 DESCRIPTION
+
+As of Gtk2 1.220, pango bindings are provided by the standalone Pango module.
+This namespace is provided for backwards compatibility.  The relevant
+documentation moved to Pango and is linked to below.
+
+=cut
+
+=for see_also Pango::AttrIterator
+=cut
+
+
+=for object Gtk2::Pango::AttrLanguage
+=cut
+
+=for position DESCRIPTION
+
+=head1 DESCRIPTION
+
+As of Gtk2 1.220, pango bindings are provided by the standalone Pango module.
+This namespace is provided for backwards compatibility.  The relevant
+documentation moved to Pango and is linked to below.
+
+=cut
+
+=for see_also Pango::AttrLanguage
+=cut
+
+
+=for object Gtk2::Pango::AttrLetterSpacing
+=cut
+
+=for position DESCRIPTION
+
+=head1 DESCRIPTION
+
+As of Gtk2 1.220, pango bindings are provided by the standalone Pango module.
+This namespace is provided for backwards compatibility.  The relevant
+documentation moved to Pango and is linked to below.
+
+=cut
+
+=for see_also Pango::AttrLetterSpacing
+=cut
+
+
+=for object Gtk2::Pango::AttrList
+=cut
+
+=for position DESCRIPTION
+
+=head1 DESCRIPTION
+
+As of Gtk2 1.220, pango bindings are provided by the standalone Pango module.
+This namespace is provided for backwards compatibility.  The relevant
+documentation moved to Pango and is linked to below.
+
+=cut
+
+=for see_also Pango::AttrList
+=cut
+
+
+=for object Gtk2::Pango::AttrRise
+=cut
+
+=for position DESCRIPTION
+
+=head1 DESCRIPTION
+
+As of Gtk2 1.220, pango bindings are provided by the standalone Pango module.
+This namespace is provided for backwards compatibility.  The relevant
+documentation moved to Pango and is linked to below.
+
+=cut
+
+=for see_also Pango::AttrRise
+=cut
+
+
+=for object Gtk2::Pango::AttrScale
+=cut
+
+=for position DESCRIPTION
+
+=head1 DESCRIPTION
+
+As of Gtk2 1.220, pango bindings are provided by the standalone Pango module.
+This namespace is provided for backwards compatibility.  The relevant
+documentation moved to Pango and is linked to below.
+
+=cut
+
+=for see_also Pango::AttrScale
+=cut
+
+
+=for object Gtk2::Pango::AttrShape
+=cut
+
+=for position DESCRIPTION
+
+=head1 DESCRIPTION
+
+As of Gtk2 1.220, pango bindings are provided by the standalone Pango module.
+This namespace is provided for backwards compatibility.  The relevant
+documentation moved to Pango and is linked to below.
+
+=cut
+
+=for see_also Pango::AttrShape
+=cut
+
+
+=for object Gtk2::Pango::AttrSize
+=cut
+
+=for position DESCRIPTION
+
+=head1 DESCRIPTION
+
+As of Gtk2 1.220, pango bindings are provided by the standalone Pango module.
+This namespace is provided for backwards compatibility.  The relevant
+documentation moved to Pango and is linked to below.
+
+=cut
+
+=for see_also Pango::AttrSize
+=cut
+
+
+=for object Gtk2::Pango::AttrStretch
+=cut
+
+=for position DESCRIPTION
+
+=head1 DESCRIPTION
+
+As of Gtk2 1.220, pango bindings are provided by the standalone Pango module.
+This namespace is provided for backwards compatibility.  The relevant
+documentation moved to Pango and is linked to below.
+
+=cut
+
+=for see_also Pango::AttrStretch
+=cut
+
+
+=for object Gtk2::Pango::AttrStrikethrough
+=cut
+
+=for position DESCRIPTION
+
+=head1 DESCRIPTION
+
+As of Gtk2 1.220, pango bindings are provided by the standalone Pango module.
+This namespace is provided for backwards compatibility.  The relevant
+documentation moved to Pango and is linked to below.
+
+=cut
+
+=for see_also Pango::AttrStrikethrough
+=cut
+
+
+=for object Gtk2::Pango::AttrStrikethroughColor
+=cut
+
+=for position DESCRIPTION
+
+=head1 DESCRIPTION
+
+As of Gtk2 1.220, pango bindings are provided by the standalone Pango module.
+This namespace is provided for backwards compatibility.  The relevant
+documentation moved to Pango and is linked to below.
+
+=cut
+
+=for see_also Pango::AttrStrikethroughColor
+=cut
+
+
+=for object Gtk2::Pango::AttrString
+=cut
+
+=for position DESCRIPTION
+
+=head1 DESCRIPTION
+
+As of Gtk2 1.220, pango bindings are provided by the standalone Pango module.
+This namespace is provided for backwards compatibility.  The relevant
+documentation moved to Pango and is linked to below.
+
+=cut
+
+=for see_also Pango::AttrString
+=cut
+
+
+=for object Gtk2::Pango::AttrStyle
+=cut
+
+=for position DESCRIPTION
+
+=head1 DESCRIPTION
+
+As of Gtk2 1.220, pango bindings are provided by the standalone Pango module.
+This namespace is provided for backwards compatibility.  The relevant
+documentation moved to Pango and is linked to below.
+
+=cut
+
+=for see_also Pango::AttrStyle
+=cut
+
+
+=for object Gtk2::Pango::AttrUnderline
+=cut
+
+=for position DESCRIPTION
+
+=head1 DESCRIPTION
+
+As of Gtk2 1.220, pango bindings are provided by the standalone Pango module.
+This namespace is provided for backwards compatibility.  The relevant
+documentation moved to Pango and is linked to below.
+
+=cut
+
+=for see_also Pango::AttrUnderline
+=cut
+
+
+=for object Gtk2::Pango::AttrUnderlineColor
+=cut
+
+=for position DESCRIPTION
+
+=head1 DESCRIPTION
+
+As of Gtk2 1.220, pango bindings are provided by the standalone Pango module.
+This namespace is provided for backwards compatibility.  The relevant
+documentation moved to Pango and is linked to below.
+
+=cut
+
+=for see_also Pango::AttrUnderlineColor
+=cut
+
+
+=for object Gtk2::Pango::AttrVariant
+=cut
+
+=for position DESCRIPTION
+
+=head1 DESCRIPTION
+
+As of Gtk2 1.220, pango bindings are provided by the standalone Pango module.
+This namespace is provided for backwards compatibility.  The relevant
+documentation moved to Pango and is linked to below.
+
+=cut
+
+=for see_also Pango::AttrVariant
+=cut
+
+
+=for object Gtk2::Pango::AttrWeight
+=cut
+
+=for position DESCRIPTION
+
+=head1 DESCRIPTION
+
+As of Gtk2 1.220, pango bindings are provided by the standalone Pango module.
+This namespace is provided for backwards compatibility.  The relevant
+documentation moved to Pango and is linked to below.
+
+=cut
+
+=for see_also Pango::AttrWeight
+=cut
+
+
+=for object Gtk2::Pango::Cairo
+=cut
+
+=for position DESCRIPTION
+
+=head1 DESCRIPTION
+
+As of Gtk2 1.220, pango bindings are provided by the standalone Pango module.
+This namespace is provided for backwards compatibility.  The relevant
+documentation moved to Pango and is linked to below.
+
+=cut
+
+=for see_also Pango::Cairo
+=cut
+
+
+=for object Gtk2::Pango::Cairo::Context
+=cut
+
+=for object Gtk2::Pango::Cairo::Font
+=cut
+
+=for object Gtk2::Pango::Cairo::FontMap
+=cut
+
+=for object Gtk2::Pango::Color
+=cut
+
+=for position DESCRIPTION
+
+=head1 DESCRIPTION
+
+As of Gtk2 1.220, pango bindings are provided by the standalone Pango module.
+This namespace is provided for backwards compatibility.  The relevant
+documentation moved to Pango and is linked to below.
+
+=cut
+
+=for see_also Pango::Color
+=cut
+
+
+=for object Gtk2::Pango::Context
+=cut
+
+=for position DESCRIPTION
+
+=head1 DESCRIPTION
+
+As of Gtk2 1.220, pango bindings are provided by the standalone Pango module.
+This namespace is provided for backwards compatibility.  The relevant
+documentation moved to Pango and is linked to below.
+
+=cut
+
+=for see_also Pango::Context
+=cut
+
+
+=for object Gtk2::Pango::Font
+=cut
+
+=for position DESCRIPTION
+
+=head1 DESCRIPTION
+
+As of Gtk2 1.220, pango bindings are provided by the standalone Pango module.
+This namespace is provided for backwards compatibility.  The relevant
+documentation moved to Pango and is linked to below.
+
+=cut
+
+=for see_also Pango::Font
+=cut
+
+
+=for object Gtk2::Pango::FontDescription
+=cut
+
+=for position DESCRIPTION
+
+=head1 DESCRIPTION
+
+As of Gtk2 1.220, pango bindings are provided by the standalone Pango module.
+This namespace is provided for backwards compatibility.  The relevant
+documentation moved to Pango and is linked to below.
+
+=cut
+
+=for see_also Pango::FontDescription
+=cut
+
+
+=for object Gtk2::Pango::FontFace
+=cut
+
+=for position DESCRIPTION
+
+=head1 DESCRIPTION
+
+As of Gtk2 1.220, pango bindings are provided by the standalone Pango module.
+This namespace is provided for backwards compatibility.  The relevant
+documentation moved to Pango and is linked to below.
+
+=cut
+
+=for see_also Pango::FontFace
+=cut
+
+
+=for object Gtk2::Pango::FontFamily
+=cut
+
+=for position DESCRIPTION
+
+=head1 DESCRIPTION
+
+As of Gtk2 1.220, pango bindings are provided by the standalone Pango module.
+This namespace is provided for backwards compatibility.  The relevant
+documentation moved to Pango and is linked to below.
+
+=cut
+
+=for see_also Pango::FontFamily
+=cut
+
+
+=for object Gtk2::Pango::FontMap
+=cut
+
+=for position DESCRIPTION
+
+=head1 DESCRIPTION
+
+As of Gtk2 1.220, pango bindings are provided by the standalone Pango module.
+This namespace is provided for backwards compatibility.  The relevant
+documentation moved to Pango and is linked to below.
+
+=cut
+
+=for see_also Pango::FontMap
+=cut
+
+
+=for object Gtk2::Pango::FontMetrics
+=cut
+
+=for position DESCRIPTION
+
+=head1 DESCRIPTION
+
+As of Gtk2 1.220, pango bindings are provided by the standalone Pango module.
+This namespace is provided for backwards compatibility.  The relevant
+documentation moved to Pango and is linked to below.
+
+=cut
+
+=for see_also Pango::FontMetrics
+=cut
+
+
+=for object Gtk2::Pango::Fontset
+=cut
+
+=for position DESCRIPTION
+
+=head1 DESCRIPTION
+
+As of Gtk2 1.220, pango bindings are provided by the standalone Pango module.
+This namespace is provided for backwards compatibility.  The relevant
+documentation moved to Pango and is linked to below.
+
+=cut
+
+=for see_also Pango::Fontset
+=cut
+
+
+=for object Gtk2::Pango::Gravity
+=cut
+
+=for position DESCRIPTION
+
+=head1 DESCRIPTION
+
+As of Gtk2 1.220, pango bindings are provided by the standalone Pango module.
+This namespace is provided for backwards compatibility.  The relevant
+documentation moved to Pango and is linked to below.
+
+=cut
+
+=for see_also Pango::Gravity
+=cut
+
+
+=for object Gtk2::Pango::Language
+=cut
+
+=for position DESCRIPTION
+
+=head1 DESCRIPTION
+
+As of Gtk2 1.220, pango bindings are provided by the standalone Pango module.
+This namespace is provided for backwards compatibility.  The relevant
+documentation moved to Pango and is linked to below.
+
+=cut
+
+=for see_also Pango::Language
+=cut
+
+
+=for object Gtk2::Pango::Layout
+=cut
+
+=for position DESCRIPTION
+
+=head1 DESCRIPTION
+
+As of Gtk2 1.220, pango bindings are provided by the standalone Pango module.
+This namespace is provided for backwards compatibility.  The relevant
+documentation moved to Pango and is linked to below.
+
+=cut
+
+=for see_also Pango::Layout
+=cut
+
+
+=for object Gtk2::Pango::LayoutIter
+=cut
+
+=for position DESCRIPTION
+
+=head1 DESCRIPTION
+
+As of Gtk2 1.220, pango bindings are provided by the standalone Pango module.
+This namespace is provided for backwards compatibility.  The relevant
+documentation moved to Pango and is linked to below.
+
+=cut
+
+=for see_also Pango::LayoutIter
+=cut
+
+
+=for object Gtk2::Pango::LayoutLine
+=cut
+
+=for position DESCRIPTION
+
+=head1 DESCRIPTION
+
+As of Gtk2 1.220, pango bindings are provided by the standalone Pango module.
+This namespace is provided for backwards compatibility.  The relevant
+documentation moved to Pango and is linked to below.
+
+=cut
+
+=for see_also Pango::LayoutLine
+=cut
+
+
+=for object Gtk2::Pango::Matrix
+=cut
+
+=for position DESCRIPTION
+
+=head1 DESCRIPTION
+
+As of Gtk2 1.220, pango bindings are provided by the standalone Pango module.
+This namespace is provided for backwards compatibility.  The relevant
+documentation moved to Pango and is linked to below.
+
+=cut
+
+=for see_also Pango::Matrix
+=cut
+
+
+=for object Gtk2::Pango::Renderer
+=cut
+
+=for position DESCRIPTION
+
+=head1 DESCRIPTION
+
+As of Gtk2 1.220, pango bindings are provided by the standalone Pango module.
+This namespace is provided for backwards compatibility.  The relevant
+documentation moved to Pango and is linked to below.
+
+=cut
+
+=for see_also Pango::Renderer
+=cut
+
+
+=for object Gtk2::Pango::Script
+=cut
+
+=for position DESCRIPTION
+
+=head1 DESCRIPTION
+
+As of Gtk2 1.220, pango bindings are provided by the standalone Pango module.
+This namespace is provided for backwards compatibility.  The relevant
+documentation moved to Pango and is linked to below.
+
+=cut
+
+=for see_also Pango::Script
+=cut
+
+
+=for object Gtk2::Pango::ScriptIter
+=cut
+
+=for position DESCRIPTION
+
+=head1 DESCRIPTION
+
+As of Gtk2 1.220, pango bindings are provided by the standalone Pango module.
+This namespace is provided for backwards compatibility.  The relevant
+documentation moved to Pango and is linked to below.
+
+=cut
+
+=for see_also Pango::ScriptIter
+=cut
+
+
+=for object Gtk2::Pango::TabArray
+=cut
+
+=for position DESCRIPTION
+
+=head1 DESCRIPTION
+
+As of Gtk2 1.220, pango bindings are provided by the standalone Pango module.
+This namespace is provided for backwards compatibility.  The relevant
+documentation moved to Pango and is linked to below.
+
+=cut
+
+=for see_also Pango::TabArray
+=cut
+
 
 =for object Gtk2::Pango::version
 =cut
 
-=for see_also Gtk2::version
+=for position DESCRIPTION
+
+=head1 DESCRIPTION
+
+As of Gtk2 1.220, pango bindings are provided by the standalone Pango module.
+This namespace is provided for backwards compatibility.  The relevant
+documentation moved to Pango and is linked to below.
+
 =cut
 
-=for see_also Glib::version
+=for see_also Pango::version
 =cut
-
-=for apidoc
-=for signature (MAJOR, MINOR, MICRO) = Gtk2::Pango->GET_VERSION_INFO
-Fetch as a list the version of pango with which Gtk2 was built.
-=cut
-void
-GET_VERSION_INFO (class)
-    PPCODE:
-	EXTEND (SP, 3);
-	PUSHs (sv_2mortal (newSViv (PANGO_MAJOR_VERSION)));
-	PUSHs (sv_2mortal (newSViv (PANGO_MINOR_VERSION)));
-	PUSHs (sv_2mortal (newSViv (PANGO_MICRO_VERSION)));
-	PERL_UNUSED_VAR (ax);
-
-bool
-PANGO_CHECK_VERSION (class, int major, int minor, int micro)
-    C_ARGS:
-	major, minor, micro

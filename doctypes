@@ -16,5 +16,3 @@ GdkGeometry     Gtk2::Gdk::Geometry
 GdkKeymap_orclass	Gtk2::Gdk::Keymap
 GdkPixbuf_noinc		Gtk2::Gdk::Pixbuf
 GdkPixbufFormat		hash reference
-PangoRectangle	array reference
-PangoGlyph	integer

@@ -28,6 +28,38 @@ use strict;
 use warnings;
 
 use Glib;
+use Pango;
+
+# Backwards compatibility: create Gtk2::Pango aliases for everything in Pango
+# that was originally in Gtk2::Pango.
+{
+  no strict 'refs';
+  my @pango_keys = qw(
+    AttrBackground:: AttrColor:: AttrFallback:: AttrFamily:: AttrFontDesc::
+    AttrForeground:: AttrGravity:: AttrGravityHint:: Attribute:: AttrInt::
+    AttrIterator:: AttrLanguage:: AttrLetterSpacing:: AttrList:: AttrRise::
+    AttrScale:: AttrShape:: AttrSize:: AttrStretch:: AttrStrikethrough::
+    AttrStrikethroughColor:: AttrString:: AttrStyle:: AttrUnderline::
+    AttrUnderlineColor:: AttrVariant:: AttrWeight:: Cairo:: Color:: Context::
+    Font:: FontDescription:: FontFace:: FontFamily:: FontMap:: FontMask::
+    FontMetrics:: Fontset:: GlyphString:: Gravity:: Language:: Layout::
+    LayoutIter:: LayoutLine:: Matrix:: Renderer:: Script:: ScriptIter::
+    TabArray::
+
+    extents_to_pixels find_base_dir parse_markup pixels scale scale_large
+    scale_medium scale_small scale_x_large scale_x_small scale_xx_large
+    scale_xx_small units_from_double units_to_double
+
+    PANGO_PIXELS
+
+    CHECK_VERSION GET_VERSION_INFO VERSION
+
+    ISA
+  );
+  foreach my $key (@pango_keys) {
+    *{'Gtk2::Pango::' . $key} = *{'Pango::' . $key};
+  }
+}
 
 # if the gtk+ we've been compiled against is at 2.8.0 or newer or if pango is
 # at 1.10.0 or newer, we need to import the Cairo module for the cairo glue in

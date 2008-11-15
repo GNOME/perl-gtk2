@@ -1,5 +1,57 @@
 2008-11-15  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
+	Use the standalone Pango module.
+
+	* CodeGen.pm: Add handlers for 'Alias' variants of most types.
+
+	* maps_pango-1.0
+	* maps_pango-1.4
+	* maps_pango-1.6
+	* maps_pango-1.8
+	* maps_pango-1.10
+	* maps_pango-1.16
+	* maps_pango-1.18: Use the above to register Gtk2::Pango::* type
+	aliases.
+
+	* gtk2perl.h: Include pango-perl.h
+
+	* Gtk2.pm: Use Pango.  Set up package aliases under Gtk2::Pango::
+	for the things that now live under Pango::.
+
+	* xs/Gtk2.xs: Remove unneeded pango stuff.  Make the doc generator
+	create stub Gtk2::Pango::* POD pages that explain the situation
+	and link to the relevant Pango::* docs.
+
+	* MANIFEST
+	* t/pango-compat.t (added): Add some tests that try to ensure
+	backwards compatibility in ways not tested by the existing
+	t/Pango*.t tests.
+
+	* doctypes
+	* Makefile.PL: Remove unneeded pango stuff.
+
+	* MANIFEST
+	* pango.typemap (deleted)
+	* xs/PangoAttributes.xs (deleted)
+	* xs/PangoCairo.xs (deleted)
+	* xs/PangoContext.xs (deleted)
+	* xs/PangoFontMap.xs (deleted)
+	* xs/PangoFontset.xs (deleted)
+	* xs/PangoFont.xs (deleted)
+	* xs/PangoGravity.xs (deleted)
+	* xs/PangoLayout.xs (deleted)
+	* xs/PangoMatrix.xs (deleted)
+	* xs/PangoRenderer.xs (deleted)
+	* xs/PangoScript.xs (deleted)
+	* xs/PangoTabs.xs (deleted)
+	* xs/PangoTypes.xs (deleted)
+	* xs_files_pango-1.0 (deleted)
+	* xs_files_pango-1.6 (deleted)
+	* xs_files_pango-1.10 (deleted)
+	* xs_files_pango-1.16 (deleted): Remove now unneeded files.
+
+2008-11-15  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
 	* t/GtkSocket-GtkPlug.t: Correct skip count for the case of
 	finding no "blib" directory.
 

@@ -11,6 +11,12 @@ our $VERSION = '0.03';
 
 Glib::CodeGen->add_type_handler (GtkObject => \&gen_gtkobject_stuff);
 
+Glib::CodeGen->add_type_handler (GEnumAlias => \&gen_fundamental_alias_stuff);
+Glib::CodeGen->add_type_handler (GFlagsAlias => \&gen_fundamental_alias_stuff);
+Glib::CodeGen->add_type_handler (GBoxedAlias => \&gen_boxed_alias_stuff);
+Glib::CodeGen->add_type_handler (GObjectAlias => \&gen_object_alias_stuff);
+Glib::CodeGen->add_type_handler (GInterfaceAlias => \&gen_object_alias_stuff);
+
 
 =head1 NAME
 
@@ -225,6 +231,28 @@ gperl_register_object ($typemacro, \"$package\");
 # define newSV$classname\_ornull(val)	(((val) == NULL) ? &PL_sv_undef : $get_wrapper)
 #endif /* $typemacro */
 ";
+}
+
+sub gen_alias_stuff {
+	my ($typemacro, $func, $package) = @_;
+	Glib::CodeGen::add_register "#ifdef $typemacro
+$func ($typemacro, \"$package\");
+#endif /* $typemacro */";
+}
+
+sub gen_fundamental_alias_stuff {
+	my ($typemacro, $classname, $root, $package) = @_;
+	gen_alias_stuff ($typemacro, 'gperl_register_fundamental_alias', $package);
+}
+
+sub gen_boxed_alias_stuff {
+	my ($typemacro, $classname, $root, $package) = @_;
+	gen_alias_stuff ($typemacro, 'gperl_register_boxed_alias', $package);
+}
+
+sub gen_object_alias_stuff {
+	my ($typemacro, $classname, $root, $package) = @_;
+	gen_alias_stuff ($typemacro, 'gperl_register_object_alias', $package);
 }
 
 
