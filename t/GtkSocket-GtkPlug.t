@@ -8,7 +8,7 @@ use Gtk2::TestHelper tests => 12, nowin32 => 1;
 
 SKIP: {
 
-skip "blib can't be found", 4
+skip "blib can't be found", 6
 	unless -d "blib";
 
 ok( my $win = Gtk2::Window->new );
