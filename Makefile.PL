@@ -268,9 +268,6 @@ $gtk2->save_config ('build/IFiles.pm');
 our @exports;
 require 'Gtk2.exports';
 
-my $configure_requires_yaml =
-  Glib::MakeHelper->get_configure_requires_yaml(%PREREQ_PM);
-
 WriteMakefile(
     NAME          => 'Gtk2',
     VERSION_FROM  => 'Gtk2.pm', # finds $VERSION
@@ -281,11 +278,12 @@ WriteMakefile(
     FUNCLIST      => \@exports,
     DL_FUNCS      => { Gtk2 => [] },
 
-    $gtk2->get_makefile_vars,
+    META_MERGE    => {
+      configure_requires => \%PREREQ_PM,
+      no_index           => { directory => [qw/tools xs/] },
+    },
 
-    $ExtUtils::MakeMaker::VERSION >= 6.46
-      ? (META_MERGE => { configure_requires => \%PREREQ_PM })
-      : (EXTRA_META => $configure_requires_yaml),
+    $gtk2->get_makefile_vars,
 );
 
 =unstable
