@@ -1,5 +1,11 @@
 2008-11-16  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
+	* Gtk2.pm:
+	* NEWS:
+	* README: Unstable release 1.210.
+
+2008-11-16  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
 	* Makefile.PL: Unconditionally use META_MERGE.  Tell the CPAN
 	indexer to ignore the directories "tools" and "xs".
 

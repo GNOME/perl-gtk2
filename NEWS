@@ -1,3 +1,11 @@
+Overview of changes in Gtk2 1.210
+=================================
+
+* Split out our pango bindings into the standalone Pango module and depend on
+  it.
+* Add constants Gtk2::EVENT_STOP and EVENT_PROPAGATE for use in event handlers
+* Fix the stack handling in Gtk2::CellRenderer::get_size().
+
 Overview of changes in Gtk2 1.202
 =================================
 
