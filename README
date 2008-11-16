@@ -62,6 +62,7 @@ This module requires these other modules and libraries:
 
   perl >= 5.8.0
   Glib >= 1.200 (Perl module)
+  Pango >= 1.210 (Perl module)
   GTK+ > 2.x (C library)
 
 If GTK+ is as new or newer as 2.8, the Cairo module is also required:

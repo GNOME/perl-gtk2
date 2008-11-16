@@ -34,8 +34,8 @@ our %build_reqs = (
 	'perl-ExtUtils-Depends'   => '0.300',
 	'perl-ExtUtils-PkgConfig' => '1.030',
 	'perl-Glib'               => '1.200',
+	'perl-Pango'              => '1.210',
 	'perl-Cairo'              => '1.000',
-	'perl-Pango'              => '1.190',
 	'Gtk+'                    => '2.0.0',
 );
 
