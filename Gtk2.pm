@@ -348,7 +348,7 @@ See L<Glib> for other standard priority levels.
 
 =head1 SEE ALSO
 
-L<perl>(1), L<Glib>(3pm).
+L<perl>(1), L<Glib>(3pm), L<Pango>(3pm).
 
 L<Gtk2::Gdk::Keysyms>(3pm) contains a hash of key codes, culled from
 gdk/gdkkeysyms.h

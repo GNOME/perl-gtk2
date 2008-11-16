@@ -1,5 +1,9 @@
 2008-11-16  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
+	* Gtk2.pm: Link to Pango.
+
+2008-11-16  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
 	* Makefile.PL
 	* README: Update Pango requirement to 1.210.
 
