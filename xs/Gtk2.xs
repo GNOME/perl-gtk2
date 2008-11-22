@@ -361,6 +361,22 @@ gtk_parse_args (class=NULL)
 
 #endif
 
+#if GTK_CHECK_VERSION(2, 6, 0)
+
+# I see no way to wrap this.  Bare GOptionEntries don't carry enough context to
+# let us setup the SV synchronization.  We would need to be able to pass in a
+# whole GOptionGroup.
+##  gboolean gtk_init_with_args (int *argc, char ***argv, char *parameter_string, GOptionEntry *entries, char *translation_domain, GError **error);
+
+##  GOptionGroup *gtk_get_option_group (gboolean open_default_display);
+GOptionGroup_own *
+gtk_get_option_group (class, open_default_display)
+	gboolean open_default_display
+    C_ARGS:
+	open_default_display
+
+#endif
+
  ##void           gtk_disable_setlocale    (void);
 void gtk_disable_setlocale (class)
     C_ARGS:

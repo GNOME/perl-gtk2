@@ -1,3 +1,8 @@
+2008-11-22  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
+	* t/00.Gtk2.t
+	* xs/Gtk2.xs: Wrap gtk_get_option_group.
+
 2008-11-16  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
 	* Gtk2.pm:

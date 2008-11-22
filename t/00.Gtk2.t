@@ -15,7 +15,7 @@ use warnings;
 
 # NOTE: this is the bootstrap test -- no Gtk2::TestHelper here!
 
-use Test::More tests => 43;
+use Test::More tests => 44;
 BEGIN { use_ok('Gtk2', ':constants') };
 
 #########################
@@ -152,6 +152,24 @@ SKIP:
 	Glib::Idle->add( sub { Gtk2->main_quit; 0 } );
 	Gtk2->main;
 	ok(1);
+}
+
+SKIP: {
+	skip 'new 2.6 stuff', 1
+		unless Gtk2->CHECK_VERSION(2, 6, 0);
+
+	my $foos = 1;
+	my $options = [
+		[ 'foos', 'f', 'int', \$foos ],
+	];
+
+	my $context = Glib::OptionContext->new ('- urgsify your life');
+	$context->add_main_entries ($options, 'C');
+	$context->add_group (Gtk2->get_option_group (1));
+
+	@ARGV = qw(--name Foo --foos 23);
+	$context->parse ();
+	is ($foos, 23);
 }
 
 __END__
