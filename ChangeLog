@@ -1,3 +1,8 @@
+2008-12-16  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
+	* xs/GtkEntryCompletion.xs: Fix a leak in
+	Gtk2::EntryCompletion::new.  (#562682)
+
 2008-11-22  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
 	* t/00.Gtk2.t
