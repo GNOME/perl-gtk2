@@ -26,6 +26,8 @@ $entry->set_completion ($completion);
 is ($completion->get_entry, $entry);
 
 
+$completion->set_model (undef);
+
 my $model = Gtk2::ListStore->new ('Glib::String');
 $completion->set_model ($model);
 is ($completion->get_model, $model);

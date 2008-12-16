@@ -1,5 +1,11 @@
 2008-12-16  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
+	* t/GtkEntryCompletion.t
+	* xs/GtkEntryCompletion.xs: In Gtk2::EntryCompletion::set_model,
+	allow undef for the model parameter.  (#562682)
+
+2008-12-16  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
 	* xs/GtkEntryCompletion.xs: Fix a leak in
 	Gtk2::EntryCompletion::new.  (#562682)
 

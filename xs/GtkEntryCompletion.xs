@@ -44,7 +44,7 @@ GtkEntryCompletion_noinc *gtk_entry_completion_new (class)
 GtkWidget *gtk_entry_completion_get_entry (GtkEntryCompletion *entry);
 
 
-void gtk_entry_completion_set_model (GtkEntryCompletion *completion, GtkTreeModel *model);
+void gtk_entry_completion_set_model (GtkEntryCompletion *completion, GtkTreeModel_ornull *model);
 
 GtkTreeModel *gtk_entry_completion_get_model (GtkEntryCompletion *completion);
 
