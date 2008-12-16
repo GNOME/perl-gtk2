@@ -34,8 +34,9 @@ gtk2perl_entry_completion_match_func (GtkEntryCompletion *completion,
 
 MODULE = Gtk2::EntryCompletion	PACKAGE = Gtk2::EntryCompletion	PREFIX = gtk_entry_completion_
 
+# GtkEntryCompletion is a direct GObject descendent, so we need _noinc.
 
-GtkEntryCompletion *gtk_entry_completion_new (class)
+GtkEntryCompletion_noinc *gtk_entry_completion_new (class)
     C_ARGS:
 	/*void*/
 
