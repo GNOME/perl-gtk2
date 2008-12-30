@@ -1,3 +1,8 @@
+2008-12-30  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
+	* xs/GtkTreeModel.xs: Document the signature of the callback used
+	by Gtk2::TreeModel::foreach.  Patch by Kevin Ryde.
+
 2008-12-16  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
 	* t/GtkEntryCompletion.t
