@@ -48,9 +48,10 @@ For example
     $toplevel->signal_connect (delete_event => sub {
        if (any_unsaved_documents()) {
          popup_ask_save_before_exit_dialog();
-         return 1;  # don't propagate to default destroy
+         return Gtk2::EVENT_STOP;  # don't go to default destroy
+       } else {
+         return Gtk2::EVENT_PROPAGATE;
        }
-       return 0;  # do propagate
     });
 
 In a dialog or secondary app window you might not want to destroy but

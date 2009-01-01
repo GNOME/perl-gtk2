@@ -535,16 +535,20 @@ void gtk_quit_add_destroy (class, guint main_level, GtkObject *object)
 
  ##guint gtk_key_snooper_install (GtkKeySnoopFunc snooper, gpointer func_data);
 =for apidoc
-=for arg snooper (subroutine) function to call on every event, must return a boolean
-Install a key "snooper" function, which will get called on all key events
-before those events are delivered normally.  These snoopers can be used to
-implement custom key event handling.  I<snooper> will receive the widget to
-which the event will be delivered and the event, and also I<func_data> (if
-provided).  If I<snooper> returns true, the event propagation will stop
-(just like normal event handlers).
+=for arg snooper (subroutine) function to call on every event
+Install a key "snooper" function which will get called on all key
+events before those events are delivered normally.  These snoopers can
+be used to implement custom key event handling.
 
 C<key_snooper_install> returns an id that may be used with
-C<key_snooper_remove>.
+C<key_snooper_remove> (below).  I<snooper> is called as
+
+    stopbool = &snooper ($widget, $event, $func_data);
+
+It should return true to stop event propagation, the same as
+C<Gtk2::Widget> event signal handlers.  The C<Gtk2::EVENT_STOP> and
+C<Gtk2::EVENT_PROPAGATE> constants can be used for the return (see
+L<Gtk2::Widget>).
 =cut
 guint gtk_key_snooper_install (class, SV * snooper, SV * func_data=NULL)
     CODE:

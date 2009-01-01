@@ -1,3 +1,10 @@
+2009-01-01  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
+	* xs/Gtk2.xs
+	* xs/GtkWindow.xs: Use Gtk2::EVENT_STOP and EVENT_PROPAGATE in the
+	synopsis for Gtk2::Window and in the docs for
+	Gtk2::key_snooper_install.  Patch by Kevin Ryde.
+
 2008-12-30  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
 	* xs/GtkTreeModel.xs: Document the signature of the callback used
