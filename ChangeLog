@@ -1,3 +1,10 @@
+2009-01-01  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
+	* t/PangoLayout.t
+	* xs/PangoLayout.xs: Allow passing undef to
+	Gtk2::Pango::Layout::set_attributes().  Patch by Emmanuel
+	Rodriguez.  (RT #42079)
+
 2008-12-30  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
 	* xs/GtkTreeModel.xs: Document the signature of the callback used

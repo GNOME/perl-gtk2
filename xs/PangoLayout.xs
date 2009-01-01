@@ -192,10 +192,10 @@ pango_layout_get_context (layout)
 void
 pango_layout_set_attributes (layout, attrs)
 	PangoLayout *layout
-	PangoAttrList *attrs
+	PangoAttrList_ornull *attrs
 
 ##  PangoAttrList *pango_layout_get_attributes (PangoLayout *layout) 
-PangoAttrList *
+PangoAttrList_ornull *
 pango_layout_get_attributes (layout)
 	PangoLayout *layout
 
