@@ -1,5 +1,11 @@
 2009-01-13  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
+	* t/GtkImageMenuItem.t
+	* xs/GtkImageMenuItem.xs: Wrap new GtkImageMenuItem API.  Patch by
+	Emmanuel Rodriguez.
+
+2009-01-13  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
 	* t/GtkCellView.t
 	* xs/GtkCellView.xs: Allow undef for the model in
 	Gtk2::CellView::set_model.

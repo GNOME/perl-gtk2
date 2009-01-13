@@ -62,3 +62,25 @@ GtkWidget *
 gtk_image_menu_item_get_image (image_menu_item)
 	GtkImageMenuItem * image_menu_item
 
+
+#if GTK_CHECK_VERSION(2, 15, 0) /* FIXME: 2.16 */
+
+## gboolean gtk_image_menu_item_get_use_stock (GtkImageMenuItem *image_menu_item);
+gboolean
+gtk_image_menu_item_get_use_stock (image_menu_item)
+	GtkImageMenuItem * image_menu_item
+
+## void gtk_image_menu_item_set_use_stock (GtkImageMenuItem *image_menu_item, gboolean use_stock);
+void
+gtk_image_menu_item_set_use_stock (image_menu_item, use_stock)
+	GtkImageMenuItem * image_menu_item
+	gboolean           use_stock
+
+## void gtk_image_menu_item_set_accel_group (GtkImageMenuItem *image_menu_item, GtkAccelGroup *accel_group);
+void
+gtk_image_menu_item_set_accel_group (image_menu_item, accel_group)
+	GtkImageMenuItem * image_menu_item
+	GtkAccelGroup    * accel_group
+
+#endif /* 2.16 */
+
