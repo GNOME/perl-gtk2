@@ -1,5 +1,12 @@
 2009-01-13  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
+	* AUTHORS
+	* t/GtkStatusIcon.t
+	* xs/GtkStatusIcon.xs: Wrap new GtkStatusIcon API.  Patch by
+	Chris Sincock.
+
+2009-01-13  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
 	* t/GtkIMContext.t
 	* xs/GtkIMMulticontext.xs: Wrap
 	gtk_im_multicontext_get_context_id.  Patch by Emmanuel Rodriguez.

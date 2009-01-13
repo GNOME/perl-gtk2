@@ -4,7 +4,7 @@
 use strict;
 use warnings;
 use Gtk2::TestHelper
-  tests => 30,
+  tests => 36,
   at_least_version => [2, 10, 0, "Gtk2::StatusIcon is new in 2.10"];
 
 # $Id$
@@ -133,6 +133,34 @@ SKIP: {
 
   ok (defined $icon -> get_x11_window_id());
 }
+
+# --------------------------------------------------------------------------- #
+
+SKIP: {
+  skip 'new 2.16 stuff', 6
+    unless Gtk2->CHECK_VERSION(2, 15, 0); # FIXME: 2.16
+
+  $icon->set_has_tooltip(TRUE);
+  is ($icon->get_has_tooltip(), TRUE);
+
+  $icon->set_has_tooltip(FALSE);
+  is ($icon->get_has_tooltip(), FALSE);
+
+  $icon->set_tooltip_markup("<b>TEST1</b>");
+  is ($icon->get_tooltip_markup(), "<b>TEST1</b>");
+
+  $icon->set_tooltip_markup(undef);
+  is ($icon->get_tooltip_markup(), undef);
+
+  $icon->set_tooltip_text("TEST2");
+  is ($icon->get_tooltip_text(), "TEST2");
+
+  $icon->set_tooltip_text(undef);
+  is ($icon->get_tooltip_text(), undef);
+
+
+}
+
 
 __END__
 
