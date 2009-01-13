@@ -1,6 +1,12 @@
 2009-01-13  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
 	* t/GtkCellView.t
+	* xs/GtkCellView.xs: Allow undef for the model in
+	Gtk2::CellView::set_model.
+
+2009-01-13  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
+	* t/GtkCellView.t
 	* xs/GtkCellView.xs: Wrap gtk_cell_view_get_model.  Patch by
 	Emmanuel Rodriguez.
 

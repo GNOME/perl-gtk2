@@ -29,7 +29,7 @@ GtkWidget * gtk_cell_view_new_with_pixbuf (class, pixbuf)
     C_ARGS:
 	pixbuf
 
-void gtk_cell_view_set_model (GtkCellView * cell_view, GtkTreeModel * model);
+void gtk_cell_view_set_model (GtkCellView * cell_view, GtkTreeModel_ornull * model);
 
 void gtk_cell_view_set_displayed_row (GtkCellView * cell_view, GtkTreePath * path);
 

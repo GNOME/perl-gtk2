@@ -26,11 +26,6 @@ my $win = Gtk2::Window->new;
 isa_ok (my $cview = Gtk2::CellView->new, 'Gtk2::CellView',
 	'Gtk2::CellView->new');
 
-SKIP: {
-	skip 'new 2.16 stuff', 1 unless Gtk2->CHECK_VERSION(2, 15, 0); # FIXME: 2.16
-	is($cview->get_model(), undef, '$cview->get_model is undef');
-}
-
 ginterfaces_ok($cview);
 
 isa_ok ($cview = Gtk2::CellView->new_with_text ('text'), 'Gtk2::CellView',
@@ -46,10 +41,19 @@ isa_ok ($cview = Gtk2::CellView->new_with_pixbuf
 my $model = create_store ();
 fill_store ($model, get_pixbufs ($win));
 
-ok (eval { $cview->set_model ($model); 1; }, '$cview->set_model');
-# there is a get (new since gtk 2.16) !!!!
+ok (eval { $cview->set_model (undef);
+           $cview->set_model ($model);
+           1; },
+    '$cview->set_model');
+
 SKIP: {
-	skip 'new 2.16 stuff', 1 unless Gtk2->CHECK_VERSION(2, 15, 0); # FIXME: 2.16
+	skip 'new 2.16 stuff', 2
+		unless Gtk2->CHECK_VERSION(2, 15, 0); # FIXME: 2.16
+
+	$cview->set_model (undef);
+	is($cview->get_model(), undef, '$cview->get_model with undef');
+
+	$cview->set_model ($model);
 	is($cview->get_model(), $model, '$cview->get_model');
 }
 
