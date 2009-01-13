@@ -1,3 +1,9 @@
+2009-01-13  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
+	* Gtk2.pm: In the Gtk2::Pango compatibility code, avoid warnings
+	about names that are used only once by checking for definedness
+	before creating aliases.
+
 2009-01-01  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
 	* xs/Gtk2.xs

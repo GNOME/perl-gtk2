@@ -57,7 +57,11 @@ use Pango;
     ISA
   );
   foreach my $key (@pango_keys) {
-    *{'Gtk2::Pango::' . $key} = *{'Pango::' . $key};
+    # Avoid warnings about names that are used only once by checking for
+    # definedness here.
+    if (defined *{'Pango::' . $key}) {
+      *{'Gtk2::Pango::' . $key} = *{'Pango::' . $key};
+    }
   }
 }
 
