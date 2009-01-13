@@ -1,5 +1,11 @@
 2009-01-13  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
+	* t/GtkIMContext.t
+	* xs/GtkIMMulticontext.xs: Wrap
+	gtk_im_multicontext_get_context_id.  Patch by Emmanuel Rodriguez.
+
+2009-01-13  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
 	* t/GtkImageMenuItem.t
 	* xs/GtkImageMenuItem.xs: Wrap new GtkImageMenuItem API.  Patch by
 	Emmanuel Rodriguez.

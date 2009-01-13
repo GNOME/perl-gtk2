@@ -1,7 +1,7 @@
 #!/usr/bin/perl -w
 # vim: set ft=perl :
 
-use Gtk2::TestHelper tests => 7;
+use Gtk2::TestHelper tests => 9;
 
 my $context = Gtk2::IMContextSimple->new;
 isa_ok ($context, 'Gtk2::IMContextSimple');
@@ -59,3 +59,14 @@ isa_ok ($context, 'Gtk2::IMContext');
 isa_ok ($context, 'Glib::Object');
 
 $context->append_menuitems (Gtk2::Menu->new);
+
+SKIP: {
+	skip '2.16 additions', 2
+		unless Gtk2->CHECK_VERSION (2, 15, 0); # FIXME: 2.16
+
+	is ($context->get_context_id, undef, 'No default context ID');
+
+	# Get a default context
+	$context->focus_in ();
+	is ($context->get_context_id, 'gtk-im-context-simple', 'Simple context');
+}
