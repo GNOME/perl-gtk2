@@ -227,6 +227,60 @@ guint16 gtk_entry_get_text_length (GtkEntry *entry);
 
 #endif /* 2.14 */
 
+
+#if GTK_CHECK_VERSION(2, 15, 0) /* FIXME: 2.16 */
+
+#
+# FIXME: Missing typemap, actually I don't think that gio is available through Perl
+#
+# GIcon_ornull* gtk_entry_get_gicon (GtkEntry *entry, GtkEntryIconPosition icon_pos);
+# void gtk_entry_set_icon_from_gicon (GtkEntry *entry, GtkEntryIconPosition icon_pos, GIcon_ornull *icon);
+#
+
+gboolean gtk_entry_get_icon_activatable (GtkEntry *entry, GtkEntryIconPosition icon_pos);
+
+gint gtk_entry_get_icon_at_pos (GtkEntry *entry, gint x, gint y);
+
+const gchar_ornull* gtk_entry_get_icon_name (GtkEntry *entry, GtkEntryIconPosition icon_pos);
+
+gboolean gtk_entry_get_icon_sensitive (GtkEntry *entry, GtkEntryIconPosition icon_pos);
+
+GdkPixbuf_ornull* gtk_entry_get_pixbuf (GtkEntry *entry, GtkEntryIconPosition icon_pos);
+
+gdouble gtk_entry_get_progress_fraction (GtkEntry *entry);
+
+gdouble gtk_entry_get_progress_pulse_step (GtkEntry *entry);
+
+void gtk_entry_progress_pulse (GtkEntry *entry);
+
+const gchar_ornull* gtk_entry_get_stock (GtkEntry *entry, GtkEntryIconPosition icon_pos);
+
+GtkImageType gtk_entry_get_storage_type (GtkEntry *entry, GtkEntryIconPosition icon_pos);
+
+void gtk_entry_set_icon_activatable (GtkEntry *entry, GtkEntryIconPosition icon_pos, gboolean activatable);
+
+void gtk_entry_set_icon_from_icon_name (GtkEntry *entry, GtkEntryIconPosition icon_pos, const gchar_ornull *icon_name);
+
+void gtk_entry_set_icon_from_pixbuf (GtkEntry *entry, GtkEntryIconPosition icon_pos, GdkPixbuf_ornull *pixbuf);
+
+void gtk_entry_set_icon_from_stock (GtkEntry *entry, GtkEntryIconPosition icon_pos, const gchar_ornull *stock_id);
+
+void gtk_entry_set_icon_sensitive (GtkEntry *entry, GtkEntryIconPosition icon_pos, gboolean sensitive);
+
+void gtk_entry_set_icon_tooltip_markup (GtkEntry *entry, GtkEntryIconPosition icon_pos, const gchar_ornull *tooltip);
+
+void gtk_entry_set_icon_tooltip_text (GtkEntry *entry, GtkEntryIconPosition icon_pos, const gchar_ornull *tooltip);
+
+void gtk_entry_set_progress_fraction (GtkEntry *entry, gdouble fraction);
+
+void gtk_entry_set_progress_pulse_step (GtkEntry *entry, gdouble fraction);
+
+void gtk_entry_unset_invisible_char (GtkEntry *entry);
+
+
+#endif /* 2.16 */
+
+
 ##
 ## hey, these are deprecated!  is that new as of 2.3.x?
 ##

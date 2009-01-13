@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 23;
+use Gtk2::TestHelper tests => 59;
 
 # $Id$
 
@@ -97,6 +97,107 @@ SKIP: {
 
   $entry -> set_overwrite_mode(FALSE);
   is ($entry -> get_overwrite_mode(), FALSE);
+}
+
+SKIP: {
+  skip '2.16 stuff', 36
+    unless Gtk2->CHECK_VERSION(2, 15, 0); # FIXME: 2.16
+
+  ## progress methods
+
+  my $entry = Gtk2::Entry -> new();
+  is($entry -> get_icon_at_pos(0, 0), -1);
+
+  delta_ok($entry -> get_progress_fraction(), 0.0);
+  delta_ok($entry -> get_progress_pulse_step(), 0.1);
+
+  $entry -> progress_pulse(); # We can't see the changes :(
+
+  $entry -> set_progress_fraction(0.3);
+  delta_ok($entry -> get_progress_fraction(), 0.3);
+
+  $entry -> set_progress_pulse_step(0.2);
+
+  ## unset_invisible_char
+
+  # Try the new password methods
+  my $password = Gtk2::Entry -> new();
+  $password -> set_visibility(FALSE);
+
+
+  # Change the default character
+  my $default = $password -> get_invisible_char();
+  my $char = $default eq 'X' ? '?' : 'X';
+  $password -> set_invisible_char($char);
+  is($password -> get_invisible_char(), $char);
+
+  # Restore the default character
+  $password -> unset_invisible_char();
+  is($password -> get_invisible_char(), $default);
+
+  ## icon methods
+
+  test_icon_methods('primary');
+  test_icon_methods('secondary');
+}
+
+
+sub test_icon_methods {
+  my ($icon_pos) = @_;
+
+  my $entry = Gtk2::Entry -> new();
+
+  is($entry -> get_icon_name($icon_pos), undef);
+  is($entry -> get_pixbuf($icon_pos), undef);
+  is($entry -> get_stock($icon_pos), undef);
+
+  $entry -> set_icon_sensitive($icon_pos, TRUE);
+  is($entry -> get_icon_sensitive($icon_pos), TRUE);
+
+  $entry -> set_icon_activatable($icon_pos, TRUE);
+  is($entry -> get_icon_activatable($icon_pos), TRUE);
+
+
+
+  # Is an 'icon name' the same as a 'stock icon'?
+  is($entry -> get_icon_name($icon_pos), undef);
+  $entry -> set_icon_from_icon_name($icon_pos, 'gtk-yes');
+  is($entry -> get_icon_name($icon_pos), 'gtk-yes');
+  ok($entry -> get_pixbuf($icon_pos));
+
+  # Reset through icon_name
+  $entry -> set_icon_from_icon_name($icon_pos, undef);
+  is($entry -> get_pixbuf($icon_pos), undef);
+
+
+
+  # Set and unset the icon through a stock image
+  $entry -> set_icon_from_stock($icon_pos, 'gtk-yes');
+  ok($entry -> get_pixbuf($icon_pos));
+  $entry -> set_icon_from_stock($icon_pos, undef);
+  is($entry -> get_pixbuf($icon_pos), undef);
+
+  # Reset
+  $entry -> set_icon_from_stock($icon_pos, undef);
+  is($entry -> get_icon_name($icon_pos), undef);
+  is($entry -> get_pixbuf($icon_pos), undef);
+
+
+
+  # Set and unset the icon through a pixbuf
+  my $pixbuf = Gtk2::Gdk::Pixbuf->new('rgb', TRUE, 8, 16, 16);
+  $entry -> set_icon_from_pixbuf($icon_pos, $pixbuf);
+  is($entry -> get_pixbuf($icon_pos), $pixbuf);
+  $entry -> set_icon_from_pixbuf($icon_pos, undef);
+  is($entry -> get_pixbuf($icon_pos), undef);
+
+
+  # This method can't be tested, at least we call them just in case they crash
+  $entry -> set_icon_tooltip_markup($icon_pos, "<b>Pan</b><i>Go</i> tooltip");
+  $entry -> set_icon_tooltip_markup($icon_pos, undef);
+
+  $entry -> set_icon_tooltip_text($icon_pos, "Text tooltip");
+  $entry -> set_icon_tooltip_text($icon_pos, undef);
 }
 
 __END__
