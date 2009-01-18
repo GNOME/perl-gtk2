@@ -21,6 +21,21 @@
 
 #include "gtk2perl.h"
 
+
+#if !GTK_CHECK_VERSION (2, 15, 0) /* FIXME 2.16 */
+#  define gtk_selection_data_get_selection (d) ((d)->selection)
+#endif /* 2.16 */
+
+#if !GTK_CHECK_VERSION (2, 14, 0)
+#  define gtk_selection_data_get_target (d)    ((d)->target)
+#  define gtk_selection_data_get_data_type (d) ((d)->type)
+#  define gtk_selection_data_get_data (d)      ((d)->data)
+#  define gtk_selection_data_get_format (d)    ((d)->format)
+#  define gtk_selection_data_get_length (d)    ((d)->length)
+#  define gtk_selection_data_get_display (d)   ((d)->display)
+#endif /* 2.14 */
+
+
 SV *
 newSVGtkTargetEntry (GtkTargetEntry * e)
 {
@@ -442,64 +457,35 @@ get_selection (d)
 	switch (ix) {
 	    case 0:
 	    case 1:
-		/* selection doesn't have an accessor yet. */
-		RETVAL = newSVGdkAtom (d->selection);
+		RETVAL = newSVGdkAtom (gtk_selection_data_get_selection (d));
 		break;
 	    case 2:
 	    case 3:
-#if GTK_CHECK_VERSION (2, 14, 0)
 		RETVAL = newSVGdkAtom (gtk_selection_data_get_target (d));
-#else
-		RETVAL = newSVGdkAtom (d->target);
-#endif /* 2.14 */
 		break;
 	    case 4:
 	    case 5:
-#if GTK_CHECK_VERSION (2, 14, 0)
 		RETVAL = newSVGdkAtom (gtk_selection_data_get_data_type (d));
-#else
-		RETVAL = newSVGdkAtom (d->type);
-#endif /* 2.14 */
 		break;
 	    case 6:
 	    case 7:
-#if GTK_CHECK_VERSION (2, 14, 0)
 		RETVAL = newSViv (gtk_selection_data_get_format (d));
-#else
-		RETVAL = newSViv (d->format);
-#endif /* 2.14 */
 		break;
 	    case 8:
 	    case 9:
-#if GTK_CHECK_VERSION (2, 14, 0)
-	    {
-		gint length = gtk_selection_data_get_length (d);
-		const guchar *data = gtk_selection_data_get_data (d);
-		RETVAL = newSVpv ((const gchar *) data, length);
-	    }
-#else
-		RETVAL = newSVpv ((char*)d->data, d->length);
-#endif /* 2.14 */
+		RETVAL = newSVpv (
+			(const gchar *) gtk_selection_data_get_data (d),
+			gtk_selection_data_get_length (d)
+		);
 		break;
 	    case 10:
 	    case 11:
-#if GTK_CHECK_VERSION (2, 14, 0)
-	    {
-		gint length = gtk_selection_data_get_length (d);
-		RETVAL = newSViv (length);
-	    }
-#else
-		RETVAL = newSViv (d->length);
-#endif /* 2.14 */
+		RETVAL = newSViv (gtk_selection_data_get_length (d));
 		break;
 #if GTK_CHECK_VERSION(2, 2, 0)
 	    case 12:
 	    case 13:
-#if GTK_CHECK_VERSION (2, 14, 0)
 		RETVAL = newSVGdkDisplay (gtk_selection_data_get_display (d));
-#else
-		RETVAL = newSVGdkDisplay (d->display);
-#endif /* 2.14 */
 		break;
 #endif /* 2.2 */
 	    default:

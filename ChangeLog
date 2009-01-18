@@ -1,5 +1,12 @@
 2009-01-18  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
+	* xs/GtkSelection.xs: Use gtk_selection_data_get_selection when
+	available.  Also introduce convenience defines for the other
+	GtkSelectionData accessors.  Patch by Emmanuel Rodriguez and
+	muppet.
+
+2009-01-18  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
 	* t/GtkPrintSettings.t
 	* xs/GtkPrintSettings.xs: Wrap new API.  Patch by Emmanuel
 	Rodriguez.
