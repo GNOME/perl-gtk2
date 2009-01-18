@@ -94,6 +94,33 @@ gboolean gtk_print_operation_is_finished (GtkPrintOperation *op);
 
 void gtk_print_operation_cancel (GtkPrintOperation *op);
 
+#if GTK_CHECK_VERSION (2, 15, 0) /* FIXME: 2.16 */
+
+=for apidoc
+
+=for signature $op->draw_page_finish ()
+
+The method draw_page_finish() can only be called if the method
+set_defer_drawing() has been called previously otherwise a segmentation fault
+will occur. This means that the application will crash and even an eval will not
+be able to recover from that error.
+
+=cut
+void gtk_print_operation_draw_page_finish (GtkPrintOperation *op);
+
+
+=for apidoc
+
+=for signature $op->set_defer_drawing ()
+
+The method set_defer_drawing() can only be called from the callback
+C<'draw-page'>.
+
+=cut
+void gtk_print_operation_set_defer_drawing (GtkPrintOperation *op);
+
+#endif /* 2.16 */
+
 MODULE = Gtk2::PrintOperation	PACKAGE = Gtk2::Print	PREFIX = gtk_print_
 
 # GtkPageSetup * gtk_print_run_page_setup_dialog (GtkWindow *parent, GtkPageSetup *page_setup, GtkPrintSettings *settings);

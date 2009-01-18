@@ -1,5 +1,11 @@
 2009-01-18  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
+	* t/GtkPrintOperation.t
+	* xs/GtkPrintOperation.xs: Wrap new API.  Patch by Emmanuel
+	Rodriguez.
+
+2009-01-18  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
 	* Makefile.PL: Use Glib::MakeHelper to create a
 	'precompiled-headers' target that precompiles gtk2perl.h.  This
 	speeds up the compilation of Gtk2 by 36% on my machine.

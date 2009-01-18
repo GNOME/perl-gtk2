@@ -1,7 +1,7 @@
 #!/usr/bin/perl -w
 use strict;
 use Gtk2::TestHelper
-  tests => 10,
+  tests => 13,
   at_least_version => [2, 10, 0, "GtkPrintOperation is new in 2.10"];
 
 # $Id$
@@ -50,6 +50,36 @@ $op -> cancel();
 
 # FIXME: Don't know how to trigger an actual error.
 # warn $op -> get_error();
+
+
+SKIP: {
+  skip 'draw page finish (2.16)', 3
+    unless Gtk2->CHECK_VERSION(2, 15, 0);
+
+  # NOTE draw_page_finish() has to be called under the right conditions
+  #      otherwise the print context doesn't seem to be setup properly causing
+  #      the program to crash with a segmentation fault.
+  #
+  #      This is tricky as draw_page_finish() must be called if
+  #      set_defer_drawing() is called and the latter can be called only from
+  #      the 'draw-page' callback.
+
+  # 'draw-page' is called twice because there are 2 pages, see get_op()
+  $op = get_op();
+  $op -> signal_connect('draw-page' => sub {
+    # Pretend that the drawing is asynchronous.
+    $op -> set_defer_drawing();
+
+    # Finish the drawing latter
+    Glib::Idle->add(sub {
+      ok(TRUE, "Draw page finish called"); # Called 2 times
+      $op -> draw_page_finish();
+    });
+  });
+
+  ok(defined $op -> run("export", Gtk2::Window -> new()));
+}
+
 
 unlink "test.pdf";
 
