@@ -1,3 +1,9 @@
+2009-01-18  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
+	* Makefile.PL: Use Glib::MakeHelper to create a
+	'precompiled-headers' target that precompiles gtk2perl.h.  This
+	speeds up the compilation of Gtk2 by 36% on my machine.
+
 2009-01-13  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
 	* AUTHORS

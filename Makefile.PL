@@ -33,7 +33,7 @@ use Cwd;
 our %build_reqs = (
 	'perl-ExtUtils-Depends'   => '0.300',
 	'perl-ExtUtils-PkgConfig' => '1.030',
-	'perl-Glib'               => '1.200',
+	'perl-Glib'               => '1.200', # FIXME: 1.212 for precompiled headers
 	'perl-Pango'              => '1.210',
 	'perl-Cairo'              => '1.000',
 	'Gtk+'                    => '2.0.0',
@@ -323,6 +323,7 @@ __EOW__
 sub MY::postamble
 {
 	my $text = "POD_DEPENDS=build/stock_items.podi\n\n"
+	         . Glib::MakeHelper->postamble_precompiled_headers (qw/gtk2perl.h/)
 		 . Glib::MakeHelper->postamble_clean ()
 	         . Glib::MakeHelper->postamble_docs_full (
 			DEPENDS => $gtk2,
