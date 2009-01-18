@@ -1,3 +1,8 @@
+2009-01-19  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
+	* xs/GtkSelection.xs: Fix the definition of the accessor macros
+	for older gtk+.  Patch by Kevin Ryde.
+
 2009-01-18  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
 	* xs/GtkSelection.xs: Use gtk_selection_data_get_selection when

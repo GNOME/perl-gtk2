@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003-2006 by the gtk2-perl team (see the file AUTHORS)
+ * Copyright (c) 2003-2006, 2009 by the gtk2-perl team (see the file AUTHORS)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -23,16 +23,16 @@
 
 
 #if !GTK_CHECK_VERSION (2, 15, 0) /* FIXME 2.16 */
-#  define gtk_selection_data_get_selection (d) ((d)->selection)
+#  define gtk_selection_data_get_selection(d) ((d)->selection)
 #endif /* 2.16 */
 
 #if !GTK_CHECK_VERSION (2, 14, 0)
-#  define gtk_selection_data_get_target (d)    ((d)->target)
-#  define gtk_selection_data_get_data_type (d) ((d)->type)
-#  define gtk_selection_data_get_data (d)      ((d)->data)
-#  define gtk_selection_data_get_format (d)    ((d)->format)
-#  define gtk_selection_data_get_length (d)    ((d)->length)
-#  define gtk_selection_data_get_display (d)   ((d)->display)
+#  define gtk_selection_data_get_target(d)    ((d)->target)
+#  define gtk_selection_data_get_data_type(d) ((d)->type)
+#  define gtk_selection_data_get_data(d)      ((d)->data)
+#  define gtk_selection_data_get_format(d)    ((d)->format)
+#  define gtk_selection_data_get_length(d)    ((d)->length)
+#  define gtk_selection_data_get_display(d)   ((d)->display)
 #endif /* 2.14 */
 
 
