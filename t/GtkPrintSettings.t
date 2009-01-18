@@ -1,7 +1,7 @@
 #!/usr/bin/perl -w
 use strict;
 use Gtk2::TestHelper
-  tests => 20,
+  tests => 26,
   at_least_version => [2, 10, 0, 'GtkPrintSettings: it is new in 2.10'];
 
 # $Id$
@@ -110,6 +110,23 @@ SKIP: {
   is($copy -> get($key), $value);
 
   unlink $file;
+}
+
+SKIP: {
+  skip 'new 2.16 stuff', 6
+    unless Gtk2->CHECK_VERSION(2, 15, 0); # FIXME: 2.16
+
+  my $settings = Gtk2::PrintSettings -> new();
+
+  is($settings -> get_printer_lpi(), 0);
+  $settings -> set_printer_lpi(3.1416);
+  delta_ok($settings -> get_printer_lpi(), 3.1416);
+
+  is($settings -> get_resolution_x(), 0);
+  is($settings -> get_resolution_y(), 0);
+  $settings -> set_resolution_xy(10, 20);
+  is($settings -> get_resolution_x(), 10);
+  is($settings -> get_resolution_y(), 20);
 }
 
 __END__

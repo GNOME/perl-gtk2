@@ -1,5 +1,11 @@
 2009-01-18  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
+	* t/GtkPrintSettings.t
+	* xs/GtkPrintSettings.xs: Wrap new API.  Patch by Emmanuel
+	Rodriguez.
+
+2009-01-18  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
 	* t/GtkPrintOperation.t
 	* xs/GtkPrintOperation.xs: Wrap new API.  Patch by Emmanuel
 	Rodriguez.
