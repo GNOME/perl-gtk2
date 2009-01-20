@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003-2004 by the gtk2-perl team (see the file AUTHORS)
+ * Copyright (c) 2003-2004, 2009 by the gtk2-perl team (see the file AUTHORS)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -272,22 +272,57 @@ gtk2perl_cell_renderer_start_editing (GtkCellRenderer      * cell,
 		sv = POPs;
 		if (gperl_sv_is_defined (sv)) {
 			editable = SvGtkCellEditable (sv);
-			/* if the object returned here was newly created by
-			 * the called code, then the wrapper (pointed to by
-			 * sv) is the owner of the object.  if there are no
-			 * other references to the wrapper, the call to
-			 * FREETMPS below will actually result in finalization
-			 * of the GObject, which means we'll return a bad
-			 * pointer to our caller.  to prevent this situation,
-			 * we need to add a ref to the wrapper (that is, the
-			 * blessed sv stored in the GObject, not the reference
-			 * sv) to keep it alive across FREETMPS and thus
-			 * prevent premature destruction.
+#if GLIB_CHECK_VERSION (2, 10, 0)
+			/* (*start_editing)() is basically a constructor and
+			 * as such should return an object with a floating
+			 * reference for the caller to take over.
+			 *
+			 * For GtkTreeView and GtkIconView for example that
+			 * ref is sunk when gtk_tree_view_put() or
+			 * gtk_icon_view_put() call gtk_widget_set_parent()
+			 * to add "editable" as one of their container
+			 * children.  (Eventually to be dereffed in the
+			 * usual way by gtk_container_remove() from
+			 * gtk_tree_view_remove_widget() or
+			 * gtk_icon_view_remove_widget() at the end of
+			 * editing.)
+			 *
+			 * Perl code constructors like Gtk2::Foo->new or
+			 * Glib::Object->new sink any initial floating
+			 * reference when making the wrapper (either if
+			 * constructing in the START_EDITING code or from
+			 * something made or wrapped previously).  So must
+			 * explicitly add a floating ref for GtkTreeView etc
+			 * to take over.
+			 *
+			 * If START_EDITING code gives a new object in "sv"
+			 * and it's used nowhere else then FREETMPS below
+			 * will SvREFCNT_dec it to zero and send it to the
+			 * usual Glib::Object::DESTROY.  If there wasn't a
+			 * floating ref added here on the GObject then that
+			 * GObject would be destroyed before we ever got to
+			 * return it.  With the extra floating ref the
+			 * wrapper converts to undead (ie. unused from perl
+			 * for the time being) and the GObject has a
+			 * refcount of 1 and the floating flag set.
+			 *
+			 * It's conceivable there could be a floating ref
+			 * already at this point.  That was the case in the
+			 * past from chained-up perl SUPER::START_EDITING
+			 * for instance.  Though it's abnormal let's assume
+			 * any floating ref here is meant for the caller to
+			 * take over and therefore should be left unchanged.
 			 */
-			if (G_OBJECT (editable)->ref_count == 1 &&
-			    SvREFCNT (SvRV (sv)) == 1) {
-				SvREFCNT_inc (SvRV (sv));
+			if (! g_object_is_floating (editable)) {
+				g_object_ref (editable);
+				g_object_force_floating (G_OBJECT (editable));
 			}
+#else
+			if (! GTK_OBJECT_FLOATING (editable)) {
+				gtk_object_ref (GTK_OBJECT (editable));
+				GTK_OBJECT_SET_FLAGS (editable, GTK_FLOATING);
+			}
+#endif
 		} else {
 			editable = NULL;
 		}
@@ -540,8 +575,26 @@ gtk_cell_renderer_activate (cell, event, widget, path, background_area, cell_are
 	GdkRectangle         * cell_area
 	GtkCellRendererState   flags
 
+## gtk_cell_renderer_start_editing() is normally a constructor,
+## returning a widget with a floating ref ready for the caller to take
+## over.  But the generated typemap for "interface" objects like
+## GtkCellEditable only treats it as GObject and doesn't sink when
+## making the perl wrapper, so cast up to GtkWidget to get that.
+## GtkWidget is a requirement of GtkCellEditable, so "editable" is
+## certain to be a widget.
+##
+## The returned widget is normally about to be put in a container
+## anyway, which sinks any floating ref, but sink it now to follow the
+## general rule that wrapped widgets at the perl level don't have a
+## floating ref left.  In particular this means if you start_editing()
+## and then strike an error or otherwise never add it to a container
+## it won't be a memory leak.
+##
 ##GtkCellEditable* gtk_cell_renderer_start_editing (GtkCellRenderer *cell, GdkEvent *event, GtkWidget *widget, const gchar *path, GdkRectangle *background_area, GdkRectangle *cell_area, GtkCellRendererState flags)
-GtkCellEditable_ornull *
+=for apidoc
+=for signature celleditable or undef = $cell->start_editing ($event, $widget, $path, $background_area, $cell_area, $flags)
+=cut
+GtkWidget_ornull *
 gtk_cell_renderer_start_editing (cell, event, widget, path, background_area, cell_area, flags)
 	GtkCellRenderer      * cell
 	GdkEvent             * event
@@ -550,6 +603,10 @@ gtk_cell_renderer_start_editing (cell, event, widget, path, background_area, cel
 	GdkRectangle         * background_area
 	GdkRectangle         * cell_area
 	GtkCellRendererState   flags
+CODE:
+	RETVAL = GTK_WIDGET (gtk_cell_renderer_start_editing (cell, event, widget, path, background_area, cell_area, flags));
+OUTPUT:
+	RETVAL
 
 #if GTK_CHECK_VERSION (2, 4, 0)
 
@@ -757,7 +814,12 @@ GET_SIZE (GtkCellRenderer * cell, ...)
 								SvGdkRectangle_ornull (ST (5)),
 								SvGtkCellRendererState (ST (6)));
 			EXTEND (SP, 1);
-			PUSHs (sv_2mortal (newSVGtkCellEditable_ornull (editable)));
+			/* Note newSVGtkWidget here instead of
+			 * newSVGtkCellEditable so as to take ownership of
+			 * any floating ref.  See comments with
+			 * gtk_cell_renderer_start_editing() above.
+			 */
+			PUSHs (sv_2mortal (newSVGtkWidget_ornull (GTK_WIDGET (editable))));
 		}
 		break;
 	    default:

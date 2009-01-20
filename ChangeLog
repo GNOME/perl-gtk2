@@ -1,5 +1,16 @@
 2009-01-20  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
+	* t/GtkCellRenderer.t
+	* xs/GtkCellRenderer.xs: In gtk2perl_cell_renderer_start_editing,
+	make sure we return an object with a floating reference as is
+	expected of a start_editing vfunc.  In the xsub for
+	gtk_cell_renderer_start_editing and in the fallback START_EDITING
+	xsub, make sure we sink any floating reference on the created cell
+	editable in order to comply with the usual rule of not passing
+	floating references on to Perl code.  Patch by Kevin Ryde.
+
+2009-01-20  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
 	* xs/GtkBuildable.xs: Declare all private functions as 'static' so
 	that they aren't exported.
 
