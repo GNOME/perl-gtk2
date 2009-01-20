@@ -1,5 +1,12 @@
 2009-01-20  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
+	* t/GdkX11.t
+	* xs/GdkX11.xs: Wrap gdk_x11_atom_to_xatom and
+	gdk_x11_atom_to_xatom_for_display.  Patch by chris.  (GNOME
+	#566884)
+
+2009-01-20  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
 	* t/GtkCellRenderer.t
 	* xs/GtkCellRenderer.xs: In gtk2perl_cell_renderer_start_editing,
 	make sure we return an object with a floating reference as is

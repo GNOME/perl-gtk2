@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 11;
+use Gtk2::TestHelper tests => 13;
 
 # $Id$
 
@@ -8,7 +8,7 @@ my $window = Gtk2::Window -> new();
 $window -> realize();
 
 SKIP: {
-  skip("X11 stuff", 9)
+  skip("X11 stuff", 11)
     unless $window -> window() -> can("get_xid");
 
   like($window -> window() -> get_xid(), qr/^\d+$/);
@@ -17,7 +17,7 @@ SKIP: {
   like(Gtk2::Gdk::X11 -> get_server_time($window -> window()), qr/^\d+$/);
 
   SKIP: {
-    skip("2.2 stuff", 3)
+    skip("2.2 stuff", 5)
       unless Gtk2->CHECK_VERSION(2, 2, 0);
 
     my $display = Gtk2::Gdk::Display -> get_default();
@@ -31,6 +31,18 @@ SKIP: {
     like($screen -> get_screen_number(), qr/^\d+$/);
     ok(defined $screen -> get_window_manager_name());
     ok(not $screen -> supports_net_wm_hint(Gtk2::Gdk::Atom -> new("just-testing")));
+
+    # The values for the STRING atom (and others) are defined as part of the
+    # the X11 protocol
+    ok(Gtk2::Gdk::Atom->intern("STRING")->to_xatom_for_display($display) == 31,
+       "to_xatom_for_display");
+
+    SKIP: {
+      skip("not-multihead-safe stuff", 1)
+	unless UNIVERSAL::can("Gtk2::Gdk::X11", "net_wm_supports");
+
+      ok(Gtk2::Gdk::Atom->intern("STRING")->to_xatom() == 31,"to_xatom");
+    }
   }
 
   SKIP: {
