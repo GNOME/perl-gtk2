@@ -1,5 +1,10 @@
 2009-02-06  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
+	* t/GtkAction.t: Use an activatable widget for testing the proxy
+	stuff.  Recent gtk+ versions enforce this.
+
+2009-02-06  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
 	* t/GdkPixbufLoader.t: Don't use an auto-detecting pixbuf loader
 	since that's broken for PPM images in at least gtk+ >= 2.14.3 (see
 	GNOME #570780).
