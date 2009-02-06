@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003-2005 by the gtk2-perl team (see the file AUTHORS)
+ * Copyright (c) 2003-2005, 2009 by the gtk2-perl team (see the file AUTHORS)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -186,9 +186,9 @@ MODULE = Gtk2::Gdk::X11	PACKAGE = Gtk2::Gdk::Atom	PREFIX = gdk_x11_atom_
 #if GTK_CHECK_VERSION (2, 2, 0)
 
 UV
-to_xatom_for_display (GdkAtom class, GdkDisplay *display)
+to_xatom_for_display (GdkAtom atom, GdkDisplay *display)
     CODE:
-	RETVAL = gdk_x11_atom_to_xatom_for_display(display,class);
+	RETVAL = gdk_x11_atom_to_xatom_for_display(display, atom);
     OUTPUT:
 	RETVAL
 

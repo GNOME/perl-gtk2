@@ -1,5 +1,11 @@
 2009-02-06  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
+	* xs/GdkX11.xs: Call the atom arg for
+	Gtk2::Gdk::Atom->to_xatom_for_display "atom" for clarity in the
+	generated POD.  Patch by Kevin Ryde.
+
+2009-02-06  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
 	* t/GtkRecentChooser.t
 	* t/GtkRecentManager.t: Use Gtk2->main_iteration instead of
 	Gtk2::TestHelper's run_main to spin the main loop.  This avoids
