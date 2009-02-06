@@ -432,7 +432,7 @@ SKIP: {
 # GrabBroken ##################################################################
 
 SKIP: {
-	skip ("the grab-broken event is new in 2.8", 3)
+	skip ("the grab-broken event is new in 2.8", 5)
 		unless (Gtk2->CHECK_VERSION (2, 8, 0));
 
 	isa_ok ($event = Gtk2::Gdk::Event->new ("grab-broken"),
