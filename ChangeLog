@@ -1,5 +1,15 @@
 2009-02-06  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
+	* MANIFEST
+	* maps-2.16
+	* xs_files-2.16
+	* t/GtkOrientable.t
+	* xs/GtkOrientable.xs: Wrap the new GtkOrientable interface.  No
+	support for implementing it in Perl subclasses yet.  Patch by
+	Emmanuel Rodriguez.
+
+2009-02-06  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
 	* t/GtkEntry.t: Test Gtk2::Entry->get_icon_storage_type.
 
 2009-02-06  Torsten Schoenfeld  <kaffeetisch@gmx.de>

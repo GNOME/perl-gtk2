@@ -1,1 +1,2 @@
+GTK_TYPE_ORIENTABLE  GtkOrientable  GInterface  Gtk2::Orientable
 GTK_TYPE_ENTRY_ICON_POSITION  GtkEntryIconPosition  GEnum  Gtk2::EntryIconPosition

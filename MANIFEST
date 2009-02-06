@@ -233,6 +233,7 @@ t/GtkMisc.t
 t/GtkNotebook.t
 t/GtkObject.t
 t/GtkOptionMenu.t
+t/GtkOrientable.t
 t/GtkPageSetup.t
 t/GtkPaned.t
 t/GtkPaperSize.t
@@ -456,6 +457,7 @@ xs/GtkMisc.xs
 xs/GtkNotebook.xs
 xs/GtkObject.xs
 xs/GtkOptionMenu.xs
+xs/GtkOrientable.xs
 xs/GtkPageSetup.xs
 xs/GtkPaned.xs
 xs/GtkPaperSize.xs
@@ -537,6 +539,7 @@ xs_files-2.0
 xs_files-2.10
 xs_files-2.12
 xs_files-2.14
+xs_files-2.16
 xs_files-2.2
 xs_files-2.4
 xs_files-2.6
