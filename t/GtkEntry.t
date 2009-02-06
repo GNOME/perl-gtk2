@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 59;
+use Gtk2::TestHelper tests => 61;
 
 # $Id$
 
@@ -100,7 +100,7 @@ SKIP: {
 }
 
 SKIP: {
-  skip '2.16 stuff', 36
+  skip '2.16 stuff', 38
     unless Gtk2->CHECK_VERSION(2, 15, 0); # FIXME: 2.16
 
   ## progress methods
@@ -150,6 +150,7 @@ sub test_icon_methods {
   is($entry -> get_icon_name($icon_pos), undef);
   is($entry -> get_icon_pixbuf($icon_pos), undef);
   is($entry -> get_icon_stock($icon_pos), undef);
+  is($entry -> get_icon_storage_type($icon_pos), 'empty');
 
   $entry -> set_icon_sensitive($icon_pos, TRUE);
   is($entry -> get_icon_sensitive($icon_pos), TRUE);

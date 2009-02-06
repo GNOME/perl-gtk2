@@ -1,5 +1,9 @@
 2009-02-06  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
+	* t/GtkEntry.t: Test Gtk2::Entry->get_icon_storage_type.
+
+2009-02-06  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
 	* t/GtkEntry.t
 	* xs/GtkEntry.xs: Track the recent upstream function renaming:
 	gtk_entry_get_pixbuf → gtk_entry_get_icon_pixbuf,
