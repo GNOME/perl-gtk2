@@ -3,11 +3,11 @@ use strict;
 use warnings;
 use Gtk2::TestHelper tests => 3;
 
-# Make sure that the old names for interface, object, boxed, and fundamental
-# types work
+# Make sure that the old names for object, boxed, and fundamental types work.
+# Pango 1.0 didn't have an interface type, so we can't test one without
+# fiddling with version checks.
 is (eval {
-  Gtk2::TreeStore->new (qw/Gtk2::Pango::Cairo::FontMap
-                           Gtk2::Pango::Layout
+  Gtk2::TreeStore->new (qw/Gtk2::Pango::Layout
                            Gtk2::Pango::Color
                            Gtk2::Pango::Weight
                            Gtk2::Pango::FontMask/);
