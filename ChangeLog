@@ -1,3 +1,9 @@
+2009-02-06  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
+	* t/GdkPixbufLoader.t: Don't use an auto-detecting pixbuf loader
+	since that's broken for PPM images in at least gtk+ >= 2.14.3 (see
+	GNOME #570780).
+
 2009-01-01  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
 	* xs/Gtk2.xs
