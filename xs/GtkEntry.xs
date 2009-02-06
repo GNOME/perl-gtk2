@@ -245,7 +245,7 @@ const gchar_ornull* gtk_entry_get_icon_name (GtkEntry *entry, GtkEntryIconPositi
 
 gboolean gtk_entry_get_icon_sensitive (GtkEntry *entry, GtkEntryIconPosition icon_pos);
 
-GdkPixbuf_ornull* gtk_entry_get_pixbuf (GtkEntry *entry, GtkEntryIconPosition icon_pos);
+GdkPixbuf_ornull* gtk_entry_get_icon_pixbuf (GtkEntry *entry, GtkEntryIconPosition icon_pos);
 
 gdouble gtk_entry_get_progress_fraction (GtkEntry *entry);
 
@@ -253,9 +253,9 @@ gdouble gtk_entry_get_progress_pulse_step (GtkEntry *entry);
 
 void gtk_entry_progress_pulse (GtkEntry *entry);
 
-const gchar_ornull* gtk_entry_get_stock (GtkEntry *entry, GtkEntryIconPosition icon_pos);
+const gchar_ornull* gtk_entry_get_icon_stock (GtkEntry *entry, GtkEntryIconPosition icon_pos);
 
-GtkImageType gtk_entry_get_storage_type (GtkEntry *entry, GtkEntryIconPosition icon_pos);
+GtkImageType gtk_entry_get_icon_storage_type (GtkEntry *entry, GtkEntryIconPosition icon_pos);
 
 void gtk_entry_set_icon_activatable (GtkEntry *entry, GtkEntryIconPosition icon_pos, gboolean activatable);
 

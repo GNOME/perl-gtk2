@@ -148,8 +148,8 @@ sub test_icon_methods {
   my $entry = Gtk2::Entry -> new();
 
   is($entry -> get_icon_name($icon_pos), undef);
-  is($entry -> get_pixbuf($icon_pos), undef);
-  is($entry -> get_stock($icon_pos), undef);
+  is($entry -> get_icon_pixbuf($icon_pos), undef);
+  is($entry -> get_icon_stock($icon_pos), undef);
 
   $entry -> set_icon_sensitive($icon_pos, TRUE);
   is($entry -> get_icon_sensitive($icon_pos), TRUE);
@@ -163,33 +163,33 @@ sub test_icon_methods {
   is($entry -> get_icon_name($icon_pos), undef);
   $entry -> set_icon_from_icon_name($icon_pos, 'gtk-yes');
   is($entry -> get_icon_name($icon_pos), 'gtk-yes');
-  ok($entry -> get_pixbuf($icon_pos));
+  ok($entry -> get_icon_pixbuf($icon_pos));
 
   # Reset through icon_name
   $entry -> set_icon_from_icon_name($icon_pos, undef);
-  is($entry -> get_pixbuf($icon_pos), undef);
+  is($entry -> get_icon_pixbuf($icon_pos), undef);
 
 
 
   # Set and unset the icon through a stock image
   $entry -> set_icon_from_stock($icon_pos, 'gtk-yes');
-  ok($entry -> get_pixbuf($icon_pos));
+  ok($entry -> get_icon_pixbuf($icon_pos));
   $entry -> set_icon_from_stock($icon_pos, undef);
-  is($entry -> get_pixbuf($icon_pos), undef);
+  is($entry -> get_icon_pixbuf($icon_pos), undef);
 
   # Reset
   $entry -> set_icon_from_stock($icon_pos, undef);
   is($entry -> get_icon_name($icon_pos), undef);
-  is($entry -> get_pixbuf($icon_pos), undef);
+  is($entry -> get_icon_pixbuf($icon_pos), undef);
 
 
 
   # Set and unset the icon through a pixbuf
   my $pixbuf = Gtk2::Gdk::Pixbuf->new('rgb', TRUE, 8, 16, 16);
   $entry -> set_icon_from_pixbuf($icon_pos, $pixbuf);
-  is($entry -> get_pixbuf($icon_pos), $pixbuf);
+  is($entry -> get_icon_pixbuf($icon_pos), $pixbuf);
   $entry -> set_icon_from_pixbuf($icon_pos, undef);
-  is($entry -> get_pixbuf($icon_pos), undef);
+  is($entry -> get_icon_pixbuf($icon_pos), undef);
 
 
   # This method can't be tested, at least we call them just in case they crash
