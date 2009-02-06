@@ -1,5 +1,10 @@
 2009-02-06  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
+	* t/GtkIconTheme.t: Skip tests that rely on the presence of a
+	stock icon if that icon isn't present.
+
+2009-02-06  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
 	* t/GdkEvent.t: Fix a skip count.
 
 2009-02-06  Torsten Schoenfeld  <kaffeetisch@gmx.de>
