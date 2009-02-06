@@ -40,7 +40,7 @@ isa_ok ($widget, 'Gtk2::ToolItem');
 my @proxies = $action->get_proxies;
 is (@proxies, 1);
 
-my $proxy = Gtk2::Statusbar->new;
+my $proxy = Gtk2::Button->new;
 $action->connect_proxy ($proxy);
 @proxies = $action->get_proxies;
 is (@proxies, 2);
