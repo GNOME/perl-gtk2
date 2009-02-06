@@ -99,6 +99,9 @@ SKIP: {
   skip 'new 2.14 stuff', 2
     unless Gtk2->CHECK_VERSION(2, 14, 0);
 
+  skip 'unable to find the stock_edit icon', 2
+    unless defined $icon_theme->lookup_icon ('stock_edit', 24, 'use-builtin');
+
   my $pixbuf = $icon_theme->load_icon ('stock_edit', 24, 'use-builtin');
   isa_ok (Gtk2::IconInfo->new_for_pixbuf ($icon_theme, $pixbuf),
           'Gtk2::IconInfo');

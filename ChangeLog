@@ -1,5 +1,10 @@
 2009-02-06  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
+	* t/GtkIconTheme.t: Skip tests that rely on the presence of a
+	stock icon if that icon isn't present.
+
+2009-02-06  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
 	* t/pango-compat.t: Don't use Gtk2::Pango::Cairo::FontMap in the
 	compatibility checks as it isn't available in all pango versions
 	and I don't want to fiddle with version checks.
