@@ -1,5 +1,12 @@
 2009-02-06  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
+	* t/GtkRecentChooser.t
+	* t/GtkRecentManager.t: Use Gtk2->main_iteration instead of
+	Gtk2::TestHelper's run_main to spin the main loop.  This avoids
+	hangs on some machines.  Patch by Jeffrey Ratcliffe.
+
+2009-02-06  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
 	* t/GtkIconTheme.t: Skip tests that rely on the presence of a
 	stock icon if that icon isn't present.
 

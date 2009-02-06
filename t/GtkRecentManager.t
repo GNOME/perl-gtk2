@@ -53,7 +53,7 @@ SKIP: {
 
 	$manager->add_item($icon_uri);
 	# add_item() is asynchronous, so let the main loop spin for a while
-	run_main while !$manager->get_items;
+	Gtk2->main_iteration while !$manager->get_items;
 
 	ok($manager->has_item($icon_uri), 'check add item');
 
