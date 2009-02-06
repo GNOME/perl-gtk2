@@ -1,5 +1,9 @@
 2009-02-06  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
+	* t/GdkEvent.t: Fix a skip count.
+
+2009-02-06  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
 	* t/GtkAction.t: Use an activatable widget for testing the proxy
 	stuff.  Recent gtk+ versions enforce this.
 
