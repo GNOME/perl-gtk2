@@ -1,6 +1,6 @@
 /*
  * 
- * Copyright (C) 2003-2004 by the gtk2-perl team (see the file AUTHORS for the
+ * Copyright (C) 2003-2009 by the gtk2-perl team (see the file AUTHORS for the
  * full list)
  * 
  * This library is free software; you can redistribute it and/or modify it
@@ -29,6 +29,12 @@
 #include <gtk/gtk.h>
 
 #include "gtk2perl-versions.h"
+
+/* custom GType for GtkBindingSet */
+#ifndef GTK_TYPE_BINDING_SET
+# define GTK_TYPE_BINDING_SET	(gtk2perl_binding_set_get_type ())
+  GType gtk2perl_binding_set_get_type (void) G_GNUC_CONST;
+#endif
 
 /* custom GType for GdkRegion */
 #ifndef GDK_TYPE_REGION

@@ -1,4 +1,4 @@
-# Copyright (C) 2003-2004 by the gtk2-perl team (see the file AUTHORS for the
+# Copyright (C) 2003-2009 by the gtk2-perl team (see the file AUTHORS for the
 # full list)
 # 
 # This library is free software; you can redistribute it and/or modify it under
@@ -340,3 +340,7 @@ GTK_TYPE_WRAP_MODE	GtkWrapMode	GEnum	Gtk2::WrapMode
 
 # not really defined by GTK+, but we'll use it for ourselves.
 GDK_TYPE_REGION	GdkRegion	GBoxed	Gtk2::Gdk::Region
+
+# GTK_TYPE_BINDING_SET not defined as of Gtk 2.16, instead jigged up
+# ourselves in gtk2perl.h
+GTK_TYPE_BINDING_SET	GtkBindingSet	GBoxed	Gtk2::BindingSet

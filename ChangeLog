@@ -1,3 +1,15 @@
+2009-02-11  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
+	* constants-2.0
+	* gtk2perl.h
+	* Gtk2.pm
+	* MANIFEST
+	* maps-2.0
+	* xs_files-2.0
+	* t/GtkBindings.t
+	* xs/GtkBindings.xs: Wrap the GtkBindings stuff.  Patch by
+	Kevin Ryde.
+
 2009-02-06  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
 	* MANIFEST

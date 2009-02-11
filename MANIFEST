@@ -152,6 +152,7 @@ t/GtkArrow.t
 t/GtkAspectFrame.t
 t/GtkAssistant.t
 t/GtkBin.t
+t/GtkBindings.t
 t/GtkBox.t
 t/GtkBuildable.t
 t/GtkBuildableIface.t
@@ -373,6 +374,7 @@ xs/GtkArrow.xs
 xs/GtkAspectFrame.xs
 xs/GtkAssistant.xs
 xs/GtkBin.xs
+xs/GtkBindings.xs
 xs/GtkBox.xs
 xs/GtkBuildable.xs
 xs/GtkBuilder.xs

@@ -51,6 +51,7 @@ xs/GtkAlignment.xs
 xs/GtkArrow.xs
 xs/GtkAspectFrame.xs
 xs/GtkBin.xs
+xs/GtkBindings.xs
 xs/GtkBox.xs
 xs/GtkButton.xs
 xs/GtkButtonBox.xs

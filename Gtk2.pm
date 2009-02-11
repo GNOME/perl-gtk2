@@ -342,6 +342,14 @@ Gtk2 exports nothing by default, but some constants are available upon request.
 =item Tag: constants
 
   GTK_PRIORITY_RESIZE
+
+  GTK_PATH_PRIO_LOWEST
+  GTK_PATH_PRIO_GTK
+  GTK_PATH_PRIO_APPLICATION
+  GTK_PATH_PRIO_THEME
+  GTK_PATH_PRIO_RC
+  GTK_PATH_PRIO_HIGHEST
+
   GDK_PRIORITY_EVENTS
   GDK_PRIORITY_REDRAW
   GDK_CURRENT_TIME
