@@ -1,5 +1,10 @@
 2009-02-13  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
+	* Makefile.PL: Require Glib 1.212 for the precompiled headers
+	stuff.  Print the stability warning.
+
+2009-02-13  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
 	* gtk2perl.h: Remove the definitions for the custom pango GTypes.
 	They now come from pango-perl.h.
 
