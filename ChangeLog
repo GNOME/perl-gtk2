@@ -1,3 +1,9 @@
+2009-02-13  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
+	* xs/GtkIconView.xs: Fix stack handling bugs in
+	Gtk2::IconView::get_item_at_pos(), get_dest_item_at_pos(), and
+	get_tooltip_context().  Patch by Kevin Ryde.
+
 2009-02-06  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
 	* t/GtkRecentChooser.t
