@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2004-2005 by the gtk2-perl team (see the file AUTHORS)
+ * Copyright (c) 2004-2005, 2009 by the gtk2-perl team (see the file AUTHORS)
  *
  * Licensed under the LGPL, see LICENSE file for more information.
  *
@@ -157,12 +157,15 @@ gtk_icon_view_get_item_at_pos (icon_view, x, y)
     PREINIT:
 	GtkTreePath *path = NULL;
 	GtkCellRenderer *cell = NULL;
-    PPCODE:
+    CODE:
+	/* Note gtk_icon_view_get_item_at_pos() can call out to perl model
+	   and/or cell renderer code when figuring sizes, so avoid local
+	   SP. */
 	if (!gtk_icon_view_get_item_at_pos (icon_view, x, y, &path, &cell))
 		XSRETURN_EMPTY;
-	EXTEND (sp, 2);
-	PUSHs (sv_2mortal (newSVGtkTreePath_own (path)));
-	PUSHs (sv_2mortal (newSVGtkCellRenderer (cell)));
+	ST(0) = sv_2mortal (newSVGtkTreePath_own (path));
+	ST(1) = sv_2mortal (newSVGtkCellRenderer (cell));
+	XSRETURN(2);
 
 
 ## gboolean gtk_icon_view_get_visible_range (GtkIconView *icon_view, GtkTreePath **start_path, GtkTreePath **end_path);
@@ -258,12 +261,15 @@ gtk_icon_view_get_dest_item_at_pos (icon_view, drag_x, drag_y)
     PREINIT:
 	GtkTreePath *path = NULL;
 	GtkIconViewDropPosition pos;
-    PPCODE:
+    CODE:
+	/* Note gtk_icon_view_get_dest_item_at_pos() may call out to perl
+	   model and/or cell renderer code when figuring cell sizes (in
+	   gtk_icon_view_get_item_at_coords()), so avoid local SP. */
 	if (!gtk_icon_view_get_dest_item_at_pos (icon_view, drag_x, drag_y, &path, &pos))
 		XSRETURN_EMPTY;
-	EXTEND (sp, 2);
-	PUSHs (sv_2mortal (newSVGtkTreePath_own (path)));
-	PUSHs (sv_2mortal (newSVGtkIconViewDropPosition (pos)));
+	ST(0) = sv_2mortal (newSVGtkTreePath_own (path));
+	ST(1) = sv_2mortal (newSVGtkIconViewDropPosition (pos));
+	XSRETURN(2);
 
 GdkPixmap_noinc *gtk_icon_view_create_drag_icon (GtkIconView *icon_view, GtkTreePath *path);
 
@@ -285,8 +291,12 @@ gtk_icon_view_get_tooltip_context (GtkIconView *icon_view, gint x, gint y, gbool
 	GtkTreePath *path = NULL;
 	GtkTreeIter iter = {0, };
     PPCODE:
+	/* PUTBACK/SPAGAIN because gtk_icon_view_get_tooltip_context() calls
+	   gtk_tree_model_get_iter(), which may reach a perl code model. */
+	PUTBACK;
 	if (! gtk_icon_view_get_tooltip_context (icon_view, &x, &y, keyboard_tip, &model, &path, &iter))
 		XSRETURN_EMPTY;
+	SPAGAIN;
 	EXTEND (sp, 5);
 	PUSHs (sv_2mortal (newSViv (x)));
 	PUSHs (sv_2mortal (newSViv (y)));
