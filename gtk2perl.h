@@ -42,38 +42,6 @@
   GType gtk2perl_gdk_region_get_type (void) G_GNUC_CONST;
 #endif
 
-/* custom GType for PangoAttribute */
-#ifndef PANGO_TYPE_ATTRIBUTE
-# define PANGO_TYPE_ATTRIBUTE (gtk2perl_pango_attribute_get_type ())
-  GType gtk2perl_pango_attribute_get_type (void) G_GNUC_CONST;
-#endif
-
-/* custom GType for PangoAttrIter */
-#ifndef PANGO_TYPE_ATTR_ITERATOR
-# define PANGO_TYPE_ATTR_ITERATOR (gtk2perl_pango_attr_iterator_get_type ())
-  GType gtk2perl_pango_attr_iterator_get_type (void) G_GNUC_CONST;
-#endif
-
-/* custom GType for PangoLayoutIter */
-#ifndef PANGO_TYPE_LAYOUT_ITER
-# define PANGO_TYPE_LAYOUT_ITER (gtk2perl_pango_layout_iter_get_type ())
-  GType gtk2perl_pango_layout_iter_get_type (void) G_GNUC_CONST;
-#endif
-
-/* custom GType for PangoLayoutLine */
-#ifndef PANGO_TYPE_LAYOUT_LINE
-# define PANGO_TYPE_LAYOUT_LINE (gtk2perl_pango_layout_line_get_type ())
-  GType gtk2perl_pango_layout_line_get_type (void) G_GNUC_CONST;
-#endif
-
-/* custom GType for PangoScriptIter */
-#if PANGO_CHECK_VERSION (1, 4, 0)
-# ifndef PANGO_TYPE_SCRIPT_ITER
-#  define PANGO_TYPE_SCRIPT_ITER (gtk2perl_pango_script_iter_get_type ())
-   GType gtk2perl_pango_script_iter_get_type (void) G_GNUC_CONST;
-# endif
-#endif
-
 #include "gtk2perl-autogen.h"
 
 /* no plug/socket on non-X11 despite patches exist for years. */

@@ -1,5 +1,10 @@
 2009-02-13  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
+	* gtk2perl.h: Remove the definitions for the custom pango GTypes.
+	They now come from pango-perl.h.
+
+2009-02-13  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
 	* xs/GtkIconView.xs: Fix stack handling bugs in
 	Gtk2::IconView::get_item_at_pos(), get_dest_item_at_pos(), and
 	get_tooltip_context().  Patch by Kevin Ryde.
