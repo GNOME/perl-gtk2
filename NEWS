@@ -1,3 +1,18 @@
+Overview of changes in Gtk2 1.211
+=================================
+
+* Wrap new API for GtkEntry, GtkCellView, GtkIMMulticontext, GtkStatusIcon,
+  GtkPrintOperation, GtkPrintSettings, and GdkX11.
+* Wrap GtkOrientable.
+* Wrap GtkBindings.
+* Wrap gtk_get_option_group.
+* In Gtk2::EntryCompletion::set_model and Gtk2::CellView::set_model, allow
+  undef for the model parameter.
+* Fix a leak in Gtk2::EntryCompletion::new.
+* In Gtk2::CellRenderer, make sure we handle floating objects correctly.
+* Fix some stack handling bugs in Gtk2::IconView.
+* Fix a few test failures.
+
 Overview of changes in Gtk2 1.210
 =================================
 

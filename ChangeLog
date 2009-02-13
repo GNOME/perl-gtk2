@@ -1,5 +1,11 @@
 2009-02-13  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
+	* Gtk2.pm
+	* NEWS
+	* README: Unstable release 1.211.
+
+2009-02-13  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
 	* Makefile.PL: Require Glib 1.212 for the precompiled headers
 	stuff.  Print the stability warning.
 
