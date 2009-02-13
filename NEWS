@@ -1,3 +1,14 @@
+Overview of changes in Gtk2 1.203
+=================================
+
+* In Gtk2::EntryCompletion::set_model and Gtk2::CellView::set_model, allow
+  undef for the model parameter.
+* Allow passing undef to Gtk2::Pango::Layout::set_attributes.
+* Fix a leak in Gtk2::EntryCompletion::new.
+* Fix the stack handling in Gtk2::CellRenderer::get_size and in a few places in
+  Gtk2::IconView.
+* Fix a few test failures.
+
 Overview of changes in Gtk2 1.202
 =================================
 
