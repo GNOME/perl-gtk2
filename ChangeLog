@@ -1,3 +1,9 @@
+2009-02-13  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
+	* xs/GtkBindings.xs (gtk2perl_binding_set_get_type): To make the
+	doc generator happy, register our custom GtkBindingSet GType under
+	the name "GtkBindingSet".
+
 2009-02-11  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
 	* constants-2.0

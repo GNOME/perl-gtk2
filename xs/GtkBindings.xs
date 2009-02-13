@@ -48,7 +48,7 @@ gtk2perl_binding_set_get_type (void)
 	static GType binding_set_type = 0;
 	if (binding_set_type == 0)
 		binding_set_type = g_boxed_type_register_static
-			("Gtk2perlBindingSet",
+			("GtkBindingSet",
 			 (GBoxedCopyFunc) gtk2perl_binding_set_copy,
 			 (GBoxedFreeFunc) gtk2perl_binding_set_free);
 	return binding_set_type;
