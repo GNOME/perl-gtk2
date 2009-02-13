@@ -5,6 +5,7 @@ blib
 build
 \.c$
 \.cvsignore$
+gtk2perl.h.gch$
 Makefile$
 Makefile\.old$
 \.o$
