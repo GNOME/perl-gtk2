@@ -1,3 +1,10 @@
+2009-02-21  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
+	* t/GtkStyle.t
+	* xs/GtkStyle.xs: Wrap the gtk_style_get() family of methods as
+	Gtk2::Style::get(), and make Gtk2::Style::get_property() an alias
+	for get().  Patch by Emmanuel Rodriguez.
+
 2009-02-13  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
 	* Gtk2.pm
