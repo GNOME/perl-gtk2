@@ -165,7 +165,7 @@ SKIP: {
 
 	my $context = Glib::OptionContext->new ('- urgsify your life');
 	$context->add_main_entries ($options, 'C');
-	$context->add_group (Gtk2->get_option_group (1));
+	$context->add_group (Gtk2->get_option_group (0));
 
 	@ARGV = qw(--name Foo --foos 23);
 	$context->parse ();

@@ -1,5 +1,9 @@
 2009-02-22  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
+	* t/00.Gtk2.t: Don't fail if there is no valid DISPLAY.
+
+2009-02-22  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
 	* pm/TestHelper.pm
 	* pm/Helper.pm
 	* Gtk2.pm: Fix more POD errors.
