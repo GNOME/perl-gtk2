@@ -1,3 +1,10 @@
+2009-02-22  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
+	* xs/Gtk2.xs
+	* xs/GtkTreeModel.xs
+	* xs/GtkWidget.xs
+	* xs/GtkWindow.xs: Fix POD errors reported by podchecker.
+
 2009-02-21  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
 	* t/GtkStyle.t

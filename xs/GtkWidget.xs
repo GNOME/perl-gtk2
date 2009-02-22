@@ -571,7 +571,7 @@ should keep this in mind.
 Also remember that the size request is not necessarily the size a widget will
 actually be allocated.
 
-See also L<get_child_requisition ()|requisistion = $widget-E<gt>get_child_requisition ()>
+See also L<get_child_requisition ()|/"requisition = $widget-E<gt>B<get_child_requisition>">
 =cut
 GtkRequisition_copy *
 gtk_widget_size_request (widget)
@@ -600,7 +600,7 @@ on the widget (e.g., with C<set_usize()>, in which case it returns that
 geometry instead of the widget's requisition.
 
 This function differs from
-L<size_request()|requisition = $widget-E<gt>size_request ()>
+L<size_request()|/"requisition = $widget-E<gt>B<size_request>">
 in that it retrieves the last size request value from
 C<< $widget->requisition >>,
 while C<size_request()> actually calls the C<size_request> virtual method
@@ -788,9 +788,9 @@ Gets the size request that was explicitly set for the widget using
 C<set_size_request()>.  A value of -1 for I<width> or I<height> indicates
 that the dimension has not been explicitly set and the natural requisition
 of the widget will be used instead.
-See L<set_size_request()|$widget-E<gt>set_size_request ($width-=1, $height=-1)>.
+See L<set_size_request()|/"$widget-E<gt>B<set_size_request> ($width=-1, $height=-1)">.
 To get the size a widget will actually use, call
-L<size_request()|requisition = $widget-E<gt>size_request ()> instead of
+L<size_request()|/"requisition = $widget-E<gt>B<size_request>"> instead of
 this function.
 =cut
 void

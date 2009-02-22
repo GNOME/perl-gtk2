@@ -167,7 +167,9 @@ C library; that is, the standard
 C<$Gtk2::VERSION> for the version of the bindings, all-caps
 (MAJOR|MINOR|MICRO)_VERSION functions for the bound version, and
 lower-case (major|minor|micro)_version functions for the runtime version.
-See L<Glib::version> and http://developer.gnome.org/doc/API/2.0/gtk/gtk-Feature-Test-Macros.html for more information.
+See L<Glib::version> and
+L<http://developer.gnome.org/doc/API/2.0/gtk/gtk-Feature-Test-Macros.html>
+for more information.
 
 Note also that gtk_check_version() and GTK_CHECK_VERSION() have different
 semantics in C, and we have preserved those faithfully.
@@ -282,11 +284,11 @@ GET_VERSION_INFO (class)
 	PUSHs (sv_2mortal (newSViv (GTK_MICRO_VERSION)));
 	PERL_UNUSED_VAR (ax);
 
-=for apidoc 
+=for apidoc
 Provides a mechanism for checking the version information that Gtk2 was
 compiled against. Essentially equvilent to the macro GTK_CHECK_VERSION. In most
 cases this function should be used rather than 
-L<check_version ()|Gtk2-E<gt>check_version>.
+L<check_version ()|/"string = Gtk2-E<gt>B<check_version> ($required_major, $required_minor, $required_micro)">.
 =cut
 gboolean
 CHECK_VERSION (class, guint required_major, guint required_minor, guint required_micro)

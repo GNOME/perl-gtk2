@@ -1108,7 +1108,7 @@ gtk_tree_model_get_path (tree_model, iter)
 
 =for apidoc get_value
 =for arg ... of column indices
-Alias for L<get|list = $tree_model-E<gt>get ($iter, ...)>.
+Alias for L<get|/"$tree_model-E<gt>B<get> ($iter, ...)">.
 =cut
 
 =for apidoc
