@@ -1,5 +1,11 @@
 2009-02-22  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
+	* pm/TestHelper.pm
+	* pm/Helper.pm
+	* Gtk2.pm: Fix more POD errors.
+
+2009-02-22  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
 	* xs/Gtk2.xs
 	* xs/GtkTreeModel.xs
 	* xs/GtkWidget.xs

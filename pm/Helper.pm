@@ -184,11 +184,13 @@ perl(1), Gtk2(1)
 
 =head1 AUTHOR
 
-Jörn Reder E<lt>joern AT zyn.deE<gt>
+=encoding utf8
+
+JÃ¶rn Reder E<lt>joern AT zyn.deE<gt>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2003 by Jörn Reder
+Copyright 2003 by JÃ¶rn Reder
 
 This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Library General Public

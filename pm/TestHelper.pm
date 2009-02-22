@@ -219,8 +219,6 @@ Verify that the GObject subclass I<GOBJECT_OR_PACKAGE>'s @ISA is set up properly
 with all of the GInterfaces that the type system claims it supports.  Something
 like an isa_ok() in steroids.
 
-=back
-
 =item delta_ok (A, B [, NAME])
 
 Checks that the absolute difference of the numbers A and B is smaller than

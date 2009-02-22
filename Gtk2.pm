@@ -390,6 +390,8 @@ together.
 
 =head1 AUTHORS
 
+=encoding utf8
+
 The gtk2-perl team:
 
  muppet <scott at asofyet dot org>
