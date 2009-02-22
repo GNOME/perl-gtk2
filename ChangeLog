@@ -1,5 +1,10 @@
 2009-02-22  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
+	* t/GdkKeys.t: Skip most tests if we can't find a key entry to
+	test against.
+
+2009-02-22  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
 	* t/00.Gtk2.t: Don't fail if there is no valid DISPLAY.
 
 2009-02-22  Torsten Schoenfeld  <kaffeetisch@gmx.de>

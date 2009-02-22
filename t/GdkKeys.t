@@ -18,6 +18,11 @@ SKIP: {
 }
 
 my @keys = $map -> get_entries_for_keyval($Gtk2::Gdk::Keysyms{ Escape });
+
+SKIP: {
+skip 'No key entries for Escape found in the keymap', 41
+  unless scalar @keys;
+
 isa_ok($keys[0], "HASH");
 like($keys[0] -> { keycode }, qr/^\d+$/);
 like($keys[0] -> { group }, qr/^\d+$/);
@@ -97,6 +102,8 @@ is(Gtk2::Gdk -> keyval_is_lower($a), 1);
 
 my $unicode = Gtk2::Gdk -> keyval_to_unicode($a);
 is(Gtk2::Gdk -> unicode_to_keyval($unicode), $a);
+
+}
 
 __END__
 
