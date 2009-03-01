@@ -1,3 +1,8 @@
+2009-03-01  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
+	* xs/GtkAccelGroup.xs: Remove two FIXME comments which turned out
+	to be incorrect.  Patch by Kevin Ryde.
+
 2009-02-22  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
 	* t/GdkKeys.t: Skip most tests if we can't find a key entry to

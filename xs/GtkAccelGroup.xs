@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003 by the gtk2-perl team (see the file AUTHORS)
+ * Copyright (c) 2003, 2009 by the gtk2-perl team (see the file AUTHORS)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -84,14 +84,12 @@ gtk_accel_group_connect (accel_group, accel_key, accel_mods, accel_flags, func)
     PREINIT:
 	GClosure        * closure;
     CODE:
+	/* gtk_accel_group_connect() sinks the floating ref from creation in
+	 * gperl_closure_new()
+	 */
 	closure = gperl_closure_new (func, NULL, FALSE);
 	gtk_accel_group_connect (accel_group, accel_key, accel_mods,
 	                         accel_flags, closure);
-	/* i would swear until i was blue in the face that this unref
-	 * is the right thing to do, but with it in there i get a critical
-	 * assertion failure from glib when i try to disconnect the closure,
-	 * saying that the refcount was zero somehow. */
-	/* g_closure_unref (closure); FIXME */
 
 ## void gtk_accel_group_connect_by_path (GtkAccelGroup *accel_group, const gchar *accel_path, GClosure *closure)
 void
@@ -102,10 +100,11 @@ gtk_accel_group_connect_by_path (accel_group, accel_path, func)
     PREINIT:
 	GClosure      * closure;
     CODE:
+	/* gtk_accel_group_connect_by_path() sinks the floating ref from
+	 * creation in gperl_closure_new()
+	 */
 	closure = gperl_closure_new (func, NULL, FALSE);
 	gtk_accel_group_connect_by_path (accel_group, accel_path, closure);
-	/* i wonder if we get the same problem here as above? */
-	/* g_closure_unref (closure); FIXME */
 
 # this will not work quite as advertised --- a GClosure can be
 # attached to only one GtkAccelGroup, but we'll be creating a new
