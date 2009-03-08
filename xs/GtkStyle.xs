@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003-2006 by the gtk2-perl team (see the file AUTHORS)
+ * Copyright (c) 2003-2009 by the gtk2-perl team (see the file AUTHORS)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -575,38 +575,27 @@ gtk_style_lookup_color (GtkStyle *style, const gchar *color_name)
 
 #if GTK_CHECK_VERSION (2, 15, 0) /* FIXME 2.16 */
 
-=for apidoc Gtk2::Style::get
-=for signature $style->get (widget_package, ...)
-=for signature $style->get_property (widget_package, ...)
+=for apidoc
+=for signature list = $style->get (widget_package, ...)
 =for arg widget_package (string) widget package name (ex: 'Gtk2::TreeView')
 =for arg ... (list) list of property names
 
 Fetch and return the values for the style properties named in I<...> for a
 widget of type I<widget_package>.
 
-I<get_property> is an alias for I<get>.
+B<Note>: This method shadows I<Glib::Object::get>. This shouldn't be a problem
+since I<Gtk2::Style> defines no properties (as of gtk+ 2.16).  If you have a
+class that's derived from Gtk2::Style and adds a property or if a new version
+of gtk+ adds a property to I<Gtk2::Style>, the property can be accessed with
+I<get_property> which still resolves to I<Glib::Object::get_property>:
 
-B<Note>: These methods shadow I<Glib::Object::get> and
-I<Glib::Object::get_property>. This shouldn't be a problem since I<Gtk2::Style>
-defines no properties (as of gtk+ 2.16).  If you have a class that's derived
-from Gtk2::Style and adds a property or if a new version of gtk+ adds a
-property to I<Gtk2::Style>, the property can be accessed by fully qualifying
-the method name:
-
-	my $value = $style->Glib::Object::get('property');
+	my $value = $style->get_property('property');
 
 =cut
-
-=for apidoc Gtk2::Style::get_property __hide__
-=cut
-
 void
 gtk_style_get (style, widget_package, ...)
-    GtkStyle	*style
-    const char	*widget_package
-    ALIAS:
-	Gtk2::Style::get = 0
-	Gtk2::Style::get_property = 1
+	GtkStyle *style
+	const char *widget_package
     PREINIT:
 	int i;
 	GType widget_type;
@@ -615,7 +604,6 @@ gtk_style_get (style, widget_package, ...)
 	/* Use CODE: instead of PPCODE: so we can handle the stack ourselves in
 	 * order to avoid that xsubs called by gtk_style_get_property overwrite
 	 * what we put on the stack. */
-	PERL_UNUSED_VAR (ix);
 
 	widget_type = gperl_type_from_package (widget_package);
 	if (widget_type == 0)

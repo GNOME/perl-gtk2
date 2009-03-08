@@ -1,3 +1,10 @@
+2009-03-08  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
+	* t/GtkStyle.t
+	* xs/GtkStyle.xs: Remove the get_property() alias for
+	Gtk2::Style::get() so that calling get_property() on a Gtk2::Style
+	resolves to Glib::Object::get_property().
+
 2009-03-01  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
 	* xs/GtkAccelGroup.xs: Remove two FIXME comments which turned out

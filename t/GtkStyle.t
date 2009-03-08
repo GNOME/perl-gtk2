@@ -1,7 +1,7 @@
 #!/usr/bin/perl -w
 # vim: set ft=perl expandtab shiftwidth=2 softtabstop=2 :
 use strict;
-use Gtk2::TestHelper tests => 125;
+use Gtk2::TestHelper tests => 124;
 use Carp;
 
 # $Id$
@@ -135,7 +135,7 @@ SKIP: {
 }
 
 SKIP: {
-  skip("get_property is new in 2.16", 12)
+  skip("get is new in 2.16", 12)
     unless (Gtk2->CHECK_VERSION(2, 15, 0)); # FIXME 2.16
 
   # Test different properties (gint, gboolean, gchar* and GObject)
@@ -143,28 +143,28 @@ SKIP: {
 
   # get gboolean
   is (
-    $style -> get_property('Gtk2::TreeView', 'allow-rules'),
+    $style -> get('Gtk2::TreeView', 'allow-rules'),
     $treeview -> style_get_property('allow-rules'),
     "get_property gboolean"
   );
 
   # get gint
   is (
-    $style -> get_property('Gtk2::TreeView', 'expander-size'),
+    $style -> get('Gtk2::TreeView', 'expander-size'),
     $treeview -> style_get_property('expander-size'),
     "get_property gint"
   );
 
   # get gchar*
   is (
-    $style -> get_property('Gtk2::TreeView', 'grid_line-pattern'),
+    $style -> get('Gtk2::TreeView', 'grid_line-pattern'),
     $treeview -> style_get_property('grid_line-pattern'),
     "get_property gchar*"
   );
 
   # get GObject (a color)
   is (
-    $style -> get_property('Gtk2::TreeView', 'even-row-color'),
+    $style -> get('Gtk2::TreeView', 'even-row-color'),
     $treeview -> style_get_property('even-row-color'),
     "get_property GObject*"
   );
@@ -188,9 +188,8 @@ SKIP: {
   # Make sure that Glib::GObject::get() and Gtk2::Style::get() can coexist.
   my $custom_style = Custom::Style -> new();
   is ($custom_style -> Glib::Object::get('perl-string'), 'empty');
-  is ($custom_style -> Glib::Object::get_property('perl-string'), 'empty');
-  is ($style -> get('Gtk2::Button', 'image-spacing'), 2);
-  is ($style -> get_property('Gtk2::Button', 'image-spacing'), 2);
+  is ($custom_style -> get_property('perl-string'), 'empty');
+  is ($custom_style -> get('Gtk2::Button', 'image-spacing'), 2);
 
 
 
@@ -259,5 +258,5 @@ use Glib::Object::Subclass 'Gtk2::Style' =>
 
 __END__
 
-Copyright (C) 2003-2006 by the gtk2-perl team (see the file AUTHORS for the
+Copyright (C) 2003-2009 by the gtk2-perl team (see the file AUTHORS for the
 full list).  See LICENSE for more information.
