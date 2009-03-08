@@ -1,5 +1,15 @@
 2009-03-08  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
+	* t/GtkHBox.t: Test that widgets packed into a box are completely
+	freed upon removal even if they previously appeared as a callback
+	argument.  This is a test for a recent memory leak fix in Glib.
+
+	* t/GtkTreeModelIface.t: The leak fix mentioned above causes this
+	test to correctly run FINALIZE_INSTANCE now, so adjust the test
+	plan.
+
+2009-03-08  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
 	* t/GtkTreeModelFilter.t
 	* xs/GtkTreeModelFilter.xs: Take ownership of objects returned by
 	gtk_tree_model_filter_new to avoid leaking them.  Patch by
