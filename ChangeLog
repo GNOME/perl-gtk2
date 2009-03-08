@@ -1,5 +1,12 @@
 2009-03-08  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
+	* Gtk2.pm
+	* Makefile
+	* NEWS
+	* README: Unstable release 1.212.
+
+2009-03-08  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
 	* t/GtkHBox.t: Test that widgets packed into a box are completely
 	freed upon removal even if they previously appeared as a callback
 	argument.  This is a test for a recent memory leak fix in Glib.

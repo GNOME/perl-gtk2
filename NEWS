@@ -1,3 +1,11 @@
+Overview of changes in Gtk2 1.212
+=================================
+
+* Wrap gtk_style_get.
+* Fix a leak in Gtk2::TreeModelFilter::new.
+* Fix a few POD errors.
+* Fix some test suite issues.
+
 Overview of changes in Gtk2 1.211
 =================================
 
