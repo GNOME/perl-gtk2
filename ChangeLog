@@ -1,5 +1,12 @@
 2009-03-08  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
+	* t/GtkTreeModelFilter.t
+	* xs/GtkTreeModelFilter.xs: Take ownership of objects returned by
+	gtk_tree_model_filter_new to avoid leaking them.  Patch by
+	Kevin Ryde.
+
+2009-03-08  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
 	* t/GtkStyle.t
 	* xs/GtkStyle.xs: Remove the get_property() alias for
 	Gtk2::Style::get() so that calling get_property() on a Gtk2::Style

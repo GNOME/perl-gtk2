@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2003-2005 by the gtk2-perl team (see the file AUTHORS for a
+ * Copyright (C) 2003-2009 by the gtk2-perl team (see the file AUTHORS for a
  * full list)
  *
  * This library is free software; you can redistribute it and/or
@@ -66,9 +66,19 @@ BOOT:
 	gperl_prepend_isa ("Gtk2::TreeModelFilter", "Gtk2::TreeModel");
 
  ## GtkTreeModel *gtk_tree_model_filter_new (GtkTreeModel *child_model, GtkTreePath *root);
-GtkTreeModel *gtk_tree_model_filter_new (class, GtkTreeModel *child_model, GtkTreePath_ornull *root=NULL);
-    C_ARGS:
-	child_model, root
+ ##
+ ## Use GtkTreeModelFilter_noinc return to take ownership of the
+ ## reference on the returned object.  (GtkTreeModel is only a
+ ## GInterface and the typemaps for it don't include a _noinc or _own
+ ## variant.)
+ ##
+GtkTreeModelFilter_noinc *
+gtk_tree_model_filter_new (class, GtkTreeModel *child_model, GtkTreePath_ornull *root=NULL);
+    CODE:
+	RETVAL = (GtkTreeModelFilter *)
+	  gtk_tree_model_filter_new(child_model, root);
+    OUTPUT:
+	RETVAL
 
  ## void gtk_tree_model_filter_set_visible_func (GtkTreeModelFilter *filter, GtkTreeModelFilterVisibleFunc func, gpointer data, GtkDestroyNotify destroy);
 void
