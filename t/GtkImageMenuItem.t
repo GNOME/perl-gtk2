@@ -29,7 +29,7 @@ is($item -> get_image(), $image);
 
 SKIP: {
 	skip 'use_stock methods', 4
-		unless Gtk2->CHECK_VERSION(2, 15, 0); # FIXME: 2.16
+		unless Gtk2->CHECK_VERSION(2, 16, 0);
 
 	# Get an item from a stock and test the getter/setter
 	my $from_stock = Gtk2::ImageMenuItem -> new_from_stock("gtk-yes");

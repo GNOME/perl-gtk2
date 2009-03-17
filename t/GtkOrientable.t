@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 use Gtk2::TestHelper
 	tests => 6,
-	at_least_version => [2, 15, 0, 'GtkOrientable: it appeared in 2.16']; # FIXME: 2.16
+	at_least_version => [2, 16, 0, 'GtkOrientable: it appeared in 2.16'];
 
 
 my $vbox = Gtk2::VBox -> new();

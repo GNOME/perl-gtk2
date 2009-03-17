@@ -134,7 +134,7 @@ guint32 gtk_status_icon_get_x11_window_id (GtkStatusIcon *status_icon);
 
 #endif /* 2.14 */
 
-#if GTK_CHECK_VERSION (2, 15, 0) /* FIXME: 2.16 */
+#if GTK_CHECK_VERSION (2, 16, 0)
 
 void gtk_status_icon_set_has_tooltip (GtkStatusIcon *status_icon, gboolean has_tooltip);
 

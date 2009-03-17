@@ -48,7 +48,7 @@ ok (eval { $cview->set_model (undef);
 
 SKIP: {
 	skip 'new 2.16 stuff', 2
-		unless Gtk2->CHECK_VERSION(2, 15, 0); # FIXME: 2.16
+		unless Gtk2->CHECK_VERSION(2, 16, 0);
 
 	$cview->set_model (undef);
 	is($cview->get_model(), undef, '$cview->get_model with undef');

@@ -573,7 +573,7 @@ gtk_style_lookup_color (GtkStyle *style, const gchar *color_name)
 
 #endif
 
-#if GTK_CHECK_VERSION (2, 15, 0) /* FIXME 2.16 */
+#if GTK_CHECK_VERSION (2, 16, 0)
 
 =for apidoc
 =for signature list = $style->get (widget_package, ...)

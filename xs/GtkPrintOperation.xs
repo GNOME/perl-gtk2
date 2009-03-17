@@ -94,7 +94,7 @@ gboolean gtk_print_operation_is_finished (GtkPrintOperation *op);
 
 void gtk_print_operation_cancel (GtkPrintOperation *op);
 
-#if GTK_CHECK_VERSION (2, 15, 0) /* FIXME: 2.16 */
+#if GTK_CHECK_VERSION (2, 16, 0)
 
 =for apidoc
 

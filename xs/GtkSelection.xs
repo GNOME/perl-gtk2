@@ -22,7 +22,7 @@
 #include "gtk2perl.h"
 
 
-#if !GTK_CHECK_VERSION (2, 15, 0) /* FIXME 2.16 */
+#if !GTK_CHECK_VERSION (2, 16, 0)
 #  define gtk_selection_data_get_selection(d) ((d)->selection)
 #endif /* 2.16 */
 

@@ -1,3 +1,24 @@
+2009-03-17  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
+	* t/GtkCellView.t
+	* t/GtkEntry.t
+	* t/GtkIMContext.t
+	* t/GtkImageMenuItem.t
+	* t/GtkOrientable.t
+	* t/GtkPrintSettings.t
+	* t/GtkStatusIcon.t
+	* t/GtkStyle.t
+	* xs/GtkCellView.xs
+	* xs/GtkEntry.xs
+	* xs/GtkIMMulticontext.xs
+	* xs/GtkImageMenuItem.xs
+	* xs/GtkPrintOperation.xs
+	* xs/GtkPrintSettings.xs
+	* xs/GtkSelection.xs
+	* xs/GtkStatusIcon.xs
+	* xs/GtkStyle.xs: Change all versions checks to refer to stable
+	releases only.
+
 2009-03-08  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
 	* Gtk2.pm

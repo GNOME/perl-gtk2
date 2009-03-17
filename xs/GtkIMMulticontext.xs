@@ -30,7 +30,7 @@ GtkIMContext_noinc * gtk_im_multicontext_new (class)
 void gtk_im_multicontext_append_menuitems (GtkIMMulticontext *context, GtkMenuShell *menushell);
 
 
-#if GTK_CHECK_VERSION(2, 15, 0) /* FIXME: 2.16 */
+#if GTK_CHECK_VERSION (2, 16, 0)
 
 const char* gtk_im_multicontext_get_context_id (GtkIMMulticontext *context);
 

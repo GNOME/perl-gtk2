@@ -228,7 +228,7 @@ guint16 gtk_entry_get_text_length (GtkEntry *entry);
 #endif /* 2.14 */
 
 
-#if GTK_CHECK_VERSION(2, 15, 0) /* FIXME: 2.16 */
+#if GTK_CHECK_VERSION (2, 16, 0)
 
 #
 # FIXME: Missing typemap, actually I don't think that gio is available through Perl

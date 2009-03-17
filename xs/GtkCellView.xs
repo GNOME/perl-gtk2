@@ -67,7 +67,7 @@ gtk_cell_view_get_cell_renderers (GtkCellView * cellview);
 	else
 		XSRETURN_EMPTY;
 
-#if GTK_CHECK_VERSION (2, 15, 0) /* FIXME: 2.16 */
+#if GTK_CHECK_VERSION (2, 16, 0)
 
 GtkTreeModel_ornull * gtk_cell_view_get_model (GtkCellView * cellview);
 

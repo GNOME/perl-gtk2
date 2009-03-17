@@ -62,7 +62,7 @@ $context->append_menuitems (Gtk2::Menu->new);
 
 SKIP: {
 	skip '2.16 additions', 2
-		unless Gtk2->CHECK_VERSION (2, 15, 0); # FIXME: 2.16
+		unless Gtk2->CHECK_VERSION (2, 16, 0);
 
 	is ($context->get_context_id, undef, 'No default context ID');
 

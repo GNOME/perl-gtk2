@@ -63,7 +63,7 @@ gtk_image_menu_item_get_image (image_menu_item)
 	GtkImageMenuItem * image_menu_item
 
 
-#if GTK_CHECK_VERSION(2, 15, 0) /* FIXME: 2.16 */
+#if GTK_CHECK_VERSION (2, 16, 0)
 
 ## gboolean gtk_image_menu_item_get_use_stock (GtkImageMenuItem *image_menu_item);
 gboolean

@@ -121,7 +121,7 @@ gtk_print_settings_load_key_file (GtkPrintSettings *settings, GKeyFile *key_file
 
 #endif /* 2.14 */
 
-#if GTK_CHECK_VERSION (2, 15, 0) /* FIXME: 2.16 */
+#if GTK_CHECK_VERSION (2, 16, 0)
 
 gdouble gtk_print_settings_get_printer_lpi (GtkPrintSettings *settings);
 
