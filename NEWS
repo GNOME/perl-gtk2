@@ -1,3 +1,22 @@
+Overview of changes in Gtk2 1.220
+=================================
+
+ Since 1.20x (the previous stable series)
+ ----------------------------------------
+ * Split out our pango bindings into the standalone Pango module and depend on
+   it.
+ * Add constants Gtk2::EVENT_STOP and EVENT_PROPAGATE for use in event
+   handlers.
+ * Wrap new API for GtkEntry, GtkCellView, GtkIMMulticontext, GtkStatusIcon,
+   GtkPrintOperation, GtkPrintSettings, GtkStyle, and GdkX11.
+ * Wrap GtkOrientable.
+ * Wrap GtkBindings.
+ * Wrap gtk_get_option_group.
+
+ Since 1.212
+ -----------
+ * Make Gtk2::Style::get_style_property an alias for Gtk2::Style::get.
+
 Overview of changes in Gtk2 1.212
 =================================
 

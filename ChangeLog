@@ -1,5 +1,12 @@
 2009-03-17  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
+	* Gtk2.pm
+	* Makefile.PL
+	* NEWS
+	* README: Stable release 1.220.
+
+2009-03-17  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
 	* t/GtkStyle.t
 	* xs/GtkStyle.xs: Adapt to the rename of gtk_style_get_property to
 	gtk_style_get_style_property.  Make
