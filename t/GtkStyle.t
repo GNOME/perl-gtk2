@@ -1,7 +1,7 @@
 #!/usr/bin/perl -w
 # vim: set ft=perl expandtab shiftwidth=2 softtabstop=2 :
 use strict;
-use Gtk2::TestHelper tests => 124;
+use Gtk2::TestHelper tests => 125;
 use Carp;
 
 # $Id$
@@ -135,7 +135,7 @@ SKIP: {
 }
 
 SKIP: {
-  skip("get is new in 2.16", 12)
+  skip("get is new in 2.16", 13)
     unless (Gtk2->CHECK_VERSION(2, 16, 0));
 
   # Test different properties (gint, gboolean, gchar* and GObject)
@@ -181,6 +181,15 @@ SKIP: {
       $treeview -> style_get_property('grid_line-pattern'),
     ],
     'get multiple properties',
+  );
+
+
+
+  # Test the get_style_property alias
+  is (
+    $style -> get_style_property('Gtk2::TreeView', 'even-row-color'),
+    $style -> get('Gtk2::TreeView', 'even-row-color'),
+    "get_style_property alias"
   );
 
 

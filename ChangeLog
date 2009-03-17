@@ -1,5 +1,12 @@
 2009-03-17  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
+	* t/GtkStyle.t
+	* xs/GtkStyle.xs: Adapt to the rename of gtk_style_get_property to
+	gtk_style_get_style_property.  Make
+	Gtk2::Style::get_style_property an alias for Gtk2::Style::get.
+
+2009-03-17  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
 	* t/GtkCellView.t
 	* t/GtkEntry.t
 	* t/GtkIMContext.t
