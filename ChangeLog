@@ -1,5 +1,11 @@
 2009-03-24  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
+	* Gtk2.exports: Don't try to export newSVPangoRectangle and
+	SvPangoRectangle; it's now done by Pango.  Patch by Martin
+	Schlemmer.  (GNOME #576373)
+
+2009-03-24  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
 	* gtk2perl-private.h
 	* xs/GdkPango.xs: Don't declare
 	gtk2perl_pango_attribute_register_custom_type; it's now properly

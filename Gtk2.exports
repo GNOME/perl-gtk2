@@ -31,7 +31,6 @@ newSVGdkGeometry
 newSVGdkPixbufFormat
 newSVGtkTargetEntry
 newSVGtkTargetList
-newSVPangoRectangle
 SvGdkAtom
 SvGdkGCValues
 SvGdkGeometry
@@ -39,6 +38,5 @@ SvGdkGeometryReal
 SvGdkPixbufFormat
 SvGtkTargetEntry
 SvGtkTargetList
-SvPangoRectangle
 );
 1;
