@@ -7,7 +7,24 @@
  */
 
 #include "gtk2perl.h"
-#include "gtk2perl-private.h"
+
+#define GTK2PERL_PANGO_ATTR_REGISTER_CUSTOM_TYPE(attr, package)	\
+{								\
+	static gboolean type_registered_already = FALSE;	\
+	if (!type_registered_already) {				\
+		gtk2perl_pango_attribute_register_custom_type	\
+			((attr)->klass->type, package);		\
+		type_registered_already = TRUE;			\
+	}							\
+}
+
+#define GTK2PERL_PANGO_ATTR_STORE_INDICES(offset, attr)	\
+	if (items == offset + 2) {			\
+		guint start = SvUV (ST (offset));	\
+		guint end = SvUV (ST (offset + 1));	\
+		attr->start_index = start;		\
+		attr->end_index = end;			\
+	}
 
 MODULE = Gtk2::Gdk::Pango	PACKAGE = Gtk2::Gdk::PangoRenderer	PREFIX = gdk_pango_renderer_
 

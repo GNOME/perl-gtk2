@@ -1,5 +1,14 @@
 2009-03-24  Torsten Schoenfeld  <kaffeetisch@gmx.de>
 
+	* gtk2perl-private.h
+	* xs/GdkPango.xs: Don't declare
+	gtk2perl_pango_attribute_register_custom_type; it's now properly
+	exported by Pango.  Move the PangoAttribute related macros from
+	the private header directly into GdkPango.xs, the only place where
+	they are used.
+
+2009-03-24  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
 	* t/GtkStyle.t: Correct a skip count.  Reported by Ryan Niebur.
 
 2009-03-17  Torsten Schoenfeld  <kaffeetisch@gmx.de>
