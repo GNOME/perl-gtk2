@@ -135,7 +135,7 @@ SKIP: {
 }
 
 SKIP: {
-  skip("get is new in 2.16", 13)
+  skip("get is new in 2.16", 12)
     unless (Gtk2->CHECK_VERSION(2, 16, 0));
 
   # Test different properties (gint, gboolean, gchar* and GObject)
