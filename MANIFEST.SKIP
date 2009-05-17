@@ -4,7 +4,8 @@ blib
 \.bs$
 build
 \.c$
-\.cvsignore$
+\.git
+\.gitignore$
 gtk2perl.h.gch$
 Makefile$
 Makefile\.old$
@@ -12,4 +13,3 @@ Makefile\.old$
 \.spec$
 \.sw.$
 \.tar\.gz$
-.svn
