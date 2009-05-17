@@ -92,7 +92,8 @@ sub START_EDITING {
 
 		return FALSE;
 	});
-	
+
+	$entry->set (height_request => $cell_area->height);
 	$entry->show;
 
 	return $entry;
