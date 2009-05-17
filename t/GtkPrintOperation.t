@@ -1,7 +1,7 @@
 #!/usr/bin/perl -w
 use strict;
 use Gtk2::TestHelper
-  tests => 13,
+  tests => 12,
   at_least_version => [2, 10, 0, "GtkPrintOperation is new in 2.10"];
 
 # $Id$
@@ -54,7 +54,7 @@ $op -> cancel();
 
 SKIP: {
   skip 'draw page finish (2.16)', 3
-    unless Gtk2->CHECK_VERSION(2, 15, 0);
+    unless Gtk2->CHECK_VERSION(2, 16, 0);
 
   # NOTE draw_page_finish() has to be called under the right conditions
   #      otherwise the print context doesn't seem to be setup properly causing
@@ -72,8 +72,9 @@ SKIP: {
 
     # Finish the drawing latter
     Glib::Idle->add(sub {
-      ok(TRUE, "Draw page finish called"); # Called 2 times
+      ok(TRUE, "Draw page finish called");
       $op -> draw_page_finish();
+      return Glib::SOURCE_REMOVE;
     });
   });
 
