@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003-2006 by the gtk2-perl team (see the file AUTHORS)
+ * Copyright (c) 2003-2006, 2009 by the gtk2-perl team (see the file AUTHORS)
  *
  * Licensed under the LGPL, see LICENSE file for more information.
  *
@@ -118,17 +118,6 @@ types.)
 
     Gtk2::EVENT_STOP         # true
     Gtk2::EVENT_PROPAGATE    # false
-
-=cut
-
-=for position post_signals
-
-Note that currently signal_chain_from_overridden doesn't work from a
-size-request class closure, because the Gtk2::Requisition parameter
-you pass ends up getting copied, so changes made to it by the
-superclass are lost.  You can still write a class closure for
-size-request, but you'll have to calculate the desired size by
-yourself, you can't chain up to ask your superclass what it thinks.
 
 =cut
 
