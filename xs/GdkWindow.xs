@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003-2005 by the gtk2-perl team (see the file AUTHORS)
+ * Copyright (c) 2003-2005, 2009 by the gtk2-perl team (see the file AUTHORS)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -439,16 +439,46 @@ gdk_window_set_skip_pager_hint (window, skips_pager)
 
 #endif
 
+# The hash fields of SvGdkGeometryReal() are described here because
+# this and Gtk2::Window::set_geometry_hints are the only places it
+# arises.  Otherwise probably the description could go at the start of
+# Gtk2::Gdk::Geometry itself.
+#
 =for apidoc
-
 =for signature $window->set_geometry_hints ($geometry)
 =for signature $window->set_geometry_hints ($geometry, $geom_mask)
-
-=for arg geometry (Gtk2::Gdk::Geometry)
+=for arg geometry_ref (__hide__)
+=for arg geom_mask_sv (__hide__)
+=for arg geometry (scalar) Gtk2::Gdk::Geometry or hashref
 =for arg geom_mask (Gtk2::Gdk::WindowHints) optional, usually inferred from I<$geometry>
 
-The geom_mask argument, describing which fields in the geometry are valid, is
-optional.  If omitted it will be inferred from the geometry itself.
+$geometry is either a L<C<Gtk2::Gdk::Geometry>|Gtk2::Gdk::Geometry>
+object, or a hashref with the following keys and values,
+
+    min_width     integer \ 'min-size' mask
+    min_height    integer /
+    max_width     integer \ 'max-size' mask
+    max_height    integer /
+    base_width    integer \ 'base-size' mask
+    base_height   integer /
+    width_inc     integer \ 'resize-inc' mask
+    height_inc    integer /
+    min_aspect    float   \ 'aspect' mask
+    max_aspect    float   /
+    win_gravity   Gtk2::Gdk::Gravity enum, 'win-gravity' mask
+
+Optional $geom_mask is which fields of $geometry are used.  If
+$geometry is a hashref then $geom_mask defaults to the keys supplied
+in the hash, so for example
+
+    $win->set_geometry_hints ({ min_width => 20, min_height => 10});
+
+If $geometry is a C<Gtk2::Gdk::Geometry> object then you must give
+$geom_mask explicitly.
+
+The 'pos', 'user-pos' and 'user-size' flags in $geom_mask have no data
+fields, so cannot be inferred from a $geometry hashref.  If you want
+those flags you must pass $geom_mask explicitly.
 
 =cut
 ## void gdk_window_set_geometry_hints (GdkWindow *window, GdkGeometry *geometry, GdkWindowHints geom_mask)

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003-2006 by the gtk2-perl team (see the file AUTHORS)
+ * Copyright (c) 2003-2006, 2009 by the gtk2-perl team (see the file AUTHORS)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -237,16 +237,14 @@ gtk_window_get_gravity (window)
 	GtkWindow * window
 
 =for apidoc
-
 =for signature $window->set_geometry_hints ($geometry_widget, $geometry)
 =for signature $window->set_geometry_hints ($geometry_widget, $geometry, $geom_mask)
-
-=for arg geometry (Gtk2::Gdk::Geometry)
+=for arg geometry_ref (__hide__)
+=for arg geom_mask_sv (__hide__)
+=for arg geometry (scalar) Gtk2::Gdk::Geometry or hashref
 =for arg geom_mask (Gtk2::Gdk::WindowHints) optional, usually inferred from I<$geometry>
-
-The geom_mask argument, describing which fields in the geometry are valid, is
-optional.  If omitted it will be inferred from the geometry itself.
-
+See L<C<Gtk2::Gdk::Window::set_geometry_hints>|Gtk2::Gdk::Window/$window-E<gt>B<set_geometry_hints> ($geometry)>
+on the $geometry and $geom_mask arguments.
 =cut
 ## void gtk_window_set_geometry_hints (GtkWindow *window, GtkWidget *geometry_widget, GdkGeometry *geometry, GdkWindowHints geom_mask)
 void
