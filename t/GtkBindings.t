@@ -77,6 +77,12 @@ use warnings;
 # Note: need '-init' to make Gtk2::Rc do its thing ...
 use Gtk2::TestHelper tests => 43;
 
+# A few tests below require a valid keymap, which some display servers lack.
+# So try to determine if we're affected and skip the relevant tests if so.
+my $keymap = Gtk2::Gdk::Keymap->get_default();
+my @entries = $keymap->get_entries_for_keyval(
+  Gtk2::Gdk->keyval_from_name('Return'));
+my $have_valid_keymap = scalar @entries != 0;
 
 #-----------------------------------------------------------------------------
 # new()
@@ -154,7 +160,10 @@ HERE
 # As of Gtk 2.12 $gtkobj->bindings_activate() only actually works on a
 # Gtk2::Widget, not a Gtk2::Object, hence using My::Widget to exercise
 # add_path() instead of My::Object.
-{
+SKIP: {
+  skip 'Need a keymap', 5
+    unless $have_valid_keymap;
+
   my $my_widget_bindings = Gtk2::BindingSet->find('my_widget_bindings');
   ok ($my_widget_bindings, 'find() of RC parsed bindings');
 
@@ -342,7 +351,10 @@ HERE
 # entry_skip()
 
 # basic invocation on object doesn't dispatch
-{
+SKIP: {
+  skip 'Need a keymap', 8
+    unless $have_valid_keymap;
+
   my $skip_bindings = Gtk2::BindingSet->new ('entry_skip_test');
   my $keyval = Gtk2::Gdk->keyval_from_name('Return');
   my $modifiers = [];
