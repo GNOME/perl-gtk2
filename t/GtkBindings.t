@@ -350,11 +350,15 @@ SKIP: {
 #-----------------------------------------------------------------------------
 # entry_skip()
 
-# basic invocation on object doesn't dispatch
 SKIP: {
   skip 'Need a keymap', 8
     unless $have_valid_keymap;
 
+  skip 'entry_skip() new in 2.12', 8
+    unless Gtk2->CHECK_VERSION(2, 12, 0);
+
+  # see that basic invocation on object doesn't dispatch
+  #
   my $skip_bindings = Gtk2::BindingSet->new ('entry_skip_test');
   my $keyval = Gtk2::Gdk->keyval_from_name('Return');
   my $modifiers = [];
