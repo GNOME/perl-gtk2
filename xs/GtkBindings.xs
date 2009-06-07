@@ -375,17 +375,28 @@ gtk_binding_entry_add_signal (binding_set, keyval, modifiers, signal_name, ...)
 ##				  guint keyval,
 ##				  GdkModifierType modifiers);
 void
+gtk_binding_entry_remove (binding_set, keyval, modifiers)
+	GtkBindingSet *binding_set
+	guint keyval
+	GdkModifierType modifiers
+    CODE:
+	gtk_binding_entry_remove (binding_set, keyval, modifiers);
+
+#if GTK_CHECK_VERSION (2, 12, 0)
+
+## void gtk_binding_entry_skip (GtkBindingSet *binding_set,
+##				guint keyval,
+##				GdkModifierType modifiers);
+void
 gtk_binding_entry_skip (binding_set, keyval, modifiers)
 	GtkBindingSet *binding_set
 	guint keyval
 	GdkModifierType modifiers
-    ALIAS:
-	entry_remove = 1
     CODE:
-	if (ix == 0)
-		gtk_binding_entry_skip (binding_set, keyval, modifiers);
-	else
-		gtk_binding_entry_remove (binding_set, keyval, modifiers);
+	gtk_binding_entry_skip (binding_set, keyval, modifiers);
+
+#endif
+
 
 MODULE = Gtk2::BindingSet	PACKAGE = Gtk2::Object	PREFIX = gtk_
 
