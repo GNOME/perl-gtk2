@@ -185,9 +185,10 @@ be careful about circular references preventing parent and child being
 destroyed.  See L<perlobj/Two-Phased Garbage Collection> about this
 generally.  In Gtk2-Perl toplevel widgets like C<Gtk2::Window> always
 need an explicit C<< $widget->destroy >> so their C<destroy> signal is
-a good place to break circular references.  But for other widgets
-using weak references to avoid circularities in the first place is
-usually friendliest.
+a good place to break circular references.  But for other widgets it's
+usually friendliest to avoid circularities in the first place, either
+by using weak references in the userdata, or possibly locating a
+parent dynamically with C<< $widget->get_ancestor >>.
 
 A major change from gtk-perl (the bindings for Gtk+-1.x) is that callbacks
 take their arguments in the order proscribed by the C documentation, and only
@@ -383,7 +384,7 @@ muppet E<lt>scott at asofyet dot orgE<gt>
 
 =head1 COPYRIGHT
 
-Copyright (C) 2003 by the gtk2-perl team (see the file AUTHORS for the
+Copyright (C) 2003, 2009 by the gtk2-perl team (see the file AUTHORS for the
 full list)
 
 This library is free software; you can redistribute it and/or modify it under
