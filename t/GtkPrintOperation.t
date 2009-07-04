@@ -1,7 +1,7 @@
 #!/usr/bin/perl -w
 use strict;
 use Gtk2::TestHelper
-  tests => 12,
+  tests => 13,
   at_least_version => [2, 10, 0, "GtkPrintOperation is new in 2.10"];
 
 # $Id$
@@ -70,7 +70,7 @@ SKIP: {
     # Pretend that the drawing is asynchronous.
     $op -> set_defer_drawing();
 
-    # Finish the drawing latter
+    # Finish the drawing later
     Glib::Idle->add(sub {
       ok(TRUE, "Draw page finish called");
       $op -> draw_page_finish();
