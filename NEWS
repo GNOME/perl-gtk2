@@ -1,3 +1,9 @@
+Overview of changes in Gtk2 1.221
+=================================
+
+* Properly wrap the binding for gtk_binding_entry_skip in version guards.
+* Fix some build and test failures.
+
 Overview of changes in Gtk2 1.220
 =================================
 
