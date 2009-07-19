@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003-2006 by the gtk2-perl team (see the file AUTHORS)
+ * Copyright (c) 2003-2006, 2009 by the gtk2-perl team (see the file AUTHORS)
  *
  * Licensed under the LGPL, see LICENSE file for more information.
  *
@@ -9,6 +9,25 @@
 #include "gtk2perl.h"
 
 MODULE = Gtk2::Action	PACKAGE = Gtk2::Action	PREFIX = gtk_action_
+
+=for position post_interfaces
+
+=head1 CONSTRUCTOR
+
+=head2 action = Gtk2::Action->B<new> (key=>value,...)
+
+Create and return a new action object.  Note that this is the C<new>
+of L<Glib::Object|Glib::Object>, not C<gtk_action_new>.  Eg.
+
+    Gtk2::Action->new (name => 'open-foo',
+		       stock_id => 'gtk-open',
+		       tooltip => 'Start a foo');
+
+The keyword/value style is more flexible and a little clearer than the
+four direct arguments of C<gtk_action_new> (and also works better for
+subclasses).
+
+=cut
 
 const gchar* gtk_action_get_name (GtkAction *action);
 
