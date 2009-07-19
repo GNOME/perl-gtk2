@@ -29,17 +29,17 @@ newSVGdkGeometry (GdkGeometry *geometry)
 	HV *object = newHV ();
 
 	if (geometry) {
-		hv_store (object, "min_width", 9, newSViv (geometry->min_width), 0);
-		hv_store (object, "min_height", 10, newSViv (geometry->min_height), 0);
-		hv_store (object, "max_width", 9, newSViv (geometry->max_width), 0);
-		hv_store (object, "max_height", 10, newSViv (geometry->max_height), 0);
-		hv_store (object, "base_width", 10, newSViv (geometry->base_width), 0);
-		hv_store (object, "base_height", 11, newSViv (geometry->base_height), 0);
-		hv_store (object, "width_inc", 9, newSViv (geometry->width_inc), 0);
-		hv_store (object, "height_inc", 10, newSViv (geometry->height_inc), 0);
-		hv_store (object, "min_aspect", 10, newSVnv (geometry->min_aspect), 0);
-		hv_store (object, "max_aspect", 10, newSVnv (geometry->max_aspect), 0);
-		hv_store (object, "win_gravity", 11, newSVGdkGravity (geometry->win_gravity), 0);
+		gperl_hv_take_sv_s (object, "min_width", newSViv (geometry->min_width));
+		gperl_hv_take_sv_s (object, "min_height", newSViv (geometry->min_height));
+		gperl_hv_take_sv_s (object, "max_width", newSViv (geometry->max_width));
+		gperl_hv_take_sv_s (object, "max_height", newSViv (geometry->max_height));
+		gperl_hv_take_sv_s (object, "base_width", newSViv (geometry->base_width));
+		gperl_hv_take_sv_s (object, "base_height", newSViv (geometry->base_height));
+		gperl_hv_take_sv_s (object, "width_inc", newSViv (geometry->width_inc));
+		gperl_hv_take_sv_s (object, "height_inc", newSViv (geometry->height_inc));
+		gperl_hv_take_sv_s (object, "min_aspect", newSVnv (geometry->min_aspect));
+		gperl_hv_take_sv_s (object, "max_aspect", newSVnv (geometry->max_aspect));
+		gperl_hv_take_sv_s (object, "win_gravity", newSVGdkGravity (geometry->win_gravity));
 	}
 
 	return sv_bless (newRV_noinc ((SV *) object),
@@ -270,18 +270,18 @@ min_width (SV *object, SV *newvalue=NULL)
 		newvalue = newSVsv (newvalue);
 
 		switch (ix) {
-			case 0: hv_store (geometry, "min_width", 9, newvalue, 0); break;
-			case 1: hv_store (geometry, "min_height", 10, newvalue, 0); break;
-			case 2: hv_store (geometry, "max_width", 9, newvalue, 0); break;
-			case 3: hv_store (geometry, "max_height", 10, newvalue, 0); break;
-			case 4: hv_store (geometry, "base_width", 10, newvalue, 0); break;
-			case 5: hv_store (geometry, "base_height", 11, newvalue, 0); break;
-			case 6: hv_store (geometry, "width_inc", 9, newvalue, 0); break;
-			case 7: hv_store (geometry, "height_inc", 10, newvalue, 0); break;
-			case 8: hv_store (geometry, "min_aspect", 10, newvalue, 0); break;
-			case 9: hv_store (geometry, "max_aspect", 10, newvalue, 0); break;
+			case 0: gperl_hv_take_sv_s (geometry, "min_width", newvalue); break;
+			case 1: gperl_hv_take_sv_s (geometry, "min_height", newvalue); break;
+			case 2: gperl_hv_take_sv_s (geometry, "max_width", newvalue); break;
+			case 3: gperl_hv_take_sv_s (geometry, "max_height", newvalue); break;
+			case 4: gperl_hv_take_sv_s (geometry, "base_width", newvalue); break;
+			case 5: gperl_hv_take_sv_s (geometry, "base_height", newvalue); break;
+			case 6: gperl_hv_take_sv_s (geometry, "width_inc", newvalue); break;
+			case 7: gperl_hv_take_sv_s (geometry, "height_inc", newvalue); break;
+			case 8: gperl_hv_take_sv_s (geometry, "min_aspect", newvalue); break;
+			case 9: gperl_hv_take_sv_s (geometry, "max_aspect", newvalue); break;
 			case 10: /* fall-through */
-			case 11: hv_store (geometry, "win_gravity", 11, newvalue, 0); break;
+			case 11: gperl_hv_take_sv_s (geometry, "win_gravity", newvalue); break;
 			default:
 				g_assert_not_reached ();
 		}

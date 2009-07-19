@@ -37,12 +37,12 @@ static SV *
 newSVGtkStockItem (GtkStockItem * item)
 {
 	HV * hv = newHV();
-	hv_store (hv, "stock_id", 8, newSVGChar (item->stock_id), 0);
-	hv_store (hv, "label", 5, newSVGChar (item->label), 0);
-	hv_store (hv, "modifier", 8, newSVGdkModifierType (item->modifier), 0);
-	hv_store (hv, "keyval", 6, newSVuv (item->keyval), 0);
+	gperl_hv_take_sv_s (hv, "stock_id", newSVGChar (item->stock_id));
+	gperl_hv_take_sv_s (hv, "label", newSVGChar (item->label));
+	gperl_hv_take_sv_s (hv, "modifier", newSVGdkModifierType (item->modifier));
+	gperl_hv_take_sv_s (hv, "keyval", newSVuv (item->keyval));
 	if (item->translation_domain)
-		hv_store (hv, "translation_domain", 18, newSVGChar (item->translation_domain), 0);
+		gperl_hv_take_sv_s (hv, "translation_domain", newSVGChar (item->translation_domain));
 	return newRV_noinc ((SV *) hv);
 }
 

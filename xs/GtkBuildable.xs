@@ -126,11 +126,11 @@ gtk2perl_buildable_parser_start_element (GMarkupParseContext *context,
 	attrs = newRV_noinc ((SV *) hv);
 
 	for (i = 0; attribute_names[i] != NULL ; i++)
-		hv_store (hv,
-			  attribute_names[i],
-			  strlen (attribute_names[i]),
-			  newSVGChar (attribute_values[i]),
-			  0);
+		gperl_hv_take_sv (
+			hv,
+			attribute_names[i],
+			strlen (attribute_names[i]),
+			newSVGChar (attribute_values[i]));
 
 	call_parser_method (error,
 			    user_data,

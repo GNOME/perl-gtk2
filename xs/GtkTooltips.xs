@@ -88,13 +88,13 @@ gtk_tooltips_data_get (class, widget)
 	hv = newHV();
 
 	if (ret->tooltips)
-		hv_store(hv, "tooltips", 8, newSVGtkTooltips(ret->tooltips),0);
+		gperl_hv_take_sv_s(hv, "tooltips", newSVGtkTooltips(ret->tooltips));
 	if (ret->widget)
-		hv_store(hv, "widget", 6, newSVGtkWidget(GTK_WIDGET(ret->widget)),0);
+		gperl_hv_take_sv_s(hv, "widget", newSVGtkWidget(GTK_WIDGET(ret->widget)));
 	if (ret->tip_text)
-		hv_store(hv, "tip_text", 8, newSVpv(ret->tip_text, PL_na),0);
+		gperl_hv_take_sv_s(hv, "tip_text", newSVpv(ret->tip_text, PL_na));
 	if (ret->tip_private)
-		hv_store(hv, "tip_private", 11, newSVpv(ret->tip_private, PL_na),0);
+		gperl_hv_take_sv_s(hv, "tip_private", newSVpv(ret->tip_private, PL_na));
 
 	XPUSHs(sv_2mortal(newRV_noinc((SV*)hv)));
 

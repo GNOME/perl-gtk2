@@ -30,20 +30,20 @@ newSVGdkWindowAttr (GdkWindowAttr *attr)
 	HV *object = newHV ();
 
 	if (attr && attr->x && attr->y) {
-		hv_store (object, "title", 5, newSVGChar (attr->title), 0);
-		hv_store (object, "event_mask", 10, newSVGdkEventMask (attr->event_mask), 0);
-		hv_store (object, "x", 1, newSViv (attr->x), 0);
-		hv_store (object, "y", 1, newSViv (attr->y), 0);
-		hv_store (object, "width", 5, newSViv (attr->width), 0);
-		hv_store (object, "height", 6, newSViv (attr->height), 0);
-		hv_store (object, "wclass", 6, newSVGdkWindowClass (attr->wclass), 0);
-		hv_store (object, "visual", 6, newSVGdkVisual (attr->visual), 0);
-		hv_store (object, "colormap", 8, newSVGdkColormap (attr->colormap), 0);
-		hv_store (object, "window_type", 11, newSVGdkWindowType (attr->window_type), 0);
-		hv_store (object, "cursor", 6, newSVGdkCursor (attr->cursor), 0);
-		hv_store (object, "wmclass_name", 12, newSVGChar (attr->wmclass_name), 0);
-		hv_store (object, "wmclass_class", 13, newSVGChar (attr->wmclass_class), 0);
-		hv_store (object, "override_redirect", 17, boolSV (attr->override_redirect), 0);
+		gperl_hv_take_sv_s (object, "title", newSVGChar (attr->title));
+		gperl_hv_take_sv_s (object, "event_mask", newSVGdkEventMask (attr->event_mask));
+		gperl_hv_take_sv_s (object, "x", newSViv (attr->x));
+		gperl_hv_take_sv_s (object, "y", newSViv (attr->y));
+		gperl_hv_take_sv_s (object, "width", newSViv (attr->width));
+		gperl_hv_take_sv_s (object, "height", newSViv (attr->height));
+		gperl_hv_take_sv_s (object, "wclass", newSVGdkWindowClass (attr->wclass));
+		gperl_hv_take_sv_s (object, "visual", newSVGdkVisual (attr->visual));
+		gperl_hv_take_sv_s (object, "colormap", newSVGdkColormap (attr->colormap));
+		gperl_hv_take_sv_s (object, "window_type", newSVGdkWindowType (attr->window_type));
+		gperl_hv_take_sv_s (object, "cursor", newSVGdkCursor (attr->cursor));
+		gperl_hv_take_sv_s (object, "wmclass_name", newSVGChar (attr->wmclass_name));
+		gperl_hv_take_sv_s (object, "wmclass_class", newSVGChar (attr->wmclass_class));
+		gperl_hv_take_sv_s (object, "override_redirect", boolSV (attr->override_redirect));
 	}
 
 	return sv_bless (newRV_noinc ((SV *) object),

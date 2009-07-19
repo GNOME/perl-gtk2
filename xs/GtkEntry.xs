@@ -34,10 +34,10 @@ gtk2perl_border_wrap (GType gtype, const char * package, gpointer boxed, gboolea
 
 	hv = newHV ();
 
-	hv_store (hv, "left", 4, newSViv (border->left), 0);
-	hv_store (hv, "right", 5, newSViv (border->right), 0);
-	hv_store (hv, "top", 3, newSViv (border->top), 0);
-	hv_store (hv, "bottom", 6, newSViv (border->bottom), 0);
+	gperl_hv_take_sv_s (hv, "left", newSViv (border->left));
+	gperl_hv_take_sv_s (hv, "right", newSViv (border->right));
+	gperl_hv_take_sv_s (hv, "top", newSViv (border->top));
+	gperl_hv_take_sv_s (hv, "bottom", newSViv (border->bottom));
 
 	if (own)
 		gtk_border_free (border);

@@ -31,19 +31,20 @@ newSVGtkFileFilterInfo (const GtkFileFilterInfo * info)
 
 	hv = newHV ();
 
-	hv_store (hv, "contains", 8,
-	          newSVGtkFileFilterFlags (info->contains), 0);
+	gperl_hv_take_sv_s (hv, "contains",
+	                    newSVGtkFileFilterFlags (info->contains));
 	if (info->filename)
-		hv_store (hv, "filename", 8,
-		          gperl_sv_from_filename (info->filename), 0);
+		gperl_hv_take_sv_s (hv, "filename",
+		                    gperl_sv_from_filename (info->filename));
 	if (info->uri)
-		hv_store (hv, "uri", 3, newSVpv (info->uri, PL_na), 0);
+		gperl_hv_take_sv_s (hv, "uri",
+		                    newSVpv (info->uri, PL_na));
 	if (info->display_name)
-		hv_store (hv, "display_name", 12,
-		          newSVGChar (info->display_name), 0);
+		gperl_hv_take_sv_s (hv, "display_name",
+		                    newSVGChar (info->display_name));
 	if (info->mime_type)
-		hv_store (hv, "mime_type", 9,
-		          newSVGChar (info->mime_type), 0);
+		gperl_hv_take_sv_s (hv, "mime_type",
+		                    newSVGChar (info->mime_type));
 
 	return newRV_noinc ((SV*) hv);
 }

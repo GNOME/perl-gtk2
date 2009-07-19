@@ -42,25 +42,25 @@ newSVGdkPixbufFormat (GdkPixbufFormat * format)
 	HV * stash, * hv = newHV ();
 
 	s = gdk_pixbuf_format_get_name (format);
-	hv_store (hv, "name", 4, newSVGChar (s), 0);
+	gperl_hv_take_sv_s (hv, "name", newSVGChar (s));
 	g_free (s);
 
 	s = gdk_pixbuf_format_get_description (format);
-	hv_store (hv, "description", 11, newSVGChar (s), 0);
+	gperl_hv_take_sv_s (hv, "description", newSVGChar (s));
 	g_free (s);
 
 	strv = gdk_pixbuf_format_get_mime_types (format);
 	av = newAV ();
 	for (j = 0 ; strv && strv[j] ; j++)
 		av_store (av, j, newSVGChar (strv[j]));
-	hv_store (hv, "mime_types", 10, newRV_noinc ((SV*) av), 0);
+	gperl_hv_take_sv_s (hv, "mime_types", newRV_noinc ((SV*) av));
 	g_strfreev (strv);
 
 	strv = gdk_pixbuf_format_get_extensions (format);
 	av = newAV ();
 	for (j = 0 ; strv && strv[j] ; j++)
 		av_store (av, j, newSVGChar (strv[j]));
-	hv_store (hv, "extensions", 10, newRV_noinc ((SV*) av), 0);
+	gperl_hv_take_sv_s (hv, "extensions", newRV_noinc ((SV*) av));
 	g_strfreev (strv);
 
 #if GTK_CHECK_VERSION (2,6,0)
@@ -68,13 +68,13 @@ newSVGdkPixbufFormat (GdkPixbufFormat * format)
 	gboolean b;
 
 	b = gdk_pixbuf_format_is_scalable (format);
-	hv_store (hv, "is_scalable", 11, newSVuv (b), 0);
+	gperl_hv_take_sv_s (hv, "is_scalable", newSVuv (b));
 
 	b = gdk_pixbuf_format_is_disabled (format);
-	hv_store (hv, "is_disabled", 11, newSVuv (b), 0);
+	gperl_hv_take_sv_s (hv, "is_disabled", newSVuv (b));
 
 	s = gdk_pixbuf_format_get_license (format);
-	hv_store (hv, "license", 7, newSVGChar (s), 0);
+	gperl_hv_take_sv_s (hv, "license", newSVGChar (s));
 	g_free (s);
 }
 #endif

@@ -57,9 +57,9 @@ newSVGdkKeymapKey (GdkKeymapKey *key)
 
 	hv = newHV ();
 
-	hv_store (hv, "keycode", 7, newSVuv (key->keycode), 0);
-	hv_store (hv, "group", 5, newSViv (key->group), 0);
-	hv_store (hv, "level", 5, newSViv (key->level), 0);
+	gperl_hv_take_sv_s (hv, "keycode", newSVuv (key->keycode));
+	gperl_hv_take_sv_s (hv, "group", newSViv (key->group));
+	gperl_hv_take_sv_s (hv, "level", newSViv (key->level));
 
 	return newRV_noinc ((SV *) hv);
 }
@@ -180,8 +180,8 @@ gdk_keymap_get_entries_for_keycode (keymap, hardware_keycode)
 	EXTEND (SP, n_entries);
 	for (i = 0; i < n_entries; i++) {
 		hv = newHV ();
-		hv_store (hv, "key", 3, newSVGdkKeymapKey (&keys[i]), 0);
-		hv_store (hv, "keyval", 6, newSVuv (keyvals[i]), 0);
+		gperl_hv_take_sv_s (hv, "key", newSVGdkKeymapKey (&keys[i]));
+		gperl_hv_take_sv_s (hv, "keyval", newSVuv (keyvals[i]));
 		PUSHs (sv_2mortal (newRV_noinc ((SV*) hv)));
 	}
 

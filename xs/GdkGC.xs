@@ -38,24 +38,24 @@ newSVGdkGCValues (GdkGCValues * v)
 	h = newHV ();
 	r = newRV_noinc ((SV*)h);
 
-	hv_store (h, "foreground", 10, newSVGdkColor_copy (&v->foreground), 0);
-	hv_store (h, "background", 10, newSVGdkColor_copy (&v->background), 0);
-	if (v->font) hv_store (h, "font", 4, newSVGdkFont (v->font), 0);
-	hv_store (h, "function", 8, newSVGdkFunction (v->function), 0);
-	hv_store (h, "fill", 4, newSVGdkFill (v->fill), 0);
-	if (v->tile) hv_store (h, "tile", 4, newSVGdkPixmap (v->tile), 0);
-	if (v->stipple) hv_store (h, "stipple", 7, newSVGdkPixmap (v->stipple), 0);
-	if (v->clip_mask) hv_store (h, "clip_mask", 9, newSVGdkPixmap (v->clip_mask), 0);
-	hv_store (h, "subwindow_mode", 14, newSVGdkSubwindowMode (v->subwindow_mode), 0);
-	hv_store (h, "ts_x_origin", 11, newSViv (v->ts_x_origin), 0);
-	hv_store (h, "ts_y_origin", 11, newSViv (v->ts_y_origin), 0);
-	hv_store (h, "clip_x_origin", 13, newSViv (v->clip_x_origin), 0);
-	hv_store (h, "clip_y_origin", 13, newSViv (v->clip_y_origin), 0);
-	hv_store (h, "graphics_exposures", 18, newSViv (v->graphics_exposures), 0);
-	hv_store (h, "line_width", 10, newSViv (v->line_width), 0);
-	hv_store (h, "line_style", 10, newSVGdkLineStyle (v->line_style), 0);
-	hv_store (h, "cap_style", 9, newSVGdkCapStyle (v->cap_style), 0);
-	hv_store (h, "join_style", 10, newSVGdkJoinStyle (v->join_style), 0);
+	gperl_hv_take_sv_s (h, "foreground", newSVGdkColor_copy (&v->foreground));
+	gperl_hv_take_sv_s (h, "background", newSVGdkColor_copy (&v->background));
+	if (v->font) gperl_hv_take_sv_s (h, "font", newSVGdkFont (v->font));
+	gperl_hv_take_sv_s (h, "function", newSVGdkFunction (v->function));
+	gperl_hv_take_sv_s (h, "fill", newSVGdkFill (v->fill));
+	if (v->tile) gperl_hv_take_sv_s (h, "tile", newSVGdkPixmap (v->tile));
+	if (v->stipple) gperl_hv_take_sv_s (h, "stipple", newSVGdkPixmap (v->stipple));
+	if (v->clip_mask) gperl_hv_take_sv_s (h, "clip_mask", newSVGdkPixmap (v->clip_mask));
+	gperl_hv_take_sv_s (h, "subwindow_mode", newSVGdkSubwindowMode (v->subwindow_mode));
+	gperl_hv_take_sv_s (h, "ts_x_origin", newSViv (v->ts_x_origin));
+	gperl_hv_take_sv_s (h, "ts_y_origin", newSViv (v->ts_y_origin));
+	gperl_hv_take_sv_s (h, "clip_x_origin", newSViv (v->clip_x_origin));
+	gperl_hv_take_sv_s (h, "clip_y_origin", newSViv (v->clip_y_origin));
+	gperl_hv_take_sv_s (h, "graphics_exposures", newSViv (v->graphics_exposures));
+	gperl_hv_take_sv_s (h, "line_width", newSViv (v->line_width));
+	gperl_hv_take_sv_s (h, "line_style", newSVGdkLineStyle (v->line_style));
+	gperl_hv_take_sv_s (h, "cap_style", newSVGdkCapStyle (v->cap_style));
+	gperl_hv_take_sv_s (h, "join_style", newSVGdkJoinStyle (v->join_style));
 
 	return r;
 }

@@ -48,9 +48,9 @@ newSVGtkTargetEntry (GtkTargetEntry * e)
 	h = newHV ();
 	r = newRV_noinc ((SV*)h);
 
-	hv_store (h, "target", 6, e->target ? newSVpv (e->target, 0) : newSVsv (&PL_sv_undef), 0);
-	hv_store (h, "flags", 5, newSVGtkTargetFlags (e->flags), 0);
-	hv_store (h, "info", 4, newSViv (e->info), 0);
+	gperl_hv_take_sv_s (h, "target", e->target ? newSVpv (e->target, 0) : newSVsv (&PL_sv_undef));
+	gperl_hv_take_sv_s (h, "flags", newSVGtkTargetFlags (e->flags));
+	gperl_hv_take_sv_s (h, "info", newSViv (e->info));
 
 	return r;
 }

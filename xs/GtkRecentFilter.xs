@@ -36,25 +36,25 @@ newSVGtkRecentFilterInfo (const GtkRecentFilterInfo *info)
 
   hv = newHV ();
 
-  hv_store (hv, "contains", 8,
-            newSVGtkRecentFilterFlags (info->contains), 0);
+  gperl_hv_take_sv_s (hv, "contains",
+                      newSVGtkRecentFilterFlags (info->contains));
 
   if (info->uri)
-    hv_store (hv, "uri", 3, newSVpv (info->uri, PL_na), 0);
+    gperl_hv_take_sv_s (hv, "uri", newSVpv (info->uri, PL_na));
 
   if (info->display_name)
-    hv_store (hv, "display_name", 12, newSVGChar (info->display_name), 0);
+    gperl_hv_take_sv_s (hv, "display_name", newSVGChar (info->display_name));
 
   if (info->mime_type)
-    hv_store (hv, "mime_type", 9, newSVGChar (info->mime_type), 0);
+    gperl_hv_take_sv_s (hv, "mime_type", newSVGChar (info->mime_type));
 
   if (info->applications)
-    hv_store (hv, "applications", 12, gtk2perl_sv_from_strv (info->applications), 0);
+    gperl_hv_take_sv_s (hv, "applications", gtk2perl_sv_from_strv (info->applications));
 
   if (info->groups)
-    hv_store (hv, "groups", 6, gtk2perl_sv_from_strv (info->groups), 0);
+    gperl_hv_take_sv_s (hv, "groups", gtk2perl_sv_from_strv (info->groups));
 
-  hv_store (hv, "age", 3, newSViv (info->age), 0);
+  gperl_hv_take_sv_s (hv, "age", newSViv (info->age));
 
   return newRV_noinc ((SV *) hv);
 }
