@@ -65,6 +65,7 @@ $win -> draw_point($gc, 10, 10);
 $win -> draw_points($gc, 10, 10, 11, 11, 12, 12, 13, 13);
 $win -> draw_line($gc, 5, 5, 10, 10);
 $win -> draw_lines($gc, 5, 5, 10, 10, 15, 15, 20, 20);
+$win -> draw_segments($gc);
 $win -> draw_segments($gc, 1, 2, 3, 4, 10, 11, 12, 13);
 $win -> draw_rectangle($gc, 1, 0, 0, 10, 10);
 $win -> draw_arc($gc, 1, 5, 5, 10, 10, 23, 42);
@@ -106,5 +107,5 @@ SKIP: {
 
 __END__
 
-Copyright (C) 2003-2008 by the gtk2-perl team (see the file AUTHORS for the
+Copyright (C) 2003-2009 by the gtk2-perl team (see the file AUTHORS for the
 full list).  See LICENSE for more information.

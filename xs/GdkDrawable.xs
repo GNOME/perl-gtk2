@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003-2005 by the gtk2-perl team (see the file AUTHORS)
+ * Copyright (c) 2003-2005, 2009 by the gtk2-perl team (see the file AUTHORS)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -220,14 +220,13 @@ gdk_draw_points (drawable, gc, x1, y1, ...)
 
  #### void gdk_draw_segments (GdkDrawable *drawable, GdkGC *gc, GdkSegment *segs, gint nsegs)
 =for apidoc
-=for arg x1 (integer) the x coordinate of the first point
-=for arg y1 (integer) the y coordinate of the first point
-=for arg x2 (integer) the x coordinate of the second point
-=for arg y2 (integer) the y coordinate of the second point
-=for arg ... quads of x and y coordinates
+=for arg ... quads of x1,y1,x2,y2 coordinates
+For example to draw two diagonal line segments,
+
+    $drawable->draw_segments($gc, 0,0,100,100, 200,200,300,300);
 =cut
 void
-gdk_draw_segments (drawable, gc, x1, y1, x2, y2, ...)
+gdk_draw_segments (drawable, gc, ...)
 	GdkDrawable *drawable
 	GdkGC *gc
     PREINIT:
