@@ -54,6 +54,7 @@ SKIP: {
   $dialog -> format_secondary_text("Bla, 23");
   $dialog -> format_secondary_text(undef);
 
+  $dialog -> format_secondary_markup("<span>%s, %d</span>", "Bla", 23);
   $dialog -> format_secondary_markup("<span>Bla, 23</span>");
   $dialog -> format_secondary_markup(undef);
 }

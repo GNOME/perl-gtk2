@@ -169,11 +169,17 @@ gtk_message_dialog_format_secondary_text (message_dialog, message_format, ...)
 		gtk_message_dialog_format_secondary_text (message_dialog, NULL);
 
 void
-gtk_message_dialog_format_secondary_markup (message_dialog, message)
+gtk_message_dialog_format_secondary_markup (message_dialog, message_format, ...)
 	GtkMessageDialog *message_dialog
-	const gchar_ornull *message
-    C_ARGS:
-	message_dialog, message
+	SV * message_format
+    CODE:
+	if (gperl_sv_is_defined (message_format))
+		gtk_message_dialog_format_secondary_markup (
+		  message_dialog,
+		  "%s",
+		  format_message (message_format, &(ST (2)), items - 2));
+	else
+		gtk_message_dialog_format_secondary_markup (message_dialog, NULL);
 
 #endif
 
