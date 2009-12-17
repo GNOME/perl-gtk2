@@ -412,6 +412,8 @@ gtk_bindings_activate (object, keyval, modifiers)
 	guint keyval
 	GdkModifierType modifiers
 
+#if GTK_CHECK_VERSION(2, 4, 0)
+
 gboolean
 gtk_bindings_activate_event (object, event)
 	GtkObject *object
@@ -425,3 +427,5 @@ CODE:
 	RETVAL = gtk_bindings_activate_event (object, (GdkEventKey*) event);
 OUTPUT:
 	RETVAL
+
+#endif
