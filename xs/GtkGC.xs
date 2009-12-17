@@ -15,7 +15,7 @@ release_count_quark (void)
 {
 	static GQuark q = 0;
 
-	if (G_UNLIKELY (!q))
+	if (!q)
 		q = g_quark_from_static_string ("gtk2perl_gc_release_count");
 
 	return q;
