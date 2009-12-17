@@ -32,8 +32,7 @@ my $path_model = Gtk2::TreePath -> new_from_string("0");
 my $iter_model;
 
 # remove returns boolean in >= 2.2.0, but false (actually, void) in 2.0.x.
-is($model -> remove($model -> get_iter($path_model)), 
-   (Gtk2->CHECK_VERSION (2, 2, 0) ? 1 : ''));
+ok($model -> remove($model -> get_iter($path_model)));
 is($model -> get($model -> get_iter($path_model), 0), "blee");
 
 $model -> clear();
@@ -137,23 +136,9 @@ ok ($iter = $store->insert (0), '$store->insert (0)');
 ok ($iter = $store->insert_before ($iter), '$store->insert_before');
 ok ($iter = $store->insert_after ($iter), '$store->insert_after');
 ok ($iter = $store->get_iter_first, '$store->get_iter_first, treemodel');
-if (!Gtk2->CHECK_VERSION (2, 2, 0)) {
-	# remove had void return in 2.0.x, and the binding for this method
-	# always returns false.  remove this special case if that method is
-	# ever fixed.
-	ok (!$store->remove ($iter), '$store->remove 1');
-} else {
-	ok ($store->remove ($iter), '$store->remove 1');
-}
+ok ($store->remove ($iter), '$store->remove 1');
 ok ($iter = $store->prepend, '$store->prepend');
-if (!Gtk2->CHECK_VERSION (2, 2, 0)) {
-	# remove had void return in 2.0.x, and the binding for this method
-	# always returns false.  remove this special case if that method is
-	# ever fixed.
-	ok (!$store->remove ($iter), '$store->remove 2');
-} else {
-	ok ($store->remove ($iter), '$store->remove 2');
-}
+ok ($store->remove ($iter), '$store->remove 2');
 
 SKIP: {
     # on RH8 with 2.0.6, i get a crash from pango xft, complaining that
