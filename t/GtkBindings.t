@@ -161,8 +161,8 @@ HERE
 # Gtk2::Widget, not a Gtk2::Object, hence using My::Widget to exercise
 # add_path() instead of My::Object.
 SKIP: {
-  skip 'Need a keymap', 5
-    unless $have_valid_keymap;
+  skip 'Need a keymap and gtk+ >= 2.4', 5
+    unless $have_valid_keymap && Gtk2->CHECK_VERSION(2, 4, 0);
 
   my $my_widget_bindings = Gtk2::BindingSet->find('my_widget_bindings');
   ok ($my_widget_bindings, 'find() of RC parsed bindings');
