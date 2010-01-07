@@ -19,7 +19,7 @@
 #define SETTER(outof)						\
 	{							\
 		gint num = items - 1;				\
-		(outof) = g_new0 (gchar *, num + 30);		\
+		(outof) = g_new0 (gchar *, num + 1);		\
 		for (i = 0; i < num; i++)			\
 			(outof)[i] = SvGChar (ST (1 + i));	\
 	}
