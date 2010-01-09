@@ -97,13 +97,8 @@ SKIP: {
 my $path_model = Gtk2::TreePath -> new_from_string("0");
 my $iter_model;
 
-if (! Gtk2->CHECK_VERSION (2, 2, 0)) {
-	# this always returns false on 2.0.x.
-	ok(!$model -> remove($model -> get_iter($path_model)));
-} else {
-	is($model -> remove($model -> get_iter($path_model)), 1);
-}
-
+# boolean return even in gtk 2.0.0
+is($model -> remove($model -> get_iter($path_model)), 1);
 is($model -> get($model -> get_iter($path_model), 0), "blee");
 
 $model -> clear();
@@ -148,5 +143,5 @@ SKIP: {
 
 __END__
 
-Copyright (C) 2003-2006 by the gtk2-perl team (see the file AUTHORS for the
+Copyright (C) 2003-2006, 2009 by the gtk2-perl team (see the file AUTHORS for the
 full list).  See LICENSE for more information.

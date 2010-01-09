@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003-2006 by the gtk2-perl team (see the file AUTHORS)
+ * Copyright (c) 2003-2006, 2009 by the gtk2-perl team (see the file AUTHORS)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -124,6 +124,10 @@ gtk_tree_store_set (tree_store, iter, col1, val1, ...)
 ## void gtk_tree_store_set_valist (GtkTreeStore *tree_store, GtkTreeIter *iter, va_list var_args)
 
 ## gboolean gtk_tree_store_remove (GtkTreeStore *tree_store, GtkTreeIter *iter)
+=for apidoc
+The return is always a boolean in the style of Gtk 2.2.x and up, even
+when running on Gtk 2.0.x.
+=cut
 gboolean
 gtk_tree_store_remove (tree_store, iter)
 	GtkTreeStore *tree_store
@@ -132,11 +136,11 @@ gtk_tree_store_remove (tree_store, iter)
 #if GTK_CHECK_VERSION(2,2,0)
 	RETVAL = gtk_tree_store_remove (tree_store, iter);
 #else
-	/* void return in 2.0.x; always return FALSE from this function
-	 * in that case; FIXME the alternative is to implement the missing
-	 * functionality right here. */
+	/* void return in 2.0.x; look for stamp zapped to 0 if no more
+	 * rows, to emulate the return value of 2.2 and up
+	 */
 	gtk_tree_store_remove (tree_store, iter);
-	RETVAL = FALSE;
+	RETVAL = (iter->stamp != 0);
 #endif
     OUTPUT:
 	RETVAL

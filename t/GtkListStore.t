@@ -31,7 +31,7 @@ foreach (qw(bla blee bliii bloooo)) {
 my $path_model = Gtk2::TreePath -> new_from_string("0");
 my $iter_model;
 
-# remove returns boolean in >= 2.2.0, but false (actually, void) in 2.0.x.
+# boolean return even in gtk 2.0.0
 ok($model -> remove($model -> get_iter($path_model)));
 is($model -> get($model -> get_iter($path_model), 0), "blee");
 
@@ -234,5 +234,5 @@ SKIP: {
 
 __END__
 
-Copyright (C) 2003-2005 by the gtk2-perl team (see the file AUTHORS for the
+Copyright (C) 2003-2005, 2009 by the gtk2-perl team (see the file AUTHORS for the
 full list).  See LICENSE for more information.
