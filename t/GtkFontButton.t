@@ -3,7 +3,7 @@
 # $Id$
 
 use Gtk2::TestHelper
-	tests => 12,
+	tests => 15,
 	at_least_version => [2, 4, 0, "GtkFontButton is new in 2.4"],
 	;
 
@@ -12,6 +12,10 @@ $fbn = Gtk2::FontButton->new;
 isa_ok ($fbn, 'Gtk2::FontButton');
 $fbn = Gtk2::FontButton->new_with_font ("monospace");
 isa_ok ($fbn, 'Gtk2::FontButton');
+like ($fbn->get_font_name, qr/monospace/i);
+$fbn = Gtk2::FontButton->new ("monospace");
+isa_ok ($fbn, 'Gtk2::FontButton');
+like ($fbn->get_font_name, qr/monospace/i);
 
 
 $fbn->set_title ("slartibartfast");

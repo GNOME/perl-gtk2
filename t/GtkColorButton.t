@@ -3,7 +3,7 @@
 # $Id$
 
 use Gtk2::TestHelper
-	tests => 8,
+	tests => 10,
 	at_least_version => [2, 4, 0, "GtkColorButton is new in 2.4"],
 	;
 
@@ -22,6 +22,10 @@ isa_ok ($cbn, "Gtk2::ColorButton");
 
 $color = Gtk2::Gdk::Color->new (0, 0, 65535);
 $cbn = Gtk2::ColorButton->new_with_color ($color);
+isa_ok ($cbn, "Gtk2::ColorButton");
+ok (color_eq ($color, $cbn->get_color));
+
+$cbn = Gtk2::ColorButton->new ($color);
 isa_ok ($cbn, "Gtk2::ColorButton");
 ok (color_eq ($color, $cbn->get_color));
 
