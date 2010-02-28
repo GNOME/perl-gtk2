@@ -42,8 +42,8 @@ $chooser -> set_sort_func(sub { warn join ", ", @_; });
 # --------------------------------------------------------------------------- #
 
 use Cwd qw(cwd);
-my $uri_one = "file://" . cwd() . "/" . $0;
-my $uri_two = "file://" . $^X;
+my $uri_one = Glib::filename_to_uri(cwd() . "/" . $0, undef);
+my $uri_two = Glib::filename_to_uri($^X, undef);
 
 $manager -> purge_items();
 $manager -> add_item($uri_one);
