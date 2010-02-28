@@ -195,7 +195,7 @@ calls bootstrap on Gtk2, but not on any of the others (because it doesn't know
 about them).  It is a module's boot code which binds the xsubs into perl, so
 it's imperative that the modules get booted!
 
-So, C<Gtk2::CodeGen->write_boot> (called from Makefile.PL) scans the xs/
+So, C<< Gtk2::CodeGen->write_boot >> (called from Makefile.PL) scans the xs/
 subdirectory for all the "MODULE = ..." lines in the XS files.  It maps these
 to boot code symbols, and generates code to call these symbols in boot.xsh,
 which is then included by the BOOT: section for the toplevel module, right
