@@ -514,7 +514,7 @@ gtk_text_iter_forward_find_char (iter, pred, user_data=NULL, limit=NULL)
 #### gboolean gtk_text_iter_backward_search (const GtkTextIter *iter, const gchar *str, GtkTextSearchFlags flags, GtkTextIter *match_start, GtkTextIter *match_end, const GtkTextIter *limit)
 
 =for apidoc backward_search
-=for signature (match_start, match_end) = $iter->forward_search ($str, $flags, $limit=NULL)
+=for signature (match_start, match_end) = $iter->backward_search ($str, $flags, $limit=NULL)
 =cut
 
 =for apidoc
