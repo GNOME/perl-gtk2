@@ -69,7 +69,7 @@ trying to write an easter egg, or whatever.
 
 As the list of keycodes is quite large and rather rarely used in application
 code, we've put it in a separately-loaded module to save space.  As an
-alternative, you might want to investigate L<Gtk2::Gdk->keyval_from_name> which
+alternative, you might want to investigate C<Gtk2::Gdk-E<gt>keyval_from_name> which
 offers basically the same functionality as the hash.
 
 To get a list of all available keys, either dump C<%Gtk2::Gdk::Keysyms>, or
@@ -83,7 +83,7 @@ programs of all.
 
 =head1 COPYRIGHT
 
-Copyright (C) 2003 by the gtk2-perl team (see the file AUTHORS for the
+Copyright (C) 2003, 2009 by the gtk2-perl team (see the file AUTHORS for the
 full list)
 
 This library is free software; you can redistribute it and/or modify it under
@@ -102,4 +102,4 @@ Temple Place - Suite 330, Boston, MA  02111-1307  USA.
 
 =head1 SEE ALSO
 
-perl(1), Gtk2(3pm)
+L<perl>, L<Gtk2>, L<Gtk2::Gdk>
