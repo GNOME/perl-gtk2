@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003 by the gtk2-perl team (see the file AUTHORS)
+ * Copyright (c) 2003, 2009 by the gtk2-perl team (see the file AUTHORS)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -212,7 +212,7 @@ gdk_keyval_from_name (class, keyval_name)
 
 ##  void gdk_keyval_convert_case (guint symbol, guint *lower, guint *upper)
 =for apidoc
-=for signature (lower, upper) = Gtk2::Gdk::Keyval->convert_case ($symbol)
+=for signature (lower, upper) = Gtk2::Gdk->keyval_convert_case ($symbol)
 =cut
 void
 gdk_keyval_convert_case (class, symbol)
