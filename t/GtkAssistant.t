@@ -3,7 +3,7 @@
 
 use strict;
 use Gtk2::TestHelper
-  tests => 27,
+  tests => 26,
   at_least_version => [2, 10, 0, "GtkAssistant is new in 2.10"];
 
 #typedef gint (*GtkAssistantPageFunc) (gint current_page, gpointer data);
@@ -39,7 +39,6 @@ is ($assistant->get_current_page (), -1, "none set yet");
 $assistant->set_current_page (3);
 is ($assistant->get_current_page (), 3);
 
-ok (! $assistant->get_nth_page (-1));
 my $page = $assistant->get_nth_page (2);
 isa_ok ($page, 'Gtk2::Widget');
 
