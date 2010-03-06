@@ -68,7 +68,11 @@ sub on_thing1_changed {
 
 my $view1 = $builder->get_object ('view1');
 isa_ok ($view1, 'TestThingView');
-is ($view1->get_name (), 'view1');
+# TestThingView doesn't directly implement Gtk2::Buildable, thus it's not first
+# in the @ISA chain.  So get_name() alone actually resolves to
+# Gtk2::Widget::get_name(), which breaks things as of gtk+ commit
+# 46f5ee1d0c0f4601853ed57e99b1b513f1baa445.  So fully qualify the method.
+is ($view1->Gtk2::Buildable::get_name (), 'view1');
 ok (! $view1->get ('visible'));
 is ($view1->get ('thing'), $thing1);
 is ($view1->get ('color-string'), 'purple');
