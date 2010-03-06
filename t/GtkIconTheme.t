@@ -59,7 +59,8 @@ SKIP: {
 	skip 'get_icon_sizes returned empty, can not test them', 1
 		unless (@sizes);
 
-	like ($sizes[0], qr/^\d+$/);
+	# -1 means scalable
+	like ($sizes[0], qr/^(?:-1|\d+)$/);
 }
 
 SKIP: {
