@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 123;
+use Gtk2::TestHelper tests => 124;
 
 # $Id$
 
@@ -641,6 +641,9 @@ $view->signal_connect (button_press_event => sub {
 		isa_ok ($res[0], 'Gtk2::TreePath', 'get_path_at_pos, path');
 		isa_ok ($res[1], 'Gtk2::TreeViewColumn', 'get_path_at_pos, col');
 		ok (defined $res[2] && defined $res[3], 'get_path_at_pos, pos');
+
+		my $path = $view->get_path_at_pos ($e->x, $e->y);
+		isa_ok ($path, 'Gtk2::TreePath', 'get_path_at_pos in scalar context, path');
 
 		@res = $view->tree_to_widget_coords (10, 10);
 		is (scalar (@res), 2, 'tree_to_widget_coords, num returns');
