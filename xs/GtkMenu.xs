@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003-2005 by the gtk2-perl team (see the file AUTHORS)
+ * Copyright (c) 2003-2005, 2010 by the gtk2-perl team (see the file AUTHORS)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -111,6 +111,23 @@ gtk_menu_new (class)
     C_ARGS:
 	/* void */
 
+=for apidoc
+If C<$menu_pos_func> is not C<undef> it's called as
+
+    ($x, $y, $push_in) = &$menu_pos_func ($menu, $x, $y, $data)
+
+C<$x>,C<$y> inputs are a proposed position based on the mouse pointer
+(not actually documented in the Gtk manuals).  The return should be a
+desired C<$x>,C<$y>, and an optional C<$push_in> flag.  If C<$push_in>
+is true then Gtk will adjust C<$x>,C<$y> if necessary so the menu is
+fully visible in the screen width and height.
+
+C<$menu_pos_func> and C<$data> are stored in C<$menu> and may be
+called again later for obscure things like a C<set_screen> while
+torn-off, or a parent MenuItem move or resize while popped up.
+A further C<< $menu->popup >> call replaces C<$menu_pos_func> and
+C<$data>.
+=cut
 void
 gtk_menu_popup (menu, parent_menu_shell, parent_menu_item, menu_pos_func, data, button, activate_time)
 	GtkMenu	* menu
