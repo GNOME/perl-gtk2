@@ -84,7 +84,6 @@ Gtk2.pm
 gtk2perl-private.h
 gtk2perl.h
 LICENSE
-MAINTAINERS
 Makefile.PL
 MANIFEST
 MANIFEST.SKIP
@@ -105,6 +104,7 @@ maps_pango-1.4
 maps_pango-1.6
 maps_pango-1.8
 NEWS
+perl-Gtk2.doap
 perl-Gtk2.spec.in
 pm/Helper.pm
 pm/Pango.pm
@@ -328,6 +328,7 @@ t/PangoScript.t
 t/PangoTabs.t
 t/PangoTypes.t
 t/set-scroll-adjustments-signal.t
+t/signal-chaining.t
 t/version-checks.t
 TODO
 tools/fetch_faq.pl
