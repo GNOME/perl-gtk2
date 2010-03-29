@@ -130,6 +130,58 @@ gtk2perl_editable_insert_text_marshal (GClosure * closure,
 
 MODULE = Gtk2::Editable	PACKAGE = Gtk2::Editable	PREFIX = gtk_editable_
 
+=for position post_signals
+
+The C<insert-text> signal handler can optionally alter the text to be
+inserted.  It may
+
+=over 4
+
+=item
+
+Return no values for no change.  Be sure to end with an empty
+C<return>.
+
+    sub my_insert_text_handler {
+      my ($widget, $text, $len, $pos, $userdata) = @_;
+      print "inserting '$text' at char position '$pos'\n";
+      return;  # no values
+    }
+
+=item
+
+Return two values C<($text, $pos)> which are the new text and
+character position.
+
+    sub my_insert_text_handler {
+      my ($widget, $text, $len, $pos, $userdata) = @_;
+      return (uc($text), $pos);  # force to upper case
+    }
+
+=item
+
+Return no values and modify the text in C<$_[1]> and/or position in
+C<$_[3]>.  For example,
+
+    sub my_insert_text_handler {
+      $_[1] = uc($_[1]);   # force to upper case
+      $_[3] = 0;           # force position to the start
+      return;  # no values
+    }
+
+=back
+
+Note that currently in a Perl subclass of a C<Gtk2::Editable> widget,
+a class closure (ie. class default signal handler) for C<insert-text>
+does not work this way.  It instead sees the C level C<($text, $len,
+$pos_pointer)>, where C<$pos_pointer> is a machine address and cannot
+be used easily.  Hopefully this will change in the future.
+A C<signal_chain_from_overridden> with the args as passed works, but
+for anything else the suggestion is to use a C<signal_connect>
+instead.
+
+=cut
+
 BOOT:
 	gperl_signal_set_marshaller_for (GTK_TYPE_EDITABLE, "insert_text",
 	                                 gtk2perl_editable_insert_text_marshal);
