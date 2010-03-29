@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 14;
+use Gtk2::TestHelper tests => 18;
 
 # $Id$
 
@@ -66,7 +66,51 @@ SKIP: {
   is ($item -> get_accel_path(), '<bla>/bla/bla');
 }
 
+#-----------------------------------------------------------------------------
+# circular ref between MenuItem and child AccelLabel
+#
+# These tests verify what's described in the pod of Gtk2::MenuItem->new,
+# ->new_with_label and ->new_with_mnemonic, namely that circa Gtk 2.18 an
+# item created with a label gets a circular reference up from the child
+# AccelLabel "accel-widget" property and thus needs ->destroy or similar.
+#
+# If the MenuItems here are in fact destroyed by weakening then that'd be
+# fine for the code, but the docs would be wrong, for some or other Gtk
+# version.
+#
+require Scalar::Util;
+{
+  my $item = Gtk2::MenuItem->new("foo");
+  Scalar::Util::weaken ($item);
+  ok ($item, 'new("foo") not destroyed by weakening (correctness of the docs)');
+  if ($item) { $item->destroy; }
+}
+{
+  my $item = Gtk2::MenuItem->new_with_label("foo");
+  Scalar::Util::weaken ($item);
+  ok ($item, 'new_with_label("foo") not destroyed by weakening (correctness of the docs)');
+  if ($item) { $item->destroy; }
+}
+{
+  my $item = Gtk2::MenuItem->new_with_mnemonic("foo");
+  Scalar::Util::weaken ($item);
+  ok ($item, 'new_with_mnemonic("foo") not destroyed by weakening (correctness of the docs)');
+  if ($item) { $item->destroy; }
+}
+
+SKIP: {
+  # "label" property new in Gtk 2.16
+  skip 'new 2.16 stuff', 1
+    unless Gtk2->CHECK_VERSION(2, 16, 0);
+
+  my $item = Gtk2::MenuItem->new;
+  $item->set (label => "foo");
+  Scalar::Util::weaken ($item);
+  ok ($item, 'set(label=>"foo") not destroyed by weakening (correctness of the docs)');
+  if ($item) { $item->destroy; }
+}
+
 __END__
 
-Copyright (C) 2003 by the gtk2-perl team (see the file AUTHORS for the
+Copyright (C) 2003, 2010 by the gtk2-perl team (see the file AUTHORS for the
 full list).  See LICENSE for more information.

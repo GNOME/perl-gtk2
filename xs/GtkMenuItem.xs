@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003 by the gtk2-perl team (see the file AUTHORS)
+ * Copyright (c) 2003, 2010 by the gtk2-perl team (see the file AUTHORS)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -77,6 +77,25 @@ gtk2perl_menu_item_toggle_size_request_marshal (GClosure * closure,
 }
 
 MODULE = Gtk2::MenuItem	PACKAGE = Gtk2::MenuItem	PREFIX = gtk_menu_item_
+
+=for position DESCRIPTION
+
+=head1 DESCRIPTION
+
+If a MenuItem is created with a C<$label> string, or if the C<label>
+property is set later, then it should be destroyed with
+C<< $item->destroy >>.  Just dropping the last Perl ref is not enough
+because (as of Gtk through to 2.18) there's a circular reference from
+the child C<Gtk2::AccelLabel> back up to the item (the C<accel-widget>
+property).
+
+When a MenuItem is in a C<Gtk2::Menu> a C<destroy> happens
+automatically.  Dropping the last ref to a Menu calls C<destroy> on
+its children, as usual for a container.  But if you remove a MenuItem
+with a label from a menu (or never add it to one) then be sure to
+C<< $item->destroy >> explicitly.
+
+=cut
 
 BOOT:
 	gperl_signal_set_marshaller_for (GTK_TYPE_MENU_ITEM, "toggle_size_request",

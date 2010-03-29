@@ -23,6 +23,19 @@
 
 MODULE = Gtk2::AccelLabel	PACKAGE = Gtk2::AccelLabel	PREFIX = gtk_accel_label_
 
+=for position DESCRIPTION
+
+=head1 DESCRIPTION
+
+Note that the C<accel-widget> property is a hard reference to the
+target widget.  If it's a container parent of the AccelLabel then it
+will be a circular reference and will have to be unset by an explicit
+C<destroy> when no longer wanted, as usual for such things.  See
+L<Gtk2::MenuItem> for how this affects the common case of a MenuItem
+containing a AccelLabel.
+
+=cut
+
 ## GtkWidget* gtk_accel_label_new (const gchar *string)
 GtkWidget *
 gtk_accel_label_new (class, string)
