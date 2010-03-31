@@ -44,7 +44,7 @@ gtk_accel_label_new (class, string)
 	string
 
 ## GtkWidget* gtk_accel_label_get_accel_widget (GtkAccelLabel *accel_label)
-GtkWidget *
+GtkWidget_ornull *
 gtk_accel_label_get_accel_widget (accel_label)
 	GtkAccelLabel * accel_label
 
@@ -57,7 +57,7 @@ gtk_accel_label_get_accel_width (accel_label)
 void
 gtk_accel_label_set_accel_widget (accel_label, accel_widget)
 	GtkAccelLabel * accel_label
-	GtkWidget     * accel_widget
+	GtkWidget_ornull * accel_widget
 
 # TODO: The docs say that the "closure must be connected to an accelerator
 # group", but how do we find the GClosure that was created in the xsub for
