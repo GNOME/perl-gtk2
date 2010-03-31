@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003-2005 by the gtk2-perl team (see the file AUTHORS)
+ * Copyright (c) 2003-2005, 2010 by the gtk2-perl team (see the file AUTHORS)
  *
  * Licensed under the LGPL, see LICENSE file for more information.
  *
@@ -180,9 +180,10 @@ gtk2perl_tree_model_get_column_type (GtkTreeModel *tree_model,
 static SV *
 sv_from_iter (GtkTreeIter * iter)
 {
-	AV * av = newAV ();
+	AV * av;
 	if (!iter)
 		return &PL_sv_undef;
+	av = newAV ();
 	av_push (av, newSVuv (iter->stamp));
 	av_push (av, newSViv (PTR2IV (iter->user_data)));
 	av_push (av, iter->user_data2 ? newRV (iter->user_data2) : &PL_sv_undef);
