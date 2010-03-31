@@ -123,10 +123,9 @@ is true then Gtk will adjust C<$x>,C<$y> if necessary so the menu is
 fully visible in the screen width and height.
 
 C<$menu_pos_func> and C<$data> are stored in C<$menu> and may be
-called again later for obscure things like a C<set_screen> while
-torn-off, or a parent MenuItem move or resize while popped up.
-A further C<< $menu->popup >> call replaces C<$menu_pos_func> and
-C<$data>.
+called again later for a C<< $menu->reposition >> or some obscure
+things like a changed C<set_screen> while torn-off.  A further
+C<< $menu->popup >> call replaces C<$menu_pos_func> and C<$data>.
 =cut
 void
 gtk_menu_popup (menu, parent_menu_shell, parent_menu_item, menu_pos_func, data, button, activate_time)
