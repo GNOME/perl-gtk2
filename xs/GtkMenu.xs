@@ -141,6 +141,7 @@ gtk_menu_popup (menu, parent_menu_shell, parent_menu_item, menu_pos_func, data, 
 	if (!gperl_sv_is_defined (menu_pos_func)) {
 		gtk_menu_popup (menu, parent_menu_shell, parent_menu_item,
 		                NULL, NULL, button, activate_time);
+		g_object_set_data (G_OBJECT(menu), "_menu_pos_callback", NULL);
 	} else {
 		GPerlCallback * callback;
 		/* we don't need to worry about the callback arg types since

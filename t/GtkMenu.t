@@ -8,7 +8,7 @@
 # 	- rm
 #########################
 
-use Gtk2::TestHelper tests => 57;
+use Gtk2::TestHelper tests => 61;
 
 ok( my $menubar = Gtk2::MenuBar->new );
 
@@ -124,6 +124,30 @@ $menu->popup(undef, undef, $position_callback, "bla", 1, 0);
 $menu->popdown;
 ok(TRUE);
 
+# crib note: $position_callback sub must be a proper closure referring to a
+# variable outside itself to weaken away like this
+require Scalar::Util;
+Scalar::Util::weaken($position_callback);
+ok ($position_callback, 'popup() holds onto position_callback');
+
+my $next_position_callback_variable = 0;
+my $next_position_callback = sub { $next_position_callback_variable++;
+                                   return (50,50) };
+$menu->popup(undef, undef, $next_position_callback, undef, 1, 0);
+$menu->popdown;
+is ($position_callback, undef,
+    'next popup() drops previously held position_callback');
+
+# crib note: again $next_position_callback must refer to a variable outside
+# itself to weaken away like this
+require Scalar::Util;
+Scalar::Util::weaken($next_position_callback);
+ok ($next_position_callback, 'popup() holds onto next_position_callback');
+$menu->popup(undef, undef, undef, undef, 1, 0);
+$menu->popdown;
+is ($next_position_callback, undef,
+    'popup() with no position func drops held position_callback');
+
 # If we never entered the pos. callback, fake four tests
 unless ($i_know_you) {
 	foreach (0 .. 3) {
@@ -145,5 +169,5 @@ SKIP: {
 
 __END__
 
-Copyright (C) 2003 by the gtk2-perl team (see the file AUTHORS for the
+Copyright (C) 2003, 2010 by the gtk2-perl team (see the file AUTHORS for the
 full list).  See LICENSE for more information.
