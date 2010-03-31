@@ -255,7 +255,7 @@ gtk_menu_get_title (menu)
 void
 gtk_menu_set_screen (menu, screen)
 	GtkMenu   * menu
-	GdkScreen * screen
+	GdkScreen_ornull * screen
 
 #endif
 

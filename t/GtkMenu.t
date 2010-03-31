@@ -58,6 +58,7 @@ foreach $num (qw/1 2 3/)
 			unless Gtk2->CHECK_VERSION (2, 2, 0);
 
 		$menu->set_screen (Gtk2::Gdk::Screen->get_default);
+		$menu->set_screen (undef);
 	}
 
 	$menuitem = undef;
