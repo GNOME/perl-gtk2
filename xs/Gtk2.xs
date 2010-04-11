@@ -333,7 +333,12 @@ gtk_init (class=NULL)
 
 	if (ix == 2) {
 		RETVAL = gtk_init_check (&pargv->argc, &pargv->argv);
-	} else {
+	} else if (PL_minus_c) {
+		/* When in syntax check mode, we need to avoid calling gtk_init
+		 * even if asked to because it might abort the program (e.g. if
+		 * DISPLAY is not set). */
+		RETVAL = gtk_init_check (&pargv->argc, &pargv->argv);
+        } else {
 		gtk_init (&pargv->argc, &pargv->argv);
 		/* gtk_init() either succeeds or does not return. */
 		RETVAL = TRUE;
