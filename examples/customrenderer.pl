@@ -93,7 +93,10 @@ sub START_EDITING {
 		return FALSE;
 	});
 
+	# Make sure the entry has the correct height.  On some versions of
+	# gtk+, the entry would otherwise be just a few pixels tall.
 	$entry->set (height_request => $cell_area->height);
+
 	$entry->show;
 
 	return $entry;
