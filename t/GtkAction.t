@@ -5,7 +5,7 @@
 
 use Gtk2::TestHelper
 	at_least_version => [2, 4, 0, "Action-based menus are new in 2.4"],
-	tests => 19, noinit => 0;
+	tests => 17, noinit => 0;
 
 my $action = Gtk2::Action->new (name => 'Open',
                                 label => '_Open',
@@ -37,17 +37,11 @@ isa_ok ($widget, 'Gtk2::MenuItem');
 $widget = $action->create_tool_item;
 isa_ok ($widget, 'Gtk2::ToolItem');
 
-my @proxies = $action->get_proxies;
-is (@proxies, 1);
-
 my $proxy = Gtk2::Button->new;
 $action->connect_proxy ($proxy);
-@proxies = $action->get_proxies;
-is (@proxies, 2);
-
+my @proxies = $action->get_proxies;
+ok (grep {$_ == $proxy} @proxies);
 $action->disconnect_proxy ($proxy);
-@proxies = $action->get_proxies;
-is (@proxies, 1);
 
 $action->connect_accelerator;
 $action->disconnect_accelerator;
