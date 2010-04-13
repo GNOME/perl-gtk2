@@ -256,3 +256,10 @@ gdk_region_spans_intersect_foreach (region, spans_ref, sorted, func, data=NULL)
 
 	gperl_callback_destroy (callback);
 	g_free (spans);
+
+#if GTK_CHECK_VERSION (2, 18, 0)
+
+gboolean gdk_region_rect_equal (const GdkRegion *region, const GdkRectangle *rectangle);
+
+#endif
+

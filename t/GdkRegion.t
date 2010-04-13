@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 22, noinit => 1;
+use Gtk2::TestHelper tests => 23, noinit => 1;
 
 # $Id$
 
@@ -61,6 +61,14 @@ $region -> intersect($region_two);
 $region -> union($region_two);
 $region -> subtract($region_two);
 $region -> xor($region_two);
+
+SKIP: {
+  skip "new 2.18 stuff", 1
+	unless Gtk2 -> CHECK_VERSION(2, 18, 0);
+	my $region= Gtk2::Gdk::Region -> rectangle($rectangle_one);
+	ok(!$region->rect_equal($rectangle_two), 'rect_equal');
+}
+
 
 __END__
 
