@@ -94,6 +94,48 @@ const gchar* gtk_action_get_accel_path (GtkAction *action);
 
 #endif
 
+#if GTK_CHECK_VERSION (2, 16, 0)
+
+void gtk_action_set_label (GtkAction *action, const gchar *label);
+
+const gchar_ornull * gtk_action_get_label (GtkAction *action);
+
+void gtk_action_set_short_label (GtkAction *action, const gchar *short_label);
+
+const gchar_ornull * gtk_action_get_short_label (GtkAction *action);
+
+void gtk_action_set_tooltip (GtkAction *action, const gchar_ornull *tooltip);
+
+const gchar_ornull * gtk_action_get_tooltip (GtkAction *action);
+
+void gtk_action_set_stock_id (GtkAction *action,const gchar_ornull *stock_id);
+
+const gchar_ornull * gtk_action_get_stock_id (GtkAction *action);
+
+void gtk_action_set_icon_name (GtkAction *action, const gchar_ornull *icon_name);
+
+const gchar_ornull * gtk_action_get_icon_name (GtkAction *action);
+
+void gtk_action_set_visible_horizontal (GtkAction *action, gboolean visible_horizontal);
+
+gboolean gtk_action_get_visible_horizontal (GtkAction *action);
+
+void gtk_action_set_visible_vertical (GtkAction *action, gboolean visible_vertical);
+
+gboolean gtk_action_get_visible_vertical (GtkAction *action);
+
+void gtk_action_set_is_important (GtkAction *action, gboolean is_important);
+
+gboolean gtk_action_get_is_important (GtkAction *action);
+
+# FIXME GIcon not in typemap
+# void gtk_action_set_gicon (GtkAction *action, GIcon *icon);
+#
+# GIcon * gtk_action_get_gicon (GtkAction *action);
+
+#endif
+
+
 #if GTK_CHECK_VERSION (2, 10, 0)
 
 MODULE = Gtk2::Action	PACKAGE = Gtk2::Widget	PREFIX = gtk_widget_
@@ -101,3 +143,4 @@ MODULE = Gtk2::Action	PACKAGE = Gtk2::Widget	PREFIX = gtk_widget_
 GtkAction_ornull * gtk_widget_get_action (GtkWidget *widget);
 
 #endif
+

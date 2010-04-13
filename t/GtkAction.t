@@ -5,7 +5,7 @@
 
 use Gtk2::TestHelper
 	at_least_version => [2, 4, 0, "Action-based menus are new in 2.4"],
-	tests => 17, noinit => 0;
+	tests => 30, noinit => 0;
 
 my $action = Gtk2::Action->new (name => 'Open',
                                 label => '_Open',
@@ -109,6 +109,47 @@ SKIP: {
 		unless Gtk2->CHECK_VERSION (2, 12, 0);
 
 	is ($action->create_menu, undef);
+}
+
+SKIP: {
+	skip "new 2.16 stuff", 13
+		unless Gtk2->CHECK_VERSION (2, 16, 0);
+
+	$action->set_label('new label');
+	is ($action->get_label, 'new label', '[gs]et_label');
+
+	$action->set_short_label('new short label');
+	is ($action->get_short_label, 'new short label', '[gs]et_short_label');
+
+	# it seems resetting label and short_label to undef is not possible,
+	# so use a new gtkaction with no label/short_label to test the getters
+	my $a_undef = Gtk2::Action->new (name => 'Open');
+	is ($a_undef->get_label, undef, 'get_label with undef');
+	is ($a_undef->get_short_label, undef, 'get_short_label with undef');
+
+	$action->set_tooltip('new tooltip');
+	is ($action->get_tooltip, 'new tooltip', '[gs]et_tooltip');
+	$action->set_tooltip(undef);
+	is ($action->get_tooltip, undef, '[gs]et_tooltip with undef');
+
+	$action->set_stock_id('gtk-ok');
+	is ($action->get_stock_id, 'gtk-ok', '[gs]et_stock_id');
+	$action->set_stock_id(undef);
+	is ($action->get_stock_id, undef, '[gs]et_stock_id with undef');
+
+	$action->set_icon_name('my-icon-name');
+	is ($action->get_icon_name, 'my-icon-name', '[gs]et_icon_name');
+	$action->set_icon_name(undef);
+	is ($action->get_icon_name, undef, '[gs]et_icon_name with undef');
+
+	$action->set_visible_horizontal(FALSE);
+	is ($action->get_visible_horizontal, FALSE, '[gs]et_visible_horizontal');
+
+	$action->set_visible_vertical(FALSE);
+	is ($action->get_visible_vertical, FALSE, '[gs]et_visible_vertical');
+
+	$action->set_is_important(TRUE);
+	is ($action->get_is_important, TRUE, '[gs]et_is_important');
 }
 
 __END__
