@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 18;
+use Gtk2::TestHelper tests => 19;
 
 # $Id$
 
@@ -108,6 +108,15 @@ SKIP: {
   Scalar::Util::weaken ($item);
   ok ($item, 'set(label=>"foo") not destroyed by weakening (correctness of the docs)');
   if ($item) { $item->destroy; }
+}
+
+SKIP: {
+  skip 'new 2.18 stuff', 1
+	unless Gtk2->CHECK_VERSION(2, 18, 0);
+
+	my $item = Gtk2::MenuItem->new("_foo");
+	$item->set_use_underline(TRUE);
+	is( $item->get_use_underline, TRUE, '[gs]et_use_underline');
 }
 
 __END__

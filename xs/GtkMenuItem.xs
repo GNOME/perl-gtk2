@@ -171,3 +171,14 @@ gtk_menu_item_set_accel_path (menu_item, accel_path)
 const gchar* gtk_menu_item_get_accel_path (GtkMenuItem *menu_item);
 
 #endif /* 2.14 */
+
+#if GTK_CHECK_VERSION (2, 16, 0)
+
+gboolean
+gtk_menu_item_get_use_underline (GtkMenuItem *menu_item)
+
+void
+gtk_menu_item_set_use_underline (GtkMenuItem *menu_item, gboolean use_underline)
+
+#endif /* 2.16 */
+
