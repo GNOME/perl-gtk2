@@ -8,7 +8,7 @@
 # 	- rm
 #########################
 
-use Gtk2::TestHelper tests => 61;
+use Gtk2::TestHelper tests => 62;
 
 ok( my $menubar = Gtk2::MenuBar->new );
 
@@ -166,6 +166,14 @@ SKIP: {
 
 	$menu->set_monitor (0);
 	is ($menu->get_monitor, 0);
+}
+
+SKIP: {
+	skip 'new 2.18 stuff', 1
+		unless Gtk2->CHECK_VERSION(2, 18, 0);
+
+	$menu->set_reserve_toggle_size(FALSE);
+	is ($menu->get_reserve_toggle_size, FALSE, '[sg]et_reserve_toggle_size');
 }
 
 __END__

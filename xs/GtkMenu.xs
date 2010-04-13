@@ -289,3 +289,12 @@ const gchar* gtk_menu_get_accel_path (GtkMenu *menu);
 gint gtk_menu_get_monitor (GtkMenu *menu);
 
 #endif /* 2.14 */
+
+#if GTK_CHECK_VERSION (2, 18, 0)
+
+void gtk_menu_set_reserve_toggle_size (GtkMenu *menu, gboolean reserve_toggle_size);
+
+gboolean gtk_menu_get_reserve_toggle_size (GtkMenu *menu);
+
+#endif
+
