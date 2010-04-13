@@ -23,14 +23,19 @@
 #include <gperl_marshal.h>
 
 /*
+ * The next three functions are also used in GtkInfoBar.xs, thus they are not
+ * declared static.
+ */
+
+/*
  * GtkDialog interprets the response id as completely user-defined for
  * positive values, and as special enums for negative values.  so, we
  * will handle the response_id as a plain SV so we can implement this
  * special behavior.
  */
 
-static gint
-sv_to_response_id (SV * sv)
+gint
+gtk2perl_dialog_response_id_from_sv (SV * sv)
 {
 	int n;
 	if (looks_like_number (sv))
@@ -40,8 +45,8 @@ sv_to_response_id (SV * sv)
 	return n;
 }
 
-static SV *
-response_id_to_sv (gint response)
+SV *
+gtk2perl_dialog_response_id_to_sv (gint response)
 {
 	return gperl_convert_back_enum_pass_unknown (GTK_TYPE_RESPONSE_TYPE,
 	                                             response);
@@ -55,7 +60,7 @@ this custom marshaller allows us to catch and convert enum codes like those
 returned by $dialog->run , instead of requiring the callback to deal with
 the raw negative numeric values for the predefined constants.
 */
-static void
+void
 gtk2perl_dialog_response_marshal (GClosure * closure,
                                   GValue * return_value,
                                   guint n_param_values,
@@ -81,7 +86,7 @@ gtk2perl_dialog_response_marshal (GClosure * closure,
 	/* the second parameter for this signal is defined as an int
 	 * but is actually a response code, and can have GtkResponseType
 	 * values. */
-	XPUSHs (sv_2mortal (response_id_to_sv
+	XPUSHs (sv_2mortal (gtk2perl_dialog_response_id_to_sv
 				(g_value_get_int (param_values + 1))));
 
 	GPERL_CLOSURE_MARSHAL_PUSH_DATA;
@@ -368,7 +373,8 @@ gtk_dialog_new (class, ...)
 		/* skip the first 4 stack items --- we've already seen them! */
 		for (i = 4; i < items; i += 2) {
 			gchar * text = SvGChar (ST (i));
-			int response_id = sv_to_response_id (ST (i+1));
+			int response_id =
+				gtk2perl_dialog_response_id_from_sv (ST (i+1));
 			gtk_dialog_add_button (GTK_DIALOG (dialog), text,
 			                       response_id);
 		}
@@ -413,7 +419,7 @@ SV *
 gtk_dialog_run (dialog)
 	GtkDialog * dialog
     CODE:
-	RETVAL = response_id_to_sv (gtk_dialog_run (dialog));
+	RETVAL = gtk2perl_dialog_response_id_to_sv (gtk_dialog_run (dialog));
     OUTPUT:
 	RETVAL
 
@@ -428,7 +434,7 @@ gtk_dialog_response (dialog, response_id)
 	GtkDialog * dialog
 	SV        * response_id
     C_ARGS:
-	dialog, sv_to_response_id (response_id)
+	dialog, gtk2perl_dialog_response_id_from_sv (response_id)
 
 
 
@@ -444,7 +450,8 @@ gtk_dialog_add_button (dialog, button_text, response_id)
 	SV          * response_id
     CODE:
 	RETVAL = gtk_dialog_add_button (dialog, button_text,
-	                                sv_to_response_id (response_id));
+	                                gtk2perl_dialog_response_id_from_sv (
+	                                  response_id));
     OUTPUT:
 	RETVAL
 
@@ -454,18 +461,19 @@ Like calling C<< $dialog->add_button >> repeatedly, except you don't get the
 created widgets back.  The buttons go from left to right, so the first button
 added will be the left-most one.
 =cut
-void 
+void
 gtk_dialog_add_buttons (dialog, ...)
 	GtkDialog * dialog
     PREINIT:
 	int i;
     CODE:
-	if( !(items % 2) )
+	if (!(items % 2))
 		croak("gtk_dialog_add_buttons: odd number of parameters");
 	/* we can't make var args, so we'll call add_button for each */
-	for( i = 1; i < items; i += 2 )
-		gtk_dialog_add_button(dialog, SvGChar(ST(i)), 
-			sv_to_response_id(ST(i+1)));
+	for (i = 1; i < items; i += 2)
+		gtk_dialog_add_button (dialog, SvGChar (ST (i)),
+		                       gtk2perl_dialog_response_id_from_sv (
+		                         ST (i+1)));
 
 =for apidoc
 =for arg response_id (GtkResponseType)
@@ -478,7 +486,8 @@ gtk_dialog_set_response_sensitive (dialog, response_id, setting)
 	gboolean    setting
     CODE:
 	gtk_dialog_set_response_sensitive (dialog,
-	                                   sv_to_response_id (response_id),
+	                                   gtk2perl_dialog_response_id_from_sv (
+	                                     response_id),
 	                                   setting);
 
 =for apidoc
@@ -489,10 +498,10 @@ gtk_dialog_add_action_widget (dialog, child, response_id)
 	GtkDialog   * dialog
 	GtkWidget   * child
 	SV          * response_id
-    PREINIT:
     CODE:
 	gtk_dialog_add_action_widget (dialog, child,
-	                              sv_to_response_id (response_id));
+	                              gtk2perl_dialog_response_id_from_sv (
+	                                response_id));
 
 
 =for apidoc
@@ -504,7 +513,8 @@ gtk_dialog_set_default_response (dialog, response_id)
 	SV        * response_id
     CODE:
 	gtk_dialog_set_default_response (dialog,
-	                                 sv_to_response_id (response_id));
+	                                 gtk2perl_dialog_response_id_from_sv (
+	                                   response_id));
 
 void
 gtk_dialog_set_has_separator (dialog, setting)
@@ -528,7 +538,8 @@ gtk_dialog_set_alternative_button_order (dialog, ...)
 	if ((n_params = (items - 1)) > 0) {
 		new_order = g_new0 (gint, n_params);
 		for (i = 1; i < items; i++)
-			new_order[i - 1] = sv_to_response_id (ST (i));
+			new_order[i - 1] = gtk2perl_dialog_response_id_from_sv (
+			                     ST (i));
 
 		gtk_dialog_set_alternative_button_order_from_array (
 			dialog, n_params, new_order);
@@ -549,7 +560,7 @@ gtk_dialog_get_response_for_widget (dialog, widget)
 	gint tmp;
     CODE:
 	tmp = gtk_dialog_get_response_for_widget (dialog, widget);
-	RETVAL = response_id_to_sv (tmp);
+	RETVAL = gtk2perl_dialog_response_id_to_sv (tmp);
     OUTPUT:
 	RETVAL
 

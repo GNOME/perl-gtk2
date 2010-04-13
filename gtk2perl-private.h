@@ -43,4 +43,14 @@ gboolean gtk2perl_tree_view_row_separator_func (GtkTreeModel *model,
 				                gpointer      data);
 #endif
 
+/* Implemented in GtkDialog.xs. */
+gint gtk2perl_dialog_response_id_from_sv (SV * sv);
+SV * gtk2perl_dialog_response_id_to_sv (gint response);
+void gtk2perl_dialog_response_marshal (GClosure * closure,
+                                       GValue * return_value,
+                                       guint n_param_values,
+                                       const GValue * param_values,
+                                       gpointer invocation_hint,
+                                       gpointer marshal_data);
+
 #endif /* _GTK2PERL_PRIVATE_H_ */
