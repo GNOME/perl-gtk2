@@ -195,6 +195,12 @@ gboolean gdk_keymap_have_bidi_layouts (GdkKeymap *keymap);
 
 #endif
 
+#if GTK_CHECK_VERSION (2, 16, 0)
+
+gboolean gdk_keymap_get_caps_lock_state (GdkKeymap *keymap);
+
+#endif
+
 MODULE = Gtk2::Gdk::Keys PACKAGE = Gtk2::Gdk PREFIX = gdk_
 
 gchar *

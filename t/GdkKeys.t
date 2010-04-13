@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 43;
+use Gtk2::TestHelper tests => 44;
 
 # $Id$
 
@@ -84,6 +84,13 @@ SKIP: {
     unless Gtk2 -> CHECK_VERSION(2, 12, 0);
 
   ok(defined($map -> have_bidi_layouts()));
+}
+
+SKIP: {
+  skip "new 2.16 stuff", 1
+    unless Gtk2 -> CHECK_VERSION(2, 16, 0);
+
+  ok(defined($map -> get_caps_lock_state), 'get_caps_lock_state');
 }
 
 my $a = $Gtk2::Gdk::Keysyms{ a };
