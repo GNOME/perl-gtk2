@@ -108,3 +108,12 @@ void gtk_range_set_fill_level (GtkRange *range, gdouble fill_level);
 gdouble gtk_range_get_fill_level (GtkRange *range);
 
 #endif
+
+#if GTK_CHECK_VERSION (2, 18, 0)
+
+gboolean gtk_range_get_flippable (GtkRange *range);
+
+void gtk_range_set_flippable (GtkRange *range, gboolean flippable);
+
+#endif
+

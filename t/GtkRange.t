@@ -1,7 +1,7 @@
 #!/usr/bin/perl -w
 # vim: set ft=perl :
 use strict;
-use Gtk2::TestHelper tests => 10;
+use Gtk2::TestHelper tests => 11;
 
 # $Id$
 
@@ -48,6 +48,14 @@ SKIP: {
 
 	$range -> set_fill_level(0.23);
 	delta_ok($range -> get_fill_level(), 0.23);
+}
+
+SKIP: {
+        skip 'new stuff in 2.18', 1
+                unless Gtk2 -> CHECK_VERSION(2, 18, 0);
+
+	$range -> set_flippable(TRUE);
+	ok($range -> get_flippable, '[gs]et_flippable');
 }
 
 __END__
