@@ -61,6 +61,12 @@ void gdk_cairo_set_source_pixmap (cairo_t *cr, GdkPixmap *pixmap, double pixmap_
 
 #endif
 
+#if GTK_CHECK_VERSION (2, 18, 0)
+
+void gdk_cairo_reset_clip (cairo_t *cr, GdkDrawable *drawable);
+
+#endif
+
 # ---------------------------------------------------------------------------- #
 
 MODULE = Gtk2::Gdk::Cairo	PACKAGE = Gtk2::Gdk::Screen	PREFIX = gdk_screen_
@@ -72,3 +78,4 @@ const cairo_font_options_t_ornull* gdk_screen_get_font_options (GdkScreen *scree
 void gdk_screen_set_font_options (GdkScreen *screen, const cairo_font_options_t_ornull *options);
 
 #endif
+

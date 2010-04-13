@@ -47,6 +47,13 @@ SKIP: {
     $context -> set_source_pixmap($pixmap, 10, 10);
 }
 
+SKIP: {
+    skip "reset_clip is new in gtk+ 2.18", 0
+        unless Gtk2 -> CHECK_VERSION(2, 18, 0);
+
+    $context->reset_clip ($window->window);
+}
+
 __END__
 
 Copyright (C) 2005-2008 by the gtk2-perl team (see the file AUTHORS for the
