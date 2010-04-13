@@ -309,3 +309,12 @@ void gtk_icon_view_set_tooltip_column (GtkIconView *icon_view, gint column);
 gint gtk_icon_view_get_tooltip_column (GtkIconView *icon_view);
 
 #endif
+
+#if GTK_CHECK_VERSION (2, 18, 0)
+
+void gtk_icon_view_set_item_padding (GtkIconView *icon_view, gint item_padding);
+
+gint gtk_icon_view_get_item_padding (GtkIconView *icon_view);
+
+#endif
+

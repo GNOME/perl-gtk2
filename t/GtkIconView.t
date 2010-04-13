@@ -14,7 +14,7 @@
 use strict;
 use warnings;
 
-use Gtk2::TestHelper tests => 56,
+use Gtk2::TestHelper tests => 57,
     at_least_version => [2, 6, 0, "GtkIconView is new in 2.6"],
     ;
 
@@ -210,6 +210,19 @@ SKIP: {
 
 	my ($bx, $by) = $iview->convert_widget_to_bin_window_coords (0, 0);
 	is_deeply ([$bx, $by], [0, 0]);
+}
+
+SKIP: {
+	skip 'new 2.18 stuff', 1
+		unless Gtk2->CHECK_VERSION (2, 18, 0);
+
+	my $win = Gtk2::Window->new;
+	my $model = create_store ();
+	fill_store ($model, get_pixbufs ($win));
+	my $iview = Gtk2::IconView->new_with_model ($model);
+
+	$iview->set_item_padding(2);
+	is ($iview->get_item_padding, 2, '[gs]et_icon_padding');
 }
 
 SKIP: {
