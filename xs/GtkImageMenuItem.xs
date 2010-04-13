@@ -82,5 +82,10 @@ gtk_image_menu_item_set_accel_group (image_menu_item, accel_group)
 	GtkImageMenuItem * image_menu_item
 	GtkAccelGroup    * accel_group
 
+
+gboolean gtk_image_menu_item_get_always_show_image (GtkImageMenuItem *image_menu_item);
+
+void	 gtk_image_menu_item_set_always_show_image (GtkImageMenuItem *image_menu_item, gboolean always_show);
+
 #endif /* 2.16 */
 

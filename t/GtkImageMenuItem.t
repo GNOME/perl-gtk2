@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 11;
+use Gtk2::TestHelper tests => 12;
 
 # $Id$
 
@@ -28,7 +28,7 @@ $item -> set_image($image);
 is($item -> get_image(), $image);
 
 SKIP: {
-	skip 'use_stock methods', 4
+	skip 'use_stock methods', 5
 		unless Gtk2->CHECK_VERSION(2, 16, 0);
 
 	# Get an item from a stock and test the getter/setter
@@ -48,6 +48,10 @@ SKIP: {
 	# the method call is tested for a crash
 	my $with_accelartor = Gtk2::ImageMenuItem -> new_from_stock("gtk-no");
 	$from_stock -> set_accel_group(Gtk2::AccelGroup -> new());
+
+	my $imagemitem = Gtk2::ImageMenuItem->new_from_stock("gtk-yes");
+	$imagemitem->set_always_show_image(TRUE);
+	is( $imagemitem->get_always_show_image, TRUE, '[gs]et_always_show_image');
 }
 
 __END__
