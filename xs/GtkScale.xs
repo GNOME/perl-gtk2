@@ -69,3 +69,17 @@ gtk_scale_get_layout (scale)
 void gtk_scale_get_layout_offsets (GtkScale *scale, OUTLIST gint x, OUTLIST gint y)
 
 #endif
+
+#if GTK_CHECK_VERSION (2, 16, 0)
+
+## void gtk_scale_add_mark (GtkScale *scale, gdouble value, GtkPositionType  position, const gchar *markup)
+void
+gtk_scale_add_mark (scale, value, position, markup)
+	GtkScale *scale
+	gdouble   value
+	GtkPositionType   position
+	const gchar_ornull *markup
+
+void gtk_scale_clear_marks (GtkScale *scale)
+
+#endif

@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 6;
+use Gtk2::TestHelper tests => 7;
 
 # $Id$
 
@@ -26,7 +26,18 @@ SKIP: {
   is(@{[$scale -> get_layout_offsets()]}, 2);
 }
 
+SKIP: {
+  skip("gtk_scale_add_mark and gtk_scale_clear_marks are new in 2.16", 1)
+    unless Gtk2->CHECK_VERSION (2, 16, 0);
+
+    # no way to test it other than checking they don't crash
+  $scale -> add_mark(50,'top','this is the middle');
+  $scale -> add_mark(80,'bottom',undef);
+  $scale -> clear_marks;
+  ok(1,"add_mark and clear_marks");
+}
+
 __END__
 
-Copyright (C) 2003 by the gtk2-perl team (see the file AUTHORS for the
+Copyright (C) 2003,2010 by the gtk2-perl team (see the file AUTHORS for the
 full list).  See LICENSE for more information.
