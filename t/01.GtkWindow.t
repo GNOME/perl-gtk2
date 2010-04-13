@@ -10,7 +10,7 @@
 
 #########################
 
-use Gtk2::TestHelper tests => 114;
+use Gtk2::TestHelper tests => 116;
 
 ok( my $win = Gtk2::Window->new );
 ok( $win = Gtk2::Window->new('popup') );
@@ -388,6 +388,17 @@ SKIP: {
 	is (scalar @list, 3);
 	isa_ok ($list[0], 'Gtk2::Window');
 }
+
+SKIP: {
+	skip 'new 2.16 stuff', 2
+		unless Gtk2->CHECK_VERSION(2, 16, 0);
+
+	Gtk2::Window->set_default_icon_name (undef);
+	is (Gtk2::Window->get_default_icon_name,undef, '[gs]et_default_icon_name with undef');
+	Gtk2::Window->set_default_icon_name ('gtk-ok');
+	is (Gtk2::Window->get_default_icon_name,'gtk-ok', 'get_default_icon_name');
+}
+
 
 __END__
 

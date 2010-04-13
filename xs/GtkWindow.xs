@@ -690,7 +690,7 @@ const gchar_ornull * gtk_window_get_icon_name (GtkWindow  *window);
 ##  void gtk_window_set_default_icon_name (const gchar *name);
 void
 gtk_window_set_default_icon_name (class, name)
-	const gchar *name
+	const gchar_ornull *name
     C_ARGS:
 	name
 
@@ -731,6 +731,18 @@ gdouble gtk_window_get_opacity (GtkWindow *window);
 GtkWidget_ornull * gtk_window_get_default_widget (GtkWindow *window);
 
 #endif /* 2.14 */
+
+#if GTK_CHECK_VERSION (2, 16, 0)
+
+=for apidoc
+Gets the value set by C<< Gtk2::Window->set_default_icon_name >>.
+=cut
+## gchar * gtk_window_get_icon_name (void)
+const gchar_ornull *
+gtk_window_get_default_icon_name (class);
+    C_ARGS: /* void */
+
+#endif /* 2.16 */
 
 MODULE = Gtk2::Window	PACKAGE = Gtk2::WindowGroup	PREFIX = gtk_window_group_
 
