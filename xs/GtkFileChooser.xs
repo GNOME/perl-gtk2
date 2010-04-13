@@ -216,3 +216,12 @@ void gtk_file_chooser_set_do_overwrite_confirmation (GtkFileChooser *chooser, gb
 gboolean gtk_file_chooser_get_do_overwrite_confirmation (GtkFileChooser *chooser);
 
 #endif
+
+#if GTK_CHECK_VERSION (2, 18, 0)
+
+void gtk_file_chooser_set_create_folders (GtkFileChooser *chooser, gboolean create_folders);
+
+gboolean gtk_file_chooser_get_create_folders (GtkFileChooser *chooser);
+
+#endif
+

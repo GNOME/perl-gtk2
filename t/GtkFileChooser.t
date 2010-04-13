@@ -4,7 +4,7 @@
 
 use Gtk2::TestHelper
 	at_least_version => [2, 4, 0, 'GtkFileChooser is new in 2.4'],
-	tests => 42,
+	tests => 43,
 	skip_all => 'this test is unreliable',
 	;
 use File::Spec;
@@ -182,6 +182,14 @@ SKIP: {
 
 	$file_chooser->set_do_overwrite_confirmation (TRUE);
 	is ($file_chooser->get_do_overwrite_confirmation, TRUE);
+}
+
+SKIP: {
+	skip('new 2.18 stuff', 1)
+		unless Gtk2->CHECK_VERSION (2, 18, 0);
+
+	$file_chooser->set_create_folders (FALSE);
+	is ($file_chooser->get_create_folders, FALSE, '[gs]et_create_folders');
 }
 
 __END__
