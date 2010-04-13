@@ -12,7 +12,7 @@
 
 #########################
 
-use Gtk2::TestHelper tests => 30;
+use Gtk2::TestHelper tests => 32;
 
 my $win = Gtk2::Window->new;
 
@@ -102,6 +102,17 @@ SKIP: {
 
 	$label->set_line_wrap_mode('word');
 	is ($label->get_line_wrap_mode, 'word');
+}
+
+SKIP: {
+	skip 'new 2.18 stuff', 2
+		unless Gtk2->CHECK_VERSION (2, 18, 0);
+
+	$label->set_markup('<a href="http://example.com/uri">uri test</a>');
+	is ($label->get_current_uri,"http://example.com/uri",'get_current_uri');
+
+	$label->set_track_visited_links(FALSE);
+	is ($label->get_track_visited_links, FALSE, '[sg]et_track_visited_links');
 }
 
 1;

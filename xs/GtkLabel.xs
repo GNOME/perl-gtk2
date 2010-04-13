@@ -216,3 +216,14 @@ void gtk_label_set_line_wrap_mode (GtkLabel *label, PangoWrapMode wrap_mode);
 PangoWrapMode gtk_label_get_line_wrap_mode (GtkLabel *label);
 
 #endif
+
+#if GTK_CHECK_VERSION (2, 18, 0)
+
+const gchar * gtk_label_get_current_uri (GtkLabel *label)
+
+void  gtk_label_set_track_visited_links (GtkLabel *label, gboolean track_links)
+
+gboolean gtk_label_get_track_visited_links (GtkLabel *label)
+
+#endif
+
