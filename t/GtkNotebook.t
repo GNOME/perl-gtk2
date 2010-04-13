@@ -7,7 +7,7 @@
 # 	- rm
 #########################
 
-use Gtk2::TestHelper tests => 63;
+use Gtk2::TestHelper tests => 64;
 
 my $win = Gtk2::Window->new;
 
@@ -130,6 +130,15 @@ SKIP: {
 	# FIXME: How to test the callback marshalling?
 	$nb->set_window_creation_hook (sub { warn join ", ", @_; }, 'data');
 	$nb->set_window_creation_hook (sub { warn join ", ", @_; });
+}
+
+SKIP: {
+	skip "2.20 stuff", 1
+		unless Gtk2->CHECK_VERSION (2, 20, 0);
+
+	my $button=Gtk2::Button->new("click me");
+	$nb->set_action_widget($button,'end');
+	is ($nb->get_action_widget('end'), $button, '[gs]et_action_widget');
 }
 
 $win->show_all;

@@ -456,3 +456,12 @@ void gtk_notebook_set_tab_detachable (GtkNotebook *notebook, GtkWidget *child, g
 gboolean gtk_notebook_get_tab_detachable (GtkNotebook *notebook, GtkWidget *child);
 
 #endif /* 2.10 */
+
+#if GTK_CHECK_VERSION (2, 20, 0)
+
+void gtk_notebook_set_action_widget (GtkNotebook *notebook, GtkWidget *widget, GtkPackType pack_type);
+
+GtkWidget_ornull* gtk_notebook_get_action_widget (GtkNotebook *notebook, GtkPackType pack_type);
+
+#endif /* 2.20 */
+
