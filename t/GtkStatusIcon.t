@@ -4,7 +4,7 @@
 use strict;
 use warnings;
 use Gtk2::TestHelper
-  tests => 36,
+  tests => 37,
   at_least_version => [2, 10, 0, "Gtk2::StatusIcon is new in 2.10"];
 
 # $Id$
@@ -161,6 +161,14 @@ SKIP: {
 
 }
 
+SKIP: {
+  skip 'new 2.18 stuff', 1
+    unless Gtk2->CHECK_VERSION(2, 18, 0);
+
+  $icon->set_title('my statusicon title');
+  is ($icon->get_title, 'my statusicon title', '[gs]et_title');
+
+}
 
 __END__
 

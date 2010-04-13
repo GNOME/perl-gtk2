@@ -153,3 +153,12 @@ void gtk_status_icon_set_tooltip_text (GtkStatusIcon *status_icon,  const gchar_
 void gtk_status_icon_set_tooltip_markup (GtkStatusIcon *status_icon, const gchar_ornull *markup);
 
 #endif /* 2.16 */
+
+#if GTK_CHECK_VERSION (2, 18, 0)
+
+void gtk_status_icon_set_title (GtkStatusIcon *status_icon, const gchar *title);
+
+const gchar * gtk_status_icon_get_title (GtkStatusIcon *status_icon);
+
+#endif /* 2.18 */
+
