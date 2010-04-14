@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003 by the gtk2-perl team (see the file AUTHORS)
+ * Copyright (c) 2003, 2010 by the gtk2-perl team (see the file AUTHORS)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -50,12 +50,12 @@ gtk_text_mark_get_deleted (mark)
 	GtkTextMark *mark
 
 ## gchar* gtk_text_mark_get_name (GtkTextMark *mark);
-const gchar *
+const gchar_ornull *
 gtk_text_mark_get_name (mark)
 	GtkTextMark * mark
 
 ## GtkTextBuffer* gtk_text_mark_get_buffer (GtkTextMark *mark)
-GtkTextBuffer*
+GtkTextBuffer_ornull*
 gtk_text_mark_get_buffer (mark)
 	GtkTextMark *mark
 
