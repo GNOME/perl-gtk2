@@ -8,7 +8,7 @@
 # 	- rm
 #########################
 
-use Gtk2::TestHelper tests => 62;
+use Gtk2::TestHelper tests => 64;
 
 ok( my $menubar = Gtk2::MenuBar->new );
 
@@ -154,6 +154,21 @@ unless ($i_know_you) {
 	foreach (0 .. 3) {
 		ok (TRUE, 'faking pos. callback');
 	}
+}
+
+{
+  my $item = Gtk2::MenuItem->new;
+  my $menu = Gtk2::Menu->new;
+  my $detach_args;
+  my $detach_func = sub { $detach_args = \@_; };
+  $menu->attach_to_widget ($item, $detach_func);
+  $menu->detach;
+  is_deeply ($detach_args, [ $item, $menu ], 'detach callback args');
+
+  # crib note: $detach_func must be a closure referring to a variable
+  # outside itself to weaken away like this
+  Scalar::Util::weaken ($detach_func);
+  is ($detach_func, undef, 'detach callback func freed after called');
 }
 
 SKIP: {

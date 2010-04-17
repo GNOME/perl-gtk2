@@ -100,8 +100,13 @@ gtk2perl_menu_detach_func (GtkWidget *attach_widget,
 	callback = g_object_get_data (G_OBJECT (attach_widget),
 	                              "__gtk2perl_menu_detach_func__");
 
-	if (callback)
+	if (callback) {
 		gperl_callback_invoke (callback, NULL, attach_widget, menu);
+
+		/* free the handler after it's been called */
+		g_object_set_data (G_OBJECT (attach_widget),
+				   "__gtk2perl_menu_detach_func__", NULL);
+	}
 }
 
 MODULE = Gtk2::Menu	PACKAGE = Gtk2::Menu	PREFIX = gtk_menu_
@@ -195,15 +200,25 @@ gtk_menu_set_accel_path (menu, accel_path)
 	GtkMenu *menu
 	const gchar *accel_path
 
+=for apidoc
+Attach C<$menu> to C<$attach_widget>.  C<$menu> must not be currently
+attached to any other widget, including not a submenu of a
+C<Gtk2::MenuItem>.
+
+If C<$menu> is later detached from the widget with
+C<< $menu->detach >> then the C<$detach_func> is called as
+
+    &$detach_func ($attach_widget, $menu)
+=cut
 void
-gtk_menu_attach_to_widget (menu, attach_widget, detacher)
+gtk_menu_attach_to_widget (menu, attach_widget, detach_func)
 	GtkMenu *menu
 	GtkWidget *attach_widget
-	SV *detacher
+	SV *detach_func
     PREINIT:
 	GPerlCallback *callback;
     CODE:
-	callback = gtk2perl_menu_detach_func_create (detacher, NULL);
+	callback = gtk2perl_menu_detach_func_create (detach_func, NULL);
 
 	g_object_set_data_full (G_OBJECT (attach_widget),
 	                        "__gtk2perl_menu_detach_func__",
