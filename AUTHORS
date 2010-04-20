@@ -9,6 +9,9 @@ Goran Thyni              goran at kirra dot net
 Joern Reder              joern at zyn dot de
 Chas Owens               alas at wilma dot widomaker dot com
 Guillaume Cottenceau     gc at mandrakesoft dot com
+Kevin Ryde               user42 zip com au
+Emmanuel Rodriguez       emmanuel rodriguez gmail com
+Chris Sincock            csincock gmail com
 Quentin Sculo            squentin free fr
 
 Contributors - the people who sent us patches
@@ -30,11 +33,8 @@ Aristotle Pagaltzis      pagaltzis at gmx dot de
 LoneFox                  lonefox at welho dot com
 Marc 'HE' Brockschmidt   marc at marcbrockschmidt dot de
 Daniel Kasak             dkasak at nusconsulting dot com dot au
-Grant McLean		 grant at mclean dot net dot nz
-Philipp Rumpf		 prumpf at gmail dot com
-Kevin Ryde		 user42 zip com au
-Emmanuel Rodriguez       emmanuel rodriguez gmail com
-Chris Sincock		 csincock gmail com
+Grant McLean             grant at mclean dot net dot nz
+Philipp Rumpf            prumpf at gmail dot com
 
 several important bits of gtk2-perl were heavily inspired by pygtk, gtk-perl,
 and a good read-through of the gtk+ source code, so credit goes to those guys
