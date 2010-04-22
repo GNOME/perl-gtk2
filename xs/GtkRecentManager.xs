@@ -356,7 +356,7 @@ gtk_recent_info_get_application_info (info, app_name)
 	GtkRecentInfo *info
 	const gchar *app_name
     PREINIT:
-	gchar *app_exec;
+	const gchar *app_exec;
 	guint count;
 	time_t timestamp;
 	gboolean res;
@@ -371,7 +371,6 @@ gtk_recent_info_get_application_info (info, app_name)
 	PUSHs (sv_2mortal (newSVGChar (app_exec)));
 	PUSHs (sv_2mortal (newSVuv (count)));
 	PUSHs (sv_2mortal (newSViv (timestamp)));
-	g_free (app_exec); /* don't leak */
 
 =for apidoc
 =for signature (applications) = $info->get_applications
