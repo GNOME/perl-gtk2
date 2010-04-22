@@ -130,6 +130,8 @@ guint32 gdk_x11_display_get_user_time (GdkDisplay *display);
 
 #if GTK_CHECK_VERSION (2, 12, 0)
 
+# FIXME: gdk_x11_display_broadcast_startup_message
+
 const gchar *gdk_x11_display_get_startup_notification_id (GdkDisplay *display);
 
 #endif

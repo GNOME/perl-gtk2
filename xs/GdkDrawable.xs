@@ -277,6 +277,8 @@ gdk_draw_pixbuf (drawable, gc, pixbuf, src_x, src_y, dest_x, dest_y, width, heig
 ##	gint y
 ##	PangoGlyphString *glyphs
 
+ # FIXME: gdk_draw_glyphs_transformed
+
  ## void gdk_draw_layout_line (GdkDrawable *drawable, GdkGC *gc, gint x, gint y, PangoLayoutLine *line)
 void
 gdk_draw_layout_line (drawable, gc, x, y, line)

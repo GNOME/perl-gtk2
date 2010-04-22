@@ -300,3 +300,6 @@ gtk_tree_selection_unselect_range (selection, start_path, end_path)
 	GtkTreePath *end_path
 
 #endif /* >= 2.2.0 */
+
+# gtk_tree_selection_get_select_function is unbindable since it returns a bare
+# function pointer

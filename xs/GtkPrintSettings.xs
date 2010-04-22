@@ -121,6 +121,9 @@ gtk_print_settings_load_key_file (GtkPrintSettings *settings, GKeyFile *key_file
 
 #endif /* 2.14 */
 
+# We do not wrap the convenience getters and setters intentionally, but these
+# few slipped in accidentally:
+
 #if GTK_CHECK_VERSION (2, 16, 0)
 
 gdouble gtk_print_settings_get_printer_lpi (GtkPrintSettings *settings);
