@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 13;
+use Gtk2::TestHelper tests => 14;
 
 # $Id$
 
@@ -8,7 +8,7 @@ my $window = Gtk2::Window -> new();
 $window -> realize();
 
 SKIP: {
-  skip("X11 stuff", 11)
+  skip("X11 stuff", 12)
     unless $window -> window() -> can("get_xid");
 
   like($window -> window() -> get_xid(), qr/^\d+$/);
@@ -80,6 +80,14 @@ SKIP: {
     my $display = Gtk2::Gdk::Display -> get_default();
     my $startup_id = $display -> get_startup_notification_id();
     ok(TRUE); # $startup_id might be undef, so we can't really test
+  }
+
+  SKIP: {
+    skip '2.14 stuff', 1
+      unless Gtk2->CHECK_VERSION(2, 14, 0);
+
+    my $screen = Gtk2::Gdk::Screen -> get_default();
+    ok(defined $screen -> get_monitor_output(0));
   }
 }
 

@@ -175,6 +175,12 @@ gboolean gdk_x11_screen_supports_net_wm_hint (GdkScreen *screen, GdkAtom propert
 
 #endif /* 2.2.0 */
 
+#if GTK_CHECK_VERSION (2, 14, 0)
+
+UV gdk_x11_screen_get_monitor_output (GdkScreen *screen, gint monitor_num);
+
+#endif /* 2.14.0 */
+
 #endif /* GDK_WINDOWING_X11 */
 
 # --------------------------------------------------------------------------- #
