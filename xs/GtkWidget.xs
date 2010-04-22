@@ -631,8 +631,8 @@ gtk_widget_remove_accelerator (widget, accel_group, accel_key, accel_mods)
 void
 gtk_widget_set_accel_path (widget, accel_path, accel_group)
 	GtkWidget     * widget
-	const gchar   * accel_path
-	GtkAccelGroup * accel_group
+	const gchar_ornull   * accel_path
+	GtkAccelGroup_ornull * accel_group
 
  #GList*     gtk_widget_list_accel_closures (GtkWidget	       *widget);
 
@@ -1090,7 +1090,7 @@ gtk_widget_get_default_direction (class);
 
  #/* Counterpart to gdk_window_shape_combine_mask.
  # */
-void gtk_widget_shape_combine_mask (GtkWidget *widget, GdkBitmap *shape_mask, gint offset_x, gint offset_y);
+void gtk_widget_shape_combine_mask (GtkWidget *widget, GdkBitmap_ornull *shape_mask, gint offset_x, gint offset_y);
 
 
 

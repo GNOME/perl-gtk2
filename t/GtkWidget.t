@@ -92,6 +92,7 @@ use Gtk2::Gdk::Keysyms;
 my $accel_group = Gtk2::AccelGroup->new;
 $widget->add_accelerator ("activate", $accel_group, $Gtk2::Gdk::Keysyms{ Return }, qw/shift-mask/, qw/visible/);
 $widget->set_accel_path ("<gtk2perl>/Bla", $accel_group);
+$widget->set_accel_path (undef,undef);
 $widget->remove_accelerator ($accel_group, $Gtk2::Gdk::Keysyms{ Return }, qw/shift-mask/);
 
 isa_ok ($widget->intersect (Gtk2::Gdk::Rectangle->new (0, 0, 10000, 10000)),
@@ -373,6 +374,7 @@ my $bitmap = Gtk2::Gdk::Bitmap->create_from_data ($win->window, "", 1, 1);
 
 $win->realize;
 $widget->shape_combine_mask ($bitmap, 5, 5);
+$widget->shape_combine_mask (undef, 5, 5);
 
 SKIP: {
 	skip "stuff that's new in 2.2", 5
