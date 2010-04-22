@@ -108,6 +108,10 @@ gdk_event_get_package (GType gtype,
 	    case GDK_GRAB_BROKEN:
 		return "Gtk2::Gdk::Event::GrabBroken";
 #endif
+#if GTK_CHECK_VERSION (2, 14, 0)
+	    case GDK_DAMAGE:
+		return "Gtk2::Gdk::Event::Damage";
+#endif
 	    default:
 		{
 		GEnumClass * class = g_type_class_ref (GDK_TYPE_EVENT_TYPE);
