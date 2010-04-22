@@ -155,6 +155,7 @@ $window_two -> begin_paint_region($region);
 $window_two -> end_paint();
 
 $window_two -> invalidate_rect($rectangle, 1);
+$window_two -> invalidate_rect(undef, 1);
 $window_two -> invalidate_region($region, 1);
 
 # FIXME: never called?
@@ -185,6 +186,11 @@ my $bitmap = Gtk2::Gdk::Bitmap->create_from_data ($window, "", 1, 1);
 
 $window -> shape_combine_mask($bitmap, 5, 5);
 $window -> shape_combine_region($region, 1, 1);
+
+# test with undef
+$window -> shape_combine_mask(undef, 0, 0);
+$window -> shape_combine_region(undef, 0, 0);
+
 
 $window -> set_child_shapes();
 $window -> merge_child_shapes();
@@ -223,7 +229,11 @@ SKIP: {
   $window -> merge_child_input_shapes();
   $window -> input_shape_combine_mask($bitmap, 23, 42);
   $window -> input_shape_combine_region($region, 23, 42);
-  
+
+  # test with undef
+  $window -> input_shape_combine_mask(undef, 0,0);
+  $window -> input_shape_combine_region(undef, 0,0);
+
 }
 
 SKIP: {
@@ -261,6 +271,7 @@ isa_ok($window -> get_events(), "Gtk2::Gdk::EventMask");
 
 $window_three -> set_icon(undef, undef, undef);
 $window -> set_icon_name("Wheeee");
+$window -> set_icon_name(undef);
 $window -> set_transient_for($window_three);
 $window -> set_role("Playa");
 $window_three -> set_group($window_three);
