@@ -278,7 +278,7 @@ gdk_color_blue (color)
     OUTPUT:
     	RETVAL
 
-#if GTK_CHECK_VERSION (2, 11, 0)
+#if GTK_CHECK_VERSION (2, 12, 0)
 
 gchar_own * gdk_color_to_string (const GdkColor *color);
 
