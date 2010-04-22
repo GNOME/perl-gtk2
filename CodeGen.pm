@@ -375,7 +375,7 @@ __EOD__
     }
 
     $boot_code .= <<"__EOD__";
-	hv_store (tags_hv, "$options{export_tag}", strlen ("$options{export_tag}"), constants_ref_sv, 0);
+	gperl_hv_take_sv_s (tags_hv, "$options{export_tag}", constants_ref_sv);
 }
 __EOD__
 
