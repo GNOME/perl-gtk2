@@ -73,7 +73,9 @@ $win -> draw_polygon($gc, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6);
 $win -> draw_layout_line($gc, 10, 10, $layout -> get_line(0));
 $win -> draw_layout($gc, 10, 10, $layout);
 $win -> draw_layout_line_with_colors($gc, 10, 10, $layout -> get_line(0), $black, $black);
+$win -> draw_layout_line_with_colors($gc, 10, 10, $layout -> get_line(0), $black, undef);
 $win -> draw_layout_with_colors($gc, 10, 10, $layout, $black, $black);
+$win -> draw_layout_with_colors($gc, 10, 10, $layout, undef,  $black);
 $win -> draw_drawable($gc, $win, 5, 5, 5, 5, 10, 10);
 
 my $image = $win -> get_image(5, 5, 10, 10);
@@ -91,6 +93,9 @@ SKIP: {
     unless Gtk2->CHECK_VERSION (2, 2, 0);
 
   $win -> draw_pixbuf($gc, Gtk2::Gdk::Pixbuf -> new("rgb", 0, 8, 10, 10), 0, 0, 0, 0, -1, -1, "none", 5, 5);
+
+  #test with no gc
+  $win -> draw_pixbuf(undef, Gtk2::Gdk::Pixbuf -> new("rgb", 0, 8, 10, 10), 0, 0, 0, 0, -1, -1, "none", 5, 5);
 }
 
 SKIP: {

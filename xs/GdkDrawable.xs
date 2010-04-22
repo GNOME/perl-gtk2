@@ -252,7 +252,7 @@ gdk_draw_segments (drawable, gc, ...)
 void
 gdk_draw_pixbuf (drawable, gc, pixbuf, src_x, src_y, dest_x, dest_y, width, height, dither, x_dither, y_dither)
 	GdkDrawable *drawable
-	GdkGC *gc
+	GdkGC_ornull *gc
 	GdkPixbuf *pixbuf
 	gint src_x
 	gint src_y
@@ -305,8 +305,8 @@ gdk_draw_layout_line_with_colors (drawable, gc, x, y, line, foreground, backgrou
 	gint x
 	gint y
 	PangoLayoutLine *line
-	GdkColor *foreground
-	GdkColor *background
+	GdkColor_ornull *foreground
+	GdkColor_ornull *background
 
  ## void gdk_draw_layout_with_colors (GdkDrawable *drawable, GdkGC *gc, gint x, gint y, PangoLayout *layout, GdkColor *foreground, GdkColor *background)
 void
@@ -316,8 +316,8 @@ gdk_draw_layout_with_colors (drawable, gc, x, y, layout, foreground, background)
 	gint x
 	gint y
 	PangoLayout *layout
-	GdkColor *foreground
-	GdkColor *background
+	GdkColor_ornull *foreground
+	GdkColor_ornull *background
 
 ##  The docs say that "[t]his is low level functionality used internally to
 ##  implement rotated underlines and backgrouds when rendering a PangoLayout
