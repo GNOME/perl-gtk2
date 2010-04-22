@@ -153,11 +153,11 @@ gtk_adjustment_configure (adjustment, value, lower, upper, step_increment, page_
 	gdouble   page_size
 
 =for apidoc Gtk2::Adjustment::set_lower
-=for signature double = $adjustment->set_lower ($newval)
-=for signature double = $adjustment->set_page_increment ($newval)
-=for signature double = $adjustment->set_page_size ($newval)
-=for signature double = $adjustment->set_step_increment ($newval)
-=for signature double = $adjustment->set_upper ($newval)
+=for signature $adjustment->set_lower ($newval)
+=for signature $adjustment->set_page_increment ($newval)
+=for signature $adjustment->set_page_size ($newval)
+=for signature $adjustment->set_step_increment ($newval)
+=for signature $adjustment->set_upper ($newval)
 
 These functions differ from the plain C<< ->lower >> etc setters in that
 they emit C<notify> and C<changed> signals if C<$newval> is different from
@@ -183,7 +183,7 @@ same as the C<lower> etc field accessors above.
 =for apidoc set_upper __hide__
 =cut
 
-gdouble
+void
 set_lower (GtkAdjustment *adjustment, gdouble newval)
     ALIAS:
 	set_page_increment = 1
@@ -195,16 +195,14 @@ set_lower (GtkAdjustment *adjustment, gdouble newval)
 	    case 0: gtk_adjustment_set_lower (adjustment, newval);
 	            break;
 	    case 1: gtk_adjustment_set_page_increment (adjustment, newval);
-                    break;
+	            break;
 	    case 2: gtk_adjustment_set_page_size (adjustment, newval);
-                    break;
+	            break;
 	    case 3: gtk_adjustment_set_step_increment (adjustment, newval);
-                    break;
+	            break;
 	    case 4: gtk_adjustment_set_upper (adjustment, newval);
-                    break;
+	            break;
 	}
-    OUTPUT:
-	RETVAL
 
 #endif /* 2.14 */
 
