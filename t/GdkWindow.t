@@ -302,6 +302,7 @@ SKIP: {
     unless Gtk2 -> CHECK_VERSION(2, 12, 0);
 
   $window -> set_startup_id('bla');
+  $window -> set_opacity(1.0);
   $window -> set_composited(FALSE);
   # $window -> beep();
 }

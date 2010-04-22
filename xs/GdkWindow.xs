@@ -936,6 +936,8 @@ void gdk_window_beep (GdkWindow *window);
 
 void gdk_window_set_startup_id (GdkWindow *window, const gchar *startup_id);
 
+void gdk_window_set_opacity (GdkWindow *window, gdouble opacity);
+
 void gdk_window_set_composited (GdkWindow *window, gboolean composited);
 
 #endif
