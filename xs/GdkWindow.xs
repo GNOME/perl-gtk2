@@ -948,6 +948,20 @@ void gdk_window_remove_redirection (GdkWindow *window)
 
 #endif /* 2.14 */
 
+#if GTK_CHECK_VERSION (2, 18, 0)
+
+void gdk_window_flush (GdkWindow *window);
+
+gboolean gdk_window_ensure_native (GdkWindow *window);
+
+void gdk_window_geometry_changed (GdkWindow *window);
+
+GdkCursor_ornull * gdk_window_get_cursor (GdkWindow *window);
+
+void gdk_window_restack (GdkWindow *window, GdkWindow_ornull *sibling, gboolean above);
+
+#endif /* 2.18 */
+
 MODULE = Gtk2::Gdk::Window	PACKAGE = Gtk2::Gdk	PREFIX = gdk_
 
 GdkWindow *gdk_get_default_root_window (class)

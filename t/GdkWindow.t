@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 40;
+use Gtk2::TestHelper tests => 43;
 
 # $Id$
 
@@ -312,6 +312,24 @@ SKIP: {
 
   $window -> redirect_to_drawable($window_two, 0, 0, 0, 0, 10, 10);
   $window -> remove_redirection();
+}
+
+SKIP: {
+  skip 'new 2.18 stuff', 3
+    unless Gtk2->CHECK_VERSION(2, 18, 0);
+
+  my $window = Gtk2::Gdk::Window -> new(undef, { window_type => 'toplevel' });
+  $window -> flush();
+  ok($window -> ensure_native());
+  $window -> geometry_changed();
+
+  is($window -> get_cursor(), undef);
+  $window -> set_cursor(Gtk2::Gdk::Cursor -> new("arrow"));
+  isa_ok($window -> get_cursor(), 'Gtk2::Gdk::Cursor');
+
+  my $sibling = Gtk2::Gdk::Window -> new(undef, { window_type => 'toplevel' });
+  $window -> restack(undef, TRUE);
+  $window -> restack($sibling, TRUE);
 }
 
 $window -> hide();
