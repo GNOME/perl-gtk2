@@ -277,6 +277,9 @@ void gtk_entry_set_progress_pulse_step (GtkEntry *entry, gdouble fraction);
 
 void gtk_entry_unset_invisible_char (GtkEntry *entry);
 
+void gtk_entry_set_icon_drag_source (GtkEntry *entry, GtkEntryIconPosition icon_pos, GtkTargetList *target_list, GdkDragAction actions);
+
+gint gtk_entry_get_current_icon_drag_source (GtkEntry *entry);
 
 #endif /* 2.16 */
 

@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 61;
+use Gtk2::TestHelper tests => 63;
 
 # $Id$
 
@@ -100,7 +100,7 @@ SKIP: {
 }
 
 SKIP: {
-  skip '2.16 stuff', 38
+  skip '2.16 stuff', 40
     unless Gtk2->CHECK_VERSION(2, 16, 0);
 
   ## progress methods
@@ -199,6 +199,13 @@ sub test_icon_methods {
 
   $entry -> set_icon_tooltip_text($icon_pos, "Text tooltip");
   $entry -> set_icon_tooltip_text($icon_pos, undef);
+
+
+  $entry -> set_icon_drag_source(
+    $icon_pos,
+    Gtk2::TargetList->new({target => 'TEXT', flags => 'same-app', info => 23 }),
+    'move');
+  ok(defined $entry -> get_current_icon_drag_source());
 }
 
 __END__
