@@ -32,6 +32,8 @@ void gtk_im_multicontext_append_menuitems (GtkIMMulticontext *context, GtkMenuSh
 
 #if GTK_CHECK_VERSION (2, 16, 0)
 
+void gtk_im_multicontext_set_context_id (GtkIMMulticontext *context, const char *context_id);
+
 const char* gtk_im_multicontext_get_context_id (GtkIMMulticontext *context);
 
 #endif /* 2.16 */
