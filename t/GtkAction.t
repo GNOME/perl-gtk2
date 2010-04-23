@@ -150,6 +150,9 @@ SKIP: {
 
 	$action->set_is_important(TRUE);
 	is ($action->get_is_important, TRUE, '[gs]et_is_important');
+
+	$action->block_activate;
+	$action->unblock_activate;
 }
 
 __END__

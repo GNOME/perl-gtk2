@@ -133,6 +133,10 @@ gboolean gtk_action_get_is_important (GtkAction *action);
 #
 # GIcon * gtk_action_get_gicon (GtkAction *action);
 
+void gtk_action_block_activate (GtkAction *action);
+
+void gtk_action_unblock_activate (GtkAction *action);
+
 #endif
 
 
