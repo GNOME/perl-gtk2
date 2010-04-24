@@ -122,18 +122,28 @@ gtk_print_settings_load_key_file (GtkPrintSettings *settings, GKeyFile *key_file
 #endif /* 2.14 */
 
 # We do not wrap the convenience getters and setters intentionally, but these
-# few slipped in accidentally:
+# few slipped in accidentally.  We hide them in the generated POD.
 
 #if GTK_CHECK_VERSION (2, 16, 0)
 
+=for apidoc __hide__
+=cut
 gdouble gtk_print_settings_get_printer_lpi (GtkPrintSettings *settings);
 
+=for apidoc __hide__
+=cut
 gint gtk_print_settings_get_resolution_x (GtkPrintSettings *settings);
 
+=for apidoc __hide__
+=cut
 gint gtk_print_settings_get_resolution_y (GtkPrintSettings *settings);
 
+=for apidoc __hide__
+=cut
 void gtk_print_settings_set_printer_lpi  (GtkPrintSettings *settings, gdouble lpi);
 
+=for apidoc __hide__
+=cut
 void gtk_print_settings_set_resolution_xy (GtkPrintSettings *settings, gint resolution_x, gint resolution_y);
 
 #endif /* 2.16 */
