@@ -8,7 +8,7 @@
 # 	- rm
 #########################
 
-use Gtk2::TestHelper tests => 64;
+use Gtk2::TestHelper tests => 66;
 
 ok( my $menubar = Gtk2::MenuBar->new );
 
@@ -169,6 +169,23 @@ unless ($i_know_you) {
   # outside itself to weaken away like this
   Scalar::Util::weaken ($detach_func);
   is ($detach_func, undef, 'detach callback func freed after called');
+}
+
+{
+  my $popup_runs = 0;
+  my $saw_warning = '';
+  { local $SIG{__WARN__} = sub { $saw_warning = $_[0] };
+    $menu->popup(undef, undef, sub {
+                   $popup_runs = 1;
+                   die;
+                 }, undef, 1, 0);
+  }
+  diag "popup position runs=$popup_runs warn='$saw_warning'";
+  $menu->popdown;
+  ok ($popup_runs,
+      'popup positioning die() - popup runs');
+  ok ($saw_warning,
+      'popup positioning die() - die not fatal, turned into warning');
 }
 
 SKIP: {

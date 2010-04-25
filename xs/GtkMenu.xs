@@ -57,24 +57,34 @@ gtk2perl_menu_position_func (GtkMenu * menu,
 	if (callback->data)
 		XPUSHs (sv_2mortal (newSVsv (callback->data)));
 
+	/* A die() from callback->func is suspected to be bad or very bad.
+	   Circa Gtk 2.18 a jump out of $menu->popup seems to leave an X
+	   grab with no way to get rid of it (no keyboard Esc, and no mouse
+	   click handlers).  The position func can also be called later for
+	   things like resizing or move to a different GdkScreen, and such a
+	   call might come straight from the main loop, where a die() would
+	   jump out of Gtk2->main.  */
+
 	PUTBACK;
-
-	n = call_sv (callback->func, G_ARRAY);
-
+	n = call_sv (callback->func, G_ARRAY | G_EVAL);
 	SPAGAIN;
 
-	if (n < 2 || n > 3)
-		croak ("menu position callback must return two integers "
-		       "(x, and y) or two integers and a boolean (x, y, and "
-		       "push_in)");
-
-	/* POPs and POPi take things off the *end* of the stack! */
-	if (n > 2) {
-		SV *sv = POPs;
-		*push_in = sv_2bool (sv);
+	if (SvTRUE (ERRSV)) {
+		g_warning ("menu position callback ignoring error: %s",
+			   SvPVutf8_nolen (ERRSV));
+	} else if (n < 2 || n > 3) {
+		g_warning ("menu position callback must return two integers "
+			   "(x, and y) or two integers and a boolean "
+			   "(x, y, and push_in)");
+	} else {
+		/* POPs and POPi take things off the *end* of the stack! */
+		if (n > 2) {
+			SV *sv = POPs;
+			*push_in = sv_2bool (sv);
+		}
+		if (n > 1) *y = POPi;
+		if (n > 0) *x = POPi;
 	}
-	if (n > 1) *y = POPi;
-	if (n > 0) *x = POPi;
 
 	PUTBACK;
 	FREETMPS;
