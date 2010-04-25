@@ -582,17 +582,17 @@ gtk_style_lookup_color (GtkStyle *style, const gchar *color_name)
 =for arg ... (list) list of property names
 
 Fetch and return the values for the style properties named in I<...> for a
-widget of type I<widget_package>.  I<get_style_property> is an alias for
-I<get>.
+widget of type I<widget_package>.  I<get> is an alias for
+I<get_style_property>.
 
-B<Note>: The I<get> method shadows I<Glib::Object::get>. This shouldn't be a
-problem since I<Gtk2::Style> defines no properties (as of gtk+ 2.16).  If you
-have a class that's derived from Gtk2::Style and adds a property or if a new
-version of gtk+ adds a property to I<Gtk2::Style>, the property can be accessed
-with I<get_property> which still resolves to I<Glib::Object::get_property>:
+    my $size = $style->get_style_property ("expander-size");
 
-	my $value = $style->get_property('property');
-
+B<Note>: The I<get> method shadows I<Glib::Object::get> (see
+L<Glib::Object/get and set>).  This shouldn't be a problem since
+I<Gtk2::Style> defines no properties (as of gtk+ 2.16).  If you have a
+class that's derived from Gtk2::Style and adds a property or if a new
+version of gtk+ adds a property to I<Gtk2::Style> then the property
+can be accessed with I<get_property>.
 =cut
 void
 gtk_style_get (style, widget_package, ...)
