@@ -1,3 +1,59 @@
+Overview of changes in Gtk2 1.230
+=================================
+
+* Wrap gtk+ 2.20 API in:  [Special thanks to Quentin Sculo]
+  - Gtk2::Notebook
+* Wrap gtk+ 2.18 API in:  [Special thanks to Quentin Sculo]
+  - Gtk2::FileChooser
+  - Gtk2::IconView
+  - Gtk2::InfoBar
+  - Gtk2::Label
+  - Gtk2::Menu
+  - Gtk2::Range
+  - Gtk2::StatusIcon
+  - Gtk2::Gdk::Cairo
+  - Gtk2::Gdk::Region
+  - Gtk2::Gdk::Window
+* Wrap gtk+ 2.16 API in:  [Special thanks to Emmanuele Bassi and Quentin
+  Sculo]
+  - Gtk2::Action
+  - Gtk2::Entry
+  - Gtk2::Gdk::Keymap
+  - Gtk2::IMContext
+  - Gtk2::MenuItem, Gtk2::ImageMenuItem
+  - Gtk2::Scale
+  - Gtk2::Window
+* Wrap gtk+ 2.14 API:
+  - Gtk2::Adjustment  [Special thanks to Kevin Ryde]
+  - Gtk2::Gdk::Event
+  - Gtk2::Gdk::Screen
+* Wrap gtk+ 2.12 API in Gtk2::Gdk::Window.
+* Make Gtk2::FontButton->new and Gtk2::ColorButton->new more flexible:
+  When called with an argument, turn new() into new_with_color() or
+  new_with_font(), respectively.
+* Accept format strings in Gtk2::MessageDialog->format_secondary_markup.
+* Allow undef in a few places:
+  - Gtk2::Gdk::Drawable->draw_pixbuf, draw_layout_with_colors,
+    draw_layout_line_with_colors, draw_segments
+  - Gtk2::Gdk::Window->invalidate_rect, set_icon_name,
+    input_shape_combine_mask, shape_combine_mask,
+    input_shape_combine_region, shape_combine_region
+  - Gtk2::AccelLabel->set_accel_widget
+  - Gtk2::Menu->set_screen
+  - Gtk2::Widget->set_accel_path, shape_combine_mask
+  - Gtk2::Window->set_default_icon_name
+* In syntax check mode, do not call gtk_init.  gtk_init may abort the
+  program (e.g. if DISPLAY is not set), so only call gtk_init_check even
+  if asked to call gtk_init.
+* Gtk2::Menu: trap exceptions in popup callbacks.  Uncaught exceptions
+  in a popup callback can result in persistent mouse and keyboard grabs,
+  locking the screen until the program is killed.
+* Make Gtk2::ListStore->remove()'s return value consistent on gtk+ 2.0.
+* Fix memory handling in Gtk2::RecentInfo->get_application_info.
+* Improve the documentation in many places.  [Special thanks to Kevin
+  Ryde]
+* Fix some build and test failures.
+
 Overview of changes in Gtk2 1.220
 =================================
 

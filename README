@@ -1,4 +1,4 @@
-Gtk2 version 1.220
+Gtk2 version 1.230
 ==================
 
 Perl bindings to the 2.x series of the Gtk+ graphical user interface library.
@@ -61,7 +61,7 @@ DEPENDENCIES
 This module requires these other modules and libraries:
 
   perl >= 5.8.0
-  Glib >= 1.220 (Perl module)
+  Glib >= 1.230 (Perl module)
   Pango >= 1.220 (Perl module)
   GTK+ > 2.x (C library)
 
@@ -85,7 +85,7 @@ Please report bugs to the gnome-perl product in GNOME's Bugzilla:
 COPYRIGHT AND LICENSE
 ---------------------
 
-Copyright (C) 2003-2008 by the gtk2-perl team (see the file AUTHORS for the
+Copyright (C) 2003-2010 by the gtk2-perl team (see the file AUTHORS for the
 full list)
 
 This library is free software; you can redistribute it and/or modify it under
