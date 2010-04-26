@@ -6,7 +6,7 @@
 
 use warnings;
 use strict;
-use Gtk2::TestHelper tests => 134;
+use Gtk2::TestHelper tests => 135;
 
 # we can't instantiate Gtk2::Widget, it's abstract.  use a button instead.
 
@@ -322,6 +322,7 @@ $widget->modify_font (undef);
 isa_ok ($widget->create_pango_context, "Gtk2::Pango::Context");
 isa_ok ($widget->get_pango_context, "Gtk2::Pango::Context");
 isa_ok ($widget->create_pango_layout ("Bla"), "Gtk2::Pango::Layout");
+isa_ok ($widget->create_pango_layout(), "Gtk2::Pango::Layout");
 isa_ok ($widget->render_icon ("gtk-open", "menu", "detail"), "Gtk2::Gdk::Pixbuf");
 
 Gtk2::Widget->push_composite_child;
@@ -453,6 +454,7 @@ SKIP: {
 
 	$widget->modify_cursor (Gtk2::Gdk::Color->new (0x0000, 0x0000, 0x0000),
 			        Gtk2::Gdk::Color->new (0xffff, 0xffff, 0xffff));
+	$widget->modify_cursor (undef,undef);
 }
 
 SKIP: {

@@ -812,9 +812,7 @@ GdkExtensionMode
 gtk_widget_get_extension_events (widget)
 	GtkWidget	*widget
 
-## allow NULL for those crazy folks who call get_toplevel before a
-## widget has been added to a container
-GtkWidget_ornull *
+GtkWidget *
 gtk_widget_get_toplevel	(widget)
 	GtkWidget * widget
 
@@ -926,9 +924,9 @@ PangoContext *
 gtk_widget_get_pango_context (GtkWidget *widget)
 
 PangoLayout_noinc *
-gtk_widget_create_pango_layout (widget, text)
+gtk_widget_create_pango_layout (widget, text=NULL)
 	GtkWidget   * widget
-        const gchar *text
+        const gchar_ornull *text
 
  ### may return NULL if stockid isn't known.... but then, it will
  ### croak on converting unknown stock ids, too.
@@ -945,7 +943,7 @@ gtk_widget_render_icon (widget, stock_id, size, detail=NULL)
 
 void gtk_widget_set_composite_name (GtkWidget *widget, const gchar *name)
 
-gchar* gtk_widget_get_composite_name (GtkWidget *widget)
+gchar_ornull* gtk_widget_get_composite_name (GtkWidget *widget)
  
 #/* Descend recursively and set rc-style on all widgets without user styles */
 void gtk_widget_reset_rc_styles (GtkWidget *widget)
@@ -1229,7 +1227,7 @@ void gtk_widget_set_tooltip_markup (GtkWidget *widget, const gchar_ornull *marku
 
 gchar_own * gtk_widget_get_tooltip_markup (GtkWidget *widget);
 
-void gtk_widget_modify_cursor (GtkWidget *widget, const GdkColor *primary, const GdkColor *secondary);
+void gtk_widget_modify_cursor (GtkWidget *widget, const GdkColor_ornull *primary, const GdkColor_ornull *secondary);
 
 void gtk_widget_set_has_tooltip (GtkWidget *widget, gboolean has_tooltip);
 
