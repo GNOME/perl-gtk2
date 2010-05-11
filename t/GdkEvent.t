@@ -8,7 +8,7 @@
 # 	- rm
 #########################
 
-use Gtk2::TestHelper tests => 122;
+use Gtk2::TestHelper tests => 123;
 use Data::Dumper;
 
 # Expose #######################################################################
@@ -455,11 +455,12 @@ SKIP: {
 # Damage ######################################################################
 
 SKIP: {
-	skip ("the damage event is new in 2.14", 1)
+	skip ("the damage event is new in 2.14", 2)
 		unless (Gtk2->CHECK_VERSION (2, 14, 0));
 
-	isa_ok (my $event = Gtk2::Gdk::Event->new ("damage"),
-		"Gtk2::Gdk::Event::Damage");
+	isa_ok (my $event = Gtk2::Gdk::Event->new ('damage'),
+		'Gtk2::Gdk::Event::Expose');
+	is ($event->type, 'damage');
 }
 
 __END__
