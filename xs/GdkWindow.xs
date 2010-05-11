@@ -20,6 +20,7 @@
  */
 
 #include "gtk2perl.h"
+#include <gperl_marshal.h>
 
 /* ------------------------------------------------------------------------- */
 
@@ -99,6 +100,60 @@ SvGdkWindowAttrReal (SV *object, GdkWindowAttributesType *mask)
 	return attr;
 }
 
+#if GTK_CHECK_VERSION (2, 18, 0)
+
+static void
+gtk2perl_offscreen_coord_translate_marshal (GClosure * closure,
+                                            GValue * return_value,
+                                            guint n_param_values,
+                                            const GValue * param_values,
+                                            gpointer invocation_hint,
+                                            gpointer marshal_data)
+
+{
+	gdouble * return_x, * return_y;
+	dGPERL_CLOSURE_MARSHAL_ARGS;
+
+	GPERL_CLOSURE_MARSHAL_INIT (closure, marshal_data);
+
+	PERL_UNUSED_VAR (return_value);
+	PERL_UNUSED_VAR (n_param_values);
+	PERL_UNUSED_VAR (invocation_hint);
+
+	ENTER;
+	SAVETMPS;
+
+	PUSHMARK (SP);
+
+	GPERL_CLOSURE_MARSHAL_PUSH_INSTANCE (param_values);
+
+	XPUSHs (sv_2mortal (newSVnv (g_value_get_double (param_values+1))));
+	XPUSHs (sv_2mortal (newSVnv (g_value_get_double (param_values+2))));
+	return_x = g_value_get_pointer (param_values+3);
+	return_y = g_value_get_pointer (param_values+4);
+
+	GPERL_CLOSURE_MARSHAL_PUSH_DATA;
+
+	PUTBACK;
+
+	GPERL_CLOSURE_MARSHAL_CALL (G_ARRAY);
+
+	if (count == 2) {
+		*return_y = POPn;
+		*return_x = POPn;
+	} else {
+		/* NOTE: croaking here can cause bad things to happen to the
+		 * app, because croaking in signal handlers is bad juju. */
+		croak ("callback must return 2 values : x and y");
+	}
+
+	PUTBACK;
+	FREETMPS;
+	LEAVE;
+}
+#endif
+
+
 #if 0 /* not used at the moment */
 static GdkWindowAttr *
 SvGdkWindowAttr (SV *object)
@@ -137,6 +192,20 @@ gtk2perl_gdk_window_invalidate_maybe_recurse_func (GdkWindow *window,
 /* ------------------------------------------------------------------------- */
 
 MODULE = Gtk2::Gdk::Window	PACKAGE = Gtk2::Gdk::Window	PREFIX = gdk_window_
+
+
+BOOT:
+	gperl_signal_set_marshaller_for (GDK_TYPE_WINDOW, "from-embedder", gtk2perl_offscreen_coord_translate_marshal);
+	gperl_signal_set_marshaller_for (GDK_TYPE_WINDOW, "to-embedder", gtk2perl_offscreen_coord_translate_marshal);
+
+=for position post_signals
+
+from-embedder, to-embedder and pick-embedded-child signals are for offscreen windows only.
+
+from-embedder and to-embedder receive the x and y coordinates to translate, and must return the translated x and y coordinate.
+
+=cut
+
 
  ## GdkWindow* gdk_window_new (GdkWindow *parent, GdkWindowAttr *attributes, gint attributes_mask)
 =for apidoc
@@ -956,11 +1025,36 @@ void gdk_window_flush (GdkWindow *window);
 
 gboolean gdk_window_ensure_native (GdkWindow *window);
 
-void gdk_window_geometry_changed (GdkWindow *window);
-
 GdkCursor_ornull * gdk_window_get_cursor (GdkWindow *window);
 
 void gdk_window_restack (GdkWindow *window, GdkWindow_ornull *sibling, gboolean above);
+
+=for apidoc
+Only useful for offscreen C<Gtk2::Gdk::Windows>.
+=cut
+void gdk_window_geometry_changed (GdkWindow *window);
+
+#endif /* 2.18 */
+
+
+#if GTK_CHECK_VERSION (2, 18, 0)
+
+MODULE = Gtk2::Gdk::Window	PACKAGE = Gtk2::Gdk::Window	PREFIX = gdk_offscreen_window_
+
+=for apidoc
+Only for offscreen C<Gtk2::Gdk::Windows>.
+=cut
+GdkPixmap_ornull * gdk_offscreen_window_get_pixmap (GdkWindow *offscreen_window);
+
+=for apidoc
+Only for offscreen C<Gtk2::Gdk::Windows>.
+=cut
+void gdk_offscreen_window_set_embedder (GdkWindow *offscreen_window, GdkWindow *embedder);
+
+=for apidoc
+Only for offscreen C<Gtk2::Gdk::Windows>.
+=cut
+GdkWindow_ornull * gdk_offscreen_window_get_embedder (GdkWindow *offscreen_window);
 
 #endif /* 2.18 */
 

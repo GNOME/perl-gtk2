@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 43;
+use Gtk2::TestHelper tests => 45;
 
 # $Id$
 
@@ -327,7 +327,7 @@ SKIP: {
 }
 
 SKIP: {
-  skip 'new 2.18 stuff', 3
+  skip 'new 2.18 stuff', 5
     unless Gtk2->CHECK_VERSION(2, 18, 0);
 
   my $window = Gtk2::Gdk::Window -> new(undef, { window_type => 'toplevel' });
@@ -342,6 +342,14 @@ SKIP: {
   my $sibling = Gtk2::Gdk::Window -> new(undef, { window_type => 'toplevel' });
   $window -> restack(undef, TRUE);
   $window -> restack($sibling, TRUE);
+
+  my $gtkwindow= Gtk2::Window->new;
+  $gtkwindow->show_all;
+  $gtkwindow->realize;
+  my $offscreen= Gtk2::Gdk::Window->new(undef, { window_type	=> 'offscreen', });
+  $offscreen->set_embedder($gtkwindow->window);
+  isa_ok($offscreen->get_pixmap,  'Gtk2::Gdk::Pixmap');
+  isa_ok($offscreen->get_embedder,'Gtk2::Gdk::Window');
 }
 
 $window -> hide();
