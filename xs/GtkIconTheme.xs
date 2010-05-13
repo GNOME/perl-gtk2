@@ -72,7 +72,12 @@ void gtk_icon_theme_append_search_path (GtkIconTheme *icon_theme, GPerlFilename_
  ## void gtk_icon_theme_prepend_search_path (GtkIconTheme *icon_theme, const gchar *path);
 void gtk_icon_theme_prepend_search_path (GtkIconTheme *icon_theme, GPerlFilename_const path);
 
-void gtk_icon_theme_set_custom_theme (GtkIconTheme *icon_theme, const gchar *theme_name);
+=for apidoc
+
+Cannot be used on a C<Gtk2::IconTheme> returned by Gtk2::IconTheme->get_default or Gtk2::IconTheme->get_for_screen.
+
+=cut
+void gtk_icon_theme_set_custom_theme (GtkIconTheme *icon_theme, const gchar_ornull *theme_name);
 
 gboolean gtk_icon_theme_has_icon (GtkIconTheme *icon_theme, const gchar *icon_name);
 
@@ -106,7 +111,7 @@ gtk_icon_theme_list_icons (GtkIconTheme * icon_theme, const gchar_ornull * conte
 	g_list_free (list);
 
  ## char * gtk_icon_theme_get_example_icon_name (GtkIconTheme *icon_theme);
-gchar_own * gtk_icon_theme_get_example_icon_name (GtkIconTheme *icon_theme);
+gchar_own_ornull * gtk_icon_theme_get_example_icon_name (GtkIconTheme *icon_theme);
 
 gboolean gtk_icon_theme_rescan_if_needed (GtkIconTheme *icon_theme);
 
@@ -189,7 +194,7 @@ MODULE = Gtk2::IconTheme	PACKAGE = Gtk2::IconInfo	PREFIX = gtk_icon_info_
 
 gint gtk_icon_info_get_base_size (GtkIconInfo *icon_info);
 
-const gchar *gtk_icon_info_get_filename (GtkIconInfo *icon_info);
+const gchar_ornull *gtk_icon_info_get_filename (GtkIconInfo *icon_info);
 
 GdkPixbuf_ornull * gtk_icon_info_get_builtin_pixbuf (GtkIconInfo *icon_info);
 
@@ -242,7 +247,7 @@ gtk_icon_info_get_attach_points (GtkIconInfo *icon_info)
 		g_free (points);
 	}
 
-const gchar *gtk_icon_info_get_display_name (GtkIconInfo *icon_info);
+const gchar_ornull *gtk_icon_info_get_display_name (GtkIconInfo *icon_info);
 
 #if GTK_CHECK_VERSION (2, 14, 0)
 

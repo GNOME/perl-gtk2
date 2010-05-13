@@ -90,6 +90,7 @@ is_deeply ([$icon_theme->get_search_path], \@paths);
 # cannot call set_custom_theme on a default theme
 $icon_theme = Gtk2::IconTheme->new;
 $icon_theme->set_custom_theme ('crazy custom theme');
+$icon_theme->set_custom_theme (undef);
 
 # Ignore result.  Might be anything, including undef.
 $icon_theme->get_example_icon_name;
