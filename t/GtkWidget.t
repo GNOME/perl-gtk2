@@ -417,6 +417,8 @@ SKIP: {
 
 	$widget->input_shape_combine_mask ($bitmap, 23, 42);
 	$widget->input_shape_combine_mask (undef, 0, 0);
+
+	$widget->is_composited;
 }
 
 SKIP: {
