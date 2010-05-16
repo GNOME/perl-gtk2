@@ -17,7 +17,6 @@
 
 #include "gtk2perl.h"
 #include "gtk2perl-private.h" /* for the custom response id handling */
-#include <gperl_marshal.h>
 
 MODULE = Gtk2::InfoBar	PACKAGE = Gtk2::InfoBar	PREFIX = gtk_info_bar_
 
