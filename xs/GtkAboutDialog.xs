@@ -1,5 +1,5 @@
-/*
- * Copyright (c) 2004-2005 by the gtk2-perl team (see the file AUTHORS)
+ /*
+ * Copyright (c) 2004-2005, 2010 by the gtk2-perl team (see the file AUTHORS)
  *
  * Licensed under the LGPL, see LICENSE file for more information.
  *
@@ -66,11 +66,15 @@ as clickable.
 =for apidoc
 =for arg first_property_name (string)
 =for arg ... the rest of a list of name=>property value pairs.
-This is a convenience function for showing an application's about box. The
-constructed dialog is associated with the parent window and reused for
-future invocations of this function.
 
-The dialog is shown nonmodally, and will be hidden by any response.
+A convenience function for showing an application's about box.  The
+constructed dialog is "transient for" C<$parent> and associated with
+that widget so it's reused for future invocations.  The dialog is
+non-modal and hidden by any response.
+
+(This is implemented as a rewrite of C<gtk_show_about_dialog> since
+it's not easy to construct a varargs call to that actual function.
+The intention is to behave the same though.)
 =cut
 void gtk_show_about_dialog (class, GtkWindow_ornull * parent, first_property_name, ...);
     PREINIT:
@@ -138,12 +142,17 @@ void gtk_show_about_dialog (class, GtkWindow_ornull * parent, first_property_nam
 				g_value_unset (&value);
 			}
 		}
-		if (parent)
+		if (parent) {
+			gtk_window_set_transient_for (
+				GTK_WINDOW (dialog), parent);
+			gtk_window_set_destroy_with_parent (
+				GTK_WINDOW (dialog), TRUE);
 			g_object_set_data_full (G_OBJECT (parent),
 					       	"gtk-about-dialog",
 						dialog, g_object_unref);
-		else
+		} else {
 			global_about_dialog = dialog;
+		}
 	}
 	gtk_window_present (GTK_WINDOW (dialog));
 
