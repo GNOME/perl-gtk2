@@ -68,6 +68,7 @@ SKIP: {
 
 	# Get a default context
 	$context->focus_in ();
-	is (my $id = $context->get_context_id, 'gtk-im-context-simple', 'Simple context');
+	my $id = $context->get_context_id;
+	ok (defined $id, 'Context ID');
 	$context->set_context_id ($id);
 }
