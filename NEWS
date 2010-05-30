@@ -1,3 +1,9 @@
+Overview of changes in Gtk2 1.222
+=================================
+
+* Make Gtk2::ListStore->remove()'s return value consistent on gtk+ 2.0
+* Fix some build and test failures.
+
 Overview of changes in Gtk2 1.221
 =================================
 
