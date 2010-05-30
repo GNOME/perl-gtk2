@@ -30,12 +30,8 @@ SKIP: {
 
 my $pid = fork;
 
-skip 'fork failed', 1 unless defined $pid;
+skip 'fork failed', 2 unless defined $pid && $pid >= 0;
 
-if( $pid < 0 )
-{
-	die "fork failed, no use trying";
-}
 if( $pid == 0 )
 {
 	exec("$^X -Mblib -e 'my \$id = $id;\n\n" . <<EOL);
