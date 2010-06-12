@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003-2005 by the gtk2-perl team (see the file AUTHORS)
+ * Copyright (c) 2003-2005, 2010 by the gtk2-perl team (see the file AUTHORS)
  *
  * Licensed under the LGPL, see LICENSE file for more information.
  *
@@ -409,6 +409,47 @@ gtk_action_group_add_toggle_actions (action_group, toggle_action_entries, user_d
 		g_object_unref (action);
 	}
 
+=for apidoc
+Create and add a set of C<Gtk2::RadioAction> actions to
+C<$action_group>.  For example
+
+    $action_group->add_radio_actions
+      ([ [ "Red",   undef, "_Red",   "<Control>R", "Blood", 1 ],
+         [ "Green", undef, "_Green", "<Control>G", "Grass", 2 ],
+         [ "Blue",  undef, "_Blue",  "<Control>B", "Sky",   3 ],
+       ],
+       2,    # initial, or -1 for no initial
+       sub {
+         my ($first_action, $selected_action, $userdata) = @_;
+         print "now: ", $selected_action->get_name, "\n";
+       },
+       $userdata);
+
+C<radio_action_entries> is an arrayref, each element of which is either a
+ref to a 6-element array
+
+    [ $name,          # string
+      $stock_id,      # string, or undef
+      $label,         # string, or undef to use stock label
+      $accelerator,   # string key name, or undef for no accel
+      $tooltip,       # string, or undef for no tooltip
+      $value          # integer, for $action->set_current_value etc
+    ]
+
+or a ref to a hash of named fields similarly.  A C<name> is mandatory, the
+rest are optional.  C<value> defaults to 0 if absent or C<undef>.
+
+    { name        => $name,
+      stock_id    => $stock_id,
+      label       => $label,
+      accelerator => $accelerator,
+      tooltip     => $tooltip,
+      value       => $value }
+
+If C<$on_change> is not C<undef> then it's a signal handler function
+which is connected to the C<changed> signal on the first action
+created.  See L<Gtk2::RadioAction> for that signal.
+=cut
 ##void gtk_action_group_add_radio_actions (GtkActionGroup *action_group, GtkRadioActionEntry *entries, guint n_entries, gint value, GCallback on_change, gpointer user_data);
 ##void gtk_action_group_add_radio_actions_full (GtkActionGroup *action_group, GtkRadioActionEntry *entries, guint n_entries, gint value, GCallback on_change, gpointer user_data, GDestroyNotify destroy);
 void
