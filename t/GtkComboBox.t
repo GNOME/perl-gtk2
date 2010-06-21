@@ -3,7 +3,7 @@
 # $Id$
 
 use Gtk2::TestHelper
-	tests => 24,
+	tests => 26,
 	at_least_version => [2, 4, 0, "GtkComboBox is new in 2.4"],
 	;
 
@@ -36,6 +36,10 @@ my $iter = $model->get_iter_first;
 $combo_box->set_active_iter ($iter);
 is ($model->get_path ($combo_box->get_active_iter)->to_string,
     $model->get_path ($iter)->to_string);
+
+$combo_box->set_active_iter (undef);
+is ($combo_box->get_active, -1);
+is ($combo_box->get_active_iter, undef);
 
 $combo_box = Gtk2::ComboBox->new;
 isa_ok ($combo_box, 'Gtk2::ComboBox');
@@ -129,7 +133,7 @@ SKIP: {
 
 __END__
 
-Copyright (C) 2003-2006 by the gtk2-perl team (see the file AUTHORS for the
+Copyright (C) 2003-2006, 2010 by the gtk2-perl team (see the file AUTHORS for the
 full list).  See LICENSE for more information.
 
 vim: set ft=perl :

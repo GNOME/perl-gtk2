@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003-2006 by the gtk2-perl team (see the file AUTHORS)
+ * Copyright (c) 2003-2006, 2010 by the gtk2-perl team (see the file AUTHORS)
  *
  * Licensed under the LGPL, see LICENSE file for more information.
  *
@@ -121,7 +121,7 @@ gtk_combo_box_get_active_iter (GtkComboBox * combo_box)
     OUTPUT:
 	RETVAL
 
-void gtk_combo_box_set_active_iter (GtkComboBox *combo_box, GtkTreeIter *iter);
+void gtk_combo_box_set_active_iter (GtkComboBox *combo_box, GtkTreeIter_ornull *iter);
 
 ##/* getters and setters */
 
