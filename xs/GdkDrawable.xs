@@ -48,7 +48,7 @@ gdk_drawable_set_colormap (drawable, colormap)
 	GdkColormap *colormap
 
  ## GdkColormap* gdk_drawable_get_colormap (GdkDrawable *drawable)
-GdkColormap*
+GdkColormap_ornull *
 gdk_drawable_get_colormap (drawable)
 	GdkDrawable *drawable
 
