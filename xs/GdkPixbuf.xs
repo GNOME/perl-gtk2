@@ -303,16 +303,43 @@ gdk_pixbuf_get_bits_per_sample (pixbuf)
 	GdkPixbuf *pixbuf
 
 ##  guchar *gdk_pixbuf_get_pixels (const GdkPixbuf *pixbuf) 
+=for apidoc
+Return a copy of the bytes comprising the pixel data of C<$pixbuf>.
+
+As described in the Gdk Pixbuf reference manual (the "Note" section of
+"The GdkPixbuf Structure"), the last row does not extend to the
+rowstride, but ends with the last byte of the last pixel.  The length
+of the C<get_pixels> return reflects this.
+=cut
 SV *
 gdk_pixbuf_get_pixels (pixbuf)
 	GdkPixbuf *pixbuf
     PREINIT:
 	guchar * pixels;
+	STRLEN size;
     CODE:
+	/* For reference, most pixbuf mallocs are height*rowstride, for
+	   example gdk_pixbuf_new() does that.  But gdk_pixbuf_copy()
+	   mallocs only the lesser "last row unpadded" size.  If the code
+	   here used height*rowstride it would read past the end of such a
+	   block.
+
+	   Most of the time rowstride is the next multiple of 4, and a
+	   malloced block is the next multiple of 4 too, so it's ok, but for
+	   a bigger rowstride it's not.
+
+	   The following calculation adapted from gdk_pixbuf_copy() circa
+	   Gtk 2.16.  bits_per_sample is only ever 8 currently, making it
+	   simply n_channels many bytes-per-pixel, but the calculation
+	   anticipates bits not a multiple of 8.  */
+
+	size = ((gdk_pixbuf_get_height(pixbuf) - 1)
+		* gdk_pixbuf_get_rowstride(pixbuf)
+		+ gdk_pixbuf_get_width(pixbuf)
+		* ((gdk_pixbuf_get_n_channels(pixbuf)
+		    * gdk_pixbuf_get_bits_per_sample(pixbuf) + 7) / 8));
 	pixels = gdk_pixbuf_get_pixels (pixbuf);
-	RETVAL = newSVpv ((gchar *) pixels,
-			  gdk_pixbuf_get_height (pixbuf)
-			  * gdk_pixbuf_get_rowstride (pixbuf));
+	RETVAL = newSVpv ((gchar *) pixels, size);
     OUTPUT:
 	RETVAL
 

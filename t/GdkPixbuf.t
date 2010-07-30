@@ -57,7 +57,7 @@ is ($pixbuf->get_height, 33);
 is ($pixbuf->get_rowstride, 244);
 $pixels = $pixbuf->get_pixels;
 ok ($pixels);
-is (length($pixels), ($pixbuf->get_height * $pixbuf->get_rowstride)); 
+is (length($pixels), 8052);
 
 
 $pixbuf = Gtk2::Gdk::Pixbuf->new ('rgb', FALSE, 8, 33, 61);
@@ -71,7 +71,8 @@ is ($pixbuf->get_height, 61);
 is ($pixbuf->get_rowstride, 100); # 100 is aligned, 99 is actual
 $pixels = $pixbuf->get_pixels;
 ok ($pixels);
-is (length($pixels), ($pixbuf->get_height * $pixbuf->get_rowstride)); 
+# last row is not padded to the rowstride, hence 6099 not 6100
+is (length($pixels), 6099); 
 
 
 isa_ok ($pixbuf->copy, 'Gtk2::Gdk::Pixbuf', 'copy');

@@ -1,3 +1,8 @@
+Overview of changes in the next unstable release
+================================================
+
+* Fix length of Gtk2::Gdk::Pixbuf->get_pixels() return.
+
 Overview of changes in Gtk2 1.230
 =================================
 
