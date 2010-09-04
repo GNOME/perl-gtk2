@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003 by the gtk2-perl team (see the file AUTHORS)
+ * Copyright (c) 2003, 2010 by the gtk2-perl team (see the file AUTHORS)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -242,8 +242,97 @@ gtk_container_child_type (container)
 	RETVAL
 
  ## void gtk_container_class_install_child_property (GtkContainerClass *cclass, guint property_id, GParamSpec *pspec)
+
  ## GParamSpec* gtk_container_class_find_child_property (GObjectClass *cclass, const gchar *property_name)
  ## GParamSpec** gtk_container_class_list_child_properties (GObjectClass *cclass, guint *n_properties)
+=for apidoc Gtk2::Container::list_child_properties
+=for signature list = $object_or_class_name->list_child_properties
+=for arg ... (__hide__)
+Return a list of C<Glib::ParamSpec> objects which are the child
+properties available for children of a container
+C<$object_or_class_name>.  See L<Glib::Object> C<list_properties> for
+the fields in a ParamSpec.
+=cut
+=for apidoc Gtk2::Container::find_child_property
+=for signature pspec or undef = $object_or_class_name->find_child_property ($name)
+=for arg name (string)
+=for arg ... (__hide__)
+Return a C<Glib::ParamSpec> for child property C<$name> on container
+C<$object_or_class_name>.  If there's no property C<$name> then return
+C<undef>.  See L<Glib::Object> C<list_properties> for the fields in a
+ParamSpec.
+=cut
+void
+find_child_property (container_or_class_name, ...)
+	SV * container_or_class_name
+    ALIAS:
+        list_child_properties = 1
+    PREINIT:
+	GType type;
+	gchar *name = NULL;
+	GObjectClass *object_class;
+    PPCODE:
+	/* ENHANCE-ME: share this SV to GType with
+	   Glib::Object::find_property and probably other places.  Might
+	   pass GTK_TYPE_CONTAINER to say it should be a container. */
+	if (gperl_sv_is_defined (container_or_class_name) &&
+	    SvROK (container_or_class_name)) {
+		GObject * object = SvGObject (container_or_class_name);
+		if (!object)
+			croak ("wha?  NULL object in list_properties");
+		type = G_OBJECT_TYPE (object);
+	} else {
+		type = gperl_object_type_from_package
+			(SvPV_nolen (container_or_class_name));
+		if (!type)
+			croak ("package %s is not registered with GPerl",
+			       SvPV_nolen (container_or_class_name));
+	}
+
+	switch (ix) {
+	case 0:
+		if (items != 2)
+			croak ("Usage: Gtk2::Container::find_child_property (class, name)");
+		name = SvGChar (ST (1));
+		break;
+	default: /* ix==1 */
+		if (items != 1)
+			croak ("Usage: Gtk2::Container::list_child_properties (class)");
+		break;
+	}
+	if (! g_type_is_a (type, GTK_TYPE_CONTAINER))
+		croak ("Not a Gtk2::Container");
+
+	/* classes registered by perl are kept alive by the bindings.
+	 * those coming straight from C are not.  if we had an actual
+	 * object, the class will be alive, but if we just had a
+	 * package, the class may not exist yet.  thus, we'll have to
+	 * do an honest ref here, rather than a peek.
+	 */
+	object_class = g_type_class_ref (type);
+
+	if (ix == 0) {
+		GParamSpec *pspec
+		  = gtk_container_class_find_child_property
+		      (object_class, name);
+		XPUSHs (pspec
+			? sv_2mortal (newSVGParamSpec (pspec))
+			: &PL_sv_undef);
+	}
+	else if (ix == 1) {
+		GParamSpec **props;
+		guint n_props, i;
+		props = gtk_container_class_list_child_properties
+			  (object_class, &n_props);
+		if (n_props) {
+			EXTEND (SP, n_props);
+			for (i = 0; i < n_props; i++)
+				PUSHs (sv_2mortal (newSVGParamSpec (props[i])));
+		}
+		g_free (props); /* must free even when n_props==0 */
+	}
+
+	g_type_class_unref (object_class);
 
 =for apidoc
 

@@ -3,7 +3,7 @@
 
 # $Id$
 
-use Gtk2::TestHelper tests => 30;
+use Gtk2::TestHelper tests => 41;
 
 # we'll create some containers (windows and boxes are containers) and
 # mess around with some of the methods to make sure they do things.
@@ -132,7 +132,82 @@ ok(1);
 #$window->show_all;
 #Gtk2->main;
 
+#------------------------------------------------------------------------------
+# find_child_property()
+
+is (Gtk2::Container->find_child_property('Gtk2-Perl-test-no-such-property'),
+    undef,
+    'find_child_property() no such child property');
+
+is (eval { Gtk2::Container::find_child_property('Not::A::Container::Class',
+						'propname'); 1 },
+    undef,
+    'find_child_property() Not::A::Container::Class croaks');
+
+is (eval { Gtk2::Container::find_child_property('Gtk2::Widget',
+						'propname'); 1 },
+    undef,
+    'find_child_property() Gtk2::Widget croaks');
+
+{
+  my $pspec = Gtk2::Box->find_child_property('expand');
+  isa_ok ($pspec, 'Glib::Param::Boolean',
+	  'find_child_property() "expand" is a boolean');
+
+  require Scalar::Util;
+  Scalar::Util::weaken($pspec);
+  is ($pspec, undef, 'find_child_property() destroyed when weakened');
+}
+
+{
+  my $hbox = Gtk2::HBox->new;
+  my $pspec = $hbox->find_child_property('expand');
+  isa_ok ($pspec, 'Glib::Param::Boolean',
+	  'find_child_property() object method "expand" is a boolean');
+}
+
+#------------------------------------------------------------------------------
+# list_child_properties()
+
+# as of Gtk 2.20 the base Gtk2::Container class doesn't have any child
+# properties, but don't assume that, so don't ask anything of @pspecs, just
+# that list_child_properties() returns
+my @pspecs = Gtk2::Container->list_child_properties;
+
+is (eval { Gtk2::Container::list_child_properties('Not::A::Container::Class');
+	   1 },
+    undef,
+    'list_child_properties() Not::A::Container::Class croaks');
+
+is (eval { Gtk2::Container::list_child_properties('Gtk2::Widget');
+	   1 },
+    undef,
+    'list_child_properties() Gtk2::Widget croaks');
+
+{
+  my @pspecs = Gtk2::Box->list_child_properties;
+  cmp_ok (scalar(@pspecs), '>=', 2,
+	  'list_child_properties() at least "expand" and "pack"');
+
+  require Scalar::Util;
+  foreach (@pspecs) {
+    Scalar::Util::weaken($_);
+  }
+  my $all_undef = 1;
+  foreach (@pspecs) {
+    if ($_) { $all_undef = 0; }
+  }
+  is ($all_undef, 1, 'list_child_properties() pspecs destroyed when weakened');
+}
+
+{
+  my $hbox = Gtk2::HBox->new;
+  my @pspecs = $hbox->list_child_properties;
+  cmp_ok (scalar(@pspecs), '>=', 2,
+	  'list_child_properties() object method at least "expand" and "pack"');
+}
+
 __END__
 
-Copyright (C) 2003-2008 by the gtk2-perl team (see the file AUTHORS for the
+Copyright (C) 2003-2010 by the gtk2-perl team (see the file AUTHORS for the
 full list).  See LICENSE for more information.
