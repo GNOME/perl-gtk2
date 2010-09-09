@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003 by the gtk2-perl team (see the file AUTHORS)
+ * Copyright (c) 2003, 2010 by the gtk2-perl team (see the file AUTHORS)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -215,6 +215,29 @@ gdk_region_xor (source1, source2)
 	GdkRegion *source2
 
 ##  void gdk_region_spans_intersect_foreach (GdkRegion *region, GdkSpan *spans, int n_spans, gboolean sorted, GdkSpanFunc function, gpointer data) 
+=for arg spans_ref (scalar) arrayref of triples [$x1,$y1,$width1, $x2,$y2,$width2, ...]
+=for apidoc
+Call C<$function> for horizontal lines which intersect C<$region>.
+
+C<$spans_ref> is an arrayref of x,y,width horizontal lines.  If
+C<$sorted> is true then they're assumed to be sorted by increasing y
+coordinate (allowing a single pass across the region rectangles).
+C<$function> is called
+
+    &$function ($x, $y, $width, $data)
+
+for each portion of a span which intersects C<$region>.  C<$function>
+must not change C<$region>.
+
+    $region->spans_intersect_foreach ([ 0,0,50, 20,20,100, 0,10,50 ],
+                                      0, # spans not sorted by y
+                                      \&my_callback,
+                                      'hello');  # userdata
+    sub my_callback {
+      my ($x, $y, $width, $userdata) = @_;
+      print "$userdata: $x, $y, $width\n";
+    }
+=cut
 void
 gdk_region_spans_intersect_foreach (region, spans_ref, sorted, func, data=NULL)
 	GdkRegion *region
