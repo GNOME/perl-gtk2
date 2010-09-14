@@ -125,7 +125,11 @@ void gtk_combo_box_set_active_iter (GtkComboBox *combo_box, GtkTreeIter_ornull *
 
 ##/* getters and setters */
 
-void gtk_combo_box_set_model (GtkComboBox *combo_box, GtkTreeModel *model)
+=for apidoc
+Note that setting C<undef> for no model is new in Gtk 2.6.  (Both here
+or via C<set_property>.)
+=cut
+void gtk_combo_box_set_model (GtkComboBox *combo_box, GtkTreeModel_ornull *model)
 
 GtkTreeModel *gtk_combo_box_get_model (GtkComboBox *combo_box);
 

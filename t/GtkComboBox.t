@@ -3,7 +3,7 @@
 # $Id$
 
 use Gtk2::TestHelper
-	tests => 26,
+	tests => 27,
 	at_least_version => [2, 4, 0, "GtkComboBox is new in 2.4"],
 	;
 
@@ -70,7 +70,7 @@ $combo_box->set_active (1);
 is ($combo_box->get_active, 1, 'set and get active');
 
 SKIP: {
-	skip "new api in gtk+ 2.6", 11
+	skip "new api in gtk+ 2.6", 12
 		unless Gtk2->CHECK_VERSION (2, 6, 0);
 
 	my $active_path = Gtk2::TreePath->new_from_string
@@ -121,6 +121,10 @@ SKIP: {
 	is ($combo_box->get_wrap_width, 1);
 	is ($combo_box->get_row_span_column, 1);
 	is ($combo_box->get_column_span_column, 1);
+
+	# setting undef for no model is allowed
+	$combo_box->set_model (undef);
+	is ($combo_box->get_model, undef, 'set_model() of undef giving undef');
 }
 
 SKIP: {
