@@ -180,7 +180,7 @@ unless ($i_know_you) {
                    die;
                  }, undef, 1, 0);
   }
-  diag "popup position runs=$popup_runs warn='$saw_warning'";
+  note "popup position runs=$popup_runs warn='$saw_warning'";
   $menu->popdown;
   ok ($popup_runs,
       'popup positioning die() - popup runs');
