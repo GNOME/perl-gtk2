@@ -10,7 +10,8 @@ foreach (@dirs) {
 		print "package Gtk2::Gdk::Keysyms;\n";
 		print "\%Gtk2::Gdk::Keysyms = (\n";
 		while (<IN>) {
-			/^#define\sGDK_([^ \t]*)\s+(0x[0-9A-Fa-f]+)/ and
+			# gtk+ 2.22 changed the prefix from GDK_ to GDK_KEY_.
+			/^#define\sGDK_(?:KEY_)?([^ \t]*)\s+(0x[0-9A-Fa-f]+)/ and
 				print "   '$1' => $2,\n";
 		}
 		print ");\n";
