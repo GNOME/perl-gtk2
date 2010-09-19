@@ -67,4 +67,4 @@ foreach (@data)
 {
 	printf $fmt, @$_;
 }
-print $end."\n=cut\n\n";
+print $end."\n";
