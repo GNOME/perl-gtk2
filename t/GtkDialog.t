@@ -9,7 +9,7 @@
 # 	- rm
 #########################
 
-use Gtk2::TestHelper tests => 29;
+use Gtk2::TestHelper tests => 33;
 
 ok( my $win = Gtk2::Window->new('toplevel') );
 
@@ -66,6 +66,23 @@ ok(1);
 
 $btn3->clicked;
 ok(1);
+
+# make sure that known response types are converted to strings for the reponse
+# signal of Gtk2::Dialog and its ancestors
+foreach my $package (qw/Gtk2::Dialog Gtk2::InputDialog/) {
+	my $d = $package->new;
+	my $b = $d->add_button('First Button', 'ok');
+	$d->signal_connect( response => sub {
+		is( $_[1], 'ok', "$package reponse" );
+		TRUE;
+	});
+	Glib::Idle->add( sub {
+		$b->clicked;
+		FALSE;
+	});
+	is( $d->run, 'ok', "$package run" );
+	$d->hide;
+}
 
 SKIP: {
 	skip 'set_alternative_button_order is new in 2.6', 3
