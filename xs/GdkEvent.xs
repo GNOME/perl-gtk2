@@ -139,7 +139,7 @@ gtk2perl_gdk_event_set_state (GdkEvent * event,
 		    case GDK_2BUTTON_PRESS:
 		    case GDK_3BUTTON_PRESS:
 		    case GDK_BUTTON_RELEASE:
-			event->button.state = newstate = newstate;
+			event->button.state = newstate;
 			break;
 		    case GDK_SCROLL:
 			event->scroll.state = newstate;
