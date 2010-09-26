@@ -19,6 +19,7 @@
  * $Id$
  */
 
+#define GDK_PIXBUF_ENABLE_BACKEND 1 /* for gdk_pixbuf_set_option() prototype */
 #include "gtk2perl.h"
 
 static void
@@ -335,6 +336,12 @@ const gchar_ornull *
 gdk_pixbuf_get_option (pixbuf, key)
 	GdkPixbuf * pixbuf
 	const gchar * key
+
+#if GTK_CHECK_VERSION (2, 2, 0)
+
+gboolean gdk_pixbuf_set_option (GdkPixbuf *pixbuf, const gchar *key, const gchar *value);
+
+#endif /* 2.2 */
 
 ##  GdkPixbuf *gdk_pixbuf_new (GdkColorspace colorspace, gboolean has_alpha, int bits_per_sample, int width, int height) 
 GdkPixbuf_noinc *

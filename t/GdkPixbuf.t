@@ -1,6 +1,6 @@
 use strict;
 use warnings;
-use Gtk2::TestHelper tests => 103, noinit => 1;
+use Gtk2::TestHelper tests => 106, noinit => 1;
 
 my $show = 0;
 
@@ -224,6 +224,16 @@ is ($pixbuf->get_option ('tEXt::Description'), $desc, 'get_option works');
 is ($pixbuf->get_option ('tEXt::Thumb::MTime'), $mtime, 'get_option works');
 ok (! $pixbuf->get_option ('tEXt::noneXIStenTTag'),
     'get_option returns undef if the key is not found');
+
+SKIP: {
+	skip 'new 2.2 stuff', 3
+		unless Gtk2->CHECK_VERSION(2, 2, 0);
+
+	ok (! $pixbuf->set_option ('tEXt::Description', reverse $desc),
+	    'set_option refuses to overwrite');
+	ok ($pixbuf->set_option ('tEXt::woot', 'whee'));
+	is ($pixbuf->get_option ('tEXt::woot'), 'whee');
+}
 
 unlink $filename;
 
