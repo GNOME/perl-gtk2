@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003 by the gtk2-perl team (see the file AUTHORS)
+ * Copyright (c) 2003, 2010 by the gtk2-perl team (see the file AUTHORS)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -24,9 +24,11 @@
 MODULE = Gtk2::AspectFrame	PACKAGE = Gtk2::AspectFrame	PREFIX = gtk_aspect_frame_
 
 ## GtkWidget* gtk_aspect_frame_new (const gchar *label, gfloat xalign, gfloat yalign, gfloat ratio, gboolean obey_child)
+# label can be NULL for no label, as per gtk_frame_set_label() etc,
+# though not actually in the gtk_aspect_frame_new() docs as of Gtk 2.20
 GtkWidget *
 gtk_aspect_frame_new (class, label, xalign, yalign, ratio, obey_child)
-	const gchar * label
+	const gchar_ornull * label
 	gfloat        xalign
 	gfloat        yalign
 	gfloat        ratio
