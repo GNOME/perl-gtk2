@@ -11,10 +11,38 @@
 
 MODULE = Gtk2::Gdk::Cairo	PACKAGE = Gtk2::Gdk::Cairo::Context	PREFIX = gdk_cairo_
 
+=for position SYNOPSIS
+
+=head1 HIERARCHY
+
+    Cairo::Context
+    +---- Gtk2::Gdk::Cairo::Context   (Perl subclass)
+
+=head1 DESCRIPTION
+
+This is some inter-operation between Cairo (see L<Cairo>) and Gdk
+things.
+
+A C<Gtk2::Gdk::Cairo::Context> lets Cairo draw on a Gdk drawable
+(window or pixmap).  It's a Perl-level subclass of C<Cairo::Context>
+and the various functions below can be used as methods on it.
+
+The methods can also be used on other C<Cairo::Context> as plain
+functions.  For example C<set_source_pixbuf> can setup to draw from a
+C<Gtk2::Gdk::Pixbuf> to any Cairo context,
+
+    my $cr = Cairo::Context->create ($surface);
+    Gtk2::Gdk::Cairo::Context::set_source_pixbuf ($cr, $pixbuf, $x,$y);
+    $cr->paint;
+
+=cut
+
 BOOT:
 	gperl_set_isa ("Gtk2::Gdk::Cairo::Context", "Cairo::Context");
 
 # cairo_t *gdk_cairo_create (GdkDrawable *drawable);
+=for signature gdkcr = Gtk2::Gdk::Cairo::Context->create ($drawable)
+=cut
 SV *
 gdk_cairo_create (class, GdkDrawable *drawable)
     PREINIT:
@@ -27,16 +55,24 @@ gdk_cairo_create (class, GdkDrawable *drawable)
     OUTPUT:
 	RETVAL
 
+=for signature $gdkcr->set_source_color ($color)
+=for signature Gtk2::Gdk::Cairo::Context::set_source_color ($anycr, $color)
+=cut
 void gdk_cairo_set_source_color (cairo_t *cr, GdkColor *color);
 
+=for signature $gdkcr->set_source_pixbuf ($pixbuf, $pixbuf_x, $pixbuf_y)
+=for signature Gtk2::Gdk::Cairo::Context::set_source_pixbuf ($anycr, $pixbuf, $pixbuf_x, $pixbuf_y)
+=cut
 void gdk_cairo_set_source_pixbuf (cairo_t *cr, GdkPixbuf *pixbuf, double pixbuf_x, double pixbuf_y);
 
+# void gdk_cairo_rectangle (cairo_t *cr, GdkRectangle *rectangle);
 =for apidoc
-=for signature $cr->rectangle ($rectangle)
+=for signature $gdkcr->rectangle ($rectangle)
+=for signature Gtk2::Gdk::Cairo::Context::rectangle ($anycr, $rectangle)
 =for arg rectangle (Gtk2::Gdk::Rectangle)
+=for arg cr (__hide__)
 =for arg ... (__hide__)
 =cut
-# void gdk_cairo_rectangle (cairo_t *cr, GdkRectangle *rectangle);
 void
 gdk_cairo_rectangle (cairo_t *cr, ...)
     CODE:
@@ -53,16 +89,25 @@ gdk_cairo_rectangle (cairo_t *cr, ...)
 		croak ("Usage: Gtk2::Gdk::Cairo::Context::rectangle (cr, rectangle)");
 	}
 
+=for signature $gdkcr->region ($region)
+=for signature Gtk2::Gdk::Cairo::Context::region ($anycr, $region)
+=cut
 void gdk_cairo_region (cairo_t *cr, GdkRegion *region);
 
 #if GTK_CHECK_VERSION (2, 10, 0)
 
+=for signature $gdkcr->set_source_pixmap ($pixmap, $pixmap_x, $pixmap_y)
+=for signature Gtk2::Gdk::Cairo::Context::set_source_pixmap ($anycr, $pixmap, $pixmap_x, $pixmap_y)
+=cut
 void gdk_cairo_set_source_pixmap (cairo_t *cr, GdkPixmap *pixmap, double pixmap_x, double pixmap_y);
 
 #endif
 
 #if GTK_CHECK_VERSION (2, 18, 0)
 
+=for signature $gdkcr->reset_clip ($drawable)
+=for signature Gtk2::Gdk::Cairo::Context::reset_clip ($anycr, $drawable)
+=cut
 void gdk_cairo_reset_clip (cairo_t *cr, GdkDrawable *drawable);
 
 #endif
