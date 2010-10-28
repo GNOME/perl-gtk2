@@ -101,6 +101,9 @@ BOOT:
 	gperl_signal_set_marshaller_for (GTK_TYPE_MENU_ITEM, "toggle_size_request",
 	                                 gtk2perl_menu_item_toggle_size_request_marshal);
 
+=for apidoc Gtk2::MenuItem::new
+If a C<$label> argument is given then this is C<new_with_mnemonic>.
+=cut
 GtkWidget*
 gtk_menu_item_new (class, label=NULL)
 	const gchar * label
