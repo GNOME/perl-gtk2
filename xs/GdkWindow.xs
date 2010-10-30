@@ -195,8 +195,12 @@ MODULE = Gtk2::Gdk::Window	PACKAGE = Gtk2::Gdk::Window	PREFIX = gdk_window_
 
 
 BOOT:
-	gperl_signal_set_marshaller_for (GDK_TYPE_WINDOW, "from-embedder", gtk2perl_offscreen_coord_translate_marshal);
-	gperl_signal_set_marshaller_for (GDK_TYPE_WINDOW, "to-embedder", gtk2perl_offscreen_coord_translate_marshal);
+#if GTK_CHECK_VERSION (2, 18, 0)
+	gperl_signal_set_marshaller_for (GDK_TYPE_WINDOW, "from-embedder",
+		gtk2perl_offscreen_coord_translate_marshal);
+	gperl_signal_set_marshaller_for (GDK_TYPE_WINDOW, "to-embedder",
+		gtk2perl_offscreen_coord_translate_marshal);
+#endif
 
 =for position post_signals
 
