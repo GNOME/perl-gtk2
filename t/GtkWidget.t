@@ -6,7 +6,7 @@
 
 use warnings;
 use strict;
-use Gtk2::TestHelper tests => 135;
+use Gtk2::TestHelper tests => 140;
 
 # we can't instantiate Gtk2::Widget, it's abstract.  use a button instead.
 
@@ -378,7 +378,7 @@ $widget->shape_combine_mask ($bitmap, 5, 5);
 $widget->shape_combine_mask (undef, 5, 5);
 
 SKIP: {
-	skip "stuff that's new in 2.2", 5
+	skip "stuff that's new in 2.2", 10
 		unless Gtk2->CHECK_VERSION (2, 2, 0);
 
 	isa_ok ($widget->get_clipboard, "Gtk2::Clipboard");
@@ -387,6 +387,29 @@ SKIP: {
 	isa_ok ($widget->get_screen, "Gtk2::Gdk::Screen");
 
 	is ($widget->has_screen, 1);
+
+	# not sure it's wise to enquire into what properties exist, but
+	# let's assume there's at least 1
+	{ my @pspecs = $widget->list_style_properties;
+	  cmp_ok (scalar(@pspecs), '>', 0); }
+	{ my @pspecs = Gtk2::Widget->list_style_properties;
+	  cmp_ok (scalar(@pspecs), '>', 0); }
+
+	is ($widget->find_style_property('no-such-style-property-of-this-name'),
+	    undef,
+	    "find_style_property() no such name, on object");
+	is (Gtk2::Widget->find_style_property('no-such-style-property-of-this-name'),
+	    undef,
+	    "find_style_property() no such name, on class");
+	is (Gtk2::Label->find_style_property('no-such-style-property-of-this-name'),
+	    undef,
+	    "find_style_property() no such name, on label class");
+
+	# not sure it's wise to depend on properties exist, but at least
+	# exercise the code on "interior-focus" which exists in 2.2 up
+	$widget->find_style_property('interior-focus');
+	Gtk2::Widget->find_style_property('interior-focus');
+	Gtk2::Label->find_style_property('interior-focus');
 }
 
 SKIP: {
@@ -481,5 +504,5 @@ SKIP: {
 
 __END__
 
-Copyright (C) 2003-2006 by the gtk2-perl team (see the file AUTHORS for the
+Copyright (C) 2003-2006, 2010 by the gtk2-perl team (see the file AUTHORS for the
 full list).  See LICENSE for more information.

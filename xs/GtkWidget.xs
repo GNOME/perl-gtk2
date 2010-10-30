@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003-2006, 2009 by the gtk2-perl team (see the file AUTHORS)
+ * Copyright (c) 2003-2006, 2009, 2010 by the gtk2-perl team (see the file AUTHORS)
  *
  * Licensed under the LGPL, see LICENSE file for more information.
  *
@@ -1149,6 +1149,95 @@ gtk_widget_path (GtkWidget *widget)
 #gtk_widget_class_list_style_properties (klass, n_properties)
 #	GtkWidgetClass * klass
 #	guint          * n_properties
+
+=for apidoc Gtk2::Widget::list_style_properties
+=for signature list = $widget_or_class_name->list_style_properties
+=for arg ... (__hide__)
+Return a list of C<Glib::ParamSpec> objects which are the style
+properties available on C<$widget_or_class_name>.  See L<Glib::Object>
+C<list_properties> for the fields in a ParamSpec.
+=cut
+=for apidoc Gtk2::Widget::find_style_property
+=for signature pspec or undef = $widget_or_class_name->find_style_property ($name)
+=for arg name (string)
+=for arg ... (__hide__)
+Return a C<Glib::ParamSpec> for style property C<$name> on widget
+C<$widget_or_class_name>.  If there's no property C<$name> then return
+C<undef>.  See L<Glib::Object> C<list_properties> for the fields in a
+ParamSpec.
+=cut
+void
+find_style_property (widget_or_class_name, ...)
+	SV * widget_or_class_name
+    ALIAS:
+        Gtk2::Widget::list_style_properties = 1
+    PREINIT:
+	GType type;
+	gchar *name = NULL;
+	GtkWidgetClass *widget_class;
+    PPCODE:
+	/* ENHANCE-ME: share this SV to GType lookup code with
+	   Glib::Object::find_property and Gtk2::Container::find_child_property
+	   and probably other places.  Might pass GTK_TYPE_WIDGET to say it
+	   should be a widget. */
+	if (gperl_sv_is_defined (widget_or_class_name) &&
+	    SvROK (widget_or_class_name)) {
+		GtkWidget * widget = SvGtkWidget (widget_or_class_name);
+		if (!widget)
+			croak ("wha?  NULL widget in list_style_properties");
+		type = G_OBJECT_TYPE (widget);
+	} else {
+		type = gperl_object_type_from_package
+			(SvPV_nolen (widget_or_class_name));
+		if (!type)
+			croak ("package %s is not registered with GPerl",
+			       SvPV_nolen (widget_or_class_name));
+	}
+
+	switch (ix) {
+	case 0:
+		if (items != 2)
+			croak ("Usage: Gtk2::Widget::find_style_property (class, name)");
+		name = SvGChar (ST (1));
+		break;
+	default: /* ix==1 */
+		if (items != 1)
+			croak ("Usage: Gtk2::Widget::list_style_properties (class)");
+		break;
+	}
+	if (! g_type_is_a (type, GTK_TYPE_WIDGET))
+		croak ("Not a Gtk2::Widget");
+
+	/* classes registered by perl are kept alive by the bindings.
+	 * those coming straight from C are not.  if we had an actual
+	 * widget, the class will be alive, but if we just had a
+	 * package, the class may not exist yet.  thus, we'll have to
+	 * do an honest ref here, rather than a peek.
+	 */
+	widget_class = g_type_class_ref (type);
+
+	if (ix == 0) {
+		GParamSpec *pspec
+		  = gtk_widget_class_find_style_property
+		      (widget_class, name);
+		XPUSHs (pspec
+			? sv_2mortal (newSVGParamSpec (pspec))
+			: &PL_sv_undef);
+	}
+	else if (ix == 1) {
+		GParamSpec **props;
+		guint n_props, i;
+		props = gtk_widget_class_list_style_properties
+			  (widget_class, &n_props);
+		if (n_props) {
+			EXTEND (SP, n_props);
+			for (i = 0; i < n_props; i++)
+				PUSHs (sv_2mortal (newSVGParamSpec (props[i])));
+		}
+		g_free (props); /* must free even when n_props==0 */
+	}
+
+	g_type_class_unref (widget_class);
 
 
 #GtkClipboard* gtk_widget_get_clipboard (GtkWidget *widget, GdkAtom selection)
