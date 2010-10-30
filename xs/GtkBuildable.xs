@@ -745,9 +745,7 @@ MODULE = Gtk2::Buildable PACKAGE = Gtk2::Buildable
   use Gtk2;
   use Glib::Object::Subclass
       Glib::Object::,
-      # The important bit -- add this GInterface to our class
-      interfaces => [ Gtk2::Buildable:: ],
-  
+
       # Some signals and properties on the object...
       signals => {
           exploderize => {},
@@ -758,15 +756,15 @@ MODULE = Gtk2::Buildable PACKAGE = Gtk2::Buildable
                                 0, 1000000, 5, ['readable', 'writable']),
       ],
       ;
-  
+
   sub exploderize {
       my $self = shift;
       $self->signal_emit ('exploderize');
   }
-  
+
   # We can accept all defaults for Buildable; see the description
   # for details on custom XML.
-  
+
   package main;
   use Gtk2 -init;
   my $builder = Gtk2::Builder->new ();
@@ -777,9 +775,9 @@ MODULE = Gtk2::Buildable PACKAGE = Gtk2::Buildable
       </object>
   </interface>');
   $builder->connect_signals ();
-  
+
   my $thing = $builder->get_object ('thing1');
-  
+
   $thing->exploderize ();
 
   sub do_explode {
@@ -794,81 +792,29 @@ MODULE = Gtk2::Buildable PACKAGE = Gtk2::Buildable
 
 =head1 DESCRIPTION
 
-In order to allow construction from a Gtk2::Builder UI description
-(L<http://library.gnome.org/devel/gtk/unstable/GtkBuilder.html#BUILDER-UI>),
-an object must implement the Gtk2::Buildable interface.  The interface
-includes methods for setting names and properties of objects, parsing
-custom tags, and constructing child objects.
+The Gtk2::Buildable interface allows objects and widgets to have
+C<< <child> >> objects, special property settings, or extra custom
+tags in a Gtk2::Builder UI description
+(L<http://library.gnome.org/devel/gtk/unstable/GtkBuilder.html#BUILDER-UI>).
 
-The Gtk2::Buildable interface is implemented by all widgets and many
-of the non-widget objects that are provided by GTK+.  The main user of
-this interface is Gtk2::Builder, so there should be very little need for
-applications to call any of the Gtk2::Buildable methods.
+The main user of the Gtk2::Buildable interface is Gtk2::Builder, so
+there should be very little need for applications to call any of the
+Gtk2::Buildable methods.  So this documentation deals with
+implementing a buildable object.
 
-So, instead of focusing on how to call the methods of a Gtk2::Buildable,
-this documentation deals with implementing a buildable object.
-
-=head1 WIDGETS
-
-Since Gtk2::Widget implements the Gtk2::Buildable interface, all widgets
-get buildability gratis.  If your widget requires no special markup
-syntax to express its configuration, and all properties can be handled
-through the standard mechanisms, you can simply add the name of your
-perl-derived Glib::Object types to the C<object> tag in the builder UI
-description.  You don't even have to do anything special in your class
-definition.  For example, objects of this class:
-
-  package My::Frame;
-  use Gtk2;
-  use Glib::Object::Subclass
-      Gtk2::Frame::,
-      properties => [
-          Glib::ParamSpec->int ('foo', ...),
-      ],
-      ;
-
-  ...
-
-  1;
-
-could be expressed in a builder definition file like this:
-
-  <object class="My__Frame" id="myframe">
-    <property name="foo">15</property>
-  </object>
-
-Notice that the '::' package separator has been replaced with '__' in the
-C<class> attribute; this is because the ':' character is not valid for
-GType type names.  The mapping from perl package names to GType names should,
-in general, be as simple as transliterating the colons.
-
-
-=head1 PLAIN OBJECTS
-
-Glib::Object does not implement Gtk2::Buildable by itself, so to get a
-builder UI file to create your custom Glib::Object subtypes, you'll have
-add the Gtk2::Buildable interface to your class's interfaces list.
-
-  package My::Thing;
-  use Gtk2; # to get Gtk2::Buildable
-  use Glib::Object::Subclass
-      Glib::Object::,
-      interfaces => [ 'Gtk2::Buildable' ],
-      ...
-      ;
-
-Again, if you have no special requirements, then that should be all you need
-to do.
+Gtk2::Builder already supports plain Glib::Object or Gtk2::Widget with
+C<< <object> >> construction and C<< <property> >> settings, so
+often the C<Gtk2::Buildable> interface is not needed.  The only thing
+to note is that an object or widget implemented in Perl must be loaded
+before building.
 
 =head1 OVERRIDING BUILDABLE INTERFACE METHODS
 
-In some cases, you need to override the default Buildable behavior.  Maybe
-your objects already store their names, or you need some special markup
-tags to express configuration.  In these cases, add the Gtk2::Buildable
-interface to your object declaration, and implement the following methods
-as necessary.
+The buildable interface can be added to a Perl code object or widget
+subclass by putting C<Gtk2::Buildable> in the interfaces list and
+implementing the following methods.
 
-Note that in the current implementation the custom tags code doesn't
+In current Gtk2-Perl the custom tags code doesn't
 chain up to any buildable interfaces in superclasses.  This means for
 instance if you implement Gtk2::Buildable on a new widget subclass
 then you lose the <accelerator> and <accessibility> tags normally
