@@ -266,7 +266,7 @@ void
 find_child_property (container_or_class_name, ...)
 	SV * container_or_class_name
     ALIAS:
-        list_child_properties = 1
+        Gtk2::Container::list_child_properties = 1
     PREINIT:
 	GType type;
 	gchar *name = NULL;
