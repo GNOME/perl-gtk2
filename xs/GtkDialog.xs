@@ -566,6 +566,20 @@ gtk_dialog_get_response_for_widget (dialog, widget)
 
 #endif
 
+#if GTK_CHECK_VERSION (2, 20, 0)
+
+##  GtkWidget *widget gtk_dialog_get_widget_for_response (GtkDialog *dialog, gint);
+=for arg response_id (GtkResponseType)
+=cut
+GtkWidget *
+gtk_dialog_get_widget_for_response (dialog, response_id)
+	GtkDialog *dialog
+	SV *response_id
+    C_ARGS:
+	dialog, gtk2perl_dialog_response_id_from_sv (response_id)
+
+#endif
+
 MODULE = Gtk2::Dialog	PACKAGE = Gtk2	PREFIX = gtk_
 
 #if GTK_CHECK_VERSION (2, 6, 0)

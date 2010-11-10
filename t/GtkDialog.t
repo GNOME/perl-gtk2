@@ -9,7 +9,7 @@
 # 	- rm
 #########################
 
-use Gtk2::TestHelper tests => 26;
+use Gtk2::TestHelper tests => 28;
 
 ok( my $win = Gtk2::Window->new('toplevel') );
 
@@ -98,7 +98,20 @@ isa_ok ($d3->get_content_area, 'Gtk2::VBox');
 ok ($d3->action_area == $d3->get_action_area);
 ok ($d3->vbox == $d3->get_content_area);
 
+SKIP: {
+	skip 'get_widget_for_response is new in 2.20', 2
+		unless Gtk2->CHECK_VERSION (2, 20, 0);
+
+	# number response id
+	is ($d3->get_widget_for_response(44), $btn3);
+
+	# enum name response id
+	my $button = Gtk2::Button->new('foo');
+	$d3->add_action_widget($button, 'help');
+	is ($d3->get_widget_for_response('help'), $button);
+}
+
 __END__
 
-Copyright (C) 2003-2005 by the gtk2-perl team (see the file AUTHORS for the
+Copyright (C) 2003-2005, 2010 by the gtk2-perl team (see the file AUTHORS for the
 full list).  See LICENSE for more information.
