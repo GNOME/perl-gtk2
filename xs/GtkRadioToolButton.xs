@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003 by the gtk2-perl team (see the file AUTHORS)
+ * Copyright (c) 2003, 2010 by the gtk2-perl team (see the file AUTHORS)
  *
  * Licensed under the LGPL, see LICENSE file for more information.
  *
@@ -27,14 +27,14 @@ group_from_sv (SV * member_or_listref)
 	return group;
 }
 
-static SV *
-sv_from_group (GSList * group)
+static AV *
+av_from_group (GSList * group)
 {
 	GSList * i;
 	AV * av = newAV ();
 	for (i = group ; i != NULL ; i = i->next)
 		av_push (av, newSVGtkRadioToolButton (i->data));
-	return newRV_noinc ((SV*)av);
+	return av;
 }
 
 MODULE = Gtk2::RadioToolButton PACKAGE = Gtk2::RadioToolButton PREFIX = gtk_radio_tool_button_
@@ -63,10 +63,11 @@ GtkToolItem *gtk_radio_tool_button_new_with_stock_from_widget (class, GtkWidget_
 	(GtkRadioToolButton*)group, stock_id
 
  ##GSList * gtk_radio_tool_button_get_group (GtkRadioToolButton *button);
-SV *
+AV *
 gtk_radio_tool_button_get_group (GtkRadioToolButton *button)
     CODE:
-	RETVAL = sv_from_group (gtk_radio_tool_button_get_group (button));
+	RETVAL = av_from_group (gtk_radio_tool_button_get_group (button));
+	sv_2mortal ((SV*) RETVAL);  /* typemap expects RETVAL mortalized */
     OUTPUT:
 	RETVAL
 

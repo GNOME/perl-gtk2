@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003 by the gtk2-perl team (see the file AUTHORS)
+ * Copyright (c) 2003, 2010 by the gtk2-perl team (see the file AUTHORS)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -85,23 +85,24 @@ gtk_radio_menu_item_new_from_widget (class, group, label=NULL)
 
 # GSList * gtk_radio_menu_item_get_group (GtkRadioMenuItem *radio_menu_item)
 =for apidoc
-Returns a list of Gtk2::RadioMenuItems, the group.
+Return a reference to an array of C<Gtk2::RadioMenuItem>s, the group members.
 =cut
-void
+AV *
 gtk_radio_menu_item_get_group (radio_menu_item)
 	GtkRadioMenuItem * radio_menu_item
     PREINIT:
 	GSList * group;
 	GSList * i;
-	AV     * av;
-    PPCODE:
+    CODE:
 	group = radio_menu_item->group;
-	av = newAV();
+	RETVAL = newAV();
+	sv_2mortal ((SV*) RETVAL);  /* typemap expects RETVAL mortalized */
 	for( i = group; i ; i = i->next )
 	{
-		av_push(av, newSVGtkRadioMenuItem(GTK_RADIO_MENU_ITEM(i->data)));
+		av_push(RETVAL, newSVGtkRadioMenuItem(GTK_RADIO_MENU_ITEM(i->data)));
 	}
-	PUSHs(sv_2mortal(newRV_noinc((SV*)av)));
+    OUTPUT:
+	RETVAL
 
 void
 gtk_radio_menu_item_set_group (radio_menu_item, member_or_listref)

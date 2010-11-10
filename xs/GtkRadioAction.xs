@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003-2006 by the gtk2-perl team (see the file AUTHORS)
+ * Copyright (c) 2003-2006, 2010 by the gtk2-perl team (see the file AUTHORS)
  *
  * Licensed under the LGPL, see LICENSE file for more information.
  *
@@ -26,17 +26,18 @@ Glib::Object::new.
 =cut
 
 ## GSList  *gtk_radio_action_get_group (GtkRadioAction *action);
-void
+AV *
 gtk_radio_action_get_group (GtkRadioAction *action)
     PREINIT:
 	GSList * group, * i;
-	AV * av;
-    PPCODE:
+    CODE:
 	group = gtk_radio_action_get_group (action);
-	av = newAV ();
+	RETVAL = newAV();
+	sv_2mortal ((SV*) RETVAL);  /* typemap expects RETVAL mortalized */
 	for (i = group ; i != NULL ; i = i->next)
-		av_push (av, newSVGtkRadioAction (i->data));
-	PUSHs (sv_2mortal (newRV_noinc ((SV*)av)));
+		av_push (RETVAL, newSVGtkRadioAction (i->data));
+    OUTPUT:
+	RETVAL
 
 ## void gtk_radio_action_set_group (GtkRadioAction *action, GSList *group);
 void gtk_radio_action_set_group (GtkRadioAction *action, SV *member_or_listref);

@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 9;
+use Gtk2::TestHelper tests => 13;
 
 # $Id$
 
@@ -19,6 +19,21 @@ isa_ok($item_four, "Gtk2::RadioMenuItem");
 $item_three -> set_group($item_one);
 
 is_deeply($item_one -> get_group(), [$item_one, $item_two, $item_three, $item_four]);
+{
+  # get_group() no memory leaks in arrayref return and array items
+  my $x = Gtk2::RadioMenuItem->new;
+  my $y = Gtk2::RadioMenuItem->new;
+  $y->set_group($x);
+  my $aref = $x->get_group;
+  is_deeply($aref, [$x,$y]);
+  require Scalar::Util;
+  Scalar::Util::weaken ($aref);
+  is ($aref, undef, 'get_group() array destroyed by weakening');
+  Scalar::Util::weaken ($x);
+  is ($x, undef, 'get_group() item x destroyed by weakening');
+  Scalar::Util::weaken ($y);
+  is ($y, undef, 'get_group() item y destroyed by weakening');
+}
 
 SKIP: {
   skip("the from_widget variants are new in 2.4", 4)
@@ -38,5 +53,5 @@ SKIP: {
 
 __END__
 
-Copyright (C) 2003 by the gtk2-perl team (see the file AUTHORS for the
+Copyright (C) 2003, 2010 by the gtk2-perl team (see the file AUTHORS for the
 full list).  See LICENSE for more information.

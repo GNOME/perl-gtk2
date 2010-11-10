@@ -2,7 +2,7 @@
 use strict;
 use Gtk2::TestHelper
   at_least_version => [2, 4, 0, "Action-based menus are new in 2.4"],
-  tests => 8;
+  tests => 12;
 
 # $Id$
 
@@ -31,8 +31,23 @@ $item = Gtk2::RadioToolButton -> new();
 
 $item -> set_group([$item_two, $item_three]);
 is_deeply($item -> get_group(), [$item_two, $item_three]);
+{
+  # get_group() no memory leaks in arrayref return and array items
+  my $x = Gtk2::RadioToolButton->new;
+  my $y = Gtk2::RadioToolButton->new;
+  $y->set_group($x);
+  my $aref = $x->get_group;
+  is_deeply($aref, [$x,$y]);
+  require Scalar::Util;
+  Scalar::Util::weaken ($aref);
+  is ($aref, undef, 'get_group() array destroyed by weakening');
+  Scalar::Util::weaken ($x);
+  is ($x, undef, 'get_group() item x destroyed by weakening');
+  Scalar::Util::weaken ($y);
+  is ($y, undef, 'get_group() item y destroyed by weakening');
+}
 
 __END__
 
-Copyright (C) 2003 by the gtk2-perl team (see the file AUTHORS for the
+Copyright (C) 2003, 2010 by the gtk2-perl team (see the file AUTHORS for the
 full list).  See LICENSE for more information.

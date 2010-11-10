@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003 by the gtk2-perl team (see the file AUTHORS)
+ * Copyright (c) 2003, 2010 by the gtk2-perl team (see the file AUTHORS)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -175,25 +175,25 @@ gtk_radio_button_set_group (radio_button, member_or_listref)
 
 # GSList * gtk_radio_button_get_group (GtkRadioButton *radio_button)
 =for apidoc
-=for signature $group = $radio_button->get_group
 Return a reference to the radio group to which I<$radio_button> belongs.
 The group is a reference to an array of widget references; the array is B<not>
 magical, that is, it will not be updated automatically if the group changes;
 call C<get_group> each time you want to use the group.
 =cut
-void
+AV *
 gtk_radio_button_get_group (radio_button)
 	GtkRadioButton * radio_button
     PREINIT:
 	GSList * group;
 	GSList * i;
-	AV     * av;
-    PPCODE:
+    CODE:
 	group = radio_button->group;
-	av = newAV();
+	RETVAL = newAV();
+	sv_2mortal ((SV*) RETVAL);  /* typemap expects RETVAL mortalized */
 	for( i = group; i ; i = i->next )
 	{
-		av_push(av, newSVGtkRadioButton(GTK_RADIO_BUTTON(i->data)));
+		av_push(RETVAL, newSVGtkRadioButton(GTK_RADIO_BUTTON(i->data)));
 	}
-	PUSHs(sv_2mortal(newRV_noinc((SV*)av)));
+    OUTPUT:
+	RETVAL
 
