@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003 by the gtk2-perl team (see the file AUTHORS)
+ * Copyright (c) 2003, 2010 by the gtk2-perl team (see the file AUTHORS)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -64,3 +64,9 @@ GtkShadowType
 gtk_viewport_get_shadow_type (viewport)
 	GtkViewport * viewport
 
+#if GTK_CHECK_VERSION (2, 20, 0)
+
+GdkWindow_ornull*
+gtk_viewport_get_bin_window (GtkViewport *viewport)
+
+#endif /* 2.20 */
