@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 12;
+use Gtk2::TestHelper tests => 15;
 
 # $Id$
 
@@ -102,6 +102,23 @@ SKIP: {
 }
 
 SKIP: {
+  skip("copy_to_image is new in 2.4", 2)
+    unless Gtk2->CHECK_VERSION (2, 4, 0);
+
+  my $image = $win -> copy_to_image(undef, 0, 0, 0, 0, 50, 50);
+  skip ("copy_to_image returned undef", 2)
+    unless (defined($image));
+
+  isa_ok($image, "Gtk2::Gdk::Image",
+	'copy_to_image() creating an image');
+
+  require Scalar::Util;
+  Scalar::Util::weaken ($image);
+  is ($image, undef,
+      'copy_to_image() creating an image - destroyed when unreferenced');
+}
+
+SKIP: {
   skip("copy_to_image is new in 2.4", 1)
     unless Gtk2->CHECK_VERSION (2, 4, 0);
   my $existing_image = $win -> get_image(5, 5, 10, 10);
@@ -113,7 +130,14 @@ SKIP: {
   skip ("copy_to_image returned undef", 1)
     unless (defined($image));
 
-  isa_ok($image, "Gtk2::Gdk::Image");
+  isa_ok($image, "Gtk2::Gdk::Image",
+	 'copy_to_image() to a given target image');
+
+  require Scalar::Util;
+  Scalar::Util::weaken ($image);
+  Scalar::Util::weaken ($existing_image);
+  is ($image, undef,
+      'copy_to_image() to a given target image - destroyed when unreferenced');
 }
 
 __END__
