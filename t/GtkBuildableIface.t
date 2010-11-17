@@ -4,7 +4,7 @@
 use strict;
 use warnings;
 use Gtk2::TestHelper
-  tests => 89,
+  tests => 92,
   at_least_version => [2, 12, 0, 'GtkBuildable appeared in 2.12'];
 
 my $builder = Gtk2::Builder->new ();
@@ -363,4 +363,39 @@ sub SET_BUILDABLE_PROPERTY {
     ok (defined $name);
 
     $self->set ($name, $value);
+}
+
+# --------------------------------------------------------------------------- #
+# GET_INTERNAL_CHILD() returning undef for no such internal child
+{
+  my $get_internal_child = 0;
+  {
+    package MyWidget;
+    use Glib::Object::Subclass 'Gtk2::Widget',
+      interfaces => [ 'Gtk2::Buildable' ];
+    sub GET_INTERNAL_CHILD {
+      $get_internal_child = 1;
+      return undef;
+    }
+  }
+
+  my $builder = Gtk2::Builder->new;
+  eval {
+    $builder->add_from_string (<<'HERE');
+<interface>
+  <object class="MyWidget" id="mywidget">
+    <child internal-child="foo">
+      <object class="GObject" id="in-foo"/>
+    </child>
+  <object>
+</interface>
+HERE
+  };
+  my $err = $@;
+  is ($get_internal_child, 1,
+      'GET_INTERNAL_CHILD returning undef - iface func called');
+  isnt ($@, '',
+	'GET_INTERNAL_CHILD returning undef - builder throws an error');
+  isa_ok ($err, 'Glib::Error',
+	  'GET_INTERNAL_CHILD returning undef - builder error is a GError');
 }

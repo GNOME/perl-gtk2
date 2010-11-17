@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2007 by the gtk2-perl team (see the file AUTHORS)
+ * Copyright (c) 2007, 2010 by the gtk2-perl team (see the file AUTHORS)
  *
  * Licensed under the LGPL, see LICENSE file for more information.
  *
@@ -526,7 +526,7 @@ gtk2perl_buildable_get_internal_child (GtkBuildable  *buildable,
 		XPUSHs (sv_2mortal (newSVGtkBuilder (builder)));
 		XPUSHs (sv_2mortal (newSVGChar (childname)));
 		CALL_SCALAR (sv);
-		child = SvGObject (sv);
+		child = SvGObject_ornull (sv);
 		FINISH;
 	}
 
@@ -1021,6 +1021,10 @@ This will be called to fetch an internal child of I<$self>.  Implement this
 method if your buildable has internal children that need to be accessed from
 a UI definition.  For example, Gtk2::Dialog implements this to give access
 to its internal vbox child.
+
+If I<$childname> is unknown then return C<undef>.  (The builder will
+then generally report a GError for the UI description referring to an
+unknown child.)
 
 =back
 
