@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 11;
+use Gtk2::TestHelper tests => 12;
 
 # $Id$
 
@@ -78,14 +78,17 @@ $win -> draw_layout_with_colors($gc, 10, 10, $layout, $black, $black);
 $win -> draw_layout_with_colors($gc, 10, 10, $layout, undef,  $black);
 $win -> draw_drawable($gc, $win, 5, 5, 5, 5, 10, 10);
 
-my $image = $win -> get_image(5, 5, 10, 10);
-
 SKIP: {
-  skip("get_image returned undef, skipping draw_image", 1)
+  my $image = $win -> get_image(5, 5, 10, 10);
+  skip("get_image returned undef, skipping draw_image", 2)
     unless (defined($image));
 
   isa_ok($image, "Gtk2::Gdk::Image");
   $win -> draw_image($gc, $image, 0, 0, 0, 0, 50, 50);
+
+  require Scalar::Util;
+  Scalar::Util::weaken ($image);
+  is ($image, undef, 'get_image() resulting image destroyed when unreferenced');
 }
 
 SKIP: {
@@ -101,8 +104,11 @@ SKIP: {
 SKIP: {
   skip("copy_to_image is new in 2.4", 1)
     unless Gtk2->CHECK_VERSION (2, 4, 0);
+  my $existing_image = $win -> get_image(5, 5, 10, 10);
+  skip("get_image returned undef, skipping draw_image", 2)
+    unless (defined($existing_image));
 
-  my $image = $win -> copy_to_image($image, 0, 0, 0, 0, 50, 50);
+  my $image = $win -> copy_to_image($existing_image, 0, 0, 0, 0, 50, 50);
 
   skip ("copy_to_image returned undef", 1)
     unless (defined($image));
@@ -112,5 +118,5 @@ SKIP: {
 
 __END__
 
-Copyright (C) 2003-2009 by the gtk2-perl team (see the file AUTHORS for the
+Copyright (C) 2003-2010 by the gtk2-perl team (see the file AUTHORS for the
 full list).  See LICENSE for more information.

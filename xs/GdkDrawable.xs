@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003-2005, 2009 by the gtk2-perl team (see the file AUTHORS)
+ * Copyright (c) 2003-2005, 2009, 2010 by the gtk2-perl team (see the file AUTHORS)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -327,7 +327,8 @@ gdk_draw_layout_with_colors (drawable, gc, x, y, layout, foreground, background)
 MODULE = Gtk2::Gdk::Drawable	PACKAGE = Gtk2::Gdk::Drawable	PREFIX = gdk_drawable_
 
  ## GdkImage* gdk_drawable_get_image (GdkDrawable *drawable, gint x, gint y, gint width, gint height)
-GdkImage*
+ ## The return is a non-floating refcount==1, hence _noinc.
+GdkImage_noinc *
 gdk_drawable_get_image (drawable, x, y, width, height)
 	GdkDrawable *drawable
 	gint x
