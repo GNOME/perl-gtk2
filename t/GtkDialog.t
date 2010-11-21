@@ -9,7 +9,7 @@
 # 	- rm
 #########################
 
-use Gtk2::TestHelper tests => 28;
+use Gtk2::TestHelper tests => 29;
 
 ok( my $win = Gtk2::Window->new('toplevel') );
 
@@ -109,6 +109,17 @@ SKIP: {
 	my $button = Gtk2::Button->new('foo');
 	$d3->add_action_widget($button, 'help');
 	is ($d3->get_widget_for_response('help'), $button);
+}
+
+# Make sure that our custom "response" marshaller is used.
+{
+	my $d = Gtk2::Dialog->new("Test Dialog", undef, [],
+				  'gtk-ok', 'ok');
+	$d->signal_connect(response => sub {
+		is ($_[1], 'ok');
+		Gtk2->main_quit;
+	});
+	run_main (sub { $d->response ('ok'); });
 }
 
 __END__

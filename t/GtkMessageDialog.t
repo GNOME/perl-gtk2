@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 6;
+use Gtk2::TestHelper tests => 7;
 
 # $Id$
 
@@ -24,6 +24,21 @@ $dialog = Gtk2::MessageDialog -> new(undef,
                                      "ok-cancel",
                                      undef);
 isa_ok($dialog, "Gtk2::MessageDialog");
+
+# Make we sure we get the custom 'response' signal marshaller.
+{
+  my $dialog = Gtk2::MessageDialog -> new(undef,
+                                          "destroy-with-parent",
+                                          "warning",
+                                          "ok-cancel",
+                                          undef);
+  $dialog->signal_connect(response => sub {
+    is ($_[1], 'ok');
+    Gtk2->main_quit;
+  });
+  $dialog->show;
+  run_main (sub { $dialog->response ('ok'); });
+}
 
 SKIP: {
   skip("new_with_markup and set_markup are new in 2.4", 2)
