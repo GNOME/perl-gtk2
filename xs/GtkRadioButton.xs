@@ -187,7 +187,7 @@ gtk_radio_button_get_group (radio_button)
 	GSList * group;
 	GSList * i;
     CODE:
-	group = radio_button->group;
+	group = gtk_radio_button_get_group (radio_button);
 	RETVAL = newAV();
 	sv_2mortal ((SV*) RETVAL);  /* typemap expects RETVAL mortalized */
 	for( i = group; i ; i = i->next )

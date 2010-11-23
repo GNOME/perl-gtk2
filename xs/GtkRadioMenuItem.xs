@@ -94,7 +94,7 @@ gtk_radio_menu_item_get_group (radio_menu_item)
 	GSList * group;
 	GSList * i;
     CODE:
-	group = radio_menu_item->group;
+	group = gtk_radio_menu_item_get_group (radio_menu_item);
 	RETVAL = newAV();
 	sv_2mortal ((SV*) RETVAL);  /* typemap expects RETVAL mortalized */
 	for( i = group; i ; i = i->next )
