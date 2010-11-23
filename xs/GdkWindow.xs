@@ -250,7 +250,8 @@ are a bit odd, but that's what Gtk has.  You can, as for any enum,
 give the full names like "GDK_INPUT_OUTPUT" if desired, for some
 clarity.
 =cut
-GdkWindow_noinc *
+# Note: no _noinc here, as we dot own the returned window.
+GdkWindow *
 gdk_window_new (class, parent, attributes_ref)
 	GdkWindow_ornull *parent
 	SV *attributes_ref
