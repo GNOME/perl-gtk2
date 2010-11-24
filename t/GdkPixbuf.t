@@ -1,6 +1,6 @@
 use strict;
 use warnings;
-use Gtk2::TestHelper tests => 106, noinit => 1;
+use Gtk2::TestHelper tests => 108, noinit => 1;
 
 my $show = 0;
 
@@ -319,7 +319,7 @@ isa_ok ($pixbuf, 'Gtk2::Gdk::Pixbuf', 'composite_color_simple');
 
 
 SKIP: {
-  skip "GdkPixbufFormat stuff is new in 2.2.0", 12
+  skip "GdkPixbufFormat stuff is new in 2.2.0", 14
     unless Gtk2->CHECK_VERSION (2,2,0);
 
   my @formats = Gtk2::Gdk::Pixbuf->get_formats;
@@ -331,6 +331,9 @@ SKIP: {
   is (ref $formats[0]{mime_types}, 'ARRAY', "'mime_types' is a list");
   ok (exists $formats[0]{extensions}, "contains key 'extensions'");
   is (ref $formats[0]{extensions}, 'ARRAY', "'extensions' is a list");
+  ok (exists $formats[0]{is_writable}, "contains key 'is_writable'");
+  ok ($formats[0]{is_writable} == 0 || $formats[0]{is_writable} == 1,
+      "'is_writable' is 0 or 1");
 
   SKIP: {
     skip "new format stuff", 4

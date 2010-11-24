@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003-2008 by the gtk2-perl team (see the file AUTHORS)
+ * Copyright (c) 2003-2008, 2010 by the gtk2-perl team (see the file AUTHORS)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -63,6 +63,9 @@ newSVGdkPixbufFormat (GdkPixbufFormat * format)
 		av_store (av, j, newSVGChar (strv[j]));
 	gperl_hv_take_sv_s (hv, "extensions", newRV_noinc ((SV*) av));
 	g_strfreev (strv);
+
+	gperl_hv_take_sv_s (hv, "is_writable",
+			    newSVuv (gdk_pixbuf_format_is_writable (format)));
 
 #if GTK_CHECK_VERSION (2,6,0)
 {
@@ -1018,6 +1021,24 @@ void gdk_pixbuf_get_file_info (class, filename)
 #endif
 
 MODULE = Gtk2::Gdk::Pixbuf	PACKAGE = Gtk2::Gdk::PixbufFormat	PREFIX = gdk_pixbuf_format_
+
+=for position DESCRIPTION
+
+=head1 DESCRIPTION
+
+A C<Gtk2::Gdk::PixbufFormat> has the following format information fields,
+eg. C<< $format->{'name'} >>,
+
+    name            string
+    description     string
+    mime_types      arrayref of strings
+    extensions      arrayref of strings, eg. ['jpg','jpeg']
+    is_writable     0 or 1
+    is_scalable     0 or 1    # in Gtk 2.6 up
+    is_disabled     0 or 1    # in Gtk 2.6 up
+    license         string    # in Gtk 2.6 up
+
+=cut
 
 #if GTK_CHECK_VERSION(2, 2, 0)
 
