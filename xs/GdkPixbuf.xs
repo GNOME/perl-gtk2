@@ -85,7 +85,7 @@ newSVGdkPixbufFormat (GdkPixbufFormat * format)
 
 	/* Store the original format pointer in the hash so that
 	   SvGdkPixbufFormat can retrieve and return it. */
-	sv_magic ((SV*) hv, 0, PERL_MAGIC_ext, (const char *)format, 0);
+	_gperl_attach_mg ((SV*) hv, format);
 
 	stash = gv_stashpv ("Gtk2::Gdk::PixbufFormat", TRUE);
 	return sv_bless ((SV*) newRV_noinc ((SV*) hv), stash);
@@ -96,7 +96,8 @@ SvGdkPixbufFormat (SV * sv)
 {
 	MAGIC *mg;
 
-	if (!gperl_sv_is_defined (sv) || !SvROK (sv) || !(mg = mg_find (SvRV (sv), PERL_MAGIC_ext)))
+	if (!gperl_sv_is_defined (sv) || !SvROK (sv)
+	    || !(mg = _gperl_find_mg (SvRV (sv))))
 		return NULL;
 
 	return (GdkPixbufFormat *) mg->mg_ptr;
@@ -1046,7 +1047,7 @@ void
 DESTROY (sv)
 	SV *sv
     CODE:
-	sv_unmagic (sv, PERL_MAGIC_ext);
+	_gperl_remove_mg (SvRV (sv));
 
 #endif /* 2.2.0 */
 

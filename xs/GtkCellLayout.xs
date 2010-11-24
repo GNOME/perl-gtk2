@@ -160,7 +160,7 @@ create_callback (GtkCellLayoutDataFunc func,
 	wrapper->destroy = destroy;
 
 	data_sv = newSViv (PTR2IV (wrapper));
-	sv_magic ((SV *) dummy_cv, 0, PERL_MAGIC_ext, (const char *) data_sv, 0);
+	_gperl_attach_mg ((SV *) dummy_cv, data_sv);
 
 	*code_return = code_sv;
 	*data_return = data_sv;
@@ -506,13 +506,14 @@ DESTROY (SV *code)
 	MAGIC *mg;
 	Gtk2PerlCellLayoutDataFunc *wrapper;
     CODE:
-	if (!gperl_sv_is_defined (code) || !SvROK (code) || !(mg = mg_find (SvRV (code), PERL_MAGIC_ext)))
+	if (!gperl_sv_is_defined (code) || !SvROK (code)
+	    || !(mg = _gperl_find_mg (SvRV (code))))
 		return;
 
 	wrapper = INT2PTR (Gtk2PerlCellLayoutDataFunc*, SvIV ((SV *) mg->mg_ptr));
 	if (wrapper && wrapper->destroy)
 		wrapper->destroy (wrapper->data);
 
-	sv_unmagic (SvRV (code), PERL_MAGIC_ext);
+	_gperl_remove_mg (SvRV (code));
 	if (wrapper)
 		g_free (wrapper);

@@ -144,7 +144,7 @@ create_callback (GtkTreeIterCompareFunc func,
 	stuff->destroy = destroy;
 
 	my_data = newSViv (PTR2IV (stuff));
-	sv_magic ((SV *) dummy, 0, PERL_MAGIC_ext, (const char *) my_data, 0);
+	_gperl_attach_mg ((SV *) dummy, my_data);
 
 	*code_return = code;
 	*data_return = my_data;
@@ -449,13 +449,14 @@ DESTROY (code)
 	MAGIC *mg;
 	Gtk2PerlTreeIterCompareFunc *stuff;
     CODE:
-	if (!gperl_sv_is_defined (code) || !SvROK (code) || !(mg = mg_find (SvRV (code), PERL_MAGIC_ext)))
+	if (!gperl_sv_is_defined (code) || !SvROK (code)
+	    || !(mg = _gperl_find_mg (SvRV (code))))
 		return;
 
 	stuff = INT2PTR (Gtk2PerlTreeIterCompareFunc*, SvIV ((SV *) mg->mg_ptr));
 	if (stuff && stuff->destroy)
 		stuff->destroy (stuff->data);
 
-	sv_unmagic (SvRV (code), PERL_MAGIC_ext);
+	_gperl_remove_mg (SvRV (code));
 	if (stuff)
 		g_free (stuff);
