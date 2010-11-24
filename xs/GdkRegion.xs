@@ -253,10 +253,13 @@ gdk_region_spans_intersect_foreach (region, spans_ref, sorted, func, data=NULL)
 	GPerlCallback * callback;
     CODE:
 	if (!gperl_sv_is_array_ref (spans_ref))
-		croak ("span list has to be a reference to an array of GdkPoint's");
+		croak ("span list must be an arrayref of triples [ $x,$y,$width,$x,$y,$width,...]");
 
 	array = (AV *) SvRV (spans_ref);
-	n_spans = (av_len (array) + 1) / 3;
+	n_spans = av_len (array) + 1;
+	if ((n_spans % 3) != 0)
+		croak ("span list not a multiple of 3");
+	n_spans /= 3;
 	spans = g_new0 (GdkSpan, n_spans);
 
 	for (i = 0; i < n_spans; i++) {

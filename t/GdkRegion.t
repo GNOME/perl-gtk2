@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 23, noinit => 1;
+use Gtk2::TestHelper tests => 29, noinit => 1;
 
 # $Id$
 
@@ -51,6 +51,19 @@ $region -> spans_intersect_foreach([24, 43, 5,
   is($data, "bla");
 }, "bla");
 
+ok (! eval { $region->spans_intersect_foreach([1], 1, sub {}); 1 },
+      'spans_intersect_foreach() 1 coord - expect error');
+ok (! eval { $region->spans_intersect_foreach([1,2], 1, sub {}); 1 },
+      'spans_intersect_foreach() 2 coords - expect error');
+ok (  eval { $region->spans_intersect_foreach([1,2,3], 1, sub {}); 1 },
+      'spans_intersect_foreach() 3 coords - expect good');
+ok (! eval { $region->spans_intersect_foreach([1,2,3,4], 1, sub {}); 1 },
+      'spans_intersect_foreach() 4 coords - expect error');
+ok (! eval { $region->spans_intersect_foreach([1,2,3,4,5], 1, sub {}); 1 },
+      'spans_intersect_foreach() 5 coords - expect error');
+ok (  eval { $region->spans_intersect_foreach([1,2,3,4,5,6], 1, sub {}); 1 },
+      'spans_intersect_foreach() 6 coords - expect good');
+
 $region -> offset(5, 5);
 $region -> shrink(5, 5);
 $region -> union_with_rect($rectangle_two);
@@ -72,5 +85,5 @@ SKIP: {
 
 __END__
 
-Copyright (C) 2003 by the gtk2-perl team (see the file AUTHORS for the
+Copyright (C) 2003, 2010 by the gtk2-perl team (see the file AUTHORS for the
 full list).  See LICENSE for more information.
