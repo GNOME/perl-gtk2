@@ -454,6 +454,8 @@ DESTROY (code)
 		return;
 
 	stuff = INT2PTR (Gtk2PerlTreeIterCompareFunc*, SvIV ((SV *) mg->mg_ptr));
+	SvREFCNT_dec ((SV *) mg->mg_ptr);
+
 	if (stuff && stuff->destroy)
 		stuff->destroy (stuff->data);
 

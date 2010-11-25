@@ -511,6 +511,8 @@ DESTROY (SV *code)
 		return;
 
 	wrapper = INT2PTR (Gtk2PerlCellLayoutDataFunc*, SvIV ((SV *) mg->mg_ptr));
+	SvREFCNT_dec ((SV *) mg->mg_ptr);
+
 	if (wrapper && wrapper->destroy)
 		wrapper->destroy (wrapper->data);
 
