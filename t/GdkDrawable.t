@@ -62,8 +62,10 @@ my $gc = Gtk2::Gdk::GC -> new_with_values($window -> window(), $values);
 my $layout = $window -> create_pango_layout("Bla!");
 
 $win -> draw_point($gc, 10, 10);
+$win -> draw_points($gc);  # no points
 $win -> draw_points($gc, 10, 10, 11, 11, 12, 12, 13, 13);
 $win -> draw_line($gc, 5, 5, 10, 10);
+$win -> draw_lines($gc);  # no lines
 $win -> draw_lines($gc, 5, 5, 10, 10, 15, 15, 20, 20);
 $win -> draw_segments($gc);
 $win -> draw_segments($gc, 1, 2, 3, 4, 10, 11, 12, 13);

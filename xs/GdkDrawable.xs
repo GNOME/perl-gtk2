@@ -21,6 +21,10 @@
 
 #include "gtk2perl.h"
 
+#ifndef G_LIKELY  /* new in glib 2.2 */
+#define G_LIKELY(cond)  (cond)  /* fallback */
+#endif
+
 /*
 NOTE:
 GdkDrawable descends directly from GObject, so be sure to use GdkDrawable_noinc
@@ -185,18 +189,20 @@ gdk_draw_point (drawable, gc, x, y)
  ## void gdk_draw_lines (GdkDrawable *drawable, GdkGC *gc, GdkPoint *points, gint npoints)
 
 =for apidoc Gtk2::Gdk::Drawable::draw_lines
-=for arg x1 (integer) the x coordinate of the first point
-=for arg y1 (integer) the y coordinate of the first point
-=for arg ... pairs of x and y coordinates
+=for arg ... integer x,y coordinates (possibly none)
+For example
+
+    $win->draw_lines ($gc, 0,0, 20,30, 40,20);
 =cut
 
 =for apidoc
-=for arg x1 (integer) the x coordinate of the first point
-=for arg y1 (integer) the y coordinate of the first point
-=for arg ... (__hide__)
+=for arg ... integer x,y coordinates (possibly none)
+For example three points
+
+    $win->draw_points ($gc, 0,0, 10,10, 20,20);
 =cut
 void
-gdk_draw_points (drawable, gc, x1, y1, ...)
+gdk_draw_points (drawable, gc, ...)
 	GdkDrawable *drawable
 	GdkGC *gc
     ALIAS:
@@ -207,16 +213,20 @@ gdk_draw_points (drawable, gc, x1, y1, ...)
 	gint i, j;
     CODE:
 	npoints = (items-2)/2;
-	points = g_new (GdkPoint, npoints);
-	for (i = 0, j = 2; i < npoints ; i++, j+=2) {
-		points[i].x = SvIV (ST (j));
-		points[i].y = SvIV (ST (j+1));
+	/* gdk_draw_points() and gdk_draw_lines() both accept npoints==0 but
+	   can skip entirely with a couple of bytes of code. */
+	if (G_LIKELY (npoints != 0)) {
+		points = g_new (GdkPoint, npoints);
+		for (i = 0, j = 2; i < npoints ; i++, j+=2) {
+			points[i].x = SvIV (ST (j));
+			points[i].y = SvIV (ST (j+1));
+		}
+		if (ix == 1)
+			gdk_draw_lines (drawable, gc, points, npoints);
+		else
+			gdk_draw_points (drawable, gc, points, npoints);
+		g_free (points);
 	}
-	if (ix == 1)
-		gdk_draw_lines (drawable, gc, points, npoints);
-	else
-		gdk_draw_points (drawable, gc, points, npoints);
-	g_free (points);
 
  #### void gdk_draw_segments (GdkDrawable *drawable, GdkGC *gc, GdkSegment *segs, gint nsegs)
 =for apidoc
