@@ -260,28 +260,35 @@ gdk_region_spans_intersect_foreach (region, spans_ref, sorted, func, data=NULL)
 	if ((n_spans % 3) != 0)
 		croak ("span list not a multiple of 3");
 	n_spans /= 3;
-	spans = g_new0 (GdkSpan, n_spans);
 
-	for (i = 0; i < n_spans; i++) {
-		if ((value = av_fetch (array, 3*i, 0)) && gperl_sv_is_defined (*value))
-			spans[i].x = SvIV (*value);
-		if ((value = av_fetch (array, 3*i + 1, 0)) && gperl_sv_is_defined (*value))
-			spans[i].y = SvIV (*value);
-		if ((value = av_fetch (array, 3*i + 2, 0)) && gperl_sv_is_defined (*value))
-			spans[i].width = SvIV (*value);
+	/* gdk_region_spans_intersect_foreach() is happy to take n_spans==0
+	   and do nothing, but it doesn't like spans==NULL (as of Gtk 2.20),
+	   and NULL is what g_new0() gives for a count of 0.  So explicit
+	   skip if n_spans==0.  */
+	if (n_spans != 0) {
+		spans = g_new0 (GdkSpan, n_spans);
+
+		for (i = 0; i < n_spans; i++) {
+			if ((value = av_fetch (array, 3*i, 0)) && gperl_sv_is_defined (*value))
+				spans[i].x = SvIV (*value);
+			if ((value = av_fetch (array, 3*i + 1, 0)) && gperl_sv_is_defined (*value))
+				spans[i].y = SvIV (*value);
+			if ((value = av_fetch (array, 3*i + 2, 0)) && gperl_sv_is_defined (*value))
+				spans[i].width = SvIV (*value);
+		}
+
+		callback = gperl_callback_new (func, data, 0, NULL, 0);
+
+		gdk_region_spans_intersect_foreach (region,
+		                                    spans,
+		                                    n_spans,
+		                                    sorted,
+		                                    (GdkSpanFunc) gtk2perl_gdk_span_func,
+		                                    callback);
+
+		gperl_callback_destroy (callback);
+		g_free (spans);
 	}
-
-	callback = gperl_callback_new (func, data, 0, NULL, 0);
-
-	gdk_region_spans_intersect_foreach (region,
-	                                    spans,
-	                                    n_spans,
-	                                    sorted,
-	                                    (GdkSpanFunc) gtk2perl_gdk_span_func,
-	                                    callback);
-
-	gperl_callback_destroy (callback);
-	g_free (spans);
 
 #if GTK_CHECK_VERSION (2, 18, 0)
 

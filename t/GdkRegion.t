@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 29, noinit => 1;
+use Gtk2::TestHelper tests => 30, noinit => 1;
 
 # $Id$
 
@@ -50,6 +50,12 @@ $region -> spans_intersect_foreach([24, 43, 5,
   is($width, 5);
   is($data, "bla");
 }, "bla");
+
+{
+  my $callback = 0;
+  $region -> spans_intersect_foreach([], 1, sub { $callback = 1; });
+  is($callback, 0, 'spans_intersect_foreach() 0 coords - no callback');
+}
 
 ok (! eval { $region->spans_intersect_foreach([1], 1, sub {}); 1 },
       'spans_intersect_foreach() 1 coord - expect error');
