@@ -1,7 +1,7 @@
 #!/usr/bin/env perl
 use strict;
 use warnings;
-use Gtk2::TestHelper tests => 110, noinit => 1;
+use Gtk2::TestHelper tests => 111, noinit => 1;
 
 my $show = 0;
 
@@ -212,6 +212,12 @@ unlink $filename;
 
 
 $filename = 'testsave.png';
+eval {
+  $pixbuf->save ($filename, 'png',
+		 'key_arg_without_value_arg');
+};
+like ($@, qr/odd number of arguments detected/);
+
 my $mtime = scalar localtime;
 my $desc = 'Something really cool';
 $pixbuf->save ($filename, 'png',

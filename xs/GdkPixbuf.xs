@@ -643,7 +643,11 @@ gdk_pixbuf_save (pixbuf, filename, type, ...)
 	/* collect key/val pairs from the argument stack and 
 	 * call gdk_pixbuf_savev */
 #define FIRST_KEY 3
-	nkeys = (items - FIRST_KEY) / 2;
+	nkeys = items - FIRST_KEY;
+	if (nkeys % 2)
+		croak ("gdk_pixbuf_save expects options as key => value pairs "
+		       "(odd number of arguments detected)");
+	nkeys /= 2;
 	/* always allocate them.  doesn't hurt.  always one longer for the
 	 * null-terminator, which is set by g_new0. */
 	option_keys = g_new0 (char *, nkeys + 1);
