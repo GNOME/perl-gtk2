@@ -4,6 +4,8 @@ Overview of changes in the next unstable release
 * Fix length of Gtk2::Gdk::Pixbuf->get_pixels() return.
 * Allow Gtk2::Buildable implementations to return undef from
   GET_INTERNAL_CHILD.
+* Ensure that the option strings passed to Gtk2::Gdk::Pixbuf->save() are
+  upgraded to utf8 if necessary.
 
 Overview of changes in Gtk2 1.230
 =================================

@@ -650,9 +650,12 @@ gdk_pixbuf_save (pixbuf, filename, type, ...)
 	option_vals = g_new0 (char *, nkeys + 1);
 
 	for (i = 0 ; i < nkeys ; i++) {
-		/* NOT copies */
-		option_keys[i] = SvPV_nolen (ST (FIRST_KEY + i*2 + 0));
-		option_vals[i] = SvPV_nolen (ST (FIRST_KEY + i*2 + 1));
+		/* NOT copies of the strings.
+		   option_vals[] are utf8 for png format "tEXt::Foo" etc.
+		   option_keys[] are ascii-only circa gtk 2.18, but presume
+		   any non-ascii there would be utf8 too. */
+		option_keys[i] = SvGChar (ST (FIRST_KEY + i*2 + 0));
+		option_vals[i] = SvGChar (ST (FIRST_KEY + i*2 + 1));
 	}
 
 	worked = gdk_pixbuf_savev (pixbuf, filename, type, 

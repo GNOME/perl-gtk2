@@ -1,6 +1,7 @@
+#!/usr/bin/env perl
 use strict;
 use warnings;
-use Gtk2::TestHelper tests => 108, noinit => 1;
+use Gtk2::TestHelper tests => 110, noinit => 1;
 
 my $show = 0;
 
@@ -215,7 +216,18 @@ my $mtime = scalar localtime;
 my $desc = 'Something really cool';
 $pixbuf->save ($filename, 'png',
 	       'tEXt::Thumb::MTime' => $mtime,
-	       'tEXt::Description' => $desc);
+	       'tEXt::Description' => $desc,
+	       #
+	       # latin1 bytes upgraded to utf8 in the xsub
+	       #
+	       # Crib note: if there's no upgrade in the xsub then one of
+	       # two bad things happen: if libpng was built without iTXt
+	       # support then gdk-pixbuf gives a GError because the bytes
+	       # are not valid utf8; or if libpng does have iTXt then
+	       # gdk-pixbuf drops the bytes straight in an iTXt in the file,
+	       # leaving invalid utf8 there.
+	       #
+	       'tEXt::Title' => "z \x{B1} .5");
 ok (1);
 
 $pixbuf = Gtk2::Gdk::Pixbuf->new_from_file ($filename);
@@ -225,6 +237,17 @@ is ($pixbuf->get_option ('tEXt::Description'), $desc, 'get_option works');
 is ($pixbuf->get_option ('tEXt::Thumb::MTime'), $mtime, 'get_option works');
 ok (! $pixbuf->get_option ('tEXt::noneXIStenTTag'),
     'get_option returns undef if the key is not found');
+{
+	my $got = $pixbuf->get_option ('tEXt::Title');
+	my $want = "z \x{B1} .5";
+	utf8::upgrade ($want);
+	is ($got, $want, 'get_option tEXt::Title');
+	SKIP: {
+		utf8->can('is_utf8')
+			or skip 'utf8::is_utf8() not available (perl 5.8.0)', 1;
+		ok (utf8::is_utf8($got), 'get_option tEXt::Title is_utf8()');
+	}
+}
 
 SKIP: {
 	skip 'new 2.2 stuff', 3
