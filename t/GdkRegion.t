@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 30, noinit => 1;
+use Gtk2::TestHelper tests => 35, noinit => 1;
 
 # $Id$
 
@@ -9,6 +9,20 @@ my $rectangle_two = Gtk2::Gdk::Rectangle -> new(23, 42, 15, 15);
 
 isa_ok($rectangle_one -> intersect($rectangle_two), "Gtk2::Gdk::Rectangle");
 isa_ok($rectangle_one -> union($rectangle_two), "Gtk2::Gdk::Rectangle");
+
+{
+  my $pspec = Glib::ParamSpec->boxed ('bb','bb','blurb',
+				      'Gtk2::Gdk::Rectangle',
+				      Glib::G_PARAM_READWRITE);
+  my $rect = Gtk2::Gdk::Rectangle->new (1,2,3,4);
+  my ($flag, $new) = $pspec->value_validate($rect);
+  undef $rect;
+  ok (! $flag, 'value_validate() rectangle unchanged');
+  is ($new->x, 1, );
+  is ($new->y, 2);
+  is ($new->width, 3);
+  is ($new->height, 4);
+}
 
 my $region = Gtk2::Gdk::Region -> new();
 isa_ok($region, "Gtk2::Gdk::Region");
