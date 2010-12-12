@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003-2005 by the gtk2-perl team (see the file AUTHORS)
+ * Copyright (c) 2003-2005, 2010 by the gtk2-perl team (see the file AUTHORS)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -22,6 +22,22 @@
 #include "gtk2perl.h"
 
 MODULE = Gtk2::Gdk::Cursor	PACKAGE = Gtk2::Gdk::Cursor	PREFIX = gdk_cursor_
+
+=for position DESCRIPTION
+
+=head1 DESCRIPTION
+
+For reference, cursors are a per-display resource and can only be used
+with the display they were created on.
+
+As of Gtk 2.22 a cursor doesn't keep a reference to its
+C<Gtk2::Gdk::Display> and if the display object is destroyed before
+the cursor then a later destroy of the cursor may get a segv.
+Perl-Gtk2 doesn't try to do anything about this.  Care may be needed
+if keeping a cursor separate from a widget or window.  (Closing the
+display is fine, but not destroying it.)
+
+=cut
 
 GdkCursorType
 gdk_cursor_type (cursor)
