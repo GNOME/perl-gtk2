@@ -27,6 +27,7 @@ xs/GdkDnd.xs
 xs/GdkDrawable.xs
 xs/GdkEvent.xs
 xs/GdkGC.xs
+xs/GdkImage.xs
 xs/GdkInput.xs
 xs/GdkKeys.xs
 xs/GdkPixbuf.xs

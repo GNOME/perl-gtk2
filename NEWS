@@ -7,6 +7,7 @@ Overview of changes in the next unstable release
 * Ensure that the option strings passed to Gtk2::Gdk::Pixbuf->save() are
   upgraded to utf8 if necessary.  Also, complain if an odd number of key/value
   args is given.
+* Add Gtk2::Gdk::Image.
 
 Overview of changes in Gtk2 1.230
 =================================
