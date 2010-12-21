@@ -98,7 +98,7 @@ eval {
   ok ($builder->add_from_string ($ui) > 0);
 };
 is ($@, '');
-my @objects = $builder->get_objects;
+my @objects = sort { ref $a cmp ref $b } $builder->get_objects;
 isa_ok ($objects[0], 'Gtk2::Adjustment');
 isa_ok ($objects[1], 'Gtk2::SpinButton');
 
