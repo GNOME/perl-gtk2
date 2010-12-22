@@ -73,7 +73,7 @@ gtk2perl_notebook_window_creation_func (GtkNotebook *source,
         GtkNotebook * retval;
         GValue value = {0, };
         g_value_init (&value, GTK_TYPE_NOTEBOOK);
-        gperl_callback_invoke ((GPerlCallback*) data, &value, source, x, y);
+        gperl_callback_invoke ((GPerlCallback*) data, &value, source, page, x, y);
         retval = g_value_get_object (&value);
         g_value_unset (&value);
         return retval;

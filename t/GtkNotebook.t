@@ -1,6 +1,4 @@
-#
-# $Id$
-#
+#!/usr/bin/env perl
 
 #########################
 # GtkNotbook Tests
@@ -126,10 +124,6 @@ SKIP: {
 
 	$nb->set_tab_detachable ($child, TRUE);
 	ok ($nb->get_tab_detachable ($child));
-
-	# FIXME: How to test the callback marshalling?
-	$nb->set_window_creation_hook (sub { warn join ", ", @_; }, 'data');
-	$nb->set_window_creation_hook (sub { warn join ", ", @_; });
 }
 
 SKIP: {
@@ -165,6 +159,40 @@ run_main sub {
 };
 
 ok(1);
+
+=comment
+
+Here's some interactive code for testing the window creation hook.
+
+my $w = Gtk2::Window->new;
+my $nb = Gtk2::Notebook->new;
+$nb->append_page (my $c = Gtk2::Label->new ('Test'));
+$nb->set_tab_detachable ($c, TRUE);
+
+Gtk2::Notebook->set_window_creation_hook (
+  sub {
+    my ($notebook, $page, $x, $y, $data) = @_;
+
+    my $new_window = Gtk2::Window->new;
+    my $new_notebook = Gtk2::Notebook->new;
+    $new_window->add ($new_notebook);
+    $new_window->show_all;
+
+    # Either do it manually and return undef, or ...
+    #$notebook->remove ($page);
+    #$new_notebook->append_page ($page);
+    #return undef;
+
+    # ... simply return the new notebook and let gtk+ do the work.
+    return $new_notebook;
+  });
+
+$w->add ($nb);
+$w->signal_connect (destroy => sub { Gtk2->main_quit; });
+$w->show_all;
+Gtk2->main;
+
+=cut
 
 __END__
 
