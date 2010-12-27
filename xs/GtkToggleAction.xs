@@ -17,9 +17,14 @@ MODULE = Gtk2::ToggleAction	PACKAGE = Gtk2::ToggleAction	PREFIX = gtk_toggle_act
   my $action = Gtk2::ToggleAction->new (name => 'one',
                                         tooltip => 'One');
 
-Note that the constructor slightly deviates from the convenience constructor in
-the C API.  Instead of passing in a list of values for name, label, tooltip and
-stock-id, you just use key => value pairs like with Glib::Object::new.
+=for position DESCRIPTION
+
+=head1 DESCRIPTION
+
+Note that C<new> is the plain L<Glib::Object> C<new> (see
+L<Gtk2::Action>).  The name, label, tooltip and stock_id arguments of
+the C code C<gtk_toggle_action_new()> can be given as key/value pairs,
+plus other property values like active or sensitive.
 
 =cut
 
