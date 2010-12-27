@@ -502,6 +502,17 @@ SKIP: {
 		delete_event => Gtk2::Gdk::Event->new ('key-press'));
 }
 
+SKIP: {
+	skip 'new 2.22 stuff', 0
+		unless Gtk2->CHECK_VERSION(2, 22, 0);
+
+	my $widget = Gtk2::Label->new ('Bla');
+	my $event = Gtk2::Gdk::Event->new ('focus-change');
+	$event->in (TRUE);
+	$event->window ($widget->window);
+	$widget->send_focus_change ($event);
+}
+
 __END__
 
 Copyright (C) 2003-2006, 2010 by the gtk2-perl team (see the file AUTHORS for the

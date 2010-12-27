@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 7, noinit => 1;
+use Gtk2::TestHelper tests => 8;
 
 # $Id$
 
@@ -24,12 +24,22 @@ isa_ok($viewport, "Gtk2::Viewport");
 $viewport -> set_shadow_type("etched-in");
 is($viewport -> get_shadow_type(), "etched-in");
 
+my $window = Gtk2::Window->new;
+$window->add ($viewport);
+$viewport->realize;
+
 SKIP: {
     skip "new 2.20 stuff", 1
         unless Gtk2->CHECK_VERSION(2, 20, 0);
 
-    is ($viewport->get_bin_window, undef,
-	'get_bin_window() undef when unrealized');
+    isa_ok ($viewport->get_bin_window, 'Gtk2::Gdk::Window');
+}
+
+SKIP: {
+    skip "new 2.22 stuff", 1
+        unless Gtk2->CHECK_VERSION(2, 22, 0);
+
+    isa_ok ($viewport->get_view_window, 'Gtk2::Gdk::Window');
 }
 
 __END__

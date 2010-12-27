@@ -166,3 +166,9 @@ const gchar *
 gtk_font_selection_dialog_get_preview_text (fsd)
 	GtkFontSelectionDialog * fsd
 
+#if GTK_CHECK_VERSION (2, 22, 0)
+
+GtkWidget * gtk_font_selection_dialog_get_font_selection (GtkFontSelectionDialog *fsd);
+
+#endif /* 2.22 */
+

@@ -5,7 +5,7 @@
 # 	- rm
 #########################
 
-use Gtk2::TestHelper tests => 64;
+use Gtk2::TestHelper tests => 66;
 
 my $win = Gtk2::Window->new;
 
@@ -133,6 +133,14 @@ SKIP: {
 	my $button=Gtk2::Button->new("click me");
 	$nb->set_action_widget($button,'end');
 	is ($nb->get_action_widget('end'), $button, '[gs]et_action_widget');
+}
+
+SKIP: {
+	skip 'new 2.22 stuff', 2
+		unless Gtk2->CHECK_VERSION(2, 22, 0);
+
+	ok (defined $nb->get_tab_hborder);
+	ok (defined $nb->get_tab_vborder);
 }
 
 $win->show_all;

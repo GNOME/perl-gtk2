@@ -74,3 +74,10 @@ $assistant->set_forward_page_func (\&page_func);
 sub page_func {
 	ok (1);
 }
+
+SKIP: {
+	skip 'new 2.22 stuff', 0
+		unless Gtk2->CHECK_VERSION(2, 22, 0);
+	my $assistant = Gtk2::Assistant->new;
+	$assistant->commit;
+}

@@ -742,6 +742,7 @@ gint
 gtk_tree_path_get_depth (path)
 	GtkTreePath *path
 
+# gint * gtk_tree_path_get_indices_with_depth (GtkTreePath *path, gint *depth);
 =for apidoc
 Returns a list of integers describing the current indices of I<$path>.
 =cut

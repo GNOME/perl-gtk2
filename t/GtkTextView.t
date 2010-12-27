@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 45;
+use Gtk2::TestHelper tests => 48;
 
 # $Id$
 
@@ -134,6 +134,19 @@ SKIP: {
   like ($trailing, qr/^\d+$/, 'trailing');
   $iter = $view->get_iter_at_position (10, 20);
   isa_ok ($iter, 'Gtk2::TextIter', 'get_iter_at_position in scalar context');
+}
+
+SKIP: {
+  skip 'new 2.22 stuff', 3
+    unless Gtk2->CHECK_VERSION(2, 22, 0);
+
+  my $event = Gtk2::Gdk::Event->new ('key-press');
+  $event->window ($view->window);
+  ok (defined $view->im_context_filter_keypress ($event));
+  $view->reset_im_context;
+
+  isa_ok ($view->get_hadjustment, 'Gtk2::Adjustment');
+  isa_ok ($view->get_vadjustment, 'Gtk2::Adjustment');
 }
 
 __END__

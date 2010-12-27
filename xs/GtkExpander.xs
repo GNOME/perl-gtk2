@@ -47,3 +47,10 @@ void gtk_expander_set_label_widget (GtkExpander *expander, GtkWidget *label_widg
 
 GtkWidget *gtk_expander_get_label_widget (GtkExpander *expander);
 
+#if GTK_CHECK_VERSION (2, 22, 0)
+
+void gtk_expander_set_label_fill (GtkExpander *expander, gboolean label_fill);
+
+gboolean gtk_expander_get_label_fill (GtkExpander *expander);
+
+#endif /* 2.22 */

@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 7;
+use Gtk2::TestHelper tests => 8;
 
 # $Id$
 
@@ -88,6 +88,13 @@ SKIP: {
     unless Gtk2->CHECK_VERSION(2, 14, 0);
 
   is ($dialog -> get_image(), $image);
+}
+
+SKIP: {
+  skip 'new 2.22 stuff', 1
+    unless Gtk2->CHECK_VERSION(2, 22, 0);
+
+  isa_ok ($dialog -> get_message_area(), 'Gtk2::Widget');
 }
 
 __END__

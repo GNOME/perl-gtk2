@@ -172,3 +172,9 @@ gtk_table_set_homogeneous (table, homogeneous)
 gboolean
 gtk_table_get_homogeneous (table)
 	GtkTable * table
+
+#if GTK_CHECK_VERSION (2, 22, 0)
+
+void gtk_table_get_size (GtkTable *table, OUTLIST guint rows, OUTLIST guint columns);
+
+#endif /* 2.22 */

@@ -3,7 +3,7 @@
 # $Id$
 
 use Gtk2::TestHelper
-	tests => 14,
+	tests => 15,
 	at_least_version => [2, 4, 0, "GtkExpander is new in 2.4"],
 	;
 
@@ -50,6 +50,14 @@ ok (!$expander->get_use_markup);
 my $label = Gtk2::Label->new ('foo');
 $expander->set_label_widget ($label);
 is ($expander->get_label_widget, $label);
+
+SKIP: {
+  skip 'new 2.22 stuff', 1
+    unless Gtk2->CHECK_VERSION(2, 22, 0);
+
+  $expander->set_label_fill (TRUE);
+  ok ($expander->get_label_fill);
+}
 
 __END__
 

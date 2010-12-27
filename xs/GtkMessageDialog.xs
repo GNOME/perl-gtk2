@@ -194,3 +194,9 @@ void gtk_message_dialog_set_image (GtkMessageDialog *dialog, GtkWidget *image);
 GtkWidget* gtk_message_dialog_get_image (GtkMessageDialog *dialog);
 
 #endif /* 2.14 */
+
+#if GTK_CHECK_VERSION (2, 22, 0)
+
+GtkWidget * gtk_message_dialog_get_message_area (GtkMessageDialog *message_dialog);
+
+#endif /* 2.22 */

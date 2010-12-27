@@ -9,7 +9,7 @@
 
 #########################
 
-use Gtk2::TestHelper tests => 39;
+use Gtk2::TestHelper tests => 40;
 
 ok( my $button = Gtk2::Button->new("Not Yet") );
 ok(1);
@@ -109,6 +109,16 @@ SKIP: {
 
 	$button->set_image_position ("left");
 	is ($button->get_image_position, "left");
+}
+
+SKIP: {
+	skip 'new 2.22 stuff', 1
+		unless Gtk2->CHECK_VERSION(2, 22, 0);
+	my $button = Gtk2::Button->new ('gtk-quit');
+	my $window = Gtk2::Window->new;
+	$window->add ($button);
+	$button->realize;
+	isa_ok ($button->get_event_window, 'Gtk2::Gdk::Window');
 }
 
 __END__

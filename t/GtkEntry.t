@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 63;
+use Gtk2::TestHelper tests => 64;
 
 # $Id$
 
@@ -139,6 +139,21 @@ SKIP: {
 
   test_icon_methods('primary');
   test_icon_methods('secondary');
+}
+
+SKIP: {
+  skip 'new 2.22 stuff', 1
+    unless Gtk2->CHECK_VERSION(2, 22, 0);
+
+  my $entry = Gtk2::Entry->new;
+  my $window = Gtk2::Window->new;
+  $window->add ($entry);
+  $entry->realize;
+  my $event = Gtk2::Gdk::Event->new ('key-press');
+  $event->window ($entry->window);
+  ok (defined $entry->im_context_filter_keypress ($event));
+
+  $entry->reset_im_context;
 }
 
 

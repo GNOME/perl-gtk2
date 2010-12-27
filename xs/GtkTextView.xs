@@ -404,3 +404,16 @@ GtkTextBuffer *
 gtk_text_view_get_buffer (text_view)
 	GtkTextView * text_view
 
+#if GTK_CHECK_VERSION (2, 22, 0)
+
+GtkAdjustment* gtk_text_view_get_hadjustment (GtkTextView *text_view);
+
+GtkAdjustment* gtk_text_view_get_vadjustment (GtkTextView *text_view);
+
+gboolean gtk_text_view_im_context_filter_keypress (GtkTextView *text_view, GdkEvent *event);
+    C_ARGS:
+	text_view, (GdkEventKey *) event
+
+void gtk_text_view_reset_im_context (GtkTextView *text_view);
+
+#endif /* 2.22 */

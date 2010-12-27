@@ -66,3 +66,8 @@ gtk_statusbar_push (statusbar, context_id, text)
 	guint          context_id
 	gchar        * text
 
+#if GTK_CHECK_VERSION (2, 22, 0)
+
+void gtk_statusbar_remove_all (GtkStatusbar *statusbar, guint context_id);
+
+#endif /* 2.22 */

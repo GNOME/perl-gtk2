@@ -275,7 +275,7 @@ GdkPixmap_noinc *gtk_icon_view_create_drag_icon (GtkIconView *icon_view, GtkTree
 
 #endif /* 2.8.0 */
 
-#if GTK_CHECK_VERSION (2, 11, 0)
+#if GTK_CHECK_VERSION (2, 12, 0)
 
 void gtk_icon_view_convert_widget_to_bin_window_coords (GtkIconView *icon_view, gint wx, gint wy, OUTLIST gint bx, OUTLIST gint by);
 
@@ -317,4 +317,16 @@ void gtk_icon_view_set_item_padding (GtkIconView *icon_view, gint item_padding);
 gint gtk_icon_view_get_item_padding (GtkIconView *icon_view);
 
 #endif
+
+#if GTK_CHECK_VERSION (2, 22, 0)
+
+gint gtk_icon_view_get_item_row (GtkIconView *icon_view, GtkTreePath *path);
+
+gint gtk_icon_view_get_item_column (GtkIconView *icon_view, GtkTreePath *path);
+
+void gtk_icon_view_set_item_orientation (GtkIconView *icon_view, GtkOrientation orientation);
+
+GtkOrientation gtk_icon_view_get_item_orientation (GtkIconView *icon_view);
+
+#endif /* 2.22 */
 

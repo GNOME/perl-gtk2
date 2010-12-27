@@ -14,7 +14,7 @@
 use strict;
 use warnings;
 
-use Gtk2::TestHelper tests => 57,
+use Gtk2::TestHelper tests => 60,
     at_least_version => [2, 6, 0, "GtkIconView is new in 2.6"],
     ;
 
@@ -271,6 +271,23 @@ SKIP: {
 	Gtk2->main;
 
 	$win->destroy;
+}
+
+SKIP: {
+	skip 'new 2.22 stuff', 3
+		unless Gtk2->CHECK_VERSION (2, 22, 0);
+
+	my $win = Gtk2::Window->new;
+	my $model = create_store ();
+	fill_store ($model, get_pixbufs ($win));
+	my $iview = Gtk2::IconView->new_with_model ($model);
+	my $path = Gtk2::TreePath->new_first;
+
+	ok (defined $iview->get_item_column ($path));
+	ok (defined $iview->get_item_row ($path));
+
+	$iview->set_item_orientation ('vertical');
+	is ($iview->get_item_orientation, 'vertical');
 }
 
 sub create_store

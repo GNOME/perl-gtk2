@@ -164,10 +164,16 @@ GtkWidget_ornull * gtk_button_get_image (GtkButton *button)
 
 #endif
 
-#if GTK_CHECK_VERSION(2,9,2)
+#if GTK_CHECK_VERSION(2,10,0)
 
 void gtk_button_set_image_position (GtkButton *button, GtkPositionType position);
 
 GtkPositionType gtk_button_get_image_position (GtkButton *button);
 
 #endif
+
+#if GTK_CHECK_VERSION (2, 22, 0)
+
+GdkWindow_ornull * gtk_button_get_event_window (GtkButton *button);
+
+#endif /* 2.22 */

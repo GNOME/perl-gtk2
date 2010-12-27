@@ -70,3 +70,9 @@ GdkWindow_ornull*
 gtk_viewport_get_bin_window (GtkViewport *viewport)
 
 #endif /* 2.20 */
+
+#if GTK_CHECK_VERSION (2, 22, 0)
+
+GdkWindow_ornull * gtk_viewport_get_view_window (GtkViewport *viewport);
+
+#endif /* 2.22 */

@@ -1329,3 +1329,9 @@ gboolean gtk_widget_get_has_tooltip (GtkWidget *widget);
 GdkPixmap_noinc_ornull * gtk_widget_get_snapshot (GtkWidget *widget,  GdkRectangle_ornull *clip_rect=NULL);
 
 #endif /* 2.14 */
+
+#if GTK_CHECK_VERSION (2, 22, 0)
+
+gboolean gtk_widget_send_focus_change (GtkWidget *widget, GdkEvent *event);
+
+#endif /* 2.22 */

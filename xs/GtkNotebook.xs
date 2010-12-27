@@ -465,3 +465,11 @@ GtkWidget_ornull* gtk_notebook_get_action_widget (GtkNotebook *notebook, GtkPack
 
 #endif /* 2.20 */
 
+#if GTK_CHECK_VERSION (2, 22, 0)
+
+guint16 gtk_notebook_get_tab_hborder (GtkNotebook *notebook);
+
+guint16 gtk_notebook_get_tab_vborder (GtkNotebook *notebook);
+
+#endif /* 2.22 */
+

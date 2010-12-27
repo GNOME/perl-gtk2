@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 5;
+use Gtk2::TestHelper tests => 6;
 
 # $Id$
 
@@ -28,6 +28,14 @@ is($table -> get_default_col_spacing(), 5);
 
 $table -> set_homogeneous(0);
 ok(! $table -> get_homogeneous());
+
+SKIP: {
+  skip 'new 2.22 stuff', 1
+    unless Gtk2->CHECK_VERSION(2, 22, 0);
+
+  my ($w, $h) = $table -> get_size();
+  ok (defined $w && defined $h);
+}
 
 __END__
 

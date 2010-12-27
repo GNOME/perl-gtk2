@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 22;
+use Gtk2::TestHelper tests => 23;
 
 # $Id$
 
@@ -46,6 +46,13 @@ SKIP: {
   ok(defined $fs -> get_size());
   isa_ok($fs -> get_size_entry(), 'Gtk2::Widget');
   isa_ok($fs -> get_size_list(), 'Gtk2::Widget');
+}
+
+SKIP: {
+  skip 'new 2.22 stuff', 1
+    unless Gtk2->CHECK_VERSION(2, 22, 0);
+
+  isa_ok($dialog -> get_font_selection(), 'Gtk2::FontSelection');
 }
 
 __END__

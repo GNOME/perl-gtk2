@@ -33,6 +33,13 @@ $sts->pop($sts_cid1);
 $sts->pop($sts_cid2);
 $sts->remove($sts_cid2, $sts_mid1);
 
+SKIP: {
+	skip 'new 2.22 stuff', 0
+		unless Gtk2->CHECK_VERSION(2, 22, 0);
+
+	$sts->remove_all ($sts_cid1);
+}
+
 ok(1);
 
 __END__
