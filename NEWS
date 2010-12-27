@@ -1,6 +1,7 @@
 Overview of changes in the next unstable release
 ================================================
 
+* Gtk2::Notebook: fix invocation of window creation hooks.
 * Fix length of Gtk2::Gdk::Pixbuf->get_pixels() return.
 * Allow Gtk2::Buildable implementations to return undef from
   GET_INTERNAL_CHILD.
