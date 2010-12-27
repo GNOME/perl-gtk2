@@ -29,6 +29,9 @@ gtk2perl_border_wrap (GType gtype, const char * package, gpointer boxed, gboolea
 	GtkBorder *border = boxed;
 	HV *hv;
 
+	PERL_UNUSED_VAR (gtype);
+	PERL_UNUSED_VAR (package);
+
 	if (!border)
 		return &PL_sv_undef;
 
@@ -53,6 +56,9 @@ gtk2perl_border_unwrap (GType gtype, const char * package, SV * sv)
 	HV *hv;
 	SV **value;
 	GtkBorder *border;
+
+	PERL_UNUSED_VAR (gtype);
+	PERL_UNUSED_VAR (package);
 
 	if (!gperl_sv_is_defined (sv) || !SvRV (sv))
 		return NULL;

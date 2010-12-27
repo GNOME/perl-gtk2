@@ -111,6 +111,7 @@ gtk_target_list_wrap (GType gtype,
 {
 	/* To keep compatibility with the old wrappers, we always assume
 	 * ownership of the list. */
+	PERL_UNUSED_VAR (own);
 	gtk_target_list_ref ((GtkTargetList *) boxed);
 	return default_wrapper_class->wrap (gtype, package, boxed, TRUE);
 }

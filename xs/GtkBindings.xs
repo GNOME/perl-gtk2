@@ -40,6 +40,7 @@ gtk2perl_binding_set_copy (GtkBindingSet *binding_set)
 static void
 gtk2perl_binding_set_free (GtkBindingSet *binding_set)
 {
+	PERL_UNUSED_VAR (binding_set);
 	/* no freeing */
 }
 GType
