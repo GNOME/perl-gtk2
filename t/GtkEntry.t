@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 66;
+use Gtk2::TestHelper tests => 68;
 
 # $Id$
 
@@ -139,6 +139,17 @@ SKIP: {
 
   test_icon_methods('primary');
   test_icon_methods('secondary');
+}
+
+SKIP: {
+  skip 'new 2.18 stuff', 2
+    unless Gtk2->CHECK_VERSION(2, 18, 0);
+
+  my $buffer = Gtk2::EntryBuffer->new;
+  my $entry = Gtk2::Entry->new_with_buffer ($buffer);
+  isa_ok ($entry, 'Gtk2::Entry');
+  $entry->set_buffer ($buffer);
+  is ($entry->get_buffer, $buffer);
 }
 
 SKIP: {

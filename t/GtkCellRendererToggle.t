@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 3, noinit => 1;
+use Gtk2::TestHelper tests => 4, noinit => 1;
 
 # $Id$
 
@@ -12,6 +12,14 @@ is($toggle -> get_radio(), 1);
 
 $toggle -> set_active(1);
 is($toggle -> get_active(), 1);
+
+SKIP: {
+  skip 'new 2.18 stuff', 1
+    unless Gtk2->CHECK_VERSION(2, 18, 0);
+
+  $toggle -> set_activatable(TRUE);
+  ok($toggle -> get_activatable());
+}
 
 __END__
 

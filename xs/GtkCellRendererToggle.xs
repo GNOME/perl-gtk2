@@ -50,3 +50,11 @@ gtk_cell_renderer_toggle_set_active (toggle, setting)
 	GtkCellRendererToggle * toggle
 	gboolean                setting
 
+#if GTK_CHECK_VERSION (2, 18, 0)
+
+gboolean gtk_cell_renderer_toggle_get_activatable (GtkCellRendererToggle *toggle);
+
+void gtk_cell_renderer_toggle_set_activatable (GtkCellRendererToggle *toggle, gboolean setting);
+
+#endif /* 2.18 */
+

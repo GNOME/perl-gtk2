@@ -623,6 +623,26 @@ void gtk_cell_renderer_stop_editing (GtkCellRenderer *cell, gboolean canceled)
 
 #endif
 
+#if GTK_CHECK_VERSION (2, 18, 0)
+
+gboolean gtk_cell_renderer_get_visible (GtkCellRenderer *cell);
+
+void gtk_cell_renderer_set_visible (GtkCellRenderer *cell, gboolean visible);
+
+gboolean gtk_cell_renderer_get_sensitive (GtkCellRenderer *cell);
+
+void gtk_cell_renderer_set_sensitive (GtkCellRenderer *cell, gboolean sensitive);
+
+void gtk_cell_renderer_get_alignment (GtkCellRenderer *cell, OUTLIST gfloat xalign, OUTLIST gfloat yalign);
+
+void gtk_cell_renderer_set_alignment (GtkCellRenderer *cell, gfloat xalign, gfloat yalign);
+
+void gtk_cell_renderer_get_padding (GtkCellRenderer *cell, OUTLIST gint xpad, OUTLIST gint ypad);
+
+void gtk_cell_renderer_set_padding (GtkCellRenderer *cell, gint xpad, gint ypad);
+
+#endif /* 2.18 */
+
 ##
 ## Modify the underlying GObjectClass structure for the given package
 ## to call Perl methods as virtual overrides for the get_size, render, 

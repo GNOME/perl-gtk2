@@ -233,7 +233,6 @@ guint16 gtk_entry_get_text_length (GtkEntry *entry);
 
 #endif /* 2.14 */
 
-
 #if GTK_CHECK_VERSION (2, 16, 0)
 
 #
@@ -288,6 +287,18 @@ void gtk_entry_set_icon_drag_source (GtkEntry *entry, GtkEntryIconPosition icon_
 gint gtk_entry_get_current_icon_drag_source (GtkEntry *entry);
 
 #endif /* 2.16 */
+
+#if GTK_CHECK_VERSION (2, 18, 0)
+
+GtkWidget *gtk_entry_new_with_buffer (class, GtkEntryBuffer *buffer)
+    C_ARGS:
+	buffer
+
+GtkEntryBuffer *gtk_entry_get_buffer (GtkEntry *entry);
+
+void gtk_entry_set_buffer (GtkEntry *entry, GtkEntryBuffer *buffer);
+
+#endif /* 2.18 */
 
 #if GTK_CHECK_VERSION (2, 20, 0)
 

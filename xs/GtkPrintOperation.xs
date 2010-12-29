@@ -121,6 +121,24 @@ void gtk_print_operation_set_defer_drawing (GtkPrintOperation *op);
 
 #endif /* 2.16 */
 
+#if GTK_CHECK_VERSION (2, 18, 0)
+
+void gtk_print_operation_set_embed_page_setup (GtkPrintOperation *op, gboolean embed);
+
+gboolean gtk_print_operation_get_embed_page_setup (GtkPrintOperation *op);
+
+void gtk_print_operation_set_support_selection (GtkPrintOperation *op, gboolean support_selection);
+
+gboolean gtk_print_operation_get_support_selection (GtkPrintOperation *op);
+
+void gtk_print_operation_set_has_selection (GtkPrintOperation *op, gboolean has_selection);
+
+gboolean gtk_print_operation_get_has_selection (GtkPrintOperation *op);
+
+gint gtk_print_operation_get_n_pages_to_print (GtkPrintOperation *op);
+
+#endif /* 2.18 */
+
 MODULE = Gtk2::PrintOperation	PACKAGE = Gtk2::Print	PREFIX = gtk_print_
 
 # GtkPageSetup * gtk_print_run_page_setup_dialog (GtkWindow *parent, GtkPageSetup *page_setup, GtkPrintSettings *settings);

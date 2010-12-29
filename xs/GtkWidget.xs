@@ -62,8 +62,6 @@ _INSTALL_OVERRIDES (const char * package)
     }
 }
 
-
-
 MODULE = Gtk2::Widget	PACKAGE = Gtk2::Requisition
 
 gint
@@ -1329,6 +1327,63 @@ gboolean gtk_widget_get_has_tooltip (GtkWidget *widget);
 GdkPixmap_noinc_ornull * gtk_widget_get_snapshot (GtkWidget *widget,  GdkRectangle_ornull *clip_rect=NULL);
 
 #endif /* 2.14 */
+
+#if GTK_CHECK_VERSION (2, 18, 0)
+
+void gtk_widget_set_allocation (GtkWidget *widget, const GdkRectangle *allocation);
+
+GdkRectangle_copy * gtk_widget_get_allocation (GtkWidget *widget)
+    PREINIT:
+        GdkRectangle allocation;
+    CODE:
+        gtk_widget_get_allocation (widget, &allocation);
+        RETVAL = &allocation;
+    OUTPUT:
+        RETVAL
+
+gboolean gtk_widget_get_app_paintable (GtkWidget *widget);
+
+gboolean gtk_widget_get_can_default (GtkWidget *widget);
+
+void gtk_widget_set_can_default (GtkWidget *widget, gboolean can_default);
+
+gboolean gtk_widget_get_can_focus (GtkWidget *widget);
+
+void gtk_widget_set_can_focus (GtkWidget *widget, gboolean can_focus);
+
+gboolean gtk_widget_get_double_buffered (GtkWidget *widget);
+
+void gtk_widget_set_has_window (GtkWidget *widget, gboolean has_window);
+
+gboolean gtk_widget_get_has_window (GtkWidget *widget);
+
+void gtk_widget_set_receives_default (GtkWidget *widget, gboolean receives_default);
+
+gboolean gtk_widget_get_receives_default (GtkWidget *widget);
+
+gboolean gtk_widget_get_sensitive (GtkWidget *widget);
+
+GtkStateType gtk_widget_get_state (GtkWidget *widget);
+
+gboolean gtk_widget_get_visible (GtkWidget *widget);
+
+void gtk_widget_set_visible (GtkWidget *widget, gboolean visible);
+
+# These conflict with our custom accessors and don't provide new
+# functionality. So just skip them for now.
+#gboolean gtk_widget_has_default (GtkWidget *widget);
+#gboolean gtk_widget_has_focus (GtkWidget *widget);
+#gboolean gtk_widget_has_grab (GtkWidget *widget);
+
+gboolean gtk_widget_is_drawable (GtkWidget *widget);
+
+gboolean gtk_widget_is_sensitive (GtkWidget *widget);
+
+gboolean gtk_widget_is_toplevel (GtkWidget *widget);
+
+void gtk_widget_set_window (GtkWidget *widget, GdkWindow *window);
+
+#endif /* 2.18 */
 
 #if GTK_CHECK_VERSION (2, 20, 0)
 

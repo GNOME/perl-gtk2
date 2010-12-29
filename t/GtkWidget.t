@@ -6,7 +6,7 @@
 
 use warnings;
 use strict;
-use Gtk2::TestHelper tests => 144;
+use Gtk2::TestHelper tests => 157;
 
 # we can't instantiate Gtk2::Widget, it's abstract.  use a button instead.
 
@@ -500,6 +500,40 @@ SKIP: {
 		delete_event => \&Gtk2::Widget::hide_on_delete);
 	$window->signal_emit(
 		delete_event => Gtk2::Gdk::Event->new ('key-press'));
+}
+
+SKIP: {
+	skip 'new 2.18 stuff', 13
+		unless Gtk2->CHECK_VERSION(2, 18, 0);
+	my $widget = Gtk2::Label->new ('Bla');
+
+	my $rect = Gtk2::Gdk::Rectangle->new (0, 0, 23, 42);
+	$widget->set_allocation ($rect);
+	my $new_rect = $widget->get_allocation;
+	is ($new_rect->width, $rect->width);
+
+	$widget->set_can_default (TRUE);
+	ok ($widget->get_can_default);
+
+	$widget->set_can_focus (TRUE);
+	ok ($widget->get_can_focus);
+
+	$widget->set_has_window (TRUE);
+	ok ($widget->get_has_window);
+
+	$widget->set_receives_default (TRUE);
+	ok ($widget->get_receives_default);
+
+	$widget->set_visible (TRUE);
+	ok ($widget->get_visible);
+
+	ok (defined $widget->get_app_paintable);
+	ok (defined $widget->get_double_buffered);
+	ok (defined $widget->get_sensitive);
+	ok (defined $widget->get_state);
+	ok (defined $widget->is_drawable);
+	ok (defined $widget->is_sensitive);
+	ok (defined $widget->is_toplevel);
 }
 
 SKIP: {

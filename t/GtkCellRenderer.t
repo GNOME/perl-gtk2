@@ -2,7 +2,7 @@
 
 # $Id$
 
-use Gtk2::TestHelper tests => 20;
+use Gtk2::TestHelper tests => 26;
 use strict;
 
 package Mup::CellRendererPopup;
@@ -199,6 +199,7 @@ SKIP: {
 	skip "editing_canceled is new in 2.4", 0
 		unless Gtk2->CHECK_VERSION (2, 4, 0);
 
+	my $renderer = Gtk2::CellRendererText->new;
 	$renderer->editing_canceled;
 }
 
@@ -206,7 +207,31 @@ SKIP: {
 	skip "stop_editing is new in 2.6", 0
 		unless Gtk2->CHECK_VERSION (2, 6, 0);
 
+	my $renderer = Gtk2::CellRendererText->new;
 	$renderer->stop_editing (FALSE);
+}
+
+SKIP: {
+	skip 'new 2.18 stuff', 6
+		unless Gtk2->CHECK_VERSION(2, 18, 0);
+
+	my $renderer = Gtk2::CellRendererText->new;
+
+	$renderer->set_visible (TRUE);
+	ok ($renderer->get_visible);
+
+	$renderer->set_sensitive (TRUE);
+	ok ($renderer->get_sensitive);
+
+	$renderer->set_alignment (0.5, 0.5);
+	my ($x, $y) = $renderer->get_alignment;
+	delta_ok ($x, 0.5);
+	delta_ok ($y, 0.5);
+
+	$renderer->set_padding (23, 42);
+	($x, $y) = $renderer->get_padding;
+	is ($x, 23);
+	is ($y, 42);
 }
 
 ##########################################################################

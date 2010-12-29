@@ -1,7 +1,7 @@
 #!/usr/bin/perl -w
 use strict;
 use Gtk2::TestHelper
-  tests => 13,
+  tests => 17,
   at_least_version => [2, 10, 0, "GtkPrintOperation is new in 2.10"];
 
 # $Id$
@@ -39,6 +39,8 @@ sub get_op {
   $op -> set_custom_tab_label("Print");
   return $op;
 }
+
+END { unlink "test.pdf"; }
 
 $op = get_op();
 ok(defined $op -> run("export", undef));
@@ -81,8 +83,23 @@ SKIP: {
   ok(defined $op -> run("export", Gtk2::Window -> new()));
 }
 
+SKIP: {
+  skip 'new 2.18 stuff', 4
+    unless Gtk2->CHECK_VERSION(2, 18, 0);
 
-unlink "test.pdf";
+  my $op = Gtk2::PrintOperation -> new();
+
+  $op -> set_embed_page_setup(TRUE);
+  ok($op -> get_embed_page_setup());
+
+  $op -> set_support_selection(TRUE);
+  ok($op -> get_support_selection());
+
+  $op -> set_has_selection(TRUE);
+  ok($op -> get_has_selection());
+
+  ok(defined $op -> get_n_pages_to_print());
+}
 
 =comment
 
