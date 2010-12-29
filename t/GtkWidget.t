@@ -6,7 +6,7 @@
 
 use warnings;
 use strict;
-use Gtk2::TestHelper tests => 140;
+use Gtk2::TestHelper tests => 144;
 
 # we can't instantiate Gtk2::Widget, it's abstract.  use a button instead.
 
@@ -500,6 +500,25 @@ SKIP: {
 		delete_event => \&Gtk2::Widget::hide_on_delete);
 	$window->signal_emit(
 		delete_event => Gtk2::Gdk::Event->new ('key-press'));
+}
+
+SKIP: {
+	skip 'new 2.20 stuff', 4
+		unless Gtk2->CHECK_VERSION(2, 20, 0);
+
+	my $widget = Gtk2::Label->new ('Bla');
+	$widget->set_realized (FALSE);
+	ok (!$widget->get_realized);
+	$widget->set_mapped (FALSE);
+	ok (!$widget->get_mapped);
+	my $req = $widget->get_requisition;
+	ok (defined $req->width && defined $req->height);
+	ok (defined $widget->has_rc_style);
+
+	my $window = Gtk2::Window->new;
+	$window->add ($widget);
+	$widget->realize;
+	$widget->style_attach;
 }
 
 SKIP: {

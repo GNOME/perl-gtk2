@@ -81,3 +81,16 @@ void gtk_tool_item_set_tooltip_markup (GtkToolItem *tool_item, const gchar_ornul
 void gtk_tool_item_toolbar_reconfigured (GtkToolItem *tool_item);
 
 #endif /* 2.14 */
+
+#if GTK_CHECK_VERSION (2, 20, 0)
+
+PangoEllipsizeMode  gtk_tool_item_get_ellipsize_mode    (GtkToolItem *tool_item);
+
+gfloat              gtk_tool_item_get_text_alignment    (GtkToolItem *tool_item);
+
+GtkOrientation      gtk_tool_item_get_text_orientation  (GtkToolItem *tool_item);
+
+# We don't own the size group.
+GtkSizeGroup *      gtk_tool_item_get_text_size_group   (GtkToolItem *tool_item);
+
+#endif /* 2.20 */

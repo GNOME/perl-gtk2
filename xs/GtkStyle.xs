@@ -535,6 +535,12 @@ gtk_paint_resize_grip (style, window, state_type, area, widget, detail, edge, x,
 	gint width
 	gint height
 
+#if GTK_CHECK_VERSION (2, 20, 0)
+
+void gtk_paint_spinner (GtkStyle *style, GdkWindow *window, GtkStateType state_type, const GdkRectangle_ornull *area, GtkWidget_ornull *widget, const gchar_ornull *detail, guint step, gint x, gint y, gint width, gint height);
+
+#endif /* 2.20 */
+
 MODULE = Gtk2::Style	PACKAGE = Gtk2	PREFIX = gtk_
 
 #if GTK_CHECK_VERSION (2, 4, 0)

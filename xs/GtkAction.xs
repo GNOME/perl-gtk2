@@ -139,6 +139,14 @@ void gtk_action_unblock_activate (GtkAction *action);
 
 #endif
 
+#if GTK_CHECK_VERSION (2, 20, 0)
+
+gboolean gtk_action_get_always_show_image (GtkAction *action);
+
+void gtk_action_set_always_show_image (GtkAction *action, gboolean always_show);
+
+#endif /* 2.20 */
+
 
 #if GTK_CHECK_VERSION (2, 10, 0)
 

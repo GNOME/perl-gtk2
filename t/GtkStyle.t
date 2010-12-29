@@ -222,6 +222,15 @@ SKIP: {
   );
 }
 
+SKIP: {
+  skip 'new 2.20 stuff', 0
+    unless Gtk2->CHECK_VERSION(2, 20, 0);
+
+  $style -> paint_spinner($window -> window(), "normal", undef, undef, undef, 1, 2, 3, 4, 5);
+  my $area = Gtk2::Gdk::Rectangle -> new(1, 2, 3, 4);
+  $style -> paint_spinner($window -> window(), "normal", $area, $button, "detail", 1, 2, 3, 4, 5);
+}
+
 
 # Test that an error is thrown
 sub test_die {

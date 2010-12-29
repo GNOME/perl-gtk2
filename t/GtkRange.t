@@ -1,7 +1,7 @@
 #!/usr/bin/perl -w
 # vim: set ft=perl :
 use strict;
-use Gtk2::TestHelper tests => 11;
+use Gtk2::TestHelper tests => 15;
 
 # $Id$
 
@@ -56,6 +56,20 @@ SKIP: {
 
 	$range -> set_flippable(TRUE);
 	ok($range -> get_flippable, '[gs]et_flippable');
+}
+
+SKIP: {
+	skip 'new 2.20 stuff', 4
+		unless Gtk2->CHECK_VERSION(2, 20, 0);
+
+	$range -> set_min_slider_size(TRUE);
+	ok($range -> get_min_slider_size());
+	my $rect = $range -> get_range_rect();
+	ok(defined $rect -> width() && defined $rect -> height());
+	my ($start, $end) = $range -> get_slider_range();
+	ok(defined $start && defined $end);
+	$range -> set_slider_size_fixed(TRUE);
+	ok($range -> get_slider_size_fixed());
 }
 
 __END__

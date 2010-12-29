@@ -10,7 +10,7 @@
 
 #########################
 
-use Gtk2::TestHelper tests => 116;
+use Gtk2::TestHelper tests => 117;
 
 ok( my $win = Gtk2::Window->new );
 ok( $win = Gtk2::Window->new('popup') );
@@ -397,6 +397,15 @@ SKIP: {
 	is (Gtk2::Window->get_default_icon_name,undef, '[gs]et_default_icon_name with undef');
 	Gtk2::Window->set_default_icon_name ('gtk-ok');
 	is (Gtk2::Window->get_default_icon_name,'gtk-ok', 'get_default_icon_name');
+}
+
+SKIP: {
+	skip 'new 2.20 stuff', 1
+		unless Gtk2->CHECK_VERSION(2, 20, 0);
+
+	my $window = Gtk2::Window->new;
+	is ($window->get_window_type, 'toplevel');
+	$window->set_mnemonics_visible (TRUE);
 }
 
 

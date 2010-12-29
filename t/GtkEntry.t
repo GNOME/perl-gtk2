@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 64;
+use Gtk2::TestHelper tests => 66;
 
 # $Id$
 
@@ -139,6 +139,21 @@ SKIP: {
 
   test_icon_methods('primary');
   test_icon_methods('secondary');
+}
+
+SKIP: {
+  skip 'new 2.20 stuff', 2
+    unless Gtk2->CHECK_VERSION(2, 20, 0);
+
+  my $entry = Gtk2::Entry->new;
+  my $window = Gtk2::Window->new;
+  $window->add ($entry);
+  $entry->realize;
+
+  $entry->set_icon_from_icon_name ('primary', 'gtk-yes');
+  isa_ok ($entry->get_icon_window ('primary'), 'Gtk2::Gdk::Window');
+
+  isa_ok ($entry->get_text_window, 'Gtk2::Gdk::Window');
 }
 
 SKIP: {

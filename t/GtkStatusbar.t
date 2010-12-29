@@ -1,6 +1,4 @@
-#
-# $Id$
-#
+#!/usr/bin/env perl
 
 use strict;
 use warnings;
@@ -12,7 +10,7 @@ use warnings;
 
 #########################
 
-use Gtk2::TestHelper tests => 9, noinit => 1;
+use Gtk2::TestHelper tests => 10, noinit => 1;
 
 ok( my $sts = Gtk2::Statusbar->new );
 
@@ -32,6 +30,13 @@ $sts->pop($sts_cid1);
 
 $sts->pop($sts_cid2);
 $sts->remove($sts_cid2, $sts_mid1);
+
+SKIP: {
+	skip 'new 2.20 stuff', 1
+		unless Gtk2->CHECK_VERSION(2, 20, 0);
+
+	isa_ok ($sts->get_message_area, 'Gtk2::Widget');
+}
 
 SKIP: {
 	skip 'new 2.22 stuff', 0

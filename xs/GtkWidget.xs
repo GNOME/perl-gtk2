@@ -1330,6 +1330,33 @@ GdkPixmap_noinc_ornull * gtk_widget_get_snapshot (GtkWidget *widget,  GdkRectang
 
 #endif /* 2.14 */
 
+#if GTK_CHECK_VERSION (2, 20, 0)
+
+void gtk_widget_set_realized (GtkWidget *widget, gboolean realized);
+
+gboolean gtk_widget_get_realized (GtkWidget *widget);
+
+void gtk_widget_set_mapped (GtkWidget *widget, gboolean mapped);
+
+gboolean gtk_widget_get_mapped (GtkWidget *widget);
+
+# void gtk_widget_get_requisition (GtkWidget *widget, GtkRequisition *requisition)
+GtkRequisition_copy *
+gtk_widget_get_requisition (GtkWidget *widget)
+    PREINIT:
+	GtkRequisition requisition;
+    CODE:
+	gtk_widget_get_requisition (widget, &requisition);
+	RETVAL = &requisition;
+    OUTPUT:
+	RETVAL
+
+gboolean gtk_widget_has_rc_style (GtkWidget *widget);
+
+void gtk_widget_style_attach (GtkWidget *style);
+
+#endif /* 2.20 */
+
 #if GTK_CHECK_VERSION (2, 22, 0)
 
 gboolean gtk_widget_send_focus_change (GtkWidget *widget, GdkEvent *event);

@@ -8,6 +8,7 @@
 #
 # C name        description
 # ------------  ----------------
+GtkTargetEntry  Gtk2::TargetEntry
 GtkTargetList   Gtk2::TargetList
 GdkAtom         Gtk2::Gdk::Atom
 GdkBitmap       Gtk2::Gdk::Bitmap

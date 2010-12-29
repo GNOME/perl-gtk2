@@ -744,6 +744,14 @@ gtk_window_get_default_icon_name (class);
 
 #endif /* 2.16 */
 
+#if GTK_CHECK_VERSION (2, 20, 0)
+
+GtkWindowType gtk_window_get_window_type (GtkWindow *window);
+
+void gtk_window_set_mnemonics_visible (GtkWindow *window, gboolean setting);
+
+#endif /* 2.20 */
+
 MODULE = Gtk2::Window	PACKAGE = Gtk2::WindowGroup	PREFIX = gtk_window_group_
 
 ## GtkWindowGroup * gtk_window_group_new (void)

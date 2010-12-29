@@ -157,9 +157,9 @@ SKIP: {
 
   $icon->set_tooltip_text(undef);
   is ($icon->get_tooltip_text(), undef);
-
-
 }
+
+# --------------------------------------------------------------------------- #
 
 SKIP: {
   skip 'new 2.18 stuff', 1
@@ -167,7 +167,17 @@ SKIP: {
 
   $icon->set_title('my statusicon title');
   is ($icon->get_title, 'my statusicon title', '[gs]et_title');
+}
 
+# --------------------------------------------------------------------------- #
+
+SKIP: {
+  skip 'new 2.20 stuff', 0
+    if (TRUE); # See <https://bugzilla.gnome.org/show_bug.cgi?id=638263>.
+    # unless Gtk2->CHECK_VERSION(2, 20, 0);
+
+  my $icon = Gtk2::StatusIcon->new;
+  $icon->set_name('bla');
 }
 
 __END__

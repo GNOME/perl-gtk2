@@ -289,6 +289,14 @@ gint gtk_entry_get_current_icon_drag_source (GtkEntry *entry);
 
 #endif /* 2.16 */
 
+#if GTK_CHECK_VERSION (2, 20, 0)
+
+GdkWindow * gtk_entry_get_icon_window (GtkEntry *entry, GtkEntryIconPosition icon_pos);
+
+GdkWindow * gtk_entry_get_text_window (GtkEntry *entry);
+
+#endif /* 2.20 */
+
 #if GTK_CHECK_VERSION (2, 22, 0)
 
 gboolean gtk_entry_im_context_filter_keypress (GtkEntry *entry, GdkEvent *event);
@@ -298,7 +306,6 @@ gboolean gtk_entry_im_context_filter_keypress (GtkEntry *entry, GdkEvent *event)
 void gtk_entry_reset_im_context (GtkEntry *entry);
 
 #endif /* 2.22 */
-
 
 ##
 ## hey, these are deprecated!  is that new as of 2.3.x?

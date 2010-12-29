@@ -162,3 +162,9 @@ const gchar * gtk_status_icon_get_title (GtkStatusIcon *status_icon);
 
 #endif /* 2.18 */
 
+#if GTK_CHECK_VERSION (2, 20, 0)
+
+void gtk_status_icon_set_name (GtkStatusIcon *status_icon, const gchar *name);
+
+#endif /* 2.20 */
+

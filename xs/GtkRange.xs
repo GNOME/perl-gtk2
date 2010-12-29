@@ -117,3 +117,27 @@ void gtk_range_set_flippable (GtkRange *range, gboolean flippable);
 
 #endif
 
+#if GTK_CHECK_VERSION (2, 20, 0)
+
+void gtk_range_set_min_slider_size (GtkRange *range, gboolean min_size);
+
+gint gtk_range_get_min_slider_size (GtkRange *range);
+
+# void gtk_range_get_range_rect (GtkRange *range, GdkRectangle *range_rect)
+GdkRectangle_copy *
+gtk_range_get_range_rect (GtkRange *range)
+    PREINIT:
+	GdkRectangle range_rect;
+    CODE:
+	gtk_range_get_range_rect (range, &range_rect);
+	RETVAL = &range_rect;
+    OUTPUT:
+	RETVAL
+
+void gtk_range_get_slider_range (GtkRange *range, OUTLIST gint slider_start, OUTLIST gint slider_end);
+
+void gtk_range_set_slider_size_fixed (GtkRange *range, gboolean size_fixed);
+
+gboolean gtk_range_get_slider_size_fixed (GtkRange *range);
+
+#endif /* 2.20 */

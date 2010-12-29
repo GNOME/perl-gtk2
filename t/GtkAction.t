@@ -5,7 +5,7 @@
 
 use Gtk2::TestHelper
 	at_least_version => [2, 4, 0, "Action-based menus are new in 2.4"],
-	tests => 30, noinit => 0;
+	tests => 31, noinit => 0;
 
 my $action = Gtk2::Action->new (name => 'Open',
                                 label => '_Open',
@@ -153,6 +153,14 @@ SKIP: {
 
 	$action->block_activate;
 	$action->unblock_activate;
+}
+
+SKIP: {
+	skip 'new 2.20 stuff', 1
+		unless Gtk2->CHECK_VERSION(2, 20, 0);
+
+	$action->set_always_show_image (TRUE);
+	ok ($action->get_always_show_image);
 }
 
 __END__

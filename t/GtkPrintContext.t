@@ -1,7 +1,7 @@
 #!/usr/bin/perl -w
 use strict;
 use Gtk2::TestHelper
-  tests => 10,
+  tests => 11,
   at_least_version => [2, 10, 0, "GtkPrintContext is new in 2.10"];
 
 # $Id$
@@ -24,6 +24,15 @@ $op -> signal_connect(begin_print => sub {
   isa_ok($context -> create_pango_layout(), "Gtk2::Pango::Layout");
 
   $context -> set_cairo_context($cr, 72, 72);
+
+  SKIP: {
+    skip 'new 2.20 stuff', 1
+      unless Gtk2->CHECK_VERSION(2, 20, 0);
+
+    my ($top, $bottom, $left, $right) = $context -> get_hard_margins();
+    ok((defined $top && defined $bottom && defined $left && defined $right) ||
+       (!defined $top && !defined $bottom && !defined $left && !defined $right));
+  }
 });
 
 $op -> set_n_pages(1);
