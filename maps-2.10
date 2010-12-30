@@ -10,13 +10,17 @@ GTK_TYPE_LINK_BUTTON			GtkLinkButton			GtkObject	Gtk2::LinkButton
 
 GTK_PRINT_ERROR				GTK_TYPE_PRINT_ERROR		GError		Gtk2::PrintError
 GTK_TYPE_PAGE_ORIENTATION		GtkPageOrientation		GEnum		Gtk2::PageOrientation
+GTK_TYPE_PAGE_SET			GtkPageSet			GEnum		Gtk2::PageSet
 GTK_TYPE_PAGE_SETUP			GtkPageSetup			GObject		Gtk2::PageSetup
 GTK_TYPE_PAPER_SIZE			GtkPaperSize			GBoxed		Gtk2::PaperSize
 GTK_TYPE_PRINT_CONTEXT			GtkPrintContext			GObject		Gtk2::PrintContext
+GTK_TYPE_PRINT_DUPLEX			GtkPrintDuplex			GEnum		Gtk2::PrintDuplex
 GTK_TYPE_PRINT_OPERATION		GtkPrintOperation		GObject		Gtk2::PrintOperation
 GTK_TYPE_PRINT_OPERATION_ACTION		GtkPrintOperationAction		GEnum		Gtk2::PrintOperationAction
 GTK_TYPE_PRINT_OPERATION_PREVIEW	GtkPrintOperationPreview	GInterface	Gtk2::PrintOperationPreview
 GTK_TYPE_PRINT_OPERATION_RESULT		GtkPrintOperationResult		GEnum		Gtk2::PrintOperationResult
+GTK_TYPE_PRINT_PAGES			GtkPrintPages			GEnum		Gtk2::PrintPages
+GTK_TYPE_PRINT_QUALITY			GtkPrintQuality			GEnum		Gtk2::PrintQuality
 GTK_TYPE_PRINT_SETTINGS			GtkPrintSettings		GObject		Gtk2::PrintSettings
 GTK_TYPE_PRINT_STATUS			GtkPrintStatus			GEnum		Gtk2::PrintStatus
 
