@@ -1,7 +1,7 @@
 Overview of changes in the next unstable release
 ================================================
 
-* Wrap missing gtk+ 2.14, 2.16, 2.18 and 2.20 API.
+* Wrap missing gtk+ 2.12, 2.14, 2.16, 2.18 and 2.20 API.
 * Wrap gtk+ 2.22 API.
 * Gtk2::Notebook: fix invocation of window creation hooks.
 * Fix length of Gtk2::Gdk::Pixbuf->get_pixels() return.
