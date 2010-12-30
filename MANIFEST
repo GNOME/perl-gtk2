@@ -3,6 +3,7 @@ AUTHORS
 ChangeLog.pre-git
 CodeGen.pm
 constants-2.0
+constants-2.18
 copyright.pod
 devel.pod
 doctypes
@@ -154,6 +155,7 @@ t/GtkAccelLabel.t
 t/GtkAccelMap.t
 t/GtkAction.t
 t/GtkActionGroup.t
+t/GtkActivatable.t
 t/GtkAdjustment.t
 t/GtkAlignment.t
 t/GtkArrow.t
@@ -197,6 +199,7 @@ t/GtkDnd.t
 t/GtkDrawingArea.t
 t/GtkEditable.t
 t/GtkEntry.t
+t/GtkEntryBuffer.t
 t/GtkEntryCompletion.t
 t/GtkEventBox.t
 t/GtkExpander.t
@@ -220,6 +223,7 @@ t/GtkHRuler.t
 t/GtkHScale.t
 t/GtkHScrollbar.t
 t/GtkHSeparator.t
+t/GtkHSV.t
 t/GtkIconFactory.t
 t/GtkIconTheme.t
 t/GtkIconView.t
@@ -384,6 +388,7 @@ xs/GtkAccelLabel.xs
 xs/GtkAccelMap.xs
 xs/GtkAction.xs
 xs/GtkActionGroup.xs
+xs/GtkActivatable.xs
 xs/GtkAdjustment.xs
 xs/GtkAlignment.xs
 xs/GtkArrow.xs
@@ -425,6 +430,7 @@ xs/GtkDnd.xs
 xs/GtkDrawingArea.xs
 xs/GtkEditable.xs
 xs/GtkEntry.xs
+xs/GtkEntryBuffer.xs
 xs/GtkEntryCompletion.xs
 xs/GtkEventBox.xs
 xs/GtkExpander.xs
@@ -448,6 +454,7 @@ xs/GtkHRuler.xs
 xs/GtkHScale.xs
 xs/GtkHScrollbar.xs
 xs/GtkHSeparator.xs
+xs/GtkHSV.xs
 xs/GtkIconFactory.xs
 xs/GtkIconTheme.xs
 xs/GtkIconView.xs

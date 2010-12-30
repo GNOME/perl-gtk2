@@ -1,9 +1,7 @@
-###!/usr/bin/perl -w
-
-# $Id$
+#!/usr/bin/env perl
 
 use Gtk2::TestHelper
-	tests => 27,
+	tests => 28,
 	at_least_version => [2, 4, 0, "GtkComboBox is new in 2.4"],
 	;
 
@@ -133,6 +131,15 @@ SKIP: {
 
 	$combo_box->set_title ("whee");
 	is ($combo_box->get_title, "whee");
+}
+
+SKIP: {
+	skip 'new 2.14 stuff', 1
+		unless Gtk2->CHECK_VERSION(2, 14, 0);
+
+	my $combo_box = Gtk2::ComboBox->new;
+	$combo_box->set_button_sensitivity ('auto');
+	is ($combo_box->get_button_sensitivity, 'auto');
 }
 
 __END__

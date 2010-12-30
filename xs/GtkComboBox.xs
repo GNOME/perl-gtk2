@@ -201,3 +201,11 @@ void gtk_combo_box_set_title (GtkComboBox *combo_box, const gchar * title);
 const gchar * gtk_combo_box_get_title (GtkComboBox *combo_box);
 
 #endif
+
+#if GTK_CHECK_VERSION (2, 14, 0)
+
+void gtk_combo_box_set_button_sensitivity (GtkComboBox *combo_box, GtkSensitivityType sensitivity);
+
+GtkSensitivityType gtk_combo_box_get_button_sensitivity (GtkComboBox *combo_box);
+
+#endif /* 2.14 */

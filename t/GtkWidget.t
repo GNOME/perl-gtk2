@@ -6,7 +6,7 @@
 
 use warnings;
 use strict;
-use Gtk2::TestHelper tests => 157;
+use Gtk2::TestHelper tests => 158;
 
 # we can't instantiate Gtk2::Widget, it's abstract.  use a button instead.
 
@@ -481,7 +481,7 @@ SKIP: {
 }
 
 SKIP: {
-	skip 'new 2.14 stuff', 3
+	skip 'new 2.14 stuff', 4
 		unless Gtk2->CHECK_VERSION(2, 14, 0);
 
 	my $widget = Gtk2::Label->new ('Bla');
@@ -495,6 +495,8 @@ SKIP: {
 	isa_ok ($widget->get_snapshot (), 'Gtk2::Gdk::Pixmap');
 	isa_ok ($widget->get_snapshot (Gtk2::Gdk::Rectangle->new (0, 0, 1, 1)),
 		'Gtk2::Gdk::Pixmap');
+
+	isa_ok ($widget->get_window (), 'Gtk2::Gdk::Window');
 
 	$window->signal_connect(
 		delete_event => \&Gtk2::Widget::hide_on_delete);
