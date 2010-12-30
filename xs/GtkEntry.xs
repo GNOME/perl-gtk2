@@ -274,7 +274,11 @@ void gtk_entry_set_icon_sensitive (GtkEntry *entry, GtkEntryIconPosition icon_po
 
 void gtk_entry_set_icon_tooltip_markup (GtkEntry *entry, GtkEntryIconPosition icon_pos, const gchar_ornull *tooltip);
 
+gchar_own_ornull * gtk_entry_get_icon_tooltip_markup (GtkEntry *entry, GtkEntryIconPosition icon_pos);
+
 void gtk_entry_set_icon_tooltip_text (GtkEntry *entry, GtkEntryIconPosition icon_pos, const gchar_ornull *tooltip);
+
+gchar_own_ornull * gtk_entry_get_icon_tooltip_text (GtkEntry *entry, GtkEntryIconPosition icon_pos);
 
 void gtk_entry_set_progress_fraction (GtkEntry *entry, gdouble fraction);
 

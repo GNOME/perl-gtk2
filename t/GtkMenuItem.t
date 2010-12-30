@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 19;
+use Gtk2::TestHelper tests => 20;
 
 # $Id$
 
@@ -66,6 +66,17 @@ SKIP: {
   is ($item -> get_accel_path(), '<bla>/bla/bla');
 }
 
+SKIP: {
+  skip 'new 2.16 stuff', 2
+    unless Gtk2->CHECK_VERSION(2, 16, 0);
+
+  my $item = Gtk2::MenuItem->new ("_foo");
+  $item->set_use_underline (TRUE);
+  is ($item->get_use_underline, TRUE, '[gs]et_use_underline');
+  $item->set_label ('Test');
+  is ($item->get_label, 'Test');
+}
+
 #-----------------------------------------------------------------------------
 # circular ref between MenuItem and child AccelLabel
 #
@@ -108,15 +119,6 @@ SKIP: {
   Scalar::Util::weaken ($item);
   ok ($item, 'set(label=>"foo") not destroyed by weakening (correctness of the docs)');
   if ($item) { $item->destroy; }
-}
-
-SKIP: {
-  skip 'new 2.18 stuff', 1
-	unless Gtk2->CHECK_VERSION(2, 18, 0);
-
-	my $item = Gtk2::MenuItem->new("_foo");
-	$item->set_use_underline(TRUE);
-	is( $item->get_use_underline, TRUE, '[gs]et_use_underline');
 }
 
 __END__

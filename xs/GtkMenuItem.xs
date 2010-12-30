@@ -183,5 +183,9 @@ gtk_menu_item_get_use_underline (GtkMenuItem *menu_item)
 void
 gtk_menu_item_set_use_underline (GtkMenuItem *menu_item, gboolean use_underline)
 
+const gchar * gtk_menu_item_get_label (GtkMenuItem *menu_item);
+
+void gtk_menu_item_set_label (GtkMenuItem *menu_item, const gchar *label);
+
 #endif /* 2.16 */
 

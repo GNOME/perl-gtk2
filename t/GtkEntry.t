@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 68;
+use Gtk2::TestHelper tests => 76;
 
 # $Id$
 
@@ -100,7 +100,7 @@ SKIP: {
 }
 
 SKIP: {
-  skip '2.16 stuff', 40
+  skip '2.16 stuff', 48
     unless Gtk2->CHECK_VERSION(2, 16, 0);
 
   ## progress methods
@@ -234,12 +234,16 @@ sub test_icon_methods {
   is($entry -> get_icon_pixbuf($icon_pos), undef);
 
 
-  # This method can't be tested, at least we call them just in case they crash
+  # Icon tooltips
   $entry -> set_icon_tooltip_markup($icon_pos, "<b>Pan</b><i>Go</i> tooltip");
+  is($entry -> get_icon_tooltip_markup($icon_pos), "<b>Pan</b><i>Go</i> tooltip");
   $entry -> set_icon_tooltip_markup($icon_pos, undef);
+  is($entry -> get_icon_tooltip_markup($icon_pos), undef);
 
   $entry -> set_icon_tooltip_text($icon_pos, "Text tooltip");
+  is($entry -> get_icon_tooltip_text($icon_pos), "Text tooltip");
   $entry -> set_icon_tooltip_text($icon_pos, undef);
+  is($entry -> get_icon_tooltip_text($icon_pos), undef);
 
 
   $entry -> set_icon_drag_source(
