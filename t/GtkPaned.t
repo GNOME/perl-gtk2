@@ -1,5 +1,5 @@
 #!/usr/bin/perl
-use Gtk2::TestHelper tests => 9;
+use Gtk2::TestHelper tests => 10;
 
 # $Id$
 
@@ -48,6 +48,17 @@ $vpaned->child1_shrink (23);
 $vpaned->child2_shrink (42);
 
 $hpaned->compute_position (23, 10, 10);
+
+SKIP: {
+  skip 'new 2.20 stuff', 1
+    unless Gtk2->CHECK_VERSION(2, 20, 0);
+
+  my $window = Gtk2::Window->new;
+  my $paned = Gtk2::HPaned->new;
+  $window->add ($paned);
+  $paned->realize;
+  isa_ok ($paned->get_handle_window, 'Gtk2::Gdk::Window');
+}
 
 __END__
 

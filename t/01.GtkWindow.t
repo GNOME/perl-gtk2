@@ -10,7 +10,7 @@
 
 #########################
 
-use Gtk2::TestHelper tests => 117;
+use Gtk2::TestHelper tests => 120;
 
 ok( my $win = Gtk2::Window->new );
 ok( $win = Gtk2::Window->new('popup') );
@@ -400,12 +400,28 @@ SKIP: {
 }
 
 SKIP: {
-	skip 'new 2.20 stuff', 1
+	skip 'new 2.20 stuff', 2
 		unless Gtk2->CHECK_VERSION(2, 20, 0);
 
 	my $window = Gtk2::Window->new;
 	is ($window->get_window_type, 'toplevel');
+
 	$window->set_mnemonics_visible (TRUE);
+	ok ($window->get_mnemonics_visible);
+}
+
+SKIP: {
+	skip 'new 2.22 stuff', 2
+		unless Gtk2->CHECK_VERSION(2, 22, 0);
+
+	my $window = Gtk2::Window->new;
+	my $group = Gtk2::WindowGroup->new ();
+	$group->add_window ($window);
+
+	ok ($window->has_group);
+
+	my $grab = $group->get_current_grab;
+	ok ((defined $grab && $grab->isa ('Gtk2::Widget')) || !defined $grab);
 }
 
 

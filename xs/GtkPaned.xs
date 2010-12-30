@@ -160,3 +160,8 @@ gtk_paned_compute_position (paned, allocation, child1_req, child2_req)
 	gint       child1_req
 	gint       child2_req
 
+#if GTK_CHECK_VERSION (2, 20, 0)
+
+GdkWindow * gtk_paned_get_handle_window (GtkPaned *paned);
+
+#endif /* 2.20 */

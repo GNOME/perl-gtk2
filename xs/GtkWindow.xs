@@ -750,7 +750,15 @@ GtkWindowType gtk_window_get_window_type (GtkWindow *window);
 
 void gtk_window_set_mnemonics_visible (GtkWindow *window, gboolean setting);
 
+gboolean gtk_window_get_mnemonics_visible (GtkWindow *window);
+
 #endif /* 2.20 */
+
+#if GTK_CHECK_VERSION (2, 22, 0)
+
+gboolean gtk_window_has_group (GtkWindow *window);
+
+#endif /* 2.22 */
 
 MODULE = Gtk2::Window	PACKAGE = Gtk2::WindowGroup	PREFIX = gtk_window_group_
 
@@ -787,6 +795,12 @@ gtk_window_group_list_windows (GtkWindowGroup *window_group)
 	g_list_free (list);
 
 #endif /* 2.14 */
+
+#if GTK_CHECK_VERSION (2, 22, 0)
+
+GtkWidget * gtk_window_group_get_current_grab (GtkWindowGroup *window_group);
+
+#endif /* 2.22 */
 
  ## er... dunno about these.
  ##
