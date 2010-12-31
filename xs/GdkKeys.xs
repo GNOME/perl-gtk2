@@ -201,6 +201,31 @@ gboolean gdk_keymap_get_caps_lock_state (GdkKeymap *keymap);
 
 #endif
 
+#if GTK_CHECK_VERSION (2, 20, 0)
+
+GdkModifierType
+gdk_keymap_add_virtual_modifiers (GdkKeymap *keymap, GdkModifierType state)
+    CODE:
+	gdk_keymap_add_virtual_modifiers (keymap, &state);
+	RETVAL = state;
+    OUTPUT:
+	RETVAL
+
+=for apidoc
+=for signature (bool, new_state) = $keymap->map_virtual_modifiers (keymap, state)
+=cut
+void
+gdk_keymap_map_virtual_modifiers (GdkKeymap *keymap, GdkModifierType state)
+    PREINIT:
+	gboolean result;
+    PPCODE:
+	result = gdk_keymap_map_virtual_modifiers (keymap, &state);
+	EXTEND (SP, 2);
+	PUSHs (sv_2mortal (boolSV (result)));
+	PUSHs (sv_2mortal (newSVGdkModifierType (state)));
+
+#endif /* 2.20 */
+
 MODULE = Gtk2::Gdk::Keys PACKAGE = Gtk2::Gdk PREFIX = gdk_
 
 gchar *

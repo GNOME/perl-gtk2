@@ -233,3 +233,9 @@ gint gdk_screen_get_monitor_width_mm (GdkScreen *screen, gint monitor_num);
 gchar_own_ornull * gdk_screen_get_monitor_plug_name (GdkScreen *screen, gint monitor_num);
 
 #endif /* 2.14 */
+
+#if GTK_CHECK_VERSION (2, 20, 0)
+
+gint gdk_screen_get_primary_monitor (GdkScreen *screen);
+
+#endif /* 2.20 */
