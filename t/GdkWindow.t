@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 56;
+use Gtk2::TestHelper tests => 58;
 
 # $Id$
 
@@ -329,7 +329,7 @@ SKIP: {
 $window -> hide();
 
 SKIP: {
-  skip 'new 2.18 stuff', 5
+  skip 'new 2.18 stuff', 7
     unless Gtk2->CHECK_VERSION(2, 18, 0);
 
   my $window = Gtk2::Gdk::Window -> new(undef, { window_type => 'toplevel' });
@@ -352,6 +352,10 @@ SKIP: {
   $offscreen->set_embedder($gtkwindow->window);
   isa_ok($offscreen->get_pixmap,  'Gtk2::Gdk::Pixmap');
   isa_ok($offscreen->get_embedder,'Gtk2::Gdk::Window');
+
+  my ($rx, $ry) = $window->get_root_coords(0, 0);
+  ok(defined $rx && defined $ry);
+  ok(defined $window->is_destroyed());
 }
 
 SKIP: {

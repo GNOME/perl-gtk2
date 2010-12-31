@@ -1039,6 +1039,10 @@ Only useful for offscreen C<Gtk2::Gdk::Windows>.
 =cut
 void gdk_window_geometry_changed (GdkWindow *window);
 
+void gdk_window_get_root_coords (GdkWindow *window, gint x, gint y, OUTLIST gint root_x, OUTLIST gint root_y);
+
+gboolean gdk_window_is_destroyed (GdkWindow *window);
+
 #endif /* 2.18 */
 
 #if GTK_CHECK_VERSION (2, 22, 0)
