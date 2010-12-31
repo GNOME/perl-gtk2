@@ -74,6 +74,29 @@ gdk_drag_context_new (class)
 ##  void gdk_drag_context_ref (GdkDragContext *context) 
 ##  void gdk_drag_context_unref (GdkDragContext *context) 
 
+#if GTK_CHECK_VERSION (2, 22, 0)
+
+GdkDragAction gdk_drag_context_get_actions (GdkDragContext *context);
+
+GdkDragAction gdk_drag_context_get_selected_action (GdkDragContext *context);
+
+GdkDragAction gdk_drag_context_get_suggested_action (GdkDragContext *context);
+
+# GList * gdk_drag_context_list_targets (GdkDragContext *context);
+void
+gdk_drag_context_list_targets (GdkDragContext *context)
+    PREINIT:
+	GList * i;
+    PPCODE:
+	for (i = gdk_drag_context_list_targets (context); i != NULL ; i = i->next)
+		XPUSHs (sv_2mortal (newSVGdkAtom ((GdkAtom)i->data)));
+
+GdkWindow * gdk_drag_context_get_source_window (GdkDragContext *context);
+
+#endif /* 2.22 */
+
+# --------------------------------------------------------------------------- #
+
 MODULE = Gtk2::Gdk::Dnd	PACKAGE = Gtk2::Gdk::DragContext	PREFIX = gdk_drag_
 
 ##  void gdk_drag_status (GdkDragContext *context, GdkDragAction action, guint32 time_) 
@@ -216,6 +239,8 @@ void
 gdk_drag_abort (context, time_)
 	GdkDragContext *context
 	guint32 time_
+
+# --------------------------------------------------------------------------- #
 
 MODULE = Gtk2::Gdk::Dnd	PACKAGE = Gtk2::Gdk::DragContext	PREFIX = gdk_
 

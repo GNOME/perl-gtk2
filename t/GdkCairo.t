@@ -11,7 +11,7 @@ if (! (UNIVERSAL::can("Gtk2::Gdk::Cairo::Context", "create") &&
 } elsif (! Gtk2->init_check) {
   plan skip_all => "Gtk2->init_check failed, probably unable to open DISPLAY";
 } else {
-  plan tests => 2;
+  plan tests => 6;
 }
 
 # $Id$
@@ -40,18 +40,34 @@ $context -> set_operator("clear");
 $context -> rectangle(0, 0, 10, 10);
 
 SKIP: {
-    skip "set_source_pixmap is new in gtk+ 2.10", 0
-        unless Gtk2 -> CHECK_VERSION(2, 10, 0);
+  skip "new 2.10 stuff", 2
+    unless Gtk2 -> CHECK_VERSION(2, 10, 0);
 
-    my $pixmap = Gtk2::Gdk::Pixmap -> new($window->window, 20, 20, -1);
-    $context -> set_source_pixmap($pixmap, 10, 10);
+  my $pixmap = Gtk2::Gdk::Pixmap -> new($window->window, 20, 20, -1);
+  $context -> set_source_pixmap($pixmap, 10, 10);
+
+  my $screen = Gtk2::Gdk::Screen->get_default;
+  my $options = Cairo::FontOptions->create;
+  $screen->set_font_options (undef);
+  is ($screen->get_font_options, undef);
+  $screen->set_font_options ($options);
+  isa_ok ($screen->get_font_options, "Cairo::FontOptions");
 }
 
 SKIP: {
-    skip "reset_clip is new in gtk+ 2.18", 0
-        unless Gtk2 -> CHECK_VERSION(2, 18, 0);
+  skip "reset_clip is new in gtk+ 2.18", 0
+    unless Gtk2 -> CHECK_VERSION(2, 18, 0);
 
-    $context->reset_clip ($window->window);
+  $context->reset_clip ($window->window);
+}
+
+SKIP: {
+  skip 'new 2.22 stuff', 2
+    unless Gtk2->CHECK_VERSION(2, 22, 0);
+
+  my $window = Gtk2::Gdk::Window -> new(undef, { window_type => 'toplevel' });
+  isa_ok ($window->create_similar_surface ('color', 23, 42), 'Cairo::Surface');
+  isa_ok ($window->get_background_pattern, 'Cairo::Pattern');
 }
 
 __END__

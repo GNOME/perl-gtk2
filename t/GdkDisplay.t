@@ -1,7 +1,7 @@
 #!/usr/bin/perl -w
 use strict;
 use Gtk2::TestHelper
-  tests => 25,
+  tests => 26,
   at_least_version => [2, 2, 0, "GdkDisplay is new in 2.2"];
 
 # $Id$
@@ -107,7 +107,7 @@ SKIP: {
 }
 
 SKIP: {
-  skip("new 2.11 stuff", 1)
+  skip("new 2.12 stuff", 1)
     unless Gtk2->CHECK_VERSION(2, 12, 0);
 
   ok (defined $display->supports_composite);
@@ -115,6 +115,14 @@ SKIP: {
 
 # FIXME: currently segfaults for me.  see #85715.
 # $display -> close();
+
+SKIP: {
+  skip 'new 2.22 stuff', 1
+    unless Gtk2->CHECK_VERSION(2, 22, 0);
+
+  my $display = Gtk2::Gdk::Display -> get_default();
+  ok (defined $display->is_closed);
+}
 
 __END__
 

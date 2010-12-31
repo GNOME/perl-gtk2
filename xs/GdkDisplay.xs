@@ -221,3 +221,9 @@ gboolean gdk_display_supports_input_shapes (GdkDisplay *display);
 gboolean gdk_display_supports_composite (GdkDisplay *display);
 
 #endif
+
+#if GTK_CHECK_VERSION (2, 22, 0)
+
+gboolean gdk_display_is_closed (GdkDisplay *display);
+
+#endif /* 2.22 */

@@ -2,7 +2,7 @@
 # vim: set ft=perl :
 use strict;
 use Gtk2::TestHelper
-  tests => 28,
+  tests => 26,
   at_least_version => [2, 2, 0, "GdkScreen is new in 2.2"];
 
 # $Id$
@@ -56,7 +56,7 @@ SKIP: {
 }
 
 SKIP: {
-  skip "new 2.10 stuff", 4
+  skip "new 2.10 stuff", 2
     unless Gtk2->CHECK_VERSION (2, 10, 0);
 
   my $dpi = $screen->get_resolution;
@@ -69,15 +69,6 @@ SKIP: {
   } else {
     ok (1);
   }
-
-  skip "cairo stuff", 2
-    unless UNIVERSAL::can("Cairo::FontOptions", "create");
-
-  my $options = Cairo::FontOptions->create;
-  $screen->set_font_options (undef);
-  is ($screen->get_font_options, undef);
-  $screen->set_font_options ($options);
-  isa_ok ($screen->get_font_options, "Cairo::FontOptions");
 }
 
 SKIP: {

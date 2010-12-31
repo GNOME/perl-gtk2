@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 8;
+use Gtk2::TestHelper tests => 9;
 
 # $Id$
 
@@ -46,8 +46,7 @@ SKIP: {
 
   my $display = Gtk2::Gdk::Display -> get_default();
   my $pixbuf = Gtk2::Gdk::Pixbuf -> new("rgb", 0, 8, 10, 10);
-
-  $cursor = Gtk2::Gdk::Cursor -> new_from_pixbuf($display, $pixbuf, 5, 5);
+  my $cursor = Gtk2::Gdk::Cursor -> new_from_pixbuf($display, $pixbuf, 5, 5);
   isa_ok($cursor, "Gtk2::Gdk::Cursor");
 }
 
@@ -66,6 +65,16 @@ SKIP: {
 
   my $pixbuf = $cursor -> get_image();
   ok(!defined $pixbuf || UNIVERSAL::isa($pixbuf, "Gtk2::Gdk::Pixbuf"));
+}
+
+SKIP: {
+  skip 'new 2.22 stuff', 1
+    unless Gtk2->CHECK_VERSION(2, 22, 0);
+
+  my $display = Gtk2::Gdk::Display -> get_default();
+  my $pixbuf = Gtk2::Gdk::Pixbuf -> new("rgb", 0, 8, 10, 10);
+  my $cursor = Gtk2::Gdk::Cursor -> new_from_pixbuf($display, $pixbuf, 5, 5);
+  ok(defined $cursor -> get_cursor_type());
 }
 
 __END__

@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 24;
+use Gtk2::TestHelper tests => 32;
 
 # $Id$
 
@@ -53,6 +53,26 @@ like($visual -> green_prec, qr/^\d+$/);
 like($visual -> blue_mask, qr/^\d+$/);
 like($visual -> blue_shift, qr/^\d+$/);
 like($visual -> blue_prec, qr/^\d+$/);
+
+SKIP: {
+  skip 'new 2.22 stuff', 8
+    unless Gtk2->CHECK_VERSION(2, 22, 0);
+
+  my $visual = Gtk2::Gdk::Visual -> get_system();
+
+  my ($mask, $shift, $precision) = $visual -> get_blue_pixel_details();
+  ok(defined $mask && defined $shift && defined $precision);
+  ($mask, $shift, $precision) = $visual -> get_green_pixel_details();
+  ok(defined $mask && defined $shift && defined $precision);
+  ($mask, $shift, $precision) = $visual -> get_red_pixel_details();
+  ok(defined $mask && defined $shift && defined $precision);
+
+  ok(defined $visual -> get_bits_per_rgb());
+  ok(defined $visual -> get_byte_order());
+  ok(defined $visual -> get_colormap_size());
+  ok(defined $visual -> get_depth());
+  ok(defined $visual -> get_visual_type());
+}
 
 __END__
 

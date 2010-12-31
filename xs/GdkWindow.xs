@@ -1041,6 +1041,32 @@ void gdk_window_geometry_changed (GdkWindow *window);
 
 #endif /* 2.18 */
 
+#if GTK_CHECK_VERSION (2, 22, 0)
+
+void gdk_window_coords_from_parent (GdkWindow *window, gdouble parent_x, gdouble parent_y, OUTLIST gdouble x, OUTLIST gdouble y);
+
+void gdk_window_coords_to_parent (GdkWindow *window, gdouble x, gdouble y, OUTLIST gdouble parent_x, OUTLIST gdouble parent_y);
+
+gboolean gdk_window_get_accept_focus (GdkWindow *window);
+
+gboolean gdk_window_get_composited (GdkWindow *window);
+
+GdkWindow * gdk_window_get_effective_parent (GdkWindow *window);
+
+GdkWindow * gdk_window_get_effective_toplevel (GdkWindow *window);
+
+gboolean gdk_window_get_focus_on_map (GdkWindow *window);
+
+gboolean gdk_window_get_modal_hint (GdkWindow *window);
+
+gboolean gdk_window_has_native (GdkWindow *window);
+
+gboolean gdk_window_is_input_only (GdkWindow *window);
+
+gboolean gdk_window_is_shaped (GdkWindow *window);
+
+#endif /* 2.22 */
+
 
 #if GTK_CHECK_VERSION (2, 18, 0)
 

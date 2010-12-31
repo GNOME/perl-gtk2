@@ -247,6 +247,22 @@ gdk_device_get_core_pointer (class)
 
 #endif /* ! GDK_MULTIHEAD_SAFE */
 
+#if GTK_CHECK_VERSION (2, 22, 0)
+
+GdkAxisUse gdk_device_get_axis_use (GdkDevice *device, guint index);
+
+void gdk_device_get_key (GdkDevice *device, guint index, OUTLIST guint keyval, OUTLIST GdkModifierType modifiers);
+
+GdkInputMode gdk_device_get_mode (GdkDevice *device);
+
+const gchar * gdk_device_get_name (GdkDevice *device);
+
+gint gdk_device_get_n_axes (GdkDevice *device);
+
+GdkInputSource gdk_device_get_source (GdkDevice *device);
+
+#endif /* 2.22 */
+
 MODULE = Gtk2::Gdk::Device	PACKAGE = Gtk2::Gdk::Input	PREFIX = gdk_input_
 
 ## void gdk_input_set_extension_events (GdkWindow *window, gint mask, GdkExtensionMode mode)

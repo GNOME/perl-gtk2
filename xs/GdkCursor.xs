@@ -111,3 +111,9 @@ gdk_cursor_new_from_name (class, display, name)
 GdkPixbuf_noinc* gdk_cursor_get_image (GdkCursor *cursor);
 
 #endif
+
+#if GTK_CHECK_VERSION (2, 22, 0)
+
+GdkCursorType gdk_cursor_get_cursor_type (GdkCursor *cursor);
+
+#endif /* 2.22 */

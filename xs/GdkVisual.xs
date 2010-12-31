@@ -179,3 +179,23 @@ red_mask (visual)
 	}
     OUTPUT:
 	RETVAL
+
+#if GTK_CHECK_VERSION (2, 22, 0)
+
+void gdk_visual_get_blue_pixel_details (GdkVisual *visual, OUTLIST guint32 mask, OUTLIST gint shift, OUTLIST gint precision);
+
+void gdk_visual_get_green_pixel_details (GdkVisual *visual, OUTLIST guint32 mask, OUTLIST gint shift, OUTLIST gint precision);
+
+void gdk_visual_get_red_pixel_details (GdkVisual *visual, OUTLIST guint32 mask, OUTLIST gint shift, OUTLIST gint precision);
+
+gint gdk_visual_get_bits_per_rgb (GdkVisual *visual);
+
+GdkByteOrder gdk_visual_get_byte_order (GdkVisual *visual);
+
+gint gdk_visual_get_colormap_size (GdkVisual *visual);
+
+gint gdk_visual_get_depth (GdkVisual *visual);
+
+GdkVisualType gdk_visual_get_visual_type (GdkVisual *visual);
+
+#endif /* 2.22 */

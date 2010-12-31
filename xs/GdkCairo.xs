@@ -69,9 +69,9 @@ void gdk_cairo_reset_clip (cairo_t *cr, GdkDrawable *drawable);
 
 # ---------------------------------------------------------------------------- #
 
-MODULE = Gtk2::Gdk::Cairo	PACKAGE = Gtk2::Gdk::Screen	PREFIX = gdk_screen_
-
 #if GTK_CHECK_VERSION (2, 10, 0)
+
+MODULE = Gtk2::Gdk::Cairo	PACKAGE = Gtk2::Gdk::Screen	PREFIX = gdk_screen_
 
 const cairo_font_options_t_ornull* gdk_screen_get_font_options (GdkScreen *screen);
 
@@ -79,3 +79,14 @@ void gdk_screen_set_font_options (GdkScreen *screen, const cairo_font_options_t_
 
 #endif
 
+# ---------------------------------------------------------------------------- #
+
+MODULE = Gtk2::Gdk::Cairo	PACKAGE = Gtk2::Gdk::Window	PREFIX = gdk_window_
+
+#if GTK_CHECK_VERSION (2, 22, 0)
+
+cairo_surface_t * gdk_window_create_similar_surface (GdkWindow *window, cairo_content_t content, int width, int height);
+
+cairo_pattern_t * gdk_window_get_background_pattern (GdkWindow *window);
+
+#endif

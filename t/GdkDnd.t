@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 20;
+use Gtk2::TestHelper tests => 26;
 
 # $Id$
 
@@ -41,7 +41,8 @@ isa_ok($context, "Gtk2::Gdk::DragContext");
 ok($context -> protocol());
 is($context -> is_source(), 1);
 is($context -> source_window(), $window -> window());
-# is_deeply([$context -> targets()], \@targets);
+is_deeply([map { $_ -> name() } $context -> targets()],
+          [map { $_ -> name() } @targets]);
 isa_ok(($context -> targets())[0], "Gtk2::Gdk::Atom");
 
 ($destination, $protocol) = $context -> find_window($window -> window(), 0, 0);
@@ -99,6 +100,19 @@ SKIP: {
 
   $context -> drop(0);
   $context -> abort(0);
+}
+
+SKIP: {
+  skip 'new 2.22 stuff', 5
+    unless Gtk2->CHECK_VERSION(2, 22, 0);
+
+  my $context = Gtk2::Gdk::DragContext -> begin($window -> window(), @targets);
+  ok(defined $context -> get_actions());
+  ok(defined $context -> get_selected_action());
+  ok(defined $context -> get_suggested_action());
+  is($context -> get_source_window(), $window -> window());
+  is_deeply([map { $_ -> name() } $context -> list_targets()],
+            [map { $_ -> name() } @targets]);
 }
 
 __END__

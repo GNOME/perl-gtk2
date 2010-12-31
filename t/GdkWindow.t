@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 45;
+use Gtk2::TestHelper tests => 56;
 
 # $Id$
 
@@ -326,6 +326,8 @@ SKIP: {
   $window -> remove_redirection();
 }
 
+$window -> hide();
+
 SKIP: {
   skip 'new 2.18 stuff', 5
     unless Gtk2->CHECK_VERSION(2, 18, 0);
@@ -352,7 +354,23 @@ SKIP: {
   isa_ok($offscreen->get_embedder,'Gtk2::Gdk::Window');
 }
 
-$window -> hide();
+SKIP: {
+  skip 'new 2.22 stuff', 11
+    unless Gtk2->CHECK_VERSION(2, 22, 0);
+
+  my $window = Gtk2::Gdk::Window -> new(undef, { window_type => 'toplevel' });
+  is_deeply ([$window->coords_from_parent (0, 0)], [0, 0]);
+  is_deeply ([$window->coords_to_parent (0, 0)], [0, 0]);
+  ok (defined $window->get_accept_focus);
+  ok (defined $window->get_composited);
+  isa_ok ($window->get_effective_parent, 'Gtk2::Gdk::Window');
+  isa_ok ($window->get_effective_toplevel, 'Gtk2::Gdk::Window');
+  ok (defined $window->get_focus_on_map);
+  ok (defined $window->get_modal_hint);
+  ok (defined $window->has_native);
+  ok (defined $window->is_input_only);
+  ok (defined $window->is_shaped);
+}
 
 __END__
 
