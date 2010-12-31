@@ -1,7 +1,7 @@
 #!/usr/bin/perl -w
 
 use strict;
-use Gtk2::TestHelper tests => 130, noinit => 1,
+use Gtk2::TestHelper tests => 131, noinit => 1,
     at_least_version => [2, 8, 0, 'GdkPixbufSimpleAnim is new in 2.8'];
 
 my $simple_anim = Gtk2::Gdk::PixbufSimpleAnim->new (64, 64, 24.0);
@@ -14,6 +14,14 @@ foreach my $alpha (0..127) {
                                                    64, 64, 64*4);
     $simple_anim->add_frame ($pixbuf);
     ok (1, 'added frame');
+}
+
+SKIP: {
+    skip 'new 2.18 stuff', 1
+        unless Gtk2->CHECK_VERSION(2, 18, 0);
+
+    $simple_anim->set_loop (TRUE);
+    ok ($simple_anim->get_loop);
 }
 
 my $interactive = $ENV{INTERACTIVE} || (@ARGV > 0);
