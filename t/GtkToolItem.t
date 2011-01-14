@@ -5,7 +5,7 @@
 
 use Gtk2::TestHelper
 	at_least_version => [2, 4, 0, "Action-based menus are new in 2.4"],
-	tests => 23;
+	tests => 24;
 
 
 my $tool_item = Gtk2::ToolItem->new;
@@ -64,6 +64,10 @@ is ($tool_item->get_toolbar_style, 'icons');
 is ($tool_item->get_relief_style,  'none');
 
 
+$tool_item->set_proxy_menu_item ("menu_item_id", undef);
+is ($tool_item->get_proxy_menu_item ("menu_item_id"), undef,
+   'set_proxy_menu_item() to undef');
+
 my $menu_item = Gtk2::MenuItem->new;
 $tool_item->set_proxy_menu_item ("menu_item_id", $menu_item);
 is ($tool_item->retrieve_proxy_menu_item, $menu_item);
@@ -110,5 +114,5 @@ SKIP: {
 
 __END__
 
-Copyright (C) 2003-2005 by the gtk2-perl team (see the file AUTHORS for the
+Copyright (C) 2003-2005, 2011 by the gtk2-perl team (see the file AUTHORS for the
 full list).  See LICENSE for more information.

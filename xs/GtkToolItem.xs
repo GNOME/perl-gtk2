@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003 by the gtk2-perl team (see the file AUTHORS)
+ * Copyright (c) 2003, 2011 by the gtk2-perl team (see the file AUTHORS)
  *
  * Licensed under the LGPL, see LICENSE file for more information.
  *
@@ -60,7 +60,10 @@ GtkWidget * gtk_tool_item_retrieve_proxy_menu_item (GtkToolItem *tool_item);
 
 GtkWidget * gtk_tool_item_get_proxy_menu_item (GtkToolItem *tool_item, const gchar *menu_item_id);
 
-void gtk_tool_item_set_proxy_menu_item (GtkToolItem *tool_item, const gchar *menu_item_id, GtkWidget *menu_item);
+# Crib: menu_item can be NULL here for no menu item.
+# Docs of gtk_tool_item_set_proxy_menu_item() don't say so explicitly, but the
+# docs of create-menu-proxy signal invite handlers to set NULL for no menu.
+void gtk_tool_item_set_proxy_menu_item (GtkToolItem *tool_item, const gchar *menu_item_id, GtkWidget_ornull *menu_item);
 
 #if GTK_CHECK_VERSION (2, 6, 0)
 
