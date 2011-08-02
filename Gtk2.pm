@@ -73,7 +73,7 @@ eval "use Cairo;";
 use Exporter;
 require DynaLoader;
 
-our $VERSION = '1.223';
+our $VERSION = '1.224';
 
 our @ISA = qw(DynaLoader Exporter);
 
@@ -405,7 +405,7 @@ The gtk2-perl team:
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2003-2008 by the gtk2-perl team.
+Copyright 2003-2011 by the gtk2-perl team.
 
 This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Library General Public
