@@ -50,7 +50,7 @@ $manager -> add_item($uri_one);
 $manager -> add_item($uri_two);
 
 # add_item() is asynchronous, so let the main loop spin for a while
-Gtk2->main_iteration while !$manager->get_items;
+Gtk2->main_iteration while scalar (my @items = $manager->get_items) < 2;
 
 $chooser -> set_select_multiple(FALSE);
 
