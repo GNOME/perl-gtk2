@@ -37,8 +37,8 @@ SKIP: {
   skip("new 2.8 stuff", 2)
     unless Gtk2->CHECK_VERSION (2, 8, 0);
 
-  isa_ok($window -> get_hscrollbar(), "Gtk2::HScrollbar");
-  isa_ok($window -> get_vscrollbar(), "Gtk2::VScrollbar");
+  isa_ok($window -> get_hscrollbar(), "Gtk2::Scrollbar");
+  isa_ok($window -> get_vscrollbar(), "Gtk2::Scrollbar");
 }
 
 SKIP: {
