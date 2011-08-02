@@ -1,19 +1,35 @@
-Overview of changes in the next unstable release
-================================================
+Overview of changes in Gtk2 1.231
+=================================
 
 * Wrap gtk+ 2.22 API.
 * Wrap gdk 2.20 and 2.22 API.
 * Wrap missing gtk+ 2.8, 2.10, 2.12, 2.14, 2.16, 2.18 and 2.20 API.
 * Wrap missing gdk 2.18 API.
 * Wrap missing gdk-pixbuf 2.18 API.
-* Gtk2::Notebook: fix invocation of window creation hooks.
-* Fix length of Gtk2::Gdk::Pixbuf->get_pixels() return.
+* Add Gtk2::Gdk::Image.
+* Add Gtk2::Container->find_child_property and list_child_properties.
+* Add Gtk2::Widget->find_style_property and list_style_properties.
+* Add Gtk2::Gdk::Pixbuf->get_option.
+* Add is_writable field to Gtk2::Gdk::PixbufFormat.
 * Allow Gtk2::Buildable implementations to return undef from
   GET_INTERNAL_CHILD.
+* Cope with the rename of the keysym defines in gtk+ 2.22.
+* Fix invocation of Gtk2::Notebook window creation hooks.
+* Fix length of Gtk2::Gdk::Pixbuf->get_pixels() return.
 * Ensure that the option strings passed to Gtk2::Gdk::Pixbuf->save() are
   upgraded to utf8 if necessary.  Also, complain if an odd number of key/value
   args is given.
-* Add Gtk2::Gdk::Image.
+* Update Gtk2->show_about_dialog to match upstream.
+* Make damage events Gtk2::Gdk::Event::Expose objects.
+* Allow undef in a few more places.
+* Correct the memory management in Gtk2::Gdk::Window->new.
+* Correct length of the Gtk2::Gdk::Pixbuf->get_pixels() return.
+* Plug leaks in Gtk2::Gdk::Drawable->get_image, Gtk2::CellLayout and
+  Gtk2::TreeSortable.
+* Use Glib's infrastructure for attaching "magic".
+* Add some examples.
+* Improve the documentation in a few places.
+* Fix a few build and test failures.
 
 Overview of changes in Gtk2 1.230
 =================================

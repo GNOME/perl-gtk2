@@ -1,4 +1,4 @@
-Gtk2 version 1.230
+Gtk2 version 1.231
 ==================
 
 Perl bindings to the 2.x series of the Gtk+ graphical user interface library.
@@ -85,7 +85,7 @@ Please report bugs to the gnome-perl product in GNOME's Bugzilla:
 COPYRIGHT AND LICENSE
 ---------------------
 
-Copyright (C) 2003-2010 by the gtk2-perl team (see the file AUTHORS for the
+Copyright (C) 2003-2011 by the gtk2-perl team (see the file AUTHORS for the
 full list)
 
 This library is free software; you can redistribute it and/or modify it under
