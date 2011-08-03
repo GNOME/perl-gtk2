@@ -347,6 +347,7 @@ t/PangoTabs.t
 t/PangoTypes.t
 t/set-scroll-adjustments-signal.t
 t/signal-chaining.t
+t/tied-objects.t
 t/version-checks.t
 TODO
 tools/fetch_faq.pl
