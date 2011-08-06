@@ -95,7 +95,7 @@ call_parser_method (GError ** error,
 
 	SPAGAIN;
 
-	if (SvTRUE (ERRSV)) {
+	if (gperl_sv_is_defined (ERRSV) && SvTRUE (ERRSV)) {
 		if (SvROK (ERRSV) && sv_derived_from (ERRSV, "Glib::Error")) {
 			gperl_gerror_from_sv (ERRSV, error);
 		} else {

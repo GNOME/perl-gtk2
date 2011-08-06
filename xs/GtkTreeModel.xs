@@ -210,17 +210,17 @@ iter_from_sv (GtkTreeIter * iter,
 		if ((svp = av_fetch (av, 0, FALSE)))
 			iter->stamp = SvUV (*svp);
 
-		if ((svp = av_fetch (av, 1, FALSE)) && SvIOK (*svp))
+		if ((svp = av_fetch (av, 1, FALSE)) && gperl_sv_is_defined (*svp))
 			iter->user_data = INT2PTR (gpointer, SvIV (*svp));
 		else
 			iter->user_data = NULL;
 
-		if ((svp = av_fetch (av, 2, FALSE)) && SvROK (*svp))
+		if ((svp = av_fetch (av, 2, FALSE)) && gperl_sv_is_ref (*svp))
 			iter->user_data2 =  SvRV (*svp);
 		else
 			iter->user_data2 = NULL;
 
-		if ((svp = av_fetch (av, 3, FALSE)) && SvROK (*svp))
+		if ((svp = av_fetch (av, 3, FALSE)) && gperl_sv_is_ref (*svp))
 			iter->user_data3 =  SvRV (*svp);
 		else
 			iter->user_data3 = NULL;

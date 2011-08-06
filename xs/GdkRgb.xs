@@ -33,16 +33,16 @@
 static guchar *
 SvImageDataPointer (SV * sv)
 {
-	if (SvIOK (sv))
-		return INT2PTR (guchar*, SvUV (sv));
-	else if (SvPOK (sv))
-		return (guchar *) SvPV_nolen (sv);
-	else
-		croak ("expecting either a string containing pixel data or "
-		       "an integer pointing to the underlying C image data "
-		       "buffer");
-	/* not reached */
-	return NULL;
+	if (gperl_sv_is_defined (sv)) {
+		if (SvIOK (sv))
+			return INT2PTR (guchar*, SvUV (sv));
+		else if (SvPOK (sv))
+			return (guchar *) SvPV_nolen (sv);
+	}
+	croak ("expecting either a string containing pixel data or "
+	       "an integer pointing to the underlying C image data "
+	       "buffer");
+	return NULL; /* not reached */
 }
 
 static GdkRgbCmap *

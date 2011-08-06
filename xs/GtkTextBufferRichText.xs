@@ -110,7 +110,7 @@ gtk2perl_text_buffer_deserialize_func (GtkTextBuffer     *register_buffer,
         PUTBACK;
 
         call_sv (callback->func, G_DISCARD | G_EVAL);
-        if (SvTRUE (ERRSV)) {
+        if (gperl_sv_is_defined (ERRSV) && SvTRUE (ERRSV)) {
                 if (SvROK (ERRSV) && sv_derived_from (ERRSV, "Glib::Error")) {
                         gperl_gerror_from_sv (ERRSV, error);
                 } else {

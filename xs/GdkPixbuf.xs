@@ -256,7 +256,7 @@ gdk_pixbuf_get_from_drawable (dest_or_class, src, cmap, src_x, src_y, dest_x, de
     PREINIT:
 	GdkPixbuf * pixbuf, * dest;
     CODE:
-	dest = SvROK (dest_or_class)
+	dest = (gperl_sv_is_defined (dest_or_class) && SvROK (dest_or_class))
 	     ? SvGdkPixbuf (dest_or_class)
 	     : NULL;
 	if (ix == 1)
@@ -489,7 +489,7 @@ gdk_pixbuf_new_from_data (class, data, colorspace, has_alpha, bits_per_sample, w
     PREINIT:
 	SV * real_data;
     CODE:
-	if (!data || !SvPOK (data))
+	if (!gperl_sv_is_defined (data) || !SvPOK (data))
 		croak ("expecting a packed string for pixel data");
 	real_data = gperl_sv_copy (data);
 	RETVAL = gdk_pixbuf_new_from_data ((const guchar *)

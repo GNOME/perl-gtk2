@@ -135,7 +135,7 @@ SvGtkTargetList (SV * sv)
 #if GTK_CHECK_VERSION (2, 9, 0)
 	return gperl_get_boxed_check (sv, GTK_TYPE_TARGET_LIST);
 #else
-	if (!sv || !SvROK (sv) ||
+	if (!gperl_sv_is_defined (sv) || !SvROK (sv) ||
 	    !sv_derived_from (sv, "Gtk2::TargetList"))
 		croak ("variable is not of type Gtk2::TargetList");
 	return INT2PTR (GtkTargetList*, SvUV (SvRV (sv)));
