@@ -156,7 +156,7 @@ gtk_menu_popup (menu, parent_menu_shell, parent_menu_item, menu_pos_func, data, 
 	if (!gperl_sv_is_defined (menu_pos_func)) {
 		gtk_menu_popup (menu, parent_menu_shell, parent_menu_item,
 		                NULL, NULL, button, activate_time);
-		g_object_set_data (G_OBJECT(menu), "_menu_pos_callback", NULL);
+		g_object_set_data (G_OBJECT(menu), "_gtk2perl_menu_pos_callback", NULL);
 	} else {
 		GPerlCallback * callback;
 		/* we don't need to worry about the callback arg types since
@@ -173,7 +173,7 @@ gtk_menu_popup (menu, parent_menu_shell, parent_menu_item, menu_pos_func, data, 
 		 * if we use object data, we can clean up the ones we install
 		 * and reinstall.  Not likely, of course, but there are
 		 * pathological programmers out there. */
-		g_object_set_data_full (G_OBJECT (menu), "_menu_pos_callback",
+		g_object_set_data_full (G_OBJECT (menu), "_gtk2perl_menu_pos_callback",
 		                        callback,
 		                        (GDestroyNotify)
 		                             gperl_callback_destroy);
