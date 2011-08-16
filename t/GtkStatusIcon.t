@@ -140,14 +140,18 @@ SKIP: {
   skip 'new 2.16 stuff', 6
     unless Gtk2->CHECK_VERSION(2, 16, 0);
 
+  # Non-X11 platforms require a tooltip text for the below to work.
+  $icon->set_tooltip_text("TEST");
+
   $icon->set_has_tooltip(TRUE);
   is ($icon->get_has_tooltip(), TRUE);
 
   $icon->set_has_tooltip(FALSE);
   is ($icon->get_has_tooltip(), FALSE);
 
-  $icon->set_tooltip_markup("<b>TEST1</b>");
-  is ($icon->get_tooltip_markup(), "<b>TEST1</b>");
+  # Non-X11 platforms don't actually support any markup tags.
+  $icon->set_tooltip_markup("TEST1");
+  is ($icon->get_tooltip_markup(), "TEST1");
 
   $icon->set_tooltip_markup(undef);
   is ($icon->get_tooltip_markup(), undef);
