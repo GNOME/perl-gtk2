@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003-2008, 2010 by the gtk2-perl team (see the file AUTHORS)
+ * Copyright (c) 2003-2008, 2010, 2011 by the gtk2-perl team (see the file AUTHORS)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -26,9 +26,8 @@ static void
 gtk2perl_pixbuf_destroy_notify (guchar * pixels,
                                 gpointer data)
 {
-	PERL_UNUSED_VAR (pixels);
-
-	gperl_sv_free ((SV*)data);
+	PERL_UNUSED_VAR (data);
+	Safefree (pixels);
 }
 
 #if GTK_CHECK_VERSION (2, 2, 0)
@@ -487,18 +486,18 @@ gdk_pixbuf_new_from_data (class, data, colorspace, has_alpha, bits_per_sample, w
 	int height
 	int rowstride
     PREINIT:
-	SV * real_data;
+	char *data_ptr, *pix_ptr;
+	STRLEN len;
     CODE:
-	if (!gperl_sv_is_defined (data) || !SvPOK (data))
-		croak ("expecting a packed string for pixel data");
-	real_data = gperl_sv_copy (data);
-	RETVAL = gdk_pixbuf_new_from_data ((const guchar *)
-	                                     SvPV_nolen (real_data),
+	data_ptr = SvPV (data, len);
+	pix_ptr = Newx (pix_ptr, len, char);
+	Copy (data_ptr, pix_ptr, len, char);
+	RETVAL = gdk_pixbuf_new_from_data ((const guchar *) pix_ptr,
 	                                   colorspace, has_alpha,
 					   bits_per_sample,
 					   width, height, rowstride,
 					   gtk2perl_pixbuf_destroy_notify,
-					   real_data);
+					   NULL);
     OUTPUT:
 	RETVAL
 

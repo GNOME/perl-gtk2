@@ -1,7 +1,7 @@
 #!/usr/bin/env perl
 use strict;
 use warnings;
-use Gtk2::TestHelper tests => 111, noinit => 1;
+use Gtk2::TestHelper tests => 112, noinit => 1;
 
 my $show = 0;
 
@@ -143,6 +143,30 @@ is ($pixbuf->get_width, 4);
 is ($pixbuf->get_height, 5);
 is ($pixbuf->get_rowstride, 16);
 $vbox->add (Gtk2::Image->new_from_pixbuf ($pixbuf)) if $show;
+
+{
+  {
+    package MyOverloaded;
+    use overload '""' => \&stringize;
+    sub new {
+      my ($class) = @_;
+      my $str = "not this value";
+      return bless \$str, $class;
+    }
+    sub stringize {
+      my ($self) = @_;
+      return "\x01\x02\x03";
+    }
+  }
+  my $overloaded = MyOverloaded->new;
+  $pixbuf = Gtk2::Gdk::Pixbuf->new_from_data ($overloaded, 'rgb',
+					      0,   # alpha
+					      8,   # bits
+					      1,1, # width,height
+					      3);  # rowstride
+  is ($pixbuf->get_pixels, "\x01\x02\x03");
+  $vbox->add (Gtk2::Image->new_from_pixbuf ($pixbuf)) if $show;
+}
 
 # inlined data from gdk-pixbuf-csource, run on the xpm from above
 my $inlinedata =
