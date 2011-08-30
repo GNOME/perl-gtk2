@@ -193,6 +193,29 @@ gtk2perl_gdk_window_invalidate_maybe_recurse_func (GdkWindow *window,
 
 MODULE = Gtk2::Gdk::Window	PACKAGE = Gtk2::Gdk::Window	PREFIX = gdk_window_
 
+=for position DESCRIPTION
+
+=head1 DESCRIPTION
+
+C<Gtk2::Gdk::Window> is a low-level window-system window.  One of
+these is created when a widget is "realized".
+
+As of Gtk 2.22 a window can only be created by
+C<< Gtk2::Gdk::Window->new() >>, C<foreign_new()>, etc.
+C<Glib::Object::new()> doesn't work (segfaults on using the resulting
+window object).  It's not possible to subclass C<Gtk2::Gdk::Window>
+with L<Glib::Object::Subclass> and the C<Glib::Type> system, since
+only C<gdk_window_new()> does the actual window creation, and that
+function always makes a C<GdkWindow>.  (The Perl-Gtk
+C<< Gtk2::Gdk::Window->new() >> wrapper ignores the class name
+argument.)
+
+It may work to create a Perl level subclass and re-bless a
+C<< Gtk2::Gdk::Window->new() >> into that.  But like any such
+re-blessing it's not preserved when the object is returned from a Gtk
+function etc (that just gives the base Gtk class).
+
+=cut
 
 BOOT:
 #if GTK_CHECK_VERSION (2, 18, 0)
