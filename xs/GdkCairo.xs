@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005 by the gtk2-perl team (see the file AUTHORS)
+ * Copyright (c) 2005, 2011 by the gtk2-perl team (see the file AUTHORS)
  *
  * Licensed under the LGPL, see LICENSE file for more information.
  *
@@ -68,10 +68,13 @@ void gdk_cairo_set_source_pixbuf (cairo_t *cr, GdkPixbuf *pixbuf, double pixbuf_
 # void gdk_cairo_rectangle (cairo_t *cr, GdkRectangle *rectangle);
 =for apidoc
 =for signature $gdkcr->rectangle ($rectangle)
+=for signature $gdkcr->rectangle ($x, $y, $width, $height)
 =for signature Gtk2::Gdk::Cairo::Context::rectangle ($anycr, $rectangle)
 =for arg rectangle (Gtk2::Gdk::Rectangle)
 =for arg cr (__hide__)
 =for arg ... (__hide__)
+The 4-argument x,y,width,height is the base L<Cairo::Context> style.  This
+extends to also take a C<Gtk2::Gdk::Rectangle>.
 =cut
 void
 gdk_cairo_rectangle (cairo_t *cr, ...)
