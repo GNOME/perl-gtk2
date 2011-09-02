@@ -177,9 +177,9 @@ SKIP: {
 
 SKIP: {
   skip 'new 2.20 stuff', 0
-    if (TRUE); # See <https://bugzilla.gnome.org/show_bug.cgi?id=638263>.
-    # unless Gtk2->CHECK_VERSION(2, 20, 0);
-
+    unless Gtk2->CHECK_VERSION(2, 24, 7);
+  # Not usable prior to 2.24.7, see
+  # <https://bugzilla.gnome.org/show_bug.cgi?id=638263>.
   my $icon = Gtk2::StatusIcon->new;
   $icon->set_name('bla');
 }
