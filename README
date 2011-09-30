@@ -1,4 +1,4 @@
-Gtk2 version 1.231
+Gtk2 version 1.232
 ==================
 
 Perl bindings to the 2.x series of the Gtk+ graphical user interface library.
@@ -61,7 +61,7 @@ DEPENDENCIES
 This module requires these other modules and libraries:
 
   perl >= 5.8.0
-  Glib >= 1.230 (Perl module)
+  Glib >= 1.233 (Perl module)
   Pango >= 1.220 (Perl module)
   GTK+ > 2.x (C library)
 

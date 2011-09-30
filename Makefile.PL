@@ -1,4 +1,4 @@
-# Copyright (C) 2003-2007 by the gtk2-perl team (see the file AUTHORS for the
+# Copyright (C) 2003-2011 by the gtk2-perl team (see the file AUTHORS for the
 # full list)
 #
 # This library is free software; you can redistribute it and/or modify it under
@@ -33,7 +33,7 @@ use Cwd;
 our %build_reqs = (
 	'perl-ExtUtils-Depends'   => '0.300',
 	'perl-ExtUtils-PkgConfig' => '1.030',
-	'perl-Glib'               => '1.231', # FIXME: 1.232
+	'perl-Glib'               => '1.233',
 	'perl-Pango'              => '1.220',
 	'perl-Cairo'              => '1.000',
 	'Gtk+'                    => '2.0.0',

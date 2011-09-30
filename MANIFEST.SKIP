@@ -9,6 +9,7 @@ build
 gtk2perl.h.gch$
 Makefile$
 Makefile\.old$
+MYMETA\..*
 \.o$
 \.spec$
 \.sw.$

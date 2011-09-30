@@ -1,3 +1,11 @@
+Overview of changes in Gtk2 1.232
+=================================
+
+* Gtk2::Gdk::Pixbuf->new_from_data(): accept overloaded strings
+* Expand and clarify some of the documentation.
+* Allow undef in a few more places.
+* Fix a few test failures.
+
 Overview of changes in Gtk2 1.231
 =================================
 
