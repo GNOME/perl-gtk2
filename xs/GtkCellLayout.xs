@@ -471,6 +471,9 @@ void gtk_cell_layout_reorder (GtkCellLayout *cell_layout, GtkCellRenderer *cell,
 
 =for apidoc
 Fetch all of the cell renderers which have been added to I<$cell_layout>.
+
+Note that if there are no cells this functions returns 'undef' instead of an
+empty list.
 =cut
 void
 gtk_cell_layout_get_cells (GtkCellLayout *cell_layout)
