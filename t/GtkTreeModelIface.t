@@ -300,7 +300,7 @@ sub SET_SORT_FUNC {
 
 	isa_ok ($list, "CustomList");
 	ok ($id == 2 || $id == 3);
-	isa_ok ($func, "CODE");
+	isa_ok ($func, "Gtk2::TreeSortable::IterCompareFunc");
 	ok (defined $data);
 
 	$list->{sort_funcs}->[$id] = [$func, $data];
@@ -310,7 +310,7 @@ sub SET_DEFAULT_SORT_FUNC {
 	my ($list, $func, $data) = @_;
 
 	isa_ok ($list, "CustomList");
-	isa_ok ($func, "CODE");
+	isa_ok ($func, "Gtk2::TreeSortable::IterCompareFunc");
 	ok (defined $data);
 
 	$list->{sort_func_default} = [$func, $data];

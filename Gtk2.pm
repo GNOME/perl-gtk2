@@ -163,13 +163,19 @@ use overload
 package Gtk2::CellLayout::DataFunc;
 
 use overload
-	'&{}' => sub { \&Gtk2::CellLayout::DataFunc::invoke },
+	'&{}' => sub {
+                   my ($func) = @_;
+                   return sub { Gtk2::CellLayout::DataFunc::invoke($func, @_) }
+                 },
 	fallback => 1;
 
 package Gtk2::TreeSortable::IterCompareFunc;
 
 use overload
-	'&{}' => sub { \&Gtk2::TreeSortable::IterCompareFunc::invoke },
+	'&{}' => sub {
+                   my ($func) = @_;
+                   return sub { Gtk2::TreeSortable::IterCompareFunc::invoke($func, @_) };
+                 },
 	fallback => 1;
 
 package Gtk2::TreeModelSort;

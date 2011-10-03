@@ -103,13 +103,11 @@ gtk2perl_tree_sortable_set_sort_column_id (GtkTreeSortable *sortable,
 
 /* ------------------------------------------------------------------------- */
 
-/* The strategy: Create a dummy CV and bless it into some namespace.  Put the
- * given function pointer, user data and destruction notification pointer into
- * a struct.  Pass that struct as user data to the actual Perl sub routine.
- * When the Perl programmer then invokes the code reference, we recreate every
- * necessary bit in the invoke handler and call the C function.  Also attach
- * the struct as magic to the dummy so we can get at the destroy pointer in
- * DESTROY. */
+/* The strategy: Put the given function pointer, user data and destruction
+ * notification pointer into a struct.  Make an IV SV pointing to that struct.
+ * Create a blessed reference around this SV which has &{} overloading.  When
+ * the Perl programmer then invokes this SV, we recreate every necessary bit in
+ * the invoke handler and call the C function. */
 
 typedef struct {
 	GtkTreeIterCompareFunc func;
@@ -125,29 +123,20 @@ create_callback (GtkTreeIterCompareFunc func,
                  SV                   **data_return)
 {
 	HV *stash;
-	gchar *sub;
-	CV *dummy = NULL;
-	SV *code, *my_data;
+	SV *code_sv, *data_sv;
 	Gtk2PerlTreeIterCompareFunc *stuff;
-
-	stash = gv_stashpv ("Gtk2::TreeSortable::IterCompareFunc", TRUE);
-
-	sub = g_strdup_printf ("__gtk2perl_tree_iter_compare_func_%p", data);
-	dummy = newCONSTSUB (stash, sub, NULL);
-	g_free (sub);
-
-	code = sv_bless (newRV_noinc ((SV *) dummy), stash);
 
 	stuff = g_new0 (Gtk2PerlTreeIterCompareFunc, 1);
 	stuff->func = func;
 	stuff->data = data;
 	stuff->destroy = destroy;
+	data_sv = newSViv (PTR2IV (stuff));
 
-	my_data = newSViv (PTR2IV (stuff));
-	_gperl_attach_mg ((SV *) dummy, my_data);
+	stash = gv_stashpv ("Gtk2::TreeSortable::IterCompareFunc", TRUE);
+	code_sv = sv_bless (newRV (data_sv), stash);
 
-	*code_return = code;
-	*data_return = my_data;
+	*code_return = code_sv;
+	*data_return = data_sv;
 }
 
 static void
@@ -166,8 +155,8 @@ gtk2perl_tree_sortable_set_sort_func (GtkTreeSortable       *sortable,
 		create_callback (func, data, destroy, &code, &my_data);
 
 		XPUSHs (sv_2mortal (newSViv (sort_column_id)));
-		XPUSHs (sv_2mortal (newSVsv (code)));
-		XPUSHs (sv_2mortal (newSVsv (my_data)));
+		XPUSHs (sv_2mortal (code));
+		XPUSHs (sv_2mortal (my_data));
 
 		CALL;
 
@@ -426,18 +415,20 @@ gtk_tree_sortable_has_default_sort_func (sortable)
 
 MODULE = Gtk2::TreeSortable	PACKAGE = Gtk2::TreeSortable::IterCompareFunc
 
+=for apidoc __hide__
+=cut
 gint
-invoke (model, a, b, data)
+invoke (code, model, a, b, data)
+	SV *code
 	GtkTreeModel *model
 	GtkTreeIter *a
 	GtkTreeIter *b
-	SV *data
     PREINIT:
 	Gtk2PerlTreeIterCompareFunc *stuff;
     CODE:
-	stuff = INT2PTR (Gtk2PerlTreeIterCompareFunc*, SvIV (data));
+	stuff = INT2PTR (Gtk2PerlTreeIterCompareFunc*, SvIV (SvRV (code)));
 	if (!stuff || !stuff->func)
-		croak ("Invalid data passed to the iter compare func");
+		croak ("Invalid reference encountered in iter compare func");
 	RETVAL = stuff->func (model, a, b, stuff->data);
     OUTPUT:
 	RETVAL
@@ -446,19 +437,12 @@ void
 DESTROY (code)
 	SV *code
     PREINIT:
-	MAGIC *mg;
 	Gtk2PerlTreeIterCompareFunc *stuff;
     CODE:
-	if (!gperl_sv_is_defined (code) || !SvROK (code)
-	    || !(mg = _gperl_find_mg (SvRV (code))))
+	if (!gperl_sv_is_defined (code) || !SvROK (code))
 		return;
-
-	stuff = INT2PTR (Gtk2PerlTreeIterCompareFunc*, SvIV ((SV *) mg->mg_ptr));
-	SvREFCNT_dec ((SV *) mg->mg_ptr);
-
+	stuff = INT2PTR (Gtk2PerlTreeIterCompareFunc*, SvIV (SvRV (code)));
 	if (stuff && stuff->destroy)
 		stuff->destroy (stuff->data);
-
-	_gperl_remove_mg (SvRV (code));
 	if (stuff)
 		g_free (stuff);
