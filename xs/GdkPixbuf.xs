@@ -490,7 +490,7 @@ gdk_pixbuf_new_from_data (class, data, colorspace, has_alpha, bits_per_sample, w
 	STRLEN len;
     CODE:
 	data_ptr = SvPV (data, len);
-	pix_ptr = Newx (pix_ptr, len, char);
+	Newx (pix_ptr, len, char);
 	Copy (data_ptr, pix_ptr, len, char);
 	RETVAL = gdk_pixbuf_new_from_data ((const guchar *) pix_ptr,
 	                                   colorspace, has_alpha,
