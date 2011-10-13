@@ -33,7 +33,7 @@ use Cwd;
 our %build_reqs = (
 	'perl-ExtUtils-Depends'   => '0.300',
 	'perl-ExtUtils-PkgConfig' => '1.030',
-	'perl-Glib'               => '1.233',
+	'perl-Glib'               => '1.240',
 	'perl-Pango'              => '1.220',
 	'perl-Cairo'              => '1.000',
 	'Gtk+'                    => '2.0.0',
@@ -287,7 +287,7 @@ WriteMakefile(
     $gtk2->get_makefile_vars,
 );
 
-#=unstable
+=unstable
 
 print <<__EOW__;
 WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING
@@ -300,7 +300,7 @@ WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING
 WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING
 __EOW__
 
-#=cut
+=cut
 
 =frozen
 

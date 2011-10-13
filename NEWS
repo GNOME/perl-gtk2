@@ -1,3 +1,24 @@
+Overview of changes in Gtk2 1.240
+=================================
+
+ Since 1.22x (the previous stable series)
+ ----------------------------------------
+ * Wrap missing gdk, gdk-pixbuf and gtk+ 2.12, 2.14, 2.16, 2.18, 2.20
+   and 2.22 API.
+ * Add Gtk2::Gdk::Image.
+ * Add Gtk2::Container->find_child_property and list_child_properties.
+ * Add Gtk2::Widget->find_style_property and list_style_properties.
+ * Add Gtk2::Gdk::Pixbuf->get_option.
+ * Add is_writable field to Gtk2::Gdk::PixbufFormat.
+ * Make Gtk2::FontButton->new and Gtk2::ColorButton->new more flexible.
+ * Accept format strings in Gtk2::MessageDialog->format_secondary_markup.
+ * In syntax check mode, do not call gtk_init.
+ * Improve the documentation in many places.
+
+ Since 1.232
+ -----------
+ * Document the unusual return semantics of Gtk2::CellLayout::get_cells.
+
 Overview of changes in Gtk2 1.232
 =================================
 
