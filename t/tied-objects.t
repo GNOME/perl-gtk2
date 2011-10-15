@@ -1,9 +1,9 @@
 #!/usr/bin/perl
 use strict;
 use warnings;
-use Glib qw/:constants/;
-use Gtk2 -init;
+
 use Tie::Hash;
+use Glib qw/:constants/;
 use Gtk2::TestHelper tests => 1;
 
 # Make sure a tied Glib::Object is handled normally.  Based on a test sent to
