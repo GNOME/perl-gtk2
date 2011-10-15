@@ -1,8 +1,7 @@
 #!/usr/bin/perl -w
 # vim: set filetype=perl expandtab shiftwidth=2 softtabstop=2 :
 use utf8;
-use Gtk2 qw/GTK_ENTRY_BUFFER_MAX_SIZE/;
-use Gtk2::TestHelper tests => 20, at_least_version => [ 2, 18, 0 ];
+use Gtk2::TestHelper tests => 21, at_least_version => [ 2, 18, 0 ];
 
 my $buffer = Gtk2::EntryBuffer->new();
 isa_ok( $buffer, 'Gtk2::EntryBuffer' );
@@ -46,5 +45,14 @@ is( $buffer->get_max_length(), 23 );
 $buffer->emit_inserted_text(0, 'Lorem', 5);
 $buffer->emit_deleted_text(0, 5);
 
-ok( defined Gtk2::GTK_ENTRY_BUFFER_MAX_SIZE() );
-ok( defined GTK_ENTRY_BUFFER_MAX_SIZE() );
+SKIP: {
+  skip 'new stuff', 3
+    unless Gtk2->CHECK_VERSION(2, 18, 0);
+  ok( defined Gtk2::GTK_ENTRY_BUFFER_MAX_SIZE() );
+  ok( eval <<__CODE__ );
+package Tmp;
+use Gtk2 qw/GTK_ENTRY_BUFFER_MAX_SIZE/;
+Test::More::ok( defined GTK_ENTRY_BUFFER_MAX_SIZE() );
+1;
+__CODE__
+}
