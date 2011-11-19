@@ -1,3 +1,10 @@
+Overview of changes in Gtk2 1.241
+=================================
+
+* Add the missing NEWS entries from the stable branch
+* Fix a test failure in t/tied-objects.t
+* Fix a test failure in t/GtkEntryBuffer.t
+
 Overview of changes in Gtk2 1.240
 =================================
 
