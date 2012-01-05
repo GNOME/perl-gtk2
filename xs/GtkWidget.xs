@@ -1379,7 +1379,8 @@ void gtk_widget_set_visible (GtkWidget *widget, gboolean visible);
 
 gboolean gtk_widget_is_drawable (GtkWidget *widget);
 
-gboolean gtk_widget_is_sensitive (GtkWidget *widget);
+# Already implemented above with GTK_WIDGET_IS_SENSITIVE.
+# gboolean gtk_widget_is_sensitive (GtkWidget *widget);
 
 gboolean gtk_widget_is_toplevel (GtkWidget *widget);
 
