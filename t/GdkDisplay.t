@@ -1,7 +1,7 @@
 #!/usr/bin/perl -w
 use strict;
 use Gtk2::TestHelper
-  tests => 26,
+  tests => 24,
   at_least_version => [2, 2, 0, "GdkDisplay is new in 2.2"];
 
 # $Id$
@@ -34,11 +34,11 @@ $display -> sync();
 
 isa_ok(($display -> list_devices())[0], "Gtk2::Gdk::Device");
 
-$display -> put_event(Gtk2::Gdk::Event -> new("button-press"));
-isa_ok($display -> peek_event(), "Gtk2::Gdk::Event");
-isa_ok($display -> get_event(), "Gtk2::Gdk::Event");
+# $display -> put_event(Gtk2::Gdk::Event -> new("button-press"));
+# isa_ok($display -> peek_event(), "Gtk2::Gdk::Event");
+# isa_ok($display -> get_event(), "Gtk2::Gdk::Event");
 
-$display -> set_double_click_time(20);
+# $display -> set_double_click_time(20);
 
 my ($screen, $x, $y, $mask) = $display -> get_pointer();
 isa_ok($screen, "Gtk2::Gdk::Screen");
@@ -53,7 +53,7 @@ SKIP: {
     unless Gtk2 -> CHECK_VERSION(2, 4, 0);
 
   $display -> flush();
-  $display -> set_double_click_distance(5);
+  # $display -> set_double_click_distance(5);
 
   ok(defined($display -> supports_cursor_color()));
   ok(defined($display -> supports_cursor_alpha()));
@@ -95,7 +95,7 @@ SKIP: {
   skip("new 2.8 stuff", 0)
     unless Gtk2 -> CHECK_VERSION(2, 8, 0);
 
-  $display -> warp_pointer($screen, 100, 100);
+  # $display -> warp_pointer($screen, 100, 100);
 }
 
 SKIP: {
