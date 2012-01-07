@@ -86,7 +86,7 @@ sub run_main (;&) {
 }
 sub ok_idle ($;$) {
 	my ($testsub, $test_name) = @_;
-	run_main {
+	run_main sub {
 		# 0 Test::More::ok
 		# 1 this block's ok() call
 		# 2 idle callback in run_main
@@ -100,7 +100,7 @@ sub ok_idle ($;$) {
 }
 sub is_idle ($$;$) {
 	my ($asub, $b, $test_name) = @_;
-	run_main {
+	run_main sub {
 		local $Test::Builder::Level = 6; # see ok_idle()
 		is ($asub->(), $b, $test_name);
 	}
