@@ -1,5 +1,6 @@
 /*
- * Copyright (c) 2003-2006, 2009, 2010 by the gtk2-perl team (see the file AUTHORS)
+ * Copyright (c) 2003-2006, 2009, 2010, 2012 by the gtk2-perl team (see the
+ * file AUTHORS)
  *
  * Licensed under the LGPL, see LICENSE file for more information.
  *

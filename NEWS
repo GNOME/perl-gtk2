@@ -1,3 +1,11 @@
+Overview of changes in Gtk2 1.242
+=================================
+
+* Add gitweb link to old ChangeLog
+* Be compatible with perl 5.8.0 (Bugzilla bug #666227)
+* Gtk2::Widget: don't implement is_sensitive() twice
+* Disable a few potentially annoying tests
+
 Overview of changes in Gtk2 1.241
 =================================
 

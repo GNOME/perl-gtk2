@@ -236,6 +236,6 @@ The Gtk2-Perl Team.
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2003-2005 by the gtk2-perl team.
+Copyright 2003-2005, 2012 by the gtk2-perl team.
 
 LGPL, See LICENSE file for more information.
