@@ -1,3 +1,8 @@
+Overview of changes in Gtk2 <next>
+=================================
+
+* Avoid trying to re-register a GType for GConnectFlags.
+
 Overview of changes in Gtk2 1.242
 =================================
 

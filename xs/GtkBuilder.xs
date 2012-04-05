@@ -21,7 +21,12 @@ gtk2perl_connect_flags_get_type (void)
 			{ G_CONNECT_SWAPPED, "G_CONNECT_SWAPPED", "swapped" },
 			{ 0, NULL, NULL }
 		};
-		etype = g_flags_register_static ("GConnectFlags", values);
+		/* This is actually a race condition, but I don't think it
+		 * matters too much in this case. */
+		etype = g_type_from_name ("GConnectFlags");
+		if (etype == 0) {
+			etype = g_flags_register_static ("GConnectFlags", values);
+		}
 	}
 	return etype;
 }
