@@ -1409,7 +1409,7 @@ gtk_tree_model_rows_reordered (tree_model, path, iter, ...)
 	if (items - 3 != n)
 		croak ("rows_reordered expects a list of as many indices"
 		       " as the selected node of the model has children\n"
-		       "   got %" IVdf ", expected %d", items - 3, n);
+		       "   got %d, expected %d", (int) (items - 3), n);
 	new_order = g_new (gint, n);
 	for (i = 0 ; i < n ; i++)
 		new_order[i] = SvIV (ST (3+i));
