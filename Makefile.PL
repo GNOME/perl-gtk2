@@ -281,7 +281,10 @@ WriteMakefile(
 
     META_MERGE    => {
       configure_requires => \%PREREQ_PM,
-      no_index           => { directory => [qw/tools xs/] },
+      no_index           => {
+        directory => [qw/tools xs/],
+        file      => [qw|Makefile.PL gtk-demo/main.pl|],
+      },
     },
 
     $gtk2->get_makefile_vars,
