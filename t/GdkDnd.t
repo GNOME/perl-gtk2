@@ -55,7 +55,7 @@ SKIP: {
     unless defined $destination;
 
   # FIXME: what about the return value?
-  $context -> motion($destination, $protocol, 0, 0, [qw(copy)], [qw(copy move)], 0);
+  $context -> motion($destination, $protocol, 100, 100, [qw(copy)], [qw(copy move)], 0);
 
   ok($context -> actions() == [qw(copy move)]);
   ok($context -> suggested_action() == qw(copy));
