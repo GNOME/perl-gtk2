@@ -1,8 +1,13 @@
+Overview of changes in Gtk2 (next)
+=================================
+
+* Disable the correct potentially annoying test for GtkDnD.
+* Tell CPAN to some ignore POD fragments
+
 Overview of changes in Gtk2 1.243
 =================================
 
 * Avoid trying to re-register a GType for GConnectFlags.
-* Disable the correct potentially annoying test.
 
 Overview of changes in Gtk2 1.242
 =================================
