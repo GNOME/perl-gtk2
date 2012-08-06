@@ -128,6 +128,8 @@ SKIP: {
 
   my $desc = Gtk2::Pango::FontDescription -> from_string('Sans 10');
   my $font = $fontmap -> load_font($context, $desc);
+  skip 'could not find font', 2
+    unless defined $font;
   isa_ok($font, 'Gtk2::Pango::Cairo::Font');
   isa_ok($font -> get_scaled_font(), 'Cairo::ScaledFont');
 }

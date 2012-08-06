@@ -34,7 +34,7 @@ $adjustment -> changed();
 $adjustment -> value_changed();
 
 SKIP: {
-  skip "stuff that's new in 2.14", 5
+  skip "stuff that's new in 2.14", 11
     unless Gtk2->CHECK_VERSION (2, 14, 0);
 
   # note "value" forced to "lower <= value <= upper-page_size" by
