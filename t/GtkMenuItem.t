@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 20;
+use Gtk2::TestHelper tests => 23;
 
 # $Id$
 
@@ -41,13 +41,16 @@ SKIP: {
 $item -> remove_submenu();
 $item -> set_accel_path("<bla/bla/bla>");
 
-$item -> signal_connect(toggle_size_request => sub {
-  is (shift, $item);
-  is (shift, "bla");
-  return 23;
-}, "bla");
-
-is ($item -> toggle_size_request(), 23);
+# Ensure that both spellings of the signal name get the custom marshaller.
+foreach my $signal_name (qw/toggle_size_request toggle-size-request/) {
+  my $id = $item -> signal_connect($signal_name => sub {
+    is (shift, $item, $signal_name);
+    is (shift, "bla", $signal_name);
+    return 23;
+  }, "bla");
+  is ($item -> toggle_size_request(), 23);
+  $item -> signal_handler_disconnect ($id);
+}
 
 $item -> signal_connect(toggle_size_allocate => sub {
   is (shift, $item);

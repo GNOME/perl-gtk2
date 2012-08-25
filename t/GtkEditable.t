@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 10;
+use Gtk2::TestHelper tests => 11;
 
 use utf8; # for the umlaut test
 
@@ -40,9 +40,31 @@ $entry -> copy_clipboard();
 $entry -> paste_clipboard();
 $entry -> delete_selection();
 
-$entry -> signal_connect(insert_text => sub { return (); });
-$entry -> set_text("äöü");
-is($entry -> get_text(), "äöü");
+# Test the custom insert-text marshaller.
+{
+  my $entry = Gtk2::Entry -> new();
+  $entry -> set_text("äöü");
+  $entry -> signal_connect(insert_text => sub {
+    my ($entry, $new_text, $new_text_length, $position, $data) = @_;
+    $_[1] = reverse $new_text;
+    $_[3] = 0;
+    return ();
+  });
+  $entry -> insert_text("123", 3);
+  is($entry -> get_text(), "321äöü");
+}
+{
+  my $entry = Gtk2::Entry -> new();
+  $entry -> set_text("äöü");
+  $entry -> signal_connect('insert-text' => sub {
+    my ($entry, $new_text, $new_text_length, $position, $data) = @_;
+    my $mangled_new_text = reverse $new_text;
+    my $mangled_position = 0;
+    return ($mangled_new_text, $mangled_position);
+  });
+  $entry -> insert_text("123", 3);
+  is($entry -> get_text(), "321äöü");
+}
 
 __END__
 

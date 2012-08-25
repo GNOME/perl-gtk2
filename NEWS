@@ -1,6 +1,7 @@
 Overview of changes in Gtk2 <next>
 =================================
 
+* Require Glib 1.280 for the fixes to custom signal marshalling.
 * Fix a test failure in t/GtkRecentChooser.t.
 
 Overview of changes in Gtk2 1.246

@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 73, noinit => 1;
+use Gtk2::TestHelper tests => 74, noinit => 1;
 
 # $Id$
 
@@ -199,11 +199,14 @@ $model -> row_inserted($path_one, $iter_one);
 $model -> row_has_child_toggled($path_one, $iter_one);
 $model -> row_deleted($path_one);
 
-$model -> signal_connect(rows_reordered => sub {
-	is_deeply($_[3], [3, 2, 1, 0]);
-});
-
-$model -> rows_reordered($path_one, undef, 3, 2, 1, 0);
+# Ensure that both spellings of the signal name get the custom marshaller.
+foreach my $signal_name (qw/rows_reordered rows-reordered/) {
+	my $id = $model -> signal_connect($signal_name => sub {
+		is_deeply($_[3], [3, 2, 1, 0], $signal_name);
+	});
+	$model -> rows_reordered($path_one, undef, 3, 2, 1, 0);
+	$model -> signal_handler_disconnect($id);
+}
 
 ###############################################################################
 
