@@ -108,10 +108,10 @@ SKIP: {
   # Make sure the returned rectangle is valid.  It's a copy of a stack
   # object, so we just need to ensure that the values are in some sane
   # range, rather than garbage.
-  ok (abs $area->x <= Gtk2::Gdk->screen_width ());
-  ok (abs $area->y <= Gtk2::Gdk->screen_height ());
-  ok ($area->width <= Gtk2::Gdk->screen_width ());
-  ok ($area->height <= Gtk2::Gdk->screen_height ());
+  cmp_ok (abs $area->x, '<=', Gtk2::Gdk->screen_width ());
+  cmp_ok (abs $area->y, '<=', Gtk2::Gdk->screen_height ());
+  cmp_ok (abs $area->width, '<=', Gtk2::Gdk->screen_width ());
+  cmp_ok (abs $area->height, '<=', Gtk2::Gdk->screen_height ());
 }
 
 # --------------------------------------------------------------------------- #
