@@ -51,6 +51,7 @@ $manager -> add_item($uri_two);
 
 # add_item() is asynchronous, so let the main loop spin for a while
 Gtk2->main_iteration while scalar (my @items = $manager->get_items) < 2;
+$manager->signal_emit("changed");
 
 $chooser -> set_select_multiple(FALSE);
 

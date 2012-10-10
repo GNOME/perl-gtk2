@@ -1,3 +1,8 @@
+Overview of changes in Gtk2 <next>
+=================================
+
+* Fix a test failure in t/GtkRecentChooser.t.
+
 Overview of changes in Gtk2 1.246
 =================================
 
