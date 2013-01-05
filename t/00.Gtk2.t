@@ -15,20 +15,17 @@ use warnings;
 
 # NOTE: this is the bootstrap test -- no Gtk2::TestHelper here!
 
-use Test::More tests => 44;
-BEGIN { use_ok('Gtk2', ':constants') };
+use Test::More tests => 30;
+BEGIN { use_ok('Gtk2') };
 
 #########################
 
 my @run_version = Gtk2->get_version_info;
 my @compile_version = Gtk2->GET_VERSION_INFO;
-# Pango has only a compile-time version
-my @pango_compile_version = Gtk2::Pango->GET_VERSION_INFO;
 
 diag 'Testing Gtk2 ', $Gtk2::VERSION;
 diag '   Running against gtk+ ', join '.', @run_version;
 diag '  Compiled against gtk+ ', join '.', @compile_version;
-diag '              and pango ', join '.', @pango_compile_version;
 
 is( @run_version, 3, 'version info is three items long' );
 is (Gtk2->check_version(0,0,0), 'Gtk+ version too new (major mismatch)',
@@ -46,46 +43,17 @@ is (Gtk2::MAJOR_VERSION, $compile_version[0], 'MAJOR_VERSION');
 is (Gtk2::MINOR_VERSION, $compile_version[1], 'MINOR_VERSION');
 is (Gtk2::MICRO_VERSION, $compile_version[2], 'MICRO_VERSION');
 
-is (@pango_compile_version, 3, 'version info is three items long');
-ok (Gtk2::Pango->CHECK_VERSION(0,0,0), 'CHECK_VERSION pass');
-ok (!Gtk2::Pango->CHECK_VERSION(50,0,0), 'CHECK_VERSION fail');
-
 #########################
-
-# Test the exported constants
-my @constants = qw/GDK_CURRENT_TIME
-                   GDK_PRIORITY_EVENTS
-                   GDK_PRIORITY_REDRAW
-                   GTK_PRIORITY_RESIZE/;
-my $number = qr/^\d+$/;
-foreach my $constant (@constants) {
-  like (eval "Gtk2::$constant", $number);
-  like (eval "$constant", $number);
-}
 
 SKIP:
 {
 	Gtk2->disable_setlocale;
 
-	@ARGV = qw(--help --name gtk2perl --urgs tree);
-
 	skip 'Gtk2->init_check failed, probably unable to open DISPLAY', 
-		19, unless( Gtk2->init_check );
+		18, unless( Gtk2->init_check );
 
 	ok( Gtk2->init );
 	ok( Gtk2->set_locale );
-
-	is_deeply(\@ARGV, [qw(--help --urgs tree)]);
-
-	SKIP:
-	{
-		skip "parse_args is new in 2.4.5", 1
-			unless Gtk2->CHECK_VERSION (2, 4, 5);
-
-		# we can't do much more than just calling it, since it always
-		# immediately returns if init() was called already.
-		ok( Gtk2->parse_args );
-	}
 
 	isa_ok( Gtk2->get_default_language, "Gtk2::Pango::Language" );
 
@@ -152,24 +120,6 @@ SKIP:
 	Glib::Idle->add( sub { Gtk2->main_quit; 0 } );
 	Gtk2->main;
 	ok(1);
-}
-
-SKIP: {
-	skip 'new 2.6 stuff', 1
-		unless Gtk2->CHECK_VERSION(2, 6, 0);
-
-	my $foos = 1;
-	my $options = [
-		[ 'foos', 'f', 'int', \$foos ],
-	];
-
-	my $context = Glib::OptionContext->new ('- urgsify your life');
-	$context->add_main_entries ($options, 'C');
-	$context->add_group (Gtk2->get_option_group (0));
-
-	@ARGV = qw(--name Foo --foos 23);
-	$context->parse ();
-	is ($foos, 23);
 }
 
 __END__
