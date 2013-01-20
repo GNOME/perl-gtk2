@@ -123,6 +123,7 @@ save_to_sv_callback (const gchar * data,
 
         sv_catpvn_nomg (sv, data, count);
         /* XXX no way to find out if that failed. */
+	PERL_UNUSED_VAR (error);
 
         return TRUE;
 }
