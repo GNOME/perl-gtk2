@@ -1,5 +1,5 @@
-# Copyright (C) 2003-2011 by the gtk2-perl team (see the file AUTHORS for the
-# full list)
+# Copyright (C) 2003-2011, 2013 by the gtk2-perl team (see the file AUTHORS
+# for the full list)
 #
 # This library is free software; you can redistribute it and/or modify it under
 # the terms of the GNU Library General Public License as published by the Free
@@ -269,6 +269,44 @@ $gtk2->save_config ('build/IFiles.pm');
 our @exports;
 require 'Gtk2.exports';
 
+my %meta_merge = (
+        q(meta-spec)          => {
+            version => '2',
+            url     => 'http://search.cpan.org/perldoc?CPAN::Meta::Spec',
+        },
+        author              =>
+            ['gtk2-perl Team <gtk-perl-list at gnome dot org>'],
+        release_status      => 'stable',
+        # valid values: https://metacpan.org/module/CPAN::Meta::Spec#license
+        license             => 'lgpl_2_1',
+        resources => {
+            license     => 'http://www.gnu.org/licenses/lgpl-2.1.html',
+            homepage    => 'http://gtk2-perl.sourceforge.net',
+            x_MailingList =>
+                'https://mail.gnome.org/mailman/listinfo/gtk-perl-list',
+            bugtracker  => {
+                    web     =>
+                    'http://rt.cpan.org/Public/Dist/Display.html?Name=Gtk2',
+                    mailto  => 'bug-Gtk2 [at] rt.cpan.org',
+            },
+            repository  => {
+                    url     => 'git://git.gnome.org/perl-Gtk2',
+                    type    => 'git',
+                    web     => 'http://git.gnome.org/browse/perl-Gtk2',
+            },
+        },
+        prereqs => {
+            configure => {
+                requires => {%PREREQ_PM}, # no direct ref for 5.14 compatibility
+            },
+        },
+        no_index           => {
+            directory => [qw/tools xs/],
+            file      => [qw|Makefile.PL gtk-demo/main.pl|],
+        },
+);
+
+
 WriteMakefile(
     NAME          => 'Gtk2',
     VERSION_FROM  => 'lib/Gtk2.pm', # finds $VERSION
@@ -278,15 +316,7 @@ WriteMakefile(
     MAN3PODS      => \%pod_files,
     FUNCLIST      => \@exports,
     DL_FUNCS      => { Gtk2 => [] },
-
-    META_MERGE    => {
-      configure_requires => \%PREREQ_PM,
-      no_index           => {
-        directory => [qw/tools xs/],
-        file      => [qw|Makefile.PL gtk-demo/main.pl|],
-      },
-    },
-
+    META_MERGE    => \%meta_merge,
     $gtk2->get_makefile_vars,
 );
 
