@@ -92,9 +92,9 @@ gtk_tooltips_data_get (class, widget)
 	if (ret->widget)
 		gperl_hv_take_sv_s(hv, "widget", newSVGtkWidget(GTK_WIDGET(ret->widget)));
 	if (ret->tip_text)
-		gperl_hv_take_sv_s(hv, "tip_text", newSVpv(ret->tip_text, PL_na));
+		gperl_hv_take_sv_s(hv, "tip_text", newSVpv(ret->tip_text, 0));
 	if (ret->tip_private)
-		gperl_hv_take_sv_s(hv, "tip_private", newSVpv(ret->tip_private, PL_na));
+		gperl_hv_take_sv_s(hv, "tip_private", newSVpv(ret->tip_private, 0));
 
 	XPUSHs(sv_2mortal(newRV_noinc((SV*)hv)));
 

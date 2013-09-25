@@ -38,7 +38,7 @@ newSVGtkFileFilterInfo (const GtkFileFilterInfo * info)
 		                    gperl_sv_from_filename (info->filename));
 	if (info->uri)
 		gperl_hv_take_sv_s (hv, "uri",
-		                    newSVpv (info->uri, PL_na));
+		                    newSVpv (info->uri, 0));
 	if (info->display_name)
 		gperl_hv_take_sv_s (hv, "display_name",
 		                    newSVGChar (info->display_name));

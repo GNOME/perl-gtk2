@@ -292,7 +292,7 @@ That is, the constant's name optionally followed by a tab and the converter
 that is to be used to convert the constant to a Perl scalar.  If
 CONSTANT_CONVERTER is a simple string like 'newSViv' it will be used as follows
 to get a Perl scalar: CONSTANT_CONVERTER (CONSTANT_NAME).  If it contains
-'$var', as in 'newSVpv ($var, PL_na)', then '$var' will be replaced with
+'$var', as in 'newSVpv ($var, 0)', then '$var' will be replaced with
 CONSTANT_NAME and the resulting string will be used for conversion.
 
 The default for CONSTANT_CONVERTER is 'newSViv'.
@@ -364,7 +364,7 @@ __EOD__
 
         $boot_code .= <<"__EOD__";
 	newCONSTSUB (stash, "$constant", $conversion);
-	av_push (constants_av, newSVpv ("$constant", PL_na));
+	av_push (constants_av, newSVpv ("$constant", 0));
 __EOD__
     }
 

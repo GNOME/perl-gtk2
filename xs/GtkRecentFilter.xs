@@ -40,7 +40,7 @@ newSVGtkRecentFilterInfo (const GtkRecentFilterInfo *info)
                       newSVGtkRecentFilterFlags (info->contains));
 
   if (info->uri)
-    gperl_hv_take_sv_s (hv, "uri", newSVpv (info->uri, PL_na));
+    gperl_hv_take_sv_s (hv, "uri", newSVpv (info->uri, 0));
 
   if (info->display_name)
     gperl_hv_take_sv_s (hv, "display_name", newSVGChar (info->display_name));

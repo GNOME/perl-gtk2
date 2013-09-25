@@ -1,3 +1,10 @@
+Overview of changes in Gtk2 <next>
+=================================
+
+* Avoid misusing the macro PL_na, thus preventing issues when Gtk2 is used in
+  conjunction with certain XS modules, among them XML::Parser and
+  String::Approx.
+
 Overview of changes in Gtk2 1.247
 =================================
 

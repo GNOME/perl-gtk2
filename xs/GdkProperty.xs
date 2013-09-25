@@ -38,7 +38,7 @@
 	EXTEND (sp, elements);		\
 					\
 	for (i = 0; i < elements; i++)	\
-		PUSHs (sv_2mortal (newSVpv (list[i], PL_na)));
+		PUSHs (sv_2mortal (newSVpv (list[i], 0)));
 
 /* ------------------------------------------------------------------------- */
 
