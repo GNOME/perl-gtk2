@@ -123,6 +123,7 @@ README
 t/00.Gtk2.t
 t/01.GtkWindow.t
 t/02.GtkContainer.t
+t/constants.t
 t/Gdk.t
 t/GdkCairo.t
 t/GdkColor.t
@@ -331,6 +332,7 @@ t/GtkVScale.t
 t/GtkVScrollbar.t
 t/GtkVSeparator.t
 t/GtkWidget.t
+t/options.t
 t/pango-compat.t
 t/PangoAttributes.t
 t/PangoCairo.t
