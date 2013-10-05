@@ -6,6 +6,9 @@ use Gtk2::TestHelper
 
 # $Id$
 
+use File::Temp qw(tempdir);
+my $dir = tempdir(CLEANUP => 1);
+
 my $settings = Gtk2::PrintSettings -> new();
 isa_ok($settings, 'Gtk2::PrintSettings');
 
@@ -42,7 +45,7 @@ SKIP: {
   $settings -> set($key, $value);
 
   my $new_settings;
-  my $file = 'tmp.settings';
+  my $file = "$dir/tmp.settings";
 
   eval {
     $settings -> to_file($file);
@@ -71,15 +74,13 @@ SKIP: {
   is($@, '');
   isa_ok($new_settings, 'Gtk2::PrintSettings');
   is($new_settings -> get($key), $value);
-
-  unlink $file;
 }
 
 SKIP: {
   skip 'new 2.14 stuff', 5
     unless Gtk2->CHECK_VERSION(2, 14, 0);
 
-  my $file = 'tmp.settings';
+  my $file = "$dir/tmp.settings2";
 
   my $settings = Gtk2::PrintSettings -> new();
   $settings -> set($key, $value);
@@ -108,8 +109,6 @@ SKIP: {
   };
   is($@, '');
   is($copy -> get($key), $value);
-
-  unlink $file;
 }
 
 SKIP: {

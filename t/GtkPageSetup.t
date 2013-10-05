@@ -6,6 +6,9 @@ use Gtk2::TestHelper
 
 # $Id$
 
+use File::Temp qw(tempdir);
+my $dir = tempdir(CLEANUP => 1);
+
 my $setup = Gtk2::PageSetup -> new();
 isa_ok($setup, "Gtk2::PageSetup");
 
@@ -43,7 +46,7 @@ SKIP: {
   my $new_setup;
   $setup -> set_top_margin(23, 'mm');
 
-  my $file = 'tmp.setup';
+  my $file = "$dir/tmp.setup";
 
   eval {
     $setup -> to_file($file);
@@ -73,14 +76,13 @@ SKIP: {
   isa_ok($new_setup, 'Gtk2::PageSetup');
   is($new_setup -> get_top_margin('mm'), 23);
 
-  unlink $file;
 }
 
 SKIP: {
   skip 'new 2.14 stuff', 5
     unless Gtk2->CHECK_VERSION(2, 14, 0);
 
-  my $file = 'tmp.setup';
+  my $file = "$dir/tmp.setup";
 
   my $setup = Gtk2::PageSetup -> new();
   $setup -> set_top_margin(23, 'mm');
@@ -110,7 +112,6 @@ SKIP: {
   is($@, '');
   is($copy -> get_top_margin('mm'), 23);
 
-  unlink $file;
 }
 
 __END__

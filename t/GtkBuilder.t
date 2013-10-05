@@ -7,6 +7,9 @@ use Gtk2::TestHelper
 
 # $Id$
 
+use File::Temp qw(tempdir);
+my $dir = tempdir(CLEANUP => 1);
+
 my $builder;
 my $ui = <<EOD;
 <interface>
@@ -27,7 +30,7 @@ EOD
 
 # --------------------------------------------------------------------------- #
 
-my $ui_file = 'tmp.ui';
+my $ui_file = "$dir/tmp.ui";
 
 open my $fh, '>', $ui_file or plan skip_all => 'unable to create ui file';
 print $fh $ui;
@@ -82,8 +85,6 @@ SKIP: {
   };
   like ($@, qr/bla/);
 }
-
-unlink $ui_file;
 
 # --------------------------------------------------------------------------- #
 

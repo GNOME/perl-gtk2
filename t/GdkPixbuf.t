@@ -5,7 +5,8 @@ use Gtk2::TestHelper tests => 112, noinit => 1;
 
 my $show = 0;
 
-
+use File::Temp qw(tempdir);
+my $dir = tempdir(CLEANUP => 1);
 
 my $gif = 'gtk-demo/floppybuddy.gif';
 
@@ -195,7 +196,7 @@ $vbox->add (Gtk2::Image->new_from_pixbuf ($pixbuf)) if $show;
 # these functions can throw Gtk2::Gdk::Pixbuf::Error and Glib::File::Error
 # exceptions.
 #
-my $filename = 'testsave.jpg';
+my $filename = "$dir/testsave1.jpg";
 $pixbuf->save ($filename, 'jpeg', quality => 75.0);
 ok (1);
 
@@ -232,10 +233,9 @@ SKIP: {
   is ($height, 5);
 }
 
-unlink $filename;
 
 
-$filename = 'testsave.png';
+$filename = "$dir/testsaves.png";
 eval {
   $pixbuf->save ($filename, 'png',
 		 'key_arg_without_value_arg');
@@ -288,8 +288,6 @@ SKIP: {
 	ok ($pixbuf->set_option ('tEXt::woot', 'whee'));
 	is ($pixbuf->get_option ('tEXt::woot'), 'whee');
 }
-
-unlink $filename;
 
 
 # raw pixel values to make the xpm above, but with green for the
