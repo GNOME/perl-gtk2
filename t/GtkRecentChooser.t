@@ -92,5 +92,5 @@ is($chooser -> get_filter(), $filter_one);
 
 __END__
 
-Copyright (C) 2006 by the gtk2-perl team (see the file AUTHORS for the
+Copyright (C) 2006, 2013 by the gtk2-perl team (see the file AUTHORS for the
 full list).  See LICENSE for more information.

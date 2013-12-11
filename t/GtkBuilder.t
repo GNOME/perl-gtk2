@@ -231,5 +231,5 @@ $spin->spin ('step-forward', 1);
 
 __END__
 
-Copyright (C) 2007 by the gtk2-perl team (see the file AUTHORS for the
+Copyright (C) 2007, 2013 by the gtk2-perl team (see the file AUTHORS for the
 full list).  See LICENSE for more information.
