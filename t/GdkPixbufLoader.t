@@ -123,7 +123,7 @@ SKIP: {
 
 # test chunked writing and signals and such
 SKIP: {
-    my $filename = 'gtk-demo/gnome-foot.png';
+    my $filename = 'gtk-demo/alphatest.png';
     skip "can't locate test image file", 4
         unless -f $filename;
 
