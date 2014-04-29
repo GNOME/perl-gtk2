@@ -1,5 +1,5 @@
-Overview of changes in Gtk2 <next>
-=================================
+Overview of changes in Gtk2 1.2491
+==================================
 
 * Fix a test failure in t/GdkPixbufLoader.t.
 
