@@ -1,3 +1,10 @@
+Overview of changes in Gtk2 <next>
+==================================
+
+* Disable some tests that are known to behave erratically in certain
+  environments.  They are still available in the "xt" directory, but they will
+  not be run by default.
+
 Overview of changes in Gtk2 1.2491
 ==================================
 
