@@ -98,6 +98,36 @@ Gtk2->bootstrap ($VERSION);
 our @EXPORT_OK = map { @$_ } values %Gtk2::EXPORT_TAGS;
 $Gtk2::EXPORT_TAGS{all} = \@EXPORT_OK;
 
+# Compatibility with perl 5.20 and non-dot locales.  Wrap all functions that
+# might end up calling setlocale() such that POSIX::setlocale() is also called
+# to ensure perl knows about the current locale.  See the discussion in
+# <https://rt.perl.org//Public/Bug/Display.html?id=121930>,
+# <https://rt.perl.org/Public/Bug/Display.html?id=121317>,
+# <https://rt.perl.org/Public/Bug/Display.html?id=120723>.
+if ($^V ge v5.20.0) {
+  require POSIX;
+  no strict 'refs';
+  no warnings 'redefine';
+
+  my $disable_setlocale = 0;
+  my $orig = \&Gtk2::disable_setlocale;
+  *{Gtk2::disable_setlocale} = sub {
+    $disable_setlocale = 1;
+    $orig->(@_);
+  };
+
+  # gtk_init_with_args is not wrapped.
+  foreach my $function (qw/Gtk2::init Gtk2::init_check Gtk2::parse_args/) {
+    my $orig = \&{$function};
+    *{$function} = sub {
+      if (!$disable_setlocale) {
+        POSIX::setlocale (POSIX::LC_ALL (), '');
+      }
+      $orig->(@_);
+    };
+  }
+}
+
 # Names "STOP" and "PROPAGATE" here are per the GtkWidget event signal
 # descriptions.  In some other flavours of signals the jargon is "handled"
 # instead of "stop".  "Handled" matches g_signal_accumulator_true_handled(),
