@@ -50,7 +50,7 @@ SKIP:
 	Gtk2->disable_setlocale;
 
 	skip 'Gtk2->init_check failed, probably unable to open DISPLAY', 
-		18, unless( Gtk2->init_check );
+		17, unless( Gtk2->init_check );
 
 	ok( Gtk2->init );
 	ok( Gtk2->set_locale );

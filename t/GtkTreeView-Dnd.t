@@ -24,8 +24,8 @@ $view->append_column (Gtk2::TreeViewColumn->new_with_attributes (
 #my $pixmap = $view->create_row_drag_icon (Gtk2::TreePath->new ("0:0"));
 #isa_ok ($pixmap, '', 'create_row_drag_icon');
 
-$view->enable_model_drag_source (['button1-mask'], ['copy'], ['example', 0, 0]);
-$view->enable_model_drag_dest (['copy'], ['example', 0, 0]);
+$view->enable_model_drag_source (['button1-mask'], ['copy'], ['example', ['same-app'], 0]);
+$view->enable_model_drag_dest (['copy'], ['example', ['same-app'], 0]);
 
 $view->signal_connect (drag_data_received => sub {
 		print Dumper (@_);
