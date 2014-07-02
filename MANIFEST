@@ -130,7 +130,6 @@ t/GdkColor.t
 t/GdkCursor.t
 t/GdkDisplay.t
 t/GdkDisplayManager.t
-t/GdkDnd.t
 t/GdkDrawable.t
 t/GdkEvent.t
 t/GdkGC.t
@@ -196,7 +195,6 @@ t/GtkComboBox.t
 t/GtkComboBoxEntry.t
 t/GtkCurve.t
 t/GtkDialog.t
-t/GtkDnd.t
 t/GtkDrawingArea.t
 t/GtkEditable.t
 t/GtkEntry.t
@@ -283,7 +281,6 @@ t/GtkShow.t
 t/GtkSimpleList.t
 t/GtkSimpleMenu.t
 t/GtkSizeGroup.t
-t/GtkSocket-GtkPlug.t
 t/GtkSpinButton.t
 t/GtkSpinner.t
 t/GtkStatusbar.t
@@ -580,3 +577,6 @@ xs_files-2.20
 xs_files-2.4
 xs_files-2.6
 xs_files-2.8
+xt/GdkDnd.t
+xt/GtkDnd.t
+xt/GtkSocket-GtkPlug.t
