@@ -2,9 +2,11 @@
 
 # $Id$
 
-use Gtk2::TestHelper tests => 26;
+use Gtk2::TestHelper tests => 46;
 use strict;
 
+##########################################################################
+# custom cell renderer
 package Mup::CellRendererPopup;
 
 use Test::More;
@@ -22,8 +24,8 @@ sub RENDER { $hits{render}++;  shift->SUPER::RENDER (@_) }
 sub ACTIVATE { $hits{activate}++;  shift->SUPER::ACTIVATE (@_) }
 sub START_EDITING { $hits{edit}++;  shift->SUPER::START_EDITING (@_) }
 
-
-# do that again, in the style of 1.02x, to check for regressions of
+##########################################################################
+# custom cell renderer in the style of 1.02x, to check for regressions of
 # backward compatibility.
 package Mup::CellRendererPopupCompat;
 
@@ -44,6 +46,8 @@ sub on_render { $hits_compat{render}++;  shift->parent_render (@_) }
 sub on_activate { $hits_compat{activate}++;  shift->parent_activate (@_) }
 sub on_start_editing { $hits_compat{edit}++;  shift->parent_start_editing (@_) }
 
+##########################################################################
+# custom cell renderer with newly created entry in START_EDITING
 package My::CellRendererNewEntry;
 use strict;
 use warnings;
@@ -59,7 +63,6 @@ sub START_EDITING { $hits_newentry{edit}++;
                     return $entry;
                   }
 sub _editable_destroy { $hits_newentry{editable_destroy}++ }
- 
 
 ##########################################################################
 # driver code
@@ -83,7 +86,6 @@ foreach (qw/foo fluffy flurble frob frobnitz ftang fire truck/) {
 	$model->set ($iter, 0, $_);
 }
 
-
 # now a view
 my $treeview = Gtk2::TreeView->new ($model);
 
@@ -92,8 +94,9 @@ my $treeview = Gtk2::TreeView->new ($model);
 #
 ok (my $renderer = Mup::CellRendererPopup->new, 'Mup::CellRendererPopup->new');
 $renderer->set (mode => 'editable');
+$renderer->set (editable => 1);
 my $column = Gtk2::TreeViewColumn->new_with_attributes ('selector', $renderer,
-                                                     text => 0,);
+                                                        text => 0,);
 # this handler commits the user's selection to the model.  compare with
 # the one for the typical text renderer -- the only difference is a var name.
 $renderer->signal_connect (edited => sub {
@@ -104,18 +107,17 @@ $renderer->signal_connect (edited => sub {
 	}, $model);
 $treeview->append_column ($column);
 
-
 #
-# custom cell renderer
+# custom cell renderer, compat mode
 #
-ok ($renderer = Mup::CellRendererPopupCompat->new, 'Mup::CellRendererPopupCompat->new');
-$renderer->set (mode => 'editable');
-$renderer->set (editable => 1);
-my $column_compat = Gtk2::TreeViewColumn->new_with_attributes ('selector', $renderer,
-                                                     text => 0,);
+ok (my $renderer_compat = Mup::CellRendererPopupCompat->new, 'Mup::CellRendererPopupCompat->new');
+$renderer_compat->set (mode => 'editable');
+$renderer_compat->set (editable => 1);
+my $column_compat = Gtk2::TreeViewColumn->new_with_attributes ('selector', $renderer_compat,
+                                                               text => 0,);
 # this handler commits the user's selection to the model.  compare with
 # the one for the typical text renderer -- the only difference is a var name.
-$renderer->signal_connect (edited => sub {
+$renderer_compat->signal_connect (edited => sub {
 		my ($cell, $text_path, $new_text, $model) = @_;
 		my $path = Gtk2::TreePath->new_from_string ($text_path);
 		my $iter = $model->get_iter ($path);
@@ -141,7 +143,6 @@ my $column_text = Gtk2::TreeViewColumn->new_with_attributes
     ('core-text', $renderer_text, text => 0,);
 $treeview->append_column ($column_text);
 
-
 ##########################################################################
 
 $vbox->pack_start ($treeview, 1, 1, 0);
@@ -150,47 +151,37 @@ $window->show_all;
 
 ##########################################################################
 
-isa_ok ($renderer, "Gtk2::CellRenderer");
-
+#
+# test the vfunc-involving stuff for all renderers
+#
 my $rect = Gtk2::Gdk::Rectangle->new (5, 5, 10, 10);
-my @size = $renderer->get_size ($treeview, $rect);
-is (@size, 4);
-like($size[0], qr/^\d+$/);
-like($size[1], qr/^\d+$/);
-like($size[2], qr/^\d+$/);
-like($size[3], qr/^\d+$/);
-
 my $event = Gtk2::Gdk::Event->new ("button-press");
+foreach my $r ($renderer, $renderer_compat, $renderer_newentry, $renderer_text) {
+	my @size = $r->get_size ($treeview, $rect);
+	is (@size, 4);
+	like($size[0], qr/^\d+$/);
+	like($size[1], qr/^\d+$/);
+	like($size[2], qr/^\d+$/);
+	like($size[3], qr/^\d+$/);
 
-$renderer->render ($window->window, $treeview, $rect, $rect, $rect, [qw(sorted prelit)]);
-ok(!$renderer->activate ($event, $treeview, "0", $rect, $rect, qw(selected)));
-{
-  my $editable = $renderer->start_editing ($event, $treeview, "0", $rect, $rect, qw(selected));
-  isa_ok ($editable, "Gtk2::Entry");
-  my $destroyed = 0;
-  $editable->signal_connect (destroy => sub { $destroyed = 1 });
-  undef $editable;
-  is ($destroyed, 1,
-      'editable from start_editing using SUPER::START_EDITING destroyed when forgotten');
+	$r->render ($window->window, $treeview, $rect, $rect, $rect, [qw(sorted prelit)]);
+	ok(!$r->activate ($event, $treeview, "0", $rect, $rect, qw(selected)));
+
+	{
+	  my $editable = $r->start_editing ($event, $treeview, "0", $rect, $rect, qw(selected));
+	  isa_ok ($editable, "Gtk2::Entry");
+	  my $destroyed = 0;
+	  $editable->signal_connect (destroy => sub { $destroyed = 1 });
+	  undef $editable;
+	  is ($destroyed, 1,
+	      "editable from start_editing using $r destroyed when forgotten");
+	}
 }
-{
-  my $editable = $renderer_newentry->start_editing ($event, $treeview, "0", $rect, $rect, qw(selected));
-  isa_ok ($editable, "Gtk2::Entry");
-  my $destroyed = 0;
-  $editable->signal_connect (destroy => sub { $destroyed = 1 });
-  undef $editable;
-  is ($destroyed, 1,
-      'editable from start_editing using Gtk2::Entry->new destroyed when forgotten');
-}
-{
-  my $editable = $renderer_text->start_editing ($event, $treeview, "0", $rect, $rect, qw(selected));
-  isa_ok ($editable, "Gtk2::Entry");
-  my $destroyed = 0;
-  $editable->signal_connect (destroy => sub { $destroyed = 1 });
-  undef $editable;
-  is ($destroyed, 1,
-      'editable from start_editing on core GtkCellRendererText destroyed when forgotten');
-}
+
+#
+# test the normal stuff just for one renderer
+#
+isa_ok ($renderer, "Gtk2::CellRenderer");
 
 $renderer->set_fixed_size (23, 42);
 is_deeply([$renderer->get_fixed_size], [23, 42]);
@@ -237,6 +228,8 @@ SKIP: {
 ##########################################################################
 
 run_main sub {
+	# set the cursor on the various columns, with editing mode on, to
+	# trigger the vfuncs
 	$treeview->set_cursor (Gtk2::TreePath->new_from_string ('0'),
 	                       $column, 1);
 	$treeview->set_cursor (Gtk2::TreePath->new_from_string ('0'),
