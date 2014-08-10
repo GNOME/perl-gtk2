@@ -381,6 +381,7 @@ gtk_tree_view_column_cell_is_visible (tree_column)
 
 #if GTK_CHECK_VERSION(2,2,0)
 
+# FIXME: The boolean return value should not be ignored.
 #### gboolean gtk_tree_view_column_cell_get_position (GtkTreeViewColumn *tree_column, GtkCellRenderer *cell_renderer, gint *start_pos, gint *width)
 void
 gtk_tree_view_column_cell_get_position (GtkTreeViewColumn *tree_column, GtkCellRenderer *cell_renderer, OUTLIST gint start_pos, OUTLIST gint width)
