@@ -16,8 +16,19 @@ use File::Basename qw(basename);
 use File::Temp qw(tempdir);
 my $dir = tempdir(CLEANUP => 1);
 
+sub on_unthreaded_freebsd {
+  if ($^O eq 'freebsd') {
+    require Config;
+    if ($Config::Config{ldflags} !~ m/-pthread\b/) {
+      return 1;
+    }
+  }
+  return 0;
+}
+
 use Gtk2::TestHelper tests => 36,
     at_least_version => [2, 10, 0, "GtkRecentManager is new in 2.10"],
+    (on_unthreaded_freebsd () ? (skip_all => 'need a perl compiled with "-pthread" on freebsd') : ()),
     ;
 
 my $manager = Gtk2::RecentManager->get_default;

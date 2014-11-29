@@ -1,8 +1,20 @@
 #!/usr/bin/perl -w
 use strict;
+
+sub on_unthreaded_freebsd {
+  if ($^O eq 'freebsd') {
+    require Config;
+    if ($Config::Config{ldflags} !~ m/-pthread\b/) {
+      return 1;
+    }
+  }
+  return 0;
+}
+
 use Gtk2::TestHelper
   tests => 9,
-  at_least_version => [2, 6, 0, "GtkFileChooserButton is new in 2.6"];
+  at_least_version => [2, 6, 0, "GtkFileChooserButton is new in 2.6"],
+  (on_unthreaded_freebsd () ? (skip_all => 'need a perl compiled with "-pthread" on freebsd') : ());
 
 # $Id$
 

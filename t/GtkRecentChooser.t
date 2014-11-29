@@ -1,8 +1,20 @@
 #!/usr/bin/perl -w
 use strict;
+
+sub on_unthreaded_freebsd {
+  if ($^O eq 'freebsd') {
+    require Config;
+    if ($Config::Config{ldflags} !~ m/-pthread\b/) {
+      return 1;
+    }
+  }
+  return 0;
+}
+
 use Gtk2::TestHelper
   tests => 15,
-  at_least_version => [2, 10, 0, "GtkRecentChooser"];
+  at_least_version => [2, 10, 0, "GtkRecentChooser"],
+  (on_unthreaded_freebsd () ? (skip_all => 'need a perl compiled with "-pthread" on freebsd') : ());
 
 # $Id$
 

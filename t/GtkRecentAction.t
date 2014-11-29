@@ -2,10 +2,20 @@
 
 # $Id$
 
-use Gtk2::TestHelper
-	at_least_version => [2, 12, 0, 'GtkRecentAtionc: new in 2.12'],
-	tests => 1;
+sub on_unthreaded_freebsd {
+  if ($^O eq 'freebsd') {
+    require Config;
+    if ($Config::Config{ldflags} !~ m/-pthread\b/) {
+      return 1;
+    }
+  }
+  return 0;
+}
 
+use Gtk2::TestHelper
+	at_least_version => [2, 12, 0, 'GtkRecentAction: new in 2.12'],
+	tests => 1,
+	(on_unthreaded_freebsd () ? (skip_all => 'need a perl compiled with "-pthread" on freebsd') : ());
 
 my $action = Gtk2::RecentAction->new (name => 'one',
                                       label => 'one',
