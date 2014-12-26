@@ -1,3 +1,8 @@
+Overview of changes in Gtk2 1.2494
+==================================
+
+* Skip all tests that use threads under the hood on FreeBSD if necessary
+
 Overview of changes in Gtk2 1.2493
 ==================================
 
