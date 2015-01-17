@@ -69,8 +69,6 @@ gdk_display_list_devices (display)
 	devices = gdk_display_list_devices (display);
 	for (i = devices ; i != NULL ; i = i->next)
 		XPUSHs (sv_2mortal (newSVGdkDevice (i->data)));
-	g_list_free (devices);
-	
 
 GdkEvent* gdk_display_get_event (GdkDisplay *display) 
 

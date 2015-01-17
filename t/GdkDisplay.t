@@ -1,7 +1,7 @@
 #!/usr/bin/perl -w
 use strict;
 use Gtk2::TestHelper
-  tests => 26,
+  tests => 27,
   at_least_version => [2, 2, 0, "GdkDisplay is new in 2.2"];
 
 # $Id$
@@ -32,6 +32,8 @@ ok(!$display -> pointer_is_grabbed());
 # $display -> beep();
 $display -> sync();
 
+# Do this twice to ensure we did not damage the list.
+isa_ok(($display -> list_devices())[0], "Gtk2::Gdk::Device");
 isa_ok(($display -> list_devices())[0], "Gtk2::Gdk::Device");
 
 $display -> put_event(Gtk2::Gdk::Event -> new("button-press"));
