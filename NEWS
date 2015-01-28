@@ -1,4 +1,4 @@
-Overview of changes in Gtk2 <next>
+Overview of changes in Gtk2 1.2495
 ==================================
 
 * Fix incorrect memory management in Gtk2::Gdk::Display::list_devices
