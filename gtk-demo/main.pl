@@ -33,6 +33,7 @@ my @child1 = (
 
 @testgtk_demos = (
   { title => "Application main window",     filename => "appwindow.pl",     func => 'stub', }, 
+  { title => "Assistant",                   filename => "assistant.pl",     func => 'stub', available => sub { Gtk2->CHECK_VERSION (2, 10, 0); } },
   { title => "Button Boxes",                filename => "button_box.pl",    func => 'stub', }, 
   { title => "Change Display",              filename => "changedisplay.pl", func => 'stub', }, 
   { title => "Color Selector",              filename => "colorsel.pl",      func => 'stub', }, 
@@ -558,6 +559,7 @@ sub create_tree {
    # want more we probably have to use a recursing function.
    #
    foreach my $d (@testgtk_demos) {
+      next if ($d->{available} && !$d->{available}->());
       my $iter = $model->append (undef);
 
       $model->set ($iter,
