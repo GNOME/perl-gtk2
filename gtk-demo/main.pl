@@ -38,6 +38,7 @@ my @child1 = (
   { title => "Button Boxes",                filename => "button_box.pl",    func => 'stub', }, 
   { title => "Change Display",              filename => "changedisplay.pl", func => 'stub', }, 
   { title => "Color Selector",              filename => "colorsel.pl",      func => 'stub', }, 
+  { title => "Combo boxes",                 filename => "combobox.pl",      func => 'stub', available => sub { Gtk2->CHECK_VERSION (2, 4, 0); } }, 
   { title => "Dialog and Message Boxes",    filename => "dialog.pl",        func => 'stub', }, 
   { title => "Drawing Area",                filename => "drawingarea.pl",   func => 'stub', }, 
   { title => "Images",                      filename => "images.pl",        func => 'stub', }, 
