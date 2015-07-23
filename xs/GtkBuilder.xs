@@ -70,8 +70,10 @@ gtk2perl_builder_connect_func (GtkBuilder    *builder,
 MODULE = Gtk2::Builder	PACKAGE = Gtk2::Builder	PREFIX = gtk_builder_
 
 BOOT:
-	gperl_register_fundamental (gtk2perl_connect_flags_get_type (),
-	                            "Glib::ConnectFlags");
+	if (!gperl_type_from_package ("Glib::ConnectFlags")) {
+		gperl_register_fundamental (gtk2perl_connect_flags_get_type (),
+	                                    "Glib::ConnectFlags");
+	}
 	gperl_register_error_domain (GTK_BUILDER_ERROR,
 				     GTK_TYPE_BUILDER_ERROR,
 				     "Gtk2::Builder::Error");
