@@ -1,3 +1,9 @@
+Overview of changes in Gtk2 1.2496
+==================================
+
+* Avoid registering a GType for GConnectFlags if not needed
+* MANIFEST: added missing gtk-demo files
+
 Overview of changes in Gtk2 1.2495
 ==================================
 
