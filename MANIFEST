@@ -50,10 +50,13 @@ gdk.typemap
 gtk-demo/alphatest.png
 gtk-demo/apple-red.png
 gtk-demo/appwindow.pl
+gtk-demo/assistant.pl
 gtk-demo/background.jpg
 gtk-demo/button_box.pl
 gtk-demo/changedisplay.pl
 gtk-demo/colorsel.pl
+gtk-demo/combobox.pl
+gtk-demo/demo.ui
 gtk-demo/dialog.pl
 gtk-demo/drawingarea.pl
 gtk-demo/editable_cells.pl
