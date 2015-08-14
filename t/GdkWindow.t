@@ -191,9 +191,19 @@ $window -> shape_combine_region($region, 1, 1);
 $window -> shape_combine_mask(undef, 0, 0);
 $window -> shape_combine_region(undef, 0, 0);
 
+SKIP: {
+  skip 'child shapes functions trigger a bug', 0
+    if (Gtk2->CHECK_VERSION (2, 24, 26) && !Gtk2->CHECK_VERSION (2, 24, 29));
 
-$window -> set_child_shapes();
-$window -> merge_child_shapes();
+  # Introduced in
+  # <https://git.gnome.org/browse/gtk+/commit/?h=gtk-2-24&id=aff976ef0dad471edc35d65b9d1b5ba97da1698e>,
+  # fixed in
+  # <https://git.gnome.org/browse/gtk+/commit/?h=gtk-2-24&id=7ee8b1fd9af52842e87c26465b9aa8921e62ec90>.
+
+  $window -> set_child_shapes();
+  $window -> merge_child_shapes();
+}
+
 $window -> set_static_gravities(0); # FIXME: check retval?
 $window -> set_title("Blub");
 $window -> set_background(Gtk2::Gdk::Color -> new(255, 255, 255));
