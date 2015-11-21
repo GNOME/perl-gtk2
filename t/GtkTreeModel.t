@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Gtk2::TestHelper tests => 74, noinit => 1;
+use Gtk2::TestHelper tests => 75, noinit => 1;
 
 # $Id$
 
@@ -206,6 +206,17 @@ foreach my $signal_name (qw/rows_reordered rows-reordered/) {
 	});
 	$model -> rows_reordered($path_one, undef, 3, 2, 1, 0);
 	$model -> signal_handler_disconnect($id);
+}
+
+###############################################################################
+
+# Ensure that getting all values of a row in a 1-column model does not result
+# in a stack handling error with perl >= 5.23.
+{
+	my $model = Gtk2::ListStore -> new(qw/Glib::Int/);
+	my $iter = $model -> append();
+	$model -> set($iter, 0 => 23);
+	is ($model -> get($iter), 23);
 }
 
 ###############################################################################

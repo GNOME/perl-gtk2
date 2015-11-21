@@ -1162,13 +1162,17 @@ gtk_tree_model_get (tree_model, iter, ...)
 
 		int n_columns = gtk_tree_model_get_n_columns (tree_model);
 		/* extend the stack so it can handle 'n_columns' items in
-		 * total.  the stack already contains 'items' elements so make
-		 * room for 'n_columns - items' more, move our local stack
-		 * pointer forward to the new end, and update the global stack
-		 * pointer.  this way, xsubs called by gtk_tree_model_get_value
-		 * don't overwrite what we put on the stack. */
+		 * total.  the stack already contains 'items' elements so if
+		 * 'items' < 'n_columns', make room for 'n_columns - items'
+		 * more.  then move our local stack pointer forward to the new
+		 * end, and update the global stack pointer.  leave 'ax'
+		 * unchanged though, so that ST still refers to the start of
+		 * the stack allocated to us.  this way, xsubs called by
+		 * gtk_tree_model_get_value don't overwrite what we put on the
+		 * stack. */
 		SPAGAIN;
-		EXTEND (SP, n_columns - items);
+		if (n_columns > items)
+			EXTEND (SP, n_columns - items);
 		SP += n_columns - items;
 		PUTBACK;
 		for (i = 0; i < n_columns; i++) {
