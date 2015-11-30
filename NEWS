@@ -1,3 +1,10 @@
+Overview of changes in Gtk2 1.2497
+==================================
+
+* Avoid a stack handling error in Gtk2::TreeModel::get on perl >= 5.23
+* Fix a test failure in t/GdkWindow.t; it occurs only on gtk+ >= 2.24.26
+  and < 2.24.29.
+
 Overview of changes in Gtk2 1.2496
 ==================================
 
