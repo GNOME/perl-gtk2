@@ -628,7 +628,7 @@ MODULE = Gtk2	PACKAGE = Gtk2::Pango
 # All the stuff below is to create POD stubs for Gtk2::Pango::* that link to
 # the new Pango::* POD pages.
 
-=for object Gtk2::Pango::AttrBackground
+=for object Gtk2::Pango::AttrBackground - backwards compatibility wrapper for Pango::AttrBackground
 =cut
 
 =for position DESCRIPTION
@@ -645,7 +645,7 @@ documentation moved to Pango and is linked to below.
 =cut
 
 
-=for object Gtk2::Pango::AttrColor
+=for object Gtk2::Pango::AttrColor - backwards compatibility wrapper for Pango::AttrColor
 =cut
 
 =for position DESCRIPTION
@@ -662,7 +662,7 @@ documentation moved to Pango and is linked to below.
 =cut
 
 
-=for object Gtk2::Pango::AttrFallback
+=for object Gtk2::Pango::AttrFallback - backwards compatibility wrapper for Pango::AttrFallback
 =cut
 
 =for position DESCRIPTION
@@ -679,7 +679,7 @@ documentation moved to Pango and is linked to below.
 =cut
 
 
-=for object Gtk2::Pango::AttrFamily
+=for object Gtk2::Pango::AttrFamily - backwards compatibility wrapper for Pango::AttrFamily
 =cut
 
 =for position DESCRIPTION
@@ -696,7 +696,7 @@ documentation moved to Pango and is linked to below.
 =cut
 
 
-=for object Gtk2::Pango::AttrFontDesc
+=for object Gtk2::Pango::AttrFontDesc - backwards compatibility wrapper for Pango::AttrFontDesc
 =cut
 
 =for position DESCRIPTION
@@ -713,7 +713,7 @@ documentation moved to Pango and is linked to below.
 =cut
 
 
-=for object Gtk2::Pango::AttrForeground
+=for object Gtk2::Pango::AttrForeground - backwards compatibility wrapper for Pango::AttrForeground
 =cut
 
 =for position DESCRIPTION
@@ -730,7 +730,7 @@ documentation moved to Pango and is linked to below.
 =cut
 
 
-=for object Gtk2::Pango::AttrGravity
+=for object Gtk2::Pango::AttrGravity - backwards compatibility wrapper for Pango::AttrGravity
 =cut
 
 =for position DESCRIPTION
@@ -747,7 +747,7 @@ documentation moved to Pango and is linked to below.
 =cut
 
 
-=for object Gtk2::Pango::AttrGravityHint
+=for object Gtk2::Pango::AttrGravityHint - backwards compatibility wrapper for Pango::AttrGravityHint
 =cut
 
 =for position DESCRIPTION
@@ -764,7 +764,7 @@ documentation moved to Pango and is linked to below.
 =cut
 
 
-=for object Gtk2::Pango::Attribute
+=for object Gtk2::Pango::Attribute - backwards compatibility wrapper for Pango::Attribute
 =cut
 
 =for position DESCRIPTION
@@ -781,7 +781,7 @@ documentation moved to Pango and is linked to below.
 =cut
 
 
-=for object Gtk2::Pango::AttrInt
+=for object Gtk2::Pango::AttrInt - backwards compatibility wrapper for Pango::AttrInt
 =cut
 
 =for position DESCRIPTION
@@ -798,7 +798,7 @@ documentation moved to Pango and is linked to below.
 =cut
 
 
-=for object Gtk2::Pango::AttrIterator
+=for object Gtk2::Pango::AttrIterator - backwards compatibility wrapper for Pango::AttrIterator
 =cut
 
 =for position DESCRIPTION
@@ -815,7 +815,7 @@ documentation moved to Pango and is linked to below.
 =cut
 
 
-=for object Gtk2::Pango::AttrLanguage
+=for object Gtk2::Pango::AttrLanguage - backwards compatibility wrapper for Pango::AttrLanguage
 =cut
 
 =for position DESCRIPTION
@@ -832,7 +832,7 @@ documentation moved to Pango and is linked to below.
 =cut
 
 
-=for object Gtk2::Pango::AttrLetterSpacing
+=for object Gtk2::Pango::AttrLetterSpacing - backwards compatibility wrapper for Pango::AttrLetterSpacing
 =cut
 
 =for position DESCRIPTION
@@ -849,7 +849,7 @@ documentation moved to Pango and is linked to below.
 =cut
 
 
-=for object Gtk2::Pango::AttrList
+=for object Gtk2::Pango::AttrList - backwards compatibility wrapper for Pango::AttrList
 =cut
 
 =for position DESCRIPTION
@@ -866,7 +866,7 @@ documentation moved to Pango and is linked to below.
 =cut
 
 
-=for object Gtk2::Pango::AttrRise
+=for object Gtk2::Pango::AttrRise - backwards compatibility wrapper for Pango::AttrRise
 =cut
 
 =for position DESCRIPTION
@@ -883,7 +883,7 @@ documentation moved to Pango and is linked to below.
 =cut
 
 
-=for object Gtk2::Pango::AttrScale
+=for object Gtk2::Pango::AttrScale - backwards compatibility wrapper for Pango::AttrScale
 =cut
 
 =for position DESCRIPTION
@@ -900,7 +900,7 @@ documentation moved to Pango and is linked to below.
 =cut
 
 
-=for object Gtk2::Pango::AttrShape
+=for object Gtk2::Pango::AttrShape - backwards compatibility wrapper for Pango::AttrShape
 =cut
 
 =for position DESCRIPTION
@@ -917,7 +917,7 @@ documentation moved to Pango and is linked to below.
 =cut
 
 
-=for object Gtk2::Pango::AttrSize
+=for object Gtk2::Pango::AttrSize - backwards compatibility wrapper for Pango::AttrSize
 =cut
 
 =for position DESCRIPTION
@@ -934,7 +934,7 @@ documentation moved to Pango and is linked to below.
 =cut
 
 
-=for object Gtk2::Pango::AttrStretch
+=for object Gtk2::Pango::AttrStretch - backwards compatibility wrapper for Pango::AttrStretch
 =cut
 
 =for position DESCRIPTION
@@ -951,7 +951,7 @@ documentation moved to Pango and is linked to below.
 =cut
 
 
-=for object Gtk2::Pango::AttrStrikethrough
+=for object Gtk2::Pango::AttrStrikethrough - backwards compatibility wrapper for Pango::AttrStrikethrough
 =cut
 
 =for position DESCRIPTION
@@ -968,7 +968,7 @@ documentation moved to Pango and is linked to below.
 =cut
 
 
-=for object Gtk2::Pango::AttrStrikethroughColor
+=for object Gtk2::Pango::AttrStrikethroughColor - backwards compatibility wrapper for Pango::AttrStrikethroughColor
 =cut
 
 =for position DESCRIPTION
@@ -985,7 +985,7 @@ documentation moved to Pango and is linked to below.
 =cut
 
 
-=for object Gtk2::Pango::AttrString
+=for object Gtk2::Pango::AttrString - backwards compatibility wrapper for Pango::AttrString
 =cut
 
 =for position DESCRIPTION
@@ -1002,7 +1002,7 @@ documentation moved to Pango and is linked to below.
 =cut
 
 
-=for object Gtk2::Pango::AttrStyle
+=for object Gtk2::Pango::AttrStyle - backwards compatibility wrapper for Pango::AttrStyle
 =cut
 
 =for position DESCRIPTION
@@ -1019,7 +1019,7 @@ documentation moved to Pango and is linked to below.
 =cut
 
 
-=for object Gtk2::Pango::AttrUnderline
+=for object Gtk2::Pango::AttrUnderline - backwards compatibility wrapper for Pango::AttrUnderline
 =cut
 
 =for position DESCRIPTION
@@ -1036,7 +1036,7 @@ documentation moved to Pango and is linked to below.
 =cut
 
 
-=for object Gtk2::Pango::AttrUnderlineColor
+=for object Gtk2::Pango::AttrUnderlineColor - backwards compatibility wrapper for Pango::AttrUnderlineColor
 =cut
 
 =for position DESCRIPTION
@@ -1053,7 +1053,7 @@ documentation moved to Pango and is linked to below.
 =cut
 
 
-=for object Gtk2::Pango::AttrVariant
+=for object Gtk2::Pango::AttrVariant - backwards compatibility wrapper for Pango::AttrVariant
 =cut
 
 =for position DESCRIPTION
@@ -1070,7 +1070,7 @@ documentation moved to Pango and is linked to below.
 =cut
 
 
-=for object Gtk2::Pango::AttrWeight
+=for object Gtk2::Pango::AttrWeight - backwards compatibility wrapper for Pango::AttrWeight
 =cut
 
 =for position DESCRIPTION
@@ -1087,7 +1087,7 @@ documentation moved to Pango and is linked to below.
 =cut
 
 
-=for object Gtk2::Pango::Cairo
+=for object Gtk2::Pango::Cairo - backwards compatibility wrapper for Pango::Cairo
 =cut
 
 =for position DESCRIPTION
@@ -1104,16 +1104,16 @@ documentation moved to Pango and is linked to below.
 =cut
 
 
-=for object Gtk2::Pango::Cairo::Context
+=for object Gtk2::Pango::Cairo::Context - backwards compatibility wrapper for Pango::Cairo::Context
 =cut
 
-=for object Gtk2::Pango::Cairo::Font
+=for object Gtk2::Pango::Cairo::Font - backwards compatibility wrapper for Pango::Cairo::Font
 =cut
 
-=for object Gtk2::Pango::Cairo::FontMap
+=for object Gtk2::Pango::Cairo::FontMap - backwards compatibility wrapper for Pango::Cairo::FontMap
 =cut
 
-=for object Gtk2::Pango::Color
+=for object Gtk2::Pango::Color - backwards compatibility wrapper for Pango::Color
 =cut
 
 =for position DESCRIPTION
@@ -1130,7 +1130,7 @@ documentation moved to Pango and is linked to below.
 =cut
 
 
-=for object Gtk2::Pango::Context
+=for object Gtk2::Pango::Context - backwards compatibility wrapper for Pango::Context
 =cut
 
 =for position DESCRIPTION
@@ -1147,7 +1147,7 @@ documentation moved to Pango and is linked to below.
 =cut
 
 
-=for object Gtk2::Pango::Font
+=for object Gtk2::Pango::Font - backwards compatibility wrapper for Pango::Font
 =cut
 
 =for position DESCRIPTION
@@ -1164,7 +1164,7 @@ documentation moved to Pango and is linked to below.
 =cut
 
 
-=for object Gtk2::Pango::FontDescription
+=for object Gtk2::Pango::FontDescription - backwards compatibility wrapper for Pango::FontDescription
 =cut
 
 =for position DESCRIPTION
@@ -1181,7 +1181,7 @@ documentation moved to Pango and is linked to below.
 =cut
 
 
-=for object Gtk2::Pango::FontFace
+=for object Gtk2::Pango::FontFace - backwards compatibility wrapper for Pango::FontFace
 =cut
 
 =for position DESCRIPTION
@@ -1198,7 +1198,7 @@ documentation moved to Pango and is linked to below.
 =cut
 
 
-=for object Gtk2::Pango::FontFamily
+=for object Gtk2::Pango::FontFamily - backwards compatibility wrapper for Pango::FontFamily
 =cut
 
 =for position DESCRIPTION
@@ -1215,7 +1215,7 @@ documentation moved to Pango and is linked to below.
 =cut
 
 
-=for object Gtk2::Pango::FontMap
+=for object Gtk2::Pango::FontMap - backwards compatibility wrapper for Pango::FontMap
 =cut
 
 =for position DESCRIPTION
@@ -1232,7 +1232,7 @@ documentation moved to Pango and is linked to below.
 =cut
 
 
-=for object Gtk2::Pango::FontMetrics
+=for object Gtk2::Pango::FontMetrics - backwards compatibility wrapper for Pango::FontMetrics
 =cut
 
 =for position DESCRIPTION
@@ -1249,7 +1249,7 @@ documentation moved to Pango and is linked to below.
 =cut
 
 
-=for object Gtk2::Pango::Fontset
+=for object Gtk2::Pango::Fontset - backwards compatibility wrapper for Pango::Fontset
 =cut
 
 =for position DESCRIPTION
@@ -1266,7 +1266,7 @@ documentation moved to Pango and is linked to below.
 =cut
 
 
-=for object Gtk2::Pango::Gravity
+=for object Gtk2::Pango::Gravity - backwards compatibility wrapper for Pango::Gravity
 =cut
 
 =for position DESCRIPTION
@@ -1283,7 +1283,7 @@ documentation moved to Pango and is linked to below.
 =cut
 
 
-=for object Gtk2::Pango::Language
+=for object Gtk2::Pango::Language - backwards compatibility wrapper for Pango::Language
 =cut
 
 =for position DESCRIPTION
@@ -1300,7 +1300,7 @@ documentation moved to Pango and is linked to below.
 =cut
 
 
-=for object Gtk2::Pango::Layout
+=for object Gtk2::Pango::Layout - backwards compatibility wrapper for Pango::Layout
 =cut
 
 =for position DESCRIPTION
@@ -1317,7 +1317,7 @@ documentation moved to Pango and is linked to below.
 =cut
 
 
-=for object Gtk2::Pango::LayoutIter
+=for object Gtk2::Pango::LayoutIter - backwards compatibility wrapper for Pango::LayoutIter
 =cut
 
 =for position DESCRIPTION
@@ -1334,7 +1334,7 @@ documentation moved to Pango and is linked to below.
 =cut
 
 
-=for object Gtk2::Pango::LayoutLine
+=for object Gtk2::Pango::LayoutLine - backwards compatibility wrapper for Pango::LayoutLine
 =cut
 
 =for position DESCRIPTION
@@ -1351,7 +1351,7 @@ documentation moved to Pango and is linked to below.
 =cut
 
 
-=for object Gtk2::Pango::Matrix
+=for object Gtk2::Pango::Matrix - backwards compatibility wrapper for Pango::Matrix
 =cut
 
 =for position DESCRIPTION
@@ -1368,7 +1368,7 @@ documentation moved to Pango and is linked to below.
 =cut
 
 
-=for object Gtk2::Pango::Renderer
+=for object Gtk2::Pango::Renderer - backwards compatibility wrapper for Pango::Renderer
 =cut
 
 =for position DESCRIPTION
@@ -1385,7 +1385,7 @@ documentation moved to Pango and is linked to below.
 =cut
 
 
-=for object Gtk2::Pango::Script
+=for object Gtk2::Pango::Script - backwards compatibility wrapper for Pango::Script
 =cut
 
 =for position DESCRIPTION
@@ -1402,7 +1402,7 @@ documentation moved to Pango and is linked to below.
 =cut
 
 
-=for object Gtk2::Pango::ScriptIter
+=for object Gtk2::Pango::ScriptIter - backwards compatibility wrapper for Pango::ScriptIter
 =cut
 
 =for position DESCRIPTION
@@ -1419,7 +1419,7 @@ documentation moved to Pango and is linked to below.
 =cut
 
 
-=for object Gtk2::Pango::TabArray
+=for object Gtk2::Pango::TabArray - backwards compatibility wrapper for Pango::TabArray
 =cut
 
 =for position DESCRIPTION
@@ -1436,7 +1436,7 @@ documentation moved to Pango and is linked to below.
 =cut
 
 
-=for object Gtk2::Pango::version
+=for object Gtk2::Pango::version - backwards compatibility wrapper for Pango::version
 =cut
 
 =for position DESCRIPTION
