@@ -535,7 +535,7 @@ After creating a new Gtk2::SimpleList object with the desired columns you may
 set the list data with a simple Perl array assignment. Rows may be added or
 deleted with all of the normal array operations. You can treat the C<data>
 member of the list simplelist object as an array reference, and manipulate the
-list data with perl's normal array operators.
+list data with Perl's normal array operators.
 
 A mechanism has also been put into place allowing columns to be Perl scalars.
 The scalar is converted to text through Perl's normal mechanisms and then

@@ -251,7 +251,7 @@ application menus
 =head1 ABSTRACT
 
 SimpleMenu is an interface for creating application menubars in as simple a
-manner as possible. Its main benifit is that the menu is specified as a tree,
+manner as possible. Its main benefit is that the menu is specified as a tree,
 which is the natural representation of such a menu.
 
 =head1 DESCRIPTION
@@ -259,8 +259,8 @@ which is the natural representation of such a menu.
 SimpleMenu aims to simplify the design and management of a complex application
 menu bar by allowing the structure to be specified as a multi-rooted tree. Much
 the same functionality is provided by Gtk2::ItemFactory, but the data provided
-as input is a 1-D array and the hierarchy of the menu is controled entierly by
-the path componenets. This is not ideal when languages such as perl provide for
+as input is a 1-D array and the hierarchy of the menu is controlled entirely by
+the path components. This is not ideal when languages such as Perl provide for
 simple nested data structures.
 
 Another advantage of the SimpleMenu widget is that it simplifies the creation
