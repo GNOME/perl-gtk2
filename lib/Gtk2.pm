@@ -110,20 +110,20 @@ if ($^V ge v5.20.0) {
   no warnings 'redefine';
 
   my $disable_setlocale = 0;
-  my $orig = \&Gtk2::disable_setlocale;
+  my $orig_setlocale = \&Gtk2::disable_setlocale;
   *{Gtk2::disable_setlocale} = sub {
     $disable_setlocale = 1;
-    $orig->(@_);
+    $orig_setlocale->(@_);
   };
 
   # gtk_init_with_args is not wrapped.
   foreach my $function (qw/Gtk2::init Gtk2::init_check Gtk2::parse_args/) {
-    my $orig = \&{$function};
+    my $orig_function = \&{$function};
     *{$function} = sub {
       if (!$disable_setlocale) {
         POSIX::setlocale (POSIX::LC_ALL (), '');
       }
-      $orig->(@_);
+      $orig_function->(@_);
     };
   }
 }
