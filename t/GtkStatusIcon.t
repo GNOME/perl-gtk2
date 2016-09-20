@@ -89,8 +89,8 @@ $menu -> popdown();
 { my @ret = Gtk2::StatusIcon::position_menu($menu, $icon);
   is (scalar @ret, 3);
   my ($x, $y, $pushed_in) = @ret;
-  like($x, qr/^\d+$/);
-  like($y, qr/^\d+$/);
+  like($x, qr/^-?\d+$/);
+  like($y, qr/^-?\d+$/);
   like($pushed_in, qr/^[01]$/); # boolean
 }
 
