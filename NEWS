@@ -1,3 +1,10 @@
+Overview of changes in Gtk2 1.2499
+==================================
+
+* Rename an internal variable to avoid confusion
+* Make the Gtk2::StatusIcon::position_menu tests more robust/lenient
+* Fix typos in POD (Bugzilla #760067)
+
 Overview of changes in Gtk2 1.2498
 ==================================
 
