@@ -28,7 +28,7 @@ MODULE = Gtk2::Paned	PACKAGE = Gtk2::Paned	PREFIX = gtk_paned_
 Gtk2::Paned is the base class for widgets with two panes, arranged either
 horizontally (Gtk2::HPaned) or vertically (Gtk2::VPaned).  Child widgets are
 added to the panes of the widget with C<< $paned->pack1 >> and
-C<< $paned->pack2 >>.  The division beween the two children is set by default
+C<< $paned->pack2 >>.  The division between the two children is set by default
 from the size requests of the children, but it can be adjusted by the user. 
 
 A paned widget draws a separator between the two child widgets and a small

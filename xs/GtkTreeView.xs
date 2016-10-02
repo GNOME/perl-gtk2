@@ -330,7 +330,7 @@ gtk_tree_view_get_column (tree_view, n)
 	gint n
 
 =for apidoc
-Retuns an array of columns.
+Returns an array of columns.
 =cut
 void
 gtk_tree_view_get_columns (tree_view)

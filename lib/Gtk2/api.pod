@@ -312,7 +312,7 @@ write them is deprecated, but supported.
 
 =item Gtk2::ItemFactory::create_items
 
-The n_entries parameter has been ommited and callback_data is accepted as the
+The n_entries parameter has been omitted and callback_data is accepted as the
 first parameter. All parameters after that are considered to be entries.
 
 =item Gtk2::List::insert_items
@@ -342,7 +342,7 @@ Note that the C<_menu> versions of these functions do I<not> do this.
 
 Where a GClosure is wanted by the C stuff, a perl subroutine reference
 suffices.  However, because of this, there are a few subtle differences in
-sematics.  a GClosure may be connected to only one GtkAccelGroup; however, a
+semantics.  a GClosure may be connected to only one GtkAccelGroup; however, a
 perl subroutine may be connected to many GtkAccelGroups (because at the binding
 level, a new GClosure is created on each call to ->connect).  Thus,
 $accel_group->disconnect will disconnect the first group it finds to be
