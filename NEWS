@@ -1,3 +1,8 @@
+Overview of changes in Gtk2 1.24991
+===================================
+
+* Fix typos in POD (Bugzilla #772333)
+
 Overview of changes in Gtk2 1.2499
 ==================================
 

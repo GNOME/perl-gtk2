@@ -73,7 +73,7 @@ eval "use Cairo;";
 use Exporter;
 require DynaLoader;
 
-our $VERSION = '1.2499';
+our $VERSION = '1.24991';
 
 our @ISA = qw(DynaLoader Exporter);
 
