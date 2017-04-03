@@ -267,7 +267,7 @@ $gtk2->save_config ('build/IFiles.pm');
 
 # exports list needed for win32, unused on others
 our @exports;
-require 'Gtk2.exports';
+require './Gtk2.exports';
 
 my %meta_merge = (
         q(meta-spec)          => {
