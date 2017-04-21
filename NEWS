@@ -1,3 +1,9 @@
+Overview of changes in Gtk2 1.24992
+===================================
+
+∗ Handle removing '.' from @INC for perl-5.26.0 compatibility
+* Updated FSF Address; resolves RT#89038
+
 Overview of changes in Gtk2 1.24991
 ===================================
 
