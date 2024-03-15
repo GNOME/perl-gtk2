@@ -78,8 +78,8 @@ In order to build it from source, you'll also need
 BUG REPORTS
 -----------
 
-Please report bugs to the gnome-perl product in GNOME's Bugzilla:
-<http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-perl>
+Please report bugs to the perl-gtk2 product in GNOME's bugtracker:
+<https://gitlab.gnome.org/GNOME/perl-gtk2/-/issues>
 
 
 COPYRIGHT AND LICENSE
